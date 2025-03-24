@@ -5,6 +5,7 @@ import type {
   GatewayVersion,
 } from "#types";
 import { resolveGatewayIntents } from "#util";
+import { Shard } from "./Shard.js";
 
 export class GatewayManager {
   protected _client: Client;
@@ -14,6 +15,8 @@ export class GatewayManager {
   protected _token: string;
   /** The maximum amount of shards to spawn. */
   readonly maximumShards: "auto" | number;
+  /** The shards spawned. */
+  readonly shards: Map<number, Shard>;
   /** The Discord gateway version. */
   readonly version: GatewayVersion;
 
@@ -33,6 +36,29 @@ export class GatewayManager {
     this._intents = resolveGatewayIntents(intents);
     this._token = token;
     this.maximumShards = shards ?? "auto";
+    this.shards = new Map();
     this.version = version;
+  }
+
+  /** Spawns and connects the shards. */
+  async spawnShards(): Promise<void> {
+    const { _client, maximumShards, shards } = this;
+    let shardsToSpawn: number;
+
+    if (maximumShards === "auto") {
+      const gatewayBot = await _client.getGatewayBot();
+      const { shards } = gatewayBot;
+
+      shardsToSpawn = shards;
+    } else {
+      shardsToSpawn = maximumShards;
+    }
+
+    for (let i = 0; i < shardsToSpawn; i++) {
+      const shard = new Shard(i, this);
+
+      shards.set(i, shard);
+      shard.connect();
+    }
   }
 }
