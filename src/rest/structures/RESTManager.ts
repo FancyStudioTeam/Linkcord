@@ -5,9 +5,10 @@ import { ChannelsREST } from "./ChannelsREST.js";
 import { MiscellaneousREST } from "./MiscellaneousREST.js";
 
 export class RESTManager {
-  protected _apiUrl: string;
   protected _client: Client;
   protected _token: string;
+  /** The Discord REST API url. */
+  readonly apiUrl: string;
   /** The channels REST manager. */
   readonly channels = new ChannelsREST(this);
   /** The miscellaneous REST manager. */
@@ -20,9 +21,9 @@ export class RESTManager {
 
     version ??= 10;
 
-    this._apiUrl = `https://discord.com/api/v${version}`;
     this._client = client;
     this._token = token;
+    this.apiUrl = `https://discord.com/api/v${version}`;
     this.version = version;
   }
 
@@ -77,8 +78,8 @@ export class RESTManager {
    * @returns The created request url.
    */
   private _getRequestUrl(path: string): string {
-    const { _apiUrl } = this;
-    const requestUrl = `${_apiUrl}${path}`;
+    const { apiUrl } = this;
+    const requestUrl = `${apiUrl}${path}`;
 
     return requestUrl;
   }
