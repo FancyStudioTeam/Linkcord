@@ -19,8 +19,8 @@ export class MiscellaneousREST {
   async getGatewayBot(): Promise<GatewayBot> {
     const { _miscellaneousTransformer, _restManager } = this;
     const { gatewayBot } = Endpoints;
-    const requestData = await _restManager.makeRequest<DiscordGatewayBot>("GET", gatewayBot());
-    const parsedGatewayBot = _miscellaneousTransformer.rawGatewayBotToParsed(requestData);
+    const rawGatewayBot = await _restManager.makeRequest<DiscordGatewayBot>("GET", gatewayBot());
+    const parsedGatewayBot = _miscellaneousTransformer.rawGatewayBotToParsed(rawGatewayBot);
 
     return parsedGatewayBot;
   }

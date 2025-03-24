@@ -23,12 +23,12 @@ export class ChannelsREST {
     const { content } = options;
     const { _channelsTransformer, _restManager } = this;
     const { channelsMessages } = Endpoints;
-    const discordMessageObject = await _restManager.makeRequest<DiscordMessage>("POST", channelsMessages(channelId), {
+    const rawMessage = await _restManager.makeRequest<DiscordMessage>("POST", channelsMessages(channelId), {
       json: {
         content,
       },
     });
-    const parsedMessage = _channelsTransformer.rawMessageToParsed(discordMessageObject);
+    const parsedMessage = _channelsTransformer.rawMessageToParsed(rawMessage);
 
     return parsedMessage;
   }
