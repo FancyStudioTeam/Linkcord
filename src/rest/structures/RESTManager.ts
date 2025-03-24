@@ -6,13 +6,14 @@ import { MiscellaneousREST } from "./MiscellaneousREST.js";
 
 export class RESTManager {
   protected _client: Client;
-  protected _token: string;
   /** The Discord REST API url. */
   readonly apiUrl: string;
   /** The channels REST manager. */
   readonly channels = new ChannelsREST(this);
   /** The miscellaneous REST manager. */
   readonly miscellaneous = new MiscellaneousREST(this);
+  /** The client token. */
+  readonly token: string;
   /** The Discord REST API version. */
   readonly version: RESTVersion;
 
@@ -22,8 +23,8 @@ export class RESTManager {
     version ??= 10;
 
     this._client = client;
-    this._token = token;
     this.apiUrl = `https://discord.com/api/v${version}`;
+    this.token = token;
     this.version = version;
   }
 
@@ -36,12 +37,12 @@ export class RESTManager {
    */
   private _getDefaultHeaders(includeAuthorization = true): Headers {
     const headers = new Headers();
-    const { _token } = this;
+    const { token } = this;
 
     headers.set("Content-Type", "application/json");
 
     if (includeAuthorization) {
-      headers.set("Authorization", `Bot ${_token}`);
+      headers.set("Authorization", `Bot ${token}`);
     }
 
     return headers;

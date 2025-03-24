@@ -10,14 +10,16 @@ import { Shard } from "./Shard.js";
 export class GatewayManager {
   protected _client: Client;
   protected _connectionProperties: CreateGatewayManagerConnectionPropertiesOptions;
-  protected _intents: number;
-  protected _token: string;
   /** The gateway url. */
   readonly gatewayUrl: string;
+  /** The intents to use when spawning a shard. */
+  readonly intents: number;
   /** The maximum amount of shards to spawn. */
   readonly maximumShards: "auto" | number;
   /** The shards spawned. */
   readonly shards: Map<number, Shard>;
+  /** The client token. */
+  readonly token: string;
   /** The Discord gateway version. */
   readonly version: GatewayVersion;
 
@@ -33,11 +35,11 @@ export class GatewayManager {
       device: "Linkcord",
       os: platform,
     };
-    this._intents = resolveGatewayIntents(intents);
-    this._token = token;
     this.gatewayUrl = `wss://gateway.discord.gg/?v=${version}&encoding=json`;
+    this.intents = resolveGatewayIntents(intents);
     this.maximumShards = shards ?? "auto";
     this.shards = new Map();
+    this.token = token;
     this.version = version;
   }
 
