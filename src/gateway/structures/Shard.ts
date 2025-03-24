@@ -56,7 +56,7 @@ export class Shard extends EventEmitter<ShardEvents> {
   }
 
   /** Initializes the shard connection and the event listeners. */
-  private _initialize() {
+  private _initialize(): void {
     this.status = ShardStatus.Connecting;
     this.socket = this._initializeSocket();
 
