@@ -35,6 +35,26 @@ export class Shard extends EventEmitter<ShardEvents> {
     this.socket = this._initializeSocket();
   }
 
+  /** Sends a "Heartbeat" payload to the Discord gateway. */
+  private _heartbeat(): void {
+    const { _sequenceNumber } = this;
+
+    this.send(GatewayOpcodes.Heartbeat, _sequenceNumber);
+  }
+
+  /** Sends a "Identify" payload to the Discord gateway. */
+  private _identify(): void {
+    const { _gatewayManager } = this;
+    const { connectionProperties, intents, token } = _gatewayManager;
+    const identifyPayload: GatewayIdentifyData = {
+      intents,
+      properties: connectionProperties,
+      token,
+    };
+
+    this.send(GatewayOpcodes.Identify, identifyPayload);
+  }
+
   /** Initializes the shard connection and the event listeners. */
   private _initialize() {
     this.status = ShardStatus.Connecting;
@@ -73,7 +93,7 @@ export class Shard extends EventEmitter<ShardEvents> {
 
           this.emit("hello", heartbeat_interval);
           this.status = ShardStatus.Ready;
-          this._heartbeatInterval = setInterval(() => this.heartbeat(), heartbeat_interval);
+          this._heartbeatInterval = setInterval(() => this._heartbeat(), heartbeat_interval);
         },
       )
       .otherwise((unhandledGatewayEvent) => {
@@ -86,32 +106,12 @@ export class Shard extends EventEmitter<ShardEvents> {
   /** Handles the incoming events from the Discord gateway. */
   private _onSocketOpen(): void {
     this.status = ShardStatus.Identifying;
-    this.identify();
+    this._identify();
   }
 
   /** Connects this shard to the Discord gateway. */
   connect(): void {
     this._initialize();
-  }
-
-  /** Sends a "Heartbeat" payload to the Discord gateway. */
-  heartbeat(): void {
-    const { _sequenceNumber } = this;
-
-    this.send(GatewayOpcodes.Heartbeat, _sequenceNumber);
-  }
-
-  /** Sends a "Identify" payload to the Discord gateway. */
-  identify(): void {
-    const { _gatewayManager } = this;
-    const { connectionProperties, intents, token } = _gatewayManager;
-    const identifyPayload: GatewayIdentifyData = {
-      intents,
-      properties: connectionProperties,
-      token,
-    };
-
-    this.send(GatewayOpcodes.Identify, identifyPayload);
   }
 
   /**
