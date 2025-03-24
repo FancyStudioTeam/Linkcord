@@ -1,21 +1,29 @@
 import type { Client } from "#client";
 import { RequestError } from "#errors";
-import { type CreateRestManagerOptions, type MakeRequestOptions, RESTMethod } from "#types";
-import { Endpoints } from "#util";
+import { type CreateRestManagerOptions, type MakeRequestOptions, RESTMethod, type RESTVersion } from "#types";
 import { ChannelsREST } from "./ChannelsREST.js";
 import { MiscellaneousREST } from "./MiscellaneousREST.js";
 
 export class RESTManager {
+  protected _apiUrl: string;
   protected _client: Client;
   protected _token: string;
+  /** The channels REST manager. */
   readonly channels = new ChannelsREST(this);
+  /** The miscellaneous REST manager. */
   readonly miscellaneous = new MiscellaneousREST(this);
+  /** The Discord REST API version. */
+  readonly version: RESTVersion;
 
   constructor(client: Client, options: CreateRestManagerOptions) {
-    const { token } = options;
+    let { token, version } = options;
 
+    version ??= 10;
+
+    this._apiUrl = `https://discord.com/api/v${version}`;
     this._client = client;
     this._token = token;
+    this.version = version;
   }
 
   /**
@@ -69,8 +77,8 @@ export class RESTManager {
    * @returns The created request url.
    */
   private _getRequestUrl(path: string): string {
-    const { api } = Endpoints;
-    const requestUrl = `${api}${path}`;
+    const { _apiUrl } = this;
+    const requestUrl = `${_apiUrl}${path}`;
 
     return requestUrl;
   }
