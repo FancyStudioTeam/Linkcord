@@ -20,10 +20,13 @@ export class ChannelsREST {
    * @returns The created message object.
    */
   async createMessage(channelId: Snowflake, options: CreateMessageOptions): Promise<Message> {
+    const { content } = options;
     const { _channelsTransformer, _restManager } = this;
     const { channelsMessages } = Endpoints;
     const discordMessageObject = await _restManager.makeRequest<DiscordMessage>("POST", channelsMessages(channelId), {
-      json: options,
+      json: {
+        content,
+      },
     });
     const parsedMessage = _channelsTransformer.rawMessageToParsed(discordMessageObject);
 
