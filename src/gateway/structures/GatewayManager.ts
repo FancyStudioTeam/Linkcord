@@ -9,7 +9,8 @@ import { Shard } from "./Shard.js";
 
 export class GatewayManager {
   protected _client: Client;
-  protected _connectionProperties: CreateGatewayManagerConnectionPropertiesOptions;
+  /** The connection properties to use. */
+  readonly connectionProperties: CreateGatewayManagerConnectionPropertiesOptions;
   /** The gateway url. */
   readonly gatewayUrl: string;
   /** The intents to use when spawning a shard. */
@@ -30,7 +31,7 @@ export class GatewayManager {
     version ??= 10;
 
     this._client = client;
-    this._connectionProperties = connectionProperties ?? {
+    this.connectionProperties = connectionProperties ?? {
       browser: "Linkcord",
       device: "Linkcord",
       os: platform,
