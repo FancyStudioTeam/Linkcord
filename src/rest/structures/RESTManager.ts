@@ -1,7 +1,7 @@
 import type { Client } from "#client";
 import { RequestError } from "#errors";
 import { type CreateRestManagerOptions, type MakeRequestOptions, RESTMethod } from "#types";
-import { Endpoints } from "../../routes/Endpoints.js";
+import { Endpoints } from "#util";
 import { ChannelsREST } from "./ChannelsREST.js";
 import { MiscellaneousREST } from "./MiscellaneousREST.js";
 

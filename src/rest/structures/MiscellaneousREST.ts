@@ -1,5 +1,5 @@
 import { type DiscordGatewayBot, type GatewayBot, RESTMethod } from "#types";
-import { Endpoints } from "../../routes/Endpoints.js";
+import { Endpoints } from "#util";
 import { MiscellaneousTransformer } from "../../transformers/structures/MiscellaneousTransformer.js";
 import type { RESTManager } from "./RESTManager.js";
 
