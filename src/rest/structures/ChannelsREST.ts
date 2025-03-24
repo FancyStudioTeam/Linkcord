@@ -1,5 +1,5 @@
 import { ChannelsTransformer } from "#transformers";
-import type { CreateMessageOptions, DiscordMessage, Message, Snowflake } from "#types";
+import { type CreateMessageOptions, type DiscordMessage, type Message, RESTMethod, type Snowflake } from "#types";
 import { Endpoints } from "../../routes/Endpoints.js";
 import type { RESTManager } from "./RESTManager.js";
 
@@ -23,7 +23,7 @@ export class ChannelsREST {
     const { content } = options;
     const { _channelsTransformer, _restManager } = this;
     const { channelsMessages } = Endpoints;
-    const rawMessage = await _restManager.makeRequest<DiscordMessage>("POST", channelsMessages(channelId), {
+    const rawMessage = await _restManager.makeRequest<DiscordMessage>(RESTMethod.Post, channelsMessages(channelId), {
       json: {
         content,
       },
