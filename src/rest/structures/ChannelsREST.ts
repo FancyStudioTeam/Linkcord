@@ -14,7 +14,7 @@ export class ChannelsREST {
   /**
    * Creates a message in a channel.
    *
-   * @param channelId - The channel ID to create the message in.
+   * @param channelId - The channel id to create the message in.
    * @param options - The options to use when creating the message.
    *
    * @returns The created message object.
