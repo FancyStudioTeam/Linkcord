@@ -98,9 +98,10 @@ export class RESTManager {
     const requestUrl = this._getRequestUrl(path);
     const requestInit = this._getRequestInitObject(method, useAuthorization, json);
     const request = await fetch(requestUrl, requestInit);
+    const { ok, status } = request;
 
-    if (!request.ok) {
-      throw new RequestError(`Request failed with status code ${request.status}.`, request.status);
+    if (!ok) {
+      throw new RequestError(`Request failed with status code ${status}.`, status);
     }
 
     const data = (await request.json()) as Data;
