@@ -1,6 +1,6 @@
 import type { Client } from "#client";
 import { RequestError } from "#errors";
-import { type CreateRestManagerOptions, RESTMethod } from "#types";
+import { type CreateRestManagerOptions, type MakeRequestOptions, RESTMethod } from "#types";
 import { Endpoints } from "../../routes/Endpoints.js";
 import { ChannelsREST } from "./ChannelsREST.js";
 import { MiscellaneousREST } from "./MiscellaneousREST.js";
@@ -108,19 +108,4 @@ export class RESTManager {
 
     return data;
   }
-}
-
-interface MakeRequestOptions {
-  /**
-   * The data to send in the request body.
-   *
-   * @default undefined
-   */
-  json?: unknown;
-  /**
-   * Whether to use the authorization header.
-   *
-   * @default true
-   */
-  useAuthorization?: boolean;
 }
