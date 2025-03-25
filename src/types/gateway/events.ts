@@ -30,7 +30,7 @@ export type GatewayEvent = GatewayReceiveEvent | GatewaySendEvent;
 export type GatewayReceiveEvent = GatewayDispatchEvent | GatewayHelloEvent;
 export type GatewaySendEvent = GatewayIdentifyEvent;
 
-export type GatewayDispatchEvent = GatewayDispatchMessageCreateEvent;
+export type GatewayDispatchEvent = GatewayDispatchGuildCreateEvent | GatewayDispatchMessageCreateEvent;
 
 /**
  * Types related to the "Guild Create" dispatch event.
