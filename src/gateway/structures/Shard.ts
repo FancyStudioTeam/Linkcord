@@ -2,13 +2,14 @@ import { match } from "ts-pattern";
 import { EventEmitter, type RawData, WebSocket as Socket } from "ws";
 import {
   type GatewayEvent,
-  type GatewayHeartbeatData,
-  type GatewayIdentifyData,
+  type GatewayHeartbeatEventData,
+  type GatewayIdentifyEventData,
   GatewayOpcodes,
   type Optional,
   type ShardEvents,
   ShardStatus,
 } from "#types";
+import { Dispatcher } from "../dispatcher/index.js";
 import type { GatewayManager } from "./GatewayManager.js";
 
 export class Shard extends EventEmitter<ShardEvents> {
@@ -46,7 +47,7 @@ export class Shard extends EventEmitter<ShardEvents> {
   private _identify(): void {
     const { _gatewayManager } = this;
     const { connectionProperties, intents, token } = _gatewayManager;
-    const identifyPayload: GatewayIdentifyData = {
+    const identifyPayload: GatewayIdentifyEventData = {
       intents,
       properties: connectionProperties,
       token,
@@ -78,6 +79,20 @@ export class Shard extends EventEmitter<ShardEvents> {
     const parsedGatewayEvent = JSON.parse(stringifiedMessage) as GatewayEvent;
 
     match(parsedGatewayEvent)
+      .with(
+        {
+          op: GatewayOpcodes.Dispatch,
+        },
+        async (dispatchEvent) => {
+          const { _gatewayManager } = this;
+          const { client } = _gatewayManager;
+          const { d, t } = dispatchEvent;
+          const dispatcher = Dispatcher(client);
+          const dispatchEventHandler = dispatcher[t];
+
+          await dispatchEventHandler(d);
+        },
+      )
       .with(
         {
           op: GatewayOpcodes.Hello,
@@ -132,7 +147,7 @@ export class Shard extends EventEmitter<ShardEvents> {
 }
 
 type SendDataPayload<Opcode extends GatewayOpcodes> = Opcode extends GatewayOpcodes.Heartbeat
-  ? GatewayHeartbeatData
+  ? GatewayHeartbeatEventData
   : Opcode extends GatewayOpcodes.Identify
-    ? GatewayIdentifyData
+    ? GatewayIdentifyEventData
     : unknown;
