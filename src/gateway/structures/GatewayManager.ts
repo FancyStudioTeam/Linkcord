@@ -8,7 +8,8 @@ import { resolveGatewayIntents } from "#util";
 import { Shard } from "./Shard.js";
 
 export class GatewayManager {
-  protected _client: Client;
+  /** The client instance. */
+  readonly client: Client;
   /** The connection properties to use. */
   readonly connectionProperties: CreateGatewayManagerConnectionPropertiesOptions;
   /** The gateway url. */
@@ -30,7 +31,7 @@ export class GatewayManager {
 
     version ??= 10;
 
-    this._client = client;
+    this.client = client;
     this.connectionProperties = connectionProperties ?? {
       browser: "Linkcord",
       device: "Linkcord",
@@ -46,11 +47,11 @@ export class GatewayManager {
 
   /** Spawns and connects the shards. */
   async spawnShards(): Promise<void> {
-    const { _client, maximumShards, shards } = this;
+    const { client, maximumShards, shards } = this;
     let shardsToSpawn: number;
 
     if (maximumShards === "auto") {
-      const gatewayBot = await _client.getGatewayBot();
+      const gatewayBot = await client.getGatewayBot();
       const { shards } = gatewayBot;
 
       shardsToSpawn = shards;
