@@ -1,7 +1,7 @@
 import type { DiscordMessage } from "../channels.js";
 import type { DiscordGuild } from "../guilds.js";
 import type { If, Snowflake } from "../shared.js";
-import type { GatewayDispatchEventType, GatewayOpcodes } from "./enums.js";
+import type { GatewayDispatchEventType, GatewayOpcodes } from "./enumerations.js";
 
 /**
  * Interfaces used to represent the base properties of a gateway event.
