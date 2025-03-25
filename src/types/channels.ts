@@ -1,4 +1,4 @@
-import type { Snowflake } from "./shared.js";
+import type { If, Optional, Snowflake } from "./shared.js";
 
 export interface CreateMessageOptions {
   /** The message content. (Max. 2000 characters) */
@@ -15,13 +15,15 @@ export interface DiscordMessage {
   id: Snowflake;
 }
 
-export interface Message {
+export interface Message<InGuild extends boolean = false> {
   /** The channel id where the message was sent. */
   channelId: Snowflake;
   /** The message content. */
   content: string;
   /** The guild id where the message was sent. */
-  guildId?: Snowflake;
+  guildId: If<InGuild, Snowflake, Optional<Snowflake>>;
   /** The message id. */
   id: Snowflake;
+  /** Whether the message was sent in a guild. */
+  inGuild: () => this is Message<true>;
 }

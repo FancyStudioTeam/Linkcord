@@ -3,18 +3,29 @@ import type { DiscordMessage, GatewayDispatchMessageCreateEventData, Message } f
 export class ChannelsTransformer {
   rawMessageToParsed(rawMessage: RawMessage): Message {
     const { channel_id, content, id } = rawMessage;
-    const message: Message = {
+    const messageProperties: MessageWithoutMethods = {
       channelId: channel_id,
       content,
       id,
+      guildId: undefined,
     };
 
     if ("guild_id" in rawMessage) {
-      message.guildId = rawMessage.guild_id;
+      const { guild_id } = rawMessage;
+
+      messageProperties.guildId = guild_id;
     }
+
+    const message: Message = {
+      ...messageProperties,
+      inGuild(): this is Message<true> {
+        return message.guildId !== undefined;
+      },
+    };
 
     return message;
   }
 }
 
 type RawMessage = DiscordMessage | GatewayDispatchMessageCreateEventData;
+type MessageWithoutMethods = Omit<Message, "inGuild">;

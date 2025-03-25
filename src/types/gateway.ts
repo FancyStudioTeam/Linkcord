@@ -1,4 +1,5 @@
 import type { DiscordMessage } from "./channels.js";
+import type { DiscordGuild } from "./guilds.js";
 import type { DiscordAPIVersion, If, Snowflake } from "./shared.js";
 
 export interface CreateGatewayManagerConnectionPropertiesOptions {
@@ -63,6 +64,7 @@ export type GatewayReceiveEvent = GatewayDispatchEvent | GatewayHelloEvent;
 export type GatewaySendEvent = GatewayIdentifyEvent;
 
 export enum GatewayDispatchEventType {
+  GuildCreate = "GUILD_CREATE",
   MessageCreate = "MESSAGE_CREATE",
 }
 
@@ -70,6 +72,11 @@ export type GatewayDispatchEvent = GatewayDispatchMessageCreateEvent;
 
 export interface GatewayDispatchEventPayloadBody<Data, Type = GatewayDispatchEventType>
   extends GatewayEventPayloadBody<GatewayOpcodes.Dispatch, Data, Type> {}
+
+export interface GatewayDispatchGuildCreateEvent
+  extends GatewayDispatchEventPayloadBody<GatewayDispatchGuildCreateEventData, GatewayDispatchEventType.GuildCreate> {}
+
+export interface GatewayDispatchGuildCreateEventData extends DiscordGuild {}
 
 export interface GatewayDispatchMessageCreateEvent
   extends GatewayDispatchEventPayloadBody<
