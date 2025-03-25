@@ -54,9 +54,9 @@ interface GatewayEventPayloadBody<Opcode extends GatewayOpcodes, Data, Type = Ga
   /** The gateway opcode. */
   op: Opcode;
   /** The gateway dispatch event type. */
-  t: If<IsIdentifyPayload<Opcode>, Type, null>;
+  t: If<IsDispatchPayload<Opcode>, Type, null>;
   /** The gateway sequence number. */
-  s: If<IsIdentifyPayload<Opcode>, number, null>;
+  s: If<IsDispatchPayload<Opcode>, number, null>;
 }
 
 export type GatewayReceiveEvent = GatewayDispatchEvent | GatewayHelloEvent;
@@ -155,7 +155,7 @@ export enum GatewayOpcodes {
 
 export type GatewayVersion = DiscordAPIVersion;
 
-type IsIdentifyPayload<Opcode extends GatewayOpcodes> = Opcode extends GatewayOpcodes.Identify ? true : false;
+type IsDispatchPayload<Opcode extends GatewayOpcodes> = Opcode extends GatewayOpcodes.Dispatch ? true : false;
 
 export interface ShardEvents {
   hello: [heartbeatInterval: number];
