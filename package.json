@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "ts-pattern": "5.6.2",
+    "ws": "8.18.1"
+  },
+  "devDependencies": {
+    "@types/ws": "8.18.0",
+    "tsx": "4.19.3",
+    "typescript": "5.8.2"
+  },
+  "name": "linkcord",
+  "packageManager": "pnpm@9.15.4",
+  "version": "0.0.0"
+}
