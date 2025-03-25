@@ -1,4 +1,8 @@
-import type { DiscordAPIVersion } from "./shared.js";
+import type { DiscordAPIVersion } from "../shared.js";
+
+/**
+ * Types related to the REST manager instance.
+ */
 
 export interface CreateRestManagerOptions {
   /** The client token to use. */
@@ -26,12 +30,8 @@ export interface MakeRequestOptions {
   useAuthorization?: boolean;
 }
 
-export enum RESTMethod {
-  Delete = "DELETE",
-  Get = "GET",
-  Patch = "PATCH",
-  Post = "POST",
-  Put = "PUT",
-}
+/**
+ * Other types used in some instance types.
+ */
 
-export type RESTVersion = DiscordAPIVersion;
+type RESTVersion = DiscordAPIVersion;
