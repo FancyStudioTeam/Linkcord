@@ -1,6 +1,6 @@
+import { MiscellaneousTransformer } from "#transformers";
 import { type DiscordGatewayBot, type GatewayBot, RESTMethod } from "#types";
 import { Endpoints } from "#util";
-import { MiscellaneousTransformer } from "../../transformers/structures/MiscellaneousTransformer.js";
 import type { RESTManager } from "./RESTManager.js";
 
 export class MiscellaneousREST {
