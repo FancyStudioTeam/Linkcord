@@ -1,3 +1,6 @@
+/**
+ * https://discord.com/developers/docs/events/gateway#get-gateway-bot
+ */
 export interface DiscordGatewayBot {
   /** The session start limit object. */
   // biome-ignore lint/style/useNamingConvention: Discord properties are snake cased.
@@ -8,6 +11,9 @@ export interface DiscordGatewayBot {
   url: string;
 }
 
+/**
+ * https://discord.com/developers/docs/events/gateway#session-start-limit-object
+ */
 export interface DiscordGatewayBotSessionStartLimit {
   /** The amount of "Identify" payloads allowed per 5 seconds. */
   // biome-ignore lint/style/useNamingConvention: Discord properties are snake cased.
@@ -21,6 +27,9 @@ export interface DiscordGatewayBotSessionStartLimit {
   reset_after: number;
 }
 
+/**
+ * https://discord.com/developers/docs/events/gateway#get-gateway-bot
+ */
 export interface GatewayBot {
   /** The session start limit object. */
   sessionStartLimit: GatewayBotSessionStartLimit;
@@ -30,6 +39,9 @@ export interface GatewayBot {
   url: string;
 }
 
+/**
+ * https://discord.com/developers/docs/events/gateway#session-start-limit-object
+ */
 export interface GatewayBotSessionStartLimit {
   /** The amount of "Identify" payloads allowed per 5 seconds. */
   maxConcurrency: number;

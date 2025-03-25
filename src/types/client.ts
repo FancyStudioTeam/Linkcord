@@ -1,7 +1,7 @@
-import type { Message } from "../channels/index.js";
-import type { CreateGatewayManagerOptions } from "../gateway/index.js";
-import type { Guild } from "../guilds.js";
-import type { CreateRestManagerOptions } from "../rest/instances.js";
+import type { Message } from "./channels/message.js";
+import type { CreateGatewayManagerOptions } from "./gateway/manager.js";
+import type { Guild } from "./guilds/guild.js";
+import type { CreateRestManagerOptions } from "./rest/manager.js";
 
 export interface ClientEvents {
   debug: [message: string];
@@ -10,7 +10,6 @@ export interface ClientEvents {
 }
 
 export type CreateClientGatewayOptions = Omit<CreateGatewayManagerOptions, "token">;
-
 export type CreateClientRestOptions = Omit<CreateRestManagerOptions, "token">;
 
 export interface CreateClientOptions {

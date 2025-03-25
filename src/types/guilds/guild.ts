@@ -1,5 +1,8 @@
-import type { Snowflake } from "../shared.js";
+import type { Snowflake } from "#types/shared.js";
 
+/**
+ * https://discord.com/developers/docs/resources/guild#guild-object
+ */
 export interface DiscordGuild {
   /** The guild id. */
   id: Snowflake;
@@ -7,6 +10,9 @@ export interface DiscordGuild {
   name: string;
 }
 
+/**
+ * https://discord.com/developers/docs/resources/guild#guild-object
+ */
 export interface Guild {
   /** The guild id. */
   id: Snowflake;

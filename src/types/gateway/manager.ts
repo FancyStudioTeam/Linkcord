@@ -1,15 +1,11 @@
-import type { DiscordAPIVersion } from "../shared.js";
-import type { GatewayIdentifyEventPropertiesData } from "./events.js";
-
-/**
- * Types related to the gateway manager instance.
- */
+import type { DiscordAPIVersion } from "#types/shared";
+import type { GatewayIntents } from "./events.js";
 
 export interface CreateGatewayManagerOptions {
   /** The connection properties to use. */
   connectionProperties?: CreateGatewayManagerConnectionPropertiesOptions;
   /** The gateway intents to use. */
-  intents: GatewayIdentifyEventPropertiesData[] | number;
+  intents: GatewayIntents[] | number;
   /** The client token to use. */
   token: string;
   /**
@@ -49,18 +45,5 @@ export interface CreateGatewayManagerConnectionPropertiesOptions {
    */
   os: string;
 }
-
-/**
- * Types related to the shard instance.
- */
-
-export interface ShardEvents {
-  hello: [heartbeatInterval: number];
-  debug: [message: string];
-}
-
-/**
- * Other types used in some instance types.
- */
 
 export type GatewayVersion = DiscordAPIVersion;
