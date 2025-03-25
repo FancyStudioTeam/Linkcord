@@ -1,4 +1,4 @@
-import type { Snowflake } from "./shared.js";
+import type { Snowflake } from "../shared.js";
 
 export interface DiscordGuild {
   /** The guild id. */

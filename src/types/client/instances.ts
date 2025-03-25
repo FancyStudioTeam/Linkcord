@@ -1,7 +1,7 @@
-import type { Message } from "./channels.js";
-import type { CreateGatewayManagerOptions } from "./gateway.js";
-import type { Guild } from "./guilds.js";
-import type { CreateRestManagerOptions } from "./rest.js";
+import type { Message } from "../channels/index.js";
+import type { CreateGatewayManagerOptions } from "../gateway/index.js";
+import type { Guild } from "../guilds.js";
+import type { CreateRestManagerOptions } from "../rest/instances.js";
 
 export interface ClientEvents {
   debug: [message: string];
