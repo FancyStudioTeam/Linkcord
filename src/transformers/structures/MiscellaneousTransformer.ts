@@ -1,4 +1,4 @@
-import type { DiscordGatewayBot, GatewayBot } from "#types";
+import type { DiscordGatewayBot, GatewayBot } from "#types/miscellaneous/gateway";
 
 export class MiscellaneousTransformer {
   rawGatewayBotToParsed(rawGatewayBot: DiscordGatewayBot): GatewayBot {

@@ -5,10 +5,9 @@ import {
   type GatewayHeartbeatEventData,
   type GatewayIdentifyEventData,
   GatewayOpcodes,
-  type Optional,
-  type ShardEvents,
-  ShardStatus,
-} from "#types";
+} from "#types/gateway/events";
+import { type ShardEvents, ShardStatus } from "#types/gateway/shard";
+import type { Optional } from "#types/shared";
 import { Dispatcher } from "../dispatcher/index.js";
 import type { GatewayManager } from "./GatewayManager.js";
 

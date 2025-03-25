@@ -1,7 +1,7 @@
 import { EventEmitter } from "ws";
 import { GatewayManager } from "#gateway";
 import { RESTManager } from "#rest";
-import type { ClientEvents, CreateClientOptions, CreateMessageOptions, GatewayBot, Message, Snowflake } from "#types";
+import type { ClientEvents, CreateClientOptions } from "#types/client";
 
 export class Client extends EventEmitter<ClientEvents> {
   protected _token: string;
@@ -35,34 +35,5 @@ export class Client extends EventEmitter<ClientEvents> {
     const { gateway } = this;
 
     await gateway.spawnShards();
-  }
-
-  /**
-   * Creates a message in a channel.
-   *
-   * @param channelId - The channel ID to create the message in.
-   * @param options - The options to use when creating the message.
-   *
-   * @returns The created message object.
-   */
-  async createMessage(channelId: Snowflake, options: CreateMessageOptions): Promise<Message> {
-    const { rest } = this;
-    const { channels } = rest;
-    const message = await channels.createMessage(channelId, options);
-
-    return message;
-  }
-
-  /**
-   * Gets the gateway bot object.
-   *
-   * @returns The gateway bot object.
-   */
-  async getGatewayBot(): Promise<GatewayBot> {
-    const { rest } = this;
-    const { miscellaneous } = rest;
-    const gatewayBot = await miscellaneous.getGatewayBot();
-
-    return gatewayBot;
   }
 }

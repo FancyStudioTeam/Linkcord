@@ -1,4 +1,5 @@
-import type { DiscordGuild, GatewayDispatchGuildCreateEventData, Guild } from "#types";
+import type { GatewayDispatchGuildCreateEventData } from "#types/gateway/events";
+import type { DiscordGuild, Guild } from "#types/guilds/guild";
 
 export class GuildsTransformer {
   rawGuildToParsed(rawGuild: RawGuild): Guild {

@@ -1,4 +1,4 @@
-import type { If, Optional, Snowflake } from "#types/shared.js";
+import type { If, Optional, Snowflake } from "#types/shared";
 
 /**
  * https://discord.com/developers/docs/resources/message#create-message

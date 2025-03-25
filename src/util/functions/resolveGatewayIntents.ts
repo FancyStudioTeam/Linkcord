@@ -1,4 +1,4 @@
-import type { GatewayIntents } from "../../types/gateway.js";
+import type { GatewayIntents } from "#types/gateway/events";
 
 /**
  * Resolves the gateway intents into a number.

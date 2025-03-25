@@ -1,6 +1,6 @@
-import type { DiscordMessage } from "#types/channels/message.js";
-import type { DiscordGuild } from "#types/guilds/guild.js";
-import type { If, Snowflake } from "#types/shared.js";
+import type { DiscordMessage } from "#types/channels/message";
+import type { DiscordGuild } from "#types/guilds/guild";
+import type { If, Snowflake } from "#types/shared";
 
 /**
  * https://discord.com/developers/docs/events/gateway-events#payload-structure

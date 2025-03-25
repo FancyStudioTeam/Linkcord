@@ -3,7 +3,7 @@ import type {
   CreateGatewayManagerConnectionPropertiesOptions,
   CreateGatewayManagerOptions,
   GatewayVersion,
-} from "#types";
+} from "#types/gateway/manager";
 import { resolveGatewayIntents } from "#util";
 import { Shard } from "./Shard.js";
 
@@ -51,7 +51,9 @@ export class GatewayManager {
     let shardsToSpawn: number;
 
     if (maximumShards === "auto") {
-      const gatewayBot = await client.getGatewayBot();
+      const { rest } = client;
+      const { miscellaneous } = rest;
+      const gatewayBot = await miscellaneous.getGatewayBot();
       const { shards } = gatewayBot;
 
       shardsToSpawn = shards;

@@ -1,6 +1,11 @@
 import type { Client } from "#client";
 import { RequestError } from "#errors";
-import { type CreateRestManagerOptions, type MakeRequestOptions, RESTMethod, type RESTVersion } from "#types";
+import {
+  type CreateRestManagerOptions,
+  type MakeRequestOptions,
+  RESTMethod,
+  type RESTVersion,
+} from "#types/rest/manager";
 import { ChannelsREST } from "./ChannelsREST.js";
 import { MiscellaneousREST } from "./MiscellaneousREST.js";
 

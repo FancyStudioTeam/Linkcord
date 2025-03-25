@@ -1,4 +1,5 @@
-import type { DiscordMessage, GatewayDispatchMessageCreateEventData, Message } from "#types";
+import type { DiscordMessage, Message } from "#types/channels/message";
+import type { GatewayDispatchMessageCreateEventData } from "#types/gateway/events";
 
 export class ChannelsTransformer {
   rawMessageToParsed(rawMessage: RawMessage): Message {

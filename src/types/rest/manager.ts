@@ -1,4 +1,4 @@
-import type { DiscordAPIVersion } from "#types/shared.js";
+import type { DiscordAPIVersion } from "#types/shared";
 
 export interface CreateRestManagerOptions {
   /** The client token to use. */
@@ -34,4 +34,4 @@ export enum RESTMethod {
   Put = "PUT",
 }
 
-type RESTVersion = DiscordAPIVersion;
+export type RESTVersion = DiscordAPIVersion;

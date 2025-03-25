@@ -1,4 +1,4 @@
-import type { Snowflake } from "#types/shared.js";
+import type { Snowflake } from "#types/shared";
 
 /**
  * https://discord.com/developers/docs/resources/guild#guild-object

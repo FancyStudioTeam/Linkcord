@@ -1,5 +1,7 @@
 import { ChannelsTransformer } from "#transformers";
-import { type CreateMessageOptions, type DiscordMessage, type Message, RESTMethod, type Snowflake } from "#types";
+import type { CreateMessageOptions, DiscordMessage, Message } from "#types/channels/message";
+import { RESTMethod } from "#types/rest/manager";
+import type { Snowflake } from "#types/shared";
 import { Endpoints } from "#util";
 import type { RESTManager } from "./RESTManager.js";
 

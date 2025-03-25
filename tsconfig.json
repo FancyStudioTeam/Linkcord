@@ -16,7 +16,7 @@
       "#gateway": ["./src/gateway/index.ts"],
       "#rest": ["./src/rest/index.ts"],
       "#transformers": ["./src/transformers/index.ts"],
-      "#types": ["./src/types/index.ts"],
+      "#types/*": ["./src/types/*"],
       "#util": ["./src/util/index.ts"]
     },
     "resolveJsonModule": true,
