@@ -1,4 +1,4 @@
-export * from "./channels.js";
+export * from "./channels/index.js";
 export * from "./client.js";
 export * from "./gateway/index.js";
 export * from "./guilds.js";
