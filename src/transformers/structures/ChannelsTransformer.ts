@@ -2,12 +2,13 @@ import type { DiscordMessage, GatewayDispatchMessageCreateEventData, Message } f
 
 export class ChannelsTransformer {
   rawMessageToParsed(rawMessage: RawMessage): Message {
-    const { channel_id, content, id } = rawMessage;
+    const { channel_id, content, id, type } = rawMessage;
     const messageProperties: MessageWithoutMethods = {
       channelId: channel_id,
       content,
-      id,
       guildId: undefined,
+      id,
+      type,
     };
 
     if ("guild_id" in rawMessage) {
