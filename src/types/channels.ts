@@ -20,6 +20,8 @@ export interface Message {
   channelId: Snowflake;
   /** The message content. */
   content: string;
+  /** The guild id where the message was sent. */
+  guildId?: Snowflake;
   /** The message id. */
   id: Snowflake;
 }
