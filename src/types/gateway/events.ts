@@ -5,13 +5,13 @@ import type { If, Snowflake } from "#types/shared";
 /**
  * https://discord.com/developers/docs/events/gateway-events#payload-structure
  */
-interface GatewayEventBase<Opcode extends GatewayOpcodes, Data, Type = GatewayDispatchEventType> {
+interface GatewayEventBase<Opcode extends GatewayOpcodes, Data, Name = GatewayDispatchEventName> {
   /** The gateway JSON data. */
   d: Data;
   /** The gateway opcode. */
   op: Opcode;
   /** The gateway dispatch event name. */
-  t: If<IsDispatchPayload<Opcode>, Type, null>;
+  t: If<IsDispatchPayload<Opcode>, Name, null>;
   /** The gateway sequence number. */
   s: If<IsDispatchPayload<Opcode>, number, null>;
 }
@@ -19,8 +19,8 @@ interface GatewayEventBase<Opcode extends GatewayOpcodes, Data, Type = GatewayDi
 /**
  * https://discord.com/developers/docs/events/gateway-events#payload-structure
  */
-interface GatewayDispatchEventBase<Data, Type = GatewayDispatchEventType>
-  extends GatewayEventBase<GatewayOpcodes.Dispatch, Data, Type> {}
+interface GatewayDispatchEventBase<Data, Name = GatewayDispatchEventName>
+  extends GatewayEventBase<GatewayOpcodes.Dispatch, Data, Name> {}
 
 /**
  * https://discord.com/developers/docs/events/gateway-events#gateway-events
@@ -46,7 +46,7 @@ export type GatewayDispatchEvent = GatewayDispatchGuildCreateEvent | GatewayDisp
  * https://discord.com/developers/docs/events/gateway-events#guild-create
  */
 export interface GatewayDispatchGuildCreateEvent
-  extends GatewayDispatchEventBase<GatewayDispatchGuildCreateEventData, GatewayDispatchEventType.GuildCreate> {}
+  extends GatewayDispatchEventBase<GatewayDispatchGuildCreateEventData, GatewayDispatchEventName.GuildCreate> {}
 
 /**
  * https://discord.com/developers/docs/events/gateway-events#guild-create
@@ -57,7 +57,7 @@ export interface GatewayDispatchGuildCreateEventData extends DiscordGuild {}
  * https://discord.com/developers/docs/events/gateway-events#message-create
  */
 export interface GatewayDispatchMessageCreateEvent
-  extends GatewayDispatchEventBase<GatewayDispatchMessageCreateEventData, GatewayDispatchEventType.MessageCreate> {}
+  extends GatewayDispatchEventBase<GatewayDispatchMessageCreateEventData, GatewayDispatchEventName.MessageCreate> {}
 
 /**
  * https://discord.com/developers/docs/events/gateway-events#message-create
@@ -120,7 +120,7 @@ export interface GatewayIdentifyEventPropertiesData {
 /**
  * https://discord.com/developers/docs/events/gateway-events#event-names
  */
-export enum GatewayDispatchEventType {
+export enum GatewayDispatchEventName {
   GuildCreate = "GUILD_CREATE",
   MessageCreate = "MESSAGE_CREATE",
 }
