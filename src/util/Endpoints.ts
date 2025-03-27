@@ -111,10 +111,6 @@ const GuildRoutes = {
   guildsWidgetPNG: (guildId: Snowflake) => `/guilds/${guildId}/widget.png`,
 };
 
-const InviteRoutes = {
-  invite: (inviteCode: string) => `/invites/${inviteCode}`,
-};
-
 const LobbyRoutes = {
   lobbies: () => "/lobbies",
   lobbiesChannelLinking: (lobbyId: Snowflake) => `/lobbies/${lobbyId}/channel-linking`,
@@ -127,6 +123,7 @@ const MiscellaneousRoutes = {
   gatewayBot: () => "/gateway/bot",
   interactionsCallback: (interactionId: Snowflake, interactionToken: string) =>
     `/interactions/${interactionId}/${interactionToken}/callback`,
+  invite: (inviteCode: string) => `/invites/${inviteCode}`,
   soundboardDefaultSounds: () => "/soundboard/default-sounds",
   voiceRegions: () => "/voice/regions",
 };
@@ -176,7 +173,6 @@ export const Routes = {
   ...ApplicationRoutes,
   ...ChannelRoutes,
   ...GuildRoutes,
-  ...InviteRoutes,
   ...LobbyRoutes,
   ...MiscellaneousRoutes,
   ...SkuRoutes,
