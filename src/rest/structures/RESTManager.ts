@@ -117,7 +117,10 @@ export class RESTManager {
     const { ok, status } = request;
 
     if (!ok) {
+      const response = (await request.json()) as ErrorResponse;
+
       throw new RequestError(`Request failed with status code "${status}".`, {
+        response,
         statusCode: status,
         url: requestUrl,
       });
@@ -127,4 +130,11 @@ export class RESTManager {
 
     return data;
   }
+}
+
+interface ErrorResponse {
+  /** The received Discord error code. */
+  code: number;
+  /** The received Discord error message. */
+  message: string;
 }
