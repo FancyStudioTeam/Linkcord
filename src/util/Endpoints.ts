@@ -124,7 +124,7 @@ const MiscellaneousRoutes = {
   interactionsCallback: (interactionId: Snowflake, interactionToken: string) =>
     `/interactions/${interactionId}/${interactionToken}/callback`,
   invite: (inviteCode: string) => `/invites/${inviteCode}`,
-  soundboardDefaultSounds: () => "/soundboard/default-sounds",
+  soundboardDefaultSounds: () => "/soundboard-default-sounds",
   voiceRegions: () => "/voice/regions",
 };
 
