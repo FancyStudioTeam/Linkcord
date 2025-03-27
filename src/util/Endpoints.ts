@@ -125,6 +125,8 @@ const LobbyRoutes = {
 const MiscellaneousRoutes = {
   gateway: () => "/gateway",
   gatewayBot: () => "/gateway/bot",
+  interactionsCallback: (interactionId: Snowflake, interactionToken: string) =>
+    `/interactions/${interactionId}/${interactionToken}/callback`,
   soundboardDefaultSounds: () => "/soundboard/default-sounds",
   voiceRegions: () => "/voice/regions",
 };
@@ -160,10 +162,14 @@ const UserRoutes = {
 const WebhookRoutes = {
   webhook: (webhookId: Snowflake) => `/webhooks/${webhookId}`,
   webhooks: (webhookId: Snowflake, webhookToken: string) => `/webhooks/${webhookId}/${webhookToken}`,
-  webhooksSlack: (webhookId: Snowflake, webhookToken: string) => `/webhooks/${webhookId}/${webhookToken}/slack`,
   webhooksGitHub: (webhookId: Snowflake, webhookToken: string) => `/webhooks/${webhookId}/${webhookToken}/github`,
   webhooksMessage: (webhookId: Snowflake, webhookToken: string, messageId: Snowflake) =>
     `/webhooks/${webhookId}/${webhookToken}/messages/${messageId}`,
+  webhooksMessagesInteraction: (applicationId: Snowflake, interactionToken: string, messageId: Snowflake) =>
+    `/webhooks/${applicationId}/${interactionToken}/messages/${messageId}`,
+  webhooksMessagesOriginal: (webhookId: Snowflake, webhookToken: string) =>
+    `/webhooks/${webhookId}/${webhookToken}/messages//original`,
+  webhooksSlack: (webhookId: Snowflake, webhookToken: string) => `/webhooks/${webhookId}/${webhookToken}/slack`,
 };
 
 export const Routes = {
