@@ -2,7 +2,7 @@ import { ChannelsTransformer } from "#transformers";
 import type { CreateMessageOptions, DiscordMessage, Message } from "#types/channels/message";
 import { RESTMethod } from "#types/rest/manager";
 import type { Snowflake } from "#types/shared";
-import { Endpoints } from "#util";
+import { Routes } from "#util";
 import type { RESTManager } from "./RESTManager.js";
 
 export class ChannelsREST {
@@ -24,7 +24,7 @@ export class ChannelsREST {
   async createMessage(channelId: Snowflake, options: CreateMessageOptions): Promise<Message> {
     const { content } = options;
     const { _channelsTransformer, _restManager } = this;
-    const { channelsMessages } = Endpoints;
+    const { channelsMessages } = Routes;
     const rawMessage = await _restManager.makeRequest<DiscordMessage>(RESTMethod.Post, channelsMessages(channelId), {
       json: {
         content,

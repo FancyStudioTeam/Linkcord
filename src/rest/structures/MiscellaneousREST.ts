@@ -1,7 +1,7 @@
 import { MiscellaneousTransformer } from "#transformers";
 import type { DiscordGatewayBot, GatewayBot } from "#types/miscellaneous/gateway";
 import { RESTMethod } from "#types/rest/manager";
-import { Endpoints } from "#util";
+import { Routes } from "#util";
 import type { RESTManager } from "./RESTManager.js";
 
 export class MiscellaneousREST {
@@ -19,7 +19,7 @@ export class MiscellaneousREST {
    */
   async getGatewayBot(): Promise<GatewayBot> {
     const { _miscellaneousTransformer, _restManager } = this;
-    const { gatewayBot } = Endpoints;
+    const { gatewayBot } = Routes;
     const rawGatewayBot = await _restManager.makeRequest<DiscordGatewayBot>(RESTMethod.Get, gatewayBot());
     const parsedGatewayBot = _miscellaneousTransformer.rawGatewayBotToParsed(rawGatewayBot);
 
