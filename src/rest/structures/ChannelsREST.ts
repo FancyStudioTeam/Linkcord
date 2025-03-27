@@ -6,11 +6,12 @@ import { Routes } from "#util";
 import type { RESTManager } from "./RESTManager.js";
 
 export class ChannelsREST {
-  protected _channelsTransformer = new ChannelsTransformer();
   protected _restManager: RESTManager;
+  protected _transformer: ChannelsTransformer;
 
   constructor(restManager: RESTManager) {
     this._restManager = restManager;
+    this._transformer = new ChannelsTransformer(restManager);
   }
 
   /**
@@ -23,15 +24,40 @@ export class ChannelsREST {
    */
   async createMessage(channelId: Snowflake, options: CreateMessageOptions): Promise<Message> {
     const { content } = options;
-    const { _channelsTransformer, _restManager } = this;
+    const { _restManager, _transformer } = this;
     const { channelsMessages } = Routes;
     const rawMessage = await _restManager.makeRequest<DiscordMessage>(RESTMethod.Post, channelsMessages(channelId), {
       json: {
         content,
       },
     });
-    const parsedMessage = _channelsTransformer.rawMessageToParsed(rawMessage);
+    const parsedMessage = _transformer.rawMessageToParsed(rawMessage);
 
     return parsedMessage;
+  }
+
+  /**
+   * Sends the soundboard sound to the current voice channel.
+   *
+   * @param soundboardSoundId - The soundboard sound id to send.
+   * @param channelId - The voice channel id.
+   * @param sourceGuildId - The original soundboard sound guild id.
+   */
+  async sendSoundboardSound(
+    soundboardSoundId: Snowflake,
+    channelId: Snowflake,
+    sourceGuildId?: Snowflake,
+  ): Promise<void> {
+    const { _restManager } = this;
+    const { channelsSendSoundboardSound } = Routes;
+
+    await _restManager.makeRequest(RESTMethod.Post, channelsSendSoundboardSound(channelId), {
+      json: {
+        // biome-ignore lint/style/useNamingConvention: Discord properties are snake cased.
+        sound_id: soundboardSoundId,
+        // biome-ignore lint/style/useNamingConvention: Discord properties are snake cased.
+        source_guild_id: sourceGuildId,
+      },
+    });
   }
 }
