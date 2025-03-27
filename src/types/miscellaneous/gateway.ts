@@ -1,4 +1,12 @@
 /**
+ * https://discord.com/developers/docs/events/gateway#get-gateway
+ */
+export interface DiscordGateway {
+  /** A Discord gateway url that can be used to connect the bot. */
+  url: string;
+}
+
+/**
  * https://discord.com/developers/docs/events/gateway#get-gateway-bot
  */
 export interface DiscordGatewayBot {
@@ -7,7 +15,7 @@ export interface DiscordGatewayBot {
   session_start_limit: DiscordGatewayBotSessionStartLimit;
   /** The recommended number of shards to spawn. */
   shards: number;
-  /** A Discord gateway url that can be used to connect the shards. */
+  /** A Discord gateway url that can be used to connect the bot. */
   url: string;
 }
 
@@ -28,6 +36,14 @@ export interface DiscordGatewayBotSessionStartLimit {
 }
 
 /**
+ * https://discord.com/developers/docs/events/gateway#get-gateway
+ */
+export interface Gateway {
+  /** A Discord gateway url that can be used to connect the bot. */
+  url: string;
+}
+
+/**
  * https://discord.com/developers/docs/events/gateway#get-gateway-bot
  */
 export interface GatewayBot {
@@ -35,7 +51,7 @@ export interface GatewayBot {
   sessionStartLimit: GatewayBotSessionStartLimit;
   /** The recommended number of shards to spawn. */
   shards: number;
-  /** A Discord gateway url that can be used to connect the shards. */
+  /** A Discord gateway url that can be used to connect the bot. */
   url: string;
 }
 
