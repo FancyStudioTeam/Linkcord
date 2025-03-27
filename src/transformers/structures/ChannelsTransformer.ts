@@ -10,7 +10,7 @@ export class ChannelsTransformer {
   }
 
   /**
-   * Transforms a raw message into a parsed message object.
+   * Transforms a raw message object into a parsed message object.
    *
    * @param rawMessage - The raw message object to transform.
    *

@@ -11,7 +11,7 @@ export class MiscellaneousTransformer {
   }
 
   /**
-   * Transforms a raw gateway bot into a parsed gateway bot object.
+   * Transforms a raw gateway bot object into a parsed gateway bot object.
    *
    * @param rawGatewayBot - The raw gateway bot object to transform.
    *
@@ -35,7 +35,7 @@ export class MiscellaneousTransformer {
   }
 
   /**
-   * Transforms a raw gateway into a parsed gateway object.
+   * Transforms a raw gateway object into a parsed gateway object.
    *
    * @param rawGateway - The raw gateway object to transform.
    *
@@ -51,7 +51,7 @@ export class MiscellaneousTransformer {
   }
 
   /**
-   * Transforms a raw soundboard sound into a parsed soundboard sound object.
+   * Transforms a raw soundboard sound object into a parsed soundboard sound object.
    *
    * @param rawSoundboardSound - The raw soundboard sound object to transform.
    *
