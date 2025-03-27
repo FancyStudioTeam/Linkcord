@@ -1,10 +1,24 @@
+import type { RESTManager } from "#rest";
 import type { DiscordMessage, Message } from "#types/channels/message";
 import type { GatewayDispatchMessageCreateEventData } from "#types/gateway/events";
 
 export class ChannelsTransformer {
+  protected _restManager: RESTManager;
+
+  constructor(restManager: RESTManager) {
+    this._restManager = restManager;
+  }
+
+  /**
+   * Transforms a raw message into a parsed message object.
+   *
+   * @param rawMessage - The raw message object to transform.
+   *
+   * @returns The parsed message object.
+   */
   rawMessageToParsed(rawMessage: RawMessage): Message {
     const { channel_id, content, id, type } = rawMessage;
-    const messageProperties: MessageWithoutMethods = {
+    const messageProperties: MessageProperties = {
       channelId: channel_id,
       content,
       guildId: undefined,
@@ -30,4 +44,5 @@ export class ChannelsTransformer {
 }
 
 type RawMessage = DiscordMessage | GatewayDispatchMessageCreateEventData;
-type MessageWithoutMethods = Omit<Message, "inGuild">;
+
+type MessageProperties = Omit<Message, "inGuild">;
