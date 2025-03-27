@@ -8,10 +8,11 @@ import {
 } from "#types/gateway/events";
 import { type ShardEvents, ShardStatus } from "#types/gateway/shard";
 import type { Optional } from "#types/shared";
-import { Dispatcher } from "../dispatcher/index.js";
 import type { GatewayManager } from "./GatewayManager.js";
+import { DispatcherManager } from "./dispatcher/structures/DispatcherManager.js";
 
 export class Shard extends EventEmitter<ShardEvents> {
+  protected _dispatcherManager: DispatcherManager;
   protected _gatewayManager: GatewayManager;
   protected _heartbeatInterval: Optional<NodeJS.Timeout>;
   protected _sequenceNumber = 0;
@@ -27,8 +28,9 @@ export class Shard extends EventEmitter<ShardEvents> {
   constructor(id: number, gatewayManager: GatewayManager) {
     super();
 
-    const { gatewayUrl } = gatewayManager;
+    const { client, gatewayUrl } = gatewayManager;
 
+    this._dispatcherManager = new DispatcherManager(this, client);
     this._gatewayManager = gatewayManager;
     this.gatewayUrl = gatewayUrl;
     this.id = id;
@@ -83,13 +85,9 @@ export class Shard extends EventEmitter<ShardEvents> {
           op: GatewayOpcodes.Dispatch,
         },
         async (dispatchEvent) => {
-          const { _gatewayManager } = this;
-          const { client } = _gatewayManager;
-          const { d, t } = dispatchEvent;
-          const dispatcher = Dispatcher(client);
-          const dispatchEventHandler = dispatcher[t];
+          const { _dispatcherManager } = this;
 
-          await dispatchEventHandler(d);
+          await _dispatcherManager.handleDispatchEvent(dispatchEvent);
         },
       )
       .with(
@@ -111,9 +109,11 @@ export class Shard extends EventEmitter<ShardEvents> {
         },
       )
       .otherwise((unhandledGatewayEvent) => {
+        const { _gatewayManager } = this;
+        const { client } = _gatewayManager;
         const { op } = unhandledGatewayEvent;
 
-        this.emit("debug", `Received unhandled gateway event: ${op}.`);
+        client.emit("debug", `Received unhandled gateway event: "${op}".`);
       });
   }
 
