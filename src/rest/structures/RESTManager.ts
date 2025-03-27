@@ -117,7 +117,10 @@ export class RESTManager {
     const { ok, status } = request;
 
     if (!ok) {
-      throw new RequestError(`Request failed with status code ${status}.`, status);
+      throw new RequestError(`Request failed with status code "${status}".`, {
+        statusCode: status,
+        url: requestUrl,
+      });
     }
 
     const data = (await request.json()) as Data;
