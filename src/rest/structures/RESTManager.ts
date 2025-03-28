@@ -1,5 +1,6 @@
 import type { Client } from "#client";
 import { RequestError } from "#errors";
+import type { JSONErrorCode } from "#types/rest/errors";
 import {
   type CreateRestManagerOptions,
   type MakeRequestOptions,
@@ -134,7 +135,7 @@ export class RESTManager {
 
 interface ErrorResponse {
   /** The received Discord error code. */
-  code: number;
+  code: JSONErrorCode;
   /** The received Discord error message. */
   message: string;
 }

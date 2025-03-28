@@ -1,3 +1,5 @@
+import type { JSONErrorCode } from "#types/rest/errors";
+
 export class RequestError extends Error {
   /** The received Discord error response. */
   readonly response: CreateRequestErrorResponseOptions;
@@ -28,7 +30,7 @@ interface CreateRequestErrorOptions {
 
 interface CreateRequestErrorResponseOptions {
   /** The received Discord error code. */
-  code: number;
+  code: JSONErrorCode;
   /** The received Discord error message. */
   message: string;
 }
