@@ -36,7 +36,7 @@
               {
                 "formats": ["snake_case", "camelCase"],
                 "selector": {
-                  "kind": "typeMember"
+                  "kind": "typeProperty"
                 }
               }
             ],
