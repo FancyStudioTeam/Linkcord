@@ -32,6 +32,14 @@
         "useNamingConvention": {
           "level": "warn",
           "options": {
+            "conventions": [
+              {
+                "formats": ["snake_case", "camelCase"],
+                "selector": {
+                  "kind": "typeMember"
+                }
+              }
+            ],
             "strictCase": false
           }
         }
