@@ -1,5 +1,4 @@
-import type { Nullable, Snowflake } from "#types/shared";
-import type { APIChannel } from "./channel.js";
+import type { Nullable, Snowflake } from "#types";
 
 // #region Lobby Structures
 /**
@@ -8,7 +7,7 @@ import type { APIChannel } from "./channel.js";
 export interface APILobby {
   application_id: Snowflake;
   id: Snowflake;
-  linked_channel?: APIChannel;
+  // linked_channel?: APIChannel;
   members: APILobbyMember[];
   metadata: Nullable<APILobbyMetadata>;
 }
@@ -32,11 +31,3 @@ export type APILobbyMemberMetadata = APILobbyMetadata;
  * https://discord.com/developers/docs/resources/lobby#lobby-object-lobby-structure
  */
 export type APILobbyMetadata = Record<string, string>;
-
-// #region Lobby Enums
-/**
- * https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-flags
- */
-export enum LobbyMemberFlags {
-  CanLinkLobby = 1 << 0,
-}
