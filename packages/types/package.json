@@ -1,7 +1,11 @@
 {
-  "name": "@FancyStudioTeam/linkcord-types",
+  "name": "@fancystudioteam/linkcord-types",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "version": "0.0.5"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FancyStudioTeam/Linkcord"
+  },
+  "version": "0.0.0"
 }
