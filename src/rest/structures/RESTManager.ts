@@ -1,14 +1,5 @@
 import type { Client } from "#client";
 import { RequestError } from "#errors";
-import type { JSONErrorCode } from "#types/rest/errors";
-import {
-  type CreateRestManagerOptions,
-  type MakeRequestOptions,
-  RESTMethod,
-  type RESTVersion,
-} from "#types/rest/manager";
-import { ChannelsREST } from "./ChannelsREST.js";
-import { MiscellaneousREST } from "./MiscellaneousREST.js";
 
 export class RESTManager {
   /** The Discord REST API url. */
@@ -131,6 +122,14 @@ export class RESTManager {
 
     return data;
   }
+}
+
+export enum RESTMethod {
+  Delete = "DELETE",
+  Get = "GET",
+  Patch = "PATCH",
+  Post = "POST",
+  Put = "PUT",
 }
 
 interface ErrorResponse {
