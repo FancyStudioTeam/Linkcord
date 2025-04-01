@@ -1,5 +1,5 @@
 {
-  "name": "@fancystudioteam/linkcord-types",
+  "name": "@FancyStudioTeam/linkcord-types",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
