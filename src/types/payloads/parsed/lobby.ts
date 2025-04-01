@@ -1,24 +1,38 @@
 import type { Snowflake } from "#types";
 
-// #region Lobby Structures
+/**
+ * ===========================
+ * = Parsed Lobby Structures =
+ * ===========================
+ */
+
 /**
  * https://discord.com/developers/docs/resources/lobby#lobby-object-lobby-structure
  */
 export interface Lobby {
   applicationId: Snowflake;
   id: Snowflake;
+  // TODO: Add "Channel" type for "linkedChannel" property.
   // linkedChannel?: Channel;
   members: LobbyMember[];
   metadata: LobbyMetadata;
 }
 
+/**
+ * https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-structure
+ */
 export interface LobbyMember {
   flags?: number;
   id: Snowflake;
   metadata: LobbyMemberMetadata;
 }
 
-// #region Lobby Types
+/**
+ * ==============================
+ * = Parsed Lobby Utility Types =
+ * ==============================
+ */
+
 /**
  * https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-structure
  */
@@ -29,7 +43,12 @@ export type LobbyMemberMetadata = LobbyMetadata;
  */
 export type LobbyMetadata = Record<string, string>;
 
-// #region Lobby Enums
+/**
+ * ====================================================================
+ * = Lobby Enums. These are shared between Raw and Parsed Structures. =
+ * ====================================================================
+ */
+
 /**
  * https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-flags
  */

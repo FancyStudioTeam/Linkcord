@@ -1,12 +1,18 @@
 import type { Nullable, Snowflake } from "#types";
 
-// #region Lobby Structures
+/**
+ * =========================
+ * = Raw Lobby Structures =
+ * ========================
+ */
+
 /**
  * https://discord.com/developers/docs/resources/lobby#lobby-object-lobby-structure
  */
 export interface APILobby {
   application_id: Snowflake;
   id: Snowflake;
+  // TODO: Add "APIChannel" type for "linked_channel" property.
   // linked_channel?: APIChannel;
   members: APILobbyMember[];
   metadata: Nullable<APILobbyMetadata>;
@@ -21,7 +27,12 @@ export interface APILobbyMember {
   metadata?: Nullable<APILobbyMemberMetadata>;
 }
 
-// #region Lobby Types
+/**
+ * ===========================
+ * = Raw Lobby Utility Types =
+ * ===========================
+ */
+
 /**
  * https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-structure
  */
