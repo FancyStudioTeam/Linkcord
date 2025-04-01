@@ -81,11 +81,6 @@ export type RESTCreateGroupDMResult = APIDMChannel;
 export type RESTGetCurrentUserApplicationRoleConnectionResult = APIApplicationRoleConnection;
 
 /**
- * https://discord.com/developers/docs/resources/user#get-current-user
- */
-export type RESTGetCurrentUserResult = APIUser;
-
-/**
  * https://discord.com/developers/docs/resources/user#get-current-user-connections
  */
 export type RESTGetCurrentUserConnectionsResult = APIConnection[];
@@ -103,6 +98,11 @@ export type RESTGetCurrentUserGuildMemberResult = APIGuildMember;
 // TODO: Add "APIGuild" or "APIPartialGuild" type.
 // @ts-expect-error
 export type RESTGetCurrentUserGuildsResult = APIGuild[];
+
+/**
+ * https://discord.com/developers/docs/resources/user#get-current-user
+ */
+export type RESTGetCurrentUserResult = APIUser;
 
 /**
  * https://discord.com/developers/docs/resources/user#get-user
