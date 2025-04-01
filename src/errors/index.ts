@@ -1,1 +1,1 @@
-export * from "./structures/RequestError.js";
+export * from "./structures/RESTError.js";
