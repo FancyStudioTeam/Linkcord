@@ -1,7 +1,11 @@
-import type { APILobby, APILobbyMember, APILobbyMemberMetadata, APILobbyMetadata } from "#types/payloads";
-import type { Snowflake } from "#types/shared";
+import type { APILobby, APILobbyMember, APILobbyMemberMetadata, APILobbyMetadata, Snowflake } from "#types";
 
-// #region Lobby JSON Params
+/**
+ * ===================================================================================
+ * = JSON Params - Represent the params to use when sending any request with a body. =
+ * ===================================================================================
+ */
+
 /**
  * https://discord.com/developers/docs/resources/lobby#add-a-member-to-a-lobby
  */
@@ -31,7 +35,12 @@ export interface RESTLinkChannelToLobbyJSONParams {
   channel_id?: Snowflake;
 }
 
-// #region Lobby Result Types
+/**
+ * ==========================================================
+ * = Result - Represent the returned data from the request. =
+ * ==========================================================
+ */
+
 /**
  * https://discord.com/developers/docs/resources/lobby#add-a-member-to-a-lobby
  */
