@@ -1,6 +1,6 @@
 import type { Client } from "#client";
 import type { RESTManager } from "#rest";
-import type { APILobby, APILobbyMember, Lobby, LobbyMember } from "#types/payloads";
+import type { APILobby, APILobbyMember, Lobby, LobbyMember } from "#types";
 
 export class LobbiesTransformer {
   protected readonly _client: Client;
@@ -47,12 +47,11 @@ export class LobbiesTransformer {
    * @returns The parsed lobby object.
    */
   rawLobbyToParsed(rawLobby: RawLobby): Lobby {
-    const { application_id, id, linked_channel, members, metadata } = rawLobby;
+    const { application_id, id, members, metadata } = rawLobby;
     const parsedLobbyMembers = members.map((rawLobbyMember) => this.rawLobbyMemberToParsed(rawLobbyMember));
     const lobby: Lobby = {
       applicationId: application_id,
       id,
-      linkedChannel: linked_channel,
       members: parsedLobbyMembers,
       metadata: metadata ?? {},
     };
