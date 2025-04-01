@@ -25,9 +25,9 @@ export interface RESTCreateGroupDMJSONParams {
  * https://discord.com/developers/docs/resources/user#modify-current-user-json-params
  */
 export interface RESTModifyCurrentUserJSONParams {
-  avatar: Nullable<string>;
-  banner: Nullable<string>;
-  username: string;
+  avatar?: Nullable<string>;
+  banner?: Nullable<string>;
+  username?: string;
 }
 
 /**
