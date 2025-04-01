@@ -1,28 +1,25 @@
 import type { Client } from "#client";
-import { RequestError } from "#errors";
+import { RESTError } from "#errors";
+import type { APIVersion, JSONErrorCodes } from "#types";
+import { MiscellaneousRESTManager } from "./MiscellaneousRESTManager.js";
+import { UsersRESTManager } from "./UsersRESTManager.js";
 
 export class RESTManager {
-  /** The Discord REST API url. */
-  readonly apiUrl: string;
-  /** The channels REST manager. */
-  readonly channels = new ChannelsREST(this);
-  /** The client instance. */
   readonly client: Client;
-  /** The miscellaneous REST manager. */
-  readonly miscellaneous = new MiscellaneousREST(this);
-  /** The client token. */
+  readonly miscellaneous: MiscellaneousRESTManager;
   readonly token: string;
-  /** The Discord REST API version. */
+  readonly users: UsersRESTManager;
   readonly version: RESTVersion;
 
-  constructor(client: Client, options: CreateRestManagerOptions) {
+  constructor(client: Client, options: CreateRESTManagerOptions) {
     let { token, version } = options;
 
     version ??= 10;
 
     this.client = client;
-    this.apiUrl = `https://discord.com/api/v${version}`;
+    this.miscellaneous = new MiscellaneousRESTManager(client);
     this.token = token;
+    this.users = new UsersRESTManager(client);
     this.version = version;
   }
 
@@ -38,12 +35,20 @@ export class RESTManager {
     const { token } = this;
 
     headers.set("Content-Type", "application/json");
+    headers.set("User-Agent", "Linkcord (https://github.com/FancyStudioTeam/Linkcord)");
 
     if (includeAuthorization) {
       headers.set("Authorization", `Bot ${token}`);
     }
 
     return headers;
+  }
+
+  private _getAPIUrl(): string {
+    const { version } = this;
+    const url = `https://discord.com/api/v${version}`;
+
+    return url;
   }
 
   /**
@@ -77,7 +82,7 @@ export class RESTManager {
    * @returns The created request url.
    */
   private _getRequestUrl(path: string): string {
-    const { apiUrl } = this;
+    const apiUrl = this._getAPIUrl();
     const requestUrl = `${apiUrl}${path}`;
 
     return requestUrl;
@@ -92,12 +97,12 @@ export class RESTManager {
    *
    * @returns The request data object.
    *
-   * @throws {RequestError} When the request fails.
+   * @throws {RESTError} When the request fails.
    */
-  async makeRequest<Data>(
+  async makeRequest<Data, JSONParams = unknown>(
     method: RESTMethod,
     path: string,
-    options: MakeRequestOptions = {
+    options: MakeRequestOptions<JSONParams> = {
       json: undefined,
       useAuthorization: true,
     },
@@ -111,7 +116,7 @@ export class RESTManager {
     if (!ok) {
       const response = (await request.json()) as ErrorResponse;
 
-      throw new RequestError(`Request failed with status code "${status}".`, {
+      throw new RESTError(`Request failed with status code "${status}".`, {
         response,
         statusCode: status,
         url: requestUrl,
@@ -124,6 +129,21 @@ export class RESTManager {
   }
 }
 
+export interface CreateRESTManagerOptions {
+  token: string;
+  version?: APIVersion;
+}
+
+interface ErrorResponse {
+  code: JSONErrorCodes;
+  message: string;
+}
+
+interface MakeRequestOptions<JSONParams> {
+  json?: JSONParams;
+  useAuthorization?: boolean;
+}
+
 export enum RESTMethod {
   Delete = "DELETE",
   Get = "GET",
@@ -132,9 +152,4 @@ export enum RESTMethod {
   Put = "PUT",
 }
 
-interface ErrorResponse {
-  /** The received Discord error code. */
-  code: JSONErrorCode;
-  /** The received Discord error message. */
-  message: string;
-}
+export type RESTVersion = APIVersion;
