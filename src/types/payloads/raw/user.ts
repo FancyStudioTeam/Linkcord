@@ -27,17 +27,16 @@ export interface APIAvatarDecorationData {
  * https://discord.com/developers/docs/resources/user#connection-object-connection-structure
  */
 export interface APIConnection {
-  id: Snowflake;
-  name: string;
-  type: Services;
-  revoked?: boolean;
-  // TODO: Add "APIIntegration" or "APIPartialIntegration" type.
-  // @ts-expect-error
-  integrations?: APIIntegration[];
-  verified: boolean;
   friend_sync: boolean;
+  id: Snowflake;
+  // TODO: Add "APIIntegration" or "APIPartialIntegration" type.
+  // integrations?: APIIntegration[];
+  name: string;
+  revoked?: boolean;
   show_activity: boolean;
   two_way_link: boolean;
+  type: Services;
+  verified: boolean;
   visibility: VisibilityTypes;
 }
 
