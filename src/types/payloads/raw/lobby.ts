@@ -1,9 +1,9 @@
 import type { Nullable, Snowflake } from "#types";
 
 /**
- * =========================
- * = Raw Lobby Structures =
- * ========================
+ * ====================================================================
+ * = Raw Payloads - Represent the received data from the Discord API. =
+ * ====================================================================
  */
 
 /**
@@ -28,9 +28,9 @@ export interface APILobbyMember {
 }
 
 /**
- * ===========================
- * = Raw Lobby Utility Types =
- * ===========================
+ * =============================================================
+ * = Utility Types - Used to share types within some payloads. =
+ * =============================================================
  */
 
 /**

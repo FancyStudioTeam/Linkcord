@@ -1,9 +1,9 @@
 import type { Snowflake } from "#types";
 
 /**
- * ===========================
- * = Parsed Lobby Structures =
- * ===========================
+ * =============================================================================
+ * = Parsed Payloads - Represent the transformed data from the "Raw Payloads". =
+ * =============================================================================
  */
 
 /**
@@ -28,9 +28,9 @@ export interface LobbyMember {
 }
 
 /**
- * ==============================
- * = Parsed Lobby Utility Types =
- * ==============================
+ * =============================================================
+ * = Utility Types - Used to share types within some payloads. =
+ * =============================================================
  */
 
 /**
@@ -44,9 +44,9 @@ export type LobbyMemberMetadata = LobbyMetadata;
 export type LobbyMetadata = Record<string, string>;
 
 /**
- * ====================================================================
- * = Lobby Enums. These are shared between Raw and Parsed Structures. =
- * ====================================================================
+ * ====================================================
+ * = Enums - Used to define a set of fixed constants. =
+ * ====================================================
  */
 
 /**
