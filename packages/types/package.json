@@ -3,9 +3,6 @@
     "typescript": "5.8.2",
     "vitest": "3.1.1"
   },
-  "exports": {
-    "types": "./dist/index.d.ts"
-  },
   "files": ["dist", "README.md", "LICENSE"],
   "license": "MIT",
   "name": "@fancystudioteam/linkcord-types",
@@ -20,5 +17,6 @@
     "build:types": "tsc --project tsconfig.json --declaration --outDir ./dist",
     "vitest": "vitest"
   },
+  "types": "./dist/index.d.ts",
   "version": "0.0.0"
 }

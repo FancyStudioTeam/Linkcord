@@ -18,6 +18,17 @@ export interface GatewayDispatchReadyEventPayload {
 }
 
 /**
+ * https://discord.com/developers/docs/events/gateway-events#heartbeat
+ */
+export interface GatewayHeartbeatEvent
+  extends GatewayEventBase<GatewayOpcodes.Heartbeat, GatewayHeartbeatEventPayload> {}
+
+/**
+ * https://discord.com/developers/docs/events/gateway-events#heartbeat-example-heartbeat
+ */
+export type GatewayHeartbeatEventPayload = number;
+
+/**
  * https://discord.com/developers/docs/events/gateway-events#hello
  */
 export interface GatewayHelloEvent extends GatewayEventBase<GatewayOpcodes.Hello, GatewayHelloEventPayload> {}
