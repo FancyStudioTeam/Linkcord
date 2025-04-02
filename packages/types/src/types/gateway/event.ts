@@ -1,4 +1,4 @@
-import type { APIVersion, Nullable } from "../shared/index.js";
+import type { APIVersion, Nullable } from "#types/shared";
 import type { GatewayDispatchEventBase, GatewayEventBase } from "./base/event.js";
 
 /**
