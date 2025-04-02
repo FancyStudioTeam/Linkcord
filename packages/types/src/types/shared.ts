@@ -57,9 +57,9 @@ export interface Locales {
 export type Snowflake = string;
 
 /**
- * =======================================
- * = Custom Types for Linkcord Types     =
- * =======================================
+ * =========================================
+ * = Custom Types used in some structures. =
+ * =========================================
  */
 
 /**
