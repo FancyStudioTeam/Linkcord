@@ -1,10 +1,4 @@
 /**
- * ==================================================
- * = Types referenced in the Discord API Reference. =
- * ==================================================
- */
-
-/**
  * https://discord.com/developers/docs/reference#api-versioning-api-versions
  */
 export type APIVersion = 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
@@ -55,19 +49,3 @@ export interface Locales {
  * https://discord.com/developers/docs/reference#snowflakes
  */
 export type Snowflake = string;
-
-/**
- * =========================================
- * = Custom Types used in some structures. =
- * =========================================
- */
-
-/**
- * https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#null-and-undefined
- */
-export type Nullable<Type> = Type | null;
-
-/**
- * https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#null-and-undefined
- */
-export type Optional<Type> = Type | undefined;
