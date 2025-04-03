@@ -1,4 +1,4 @@
-import type { APIVersion, Nullable } from "#types/shared";
+import type { APIVersion, Nullable, Snowflake } from "#types/shared";
 import type { GatewayActivity } from "./activity.js";
 import type { GatewayDispatchEventBase, GatewayEventBase } from "./base/event.js";
 
@@ -30,7 +30,7 @@ export interface GatewayHeartbeatEvent
 export interface GatewayHelloEvent extends GatewayEventBase<GatewayOpcodes.Hello, GatewayHelloEventPayload> {}
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#hello-example-hello
+ * https://discord.com/developers/docs/events/gateway-events#hello-hello-structure
  */
 export interface GatewayHelloEventPayload {
   heartbeat_interval: number;
@@ -80,6 +80,67 @@ export interface GatewayPresenceUpdatePayload {
 }
 
 /**
+ * https://discord.com/developers/docs/events/gateway-events#request-guild-members
+ */
+export interface GatewayRequestGuildMembersEvent
+  extends GatewayEventBase<GatewayOpcodes.RequestGuildMembers, GatewayRequestGuildMembersPayload> {}
+
+/**
+ * https://discord.com/developers/docs/events/gateway-events#request-guild-members-request-guild-members-structure
+ */
+export interface GatewayRequestGuildMembersPayload {
+  guild_id: Snowflake;
+  limit: number;
+  nonce?: string;
+  presences?: boolean;
+  query?: string;
+  user_ids: Snowflake[];
+}
+
+/**
+ * https://discord.com/developers/docs/events/gateway-events#request-soundboard-sounds
+ */
+export interface GatewayRequestSoundboardSoundsEvent
+  extends GatewayEventBase<GatewayOpcodes.RequestSoundboardSounds, GatewayRequestSoundboardSoundsPayload> {}
+
+/**
+ * https://discord.com/developers/docs/events/gateway-events#request-soundboard-sounds-request-soundboard-sounds-structure
+ */
+export interface GatewayRequestSoundboardSoundsPayload {
+  guild_ids: Snowflake[];
+}
+
+/**
+ * https://discord.com/developers/docs/events/gateway-events#resume
+ */
+export interface GatewayResumeEvent extends GatewayEventBase<GatewayOpcodes.Resume, GatewayResumePayload> {}
+
+/**
+ * https://discord.com/developers/docs/events/gateway-events#resume-resume-structure
+ */
+export interface GatewayResumePayload {
+  seq: number;
+  session_id: string;
+  token: string;
+}
+
+/**
+ * https://discord.com/developers/docs/events/gateway-events#update-voice-state
+ */
+export interface GatewayVoiceStateUpdateEvent
+  extends GatewayEventBase<GatewayOpcodes.VoiceStateUpdate, GatewayVoiceStateUpdatePayload> {}
+
+/**
+ * https://discord.com/developers/docs/events/gateway-events#update-voice-state-gateway-voice-state-update-structure
+ */
+export interface GatewayVoiceStateUpdatePayload {
+  channel_id: Nullable<Snowflake>;
+  guild_id: Snowflake;
+  self_deaf: boolean;
+  self_mute: boolean;
+}
+
+/**
  * https://discord.com/developers/docs/events/gateway-events#receive-events
  */
 export type GatewayDispatchEvent = GatewayDispatchReadyEvent;
@@ -87,7 +148,7 @@ export type GatewayDispatchEvent = GatewayDispatchReadyEvent;
 /**
  * https://discord.com/developers/docs/events/gateway-events#payload-structure
  */
-export type GatewayEvent = GatewayReceiveEvent;
+export type GatewayEvent = GatewayReceiveEvent | GatewaySendEvent;
 
 /**
  * https://discord.com/developers/docs/events/gateway-events#heartbeat-example-heartbeat
@@ -107,7 +168,14 @@ export type GatewayReceiveEvent = GatewayDispatchEvent | GatewayHelloEvent;
 /**
  * https://discord.com/developers/docs/events/gateway-events#send-events
  */
-export type GatewaySendEvent = GatewayIdentifyEvent | GatewayPresenceUpdateEvent;
+export type GatewaySendEvent =
+  | GatewayHeartbeatEvent
+  | GatewayIdentifyEvent
+  | GatewayPresenceUpdateEvent
+  | GatewayRequestGuildMembersEvent
+  | GatewayRequestSoundboardSoundsEvent
+  | GatewayResumeEvent
+  | GatewayVoiceStateUpdateEvent;
 
 /**
  * https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
