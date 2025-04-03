@@ -25,11 +25,6 @@ export interface GatewayHeartbeatEvent
   extends GatewayEventBase<GatewayOpcodes.Heartbeat, GatewayHeartbeatEventPayload> {}
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#heartbeat-example-heartbeat
- */
-export type GatewayHeartbeatEventPayload = number;
-
-/**
  * https://discord.com/developers/docs/events/gateway-events#hello
  */
 export interface GatewayHelloEvent extends GatewayEventBase<GatewayOpcodes.Hello, GatewayHelloEventPayload> {}
@@ -42,20 +37,42 @@ export interface GatewayHelloEventPayload {
 }
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#update-presence
+ * https://discord.com/developers/docs/events/gateway-events#identify-identify-connection-properties
  */
-export interface GatewayUpdatePresenceEvent
-  extends GatewayEventBase<GatewayOpcodes.PresenceUpdate, GatewayPresenceUpdateData> {}
+export interface GatewayIdentifyConnectionProperties {
+  browser: string;
+  device: string;
+  os: string;
+}
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#activity-object-activity-structure
+ * https://discord.com/developers/docs/events/gateway-events#identify
  */
-export type GatewayPresenceUpdateActivity = Pick<GatewayActivity, "name" | "state" | "type" | "url">;
+export interface GatewayIdentifyEvent extends GatewayEventBase<GatewayOpcodes.Identify, GatewayIdentifyEventPayload> {}
+
+/**
+ * https://discord.com/developers/docs/events/gateway-events#identify-identify-structure
+ */
+export interface GatewayIdentifyEventPayload {
+  compress?: boolean;
+  intents: number;
+  large_threshold?: number;
+  presence?: GatewayPresenceUpdatePayload;
+  properties: GatewayIdentifyConnectionProperties;
+  shard?: [number, number];
+  token: string;
+}
+
+/**
+ * https://discord.com/developers/docs/events/gateway-events#update-presence
+ */
+export interface GatewayPresenceUpdateEvent
+  extends GatewayEventBase<GatewayOpcodes.PresenceUpdate, GatewayPresenceUpdatePayload> {}
 
 /**
  * https://discord.com/developers/docs/events/gateway-events#update-presence-gateway-presence-update-structure
  */
-export interface GatewayPresenceUpdateData {
+export interface GatewayPresenceUpdatePayload {
   activities: GatewayPresenceUpdateActivity[];
   afk: boolean;
   since: Nullable<number>;
@@ -73,6 +90,16 @@ export type GatewayDispatchEvent = GatewayDispatchReadyEvent;
 export type GatewayEvent = GatewayReceiveEvent;
 
 /**
+ * https://discord.com/developers/docs/events/gateway-events#heartbeat-example-heartbeat
+ */
+export type GatewayHeartbeatEventPayload = number;
+
+/**
+ * https://discord.com/developers/docs/events/gateway-events#activity-object-activity-structure
+ */
+export type GatewayPresenceUpdateActivity = Pick<GatewayActivity, "name" | "state" | "type" | "url">;
+
+/**
  * https://discord.com/developers/docs/events/gateway-events#receive-events
  */
 export type GatewayReceiveEvent = GatewayDispatchEvent | GatewayHelloEvent;
@@ -80,7 +107,7 @@ export type GatewayReceiveEvent = GatewayDispatchEvent | GatewayHelloEvent;
 /**
  * https://discord.com/developers/docs/events/gateway-events#send-events
  */
-export type GatewaySendEvent = GatewayUpdatePresenceEvent;
+export type GatewaySendEvent = GatewayIdentifyEvent | GatewayPresenceUpdateEvent;
 
 /**
  * https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
