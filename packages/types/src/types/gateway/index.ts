@@ -1,3 +1,4 @@
+export * from "./activity.js";
 export * from "./event.js";
 
 /**

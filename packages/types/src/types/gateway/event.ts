@@ -1,4 +1,5 @@
 import type { APIVersion, Nullable } from "#types/shared";
+import type { GatewayActivity } from "./activity.js";
 import type { GatewayDispatchEventBase, GatewayEventBase } from "./base/event.js";
 
 /**
@@ -47,9 +48,15 @@ export interface GatewayUpdatePresenceEvent
   extends GatewayEventBase<GatewayOpcodes.PresenceUpdate, GatewayPresenceUpdateData> {}
 
 /**
+ * https://discord.com/developers/docs/events/gateway-events#activity-object-activity-structure
+ */
+export type GatewayPresenceUpdateActivity = Pick<GatewayActivity, "name" | "state" | "type" | "url">;
+
+/**
  * https://discord.com/developers/docs/events/gateway-events#update-presence-gateway-presence-update-structure
  */
 export interface GatewayPresenceUpdateData {
+  activities: GatewayPresenceUpdateActivity[];
   afk: boolean;
   since: Nullable<number>;
   status: StatusTypes;
