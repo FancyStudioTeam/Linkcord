@@ -87,7 +87,7 @@ export enum Services {
   Domain = "domain",
   EpicGames = "epicgames",
   Facebook = "facebook",
-  Github = "github",
+  GitHub = "github",
   Instagram = "instagram",
   LeagueOfLegends = "leagueoflegends",
   Mastodon = "mastodon",
