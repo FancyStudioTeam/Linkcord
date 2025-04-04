@@ -58,14 +58,6 @@ export interface APIUser {
 }
 
 /**
- * https://discord.com/developers/docs/resources/user#connection-object-visibility-types
- */
-export enum VisibilityTypes {
-  Everyone = 1,
-  None = 0,
-}
-
-/**
  * https://discord.com/developers/docs/resources/user#user-object-premium-types
  */
 export enum PremiumTypes {
@@ -125,4 +117,12 @@ export enum UserFlags {
   TeamUser = 1 << 10,
   VerifiedBot = 1 << 16,
   VerifiedBotDeveloper = 1 << 17,
+}
+
+/**
+ * https://discord.com/developers/docs/resources/user#connection-object-visibility-types
+ */
+export enum VisibilityTypes {
+  Everyone = 1,
+  None = 0,
 }
