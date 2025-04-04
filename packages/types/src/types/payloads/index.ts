@@ -1,6 +1,7 @@
 export * from "./channel.js";
 export * from "./emoji.js";
 export * from "./entitlement.js";
+export * from "./guild-template.js";
 export * from "./guild.js";
 export * from "./lobby.js";
 export * from "./message.js";
