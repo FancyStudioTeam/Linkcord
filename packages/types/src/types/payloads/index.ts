@@ -5,6 +5,7 @@ export * from "./message.js";
 export * from "./poll.js";
 export * from "./sku.js";
 export * from "./soundboard.js";
+export * from "./stage-instance.js";
 export * from "./sticker.js";
 export * from "./subscription.js";
 export * from "./user.js";
