@@ -233,8 +233,7 @@ export interface APIIntegrationApplication {
 /**
  * https://discord.com/developers/docs/resources/guild#unavailable-guild-object-example-unavailable-guild
  */
-export interface APIUnavailableGuild {
-  id: Snowflake;
+export interface APIUnavailableGuild extends Pick<APIGuild, "id"> {
   unavailable: boolean;
 }
 
