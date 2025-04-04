@@ -1,9 +1,15 @@
 {
   "devDependencies": {
+    "typedoc": "0.28.1",
+    "typedoc-material-theme": "1.3.0",
     "typescript": "5.8.2",
     "vitest": "3.1.1"
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "license": "MIT",
   "name": "@fancystudioteam/linkcord-types",
   "publishConfig": {
@@ -15,6 +21,7 @@
   },
   "scripts": {
     "build:types": "tsc --project tsconfig.json --declaration --outDir ./dist",
+    "typedoc": "typedoc",
     "vitest": "vitest"
   },
   "types": "./dist/index.d.ts",
