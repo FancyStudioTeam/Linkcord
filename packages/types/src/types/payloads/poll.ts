@@ -33,8 +33,8 @@ export interface APIPollAnswerCount {
  * https://discord.com/developers/docs/resources/poll#poll-media-object-poll-media-object-structure
  */
 export interface APIPollMedia {
-  text?: string;
   emoji?: APIPollMediaEmoji;
+  text?: string;
 }
 
 /**
