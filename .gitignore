@@ -1,5 +1,8 @@
 # Build
 dist
 
+# Docs
+.typedoc
+
 # Packages
 node_modules
