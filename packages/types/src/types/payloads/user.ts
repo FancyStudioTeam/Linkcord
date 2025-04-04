@@ -45,13 +45,13 @@ export interface APIUser {
   bot?: boolean;
   discriminator: string;
   email?: Nullable<string>;
-  flags?: number;
+  flags?: UserFlags;
   global_name: Nullable<string>;
   id: Snowflake;
   locale?: string;
   mfa_enabled?: boolean;
   premium_type?: PremiumTypes;
-  public_flags?: number;
+  public_flags?: UserFlags;
   system?: boolean;
   username: string;
   verified?: boolean;

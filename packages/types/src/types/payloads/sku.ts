@@ -6,7 +6,7 @@ import type { Snowflake } from "#types/shared";
 // biome-ignore lint/style/useNamingConvention: SKU is uppercase.
 export interface APISKU {
   application_id: Snowflake;
-  flags: number;
+  flags: SKUFlags;
   id: Snowflake;
   name: string;
   slug: string;

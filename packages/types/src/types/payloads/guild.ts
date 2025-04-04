@@ -10,7 +10,7 @@ export interface APIGuildMember {
   banner?: Nullable<string>;
   communication_disabled_until?: Nullable<ISO8601Date>;
   deaf: boolean;
-  flags: number;
+  flags: GuildMemberFlags;
   joined_at: ISO8601Date;
   mute: boolean;
   nick?: Nullable<string>;

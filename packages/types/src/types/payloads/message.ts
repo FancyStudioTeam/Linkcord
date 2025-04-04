@@ -24,7 +24,7 @@ export interface APIAttachment {
   duration_secs?: number;
   ephemeral?: boolean;
   filename: string;
-  flags?: number;
+  flags?: AttachmentFlags;
   height?: number;
   id: Snowflake;
   proxy_url: string;
@@ -147,7 +147,7 @@ export interface APIMessage {
   content: string;
   edited_timestamp: Nullable<ISO8601Date>;
   embeds: APIEmbed[];
-  flags: number;
+  flags: MessageFlags;
   id: Snowflake;
   // TODO: Add "APIMessageInteractionMetadata" type
   // interaction_metadata?: APIMessageInteractionMetadata;
