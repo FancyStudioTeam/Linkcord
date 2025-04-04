@@ -49,11 +49,12 @@ export enum OAuth2Scopes {
   MessagesRead = "messages.read",
   RelationshipsRead = "relationships.read",
   RoleConnectionsWrite = "role_connections.write",
-  Rpc = "rpc",
-  RpcActivitiesWrite = "rpc.activities.write",
-  RpcNotificationsRead = "rpc.notifications.read",
-  RpcVoiceRead = "rpc.voice.read",
-  RpcVoiceWrite = "rpc.voice.write",
+  // biome-ignore lint/style/useNamingConvention:
+  RPC = "rpc",
+  RPCActivitiesWrite = "rpc.activities.write",
+  RPCNotificationsRead = "rpc.notifications.read",
+  RPCVoiceRead = "rpc.voice.read",
+  RPCVoiceWrite = "rpc.voice.write",
   Voice = "voice",
   WebhookIncoming = "webhook.incoming",
 }

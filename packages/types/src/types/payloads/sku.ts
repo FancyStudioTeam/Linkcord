@@ -3,7 +3,7 @@ import type { Snowflake } from "#types/shared";
 /**
  * https://discord.com/developers/docs/resources/sku#sku-object-sku-structure
  */
-// biome-ignore lint/style/useNamingConvention: SKU is uppercase.
+// biome-ignore lint/style/useNamingConvention:
 export interface APISKU {
   application_id: Snowflake;
   flags: SKUFlags;
