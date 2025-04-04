@@ -380,8 +380,8 @@ export enum PremiumTier {
  * https://discord.com/developers/docs/resources/guild#guild-onboarding-object-prompt-types
  */
 export enum PromptTypes {
-  Dropdown = "DROPDOWN",
-  MultipleChoice = "MULTIPLE_CHOICE",
+  Dropdown = 1,
+  MultipleChoice = 0,
 }
 
 /**
