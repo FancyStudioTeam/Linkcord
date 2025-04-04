@@ -238,6 +238,14 @@ export interface APIReaction {
 }
 
 /**
+ * https://discord.com/developers/docs/resources/message#reaction-count-details-object-reaction-count-details-structure
+ */
+export interface APIReactionCountDetails {
+  burst: number;
+  normal: number;
+}
+
+/**
  * https://discord.com/developers/docs/resources/message#role-subscription-data-object-role-subscription-data-object-structure
  */
 export interface APIRoleSubscriptionData {
@@ -245,14 +253,6 @@ export interface APIRoleSubscriptionData {
   role_subscription_listing_id: Snowflake;
   tier_name: string;
   total_months_subscribed: number;
-}
-
-/**
- * https://discord.com/developers/docs/resources/message#reaction-count-details-object-reaction-count-details-structure
- */
-export interface APIReactionCountDetails {
-  burst: number;
-  normal: number;
 }
 
 /**
