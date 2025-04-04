@@ -2,6 +2,7 @@ export * from "./channel.js";
 export * from "./entitlement.js";
 export * from "./guild.js";
 export * from "./message.js";
+export * from "./miscellaneous.js";
 export * from "./permission.js";
 export * from "./poll.js";
 export * from "./sku.js";
