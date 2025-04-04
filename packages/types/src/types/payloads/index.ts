@@ -1,3 +1,4 @@
+export * from "./channel.js";
 export * from "./entitlement.js";
 export * from "./guild.js";
 export * from "./poll.js";
