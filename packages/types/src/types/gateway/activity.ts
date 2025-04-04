@@ -10,7 +10,7 @@ export interface GatewayActivity {
   created_at: number;
   details?: Nullable<string>;
   emoji?: Nullable<GatewayActivityEmoji>;
-  flags?: number;
+  flags?: ActivityFlags;
   instance?: boolean;
   name: string;
   party?: GatewayActivityParty;
