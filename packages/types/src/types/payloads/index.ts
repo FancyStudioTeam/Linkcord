@@ -17,5 +17,6 @@ export * from "./soundboard.js";
 export * from "./stage-instance.js";
 export * from "./sticker.js";
 export * from "./subscription.js";
+export * from "./team.js";
 export * from "./user.js";
 export * from "./voice.js";
