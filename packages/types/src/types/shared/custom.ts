@@ -1,1 +1,1 @@
-export type * from "@fancystudioteam/linkcord-utils";
+export type { Nullable, Optional } from "@fancystudioteam/linkcord-utils";
