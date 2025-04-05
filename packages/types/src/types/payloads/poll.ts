@@ -16,6 +16,7 @@ export interface APIPoll {
  * https://discord.com/developers/docs/resources/poll#poll-answer-object-poll-answer-object-structure
  */
 export interface APIPollAnswer {
+  /** @remarks Only present in Gateway events. */
   answer_id: number;
   poll_media: APIPollMedia;
 }
