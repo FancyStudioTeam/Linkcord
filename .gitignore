@@ -7,3 +7,6 @@ dist
 
 # Packages
 node_modules
+
+# Vitest
+tsconfig.vitest-temp.json
