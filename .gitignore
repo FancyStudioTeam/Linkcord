@@ -1,4 +1,5 @@
 # Build
+.turbo
 dist
 
 # Docs
