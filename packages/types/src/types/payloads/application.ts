@@ -65,6 +65,11 @@ export interface APIApplicationIntegrationTypesConfiguration {
 }
 
 /**
+ * https://discord.com/developers/docs/resources/application#application-object-application-structure
+ */
+export interface APIPartialApplication extends Partial<APIApplication> {}
+
+/**
  * https://discord.com/developers/docs/resources/application#application-object-application-event-webhook-status
  */
 export enum ApplicationEventWebhookStatus {

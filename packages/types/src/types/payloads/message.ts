@@ -1,4 +1,5 @@
 import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
+import type { APIPartialApplication } from "./application.js";
 import type { ChannelTypes } from "./channel.js";
 import type { APIResolvedData } from "./interaction.js";
 import type { APIPoll } from "./poll.js";
@@ -136,8 +137,7 @@ export interface APIEmbedVideo {
  */
 export interface APIMessage {
   activity?: APIMessageActivity;
-  // TODO: Add "APIPartialApplication" type
-  // application?: APIPartialApplication;
+  application?: APIPartialApplication;
   application_id?: Snowflake;
   attachments: APIAttachment[];
   author: APIUser;
