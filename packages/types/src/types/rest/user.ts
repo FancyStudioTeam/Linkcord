@@ -5,7 +5,7 @@ import type {
   APIGuildMember,
   APIUser,
 } from "#types/payloads";
-import type { Nullable, Snowflake } from "#types/shared";
+import type { ImageData, Nullable, Snowflake } from "#types/shared";
 
 /**
  * https://discord.com/developers/docs/resources/user#create-dm-json-params
@@ -36,8 +36,8 @@ export interface RESTGetCurrentUserGuildsQueryParams {
  * https://discord.com/developers/docs/resources/user#modify-current-user-json-params
  */
 export interface RESTModifyCurrentUserJSONParams {
-  avatar?: Nullable<string>;
-  banner?: Nullable<string>;
+  avatar?: Nullable<ImageData>;
+  banner?: Nullable<ImageData>;
   username?: string;
 }
 

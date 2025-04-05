@@ -1,5 +1,5 @@
 import type { APISoundboardSound } from "#types/payloads";
-import type { Nullable } from "#types/shared";
+import type { AudioData, Nullable } from "#types/shared";
 
 /**
  * https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound-json-params
@@ -8,7 +8,7 @@ export interface RESTCreateGuildSoundboardSoundJSONParams {
   emoji_id?: Nullable<string>;
   emoji_name?: Nullable<string>;
   name: string;
-  sound: string;
+  sound: AudioData;
   volume?: Nullable<number>;
 }
 
