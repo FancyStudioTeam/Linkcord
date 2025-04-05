@@ -4,7 +4,7 @@ import type { APIUser } from "./user.js";
 /**
  * https://discord.com/developers/docs/resources/soundboard#soundboard-sound-object-soundboard-sound-structure
  */
-export interface APISoundboard {
+export interface APISoundboardSound {
   available: boolean;
   emoji_id: Nullable<Snowflake>;
   emoji_name: Nullable<string>;
