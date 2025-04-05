@@ -1,8 +1,8 @@
 import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
 import type { APIPartialApplication } from "./application.js";
-import type { ChannelTypes } from "./channel.js";
+import type { APIChannel, ChannelTypes } from "./channel.js";
 import type { APIPartialEmoji } from "./emoji.js";
-import type { APIResolvedData } from "./interaction.js";
+import type { APIAuthorizingIntegrationOwners, APIResolvedData, InteractionTypes } from "./interaction.js";
 import type { APIPoll } from "./poll.js";
 import type { APIStickerItem } from "./sticker.js";
 import type { APIUser } from "./user.js";
@@ -15,6 +15,19 @@ export interface APIAllowedMentions {
   replied_user?: boolean;
   roles?: Snowflake[];
   users?: Snowflake[];
+}
+
+/**
+ * https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-application-command-interaction-metadata-structure
+ */
+export interface APIApplicationCommandInteractionMetadata {
+  authorizing_integration_owners: APIAuthorizingIntegrationOwners;
+  id: Snowflake;
+  original_response_message_id?: Snowflake;
+  target_message_id?: Snowflake;
+  target_user?: APIUser;
+  type: InteractionTypes.ApplicationCommand | InteractionTypes.ApplicationCommandAutocomplete;
+  user: APIUser;
 }
 
 /**
@@ -151,12 +164,10 @@ export interface APIMessage {
   embeds: APIEmbed[];
   flags: MessageFlags;
   id: Snowflake;
-  // TODO: Add "APIMessageInteractionMetadata" type
-  // interaction_metadata?: APIMessageInteractionMetadata;
+  interaction_metadata?: APIMessageInteractionMetadata;
   mention_channels?: APIChannelMention[];
   mention_everyone: boolean;
-  // TODO: Add "APIRole" type
-  // mention_roles: APIRole[];
+  mention_roles: Snowflake[];
   mentions: APIUser[];
   message_reference?: APIMessageReference;
   message_snapshots?: APIMessageSnapshot[];
@@ -169,8 +180,7 @@ export interface APIMessage {
   resolved?: APIResolvedData;
   role_subscription_data?: APIRoleSubscriptionData;
   sticker_items?: APIStickerItem[];
-  // TODO: Current type is invalid, need to create a better one
-  thread?: unknown;
+  thread?: APIChannel;
   timestamp: ISO8601Date;
   tts: boolean;
   type: MessageTypes;
@@ -191,6 +201,30 @@ export interface APIMessageActivity {
 export interface APIMessageCall {
   participants: Snowflake[];
   ended_timestamp?: Nullable<ISO8601Date>;
+}
+
+/**
+ * https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-message-component-interaction-metadata-structure
+ */
+export interface APIMessageComponentInteractionMetadata {
+  authorizing_integration_owners: APIAuthorizingIntegrationOwners;
+  id: Snowflake;
+  interacted_message_id?: Snowflake;
+  original_response_message_id?: Snowflake;
+  type: InteractionTypes.MessageComponent;
+  user: APIUser;
+}
+
+/**
+ * https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-modal-submit-interaction-metadata-structure
+ */
+export interface APIModalSubmitInteractionMetadata {
+  authorizing_integration_owners: APIAuthorizingIntegrationOwners;
+  id: Snowflake;
+  original_response_message_id?: Snowflake;
+  triggering_interaction_metadata: APIModalSubmitInteractionMetadataTriggeringInteractionMetadata;
+  type: InteractionTypes.ModalSubmit;
+  user: APIUser;
 }
 
 /**
@@ -259,6 +293,21 @@ export interface APIRoleSubscriptionData {
   tier_name: string;
   total_months_subscribed: number;
 }
+
+/**
+ * https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-modal-submit-interaction-metadata-structure
+ */
+export type APIModalSubmitInteractionMetadataTriggeringInteractionMetadata =
+  | APIApplicationCommandInteractionMetadata
+  | APIMessageComponentInteractionMetadata;
+
+/**
+ * https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
+ */
+export type APIMessageInteractionMetadata =
+  | APIApplicationCommandInteractionMetadata
+  | APIMessageComponentInteractionMetadata
+  | APIModalSubmitInteractionMetadata;
 
 /**
  * https://discord.com/developers/docs/resources/message#message-object-message-structure
