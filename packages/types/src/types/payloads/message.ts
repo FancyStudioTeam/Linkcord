@@ -212,6 +212,11 @@ export interface APIMessageSnapshot {
 }
 
 /**
+ * https://discord.com/developers/docs/resources/message#message-object-message-structure
+ */
+export interface APIPartialMessage extends Partial<APIMessage> {}
+
+/**
  * https://discord.com/developers/docs/resources/message#embed-fields-by-embed-type-poll-result-embed-fields
  */
 export interface APIPollResultEmbedFields {

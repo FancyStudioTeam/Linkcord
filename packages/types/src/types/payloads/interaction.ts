@@ -1,6 +1,6 @@
 import type { Snowflake } from "#types/shared";
 import type { APIGuildMember } from "./guild.js";
-import type { APIAttachment } from "./message.js";
+import type { APIAttachment, APIPartialMessage } from "./message.js";
 import type { APIRole } from "./permission.js";
 import type { APIUser } from "./user.js";
 
@@ -11,6 +11,7 @@ import type { APIUser } from "./user.js";
 export interface APIResolvedData {
   attachments?: Record<Snowflake, APIAttachment>;
   members?: Record<Snowflake, APIResolvedDataMember>;
+  messages?: Record<Snowflake, APIPartialMessage>;
   roles?: Record<Snowflake, APIRole>;
   users?: Record<Snowflake, APIUser>;
 }
