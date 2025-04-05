@@ -1,0 +1,13 @@
+{
+  "apiReport": {
+    "enabled": true
+  },
+  "docModel": {
+    "enabled": true
+  },
+  "dtsRollup": {
+    "enabled": true
+  },
+  "mainEntryPointFilePath": "dist/types/index.d.ts",
+  "projectFolder": "./"
+}
