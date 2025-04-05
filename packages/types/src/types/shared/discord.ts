@@ -4,6 +4,14 @@
 export type APIVersion = 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 /**
+ * https://discord.com/developers/docs/reference#image-data
+ */
+export type ImageData =
+  | `data:image/jpeg;base64,${string}`
+  | `data:image/png;base64,${string}`
+  | `data:image/gif;base64,${string}`;
+
+/**
  * https://discord.com/developers/docs/reference#iso8601-datetime
  */
 export type ISO8601Date = string;
