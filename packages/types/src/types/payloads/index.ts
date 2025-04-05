@@ -23,3 +23,4 @@ export * from "./subscription.js";
 export * from "./team.js";
 export * from "./user.js";
 export * from "./voice.js";
+export * from "./webhook.js";
