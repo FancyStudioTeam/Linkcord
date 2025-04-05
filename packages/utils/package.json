@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "vite": "6.2.5",
     "vitest": "3.1.1"
   },
   "imports": {
@@ -17,7 +18,7 @@
   "scripts": {
     "build": "pnpm build:types",
     "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir ./dist/types",
-    "vitest": "vitest"
+    "vitest": "vitest --config vitest.config.ts"
   },
   "types": "./dist/types/index.d.ts",
   "version": "0.0.0"
