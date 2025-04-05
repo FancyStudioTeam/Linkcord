@@ -47,6 +47,11 @@ export interface Locales {
 }
 
 /**
+ * https://discord.com/developers/docs/reference#locales
+ */
+export type Localizations = Partial<Locales>;
+
+/**
  * https://discord.com/developers/docs/reference#snowflakes
  */
 export type Snowflake = string;
