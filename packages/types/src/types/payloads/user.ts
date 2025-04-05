@@ -1,11 +1,11 @@
 import type { Nullable, Snowflake } from "#types/shared";
-import type { APIIntegration } from "./guild.js";
+import type { APIPartialIntegration } from "./guild.js";
 
 /**
  * https://discord.com/developers/docs/resources/user#application-role-connection-object-application-role-connection-structure
  */
 export interface APIApplicationRoleConnection {
-  metadata: object;
+  metadata: Record<string, string | number>;
   platform_name: Nullable<string>;
   platform_username: Nullable<string>;
 }
@@ -24,7 +24,7 @@ export interface APIAvatarDecorationData {
 export interface APIConnection {
   friend_sync: boolean;
   id: Snowflake;
-  integrations?: APIIntegration[];
+  integrations?: APIPartialIntegration[];
   name: string;
   revoked?: boolean;
   show_activity: boolean;
