@@ -19,13 +19,8 @@ export interface APITeamMember {
   membership_state: TeamMembershipState;
   role: TeamMemberRoleTypes;
   team_id: Snowflake;
-  user: APITeamMemberUser;
+  user: APIUser;
 }
-
-/**
- * https://discord.com/developers/docs/topics/teams#data-models-team-member-object
- */
-export interface APITeamMemberUser extends Pick<APIUser, "avatar" | "discriminator" | "id" | "username"> {}
 
 /**
  * https://discord.com/developers/docs/topics/teams#team-member-roles-team-member-role-types
