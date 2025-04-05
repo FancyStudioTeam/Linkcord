@@ -1,7 +1,7 @@
 import type { StatusTypes } from "#types/gateway";
 import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
 import type { APIEmoji } from "./emoji.js";
-import type { OAuth2Scopes } from "./miscellaneous.js";
+import type { OAuth2Scopes } from "./oauth2.js";
 import type { APIRole } from "./permission.js";
 import type { APISticker } from "./sticker.js";
 import type { APIAvatarDecorationData, APIUser } from "./user.js";
