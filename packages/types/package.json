@@ -24,8 +24,7 @@
     "api:run": "api-extractor run --local",
     "build": "pnpm build:types",
     "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir ./dist/types",
-    "typedoc": "typedoc",
-    "vitest": "vitest"
+    "typedoc": "typedoc"
   },
   "types": "./dist/types/index.d.ts",
   "version": "0.0.0"
