@@ -12,40 +12,79 @@ export type ISO8601Date = string;
  * https://discord.com/developers/docs/reference#locales
  */
 export interface Locales {
-  "en-GB": string;
-  "en-US": string;
-  "es-419": string;
-  "es-ES": string;
-  "pt-BR": string;
-  "sv-SE": string;
-  "zh-CN": string;
-  "zh-TW": string;
-  bg: string;
-  cs: string;
-  da: string;
-  de: string;
-  el: string;
-  fi: string;
-  fr: string;
-  hi: string;
-  hr: string;
-  hu: string;
-  id: string;
-  it: string;
-  ja: string;
-  ko: string;
-  nl: string;
-  no: string;
-  pl: string;
-  ro: string;
-  ru: string;
-  th: string;
-  tr: string;
-  uk: string;
-  vi: string;
+  [Locale.Bulgarian]: string;
+  [Locale.ChineseCN]: string;
+  [Locale.ChineseTW]: string;
+  [Locale.Croatian]: string;
+  [Locale.Czech]: string;
+  [Locale.Danish]: string;
+  [Locale.Dutch]: string;
+  [Locale.EnglishUK]: string;
+  [Locale.EnglishUS]: string;
+  [Locale.Finnish]: string;
+  [Locale.French]: string;
+  [Locale.German]: string;
+  [Locale.Greek]: string;
+  [Locale.Hindi]: string;
+  [Locale.Hungarian]: string;
+  [Locale.Indonesian]: string;
+  [Locale.Italian]: string;
+  [Locale.Japanese]: string;
+  [Locale.Korean]: string;
+  [Locale.Lithuanian]: string;
+  [Locale.Norwegian]: string;
+  [Locale.Polish]: string;
+  [Locale.PortugueseBR]: string;
+  [Locale.Romanian]: string;
+  [Locale.Russian]: string;
+  [Locale.SpanishES]: string;
+  [Locale.SpanishLATAM]: string;
+  [Locale.Swedish]: string;
+  [Locale.Thai]: string;
+  [Locale.Turkish]: string;
+  [Locale.Ukrainian]: string;
+  [Locale.Vietnamese]: string;
 }
 
 /**
  * https://discord.com/developers/docs/reference#snowflakes
  */
 export type Snowflake = string;
+
+/**
+ * https://discord.com/developers/docs/reference#locales
+ */
+export enum Locale {
+  Bulgarian = "bg",
+  ChineseCN = "zh-CN",
+  ChineseTW = "zh-TW",
+  Croatian = "hr",
+  Czech = "cs",
+  Danish = "da",
+  Dutch = "nl",
+  EnglishUK = "en-GB",
+  EnglishUS = "en-US",
+  Finnish = "fi",
+  French = "fr",
+  German = "de",
+  Greek = "el",
+  Hindi = "hi",
+  Hungarian = "hu",
+  Indonesian = "id",
+  Italian = "it",
+  Japanese = "ja",
+  Korean = "ko",
+  Lithuanian = "lt",
+  Norwegian = "no",
+  Polish = "pl",
+  PortugueseBR = "pt-BR",
+  Romanian = "ro",
+  Russian = "ru",
+  SpanishES = "es-ES",
+  SpanishLATAM = "es-419",
+  Swedish = "sv-SE",
+  Thai = "th",
+  Turkish = "tr",
+  Ukrainian = "uk",
+  Vietnamese = "vi",
+}
