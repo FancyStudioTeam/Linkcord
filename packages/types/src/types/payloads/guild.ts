@@ -252,6 +252,11 @@ export interface APIIntegrationApplication {
 export interface APIPartialGuild extends Partial<APIGuild> {}
 
 /**
+ * https://discord.com/developers/docs/resources/guild#integration-object-integration-structure
+ */
+export interface APIPartialIntegration extends Partial<APIIntegration> {}
+
+/**
  * https://discord.com/developers/docs/resources/guild#unavailable-guild-object-example-unavailable-guild
  */
 export interface APIUnavailableGuild extends Pick<APIGuild, "id"> {
