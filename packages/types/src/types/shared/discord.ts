@@ -6,6 +6,11 @@ export type APIVersion = 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 /**
  * https://discord.com/developers/docs/reference#image-data
  */
+export type AudioData = `data:audio/mpeg;base64,${string}` | `data:audio/ogg;base64,${string}`;
+
+/**
+ * https://discord.com/developers/docs/reference#image-data
+ */
 export type ImageData =
   | `data:image/jpeg;base64,${string}`
   | `data:image/png;base64,${string}`
