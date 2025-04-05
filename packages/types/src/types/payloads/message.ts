@@ -1,6 +1,7 @@
 import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
 import type { APIPartialApplication } from "./application.js";
 import type { ChannelTypes } from "./channel.js";
+import type { APIPartialEmoji } from "./emoji.js";
 import type { APIResolvedData } from "./interaction.js";
 import type { APIPoll } from "./poll.js";
 import type { APIStickerItem } from "./sticker.js";
@@ -231,8 +232,7 @@ export interface APIReaction {
   burst_colors: string[];
   count: number;
   count_details: APIReactionCountDetails;
-  // TODO: Add "APIPartialEmoji" type
-  // emoji: APIPartialEmoji;
+  emoji: APIPartialEmoji;
   me: boolean;
   me_burst: boolean;
 }

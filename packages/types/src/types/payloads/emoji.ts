@@ -14,3 +14,8 @@ export interface APIEmoji {
   roles?: Snowflake[];
   user?: APIUser;
 }
+
+/**
+ * https://discord.com/developers/docs/resources/emoji#emoji-object-emoji-structure
+ */
+export interface APIPartialEmoji extends Partial<APIEmoji> {}
