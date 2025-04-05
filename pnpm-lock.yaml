@@ -27,32 +27,13 @@ importers:
         specifier: 5.8.2
         version: 5.8.2
 
-  packages/gateway:
-    dependencies:
-      '@fancystudioteam/linkcord-types':
-        specifier: workspace:*
-        version: link:../types
-    devDependencies:
-      vitest:
-        specifier: 3.1.1
-        version: 3.1.1(@types/node@22.13.11)(jiti@2.4.2)(tsx@4.19.3)(yaml@2.7.1)
-
-  packages/linkcord:
-    dependencies:
-      '@fancystudioteam/linkcord-types':
-        specifier: link:..\types
-        version: link:../types
-      ts-pattern:
-        specifier: 5.6.2
-        version: 5.6.2
-
   packages/types:
     devDependencies:
       '@microsoft/api-documenter':
-        specifier: ^7.26.19
+        specifier: 7.26.19
         version: 7.26.19(@types/node@22.13.11)
       '@microsoft/api-extractor':
-        specifier: ^7.52.3
+        specifier: 7.52.3
         version: 7.52.3(@types/node@22.13.11)
       typedoc:
         specifier: 0.28.1
@@ -1048,9 +1029,6 @@ packages:
   tinyspy@3.0.2:
     resolution: {integrity: sha512-n1cw8k1k0x4pgA2+9XrOkFydTerNcJ1zWCO5Nn9scWHTD+5tp8dghT2x1uduQePZTZgd3Tupf+x9BxJjeJi77Q==}
     engines: {node: '>=14.0.0'}
-
-  ts-pattern@5.6.2:
-    resolution: {integrity: sha512-d4IxJUXROL5NCa3amvMg6VQW2HVtZYmUTPfvVtO7zJWGYLJ+mry9v2OmYm+z67aniQoQ8/yFNadiEwtNS9qQiw==}
 
   tsx@4.19.3:
     resolution: {integrity: sha512-4H8vUNGNjQ4V2EOoGw005+c+dGuPSnhpPBPHBtsZdGZBk/iJb4kguGlPWaZTZ3q5nMtFOEsY0nRDlh9PJyd6SQ==}
@@ -2142,8 +2120,6 @@ snapshots:
   tinyrainbow@2.0.0: {}
 
   tinyspy@3.0.2: {}
-
-  ts-pattern@5.6.2: {}
 
   tsx@4.19.3:
     dependencies:

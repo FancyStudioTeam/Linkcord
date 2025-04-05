@@ -15,7 +15,9 @@
     "url": "https://github.com/FancyStudioTeam/Linkcord"
   },
   "scripts": {
-    "prepare": "husky"
+    "build": "turbo run build",
+    "prepare": "husky",
+    "vitest": "turbo run vitest"
   },
   "version": "0.0.0"
 }
