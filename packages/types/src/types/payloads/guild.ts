@@ -17,6 +17,22 @@ export interface APIBan {
 /**
  * https://discord.com/developers/docs/resources/guild#guild-object-guild-structure
  */
+export interface APICurrentUserGuild
+  extends Pick<
+    APIGuild,
+    | "approximate_member_count"
+    | "approximate_presence_count"
+    | "features"
+    | "icon"
+    | "id"
+    | "name"
+    | "owner"
+    | "permissions"
+  > {}
+
+/**
+ * https://discord.com/developers/docs/resources/guild#guild-object-guild-structure
+ */
 export interface APIGuild {
   afk_channel_id: Nullable<Snowflake>;
   afk_timeout: number;
