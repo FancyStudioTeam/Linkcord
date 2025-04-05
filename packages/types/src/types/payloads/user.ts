@@ -1,4 +1,5 @@
 import type { Nullable, Snowflake } from "#types/shared";
+import type { APIIntegration } from "./guild.js";
 
 /**
  * https://discord.com/developers/docs/resources/user#application-role-connection-object-application-role-connection-structure
@@ -23,13 +24,12 @@ export interface APIAvatarDecorationData {
 export interface APIConnection {
   friend_sync: boolean;
   id: Snowflake;
-  // TODO: Add "APIIntegration" or "APIPartialIntegration" type
-  // integrations?: APIIntegration[];
+  integrations?: APIIntegration[];
   name: string;
   revoked?: boolean;
   show_activity: boolean;
   two_way_link: boolean;
-  type: Services;
+  type: ConnectionServices;
   verified: boolean;
   visibility: VisibilityTypes;
 }
@@ -58,19 +58,9 @@ export interface APIUser {
 }
 
 /**
- * https://discord.com/developers/docs/resources/user#user-object-premium-types
- */
-export enum PremiumTypes {
-  Nitro = 2,
-  NitroBasic = 3,
-  NitroClassic = 1,
-  None = 0,
-}
-
-/**
  * https://discord.com/developers/docs/resources/user#connection-object-services
  */
-export enum Services {
+export enum ConnectionServices {
   AmazonMusic = "amazon-music",
   BattleNet = "battlenet",
   Bluesky = "bluesky",
@@ -96,6 +86,16 @@ export enum Services {
   Twitter = "twitter",
   Xbox = "xbox",
   YouTube = "youtube",
+}
+
+/**
+ * https://discord.com/developers/docs/resources/user#user-object-premium-types
+ */
+export enum PremiumTypes {
+  Nitro = 2,
+  NitroBasic = 3,
+  NitroClassic = 1,
+  None = 0,
 }
 
 /**
