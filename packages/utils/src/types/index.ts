@@ -3,7 +3,7 @@ export type If<Condition, TrueResult, FalseResult = null> = Condition extends tr
   ? TrueResult
   : Condition extends false
     ? FalseResult
-    : TrueResult | FalseResult;
+    : never;
 
 /** Represents a type that is either the defined type or `null`. */
 export type Nullable<Type> = Type | null;
