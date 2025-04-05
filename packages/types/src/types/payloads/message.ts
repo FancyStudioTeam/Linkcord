@@ -1,5 +1,6 @@
 import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
 import type { ChannelTypes } from "./channel.js";
+import type { APIResolvedData } from "./interaction.js";
 import type { APIPoll } from "./poll.js";
 import type { APIStickerItem } from "./sticker.js";
 import type { APIUser } from "./user.js";
@@ -164,8 +165,7 @@ export interface APIMessage {
   position?: number;
   reactions?: APIReaction[];
   referenced_message?: Nullable<APIMessage>;
-  // TODO: Add "APIResolvedData" type
-  // resolved?: APIResolvedData;
+  resolved?: APIResolvedData;
   role_subscription_data?: APIRoleSubscriptionData;
   sticker_items?: APIStickerItem[];
   // TODO: Current type is invalid, need to create a better one
