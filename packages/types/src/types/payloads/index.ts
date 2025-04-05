@@ -1,3 +1,4 @@
+export * from "./application-role-connection-metadata.js";
 export * from "./application.js";
 export * from "./auto-moderation.js";
 export * from "./channel.js";
