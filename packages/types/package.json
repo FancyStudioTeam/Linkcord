@@ -1,4 +1,7 @@
 {
+  "dependencies": {
+    "@fancystudioteam/linkcord-utils": "workspace:*"
+  },
   "devDependencies": {
     "@microsoft/api-documenter": "7.26.19",
     "@microsoft/api-extractor": "7.52.3",

@@ -28,6 +28,10 @@ importers:
         version: 5.8.2
 
   packages/types:
+    dependencies:
+      '@fancystudioteam/linkcord-utils':
+        specifier: workspace:*
+        version: link:../utils
     devDependencies:
       '@microsoft/api-documenter':
         specifier: 7.26.19
