@@ -20,7 +20,7 @@ import type { APIUser } from "./user.js";
  * https://discord.com/developers/docs/interactions/message-components#action-rows
  */
 export interface APIActionRow {
-  components: APIComponent[];
+  components: APIActionRowComponent[];
   type: ComponentTypes.ActionRow;
 }
 
@@ -271,7 +271,13 @@ export interface APITextInput {
 /**
  * https://discord.com/developers/docs/interactions/message-components#message-components
  */
-export type APIComponent = APIActionRow | APIButton | APISelectMenu | APITextInput;
+export type APIActionRowComponent = APIActionRow | APIButton | APISelectMenu | APITextInput;
+
+/**
+ * https://discord.com/developers/docs/interactions/message-components#message-components
+ */
+// TODO: Add `APIUIKitComponent` type.
+export type APIComponent = APIActionRowComponent;
 
 /**
  * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-data-structure
