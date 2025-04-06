@@ -1,47 +1,64 @@
 import type { Snowflake } from "#types/shared";
+import type { APIButtonComponentBase, APIComponentBase, APISelectMenuComponentBase } from "./base/component.js";
 import type { ChannelTypes } from "./channel.js";
 import type { APIPartialEmoji } from "./emoji.js";
 
 /**
  * https://discord.com/developers/docs/interactions/message-components#action-rows
  */
-export interface APIActionRow {
+export interface APIActionRow extends Omit<APIComponentBase<ComponentTypes.ActionRow>, "disabled"> {
   components: APIActionRowComponent[];
-  type: ComponentTypes.ActionRow;
 }
 
 /**
  * https://discord.com/developers/docs/interactions/message-components#button-object-button-structure
  */
-export interface APIButton {
-  custom_id?: string;
-  disabled?: boolean;
-  emoji?: APIPartialEmoji;
-  label?: string;
-  sku_id?: Snowflake;
-  style: ButtonStyles;
-  type: ComponentTypes.Button;
-  url?: string;
+export interface APIButtonWithCustomId
+  extends APIButtonComponentBase<
+    ButtonStyles.Danger | ButtonStyles.Primary | ButtonStyles.Secondary | ButtonStyles.Success
+  > {
+  custom_id: string;
+}
+
+/**
+ * https://discord.com/developers/docs/interactions/message-components#button-object-button-structure
+ */
+export interface APIButtonWithSKUId extends Omit<APIButtonComponentBase<ButtonStyles.Premium>, "emoji" | "label"> {
+  sku_id: Snowflake;
+}
+
+/**
+ * https://discord.com/developers/docs/interactions/message-components#button-object-button-structure
+ */
+export interface APIButtonWithUrl extends APIButtonComponentBase<ButtonStyles.Link> {
+  url: string;
 }
 
 /**
  * https://discord.com/developers/docs/interactions/message-components#select-menu-object-select-menu-structure
  */
-export interface APISelectMenu {
+export interface APISelectMenuWithChannelTypes extends APISelectMenuComponentBase<ComponentTypes.ChannelSelect> {
   channel_types?: ChannelTypes[];
-  custom_id: string;
-  default_values?: APISelectMenuDefaultValue[];
-  disabled?: boolean;
-  max_values?: number;
-  min_values?: number;
-  options?: APISelectMenuOption[];
-  type:
-    | ComponentTypes.StringSelect
+}
+
+/**
+ * https://discord.com/developers/docs/interactions/message-components#select-menu-object-select-menu-structure
+ */
+export interface APISelectMenuWithDefaultValues
+  extends APISelectMenuComponentBase<
+    | ComponentTypes.ChannelSelect
     | ComponentTypes.UserSelect
-    | ComponentTypes.RoleSelect
     | ComponentTypes.MentionableSelect
-    | ComponentTypes.ChannelSelect;
-  placeholder?: string;
+    | ComponentTypes.RoleSelect
+  > {
+  default_values?: APISelectMenuDefaultValue[];
+}
+
+/**
+ * https://discord.com/developers/docs/interactions/message-components#select-menu-object-select-menu-structure
+ */
+export interface APISelectMenuWithOptions extends APISelectMenuComponentBase<ComponentTypes.StringSelect> {
+  options: APISelectMenuOption[];
 }
 
 /**
@@ -66,7 +83,7 @@ export interface APISelectMenuOption {
 /**
  * https://discord.com/developers/docs/interactions/message-components#text-input-object-text-input-structure
  */
-export interface APITextInput {
+export interface APITextInput extends Omit<APIComponentBase<ComponentTypes.TextInput>, "disabled"> {
   custom_id: string;
   label: string;
   max_length?: number;
@@ -74,7 +91,6 @@ export interface APITextInput {
   placeholder?: string;
   required?: boolean;
   style: TextInputStyles;
-  type: ComponentTypes.TextInput;
   value?: string;
 }
 
@@ -84,10 +100,20 @@ export interface APITextInput {
 export type APIActionRowComponent = APIActionRow | APIButton | APISelectMenu | APITextInput;
 
 /**
+ * https://discord.com/developers/docs/interactions/message-components#buttons
+ */
+export type APIButton = APIButtonWithCustomId | APIButtonWithSKUId | APIButtonWithUrl;
+
+/**
  * https://discord.com/developers/docs/interactions/message-components#message-components
  */
 // TODO: Add `APIUIKitComponent` type.
 export type APIComponent = APIActionRowComponent;
+
+/**
+ * https://discord.com/developers/docs/interactions/message-components#select-menus
+ */
+export type APISelectMenu = APISelectMenuWithChannelTypes | APISelectMenuWithDefaultValues | APISelectMenuWithOptions;
 
 /**
  * https://discord.com/developers/docs/interactions/message-components#button-object-button-styles
