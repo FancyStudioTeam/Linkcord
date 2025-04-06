@@ -1,5 +1,6 @@
 import type { RESTPollCreateRequest } from "#types/rest";
 import type { Locale, Localizations, Snowflake } from "#types/shared";
+import type { ApplicationCommandOptionTypes, ApplicationCommandTypes } from "./application-command.js";
 import { ApplicationIntegrationTypes } from "./application.js";
 import type { APIPartialChannel, ChannelTypes } from "./channel.js";
 import type { APIPartialEmoji } from "./emoji.js";
@@ -294,33 +295,6 @@ export type APIInteractionData =
   | APIApplicationCommandInteractionData
   | APIMessageComponentInteractionData
   | APIModalSubmitInteractionData;
-
-/**
- * https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
- */
-export enum ApplicationCommandOptionTypes {
-  Attachment = 11,
-  Boolean = 5,
-  Channel = 7,
-  Integer = 4,
-  Mentionable = 9,
-  Number = 10,
-  Role = 8,
-  String = 3,
-  User = 6,
-  SubCommand = 1,
-  SubCommandGroup = 2,
-}
-
-/**
- * https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
- */
-export enum ApplicationCommandTypes {
-  ChatInput = 1,
-  User = 2,
-  Message = 3,
-  PrimaryEntryPoint = 4,
-}
 
 /**
  * https://discord.com/developers/docs/interactions/message-components#button-object-button-styles
