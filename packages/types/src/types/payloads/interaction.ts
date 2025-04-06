@@ -3,7 +3,7 @@ import type { Locale, Localizations, Snowflake } from "#types/shared";
 import type { ApplicationCommandOptionTypes, ApplicationCommandTypes } from "./application-command.js";
 import { ApplicationIntegrationTypes } from "./application.js";
 import type { APIPartialChannel } from "./channel.js";
-import type { APIComponent, APITextInput, ComponentTypes } from "./component.js";
+import type { APIComponent, APITextInputComponent, ComponentTypes } from "./component.js";
 import type { APIEntitlement } from "./entitlement.js";
 import type { APIGuildMember, APIPartialGuild } from "./guild.js";
 import type {
@@ -123,7 +123,7 @@ export interface APIInteractionCallbackDataMessage {
 export interface APIInteractionCallbackDataModal {
   custom_id: string;
   title: string;
-  components: APITextInput[];
+  components: APITextInputComponent[];
 }
 
 /**
