@@ -4,7 +4,7 @@ import type { APIPartialEmoji } from "../emoji.js";
 /**
  * https://discord.com/developers/docs/interactions/message-components#component-object-example-component
  */
-export interface APIComponentBase<Type extends ComponentTypes = ComponentTypes> {
+export interface APIComponentBase<Type extends ComponentTypes> {
   disabled?: boolean;
   type: Type;
 }
