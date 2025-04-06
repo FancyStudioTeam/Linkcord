@@ -148,14 +148,6 @@ export interface APIInteractionCallbackDataModal {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-response-object
- */
-export interface APIInteractionCallbackResponse {
-  interaction: APIInteractionCallback;
-  resource?: APIInteractionCallbackResource;
-}
-
-/**
  * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-resource-object
  */
 export interface APIInteractionCallbackResource {
@@ -169,6 +161,14 @@ export interface APIInteractionCallbackResource {
  */
 export interface APIInteractionCallbackResourceActivityInstance {
   id: Snowflake;
+}
+
+/**
+ * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-response-object
+ */
+export interface APIInteractionCallbackResponse {
+  interaction: APIInteractionCallback;
+  resource?: APIInteractionCallbackResource;
 }
 
 /**
