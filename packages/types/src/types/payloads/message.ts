@@ -374,6 +374,7 @@ export enum MessageFlags {
   FailedToMentionSomeRolesInThread = 1 << 8,
   HasSnapshot = 1 << 14,
   HasThread = 1 << 5,
+  IsComponentsV2 = 1 << 15,
   IsCrosspost = 1 << 1,
   IsVoiceMessage = 1 << 13,
   Loading = 1 << 7,
