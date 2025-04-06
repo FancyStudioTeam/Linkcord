@@ -236,10 +236,17 @@ export enum ComponentTypes {
   ActionRow = 1,
   Button = 2,
   ChannelSelect = 8,
+  Container = 17,
+  File = 13,
+  MediaGallery = 12,
   MentionableSelect = 7,
   RoleSelect = 6,
+  Section = 9,
+  Separator = 14,
   StringSelect = 3,
+  TextDisplay = 10,
   TextInput = 4,
+  Thumbnail = 11,
   UserSelect = 5,
 }
 
