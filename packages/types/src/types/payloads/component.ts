@@ -1,19 +1,24 @@
-import type { Snowflake } from "#types/shared";
-import type { APIButtonComponentBase, APIComponentBase, APISelectMenuComponentBase } from "./base/component.js";
+import type { Nullable, Snowflake } from "#types/shared";
+import type {
+  APIButtonComponentBase,
+  APIComponentBase,
+  APIComponentV2Base,
+  APISelectMenuComponentBase,
+} from "./base/component.js";
 import type { ChannelTypes } from "./channel.js";
 import type { APIPartialEmoji } from "./emoji.js";
 
 /**
  * https://discord.com/developers/docs/interactions/message-components#action-rows
  */
-export interface APIActionRow extends Omit<APIComponentBase<ComponentTypes.ActionRow>, "disabled"> {
-  components: APIActionRowComponent[];
+export interface APIActionRowComponent extends Omit<APIComponentBase<ComponentTypes.ActionRow>, "disabled"> {
+  components: APIActionRowComponents[];
 }
 
 /**
  * https://discord.com/developers/docs/interactions/message-components#button-object-button-structure
  */
-export interface APIButtonWithCustomId
+export interface APIButtonComponentWithCustomId
   extends APIButtonComponentBase<
     ButtonStyles.Danger | ButtonStyles.Primary | ButtonStyles.Secondary | ButtonStyles.Success
   > {
@@ -23,28 +28,71 @@ export interface APIButtonWithCustomId
 /**
  * https://discord.com/developers/docs/interactions/message-components#button-object-button-structure
  */
-export interface APIButtonWithSKUId extends Omit<APIButtonComponentBase<ButtonStyles.Premium>, "emoji" | "label"> {
+export interface APIButtonComponentWithSKUId
+  extends Omit<APIButtonComponentBase<ButtonStyles.Premium>, "emoji" | "label"> {
   sku_id: Snowflake;
 }
 
 /**
  * https://discord.com/developers/docs/interactions/message-components#button-object-button-structure
  */
-export interface APIButtonWithUrl extends APIButtonComponentBase<ButtonStyles.Link> {
+export interface APIButtonComponentWithUrl extends APIButtonComponentBase<ButtonStyles.Link> {
   url: string;
+}
+
+/**
+ * TODO: Add Discord reference url for `APIContainerComponent`.
+ */
+export interface APIContainerComponent extends APIComponentV2Base<ComponentTypes.Container> {
+  accent_color?: number;
+  components: APIContainerComponents[];
+  spoiler?: boolean;
+}
+
+/**
+ * TODO: Add Discord reference url for `APIFileComponent`.
+ */
+export interface APIFileComponent extends APIComponentV2Base<ComponentTypes.File> {
+  file: APIUnfurledMediaItem;
+  spoiler?: boolean;
+}
+
+/**
+ * TODO: Add Discord reference url for `APIMediaGalleryComponent`.
+ */
+export interface APIMediaGalleryComponent extends APIComponentV2Base<ComponentTypes.MediaGallery> {
+  items: APIMediaGalleryItem[];
+}
+
+/**
+ * TODO: Add Discord reference url for `APIMediaGalleryItem`.
+ */
+export interface APIMediaGalleryItem {
+  description?: Nullable<string>;
+  media: APIUnfurledMediaItem;
+  spoiler?: boolean;
+}
+
+/**
+ * TODO: Add Discord reference url for `APISectionComponent`.
+ */
+export interface APISectionComponent extends APIComponentV2Base<ComponentTypes.Section> {
+  accessory: APISectionAccessory;
+  components: APITextDisplayComponent[];
 }
 
 /**
  * https://discord.com/developers/docs/interactions/message-components#select-menu-object-select-menu-structure
  */
-export interface APISelectMenuWithChannelTypes extends APISelectMenuComponentBase<ComponentTypes.ChannelSelect> {
+export interface APISelectMenuComponentWithChannelTypes
+  extends APISelectMenuComponentBase<ComponentTypes.ChannelSelect> {
   channel_types?: ChannelTypes[];
 }
 
 /**
  * https://discord.com/developers/docs/interactions/message-components#select-menu-object-select-menu-structure
  */
-export interface APISelectMenuWithDefaultValues
+export interface APISelectMenuComponentWithDefaultValues
   extends APISelectMenuComponentBase<
     | ComponentTypes.ChannelSelect
     | ComponentTypes.UserSelect
@@ -57,7 +105,7 @@ export interface APISelectMenuWithDefaultValues
 /**
  * https://discord.com/developers/docs/interactions/message-components#select-menu-object-select-menu-structure
  */
-export interface APISelectMenuWithOptions extends APISelectMenuComponentBase<ComponentTypes.StringSelect> {
+export interface APISelectMenuComponentWithOptions extends APISelectMenuComponentBase<ComponentTypes.StringSelect> {
   options: APISelectMenuOption[];
 }
 
@@ -81,9 +129,24 @@ export interface APISelectMenuOption {
 }
 
 /**
+ * TODO: Add Discord reference url for `APISeparatorComponent`.
+ */
+export interface APISeparatorComponent extends APIComponentV2Base<ComponentTypes.Separator> {
+  divider?: boolean;
+  spacing?: SeparatorSpacingSizes;
+}
+
+/**
+ * TODO: Add Discord reference url for `APITextDisplayComponent`.
+ */
+export interface APITextDisplayComponent extends APIComponentV2Base<ComponentTypes.TextDisplay> {
+  content: string;
+}
+
+/**
  * https://discord.com/developers/docs/interactions/message-components#text-input-object-text-input-structure
  */
-export interface APITextInput extends Omit<APIComponentBase<ComponentTypes.TextInput>, "disabled"> {
+export interface APITextInputComponent extends Omit<APIComponentBase<ComponentTypes.TextInput>, "disabled"> {
   custom_id: string;
   label: string;
   max_length?: number;
@@ -95,25 +158,76 @@ export interface APITextInput extends Omit<APIComponentBase<ComponentTypes.TextI
 }
 
 /**
+ * TODO: Add Discord reference url for `APIThumbnailComponent`.
+ */
+export interface APIThumbnailComponent extends APIComponentV2Base<ComponentTypes.Thumbnail> {
+  description?: Nullable<string>;
+  media: APIUnfurledMediaItem;
+  spoiler?: boolean;
+}
+
+/**
+ * TODO: Add Discord reference url for `APIUnfurledMediaItem`.
+ */
+export interface APIUnfurledMediaItem {
+  url: string;
+}
+
+/**
  * https://discord.com/developers/docs/interactions/message-components#message-components
  */
-export type APIActionRowComponent = APIActionRow | APIButton | APISelectMenu | APITextInput;
+export type APIActionRowComponents =
+  | APIActionRowComponent
+  | APIButtonComponent
+  | APISelectMenuComponent
+  | APITextInputComponent;
 
 /**
  * https://discord.com/developers/docs/interactions/message-components#buttons
  */
-export type APIButton = APIButtonWithCustomId | APIButtonWithSKUId | APIButtonWithUrl;
+export type APIButtonComponent =
+  | APIButtonComponentWithCustomId
+  | APIButtonComponentWithSKUId
+  | APIButtonComponentWithUrl;
 
 /**
  * https://discord.com/developers/docs/interactions/message-components#message-components
  */
-// TODO: Add `APIUIKitComponent` type.
-export type APIComponent = APIActionRowComponent;
+export type APIComponent = APIActionRowComponents | APIComponentsV2;
+
+/**
+ * https://discord.com/developers/docs/interactions/message-components#message-components
+ */
+export type APIComponentsV2 =
+  | APIContainerComponent
+  | APIMediaGalleryComponent
+  | APISectionComponent
+  | APISeparatorComponent
+  | APITextDisplayComponent
+  | APIThumbnailComponent;
+
+/**
+ * TODO: Add Discord reference url for `APIContainerComponents`.
+ */
+export type APIContainerComponents =
+  | APIFileComponent
+  | APIMediaGalleryComponent
+  | APISectionComponent
+  | APISeparatorComponent
+  | APITextDisplayComponent;
+
+/**
+ * TODO: Add Discord reference url for `APISectionAccessory`.
+ */
+export type APISectionAccessory = APIButtonComponent | APIThumbnailComponent;
 
 /**
  * https://discord.com/developers/docs/interactions/message-components#select-menus
  */
-export type APISelectMenu = APISelectMenuWithChannelTypes | APISelectMenuWithDefaultValues | APISelectMenuWithOptions;
+export type APISelectMenuComponent =
+  | APISelectMenuComponentWithChannelTypes
+  | APISelectMenuComponentWithDefaultValues
+  | APISelectMenuComponentWithOptions;
 
 /**
  * https://discord.com/developers/docs/interactions/message-components#button-object-button-styles
@@ -155,6 +269,14 @@ export enum SelectMenuDefaultValueTypes {
   Channel = "channel",
   Role = "role",
   User = "user",
+}
+
+/**
+ * TODO: Add Discord reference url for `SeparatorSpacingSizes`.
+ */
+export enum SeparatorSpacingSizes {
+  Small = 1,
+  Large = 2,
 }
 
 /**

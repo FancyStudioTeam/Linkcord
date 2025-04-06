@@ -10,6 +10,11 @@ export interface APIComponentBase<Type extends ComponentTypes> {
 }
 
 /**
+ * https://discord.com/developers/docs/interactions/message-components#component-object-example-component
+ */
+export interface APIComponentV2Base<Type extends AnyComponentV2Type> extends Omit<APIComponentBase<Type>, "disabled"> {}
+
+/**
  * https://discord.com/developers/docs/interactions/message-components#button-object-button-structure
  */
 export interface APIButtonComponentBase<Style extends ButtonStyles> extends APIComponentBase<ComponentTypes.Button> {
@@ -27,6 +32,18 @@ export interface APISelectMenuComponentBase<Type extends AnySelectMenuType> exte
   min_values?: number;
   placeholder?: string;
 }
+
+/**
+ * TODO: Add Discord reference url for `AnyComponentV2Type`.
+ */
+type AnyComponentV2Type =
+  | ComponentTypes.Container
+  | ComponentTypes.File
+  | ComponentTypes.MediaGallery
+  | ComponentTypes.Section
+  | ComponentTypes.Separator
+  | ComponentTypes.TextDisplay
+  | ComponentTypes.Thumbnail;
 
 /**
  * https://discord.com/developers/docs/interactions/message-components#select-menu-types
