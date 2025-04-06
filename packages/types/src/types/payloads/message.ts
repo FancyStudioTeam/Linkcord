@@ -1,6 +1,7 @@
 import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
 import type { APIPartialApplication } from "./application.js";
 import type { APIChannel, ChannelTypes } from "./channel.js";
+import type { APIComponent } from "./component.js";
 import type { APIPartialEmoji } from "./emoji.js";
 import type { APIAuthorizingIntegrationOwners, APIResolvedData, InteractionTypes } from "./interaction.js";
 import type { APIPoll } from "./poll.js";
@@ -157,8 +158,7 @@ export interface APIMessage {
   author: APIUser;
   call?: APIMessageCall;
   channel_id: Snowflake;
-  // TODO: Add "APIMessageComponent" type
-  // components?: APIMessageComponent[];
+  components?: APIComponent[];
   content: string;
   edited_timestamp: Nullable<ISO8601Date>;
   embeds: APIEmbed[];
@@ -312,14 +312,15 @@ export type APIMessageInteractionMetadata =
 /**
  * https://discord.com/developers/docs/resources/message#message-object-message-structure
  */
-// TODO: Add missing "components" and "mention_roles" fields
 export type APIMessageSnapshotMessage = Pick<
   APIMessage,
   | "attachments"
+  | "components"
   | "content"
   | "edited_timestamp"
   | "embeds"
   | "flags"
+  | "mention_roles"
   | "mentions"
   | "sticker_items"
   | "timestamp"
