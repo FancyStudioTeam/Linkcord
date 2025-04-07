@@ -8,7 +8,10 @@ import type { APIGuildMember } from "./guild.js";
 export interface APIVoiceRegion {
   /** Whether the region is a custom region. */
   custom: boolean;
-  /** Whether the region is deprecated. */
+  /**
+   * Whether the region is deprecated.
+   * @remarks Switching to deprecated regions should be avoided.
+   */
   deprecated: boolean;
   /** The unique id of the region. */
   id: string;
