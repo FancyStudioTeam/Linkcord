@@ -7,7 +7,7 @@ import type { APIUser } from "./user.js";
 export interface APISoundboardSound {
   /**
    * Whether the sound can be used.
-   * @remarks This can be `false` due to the loss of Server Boosts.
+   * @remarks This may be `false` due to the loss of Server Boosts.
    */
   available: boolean;
   /** The id of the custom emoji of the sound. */
