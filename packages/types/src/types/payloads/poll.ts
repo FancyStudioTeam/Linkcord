@@ -17,7 +17,7 @@ export interface APIPoll {
   expiry: Nullable<ISO8601Date>;
   /**
    * The layout type of the poll.
-   * @remarks Currently Discord only supports the {@link LayoutType.Default | Default} layout type.
+   * @remarks Currently Discord only supports the {@link LayoutTypes.Default | Default} layout type.
    */
   layout_type: LayoutTypes;
   /**
