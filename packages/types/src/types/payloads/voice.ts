@@ -2,7 +2,8 @@ import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
 import type { APIGuildMember } from "./guild.js";
 
 /**
- * https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure
+ * Represents a Discord voice region structure.
+ * @see https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure
  */
 export interface APIVoiceRegion {
   /** Whether the region is a custom region. */
@@ -18,7 +19,8 @@ export interface APIVoiceRegion {
 }
 
 /**
- * https://discord.com/developers/docs/resources/voice#voice-state-object-voice-state-structure
+ * Represents a Discord voice state structure.
+ * @see https://discord.com/developers/docs/resources/voice#voice-state-object-voice-state-structure
  */
 export interface APIVoiceState {
   /** The id of the channel where the user is connected to. */
