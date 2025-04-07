@@ -7,24 +7,24 @@ import type { APIUser } from "./user.js";
  */
 export interface APISoundboardSound {
   /**
-   * Whether the sound can be used.
+   * Whether the sounboard sound can be used.
    * @remarks This may be `false` due to the loss of Server Boosts.
    */
   available: boolean;
-  /** The id of the custom emoji of the sound. */
+  /** The id of the custom emoji of the soundboard sound. */
   emoji_id: Nullable<Snowflake>;
-  /** The unicode character of the sound. */
+  /** The unicode character of the soundboard sound. */
   emoji_name: Nullable<string>;
-  /** The id of the guild where the sound was created. */
+  /** The id of the guild where the soundboard sound was created. */
   guild_id?: Snowflake;
-  /** The name of the sound. */
+  /** The name of the soundboard sound. */
   name: string;
-  /** The id of the sound. */
+  /** The id of the soundboard sound. */
   sound_id: Snowflake;
-  /** The user who created the sound. */
+  /** The user who created the soundboard sound. */
   user?: APIUser;
   /**
-   * The volume of the sound.
+   * The volume of the soundboard sound.
    * @remarks This is a double value from 0 to 1.
    */
   volume: number;
