@@ -34,7 +34,8 @@ export interface APITeamMember {
 }
 
 /**
- * https://discord.com/developers/docs/topics/teams#team-member-roles-team-member-role-types
+ * The available role types for a team member.
+ * @see https://discord.com/developers/docs/topics/teams#team-member-roles-team-member-role-types
  */
 export enum TeamMemberRoleTypes {
   Admin = "admin",
@@ -43,7 +44,8 @@ export enum TeamMemberRoleTypes {
 }
 
 /**
- * https://discord.com/developers/docs/topics/teams#data-models-membership-state-enum
+ * The available membership states for a team member.
+ * @see https://discord.com/developers/docs/topics/teams#data-models-membership-state-enum
  */
 export enum TeamMembershipState {
   Accepted = 2,
