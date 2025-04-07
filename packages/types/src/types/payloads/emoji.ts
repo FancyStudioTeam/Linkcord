@@ -32,7 +32,8 @@ export interface APIEmoji {
 
 /**
  * Represents a Discord partial emoji structure.
- * @remarks This is not documented in the Discord API documentation.
- * @remarks Commontly used in components and polls.
+ * @remarks
+ * - This is not documented in the Discord API documentation.
+ * - Commontly used in components and polls.
  */
 export interface APIPartialEmoji extends Partial<Pick<APIEmoji, "animated" | "id" | "name">> {}
