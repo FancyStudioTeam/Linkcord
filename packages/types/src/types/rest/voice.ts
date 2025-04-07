@@ -4,17 +4,21 @@ import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
 /**
  * https://discord.com/developers/docs/resources/voice#modify-current-user-voice-state-json-params
  */
-export interface RESTModifyCurrentUserVoiceStateJSONParams {
-  channel_id?: Snowflake;
+export interface RESTModifyCurrentUserVoiceStateJSONParams extends RESTModifyUserVoiceStateJSONParams {
+  /**
+   * The time at which the user requested to speak.
+   * @remarks You are able to set `request_to_speak_timestamp` to any present or future time.
+   */
   request_to_speak_timestamp?: Nullable<ISO8601Date>;
-  suppress?: boolean;
 }
 
 /**
  * https://discord.com/developers/docs/resources/voice#modify-user-voice-state-json-params
  */
 export interface RESTModifyUserVoiceStateJSONParams {
+  /** The id of the channel to which the user is connected. */
   channel_id: Snowflake;
+  /** Whether the user should be suppressed from speaking. */
   supress?: boolean;
 }
 

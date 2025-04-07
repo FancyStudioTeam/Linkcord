@@ -26,7 +26,7 @@ export interface APIVoiceRegion {
  * @see https://discord.com/developers/docs/resources/voice#voice-state-object-voice-state-structure
  */
 export interface APIVoiceState {
-  /** The id of the channel where the user is connected to. */
+  /** The id of the channel to which the user is connected. */
   channel_id: Nullable<Snowflake>;
   /** Whether the user is deafened in the guild. */
   deaf: boolean;
