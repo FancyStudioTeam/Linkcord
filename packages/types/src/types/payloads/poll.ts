@@ -19,7 +19,7 @@ export interface APIPoll {
    * The layout type of the poll.
    * @remarks Currently Discord only supports the {@link LayoutType.Default | Default} layout type.
    */
-  layout_type: LayoutType;
+  layout_type: LayoutTypes;
   /**
    * The question of the poll.
    * @remarks This is an {@link APIPollMedia} object which only allows the {@link APIPollMedia.text | text} property.
@@ -91,6 +91,6 @@ export interface APIPollResults {
  * The available layout types for a poll.
  * @see https://discord.com/developers/docs/resources/poll#layout-type
  */
-export enum LayoutType {
+export enum LayoutTypes {
   Default = 1,
 }
