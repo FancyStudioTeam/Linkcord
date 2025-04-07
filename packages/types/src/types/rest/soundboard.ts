@@ -1,5 +1,5 @@
 import type { APISoundboardSound } from "#types/payloads";
-import type { AudioData, Nullable } from "#types/shared";
+import type { AudioData, Nullable, Snowflake } from "#types/shared";
 
 /**
  * https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound-json-params
@@ -22,18 +22,16 @@ export interface RESTListGuildSoundboardSounds {
 /**
  * https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound-json-params
  */
-export interface RESTModifyGuildSoundboardSoundJSONParams {
-  emoji_id?: Nullable<string>;
-  emoji_name?: Nullable<string>;
-  name: string;
-  volume: Nullable<number>;
+export interface RESTModifyGuildSoundboardSoundJSONParams
+  extends Partial<Pick<RESTCreateGuildSoundboardSoundJSONParams, "emoji_id" | "emoji_name" | "name" | "volume">> {
+  name?: string;
 }
 
 /**
  * https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound-json-params
  */
 export interface RESTSendSoundboardSoundJSONParams {
-  channel_id: string;
+  sound_id: Snowflake;
   source_guild_id?: string;
 }
 
