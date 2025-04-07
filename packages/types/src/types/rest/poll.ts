@@ -1,4 +1,4 @@
-import type { APIMessage, APIPollAnswer, APIPollQuestion, APIPollResults, APIUser, LayoutType } from "#types/payloads";
+import type { APIMessage, APIPollAnswer, APIPollQuestion, APIPollResults, APIUser, LayoutTypes } from "#types/payloads";
 import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
 
 /**
@@ -23,7 +23,7 @@ export interface RESTPollCreateRequest {
   allow_multiselect: boolean;
   answers: APIPollAnswer[];
   expiry: Nullable<ISO8601Date>;
-  layout_type: LayoutType;
+  layout_type: LayoutTypes;
   question: APIPollQuestion;
   results?: APIPollResults;
 }
