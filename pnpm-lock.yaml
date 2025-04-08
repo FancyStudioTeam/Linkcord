@@ -27,11 +27,13 @@ importers:
         specifier: 5.8.2
         version: 5.8.2
 
-  packages/types:
+  packages/linkcord:
     dependencies:
-      '@fancystudioteam/linkcord-utils':
+      '@fancystudioteam/linkcord-types':
         specifier: workspace:*
-        version: link:../utils
+        version: link:../types
+
+  packages/types:
     devDependencies:
       '@microsoft/api-documenter':
         specifier: 7.26.19
@@ -48,15 +50,6 @@ importers:
       typescript:
         specifier: 5.8.2
         version: 5.8.2
-      vitest:
-        specifier: 3.1.1
-        version: 3.1.1(@types/node@22.13.11)(jiti@2.4.2)(tsx@4.19.3)(yaml@2.7.1)
-
-  packages/utils:
-    devDependencies:
-      vite:
-        specifier: 6.2.5
-        version: 6.2.5(@types/node@22.13.11)(jiti@2.4.2)(tsx@4.19.3)(yaml@2.7.1)
       vitest:
         specifier: 3.1.1
         version: 3.1.1(@types/node@22.13.11)(jiti@2.4.2)(tsx@4.19.3)(yaml@2.7.1)
