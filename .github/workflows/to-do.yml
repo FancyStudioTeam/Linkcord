@@ -3,7 +3,7 @@ name: ✏️ To-Do to Issue
 on: [push, pull_request]
 
 jobs:
-  build:
+  to-do:
     permissions:
       issues: write
 

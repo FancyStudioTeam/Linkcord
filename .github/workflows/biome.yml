@@ -1,0 +1,18 @@
+name: 🔺 Biome Code Quality
+
+on: [push, pull_request]
+
+jobs:
+  biome:
+    permissions:
+      contents: read
+      pull-requests: write
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📂 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🔍 Check code with Biome
+        uses: mongolyy/reviewdog-action-biome@v1
