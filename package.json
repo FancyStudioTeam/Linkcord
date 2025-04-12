@@ -18,6 +18,5 @@
     "build": "turbo run build",
     "prepare": "husky",
     "vitest": "turbo run vitest"
-  },
-  "version": "0.0.0"
+  }
 }
