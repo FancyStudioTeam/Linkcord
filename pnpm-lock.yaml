@@ -43,13 +43,13 @@ importers:
         version: 7.52.3(@types/node@22.14.1)
       typedoc:
         specifier: 0.28.1
-        version: 0.28.1(typescript@5.8.2)
+        version: 0.28.1(typescript@5.8.3)
       typedoc-material-theme:
         specifier: 1.3.0
-        version: 1.3.0(typedoc@0.28.1(typescript@5.8.2))
+        version: 1.3.0(typedoc@0.28.1(typescript@5.8.3))
       typescript:
-        specifier: 5.8.2
-        version: 5.8.2
+        specifier: 5.8.3
+        version: 5.8.3
       vitest:
         specifier: 3.1.1
         version: 3.1.1(@types/debug@4.1.12)(@types/node@22.14.1)(jiti@2.4.2)(tsx@4.19.3)(yaml@2.7.1)
@@ -2449,18 +2449,18 @@ snapshots:
       turbo-windows-64: 2.5.0
       turbo-windows-arm64: 2.5.0
 
-  typedoc-material-theme@1.3.0(typedoc@0.28.1(typescript@5.8.2)):
+  typedoc-material-theme@1.3.0(typedoc@0.28.1(typescript@5.8.3)):
     dependencies:
       '@material/material-color-utilities': 0.3.0
-      typedoc: 0.28.1(typescript@5.8.2)
+      typedoc: 0.28.1(typescript@5.8.3)
 
-  typedoc@0.28.1(typescript@5.8.2):
+  typedoc@0.28.1(typescript@5.8.3):
     dependencies:
       '@gerrit0/mini-shiki': 3.2.2
       lunr: 2.3.9
       markdown-it: 14.1.0
       minimatch: 9.0.5
-      typescript: 5.8.2
+      typescript: 5.8.3
       yaml: 2.7.1
 
   typescript@5.8.2: {}
