@@ -34,7 +34,7 @@ export interface APISelectMenuComponentBase<Type extends AnySelectMenuType> exte
 }
 
 /**
- * TODO: Add Discord reference url for `AnyComponentV2Type`.
+ * Not documented by Discord yet.
  */
 type AnyComponentV2Type =
   | ComponentTypes.Container
