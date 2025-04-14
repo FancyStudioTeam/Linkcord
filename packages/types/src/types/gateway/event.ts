@@ -1,57 +1,30 @@
-import type { APIUser } from "#types/payloads";
+import type { APIUnavailableGuild } from "#types/payloads";
 import type { APIVersion, Nullable, Snowflake } from "#types/shared";
 import type { GatewayActivity } from "./activity.js";
 import type { GatewayDispatchEventBase, GatewayEventBase } from "./base/event.js";
+import type { GatewayDispatchGuildBanAddEvent, GatewayDispatchGuildBanRemoveEvent } from "./events/index.js";
 
 /**
- * Represents the Discord gateway payload for the `GUILD_BAN_ADD` event.
- * @see https://discord.com/developers/docs/events/gateway-events#guild-ban-add
- */
-export interface GatewayDispatchGuildBanAddEvent
-  extends GatewayDispatchEventBase<GatewayDispatchEvents.GuildBanAdd, GatewayDispatchGuildBanAddEventData> {}
-
-/**
- * Represents the Discord gateway payload data for the `GUILD_BAN_ADD` event.
- * @see https://discord.com/developers/docs/events/gateway-events#guild-ban-add-guild-ban-add-event-fields
- */
-export interface GatewayDispatchGuildBanAddEventData {
-  /** The id of the guild where the ban was added. */
-  guild_id: Snowflake;
-  /** The user who was banned. */
-  user: APIUser;
-}
-
-/**
- * Represents the Discord gateway payload for the `GUILD_BAN_REMOVE` event.
- * @see https://discord.com/developers/docs/events/gateway-events#guild-ban-remove
- */
-export interface GatewayDispatchGuildBanRemoveEvent
-  extends GatewayDispatchEventBase<GatewayDispatchEvents.GuildBanRemove, GatewayDispatchGuildBanRemoveEventPayload> {}
-
-/**
- * Represents the Discord gateway payload data for the `GUILD_BAN_REMOVE` event.
- * @see https://discord.com/developers/docs/events/gateway-events#guild-ban-remove-guild-ban-remove-event-fields
- */
-export interface GatewayDispatchGuildBanRemoveEventPayload {
-  /** The id of the guild where the ban was removed. */
-  guild_id: Snowflake;
-  /** The user who was unbanned. */
-  user: APIUser;
-}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#ready
+ * Represents the Discord gateway payload for the `READY` event.
+ * @see https://discord.com/developers/docs/events/gateway-events#ready
  */
 export interface GatewayDispatchReadyEvent
   extends GatewayDispatchEventBase<GatewayDispatchEvents.Ready, GatewayDispatchReadyEventPayload> {}
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#ready-ready-event-fields
+ * Represents the Discord gateway payload data for the `READY` event.
+ * @see https://discord.com/developers/docs/events/gateway-events#ready-ready-event-fields
  */
 export interface GatewayDispatchReadyEventPayload {
+  /** The list of unavailable guilds. */
+  guilds: APIUnavailableGuild[];
+  /** A gateway url which can be used to resume connections to the gateway. */
   resume_gateway_url: string;
+  /**  */
   session_id: string;
-  shard: [number, number];
+  /**   */
+  shard?: [number, number];
+  /** The Discord gateway version. */
   v: APIVersion;
 }
 
