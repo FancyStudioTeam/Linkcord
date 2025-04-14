@@ -1,3 +1,4 @@
+import type { Nullable } from "#types/shared";
 import type { GatewayEventBase } from "../base/event.js";
 import type { GatewayOpcodes } from "../event.js";
 
@@ -12,4 +13,4 @@ export interface GatewayHeartbeatEvent extends GatewayEventBase<GatewayOpcodes.H
  * @see https://discord.com/developers/docs/events/gateway-events#heartbeat-example-heartbeat
  * @remarks This may be `null` when the sequence number was not received yet.
  */
-export type GatewayHeartbeatEventData = number | null;
+export type GatewayHeartbeatEventData = Nullable<number>;
