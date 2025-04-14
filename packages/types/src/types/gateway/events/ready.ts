@@ -16,7 +16,10 @@ export interface GatewayDispatchReadyEvent
  * @see https://discord.com/developers/docs/events/gateway-events#ready-ready-event-fields
  */
 export interface GatewayDispatchReadyEventData {
-  /** The partial application. */
+  /**
+   * The partial application.
+   * @remarks This object only contains the `flags` and `id` properties.
+   */
   application: GatewayApplication;
   /** The list of unavailable guilds to which the application belongs. */
   guilds: APIUnavailableGuild[];

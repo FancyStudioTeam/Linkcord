@@ -1,3 +1,3 @@
 import type { APIApplication } from "#types/payloads";
 
-export interface GatewayApplication extends Pick<APIApplication, "flags" | "id"> {}
+export interface GatewayApplication extends Required<Pick<APIApplication, "flags" | "id">> {}
