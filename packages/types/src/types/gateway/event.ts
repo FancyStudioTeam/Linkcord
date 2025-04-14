@@ -1,32 +1,11 @@
-import type { APIUnavailableGuild } from "#types/payloads";
-import type { APIVersion, Nullable, Snowflake } from "#types/shared";
+import type { Nullable, Snowflake } from "#types/shared";
 import type { GatewayActivity } from "./activity.js";
-import type { GatewayDispatchEventBase, GatewayEventBase } from "./base/event.js";
-import type { GatewayDispatchGuildBanAddEvent, GatewayDispatchGuildBanRemoveEvent } from "./events/index.js";
-
-/**
- * Represents the Discord gateway payload for the `READY` event.
- * @see https://discord.com/developers/docs/events/gateway-events#ready
- */
-export interface GatewayDispatchReadyEvent
-  extends GatewayDispatchEventBase<GatewayDispatchEvents.Ready, GatewayDispatchReadyEventPayload> {}
-
-/**
- * Represents the Discord gateway payload data for the `READY` event.
- * @see https://discord.com/developers/docs/events/gateway-events#ready-ready-event-fields
- */
-export interface GatewayDispatchReadyEventPayload {
-  /** The list of unavailable guilds. */
-  guilds: APIUnavailableGuild[];
-  /** A gateway url which can be used to resume connections to the gateway. */
-  resume_gateway_url: string;
-  /**  */
-  session_id: string;
-  /**   */
-  shard?: [number, number];
-  /** The Discord gateway version. */
-  v: APIVersion;
-}
+import type { GatewayEventBase } from "./base/event.js";
+import type {
+  GatewayDispatchGuildBanAddEvent,
+  GatewayDispatchGuildBanRemoveEvent,
+  GatewayDispatchReadyEvent,
+} from "./events/index.js";
 
 /**
  * https://discord.com/developers/docs/events/gateway-events#heartbeat
