@@ -1,6 +1,43 @@
+import type { APIUser } from "#types/payloads";
 import type { APIVersion, Nullable, Snowflake } from "#types/shared";
 import type { GatewayActivity } from "./activity.js";
 import type { GatewayDispatchEventBase, GatewayEventBase } from "./base/event.js";
+
+/**
+ * Represents the Discord gateway payload for the `GUILD_BAN_ADD` event.
+ * @see https://discord.com/developers/docs/events/gateway-events#guild-ban-add
+ */
+export interface GatewayDispatchGuildBanAddEvent
+  extends GatewayDispatchEventBase<GatewayDispatchEvents.GuildBanAdd, GatewayDispatchGuildBanAddEventData> {}
+
+/**
+ * Represents the Discord gateway payload data for the `GUILD_BAN_ADD` event.
+ * @see https://discord.com/developers/docs/events/gateway-events#guild-ban-add-guild-ban-add-event-fields
+ */
+export interface GatewayDispatchGuildBanAddEventData {
+  /** The id of the guild where the ban was added. */
+  guild_id: Snowflake;
+  /** The user who was banned. */
+  user: APIUser;
+}
+
+/**
+ * Represents the Discord gateway payload for the `GUILD_BAN_REMOVE` event.
+ * @see https://discord.com/developers/docs/events/gateway-events#guild-ban-remove
+ */
+export interface GatewayDispatchGuildBanRemoveEvent
+  extends GatewayDispatchEventBase<GatewayDispatchEvents.GuildBanRemove, GatewayDispatchGuildBanRemoveEventPayload> {}
+
+/**
+ * Represents the Discord gateway payload data for the `GUILD_BAN_REMOVE` event.
+ * @see https://discord.com/developers/docs/events/gateway-events#guild-ban-remove-guild-ban-remove-event-fields
+ */
+export interface GatewayDispatchGuildBanRemoveEventPayload {
+  /** The id of the guild where the ban was removed. */
+  guild_id: Snowflake;
+  /** The user who was unbanned. */
+  user: APIUser;
+}
 
 /**
  * https://discord.com/developers/docs/events/gateway-events#ready
@@ -143,7 +180,10 @@ export interface GatewayVoiceStateUpdatePayload {
 /**
  * https://discord.com/developers/docs/events/gateway-events#receive-events
  */
-export type GatewayDispatchEvent = GatewayDispatchReadyEvent;
+export type GatewayDispatchEvent =
+  | GatewayDispatchGuildBanAddEvent
+  | GatewayDispatchGuildBanRemoveEvent
+  | GatewayDispatchReadyEvent;
 
 /**
  * https://discord.com/developers/docs/events/gateway-events#payload-structure
