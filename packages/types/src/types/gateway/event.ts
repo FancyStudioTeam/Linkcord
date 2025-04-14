@@ -5,6 +5,7 @@ import type {
   GatewayDispatchGuildBanAddEvent,
   GatewayDispatchGuildBanRemoveEvent,
   GatewayDispatchReadyEvent,
+  GatewayHelloEvent,
 } from "./events/index.js";
 
 /**
@@ -12,18 +13,6 @@ import type {
  */
 export interface GatewayHeartbeatEvent
   extends GatewayEventBase<GatewayOpcodes.Heartbeat, GatewayHeartbeatEventPayload> {}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#hello
- */
-export interface GatewayHelloEvent extends GatewayEventBase<GatewayOpcodes.Hello, GatewayHelloEventPayload> {}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#hello-hello-structure
- */
-export interface GatewayHelloEventPayload {
-  heartbeat_interval: number;
-}
 
 /**
  * https://discord.com/developers/docs/events/gateway-events#identify-identify-connection-properties
