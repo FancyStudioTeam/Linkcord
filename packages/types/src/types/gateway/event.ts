@@ -5,14 +5,9 @@ import type {
   GatewayDispatchGuildBanAddEvent,
   GatewayDispatchGuildBanRemoveEvent,
   GatewayDispatchReadyEvent,
+  GatewayHeartbeatEvent,
   GatewayHelloEvent,
 } from "./events/index.js";
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#heartbeat
- */
-export interface GatewayHeartbeatEvent
-  extends GatewayEventBase<GatewayOpcodes.Heartbeat, GatewayHeartbeatEventPayload> {}
 
 /**
  * https://discord.com/developers/docs/events/gateway-events#identify-identify-connection-properties
@@ -130,11 +125,6 @@ export type GatewayDispatchEvent =
  * https://discord.com/developers/docs/events/gateway-events#payload-structure
  */
 export type GatewayEvent = GatewayReceiveEvent | GatewaySendEvent;
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#heartbeat-example-heartbeat
- */
-export type GatewayHeartbeatEventPayload = number;
 
 /**
  * https://discord.com/developers/docs/events/gateway-events#activity-object-activity-structure
