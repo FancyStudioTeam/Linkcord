@@ -41,7 +41,7 @@ export interface APIButtonComponentWithUrl extends APIButtonComponentBase<Button
 }
 
 /**
- * TODO: Add Discord reference url for `APIContainerComponent`.
+ * Not documented by Discord yet.
  */
 export interface APIContainerComponent extends APIComponentV2Base<ComponentTypes.Container> {
   accent_color?: number;
@@ -50,7 +50,7 @@ export interface APIContainerComponent extends APIComponentV2Base<ComponentTypes
 }
 
 /**
- * TODO: Add Discord reference url for `APIFileComponent`.
+ * Not documented by Discord yet.
  */
 export interface APIFileComponent extends APIComponentV2Base<ComponentTypes.File> {
   file: APIUnfurledMediaItem;
@@ -58,14 +58,14 @@ export interface APIFileComponent extends APIComponentV2Base<ComponentTypes.File
 }
 
 /**
- * TODO: Add Discord reference url for `APIMediaGalleryComponent`.
+ * Not documented by Discord yet.
  */
 export interface APIMediaGalleryComponent extends APIComponentV2Base<ComponentTypes.MediaGallery> {
   items: APIMediaGalleryItem[];
 }
 
 /**
- * TODO: Add Discord reference url for `APIMediaGalleryItem`.
+ * Not documented by Discord yet.
  */
 export interface APIMediaGalleryItem {
   description?: Nullable<string>;
@@ -74,7 +74,7 @@ export interface APIMediaGalleryItem {
 }
 
 /**
- * TODO: Add Discord reference url for `APISectionComponent`.
+ * Not documented by Discord yet.
  */
 export interface APISectionComponent extends APIComponentV2Base<ComponentTypes.Section> {
   accessory: APISectionAccessory;
@@ -129,7 +129,7 @@ export interface APISelectMenuOption {
 }
 
 /**
- * TODO: Add Discord reference url for `APISeparatorComponent`.
+ * Not documented by Discord yet.
  */
 export interface APISeparatorComponent extends APIComponentV2Base<ComponentTypes.Separator> {
   divider?: boolean;
@@ -137,7 +137,7 @@ export interface APISeparatorComponent extends APIComponentV2Base<ComponentTypes
 }
 
 /**
- * TODO: Add Discord reference url for `APITextDisplayComponent`.
+ * Not documented by Discord yet.
  */
 export interface APITextDisplayComponent extends APIComponentV2Base<ComponentTypes.TextDisplay> {
   content: string;
@@ -158,7 +158,7 @@ export interface APITextInputComponent extends Omit<APIComponentBase<ComponentTy
 }
 
 /**
- * TODO: Add Discord reference url for `APIThumbnailComponent`.
+ * Not documented by Discord yet.
  */
 export interface APIThumbnailComponent extends APIComponentV2Base<ComponentTypes.Thumbnail> {
   description?: Nullable<string>;
@@ -167,7 +167,7 @@ export interface APIThumbnailComponent extends APIComponentV2Base<ComponentTypes
 }
 
 /**
- * TODO: Add Discord reference url for `APIUnfurledMediaItem`.
+ * Not documented by Discord yet.
  */
 export interface APIUnfurledMediaItem {
   url: string;
@@ -207,7 +207,7 @@ export type APIComponentsV2 =
   | APIThumbnailComponent;
 
 /**
- * TODO: Add Discord reference url for `APIContainerComponents`.
+ * Not documented by Discord yet.
  */
 export type APIContainerComponents =
   | APIFileComponent
@@ -217,7 +217,7 @@ export type APIContainerComponents =
   | APITextDisplayComponent;
 
 /**
- * TODO: Add Discord reference url for `APISectionAccessory`.
+ * Not documented by Discord yet.
  */
 export type APISectionAccessory = APIButtonComponent | APIThumbnailComponent;
 
@@ -272,7 +272,7 @@ export enum SelectMenuDefaultValueTypes {
 }
 
 /**
- * TODO: Add Discord reference url for `SeparatorSpacingSizes`.
+ * Not documented by Discord yet.
  */
 export enum SeparatorSpacingSizes {
   Small = 1,
