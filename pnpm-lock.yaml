@@ -36,8 +36,8 @@ importers:
   packages/types:
     devDependencies:
       '@microsoft/api-documenter':
-        specifier: 7.26.21
-        version: 7.26.21(@types/node@22.14.1)
+        specifier: 7.26.22
+        version: 7.26.22(@types/node@22.14.1)
       '@microsoft/api-extractor':
         specifier: 7.52.3
         version: 7.52.3(@types/node@22.14.1)
@@ -442,8 +442,8 @@ packages:
   '@material/material-color-utilities@0.3.0':
     resolution: {integrity: sha512-ztmtTd6xwnuh2/xu+Vb01btgV8SQWYCaK56CkRK8gEkWe5TuDyBcYJ0wgkMRn+2VcE9KUmhvkz+N9GHrqw/C0g==}
 
-  '@microsoft/api-documenter@7.26.21':
-    resolution: {integrity: sha512-Wto4XJV2BH/v8YaHw2ISH85pWz8Ggm6yLxVUekYmbGLzD2pDkBZdnCY/Dj/1kx8oIj12pYXslA+tRgO2rqClAA==}
+  '@microsoft/api-documenter@7.26.22':
+    resolution: {integrity: sha512-Pilmp6xX4qyVAoNAqObynhhyhLVBndutNCw4hBwCX+7y7BEjeoFnUahrkhgjTsDFAnTI/+jmiZBk8lY9J73Fdg==}
     hasBin: true
 
   '@microsoft/api-extractor-model@7.30.5':
@@ -1664,7 +1664,7 @@ snapshots:
 
   '@material/material-color-utilities@0.3.0': {}
 
-  '@microsoft/api-documenter@7.26.21(@types/node@22.14.1)':
+  '@microsoft/api-documenter@7.26.22(@types/node@22.14.1)':
     dependencies:
       '@microsoft/api-extractor-model': 7.30.5(@types/node@22.14.1)
       '@microsoft/tsdoc': 0.15.1
