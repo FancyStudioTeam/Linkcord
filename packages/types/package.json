@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "@microsoft/api-documenter": "7.26.21",
-    "@microsoft/api-extractor": "7.52.3",
+    "@microsoft/api-extractor": "7.52.4",
     "typedoc": "0.28.2",
     "typedoc-material-theme": "1.4.0",
     "typescript": "5.8.3",
