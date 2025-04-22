@@ -5,6 +5,7 @@ import type {
   GatewayDispatchGuildBanAddEvent,
   GatewayDispatchGuildBanRemoveEvent,
   GatewayDispatchReadyEvent,
+  GatewayDispatchWebhooksUpdateEvent,
   GatewayHeartbeatEvent,
   GatewayHelloEvent,
 } from "./events/index.js";
@@ -119,7 +120,8 @@ export interface GatewayVoiceStateUpdatePayload {
 export type GatewayDispatchEvent =
   | GatewayDispatchGuildBanAddEvent
   | GatewayDispatchGuildBanRemoveEvent
-  | GatewayDispatchReadyEvent;
+  | GatewayDispatchReadyEvent
+  | GatewayDispatchWebhooksUpdateEvent;
 
 /**
  * https://discord.com/developers/docs/events/gateway-events#payload-structure
