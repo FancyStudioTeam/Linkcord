@@ -118,8 +118,8 @@ export interface APIPartialApplication extends Partial<APIApplication> {}
  */
 export enum ApplicationEventWebhookStatus {
   Disabled = 1,
-  Enabled = 2,
   DisabledByDiscord = 3,
+  Enabled = 2,
 }
 
 /**
