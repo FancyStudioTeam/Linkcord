@@ -19,6 +19,9 @@
     "enabled": true,
     "rules": {
       "all": true,
+      "complexity": {
+        "noStaticOnlyClass": "off"
+      },
       "correctness": {
         "noNodejsModules": "off",
         "noUndeclaredDependencies": "off"
