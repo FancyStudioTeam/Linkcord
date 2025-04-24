@@ -1,11 +1,19 @@
 import type { RESTPollCreateRequest } from "#types/rest";
-import type { Locale, Localizations, Snowflake } from "#types/shared";
-import type { ApplicationCommandOptionTypes, ApplicationCommandTypes } from "./application-command.js";
+import type { Snowflake } from "#types/shared";
+import type {
+  APIAutocompleteChoice,
+  ApplicationCommandOptionTypes,
+  ApplicationCommandTypes,
+} from "./application-command.js";
 import { ApplicationIntegrationTypes } from "./application.js";
-import type { APIPartialChannel } from "./channel.js";
+import type {
+  APIInteractionBase,
+  APIMessageComponentInteractionDataBase,
+  APIMessageComponentSelectInteractionDataBase,
+} from "./base/interaction.js";
+import type { APIChannel } from "./channel.js";
 import type { APIComponent, APITextInputComponent, ComponentTypes } from "./component.js";
-import type { APIEntitlement } from "./entitlement.js";
-import type { APIGuildMember, APIPartialGuild } from "./guild.js";
+import type { APIGuildMember } from "./guild.js";
 import type {
   APIAllowedMentions,
   APIAttachment,
@@ -18,12 +26,23 @@ import type { APIRole } from "./permission.js";
 import type { APIUser } from "./user.js";
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ */
+export interface APIApplicationCommandInteraction
+  extends APIInteractionBase<InteractionTypes.ApplicationCommand, APIApplicationCommandInteractionData> {}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
  */
 export interface APIApplicationCommandInteractionData {
   guild_id?: Snowflake;
   id: Snowflake;
   name: string;
+  /**
+   * @remarks
+   * - This can be partial when type is
+   *   {@link InteractionTypes.ApplicationCommandAutocomplete | `APPLICATION_COMMAND_AUTOCOMPLETE`}.
+   */
   options?: APIApplicationCommandInteractionDataOption[];
   resolved?: APIResolvedData;
   target_id?: Snowflake;
@@ -31,18 +50,18 @@ export interface APIApplicationCommandInteractionData {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-interaction-data-option-structure
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-interaction-data-option-structure
  */
 export interface APIApplicationCommandInteractionDataOption {
   focused?: boolean;
   name: string;
   options?: APIApplicationCommandInteractionDataOption[];
   type: ApplicationCommandOptionTypes;
-  value?: string | number | boolean;
+  value?: APIApplicationCommandInteractionDataOptionValue;
 }
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
  */
 export interface APIAuthorizingIntegrationOwners {
   [ApplicationIntegrationTypes.GuildInstall]?: Snowflake;
@@ -50,42 +69,7 @@ export interface APIAuthorizingIntegrationOwners {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
- */
-export interface APIAutocompleteChoice {
-  name: string;
-  name_localizations?: Localizations;
-  value: string | number;
-}
-
-/**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
- */
-export interface APIInteraction {
-  app_permissions?: string;
-  application_id: Snowflake;
-  attachment_size_limit: number;
-  authorizing_integration_owners: APIAuthorizingIntegrationOwners;
-  channel?: APIPartialChannel;
-  channel_id?: Snowflake;
-  context?: InteractionContextTypes;
-  data?: APIInteractionData;
-  entitlements: APIEntitlement[];
-  guild?: APIPartialGuild;
-  guild_id?: Snowflake;
-  guild_locale?: Locale;
-  id: Snowflake;
-  locale: Locale;
-  member?: APIGuildMember;
-  message?: APIMessage;
-  token: string;
-  type: InteractionTypes;
-  user?: APIUser;
-  version: number;
-}
-
-/**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-object
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-object
  */
 export interface APIInteractionCallback {
   activity_instance_id?: Snowflake;
@@ -97,14 +81,14 @@ export interface APIInteractionCallback {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-autocomplete
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-autocomplete
  */
 export interface APIInteractionCallbackDataAutocomplete {
   choices: APIAutocompleteChoice[];
 }
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-messages
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-messages
  */
 export interface APIInteractionCallbackDataMessage {
   allowed_mentions?: APIAllowedMentions;
@@ -112,13 +96,19 @@ export interface APIInteractionCallbackDataMessage {
   components?: APIComponent[];
   content?: string;
   embeds?: APIEmbed[];
+  /**
+   * @remarks
+   * - If you create a callback with type
+   *   {@link InteractionCallbackTypes.DeferredChannelMessageWithSource | `DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE`},
+   *   the only valid flag to use is {@link MessageFlags.Ephemeral | `EPHEMERAL`}.
+   */
   flags?: MessageFlags;
   poll?: RESTPollCreateRequest;
   tts?: boolean;
 }
 
 /**
- * s
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-modal
  */
 export interface APIInteractionCallbackDataModal {
   custom_id: string;
@@ -127,23 +117,34 @@ export interface APIInteractionCallbackDataModal {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-resource-object
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-resource-object
  */
 export interface APIInteractionCallbackResource {
+  /**
+   * @remarks
+   * - This field is only present when callback type is
+   *   {@link InteractionCallbackTypes.LaunchActivity | `LAUNCH_ACTIVITY`}.
+   */
   activity_instance?: APIInteractionCallbackResourceActivityInstance;
   type: InteractionCallbackTypes;
+  /**
+   * @remarks
+   * - This field is only present when callback type is
+   *   {@link InteractionCallbackTypes.ChannelMessageWithSource | `CHANNEL_MESSAGE_WITH_SOURCE`}
+   *   or {@link InteractionCallbackTypes.UpdateMessage | `UPDATE_MESSAGE`}.
+   */
   message?: APIMessage;
 }
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-activity-instance-resource
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-activity-instance-resource
  */
 export interface APIInteractionCallbackResourceActivityInstance {
   id: Snowflake;
 }
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-response-object
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-response-object
  */
 export interface APIInteractionCallbackResponse {
   interaction: APIInteractionCallback;
@@ -151,7 +152,7 @@ export interface APIInteractionCallbackResponse {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-response-structure
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-response-structure
  */
 export interface APIInteractionResponse {
   type: InteractionCallbackTypes;
@@ -159,17 +160,44 @@ export interface APIInteractionResponse {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
  */
-export interface APIMessageComponentInteractionData {
-  component_type: ComponentTypes;
-  custom_id: string;
-  resolved?: APIResolvedData;
-  values?: string[];
+export interface APIMessageComponentButtonInteractionData
+  extends APIMessageComponentInteractionDataBase<ComponentTypes.Button> {}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ */
+export interface APIMessageComponentInteraction
+  extends APIInteractionBase<InteractionTypes.MessageComponent, APIMessageComponentInteractionData> {}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
+ */
+export interface APIMessageComponentResolvedSelectInteractionData
+  extends APIMessageComponentSelectInteractionDataBase<
+    | ComponentTypes.ChannelSelect
+    | ComponentTypes.MentionableSelect
+    | ComponentTypes.RoleSelect
+    | ComponentTypes.UserSelect
+  > {
+  resolved: APIResolvedData;
 }
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-modal-submit-data-structure
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
+ */
+export interface APIMessageComponentStringSelectInteractionData
+  extends APIMessageComponentSelectInteractionDataBase<ComponentTypes.StringSelect> {}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ */
+export interface APIModalSubmitInteraction
+  extends APIInteractionBase<InteractionTypes.ModalSubmit, APIModalSubmitInteractionData> {}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-modal-submit-data-structure
  */
 export interface APIModalSubmitInteractionData {
   components: APIComponent[];
@@ -177,11 +205,16 @@ export interface APIModalSubmitInteractionData {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ */
+export interface APIPingInteraction extends APIInteractionBase<InteractionTypes.Ping, never> {}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
  */
 export interface APIResolvedData {
   attachments?: Record<Snowflake, APIAttachment>;
-  channels?: Record<Snowflake, APIPartialChannel>;
+  channels?: Record<Snowflake, APIResolvedDataChannel>;
   members?: Record<Snowflake, APIResolvedDataMember>;
   messages?: Record<Snowflake, APIPartialMessage>;
   roles?: Record<Snowflake, APIRole>;
@@ -189,12 +222,32 @@ export interface APIResolvedData {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
  */
 export interface APIResolvedDataMember extends Omit<APIGuildMember, "deaf" | "mute" | "user"> {}
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-data-structure
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
+ */
+export interface APIResolvedDataChannel
+  extends Pick<APIChannel, "id" | "name" | "parent_id" | "permissions" | "thread_metadata" | "type"> {}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-interaction-data-option-structure
+ */
+export type APIApplicationCommandInteractionDataOptionValue = boolean | number | string;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ */
+export type APIInteraction =
+  | APIApplicationCommandInteraction
+  | APIMessageComponentInteraction
+  | APIModalSubmitInteraction
+  | APIPingInteraction;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-data-structure
  */
 export type APIInteractionCallbackData =
   | APIInteractionCallbackDataAutocomplete
@@ -202,7 +255,7 @@ export type APIInteractionCallbackData =
   | APIInteractionCallbackDataModal;
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-data
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-data
  */
 export type APIInteractionData =
   | APIApplicationCommandInteractionData
@@ -210,7 +263,21 @@ export type APIInteractionData =
   | APIModalSubmitInteractionData;
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
+ */
+export type APIMessageComponentInteractionData =
+  | APIMessageComponentButtonInteractionData
+  | APIMessageComponentSelectMenuInteractionData;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
+ */
+export type APIMessageComponentSelectMenuInteractionData =
+  | APIMessageComponentResolvedSelectInteractionData
+  | APIMessageComponentStringSelectInteractionData;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type
  */
 export enum InteractionCallbackTypes {
   ApplicationCommandAutocompleteResult = 8,
@@ -218,13 +285,23 @@ export enum InteractionCallbackTypes {
   DeferredChannelMessageWithSource = 5,
   DeferredUpdateMessage = 6,
   LaunchActivity = 12,
+  /**
+   * @remarks
+   * - This enum is not available for
+   *   {@link InteractionTypes.ModalSubmit | `MODAL_SUBMIT`} and
+   *   {@link InteractionTypes.Ping | `PING`} interactions.
+   */
   Modal = 9,
   Pong = 1,
+  /**
+   * @remarks
+   * - This enum is only valid for component interactions.
+   */
   UpdateMessage = 7,
 }
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-context-types
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-context-types
  */
 export enum InteractionContextTypes {
   BotDM = 1,
@@ -233,7 +310,7 @@ export enum InteractionContextTypes {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-type
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-type
  */
 export enum InteractionTypes {
   ApplicationCommand = 2,
