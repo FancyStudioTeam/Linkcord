@@ -1,19 +1,19 @@
 import type { Nullable, Snowflake } from "#types/shared";
+import type { APIChannel } from "./channel.js";
 
 /**
- * https://discord.com/developers/docs/resources/lobby#lobby-object-lobby-structure
+ * @see https://discord.com/developers/docs/resources/lobby#lobby-object-lobby-structure
  */
 export interface APILobby {
   application_id: Snowflake;
   id: Snowflake;
-  // TODO: Add "APIChannel" type
-  // linked_channel?: APIChannel;
+  linked_channel?: APIChannel;
   members: APILobbyMember[];
   metadata: Nullable<APILobbyMetadata>;
 }
 
 /**
- * https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-structure
+ * @see https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-structure
  */
 export interface APILobbyMember {
   flags?: LobbyMemberFlags;
@@ -22,17 +22,17 @@ export interface APILobbyMember {
 }
 
 /**
- * https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-structure
+ * @see https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-structure
  */
-export type APILobbyMemberMetadata = Record<string, string>;
+export type APILobbyMemberMetadata = APILobbyMetadata;
 
 /**
- * https://discord.com/developers/docs/resources/lobby#lobby-object-lobby-structure
+ * @see https://discord.com/developers/docs/resources/lobby#lobby-object-lobby-structure
  */
 export type APILobbyMetadata = Record<string, string>;
 
 /**
- * https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-flags
+ * @see https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-flags
  */
 export enum LobbyMemberFlags {
   CanLinkLobby = 1 << 0,
