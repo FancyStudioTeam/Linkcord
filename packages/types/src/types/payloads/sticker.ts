@@ -5,6 +5,11 @@ import type { APIUser } from "./user.js";
  * @see https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-structure
  */
 export interface APISticker {
+  /**
+   * @remarks
+   * - This field value may be `false` if the guild at which the sticker belongs
+   *   lost Server Boosts.
+   */
   available?: boolean;
   description: Nullable<string>;
   format_type: StickerFormatTypes;
