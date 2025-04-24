@@ -14,7 +14,10 @@ export interface APISticker {
   pack_id?: Snowflake;
   sort_value?: number;
   /**
-   * @remarks This is a comma separated list of keywords.
+   * @remarks
+   * - This field is a comma separated list of keywords for standard stickers.
+   * - The Discord client will use a generated name from an emoji as the value
+   *   for this field when creating or modifying a guild sticker.
    */
   tags: string;
   type: StickerTypes;
