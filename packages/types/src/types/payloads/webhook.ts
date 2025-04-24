@@ -14,11 +14,15 @@ export interface APIWebhook {
   id: Snowflake;
   name: Nullable<string>;
   /**
-   * @remarks This may not be present when the webhook creator lost access to the source channel.
+   * @remarks
+   * - This field may not be present when the webhook owner lost access to the guild
+   *   at which the channel belongs.
    */
   source_channel: APIPartialChannel;
   /**
-   * @remarks This may not be present when the webhook creator lost access to the source guild.
+   * @remarks
+   * - This field may not be present when the webhook owner lost access to the guild
+   *   at which the channel belongs.
    */
   source_guild?: APIPartialGuild;
   token?: string;
