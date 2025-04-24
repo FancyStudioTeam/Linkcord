@@ -43,7 +43,9 @@ export interface APIUser {
   bot?: boolean;
   collectibles?: APIUserCollectible;
   /**
-   * @remarks All non-bot users should have set `0` as their discriminator.
+   * @remarks
+   * - This field value will be set to `0` for non-bot users.
+   * - Bot users will still have their old discriminator value.
    */
   discriminator: string;
   email?: Nullable<string>;
@@ -88,7 +90,8 @@ export enum ConnectionServices {
   Facebook = "facebook",
   GitHub = "github",
   /**
-   * @remarks This service can no longer be added by users.
+   * @remarks
+   * - This service can no longer be added by users.
    */
   Instagram = "instagram",
   LeagueOfLegends = "leagueoflegends",
@@ -99,7 +102,8 @@ export enum ConnectionServices {
   RiotGames = "riotgames",
   Roblox = "roblox",
   /**
-   * @remarks This service can no longer be added by users.
+   * @remarks
+   * - This service can no longer be added by users.
    */
   Skype = "skype",
   Spotify = "spotify",
