@@ -15,14 +15,14 @@ export interface APIWebhook {
   name: Nullable<string>;
   /**
    * @remarks
-   * - This field may not be present when the webhook owner lost access to the guild
-   *   at which the channel belongs.
+   * - This field may not be present when the webhook owner lost access to the
+   *   guild at which the channel belongs.
    */
   source_channel: APIPartialChannel;
   /**
    * @remarks
-   * - This field may not be present when the webhook owner lost access to the guild
-   *   at which the channel belongs.
+   * - This field may not be present when the webhook owner lost access to the
+   *   guild at which the channel belongs.
    */
   source_guild?: APIPartialGuild;
   token?: string;
