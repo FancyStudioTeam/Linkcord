@@ -6,7 +6,7 @@ import type { APIPartialIntegration } from "./guild.js";
  * @see https://discord.com/developers/docs/resources/user#application-role-connection-object-application-role-connection-structure
  */
 export interface APIApplicationRoleConnection {
-  metadata: Record<string, string | number>;
+  metadata: APIApplicationRoleConnectionMetadata;
   platform_name: Nullable<string>;
   platform_username: Nullable<string>;
 }
@@ -75,6 +75,11 @@ export interface APIUserCollectibleNameplate extends APIUserCollectibleBase {
   label: string;
   palette: string;
 }
+
+/**
+ * @see https://discord.com/developers/docs/resources/user#application-role-connection-object-application-role-connection-structure
+ */
+export type APIApplicationRoleConnectionMetadata = Record<string, string>;
 
 /**
  * @see https://discord.com/developers/docs/resources/user#connection-object-services
