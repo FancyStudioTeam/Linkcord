@@ -2,7 +2,7 @@ import type { Nullable, Snowflake } from "#types/shared";
 import type { APIUser } from "./user.js";
 
 /**
- * https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-structure
+ * @see https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-structure
  */
 export interface APISticker {
   available?: boolean;
@@ -13,13 +13,16 @@ export interface APISticker {
   name: string;
   pack_id?: Snowflake;
   sort_value?: number;
+  /**
+   * @remarks This is a comma separated list of keywords.
+   */
   tags: string;
   type: StickerTypes;
   user?: APIUser;
 }
 
 /**
- * https://discord.com/developers/docs/resources/sticker#sticker-item-object-sticker-item-structure
+ * @see https://discord.com/developers/docs/resources/sticker#sticker-item-object-sticker-item-structure
  */
 export interface APIStickerItem {
   format_type: StickerFormatTypes;
@@ -28,7 +31,7 @@ export interface APIStickerItem {
 }
 
 /**
- * https://discord.com/developers/docs/resources/sticker#sticker-pack-object-sticker-pack-structure
+ * @see https://discord.com/developers/docs/resources/sticker#sticker-pack-object-sticker-pack-structure
  */
 export interface APIStickerPack {
   banner_asset_id?: string;
@@ -41,7 +44,7 @@ export interface APIStickerPack {
 }
 
 /**
- * https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-format-types
+ * @see https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-format-types
  */
 export enum StickerFormatTypes {
   APng = 2,
@@ -51,7 +54,7 @@ export enum StickerFormatTypes {
 }
 
 /**
- * https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-types
+ * @see https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-types
  */
 export enum StickerTypes {
   Guild = 2,
