@@ -1,8 +1,9 @@
-import type { Nullable, Snowflake } from "#types/shared";
+import type { Locale, Nullable, Snowflake } from "#types/shared";
+import type { APIUserCollectibleBase } from "./base/user.js";
 import type { APIPartialIntegration } from "./guild.js";
 
 /**
- * https://discord.com/developers/docs/resources/user#application-role-connection-object-application-role-connection-structure
+ * @see https://discord.com/developers/docs/resources/user#application-role-connection-object-application-role-connection-structure
  */
 export interface APIApplicationRoleConnection {
   metadata: Record<string, string | number>;
@@ -11,15 +12,12 @@ export interface APIApplicationRoleConnection {
 }
 
 /**
- * https://discord.com/developers/docs/resources/user#avatar-decoration-data-object-avatar-decoration-data-structure
+ * @see https://discord.com/developers/docs/resources/user#avatar-decoration-data-object-avatar-decoration-data-structure
  */
-export interface APIAvatarDecorationData {
-  asset: string;
-  sku_id: Snowflake;
-}
+export interface APIAvatarDecorationData extends APIUserCollectibleBase {}
 
 /**
- * https://discord.com/developers/docs/resources/user#connection-object-connection-structure
+ * @see https://discord.com/developers/docs/resources/user#connection-object-connection-structure
  */
 export interface APIConnection {
   friend_sync: boolean;
@@ -35,7 +33,7 @@ export interface APIConnection {
 }
 
 /**
- * https://discord.com/developers/docs/resources/user#user-object-user-structure
+ * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
  */
 export interface APIUser {
   accent_color?: Nullable<number>;
@@ -43,22 +41,41 @@ export interface APIUser {
   avatar_decoration_data?: Nullable<APIAvatarDecorationData>;
   banner?: Nullable<string>;
   bot?: boolean;
+  collectibles?: APIUserCollectible;
+  /**
+   * @remarks All non-bot users should have set `0` as their discriminator.
+   */
   discriminator: string;
   email?: Nullable<string>;
-  flags?: UserFlags;
+  flags?: number;
   global_name: Nullable<string>;
   id: Snowflake;
-  locale?: string;
+  locale?: Locale;
   mfa_enabled?: boolean;
   premium_type?: PremiumTypes;
-  public_flags?: UserFlags;
+  public_flags?: number;
   system?: boolean;
   username: string;
   verified?: boolean;
 }
 
 /**
- * https://discord.com/developers/docs/resources/user#connection-object-services
+ * @see https://discord.com/developers/docs/resources/user#collectibles-collectible-structure
+ */
+export interface APIUserCollectible {
+  nameplate?: APIUserCollectibleNameplate;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/user#nameplate-nameplate-structure
+ */
+export interface APIUserCollectibleNameplate extends APIUserCollectibleBase {
+  label: string;
+  palette: string;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/user#connection-object-services
  */
 export enum ConnectionServices {
   AmazonMusic = "amazon-music",
@@ -70,6 +87,9 @@ export enum ConnectionServices {
   EpicGames = "epicgames",
   Facebook = "facebook",
   GitHub = "github",
+  /**
+   * @remarks This service can no longer be added by users.
+   */
   Instagram = "instagram",
   LeagueOfLegends = "leagueoflegends",
   Mastodon = "mastodon",
@@ -78,6 +98,9 @@ export enum ConnectionServices {
   Reddit = "reddit",
   RiotGames = "riotgames",
   Roblox = "roblox",
+  /**
+   * @remarks This service can no longer be added by users.
+   */
   Skype = "skype",
   Spotify = "spotify",
   Steam = "steam",
@@ -89,7 +112,7 @@ export enum ConnectionServices {
 }
 
 /**
- * https://discord.com/developers/docs/resources/user#user-object-premium-types
+ * @see https://discord.com/developers/docs/resources/user#user-object-premium-types
  */
 export enum PremiumTypes {
   Nitro = 2,
@@ -99,7 +122,7 @@ export enum PremiumTypes {
 }
 
 /**
- * https://discord.com/developers/docs/resources/user#user-object-user-flags
+ * @see https://discord.com/developers/docs/resources/user#user-object-user-flags
  */
 export enum UserFlags {
   ActiveDeveloper = 1 << 22,
@@ -120,7 +143,7 @@ export enum UserFlags {
 }
 
 /**
- * https://discord.com/developers/docs/resources/user#connection-object-visibility-types
+ * @see https://discord.com/developers/docs/resources/user#connection-object-visibility-types
  */
 export enum VisibilityTypes {
   Everyone = 1,
