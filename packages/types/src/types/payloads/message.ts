@@ -1,15 +1,16 @@
 import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
 import type { APIPartialApplication } from "./application.js";
+import type { APIMessageInteractionMetadataBase } from "./base/message.js";
 import type { APIChannel, ChannelTypes } from "./channel.js";
 import type { APIComponent } from "./component.js";
 import type { APIPartialEmoji } from "./emoji.js";
-import type { APIAuthorizingIntegrationOwners, APIResolvedData, InteractionTypes } from "./interaction.js";
+import type { APIResolvedData, InteractionTypes } from "./interaction.js";
 import type { APIPoll } from "./poll.js";
 import type { APIStickerItem } from "./sticker.js";
 import type { APIUser } from "./user.js";
 
 /**
- * https://discord.com/developers/docs/resources/message#allowed-mentions-object-allowed-mentions-structure
+ * @see https://discord.com/developers/docs/resources/message#allowed-mentions-object-allowed-mentions-structure
  */
 export interface APIAllowedMentions {
   parse?: AllowedMentionTypes[];
@@ -19,26 +20,28 @@ export interface APIAllowedMentions {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-application-command-interaction-metadata-structure
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-application-command-interaction-metadata-structure
  */
-export interface APIApplicationCommandInteractionMetadata {
-  authorizing_integration_owners: APIAuthorizingIntegrationOwners;
-  id: Snowflake;
-  original_response_message_id?: Snowflake;
+export interface APIApplicationCommandInteractionMetadata
+  extends APIMessageInteractionMetadataBase<
+    InteractionTypes.ApplicationCommand | InteractionTypes.ApplicationCommandAutocomplete
+  > {
   target_message_id?: Snowflake;
   target_user?: APIUser;
-  type: InteractionTypes.ApplicationCommand | InteractionTypes.ApplicationCommandAutocomplete;
-  user: APIUser;
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
+ * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
  */
 export interface APIAttachment {
-  // ? This can be an enum. Must approve
   content_type?: string;
   description?: string;
   duration_secs?: number;
+  /**
+   * @remarks
+   * - Ephemeral attachments will be automatically removed after a period of time,
+   *   but they are guaranteed to be available as long the message exists.
+   */
   ephemeral?: boolean;
   filename: string;
   flags?: AttachmentFlags;
@@ -53,7 +56,7 @@ export interface APIAttachment {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#channel-mention-object-channel-mention-structure
+ * @see https://discord.com/developers/docs/resources/message#channel-mention-object-channel-mention-structure
  */
 export interface APIChannelMention {
   guild_id: Snowflake;
@@ -63,7 +66,7 @@ export interface APIChannelMention {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#embed-object-embed-structure
+ * @see https://discord.com/developers/docs/resources/message#embed-object-embed-structure
  */
 export interface APIEmbed {
   author?: APIEmbedAuthor;
@@ -82,7 +85,7 @@ export interface APIEmbed {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#embed-object-embed-author-structure
+ * @see https://discord.com/developers/docs/resources/message#embed-object-embed-author-structure
  */
 export interface APIEmbedAuthor {
   icon_url?: string;
@@ -92,7 +95,7 @@ export interface APIEmbedAuthor {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#embed-object-embed-field-structure
+ * @see https://discord.com/developers/docs/resources/message#embed-object-embed-field-structure
  */
 export interface APIEmbedField {
   inline?: boolean;
@@ -101,7 +104,7 @@ export interface APIEmbedField {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#embed-object-embed-footer-structure
+ * @see https://discord.com/developers/docs/resources/message#embed-object-embed-footer-structure
  */
 export interface APIEmbedFooter {
   icon_url?: string;
@@ -110,7 +113,7 @@ export interface APIEmbedFooter {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#embed-object-embed-image-structure
+ * @see https://discord.com/developers/docs/resources/message#embed-object-embed-image-structure
  */
 export interface APIEmbedImage {
   height?: number;
@@ -120,7 +123,7 @@ export interface APIEmbedImage {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#embed-object-embed-provider-structure
+ * @see https://discord.com/developers/docs/resources/message#embed-object-embed-provider-structure
  */
 export interface APIEmbedProvider {
   name?: string;
@@ -128,7 +131,7 @@ export interface APIEmbedProvider {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#embed-object-embed-thumbnail-structure
+ * @see https://discord.com/developers/docs/resources/message#embed-object-embed-thumbnail-structure
  */
 export interface APIEmbedThumbnail {
   height?: number;
@@ -138,7 +141,7 @@ export interface APIEmbedThumbnail {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#embed-object-embed-video-structure
+ * @see https://discord.com/developers/docs/resources/message#embed-object-embed-video-structure
  */
 export interface APIEmbedVideo {
   height?: number;
@@ -148,7 +151,7 @@ export interface APIEmbedVideo {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#message-object-message-structure
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
  */
 export interface APIMessage {
   activity?: APIMessageActivity;
@@ -188,7 +191,7 @@ export interface APIMessage {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#message-object-message-activity-structure
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-activity-structure
  */
 export interface APIMessageActivity {
   type: MessageActivityTypes;
@@ -196,7 +199,7 @@ export interface APIMessageActivity {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#message-call-object-message-call-object-structure
+ * @see https://discord.com/developers/docs/resources/message#message-call-object-message-call-object-structure
  */
 export interface APIMessageCall {
   participants: Snowflake[];
@@ -204,54 +207,81 @@ export interface APIMessageCall {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-message-component-interaction-metadata-structure
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-message-component-interaction-metadata-structure
  */
-export interface APIMessageComponentInteractionMetadata {
-  authorizing_integration_owners: APIAuthorizingIntegrationOwners;
-  id: Snowflake;
+export interface APIMessageComponentInteractionMetadata
+  extends APIMessageInteractionMetadataBase<InteractionTypes.MessageComponent> {
   interacted_message_id?: Snowflake;
-  original_response_message_id?: Snowflake;
-  type: InteractionTypes.MessageComponent;
-  user: APIUser;
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-modal-submit-interaction-metadata-structure
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-modal-submit-interaction-metadata-structure
  */
-export interface APIModalSubmitInteractionMetadata {
-  authorizing_integration_owners: APIAuthorizingIntegrationOwners;
-  id: Snowflake;
-  original_response_message_id?: Snowflake;
+export interface APIModalSubmitInteractionMetadata
+  extends APIMessageInteractionMetadataBase<InteractionTypes.ModalSubmit> {
   triggering_interaction_metadata: APIModalSubmitInteractionMetadataTriggeringInteractionMetadata;
-  type: InteractionTypes.ModalSubmit;
-  user: APIUser;
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#message-reference-structure
+ * @see https://discord.com/developers/docs/resources/message#message-reference-structure
  */
 export interface APIMessageReference {
+  /**
+   * @remarks
+   * - This field is optional when creating a message reply but will be always
+   *   present when receiving a response or event with this data model.
+   * - This field is required for message forwarding.
+   */
   channel_id?: Snowflake;
   fail_if_not_exists?: boolean;
   guild_id?: Snowflake;
   message_id?: Snowflake;
+  /**
+   * @remarks
+   * - If {@link APIMessageReference.type | `type`} is not present, it will match
+   *   the {@link MessageReferenceTypes.Default | `DEFAULT`} type behavior.
+   * - This field will be required in future versions.
+   */
   type?: MessageReferenceTypes;
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#message-snapshot-structure
+ * @see https://discord.com/developers/docs/resources/message#message-snapshot-structure
  */
 export interface APIMessageSnapshot {
   message: APIMessageSnapshotMessage;
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#message-object-message-structure
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
+ */
+export interface APIMessageSnapshotMessage
+  extends Pick<
+    APIMessage,
+    | "attachments"
+    | "components"
+    | "content"
+    | "edited_timestamp"
+    | "embeds"
+    | "flags"
+    | "mention_roles"
+    | "mentions"
+    | "sticker_items"
+    | "timestamp"
+    | "type"
+  > {}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
+ * @remarks
+ * - This type is not documented by Discord.
+ * - Partial structures may be incorrectly implemented here due lack of
+ *   documentation.
  */
 export interface APIPartialMessage extends Partial<APIMessage> {}
 
 /**
- * https://discord.com/developers/docs/resources/message#embed-fields-by-embed-type-poll-result-embed-fields
+ * @see https://discord.com/developers/docs/resources/message#embed-fields-by-embed-type-poll-result-embed-fields
  */
 export interface APIPollResultEmbedFields {
   poll_question_text: string;
@@ -265,7 +295,7 @@ export interface APIPollResultEmbedFields {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#reaction-object-reaction-structure
+ * @see https://discord.com/developers/docs/resources/message#reaction-object-reaction-structure
  */
 export interface APIReaction {
   burst_colors: string[];
@@ -277,7 +307,7 @@ export interface APIReaction {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#reaction-count-details-object-reaction-count-details-structure
+ * @see https://discord.com/developers/docs/resources/message#reaction-count-details-object-reaction-count-details-structure
  */
 export interface APIReactionCountDetails {
   burst: number;
@@ -285,7 +315,7 @@ export interface APIReactionCountDetails {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#role-subscription-data-object-role-subscription-data-object-structure
+ * @see https://discord.com/developers/docs/resources/message#role-subscription-data-object-role-subscription-data-object-structure
  */
 export interface APIRoleSubscriptionData {
   is_renewal: boolean;
@@ -295,14 +325,14 @@ export interface APIRoleSubscriptionData {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-modal-submit-interaction-metadata-structure
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
  */
 export type APIModalSubmitInteractionMetadataTriggeringInteractionMetadata =
   | APIApplicationCommandInteractionMetadata
   | APIMessageComponentInteractionMetadata;
 
 /**
- * https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
  */
 export type APIMessageInteractionMetadata =
   | APIApplicationCommandInteractionMetadata
@@ -310,25 +340,7 @@ export type APIMessageInteractionMetadata =
   | APIModalSubmitInteractionMetadata;
 
 /**
- * https://discord.com/developers/docs/resources/message#message-object-message-structure
- */
-export type APIMessageSnapshotMessage = Pick<
-  APIMessage,
-  | "attachments"
-  | "components"
-  | "content"
-  | "edited_timestamp"
-  | "embeds"
-  | "flags"
-  | "mention_roles"
-  | "mentions"
-  | "sticker_items"
-  | "timestamp"
-  | "type"
->;
-
-/**
- * https://discord.com/developers/docs/resources/message#allowed-mentions-object-allowed-mention-types
+ * @see https://discord.com/developers/docs/resources/message#allowed-mentions-object-allowed-mention-types
  */
 export enum AllowedMentionTypes {
   Everyone = "everyone",
@@ -337,14 +349,14 @@ export enum AllowedMentionTypes {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#attachment-object-attachment-flags
+ * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-flags
  */
 export enum AttachmentFlags {
   IsRemix = 1 << 2,
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#embed-object-embed-types
+ * @see https://discord.com/developers/docs/resources/message#embed-object-embed-types
  */
 export enum EmbedTypes {
   Article = "article",
@@ -357,17 +369,17 @@ export enum EmbedTypes {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#message-object-message-activity-types
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-activity-types
  */
 export enum MessageActivityTypes {
   Join = 1,
-  Spectate = 2,
-  Listen = 3,
   JoinRequest = 5,
+  Listen = 3,
+  Spectate = 2,
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#message-object-message-flags
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-flags
  */
 export enum MessageFlags {
   Crossposted = 1 << 0,
@@ -386,7 +398,7 @@ export enum MessageFlags {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#message-reference-types
+ * @see https://discord.com/developers/docs/resources/message#message-reference-types
  */
 export enum MessageReferenceTypes {
   Default = 0,
@@ -394,7 +406,7 @@ export enum MessageReferenceTypes {
 }
 
 /**
- * https://discord.com/developers/docs/resources/message#message-object-message-types
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-types
  */
 export enum MessageTypes {
   AutoModerationAction = 24,
