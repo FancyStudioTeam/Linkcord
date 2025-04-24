@@ -1,30 +1,30 @@
 import type { ISO8601Date, Nullable } from "#types/shared";
+import type { APIApplication } from "./application.js";
+import type { APIChannel } from "./channel.js";
 import type { APIGuildScheduledEvent } from "./guild-scheduled-event.js";
 import type { APIGuild } from "./guild.js";
 import type { APIUser } from "./user.js";
 
 /**
- * https://discord.com/developers/docs/resources/invite#invite-object-invite-structure
+ * @see https://discord.com/developers/docs/resources/invite#invite-object-invite-structure
  */
 export interface APIInvite {
   approximate_member_count?: number;
   approximate_presence_count?: number;
-  // TODO: Add "APIChannel" type
-  // channel: Nullable<APIChannel>;
+  channel: Nullable<APIChannel>;
   code: string;
   expires_at?: Nullable<ISO8601Date>;
   guild?: APIInviteGuild;
   guild_scheduled_event?: APIGuildScheduledEvent;
   inviter?: APIUser;
-  // TODO: Add "APIApplication" type
-  // target_application?: APIApplication;
+  target_application?: APIApplication;
   target_type?: InviteTargetTypes;
   target_user?: APIUser;
   type: InviteTypes;
 }
 
 /**
- * https://discord.com/developers/docs/resources/invite#invite-object-invite-structure
+ * @see https://discord.com/developers/docs/resources/invite#invite-object-invite-structure
  */
 export interface APIInviteGuild
   extends Pick<
@@ -44,7 +44,7 @@ export interface APIInviteGuild
   > {}
 
 /**
- * https://discord.com/developers/docs/resources/invite#invite-metadata-object-invite-metadata-structure
+ * @see https://discord.com/developers/docs/resources/invite#invite-metadata-object-invite-metadata-structure
  */
 export interface APIInviteMetadata {
   created_at: ISO8601Date;
@@ -55,7 +55,7 @@ export interface APIInviteMetadata {
 }
 
 /**
- * https://discord.com/developers/docs/resources/invite#invite-object-invite-target-types
+ * @see https://discord.com/developers/docs/resources/invite#invite-object-invite-target-types
  */
 export enum InviteTargetTypes {
   EmbeddedApplication = 2,
@@ -63,7 +63,7 @@ export enum InviteTargetTypes {
 }
 
 /**
- * https://discord.com/developers/docs/resources/invite#invite-object-invite-types
+ * @see https://discord.com/developers/docs/resources/invite#invite-object-invite-types
  */
 export enum InviteTypes {
   Friend = 2,
