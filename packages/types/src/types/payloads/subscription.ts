@@ -1,7 +1,7 @@
 import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
 
 /**
- * https://discord.com/developers/docs/resources/subscription#subscription-object
+ * @see https://discord.com/developers/docs/resources/subscription#subscription-object
  */
 export interface APISubscription {
   canceled_at: Nullable<ISO8601Date>;
@@ -17,7 +17,7 @@ export interface APISubscription {
 }
 
 /**
- * https://discord.com/developers/docs/resources/subscription#subscription-statuses
+ * @see https://discord.com/developers/docs/resources/subscription#subscription-statuses
  */
 export enum SubscriptionStatus {
   Active = 0,
