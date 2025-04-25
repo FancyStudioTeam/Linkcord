@@ -1,7 +1,7 @@
 import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
 import type { ApplicationCommandTypes } from "./application-command.js";
 import type { APIPartialApplication } from "./application.js";
-import type { APIMessageInteractionMetadataBase } from "./base/message.js";
+import type { APIEmbedMediaContentBase, APIMessageInteractionMetadataBase } from "./base/message.js";
 import type { APIChannel, ChannelTypes } from "./channel.js";
 import type { APIComponent } from "./component.js";
 import type { APIPartialEmoji } from "./emoji.js";
@@ -81,6 +81,12 @@ export interface APIEmbed {
   color?: number;
   description?: string;
   fields?: APIEmbedField[];
+  /**
+   * @remarks
+   * - This is not officially documented in the Discord API documentation,
+   *   meaning it may change or break at any time.
+   */
+  flags?: number;
   footer?: APIEmbedFooter;
   image?: APIEmbedImage;
   provider?: APIEmbedProvider;
@@ -123,12 +129,7 @@ export interface APIEmbedFooter {
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-image-structure
  */
-export interface APIEmbedImage {
-  height?: number;
-  proxy_url?: string;
-  url: string;
-  width?: number;
-}
+export interface APIEmbedImage extends APIEmbedMediaContentBase {}
 
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-provider-structure
@@ -141,22 +142,12 @@ export interface APIEmbedProvider {
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-thumbnail-structure
  */
-export interface APIEmbedThumbnail {
-  height?: number;
-  proxy_url?: string;
-  url: string;
-  width?: number;
-}
+export interface APIEmbedThumbnail extends APIEmbedMediaContentBase {}
 
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-video-structure
  */
-export interface APIEmbedVideo {
-  height?: number;
-  proxy_url?: string;
-  url?: string;
-  width?: number;
-}
+export interface APIEmbedVideo extends Omit<APIEmbedMediaContentBase, "flags"> {}
 
 /**
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
@@ -367,8 +358,23 @@ export enum AllowedMentionTypes {
  * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-flags
  */
 export enum AttachmentFlags {
+  /**
+   * @remarks
+   * - This is not officially documented in the Discord API documentation,
+   *   meaning it may change or break at any time.
+   */
   ContainsExplicitMedia = 1 << 4,
   IsRemix = 1 << 2,
+}
+
+/**
+ * @see TBD
+ * @remarks
+ * - This is not officially documented in the Discord API documentation,
+ *   meaning it may change or break at any time.
+ */
+export enum EmbedFlags {
+  ContainsExplicitMedia = 1 << 4,
 }
 
 /**
