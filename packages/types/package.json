@@ -2,6 +2,7 @@
   "devDependencies": {
     "@microsoft/api-documenter": "7.26.21",
     "@microsoft/api-extractor": "7.52.3",
+    "rimraf": "6.0.1",
     "typedoc": "0.28.2",
     "typedoc-material-theme": "1.4.0",
     "typescript": "5.8.3",
@@ -21,9 +22,10 @@
     "url": "https://github.com/FancyStudioTeam/Linkcord"
   },
   "scripts": {
-    "api:run": "api-extractor run --local",
-    "build": "pnpm build:types",
+    "api:run": "pnpm build && api-extractor run --local",
+    "build": "pnpm rimraf && pnpm build:types",
     "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir ./dist/types",
+    "rimraf": "rimraf ./dist",
     "typedoc": "typedoc"
   },
   "types": "./dist/types/index.d.ts",
