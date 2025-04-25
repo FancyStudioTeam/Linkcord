@@ -1,4 +1,5 @@
 import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
+import type { ApplicationCommandTypes } from "./application-command.js";
 import type { APIPartialApplication } from "./application.js";
 import type { APIMessageInteractionMetadataBase } from "./base/message.js";
 import type { APIChannel, ChannelTypes } from "./channel.js";
@@ -6,6 +7,7 @@ import type { APIComponent } from "./component.js";
 import type { APIPartialEmoji } from "./emoji.js";
 import type { APIResolvedData, InteractionTypes } from "./interaction.js";
 import type { APIPoll } from "./poll.js";
+import type { APISoundboardSound } from "./soundboard.js";
 import type { APIStickerItem } from "./sticker.js";
 import type { APIUser } from "./user.js";
 
@@ -26,6 +28,12 @@ export interface APIApplicationCommandInteractionMetadata
   extends APIMessageInteractionMetadataBase<
     InteractionTypes.ApplicationCommand | InteractionTypes.ApplicationCommandAutocomplete
   > {
+  /**
+   * @remarks
+   * - This is not officially documented in the Discord API documentation,
+   *   meaning it may change or break at any time.
+   */
+  command_type?: ApplicationCommandTypes;
   target_message_id?: Snowflake;
   target_user?: APIUser;
 }
@@ -182,6 +190,12 @@ export interface APIMessage {
   referenced_message?: Nullable<APIMessage>;
   resolved?: APIResolvedData;
   role_subscription_data?: APIRoleSubscriptionData;
+  /**
+   * @remarks
+   * - This is not officially documented in the Discord API documentation,
+   *   meaning it may change or break at any time.
+   */
+  soundboard_sounds?: APISoundboardSound[];
   sticker_items?: APIStickerItem[];
   thread?: APIChannel;
   timestamp: ISO8601Date;
@@ -266,6 +280,7 @@ export interface APIMessageSnapshotMessage
     | "flags"
     | "mention_roles"
     | "mentions"
+    | "soundboard_sounds"
     | "sticker_items"
     | "timestamp"
     | "type"
