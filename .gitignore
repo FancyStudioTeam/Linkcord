@@ -4,6 +4,7 @@ dist
 
 # Docs
 .typedoc
+temp
 
 # Packages
 node_modules
