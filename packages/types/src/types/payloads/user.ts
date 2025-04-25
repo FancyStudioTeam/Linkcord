@@ -41,6 +41,17 @@ export interface APIUser {
   avatar_decoration_data?: Nullable<APIAvatarDecorationData>;
   banner?: Nullable<string>;
   bot?: boolean;
+  /**
+   * @remarks
+   * - This is not officially documented in the Discord API documentation,
+   *   meaning it may change or break at any time.
+   */
+  clan?: Nullable<APIUserClan>;
+  /**
+   * @remarks
+   * - This is not officially documented in the Discord API documentation,
+   *   meaning it may change or break at any time.
+   */
   collectibles?: APIUserCollectible;
   /**
    * @remarks
@@ -62,14 +73,33 @@ export interface APIUser {
 }
 
 /**
- * @see https://discord.com/developers/docs/resources/user#collectibles-collectible-structure
+ * @see TBD
+ * @remarks
+ * - This is not officially documented in the Discord API documentation,
+ *   meaning it may change or break at any time.
+ */
+export interface APIUserClan {
+  badge: string;
+  identify_enabled: boolean;
+  identify_guild_id: Snowflake;
+  tag: string;
+}
+
+/**
+ * @see TBD
+ * @remarks
+ * - This is not officially documented in the Discord API documentation,
+ *   meaning it may change or break at any time.
  */
 export interface APIUserCollectible {
   nameplate?: APIUserCollectibleNameplate;
 }
 
 /**
- * @see https://discord.com/developers/docs/resources/user#nameplate-nameplate-structure
+ * @see TBD
+ * @remarks
+ * - This is not officially documented in the Discord API documentation,
+ *   meaning it may change or break at any time.
  */
 export interface APIUserCollectibleNameplate extends APIUserCollectibleBase {
   label: string;
