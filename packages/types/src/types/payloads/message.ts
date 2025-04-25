@@ -42,6 +42,18 @@ export interface APIApplicationCommandInteractionMetadata
  * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
  */
 export interface APIAttachment {
+  /**
+   * @remarks
+   * - This is not officially documented in the Discord API documentation,
+   *   meaning it may change or break at any time.
+   */
+  clip_created_at?: ISO8601Date;
+  /**
+   * @remarks
+   * - This is not officially documented in the Discord API documentation,
+   *   meaning it may change or break at any time.
+   */
+  clip_participants?: APIUser[];
   content_type?: string;
   description?: string;
   duration_secs?: number;
@@ -358,13 +370,12 @@ export enum AllowedMentionTypes {
  * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-flags
  */
 export enum AttachmentFlags {
-  /**
-   * @remarks
-   * - This is not officially documented in the Discord API documentation,
-   *   meaning it may change or break at any time.
-   */
   ContainsExplicitMedia = 1 << 4,
+  IsAnimated = 1 << 5,
+  IsClip = 1 << 0,
   IsRemix = 1 << 2,
+  IsSpoiler = 1 << 3,
+  IsThumbnail = 1 << 1,
 }
 
 /**
@@ -375,6 +386,16 @@ export enum AttachmentFlags {
  */
 export enum EmbedFlags {
   ContainsExplicitMedia = 1 << 4,
+}
+
+/**
+ * @see TBD
+ * @remarks
+ * - This is not officially documented in the Discord API documentation,
+ *   meaning it may change or break at any time.
+ */
+export enum EmbedMediaFlags {
+  IsAnimated = 1 << 5,
 }
 
 /**
