@@ -27,26 +27,14 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
-  packages/linkcord:
-    dependencies:
-      '@fancystudioteam/linkcord-types':
-        specifier: workspace:*
-        version: link:../types
-      '@sapphire/snowflake':
-        specifier: 3.5.5
-        version: 3.5.5
-      vitest:
-        specifier: 3.1.1
-        version: 3.1.1(@types/debug@4.1.12)(@types/node@22.15.2)(jiti@2.4.2)(tsx@4.19.3)(yaml@2.7.1)
-
   packages/types:
     devDependencies:
       '@microsoft/api-documenter':
         specifier: 7.26.21
         version: 7.26.21(@types/node@22.15.2)
       '@microsoft/api-extractor':
-        specifier: 7.52.3
-        version: 7.52.3(@types/node@22.15.2)
+        specifier: 7.52.5
+        version: 7.52.5(@types/node@22.15.2)
       rimraf:
         specifier: 6.0.1
         version: 6.0.1
@@ -462,8 +450,8 @@ packages:
   '@microsoft/api-extractor-model@7.30.5':
     resolution: {integrity: sha512-0ic4rcbcDZHz833RaTZWTGu+NpNgrxVNjVaor0ZDUymfDFzjA/Uuk8hYziIUIOEOSTfmIQqyzVwlzxZxPe7tOA==}
 
-  '@microsoft/api-extractor@7.52.3':
-    resolution: {integrity: sha512-QEs6l8h7p9eOSHrQ9NBBUZhUuq+j/2QKcRgigbSs2YQepKz8glvsqmsUOp+nvuaY60ps7KkpVVYQCj81WLoMVQ==}
+  '@microsoft/api-extractor@7.52.5':
+    resolution: {integrity: sha512-6WWgjjg6FkoDWpF/O3sjB05OkszpI5wtKJqd8fUIR/JJUv8IqNCGr1lJUZJnc1HegcT9gAvyf98KfH0wFncU0w==}
     hasBin: true
 
   '@microsoft/tsdoc-config@0.17.1':
@@ -594,9 +582,8 @@ packages:
   '@rushstack/ts-command-line@4.23.7':
     resolution: {integrity: sha512-Gr9cB7DGe6uz5vq2wdr89WbVDKz0UeuFEn5H2CfWDe7JvjFFaiV15gi6mqDBTbHhHCWS7w8mF1h3BnIfUndqdA==}
 
-  '@sapphire/snowflake@3.5.5':
-    resolution: {integrity: sha512-xzvBr1Q1c4lCe7i6sRnrofxeO1QTP/LKQ6A6qy0iB4x5yfiSfARMEQEghojzTNALDTcv8En04qYNIco9/K9eZQ==}
-    engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
+  '@rushstack/ts-command-line@5.0.0':
+    resolution: {integrity: sha512-SW6nqZVxH26Rxz25+lJQRlnXI/YCrNH7NfDEWPPm9i0rwkSE6Rgtmzw96cuZgQjacOh0sw77d6V4SvgarAfr8g==}
 
   '@shikijs/engine-oniguruma@3.2.2':
     resolution: {integrity: sha512-vyXRnWVCSvokwbaUD/8uPn6Gqsf5Hv7XwcW4AgiU4Z2qwy19sdr6VGzMdheKKN58tJOOe5MIKiNb901bgcUXYQ==}
@@ -1801,7 +1788,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@microsoft/api-extractor@7.52.3(@types/node@22.15.2)':
+  '@microsoft/api-extractor@7.52.5(@types/node@22.15.2)':
     dependencies:
       '@microsoft/api-extractor-model': 7.30.5(@types/node@22.15.2)
       '@microsoft/tsdoc': 0.15.1
@@ -1809,7 +1796,7 @@ snapshots:
       '@rushstack/node-core-library': 5.13.0(@types/node@22.15.2)
       '@rushstack/rig-package': 0.5.3
       '@rushstack/terminal': 0.15.2(@types/node@22.15.2)
-      '@rushstack/ts-command-line': 4.23.7(@types/node@22.15.2)
+      '@rushstack/ts-command-line': 5.0.0(@types/node@22.15.2)
       lodash: 4.17.21
       minimatch: 3.0.8
       resolve: 1.22.10
@@ -1922,7 +1909,14 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@sapphire/snowflake@3.5.5': {}
+  '@rushstack/ts-command-line@5.0.0(@types/node@22.15.2)':
+    dependencies:
+      '@rushstack/terminal': 0.15.2(@types/node@22.15.2)
+      '@types/argparse': 1.0.38
+      argparse: 1.0.10
+      string-argv: 0.3.2
+    transitivePeerDependencies:
+      - '@types/node'
 
   '@shikijs/engine-oniguruma@3.2.2':
     dependencies:
