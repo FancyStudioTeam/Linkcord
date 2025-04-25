@@ -1,4 +1,3 @@
-import type { RESTPollCreateRequest } from "#types/rest";
 import type { Snowflake } from "#types/shared";
 import type {
   APIAutocompleteChoice,
@@ -103,7 +102,8 @@ export interface APIInteractionCallbackDataMessage {
    *   the only valid flag to use is {@link MessageFlags.Ephemeral | `EPHEMERAL`}.
    */
   flags?: MessageFlags;
-  poll?: RESTPollCreateRequest;
+  // TODO: Add missing `poll` field in `APIInteractionCallbackDataMessage`.
+  // poll?: RESTPollCreateRequest;
   tts?: boolean;
 }
 
