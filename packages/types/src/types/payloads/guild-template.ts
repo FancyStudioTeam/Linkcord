@@ -1,9 +1,10 @@
 import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
+import type { APIChannel } from "./channel.js";
 import type { APIGuild } from "./guild.js";
 import type { APIUser } from "./user.js";
 
 /**
- * https://discord.com/developers/docs/resources/guild-template#guild-template-object-guild-template-structure
+ * @see https://discord.com/developers/docs/resources/guild-template#guild-template-object-guild-template-structure
  */
 export interface APIGuildTemplate {
   code: string;
@@ -20,9 +21,15 @@ export interface APIGuildTemplate {
 }
 
 /**
- * https://discord.com/developers/docs/resources/guild-template#guild-template-object-guild-template-structure
+ * @see https://discord.com/developers/docs/resources/guild-template#guild-template-object-example-guild-template-object
  */
-// TODO: Add missing "channels" field
+export interface APIGuildTemplateChannel extends Omit<APIChannel, "id"> {
+  id: number;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/guild-template#guild-template-object-example-guild-template-object
+ */
 export interface APIGuildTemplateSerializedSourceGuild
   extends Pick<
     APIGuild,
@@ -38,4 +45,6 @@ export interface APIGuildTemplateSerializedSourceGuild
     | "system_channel_flags"
     | "system_channel_id"
     | "verification_level"
-  > {}
+  > {
+  channels: APIGuildTemplateChannel[];
+}
