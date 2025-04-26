@@ -25,12 +25,14 @@ import type { APIRole } from "./permission.js";
 import type { APIUser } from "./user.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
  */
 export interface APIApplicationCommandInteraction
   extends APIInteractionBase<InteractionTypes.ApplicationCommand, APIApplicationCommandInteractionData> {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
  */
 export interface APIApplicationCommandInteractionData {
@@ -49,6 +51,7 @@ export interface APIApplicationCommandInteractionData {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-interaction-data-option-structure
  */
 export interface APIApplicationCommandInteractionDataOption {
@@ -60,6 +63,7 @@ export interface APIApplicationCommandInteractionDataOption {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
  */
 export interface APIAuthorizingIntegrationOwners {
@@ -68,6 +72,7 @@ export interface APIAuthorizingIntegrationOwners {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-object
  */
 export interface APIInteractionCallback {
@@ -80,6 +85,7 @@ export interface APIInteractionCallback {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-autocomplete
  */
 export interface APIInteractionCallbackDataAutocomplete {
@@ -87,6 +93,7 @@ export interface APIInteractionCallbackDataAutocomplete {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-messages
  */
 export interface APIInteractionCallbackDataMessage {
@@ -108,6 +115,7 @@ export interface APIInteractionCallbackDataMessage {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-modal
  */
 export interface APIInteractionCallbackDataModal {
@@ -117,6 +125,7 @@ export interface APIInteractionCallbackDataModal {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-resource-object
  */
 export interface APIInteractionCallbackResource {
@@ -137,6 +146,7 @@ export interface APIInteractionCallbackResource {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-activity-instance-resource
  */
 export interface APIInteractionCallbackResourceActivityInstance {
@@ -144,6 +154,7 @@ export interface APIInteractionCallbackResourceActivityInstance {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-response-object
  */
 export interface APIInteractionCallbackResponse {
@@ -152,6 +163,7 @@ export interface APIInteractionCallbackResponse {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-response-structure
  */
 export interface APIInteractionResponse {
@@ -160,18 +172,21 @@ export interface APIInteractionResponse {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
  */
 export interface APIMessageComponentButtonInteractionData
   extends APIMessageComponentInteractionDataBase<ComponentTypes.Button> {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
  */
 export interface APIMessageComponentInteraction
   extends APIInteractionBase<InteractionTypes.MessageComponent, APIMessageComponentInteractionData> {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
  */
 export interface APIMessageComponentResolvedSelectInteractionData
@@ -185,18 +200,21 @@ export interface APIMessageComponentResolvedSelectInteractionData
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
  */
 export interface APIMessageComponentStringSelectInteractionData
   extends APIMessageComponentSelectInteractionDataBase<ComponentTypes.StringSelect> {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
  */
 export interface APIModalSubmitInteraction
   extends APIInteractionBase<InteractionTypes.ModalSubmit, APIModalSubmitInteractionData> {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-modal-submit-data-structure
  */
 export interface APIModalSubmitInteractionData {
@@ -205,11 +223,13 @@ export interface APIModalSubmitInteractionData {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
  */
 export interface APIPingInteraction extends APIInteractionBase<InteractionTypes.Ping, never> {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
  */
 export interface APIResolvedData {
@@ -222,16 +242,19 @@ export interface APIResolvedData {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
  */
 export interface APIResolvedDataMember extends Omit<APIGuildMember, "deaf" | "mute" | "user"> {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-interaction-data-option-structure
  */
 export type APIApplicationCommandInteractionDataOptionValue = boolean | number | string;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
  */
 export type APIInteraction =
@@ -241,6 +264,7 @@ export type APIInteraction =
   | APIPingInteraction;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-data-structure
  */
 export type APIInteractionCallbackData =
@@ -249,6 +273,7 @@ export type APIInteractionCallbackData =
   | APIInteractionCallbackDataModal;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-data
  */
 export type APIInteractionData =
@@ -257,6 +282,7 @@ export type APIInteractionData =
   | APIModalSubmitInteractionData;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
  */
 export type APIMessageComponentInteractionData =
@@ -264,6 +290,7 @@ export type APIMessageComponentInteractionData =
   | APIMessageComponentSelectMenuInteractionData;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
  */
 export type APIMessageComponentSelectMenuInteractionData =
@@ -271,6 +298,7 @@ export type APIMessageComponentSelectMenuInteractionData =
   | APIMessageComponentStringSelectInteractionData;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type
  */
 export enum InteractionCallbackTypes {
@@ -295,6 +323,7 @@ export enum InteractionCallbackTypes {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-context-types
  */
 export enum InteractionContextTypes {
@@ -304,6 +333,7 @@ export enum InteractionContextTypes {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-type
  */
 export enum InteractionTypes {

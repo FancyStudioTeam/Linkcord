@@ -5,7 +5,7 @@ import type { APITeam } from "./team.js";
 import type { APIUser } from "./user.js";
 
 /**
- * Represents the application structure from Discord.
+ * @public
  * @see https://discord.com/developers/docs/resources/application#application-object-application-structure
  */
 export interface APIApplication {
@@ -43,6 +43,7 @@ export interface APIApplication {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/application#install-params-object-install-params-structure
  */
 export interface APIApplicationInstallParams {
@@ -51,6 +52,7 @@ export interface APIApplicationInstallParams {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/application#application-object-application-integration-type-configuration-object
  */
 export interface APIApplicationIntegrationTypeConfiguration {
@@ -58,6 +60,7 @@ export interface APIApplicationIntegrationTypeConfiguration {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/application#application-object-application-structure
  */
 export interface APIApplicationIntegrationTypesConfiguration {
@@ -66,6 +69,7 @@ export interface APIApplicationIntegrationTypesConfiguration {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/application#application-object-application-structure
  * @remarks
  * - This type is not documented by Discord.
@@ -75,6 +79,7 @@ export interface APIApplicationIntegrationTypesConfiguration {
 export interface APIPartialApplication extends Partial<APIApplication> {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/application#application-object-application-event-webhook-status
  */
 export enum ApplicationEventWebhookStatus {
@@ -84,6 +89,7 @@ export enum ApplicationEventWebhookStatus {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/webhook-events#event-types
  */
 export enum ApplicationEventWebhookTypes {
@@ -93,6 +99,7 @@ export enum ApplicationEventWebhookTypes {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/application#application-object-application-flags
  */
 export enum ApplicationFlags {
@@ -109,6 +116,7 @@ export enum ApplicationFlags {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/application#application-object-application-integration-types
  */
 export enum ApplicationIntegrationTypes {

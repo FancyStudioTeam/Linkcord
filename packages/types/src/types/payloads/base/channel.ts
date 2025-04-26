@@ -9,6 +9,9 @@ import type {
 } from "../channel.js";
 import type { APIUser } from "../user.js";
 
+/**
+ * @internal
+ */
 export interface APIChannelBase<Type extends ChannelTypes> {
   flags?: number;
   id: Snowflake;
@@ -16,12 +19,18 @@ export interface APIChannelBase<Type extends ChannelTypes> {
   type: Type;
 }
 
+/**
+ * @internal
+ */
 export interface APIDMChannelBase<Type extends AnyDMChannelType> extends APIChannelBase<Type> {
   recipients?: APIUser[];
   last_message_id?: Nullable<Snowflake>;
   last_pin_timestamp?: Nullable<ISO8601Date>;
 }
 
+/**
+ * @internal
+ */
 export interface APIGuildChannelBase<Type extends ChannelTypes> extends Omit<APIChannelBase<Type>, "name"> {
   guild_id: Snowflake;
   name: string;
@@ -31,6 +40,9 @@ export interface APIGuildChannelBase<Type extends ChannelTypes> extends Omit<API
   position: number;
 }
 
+/**
+ * @internal
+ */
 export interface APITextChannelBase<Type extends AnyTextChannelType> extends APIGuildChannelBase<Type> {
   default_auto_archive_duration?: AutoArchiveDuration;
   last_message_id: Nullable<Snowflake>;
@@ -39,6 +51,9 @@ export interface APITextChannelBase<Type extends AnyTextChannelType> extends API
   topic: Nullable<string>;
 }
 
+/**
+ * @internal
+ */
 export interface APIThreadChannelBase<Type extends AnyThreadChannelType>
   extends Omit<
     APITextChannelBase<Type>,
@@ -58,6 +73,9 @@ export interface APIThreadChannelBase<Type extends AnyThreadChannelType>
   total_message_sent?: number;
 }
 
+/**
+ * @internal
+ */
 export interface APIVoiceChannelBase<Type extends AnyVoiceChannelType>
   extends Omit<APITextChannelBase<Type>, "default_auto_archive_duration" | "last_pin_timestamp" | "topic"> {
   bitrate?: number;
@@ -71,10 +89,22 @@ export interface APIVoiceChannelBase<Type extends AnyVoiceChannelType>
   video_quality_mode?: VideoQualityModes;
 }
 
+/**
+ * @internal
+ */
 type AnyDMChannelType = ChannelTypes.DirectMessage | ChannelTypes.GroupDM;
 
+/**
+ * @internal
+ */
 type AnyTextChannelType = Exclude<ChannelTypes, AnyDMChannelType>;
 
+/**
+ * @internal
+ */
 type AnyThreadChannelType = ChannelTypes.AnnouncementThread | ChannelTypes.PrivateThread | ChannelTypes.PublicThread;
 
+/**
+ * @internal
+ */
 type AnyVoiceChannelType = ChannelTypes.GuildVoice | ChannelTypes.GuildStageVoice;

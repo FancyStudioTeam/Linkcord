@@ -1,12 +1,18 @@
-/** Represents a type depending on a boolean condition. */
+/**
+ * @internal
+ */
 export type If<Condition, TrueResult, FalseResult = null> = Condition extends true
   ? TrueResult
   : Condition extends false
     ? FalseResult
     : never;
 
-/** Represents a type that is either the defined type or `null`. */
+/**
+ * @internal
+ */
 export type Nullable<Type> = Type | null;
 
-/** Represents a type that is either the defined type or `undefined`. */
+/**
+ * @internal
+ */
 export type Optional<Type> = Type | undefined;

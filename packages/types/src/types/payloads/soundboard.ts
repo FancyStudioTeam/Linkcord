@@ -2,6 +2,7 @@ import type { Nullable, Snowflake } from "#types/shared";
 import type { APIUser } from "./user.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/soundboard#soundboard-sound-object-soundboard-sound-structure
  */
 export interface APISoundboardSound {

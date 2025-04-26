@@ -2,6 +2,7 @@ import type { Nullable, Snowflake } from "#types/shared";
 import type { APIUser } from "./user.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/topics/teams#data-models-team-object
  */
 export interface APITeam {
@@ -13,6 +14,7 @@ export interface APITeam {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/topics/teams#data-models-team-member-object
  */
 export interface APITeamMember {
@@ -23,6 +25,7 @@ export interface APITeamMember {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/topics/teams#team-member-roles-team-member-role-types
  */
 export enum TeamMemberRoleTypes {
@@ -32,6 +35,7 @@ export enum TeamMemberRoleTypes {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/topics/teams#data-models-membership-state-enum
  */
 export enum TeamMembershipState {

@@ -1,4 +1,5 @@
 /**
+ * @public
  * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#voice-voice-opcodes
  */
 export enum VoiceOpcodes {
@@ -28,6 +29,7 @@ export enum VoiceOpcodes {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#voice-voice-close-event-codes
  */
 export enum VoiceCloseEventCodes {

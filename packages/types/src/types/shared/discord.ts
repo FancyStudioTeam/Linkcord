@@ -1,15 +1,18 @@
 /**
- * https://discord.com/developers/docs/reference#api-versioning-api-versions
+ * @public
+ * @see https://discord.com/developers/docs/reference#api-versioning-api-versions
  */
 export type APIVersion = 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 /**
- * https://discord.com/developers/docs/reference#image-data
+ * @public
+ * @see https://discord.com/developers/docs/reference#image-data
  */
 export type AudioData = `data:audio/mpeg;base64,${string}` | `data:audio/ogg;base64,${string}`;
 
 /**
- * https://discord.com/developers/docs/reference#image-data
+ * @public
+ * @see https://discord.com/developers/docs/reference#image-data
  */
 export type ImageData =
   | `data:image/jpeg;base64,${string}`
@@ -17,12 +20,14 @@ export type ImageData =
   | `data:image/gif;base64,${string}`;
 
 /**
- * https://discord.com/developers/docs/reference#iso8601-datetime
+ * @public
+ * @see https://discord.com/developers/docs/reference#iso8601-datetime
  */
 export type ISO8601Date = string;
 
 /**
- * https://discord.com/developers/docs/reference#locales
+ * @public
+ * @see https://discord.com/developers/docs/reference#locales
  */
 export interface Locales {
   [Locale.Bulgarian]: string;
@@ -60,17 +65,20 @@ export interface Locales {
 }
 
 /**
- * https://discord.com/developers/docs/reference#locales
+ * @public
+ * @see https://discord.com/developers/docs/reference#locales
  */
 export type Localizations = Partial<Locales>;
 
 /**
- * https://discord.com/developers/docs/reference#snowflakes
+ * @public
+ * @see https://discord.com/developers/docs/reference#snowflakes
  */
 export type Snowflake = string;
 
 /**
- * https://discord.com/developers/docs/reference#locales
+ * @public
+ * @see https://discord.com/developers/docs/reference#locales
  */
 export enum Locale {
   Bulgarian = "bg",

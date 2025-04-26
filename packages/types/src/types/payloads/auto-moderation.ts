@@ -1,7 +1,8 @@
 import type { Snowflake } from "#types/shared";
 
 /**
- * https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-auto-moderation-rule-structure
+ * @public
+ * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-auto-moderation-rule-structure
  */
 export interface APIAutoModerationAction {
   metadata?: APIAutoModerationActionMetadata;
@@ -9,7 +10,8 @@ export interface APIAutoModerationAction {
 }
 
 /**
- * https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-action-object-action-metadata
+ * @public
+ * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-action-object-action-metadata
  */
 export interface APIAutoModerationActionMetadata {
   channel_id: Snowflake;
@@ -18,7 +20,8 @@ export interface APIAutoModerationActionMetadata {
 }
 
 /**
- * https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-auto-moderation-rule-structure
+ * @public
+ * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-auto-moderation-rule-structure
  */
 export interface APIAutoModerationRule {
   actions: APIAutoModerationAction[];
@@ -35,7 +38,8 @@ export interface APIAutoModerationRule {
 }
 
 /**
- * https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-trigger-metadata
+ * @public
+ * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-trigger-metadata
  */
 export interface APIAutoModerationTriggerMetadata {
   allow_list: string[];
@@ -47,7 +51,8 @@ export interface APIAutoModerationTriggerMetadata {
 }
 
 /**
- * https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-action-object-action-types
+ * @public
+ * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-action-object-action-types
  */
 export enum AutoModerationActionTypes {
   BlockMemberInteraction = 4,
@@ -57,7 +62,8 @@ export enum AutoModerationActionTypes {
 }
 
 /**
- * https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-event-types
+ * @public
+ * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-event-types
  */
 export enum AutoModerationEventTypes {
   MemberUpdate = 2,
@@ -65,7 +71,8 @@ export enum AutoModerationEventTypes {
 }
 
 /**
- * https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-trigger-types
+ * @public
+ * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-trigger-types
  */
 export enum AutoModerationTriggerTypes {
   Keyword = 1,
@@ -76,7 +83,8 @@ export enum AutoModerationTriggerTypes {
 }
 
 /**
- * https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-keyword-preset-types
+ * @public
+ * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-keyword-preset-types
  */
 export enum AutoModerationKeywordPresetTypes {
   Profanity = 1,

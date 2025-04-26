@@ -2,6 +2,7 @@ import type { Nullable, Snowflake } from "#types/shared";
 import type { APIChannel } from "./channel.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#lobby-object-lobby-structure
  */
 export interface APILobby {
@@ -13,6 +14,7 @@ export interface APILobby {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-structure
  */
 export interface APILobbyMember {
@@ -22,16 +24,19 @@ export interface APILobbyMember {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-structure
  */
 export type APILobbyMemberMetadata = APILobbyMetadata;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#lobby-object-lobby-structure
  */
 export type APILobbyMetadata = Record<string, string>;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-flags
  */
 export enum LobbyMemberFlags {

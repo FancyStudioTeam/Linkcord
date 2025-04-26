@@ -2,6 +2,7 @@ import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
 import type { APIUser } from "./user.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-structure
  */
 export interface APIGuildScheduledEvent {
@@ -31,6 +32,7 @@ export interface APIGuildScheduledEvent {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-entity-metadata
  */
 export interface APIGuildScheduledEventEntityMetadata {
@@ -43,6 +45,7 @@ export interface APIGuildScheduledEventEntityMetadata {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object-guild-scheduled-event-recurrence-rule-structure
  */
 export interface APIGuildScheduledEventRecurrenceRule {
@@ -59,6 +62,7 @@ export interface APIGuildScheduledEventRecurrenceRule {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object-guild-scheduled-event-recurrence-rule-nweekday-structure
  */
 export interface APIGuildScheduledEventRecurrenceRuleNWeekday {
@@ -67,6 +71,7 @@ export interface APIGuildScheduledEventRecurrenceRuleNWeekday {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-entity-types
  */
 export enum GuildScheduledEventEntityTypes {
@@ -76,6 +81,7 @@ export enum GuildScheduledEventEntityTypes {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-privacy-level
  */
 export enum GuildScheduledEventPrivacyLevel {
@@ -83,6 +89,7 @@ export enum GuildScheduledEventPrivacyLevel {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object-guild-scheduled-event-recurrence-rule-frequency
  */
 export enum GuildScheduledEventRecurrenceRuleFrequency {
@@ -93,6 +100,7 @@ export enum GuildScheduledEventRecurrenceRuleFrequency {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object-guild-scheduled-event-recurrence-rule-month
  */
 export enum GuildScheduledEventRecurrenceRuleMonth {
@@ -111,6 +119,7 @@ export enum GuildScheduledEventRecurrenceRuleMonth {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object-guild-scheduled-event-recurrence-rule-weekday
  */
 export enum GuildScheduledEventRecurrenceRuleWeekday {
@@ -124,6 +133,7 @@ export enum GuildScheduledEventRecurrenceRuleWeekday {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-status
  */
 export enum GuildScheduledEventStatus {

@@ -1,6 +1,7 @@
 import type { Localizations } from "#types/shared";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object-application-role-connection-metadata-structure
  */
 export interface APIApplicationRoleConnectionMetadata {
@@ -13,6 +14,7 @@ export interface APIApplicationRoleConnectionMetadata {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object-application-role-connection-metadata-type
  */
 export enum ApplicationRoleConnectionMetadataTypes {

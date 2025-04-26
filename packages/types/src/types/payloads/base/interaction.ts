@@ -7,11 +7,18 @@ import type { APIAuthorizingIntegrationOwners, InteractionContextTypes, Interact
 import type { APIMessage } from "../message.js";
 import type { APIUser } from "../user.js";
 
+/**
+ * @internal
+ */
 export interface APIInteractionBase<Type extends InteractionTypes, Data> {
   /**
    * @remarks
-   * - Includes {@link Permissions.AttachFiles | `ATTACH_FILES`}, {@link Permissions.EmbedLinks | `EMBED_LINKS`} and {@link Permissions.MentionEveryone | `MENTION_EVERYONE`} for DMs.
-   * - Additionally may include {@link Permissions.UseExternalEmojis | `USE_EXTERNAL_EMOJIS` } for DMs with application bot user.
+   * - Includes {@link Permissions.AttachFiles | `ATTACH_FILES`},
+   *   {@link Permissions.EmbedLinks | `EMBED_LINKS`} and
+   *   {@link Permissions.MentionEveryone | `MENTION_EVERYONE`} for DMs.
+   * - Additionally may include
+   *   {@link Permissions.UseExternalEmojis | `USE_EXTERNAL_EMOJIS` } for DMs with
+   *   application bot user.
    */
   app_permissions?: string;
   application_id: Snowflake;
@@ -38,17 +45,26 @@ export interface APIInteractionBase<Type extends InteractionTypes, Data> {
   version: 1;
 }
 
+/**
+ * @internal
+ */
 export interface APIMessageComponentInteractionDataBase<Type extends ComponentTypes> {
   component_type: Type;
   custom_id: string;
   id?: number;
 }
 
+/**
+ * @internal
+ */
 export interface APIMessageComponentSelectInteractionDataBase<Type extends AnySelectMenu>
   extends APIMessageComponentInteractionDataBase<Type> {
   values: string[];
 }
 
+/**
+ * @internal
+ */
 type AnySelectMenu =
   | ComponentTypes.ChannelSelect
   | ComponentTypes.MentionableSelect

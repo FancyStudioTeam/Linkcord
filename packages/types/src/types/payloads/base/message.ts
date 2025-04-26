@@ -2,6 +2,9 @@ import type { Snowflake } from "#types/shared";
 import type { APIAuthorizingIntegrationOwners, InteractionTypes } from "../interaction.js";
 import type { APIUser } from "../user.js";
 
+/**
+ * @internal
+ */
 export interface APIEmbedMediaContentBase {
   /**
    * @remarks
@@ -15,6 +18,9 @@ export interface APIEmbedMediaContentBase {
   width?: number;
 }
 
+/**
+ * @internal
+ */
 export interface APIMessageInteractionMetadataBase<Type extends InteractionTypes> {
   authorizing_integration_owners: APIAuthorizingIntegrationOwners;
   id: Snowflake;

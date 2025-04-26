@@ -1,6 +1,7 @@
 import type { Nullable, Snowflake } from "#types/shared";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/topics/permissions#role-object-role-structure
  */
 export interface APIRole {
@@ -19,6 +20,7 @@ export interface APIRole {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/topics/permissions#role-object-role-tags-structure
  */
 export interface APIRoleTags {
@@ -52,6 +54,7 @@ export interface APIRoleTags {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/topics/permissions#permissions-bitwise-permission-flags
  */
 export const Permissions = {
@@ -168,6 +171,7 @@ export const Permissions = {
 };
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/topics/permissions#role-object-role-flags
  */
 export enum RoleFlags {
