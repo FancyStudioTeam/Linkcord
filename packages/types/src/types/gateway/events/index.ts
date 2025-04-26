@@ -5,3 +5,5 @@ export * from "./identify.js";
 export * from "./presence-update.js";
 export * from "./request-guild-members.js";
 export * from "./request-soundboard-sounds.js";
+export * from "./resume.js";
+export * from "./voice-state-update.js";
