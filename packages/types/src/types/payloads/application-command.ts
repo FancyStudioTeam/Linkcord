@@ -2,8 +2,9 @@ import type { Localizations, Nullable, Snowflake } from "#types/shared";
 import type { ApplicationIntegrationTypes } from "./application.js";
 import type { ChannelTypes } from "./channel.js";
 import type { InteractionContextTypes } from "./interaction.js";
+
 /**
- * https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
  */
 export interface APIApplicationCommand {
   application_id: Snowflake;
@@ -25,7 +26,7 @@ export interface APIApplicationCommand {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
 export interface APIApplicationCommandOption {
   autocomplete?: boolean;
@@ -43,16 +44,16 @@ export interface APIApplicationCommandOption {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
  */
 export interface APIApplicationCommandOptionChoice {
   name: string;
   name_localizations?: Localizations;
-  value: string | number;
+  value: number | string;
 }
 
 /**
- * https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-application-command-permissions-structure
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-application-command-permissions-structure
  */
 export interface APIApplicationCommandPermissions {
   id: Snowflake;
@@ -61,7 +62,16 @@ export interface APIApplicationCommandPermissions {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
+ */
+export interface APIAutocompleteChoice {
+  name: string;
+  name_localizations?: Localizations;
+  value: number | string;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure
  */
 export interface APIGuildApplicationCommandPermissions {
   application_id: Snowflake;
@@ -71,7 +81,7 @@ export interface APIGuildApplicationCommandPermissions {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
  */
 export enum ApplicationCommandOptionTypes {
   Attachment = 11,
@@ -88,7 +98,7 @@ export enum ApplicationCommandOptionTypes {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-application-command-permission-type
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-application-command-permission-type
  */
 export enum ApplicationCommandPermissionType {
   Channel = 3,
@@ -97,7 +107,7 @@ export enum ApplicationCommandPermissionType {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
  */
 export enum ApplicationCommandTypes {
   ChatInput = 1,
@@ -107,7 +117,7 @@ export enum ApplicationCommandTypes {
 }
 
 /**
- * https://discord.com/developers/docs/interactions/application-commands#application-command-object-entry-point-command-handler-types
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-entry-point-command-handler-types
  */
 export enum EntryPointCommandHandlerTypes {
   AppHandler = 1,
