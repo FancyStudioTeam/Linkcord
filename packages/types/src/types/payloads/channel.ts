@@ -1,49 +1,37 @@
 import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
+import type {
+  APIDMChannelBase,
+  APIGuildChannelBase,
+  APITextChannelBase,
+  APIThreadChannelBase,
+  APIVoiceChannelBase,
+} from "./base/channel.js";
 import type { APIGuildMember } from "./guild.js";
-import type { APIUser } from "./user.js";
 
 /**
- * https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-example-guild-announcement-channel
  */
-export interface APIChannel {
-  application_id?: Snowflake;
-  applied_tags?: Snowflake[];
-  available_tags?: APIForumTag[];
-  bitrate?: number;
-  default_auto_archive_duration?: AutoArchiveDuration;
-  default_forum_layout?: ForumLayoutTypes;
-  default_reaction_emoji?: APIDefaultReactionEmoji;
-  default_sort_order?: SortOrderTypes;
-  flags?: ChannelFlags;
-  guild_id?: Snowflake;
-  icon?: Nullable<string>;
-  id: Snowflake;
-  last_message_id?: Nullable<Snowflake>;
-  last_pin_timestamp?: Nullable<string>;
-  managed?: boolean;
-  member?: APIThreadMember;
-  member_count?: number;
-  message_count?: number;
-  name?: Nullable<string>;
-  nsfw?: boolean;
-  owner_id?: Snowflake;
-  parent_id?: Nullable<Snowflake>;
-  permission_overwrites?: APIOverwrite[];
-  permissions?: string;
-  position?: number;
-  rate_limit_per_user?: number;
-  recipients?: APIUser[];
-  rtc_region?: Nullable<string>;
-  thread_metadata?: APIThreadMetadata;
-  topic?: Nullable<string>;
-  total_message_sent?: number;
-  type: ChannelTypes;
-  user_limit?: number;
-  video_quality_mode?: Nullable<VideoQualityModes>;
+export interface APIAnnouncementChannel extends APITextChannelBase<ChannelTypes.GuildAnnouncement> {}
+
+/**
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-example-thread-channel
+ */
+export interface APIAnnouncementThreadChannel extends APIThreadChannelBase<ChannelTypes.AnnouncementThread> {}
+
+/**
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-example-channel-category
+ */
+export interface APICategoryChannel extends Omit<APIGuildChannelBase<ChannelTypes.GuildCategory>, "parent_id"> {
+  parent_id: null;
 }
 
 /**
- * https://discord.com/developers/docs/resources/channel#default-reaction-object-default-reaction-structure
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-example-dm-channel
+ */
+export interface APIDMChannel extends APIDMChannelBase<ChannelTypes.DirectMessage> {}
+
+/**
+ * @see https://discord.com/developers/docs/resources/channel#default-reaction-object-default-reaction-structure
  */
 export interface APIDefaultReactionEmoji {
   emoji_id: Nullable<Snowflake>;
@@ -51,7 +39,7 @@ export interface APIDefaultReactionEmoji {
 }
 
 /**
- * https://discord.com/developers/docs/resources/channel#followed-channel-object-followed-channel-structure
+ * @see https://discord.com/developers/docs/resources/channel#followed-channel-object-followed-channel-structure
  */
 export interface APIFollowedChannel {
   channel_id: Snowflake;
@@ -59,7 +47,20 @@ export interface APIFollowedChannel {
 }
 
 /**
- * https://discord.com/developers/docs/resources/channel#forum-tag-object-forum-tag-structure
+ * @see https://discord.com/developers/docs/topics/threads#forums
+ */
+export interface APIForumChannel extends APIGuildChannelBase<ChannelTypes.GuildForum> {
+  available_tags: APIForumTag[];
+  default_forum_layout: ForumLayoutTypes;
+  default_reaction_emoji: Nullable<APIDefaultReactionEmoji>;
+  default_sort_order: SortOrderTypes;
+  default_tag_setting: ForumTagSettingTypes;
+  default_thread_rate_limit_per_user?: number;
+  rate_limit_per_user?: number;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/channel#forum-tag-object-forum-tag-structure
  */
 export interface APIForumTag {
   emoji_id: Nullable<Snowflake>;
@@ -70,7 +71,17 @@ export interface APIForumTag {
 }
 
 /**
- * https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-example-group-dm-channel
+ */
+export interface APIGroupDMChannel extends APIDMChannelBase<ChannelTypes.GroupDM> {
+  application_id?: Snowflake;
+  icon: Nullable<string>;
+  managed?: boolean;
+  owner_id: Snowflake;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure
  */
 export interface APIOverwrite {
   allow: string;
@@ -80,12 +91,36 @@ export interface APIOverwrite {
 }
 
 /**
- * https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
+ * @remarks
+ * - This type is not documented by Discord.
+ * - Partial structures may be incorrectly implemented here due lack of
+ *   documentation.
  */
-export interface APIPartialChannel extends Partial<APIChannel> {}
+export interface APIPartialChannel extends Pick<APIChannel, "id" | "name" | "type"> {}
 
 /**
- * https://discord.com/developers/docs/resources/channel#thread-member-object-thread-member-structure
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-example-thread-channel
+ */
+export interface APIPrivateThreadChannel extends APIThreadChannelBase<ChannelTypes.PrivateThread> {}
+
+/**
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-example-thread-channel
+ */
+export interface APIPublicThreadChannel extends APIThreadChannelBase<ChannelTypes.PublicThread> {}
+
+/**
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-example-guild-voice-channel
+ */
+export interface APIStageVoiceChannel extends APIVoiceChannelBase<ChannelTypes.GuildStageVoice> {}
+
+/**
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-example-guild-text-channel
+ */
+export interface APITextChannel extends APITextChannelBase<ChannelTypes.GuildText> {}
+
+/**
+ * @see https://discord.com/developers/docs/resources/channel#thread-member-object-thread-member-structure
  */
 export interface APIThreadMember {
   flags: number;
@@ -96,7 +131,7 @@ export interface APIThreadMember {
 }
 
 /**
- * https://discord.com/developers/docs/resources/channel#thread-metadata-object-thread-metadata-structure
+ * @see https://discord.com/developers/docs/resources/channel#thread-metadata-object-thread-metadata-structure
  */
 export interface APIThreadMetadata {
   archive_timestamp: ISO8601Date;
@@ -108,7 +143,31 @@ export interface APIThreadMetadata {
 }
 
 /**
- * https://discord.com/developers/docs/resources/channel#thread-metadata-object-thread-metadata-structure
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-example-guild-voice-channel
+ */
+export interface APIVoiceChannel extends APIVoiceChannelBase<ChannelTypes.GuildVoice> {}
+
+/**
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
+ */
+export type APIChannel =
+  | APIAnnouncementChannel
+  | APICategoryChannel
+  | APIDMChannel
+  | APIForumChannel
+  | APIGroupDMChannel
+  | APIStageVoiceChannel
+  | APITextChannel
+  | APIThreadChannel
+  | APIVoiceChannel;
+
+/**
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-example-thread-channel
+ */
+export type APIThreadChannel = APIAnnouncementThreadChannel | APIPrivateThreadChannel | APIPublicThreadChannel;
+
+/**
+ * @see https://discord.com/developers/docs/resources/channel#thread-metadata-object-thread-metadata-structure
  */
 export enum AutoArchiveDuration {
   OneHour = 60,
@@ -118,7 +177,7 @@ export enum AutoArchiveDuration {
 }
 
 /**
- * https://discord.com/developers/docs/resources/channel#channel-object-channel-flags
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-flags
  */
 export enum ChannelFlags {
   HideMediaDownloadOptions = 1 << 15,
@@ -127,7 +186,7 @@ export enum ChannelFlags {
 }
 
 /**
- * https://discord.com/developers/docs/resources/channel#channel-object-channel-types
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-types
  */
 export enum ChannelTypes {
   AnnouncementThread = 10,
@@ -146,7 +205,7 @@ export enum ChannelTypes {
 }
 
 /**
- * https://discord.com/developers/docs/resources/channel#channel-object-forum-layout-types
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-forum-layout-types
  */
 export enum ForumLayoutTypes {
   GalleryView = 2,
@@ -155,7 +214,18 @@ export enum ForumLayoutTypes {
 }
 
 /**
- * https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure
+ * @see TBD
+ * @remarks
+ * - This is not officially documented in the Discord API documentation,
+ *   meaning it may change or break at any time.
+ */
+export enum ForumTagSettingTypes {
+  MatchAll = "match_all",
+  MatchSome = "match_some",
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure
  */
 export enum OverwriteTypes {
   Member = 1,
@@ -163,7 +233,7 @@ export enum OverwriteTypes {
 }
 
 /**
- * https://discord.com/developers/docs/resources/channel#channel-object-sort-order-types
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-sort-order-types
  */
 export enum SortOrderTypes {
   LatestActivity = 0,
@@ -171,7 +241,7 @@ export enum SortOrderTypes {
 }
 
 /**
- * https://discord.com/developers/docs/resources/channel#channel-object-video-quality-modes
+ * @see https://discord.com/developers/docs/resources/channel#channel-object-video-quality-modes
  */
 export enum VideoQualityModes {
   Auto = 1,
