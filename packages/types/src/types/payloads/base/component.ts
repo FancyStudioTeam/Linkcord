@@ -1,53 +1,46 @@
-import type { ButtonStyles, ComponentTypes } from "../component.js";
+import type { APISelectMenuDefaultValue, ButtonStyles, ComponentTypes } from "../component.js";
 import type { APIPartialEmoji } from "../emoji.js";
 
-/**
- * https://discord.com/developers/docs/interactions/message-components#component-object-example-component
- */
 export interface APIComponentBase<Type extends ComponentTypes> {
-  disabled?: boolean;
+  id?: number;
   type: Type;
 }
 
-/**
- * https://discord.com/developers/docs/interactions/message-components#component-object-example-component
- */
-export interface APIComponentV2Base<Type extends AnyComponentV2Type> extends Omit<APIComponentBase<Type>, "disabled"> {}
+export interface APIInteractiveComponentBase<Type extends AnyInteractiveComponent> extends APIComponentBase<Type> {
+  custom_id: string;
+  disabled?: boolean;
+}
 
-/**
- * https://discord.com/developers/docs/interactions/message-components#button-object-button-structure
- */
-export interface APIButtonComponentBase<Style extends ButtonStyles> extends APIComponentBase<ComponentTypes.Button> {
+export interface APIButtonComponentBase<Style extends ButtonStyles>
+  extends APIInteractiveComponentBase<ComponentTypes.Button> {
   emoji?: APIPartialEmoji;
   label?: string;
   style: Style;
 }
 
-/**
- * https://discord.com/developers/docs/interactions/message-components#select-menu-object-select-menu-structure
- */
-export interface APISelectMenuComponentBase<Type extends AnySelectMenuType> extends APIComponentBase<Type> {
+export interface APIResolvedSelectMenuComponentBase<Type extends AnyResolvedSelectMenuType>
+  extends APISelectMenuComponentBase<Type> {
+  default_values?: APISelectMenuDefaultValue[];
+}
+
+export interface APISelectMenuComponentBase<Type extends AnySelectMenuType> extends APIInteractiveComponentBase<Type> {
   custom_id: string;
   max_values?: number;
   min_values?: number;
   placeholder?: string;
 }
 
-/**
- * Not documented by Discord yet.
- */
-type AnyComponentV2Type =
-  | ComponentTypes.Container
-  | ComponentTypes.File
-  | ComponentTypes.MediaGallery
-  | ComponentTypes.Section
-  | ComponentTypes.Separator
-  | ComponentTypes.TextDisplay
-  | ComponentTypes.Thumbnail;
+type AnyInteractiveComponent =
+  | ComponentTypes.Button
+  | ComponentTypes.ChannelSelect
+  | ComponentTypes.MentionableSelect
+  | ComponentTypes.RoleSelect
+  | ComponentTypes.StringSelect
+  | ComponentTypes.TextInput
+  | ComponentTypes.UserSelect;
 
-/**
- * https://discord.com/developers/docs/interactions/message-components#select-menu-types
- */
+type AnyResolvedSelectMenuType = Exclude<AnySelectMenuType, ComponentTypes.StringSelect>;
+
 type AnySelectMenuType =
   | ComponentTypes.ChannelSelect
   | ComponentTypes.MentionableSelect
