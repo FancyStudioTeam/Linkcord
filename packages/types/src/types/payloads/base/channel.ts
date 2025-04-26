@@ -46,6 +46,11 @@ export interface APIThreadChannelBase<Type extends AnyThreadChannelType>
   > {
   applied_tags?: Snowflake[];
   member?: APIThreadMember;
+  /**
+   * @remarks
+   * - This field may be innacurate when it is greather than `50` for threads
+   *   created before `July 1st, 2021`.
+   */
   member_count?: number;
   message_count?: number;
   owner_id: Snowflake;
