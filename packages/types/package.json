@@ -1,18 +1,18 @@
 {
   "devDependencies": {
-    "@microsoft/api-documenter": "7.26.21",
-    "@microsoft/api-extractor": "7.52.3",
+    "@swc/cli": "0.7.3",
+    "@swc/core": "1.11.22",
     "rimraf": "6.0.1",
+    "tsc-alias": "1.8.15",
     "typedoc": "0.28.2",
     "typedoc-material-theme": "1.4.0",
     "typescript": "5.8.3",
     "vitest": "3.1.1"
   },
   "files": ["dist", "README.md", "LICENSE"],
-  "imports": {
-    "#types/*": "./dist/types/*"
-  },
   "license": "MIT",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
   "name": "@fancystudioteam/linkcord-types",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -22,11 +22,13 @@
     "url": "https://github.com/FancyStudioTeam/Linkcord"
   },
   "scripts": {
-    "api:run": "pnpm build && api-extractor run --local",
-    "build": "pnpm rimraf && pnpm build:types",
-    "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir ./dist/types",
+    "build": "pnpm rimraf && pnpm build:esm && pnpm build:cjs && pnpm build:types",
+    "build:cjs": "swc src --strip-leading-paths -C module.type=commonjs --out-dir dist/cjs",
+    "build:esm": "swc src --strip-leading-paths -C module.type=es6 --out-dir dist/esm",
+    "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist/types",
+    "postbuild": "tsc-alias dist",
     "rimraf": "rimraf ./dist",
-    "typedoc": "typedoc"
+    "typedoc": "pnpm build && typedoc"
   },
   "types": "./dist/types/index.d.ts",
   "version": "0.0.0"

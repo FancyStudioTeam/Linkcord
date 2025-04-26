@@ -3,7 +3,11 @@
   "compilerOptions": {
     "outDir": "dist",
     "paths": {
-      "#types/*": ["./src/types/*"]
+      "#gateway": ["./src/gateway/index.ts"],
+      "#payloads": ["./src/payloads/index.ts"],
+      "#rest": ["./src/rest/index.ts"],
+      "#shared": ["./src/shared/index.ts"],
+      "#voice": ["./src/voice/index.ts"]
     }
   },
   "extends": "../../tsconfig.base.json"
