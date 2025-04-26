@@ -16,13 +16,13 @@ export interface GatewayIdentifyConnectionProperties {
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#identify
  */
-export interface GatewayIdentifyEvent extends GatewayEventBase<GatewayOpcodes.Identify, GatewayIdentifyEventData> {}
+export interface GatewayIdentifyEvent extends GatewayEventBase<GatewayOpcodes.Identify, GatewayIdentifyPayload> {}
 
 /**
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#identify-identify-structure
  */
-export interface GatewayIdentifyEventData {
+export interface GatewayIdentifyPayload {
   compress?: boolean;
   intents: number;
   large_threshold?: number;
