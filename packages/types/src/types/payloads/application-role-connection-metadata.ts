@@ -1,7 +1,7 @@
 import type { Localizations } from "#types/shared";
 
 /**
- * https://discord.com/developers/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object-application-role-connection-metadata-structure
+ * @see https://discord.com/developers/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object-application-role-connection-metadata-structure
  */
 export interface APIApplicationRoleConnectionMetadata {
   description: string;
@@ -13,7 +13,7 @@ export interface APIApplicationRoleConnectionMetadata {
 }
 
 /**
- * https://discord.com/developers/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object-application-role-connection-metadata-type
+ * @see https://discord.com/developers/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object-application-role-connection-metadata-type
  */
 export enum ApplicationRoleConnectionMetadataTypes {
   BooleanEqual = 7,
