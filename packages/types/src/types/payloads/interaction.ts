@@ -214,7 +214,7 @@ export interface APIPingInteraction extends APIInteractionBase<InteractionTypes.
  */
 export interface APIResolvedData {
   attachments?: Record<Snowflake, APIAttachment>;
-  channels?: Record<Snowflake, APIResolvedDataChannel>;
+  channels?: Record<Snowflake, APIChannel>;
   members?: Record<Snowflake, APIResolvedDataMember>;
   messages?: Record<Snowflake, APIPartialMessage>;
   roles?: Record<Snowflake, APIRole>;
@@ -225,12 +225,6 @@ export interface APIResolvedData {
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
  */
 export interface APIResolvedDataMember extends Omit<APIGuildMember, "deaf" | "mute" | "user"> {}
-
-/**
- * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
- */
-export interface APIResolvedDataChannel
-  extends Pick<APIChannel, "id" | "name" | "parent_id" | "permissions" | "thread_metadata" | "type"> {}
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-interaction-data-option-structure
