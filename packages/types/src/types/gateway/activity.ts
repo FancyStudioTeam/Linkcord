@@ -1,7 +1,8 @@
 import type { Nullable, Snowflake } from "#types/shared";
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#activity-object-activity-structure
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-structure
  */
 export interface GatewayActivity {
   application_id?: Snowflake;
@@ -22,7 +23,8 @@ export interface GatewayActivity {
 }
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#activity-object-activity-assets
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-assets
  */
 export interface GatewayActivityAssets {
   large_image?: string;
@@ -32,7 +34,8 @@ export interface GatewayActivityAssets {
 }
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#activity-object-activity-buttons
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-buttons
  */
 export interface GatewayActivityButton {
   label: string;
@@ -40,7 +43,8 @@ export interface GatewayActivityButton {
 }
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#activity-object-activity-emoji
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-emoji
  */
 export interface GatewayActivityEmoji {
   name: string;
@@ -49,7 +53,8 @@ export interface GatewayActivityEmoji {
 }
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#activity-object-activity-party
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-party
  */
 export interface GatewayActivityParty {
   id?: Snowflake;
@@ -57,7 +62,8 @@ export interface GatewayActivityParty {
 }
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#activity-object-activity-secrets
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-secrets
  */
 export interface GatewayActivitySecrets {
   join?: string;
@@ -66,7 +72,8 @@ export interface GatewayActivitySecrets {
 }
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#activity-object-activity-timestamps
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-timestamps
  */
 export interface GatewayActivityTimestamps {
   end?: number;
@@ -74,7 +81,8 @@ export interface GatewayActivityTimestamps {
 }
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#activity-object-activity-flags
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-flags
  */
 export enum ActivityFlags {
   Embedded = 1 << 8,
@@ -89,7 +97,8 @@ export enum ActivityFlags {
 }
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#activity-object-activity-types
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-types
  */
 export enum ActivityTypes {
   Competing = 5,

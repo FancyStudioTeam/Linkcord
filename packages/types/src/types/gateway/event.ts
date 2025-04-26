@@ -1,147 +1,49 @@
-import type { Nullable, Snowflake } from "#types/shared";
-import type { GatewayActivity } from "./activity.js";
-import type { GatewayEventBase } from "./base/event.js";
 import type {
   GatewayDispatchGuildBanAddEvent,
   GatewayDispatchGuildBanRemoveEvent,
   GatewayDispatchReadyEvent,
+  GatewayDispatchTypingStartEvent,
   GatewayDispatchVoiceServerUpdateEvent,
+  GatewayDispatchVoiceStateUpdateEvent,
   GatewayDispatchWebhooksUpdateEvent,
   GatewayHeartbeatEvent,
   GatewayHelloEvent,
+  GatewayIdentifyEvent,
+  GatewayPresenceUpdateEvent,
+  GatewayRequestGuildMembersEvent,
+  GatewayRequestSoundboardSoundsEvent,
+  GatewayResumeEvent,
+  GatewayVoiceStateUpdateEvent,
 } from "./events/index.js";
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#identify-identify-connection-properties
- */
-export interface GatewayIdentifyConnectionProperties {
-  browser: string;
-  device: string;
-  os: string;
-}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#identify
- */
-export interface GatewayIdentifyEvent extends GatewayEventBase<GatewayOpcodes.Identify, GatewayIdentifyEventPayload> {}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#identify-identify-structure
- */
-export interface GatewayIdentifyEventPayload {
-  compress?: boolean;
-  intents: number;
-  large_threshold?: number;
-  presence?: GatewayPresenceUpdatePayload;
-  properties: GatewayIdentifyConnectionProperties;
-  shard?: [number, number];
-  token: string;
-}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#update-presence
- */
-export interface GatewayPresenceUpdateEvent
-  extends GatewayEventBase<GatewayOpcodes.PresenceUpdate, GatewayPresenceUpdatePayload> {}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#update-presence-gateway-presence-update-structure
- */
-export interface GatewayPresenceUpdatePayload {
-  activities: GatewayPresenceUpdateActivity[];
-  afk: boolean;
-  since: Nullable<number>;
-  status: StatusTypes;
-}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#request-guild-members
- */
-export interface GatewayRequestGuildMembersEvent
-  extends GatewayEventBase<GatewayOpcodes.RequestGuildMembers, GatewayRequestGuildMembersPayload> {}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#request-guild-members-request-guild-members-structure
- */
-export interface GatewayRequestGuildMembersPayload {
-  guild_id: Snowflake;
-  limit: number;
-  nonce?: string;
-  presences?: boolean;
-  query?: string;
-  user_ids: Snowflake[];
-}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#request-soundboard-sounds
- */
-export interface GatewayRequestSoundboardSoundsEvent
-  extends GatewayEventBase<GatewayOpcodes.RequestSoundboardSounds, GatewayRequestSoundboardSoundsPayload> {}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#request-soundboard-sounds-request-soundboard-sounds-structure
- */
-export interface GatewayRequestSoundboardSoundsPayload {
-  guild_ids: Snowflake[];
-}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#resume
- */
-export interface GatewayResumeEvent extends GatewayEventBase<GatewayOpcodes.Resume, GatewayResumePayload> {}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#resume-resume-structure
- */
-export interface GatewayResumePayload {
-  seq: number;
-  session_id: string;
-  token: string;
-}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#update-voice-state
- */
-export interface GatewayVoiceStateUpdateEvent
-  extends GatewayEventBase<GatewayOpcodes.VoiceStateUpdate, GatewayVoiceStateUpdatePayload> {}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#update-voice-state-gateway-voice-state-update-structure
- */
-export interface GatewayVoiceStateUpdatePayload {
-  channel_id: Nullable<Snowflake>;
-  guild_id: Snowflake;
-  self_deaf: boolean;
-  self_mute: boolean;
-}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#receive-events
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
 export type GatewayDispatchEvent =
   | GatewayDispatchGuildBanAddEvent
   | GatewayDispatchGuildBanRemoveEvent
   | GatewayDispatchReadyEvent
+  | GatewayDispatchTypingStartEvent
   | GatewayDispatchVoiceServerUpdateEvent
+  | GatewayDispatchVoiceStateUpdateEvent
   | GatewayDispatchWebhooksUpdateEvent;
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#payload-structure
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#payload-structure
  */
 export type GatewayEvent = GatewayReceiveEvent | GatewaySendEvent;
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#activity-object-activity-structure
- */
-export type GatewayPresenceUpdateActivity = Pick<GatewayActivity, "name" | "state" | "type" | "url">;
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#receive-events
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
 export type GatewayReceiveEvent = GatewayDispatchEvent | GatewayHelloEvent;
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#send-events
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#send-events
  */
 export type GatewaySendEvent =
   | GatewayHeartbeatEvent
@@ -153,25 +55,8 @@ export type GatewaySendEvent =
   | GatewayVoiceStateUpdateEvent;
 
 /**
- * https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
- */
-export enum GatewayOpcodes {
-  Dispatch = 0,
-  Heartbeat = 1,
-  HeartbeatAck = 11,
-  Hello = 10,
-  Identify = 2,
-  InvalidSession = 9,
-  PresenceUpdate = 3,
-  Reconnect = 7,
-  RequestGuildMembers = 8,
-  RequestSoundboardSounds = 31,
-  Resume = 6,
-  VoiceStateUpdate = 4,
-}
-
-/**
- * https://discord.com/developers/docs/events/gateway-events#receive-events
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
 export enum GatewayDispatchEvents {
   ApplicationCommandPermissionsUpdate = "APPLICATION_COMMAND_PERMISSIONS_UPDATE",
@@ -250,12 +135,48 @@ export enum GatewayDispatchEvents {
 }
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#update-presence-status-types
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway#list-of-intents
  */
-export enum StatusTypes {
-  DoNotDisturb = "dnd",
-  Idle = "idle",
-  Invisible = "invisible",
-  Offline = "offline",
-  Online = "online",
+export enum GatewayIntents {
+  AutoModerationConfiguration = 1 << 20,
+  AutoModerationExecution = 1 << 21,
+  DirectMessagePolls = 1 << 25,
+  DirectMessageReactions = 1 << 13,
+  DirectMessageTyping = 1 << 14,
+  DirectMessages = 1 << 12,
+  GuildExpressions = 1 << 3,
+  GuildIntegrations = 1 << 4,
+  GuildInvites = 1 << 6,
+  GuildMembers = 1 << 1,
+  GuildMessagePolls = 1 << 24,
+  GuildMessageReactions = 1 << 10,
+  GuildMessageTyping = 1 << 11,
+  GuildMessages = 1 << 9,
+  GuildModeration = 1 << 2,
+  GuildPresences = 1 << 8,
+  GuildScheduledEvents = 1 << 16,
+  GuildVoiceStates = 1 << 7,
+  GuildWebhooks = 1 << 5,
+  Guilds = 1 << 0,
+  MessageContent = 1 << 15,
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
+ */
+export enum GatewayOpcodes {
+  Dispatch = 0,
+  Heartbeat = 1,
+  HeartbeatAck = 11,
+  Hello = 10,
+  Identify = 2,
+  InvalidSession = 9,
+  PresenceUpdate = 3,
+  Reconnect = 7,
+  RequestGuildMembers = 8,
+  RequestSoundboardSounds = 31,
+  Resume = 6,
+  VoiceStateUpdate = 4,
 }

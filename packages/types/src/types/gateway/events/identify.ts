@@ -1,5 +1,16 @@
 import type { GatewayEventBase } from "../base/event.js";
-import type { GatewayOpcodes, GatewayPresenceUpdatePayload } from "../event.js";
+import type { GatewayOpcodes } from "../event.js";
+import type { GatewayPresenceUpdatePayload } from "./presence-update.js";
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#identify-identify-connection-properties
+ */
+export interface GatewayIdentifyConnectionProperties {
+  browser: GatewayIdentifyConnectionPropertiesBrowser;
+  device: string;
+  os: string;
+}
 
 /**
  * @public
@@ -19,16 +30,6 @@ export interface GatewayIdentifyEventData {
   properties: GatewayIdentifyConnectionProperties;
   shard?: [number, number];
   token: string;
-}
-
-/**
- * @public
- * @see https://discord.com/developers/docs/events/gateway-events#identify-identify-connection-properties
- */
-export interface GatewayIdentifyConnectionProperties {
-  browser: GatewayIdentifyConnectionPropertiesBrowser;
-  device: string;
-  os: string;
 }
 
 /**

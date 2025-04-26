@@ -2,7 +2,8 @@ export * from "./activity.js";
 export * from "./event.js";
 
 /**
- * https://discord.com/developers/docs/events/gateway#list-of-intents
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway#list-of-intents
  */
 export enum GatewayIntents {
   AutoModerationConfiguration = 1 << 20,

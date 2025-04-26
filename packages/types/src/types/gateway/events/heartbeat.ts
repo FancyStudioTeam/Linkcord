@@ -6,7 +6,7 @@ import type { GatewayOpcodes } from "../event.js";
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#heartbeat
  */
-export interface GatewayHeartbeatEvent extends GatewayEventBase<GatewayOpcodes.Heartbeat, GatewayHeartbeatEventData> {}
+export interface GatewayHeartbeatEvent extends GatewayEventBase<GatewayOpcodes.Heartbeat, GatewayHeartbeatPayload> {}
 
 /**
  * @public
@@ -14,4 +14,4 @@ export interface GatewayHeartbeatEvent extends GatewayEventBase<GatewayOpcodes.H
  * @remarks
  * - This may be `null` when the sequence number was not received yet.
  */
-export type GatewayHeartbeatEventData = Nullable<number>;
+export type GatewayHeartbeatPayload = Nullable<number>;
