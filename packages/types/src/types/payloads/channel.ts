@@ -1,3 +1,5 @@
+// biome-ignore lint/correctness/noUnusedImports: Imported for documentation purposes.
+import type { GatewayDispatchEvents } from "#types/gateway";
 import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
 import type {
   APIDMChannelBase,
@@ -124,9 +126,24 @@ export interface APITextChannel extends APITextChannelBase<ChannelTypes.GuildTex
  */
 export interface APIThreadMember {
   flags: number;
+  /**
+   * @remarks
+   * - This field may not be present when receiving the
+   *   {@link GatewayDispatchEvents.GuildCreate | `GUILD_CREATE`} event.
+   */
   id?: Snowflake;
   join_timestamp: ISO8601Date;
+  /**
+   * @remarks
+   * - This field is only present when fetching the thread member(s) with
+   *   `withMember` set to `true`.
+   */
   member?: APIGuildMember;
+  /**
+   * @remarks
+   * - This field may not be present when receiving the
+   *   {@link GatewayDispatchEvents.GuildCreate | `GUILD_CREATE`} event.
+   */
   user_id?: Snowflake;
 }
 
