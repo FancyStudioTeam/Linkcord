@@ -10,7 +10,7 @@ export interface GatewayDispatchEventBase<Event extends GatewayDispatchEvents, D
 }
 
 /**
- *@internal
+ * @internal
  */
 export interface GatewayEventBase<Opcode extends GatewayOpcodes, Data> {
   d: Data;
