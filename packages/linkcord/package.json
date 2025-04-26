@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "@fancystudioteam/linkcord-gateway": "workspace:*",
+    "@fancystudioteam/linkcord-rest": "workspace:*",
+    "@fancystudioteam/linkcord-types": "workspace:*",
+    "@fancystudioteam/linkcord-utils": "workspace:*",
+    "@fancystudioteam/linkcord-voice": "workspace:*",
+    "@sapphire/snowflake": "3.5.5",
+    "vitest": "3.1.1"
+  },
+  "license": "MIT",
+  "name": "@fancystudioteam/linkcord",
+  "scripts": {
+    "vitest": "vitest"
+  },
+  "version": "0.0.0"
+}
