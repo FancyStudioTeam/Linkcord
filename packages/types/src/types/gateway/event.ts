@@ -3,6 +3,7 @@ import type {
   GatewayDispatchGuildBanRemoveEvent,
   GatewayDispatchReadyEvent,
   GatewayDispatchTypingStartEvent,
+  GatewayDispatchUserUpdateEvent,
   GatewayDispatchVoiceServerUpdateEvent,
   GatewayDispatchVoiceStateUpdateEvent,
   GatewayDispatchWebhooksUpdateEvent,
@@ -25,6 +26,7 @@ export type GatewayDispatchEvent =
   | GatewayDispatchGuildBanRemoveEvent
   | GatewayDispatchReadyEvent
   | GatewayDispatchTypingStartEvent
+  | GatewayDispatchUserUpdateEvent
   | GatewayDispatchVoiceServerUpdateEvent
   | GatewayDispatchVoiceStateUpdateEvent
   | GatewayDispatchWebhooksUpdateEvent;
