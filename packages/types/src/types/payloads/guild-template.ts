@@ -1,5 +1,5 @@
 import type { ISO8601Date, Nullable, Snowflake } from "#types/shared";
-import type { APIChannel } from "./channel.js";
+import type { APIChannel, APIDMChannel, APIGroupDMChannel } from "./channel.js";
 import type { APIGuild } from "./guild.js";
 import type { APIUser } from "./user.js";
 
@@ -23,7 +23,7 @@ export interface APIGuildTemplate {
 /**
  * @see https://discord.com/developers/docs/resources/guild-template#guild-template-object-example-guild-template-object
  */
-export interface APIGuildTemplateChannel extends Omit<APIChannel, "id"> {
+export interface APIGuildTemplateChannel extends Omit<Exclude<APIChannel, APIDMChannel | APIGroupDMChannel>, "id"> {
   id: number;
 }
 
