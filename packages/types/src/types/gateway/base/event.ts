@@ -2,7 +2,7 @@ import type { If } from "#types/shared";
 import type { GatewayDispatchEvents, GatewayOpcodes } from "../event.js";
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#payload-structure
+ * @internal
  */
 export interface GatewayDispatchEventBase<Event extends GatewayDispatchEvents, Data>
   extends GatewayEventBase<GatewayOpcodes.Dispatch, Data> {
@@ -10,7 +10,7 @@ export interface GatewayDispatchEventBase<Event extends GatewayDispatchEvents, D
 }
 
 /**
- * https://discord.com/developers/docs/events/gateway-events#payload-structure
+ *@internal
  */
 export interface GatewayEventBase<Opcode extends GatewayOpcodes, Data> {
   d: Data;
@@ -19,4 +19,7 @@ export interface GatewayEventBase<Opcode extends GatewayOpcodes, Data> {
   t: If<IsDispatchEvent<Opcode>, GatewayDispatchEvents, null>;
 }
 
+/**
+ * @internal
+ */
 type IsDispatchEvent<Opcode extends GatewayOpcodes> = Opcode extends GatewayOpcodes.Dispatch ? true : false;
