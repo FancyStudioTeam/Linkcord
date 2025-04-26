@@ -5,7 +5,9 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "typedoc": {},
+    "typedoc": {
+      "dependsOn": ["build"]
+    },
     "vitest": {}
   }
 }

@@ -28,7 +28,7 @@
     "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist/types",
     "postbuild": "tsc-alias dist",
     "rimraf": "rimraf ./dist",
-    "typedoc": "pnpm build && typedoc"
+    "typedoc": "typedoc"
   },
   "types": "./dist/types/index.d.ts",
   "version": "0.0.0"
