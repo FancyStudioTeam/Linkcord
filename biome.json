@@ -46,6 +46,9 @@
             "strictCase": false
           }
         }
+      },
+      "suspicious": {
+        "noReactSpecificProps": "off"
       }
     }
   },
