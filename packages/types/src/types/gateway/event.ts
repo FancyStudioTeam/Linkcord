@@ -1,6 +1,7 @@
 import type {
   GatewayDispatchGuildBanAddEvent,
   GatewayDispatchGuildBanRemoveEvent,
+  GatewayDispatchInteractionCreateEvent,
   GatewayDispatchMessageDeleteBulkEvent,
   GatewayDispatchMessagePollVoteAddEvent,
   GatewayDispatchMessagePollVoteRemoveEvent,
@@ -28,6 +29,7 @@ import type {
 export type GatewayDispatchEvent =
   | GatewayDispatchGuildBanAddEvent
   | GatewayDispatchGuildBanRemoveEvent
+  | GatewayDispatchInteractionCreateEvent
   | GatewayDispatchMessageDeleteBulkEvent
   | GatewayDispatchMessagePollVoteAddEvent
   | GatewayDispatchMessagePollVoteRemoveEvent
