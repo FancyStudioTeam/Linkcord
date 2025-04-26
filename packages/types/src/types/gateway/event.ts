@@ -7,6 +7,7 @@ import type {
   GatewayDispatchReadyEvent,
   GatewayDispatchTypingStartEvent,
   GatewayDispatchUserUpdateEvent,
+  GatewayDispatchVoiceChannelEffectSendEvent,
   GatewayDispatchVoiceServerUpdateEvent,
   GatewayDispatchVoiceStateUpdateEvent,
   GatewayDispatchWebhooksUpdateEvent,
@@ -33,6 +34,7 @@ export type GatewayDispatchEvent =
   | GatewayDispatchReadyEvent
   | GatewayDispatchTypingStartEvent
   | GatewayDispatchUserUpdateEvent
+  | GatewayDispatchVoiceChannelEffectSendEvent
   | GatewayDispatchVoiceServerUpdateEvent
   | GatewayDispatchVoiceStateUpdateEvent
   | GatewayDispatchWebhooksUpdateEvent;

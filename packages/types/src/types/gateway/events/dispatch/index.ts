@@ -6,6 +6,7 @@ export * from "./message-poll-vote-remove.js";
 export * from "./ready.js";
 export * from "./typing-start.js";
 export * from "./user-update.js";
+export * from "./voice-channel-effect-send.js";
 export * from "./voice-server-update.js";
 export * from "./voice-state-update.js";
 export * from "./webhooks-update.js";
