@@ -63,6 +63,25 @@ export type GatewaySendEvent =
   | GatewayVoiceStateUpdateEvent;
 
 /**
+ * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-close-event-codes
+ */
+export enum GatewayCloseEventCodes {
+  AlreadyAuthenticated = 4005,
+  AuthenticationFailed = 4004,
+  DisallowedIntents = 4014,
+  InvalidAPIVersion = 4012,
+  InvalidIntents = 4013,
+  InvalidSequence = 4007,
+  InvalidShard = 4010,
+  NotAuthenticated = 4003,
+  RateLimited = 4008,
+  SessionTimedOut = 4009,
+  ShardingRequired = 4011,
+  UnknownError = 4000,
+  UnknownOpcode = 4001,
+}
+
+/**
  * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
 export enum GatewayDispatchEvents {
