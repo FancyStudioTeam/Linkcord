@@ -12,7 +12,6 @@ import type { APIStickerItem } from "./sticker.js";
 import type { APIUser } from "./user.js";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#allowed-mentions-object-allowed-mentions-structure
  */
 export interface APIAllowedMentions {
@@ -23,7 +22,6 @@ export interface APIAllowedMentions {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-application-command-interaction-metadata-structure
  */
 export interface APIApplicationCommandInteractionMetadata
@@ -41,7 +39,6 @@ export interface APIApplicationCommandInteractionMetadata
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
  */
 export interface APIAttachment {
@@ -79,7 +76,6 @@ export interface APIAttachment {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#channel-mention-object-channel-mention-structure
  */
 export interface APIChannelMention {
@@ -90,7 +86,6 @@ export interface APIChannelMention {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-structure
  */
 export interface APIEmbed {
@@ -116,7 +111,6 @@ export interface APIEmbed {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-author-structure
  */
 export interface APIEmbedAuthor {
@@ -127,7 +121,6 @@ export interface APIEmbedAuthor {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-field-structure
  */
 export interface APIEmbedField {
@@ -137,7 +130,6 @@ export interface APIEmbedField {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-footer-structure
  */
 export interface APIEmbedFooter {
@@ -147,13 +139,11 @@ export interface APIEmbedFooter {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-image-structure
  */
 export interface APIEmbedImage extends APIEmbedMediaContentBase {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-provider-structure
  */
 export interface APIEmbedProvider {
@@ -162,19 +152,16 @@ export interface APIEmbedProvider {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-thumbnail-structure
  */
 export interface APIEmbedThumbnail extends APIEmbedMediaContentBase {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-video-structure
  */
 export interface APIEmbedVideo extends Omit<APIEmbedMediaContentBase, "flags"> {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
  */
 export interface APIMessage {
@@ -221,7 +208,6 @@ export interface APIMessage {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-object-message-activity-structure
  */
 export interface APIMessageActivity {
@@ -230,7 +216,6 @@ export interface APIMessageActivity {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-call-object-message-call-object-structure
  */
 export interface APIMessageCall {
@@ -239,7 +224,6 @@ export interface APIMessageCall {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-message-component-interaction-metadata-structure
  */
 export interface APIMessageComponentInteractionMetadata
@@ -248,7 +232,6 @@ export interface APIMessageComponentInteractionMetadata
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-modal-submit-interaction-metadata-structure
  */
 export interface APIModalSubmitInteractionMetadata
@@ -257,7 +240,6 @@ export interface APIModalSubmitInteractionMetadata
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-reference-structure
  */
 export interface APIMessageReference {
@@ -281,7 +263,6 @@ export interface APIMessageReference {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-snapshot-structure
  */
 export interface APIMessageSnapshot {
@@ -289,7 +270,6 @@ export interface APIMessageSnapshot {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
  */
 export interface APIMessageSnapshotMessage
@@ -310,7 +290,6 @@ export interface APIMessageSnapshotMessage
   > {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
  * @remarks
  * - This type is not documented by Discord.
@@ -320,7 +299,6 @@ export interface APIMessageSnapshotMessage
 export interface APIPartialMessage extends Partial<APIMessage> {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#embed-fields-by-embed-type-poll-result-embed-fields
  */
 export interface APIPollResultEmbedFields {
@@ -335,7 +313,6 @@ export interface APIPollResultEmbedFields {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#reaction-object-reaction-structure
  */
 export interface APIReaction {
@@ -348,7 +325,6 @@ export interface APIReaction {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#reaction-count-details-object-reaction-count-details-structure
  */
 export interface APIReactionCountDetails {
@@ -357,7 +333,6 @@ export interface APIReactionCountDetails {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#role-subscription-data-object-role-subscription-data-object-structure
  */
 export interface APIRoleSubscriptionData {
@@ -368,7 +343,6 @@ export interface APIRoleSubscriptionData {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
  */
 export type APIModalSubmitInteractionMetadataTriggeringInteractionMetadata =
@@ -376,7 +350,6 @@ export type APIModalSubmitInteractionMetadataTriggeringInteractionMetadata =
   | APIMessageComponentInteractionMetadata;
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
  */
 export type APIMessageInteractionMetadata =
@@ -385,7 +358,6 @@ export type APIMessageInteractionMetadata =
   | APIModalSubmitInteractionMetadata;
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#allowed-mentions-object-allowed-mention-types
  */
 export enum AllowedMentionTypes {
@@ -395,7 +367,6 @@ export enum AllowedMentionTypes {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-flags
  */
 export enum AttachmentFlags {
@@ -408,7 +379,6 @@ export enum AttachmentFlags {
 }
 
 /**
- * @public
  * @see TBD
  * @remarks
  * - This is not officially documented in the Discord API documentation,
@@ -419,7 +389,6 @@ export enum EmbedFlags {
 }
 
 /**
- * @public
  * @see TBD
  * @remarks
  * - This is not officially documented in the Discord API documentation,
@@ -430,7 +399,6 @@ export enum EmbedMediaFlags {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-types
  */
 export enum EmbedTypes {
@@ -444,7 +412,6 @@ export enum EmbedTypes {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-object-message-activity-types
  */
 export enum MessageActivityTypes {
@@ -455,7 +422,6 @@ export enum MessageActivityTypes {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-object-message-flags
  */
 export enum MessageFlags {
@@ -475,7 +441,6 @@ export enum MessageFlags {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-reference-types
  */
 export enum MessageReferenceTypes {
@@ -484,7 +449,6 @@ export enum MessageReferenceTypes {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/message#message-object-message-types
  */
 export enum MessageTypes {

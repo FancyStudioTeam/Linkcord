@@ -3,14 +3,12 @@ import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../../event.js";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#voice-state-update
  */
 export interface GatewayDispatchVoiceStateUpdateEvent
   extends GatewayDispatchEventBase<GatewayDispatchEvents.VoiceStateUpdate, GatewayDispatchVoiceStateUpdateEventData> {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/voice#voice-state-object-voice-state-structure
  */
 export type GatewayDispatchVoiceStateUpdateEventData = APIVoiceState;

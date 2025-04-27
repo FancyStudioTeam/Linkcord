@@ -1,7 +1,6 @@
 import type { ISO8601Date, Nullable, Snowflake } from "#shared";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/entitlement#entitlement-object-entitlement-structure
  */
 export interface APIEntitlement {
@@ -18,7 +17,6 @@ export interface APIEntitlement {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/entitlement#entitlement-object-entitlement-types
  */
 export enum EntitlementTypes {

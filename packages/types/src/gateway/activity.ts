@@ -1,7 +1,6 @@
 import type { Nullable, Snowflake } from "#shared";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-structure
  */
 export interface GatewayActivity {
@@ -23,7 +22,6 @@ export interface GatewayActivity {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-assets
  */
 export interface GatewayActivityAssets {
@@ -34,7 +32,6 @@ export interface GatewayActivityAssets {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-buttons
  */
 export interface GatewayActivityButton {
@@ -43,7 +40,6 @@ export interface GatewayActivityButton {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-emoji
  */
 export interface GatewayActivityEmoji {
@@ -53,7 +49,6 @@ export interface GatewayActivityEmoji {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-party
  */
 export interface GatewayActivityParty {
@@ -62,7 +57,6 @@ export interface GatewayActivityParty {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-secrets
  */
 export interface GatewayActivitySecrets {
@@ -72,7 +66,6 @@ export interface GatewayActivitySecrets {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-timestamps
  */
 export interface GatewayActivityTimestamps {
@@ -81,7 +74,6 @@ export interface GatewayActivityTimestamps {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-flags
  */
 export enum ActivityFlags {
@@ -97,7 +89,6 @@ export enum ActivityFlags {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-types
  */
 export enum ActivityTypes {

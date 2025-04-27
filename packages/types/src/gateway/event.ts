@@ -23,7 +23,6 @@ import type {
 } from "./events/index.js";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
 export type GatewayDispatchEvent =
@@ -42,19 +41,16 @@ export type GatewayDispatchEvent =
   | GatewayDispatchWebhooksUpdateEvent;
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#payload-structure
  */
 export type GatewayEvent = GatewayReceiveEvent | GatewaySendEvent;
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
 export type GatewayReceiveEvent = GatewayDispatchEvent | GatewayHelloEvent;
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#send-events
  */
 export type GatewaySendEvent =
@@ -67,7 +63,6 @@ export type GatewaySendEvent =
   | GatewayVoiceStateUpdateEvent;
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
 export enum GatewayDispatchEvents {
@@ -147,7 +142,6 @@ export enum GatewayDispatchEvents {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway#list-of-intents
  */
 export enum GatewayIntents {
@@ -175,7 +169,6 @@ export enum GatewayIntents {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
  */
 export enum GatewayOpcodes {

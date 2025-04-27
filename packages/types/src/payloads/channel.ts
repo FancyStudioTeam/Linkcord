@@ -11,19 +11,16 @@ import type {
 import type { APIGuildMember } from "./guild.js";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-guild-announcement-channel
  */
 export interface APIAnnouncementChannel extends APITextChannelBase<ChannelTypes.GuildAnnouncement> {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-thread-channel
  */
 export interface APIAnnouncementThreadChannel extends APIThreadChannelBase<ChannelTypes.AnnouncementThread> {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-channel-category
  */
 export interface APICategoryChannel extends Omit<APIGuildChannelBase<ChannelTypes.GuildCategory>, "parent_id"> {
@@ -31,13 +28,11 @@ export interface APICategoryChannel extends Omit<APIGuildChannelBase<ChannelType
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-dm-channel
  */
 export interface APIDMChannel extends APIDMChannelBase<ChannelTypes.DirectMessage> {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#default-reaction-object-default-reaction-structure
  */
 export interface APIDefaultReactionEmoji {
@@ -46,7 +41,6 @@ export interface APIDefaultReactionEmoji {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#followed-channel-object-followed-channel-structure
  */
 export interface APIFollowedChannel {
@@ -55,7 +49,6 @@ export interface APIFollowedChannel {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/topics/threads#forums
  */
 export interface APIForumChannel extends APIGuildChannelBase<ChannelTypes.GuildForum> {
@@ -69,7 +62,6 @@ export interface APIForumChannel extends APIGuildChannelBase<ChannelTypes.GuildF
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#forum-tag-object-forum-tag-structure
  */
 export interface APIForumTag {
@@ -81,7 +73,6 @@ export interface APIForumTag {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-group-dm-channel
  */
 export interface APIGroupDMChannel extends APIDMChannelBase<ChannelTypes.GroupDM> {
@@ -92,7 +83,6 @@ export interface APIGroupDMChannel extends APIDMChannelBase<ChannelTypes.GroupDM
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure
  */
 export interface APIOverwrite {
@@ -103,7 +93,6 @@ export interface APIOverwrite {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
  * @remarks
  * - This type is not documented by Discord.
@@ -113,31 +102,26 @@ export interface APIOverwrite {
 export interface APIPartialChannel extends Pick<APIChannel, "id" | "name" | "type"> {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-thread-channel
  */
 export interface APIPrivateThreadChannel extends APIThreadChannelBase<ChannelTypes.PrivateThread> {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-thread-channel
  */
 export interface APIPublicThreadChannel extends APIThreadChannelBase<ChannelTypes.PublicThread> {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-guild-voice-channel
  */
 export interface APIStageVoiceChannel extends APIVoiceChannelBase<ChannelTypes.GuildStageVoice> {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-guild-text-channel
  */
 export interface APITextChannel extends APITextChannelBase<ChannelTypes.GuildText> {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#thread-member-object-thread-member-structure
  */
 export interface APIThreadMember {
@@ -164,7 +148,6 @@ export interface APIThreadMember {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#thread-metadata-object-thread-metadata-structure
  */
 export interface APIThreadMetadata {
@@ -177,13 +160,11 @@ export interface APIThreadMetadata {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-guild-voice-channel
  */
 export interface APIVoiceChannel extends APIVoiceChannelBase<ChannelTypes.GuildVoice> {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
  */
 export type APIChannel =
@@ -198,13 +179,11 @@ export type APIChannel =
   | APIVoiceChannel;
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-thread-channel
  */
 export type APIThreadChannel = APIAnnouncementThreadChannel | APIPrivateThreadChannel | APIPublicThreadChannel;
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#thread-metadata-object-thread-metadata-structure
  */
 export enum AutoArchiveDuration {
@@ -215,7 +194,6 @@ export enum AutoArchiveDuration {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-flags
  */
 export enum ChannelFlags {
@@ -225,7 +203,6 @@ export enum ChannelFlags {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-types
  */
 export enum ChannelTypes {
@@ -245,7 +222,6 @@ export enum ChannelTypes {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-forum-layout-types
  */
 export enum ForumLayoutTypes {
@@ -255,7 +231,6 @@ export enum ForumLayoutTypes {
 }
 
 /**
- * @public
  * @see TBD
  * @remarks
  * - This is not officially documented in the Discord API documentation,
@@ -267,7 +242,6 @@ export enum ForumTagSettingTypes {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure
  */
 export enum OverwriteTypes {
@@ -276,7 +250,6 @@ export enum OverwriteTypes {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-sort-order-types
  */
 export enum SortOrderTypes {
@@ -285,7 +258,6 @@ export enum SortOrderTypes {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-video-quality-modes
  */
 export enum VideoQualityModes {

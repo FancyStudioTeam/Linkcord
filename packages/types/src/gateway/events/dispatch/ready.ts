@@ -5,14 +5,12 @@ import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../../event.js";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#ready
  */
 export interface GatewayDispatchReadyEvent
   extends GatewayDispatchEventBase<GatewayDispatchEvents.Ready, GatewayDispatchReadyEventData> {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#ready-ready-event-fields
  */
 export interface GatewayDispatchReadyEventData {

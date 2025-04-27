@@ -1,7 +1,6 @@
 import type { Snowflake } from "#shared";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-auto-moderation-rule-structure
  */
 export interface APIAutoModerationAction {
@@ -10,7 +9,6 @@ export interface APIAutoModerationAction {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-action-object-action-metadata
  */
 export interface APIAutoModerationActionMetadata {
@@ -20,7 +18,6 @@ export interface APIAutoModerationActionMetadata {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-auto-moderation-rule-structure
  */
 export interface APIAutoModerationRule {
@@ -38,7 +35,6 @@ export interface APIAutoModerationRule {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-trigger-metadata
  */
 export interface APIAutoModerationTriggerMetadata {
@@ -51,7 +47,6 @@ export interface APIAutoModerationTriggerMetadata {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-action-object-action-types
  */
 export enum AutoModerationActionTypes {
@@ -62,7 +57,6 @@ export enum AutoModerationActionTypes {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-event-types
  */
 export enum AutoModerationEventTypes {
@@ -71,7 +65,6 @@ export enum AutoModerationEventTypes {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-trigger-types
  */
 export enum AutoModerationTriggerTypes {
@@ -83,7 +76,6 @@ export enum AutoModerationTriggerTypes {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-keyword-preset-types
  */
 export enum AutoModerationKeywordPresetTypes {

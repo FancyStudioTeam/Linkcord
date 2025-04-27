@@ -1,7 +1,6 @@
 import type { Snowflake } from "#shared";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/sku#sku-object-sku-structure
  */
 export interface APISku {
@@ -14,7 +13,6 @@ export interface APISku {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/sku#sku-object-sku-flags
  */
 export enum SkuFlags {
@@ -24,7 +22,6 @@ export enum SkuFlags {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/sku#sku-object-sku-types
  */
 export enum SkuTypes {

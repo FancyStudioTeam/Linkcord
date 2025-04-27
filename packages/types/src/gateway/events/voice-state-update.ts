@@ -3,14 +3,12 @@ import type { GatewayEventBase } from "../base/event.js";
 import type { GatewayOpcodes } from "../event.js";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#update-voice-state
  */
 export interface GatewayVoiceStateUpdateEvent
   extends GatewayEventBase<GatewayOpcodes.VoiceStateUpdate, GatewayVoiceStateUpdatePayload> {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#update-voice-state-gateway-voice-state-update-structure
  */
 export interface GatewayVoiceStateUpdatePayload {

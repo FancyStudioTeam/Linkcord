@@ -3,7 +3,6 @@ import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../../event.js";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#voice-server-update
  */
 export interface GatewayDispatchVoiceServerUpdateEvent
@@ -13,7 +12,6 @@ export interface GatewayDispatchVoiceServerUpdateEvent
   > {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#voice-server-update-voice-server-update-event-fields
  */
 export interface GatewayDispatchVoiceServerUpdateEventData {

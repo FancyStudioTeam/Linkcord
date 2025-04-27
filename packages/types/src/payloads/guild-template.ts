@@ -4,7 +4,6 @@ import type { APIGuild } from "./guild.js";
 import type { APIUser } from "./user.js";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/guild-template#guild-template-object-guild-template-structure
  */
 export interface APIGuildTemplate {
@@ -22,7 +21,6 @@ export interface APIGuildTemplate {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/guild-template#guild-template-object-example-guild-template-object
  */
 export interface APIGuildTemplateChannel extends Omit<Exclude<APIChannel, APIDMChannel | APIGroupDMChannel>, "id"> {
@@ -30,7 +28,6 @@ export interface APIGuildTemplateChannel extends Omit<Exclude<APIChannel, APIDMC
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/guild-template#guild-template-object-example-guild-template-object
  */
 export interface APIGuildTemplateSerializedSourceGuild

@@ -4,7 +4,6 @@ import type { APIPartialGuild } from "./guild.js";
 import type { APIUser } from "./user.js";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/webhook#webhook-object-webhook-structure
  */
 export interface APIWebhook {
@@ -33,7 +32,6 @@ export interface APIWebhook {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/webhook#webhook-object-webhook-types
  */
 export enum WebhookTypes {

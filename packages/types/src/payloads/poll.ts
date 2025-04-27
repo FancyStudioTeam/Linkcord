@@ -2,7 +2,6 @@ import type { ISO8601Date, Nullable } from "#shared";
 import type { APIPartialEmoji } from "./emoji.js";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/poll#poll-object-poll-object-structure
  */
 export interface APIPoll {
@@ -25,7 +24,6 @@ export interface APIPoll {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/poll#poll-answer-object-poll-answer-object-structure
  */
 export interface APIPollAnswer {
@@ -38,7 +36,6 @@ export interface APIPollAnswer {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/poll#poll-results-object-poll-answer-count-object-structure
  */
 export interface APIPollAnswerCount {
@@ -48,7 +45,6 @@ export interface APIPollAnswerCount {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/poll#poll-media-object-poll-media-object-structure
  */
 export interface APIPollMedia {
@@ -62,13 +58,11 @@ export interface APIPollMedia {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/poll#poll-media-object-poll-media-object-structure
  */
 export interface APIPollQuestion extends Pick<APIPollMedia, "text"> {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/poll#poll-results-object-poll-results-object-structure
  */
 export interface APIPollResults {
@@ -77,7 +71,6 @@ export interface APIPollResults {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/poll#layout-type
  */
 export enum PollLayoutTypes {

@@ -4,7 +4,6 @@ import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../../event.js";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#voice-channel-effect-send
  */
 export interface GatewayDispatchVoiceChannelEffectSendEvent
@@ -14,7 +13,6 @@ export interface GatewayDispatchVoiceChannelEffectSendEvent
   > {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#voice-channel-effect-send-voice-channel-effect-send-event-fields
  */
 export interface GatewayDispatchVoiceChannelEffectSendEventData {
@@ -33,7 +31,6 @@ export interface GatewayDispatchVoiceChannelEffectSendEventData {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#voice-channel-effect-send-animation-types
  */
 export enum AnimationTypes {

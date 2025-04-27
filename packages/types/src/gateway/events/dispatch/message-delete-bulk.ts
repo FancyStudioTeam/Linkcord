@@ -3,7 +3,6 @@ import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../../event.js";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#message-delete-bulk
  */
 export interface GatewayDispatchMessageDeleteBulkEvent
@@ -13,7 +12,6 @@ export interface GatewayDispatchMessageDeleteBulkEvent
   > {}
 
 /**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#message-delete-bulk-message-delete-bulk-event-fields
  */
 export interface GatewayDispatchMessageDeleteBulkEventData {

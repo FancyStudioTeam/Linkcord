@@ -1,7 +1,6 @@
 import type { ISO8601Date, Nullable, Snowflake } from "#shared";
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/subscription#subscription-object
  */
 export interface APISubscription {
@@ -18,7 +17,6 @@ export interface APISubscription {
 }
 
 /**
- * @public
  * @see https://discord.com/developers/docs/resources/subscription#subscription-statuses
  */
 export enum SubscriptionStatus {
