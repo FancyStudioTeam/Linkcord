@@ -2,6 +2,8 @@ export * from "./guild-ban-add.js";
 export * from "./guild-ban-remove.js";
 export * from "./guild-create.js";
 export * from "./guild-delete.js";
+export * from "./guild-member-add.js";
+export * from "./guild-member-remove.js";
 export * from "./interaction-create.js";
 export * from "./message-delete-bulk.js";
 export * from "./message-poll-vote-add.js";
