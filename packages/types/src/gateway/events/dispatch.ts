@@ -5,6 +5,9 @@ import type {
   GatewayDispatchGuildDeleteEvent,
   GatewayDispatchGuildMemberAddEvent,
   GatewayDispatchGuildMemberRemoveEvent,
+  GatewayDispatchGuildSoundboardSoundCreateEvent,
+  GatewayDispatchGuildSoundboardSoundDeleteEvent,
+  GatewayDispatchGuildSoundboardSoundUpdateEvent,
   GatewayDispatchInteractionCreateEvent,
   GatewayDispatchMessageDeleteBulkEvent,
   GatewayDispatchMessagePollVoteAddEvent,
@@ -29,6 +32,9 @@ export type GatewayDispatchEvent =
   | GatewayDispatchGuildDeleteEvent
   | GatewayDispatchGuildMemberAddEvent
   | GatewayDispatchGuildMemberRemoveEvent
+  | GatewayDispatchGuildSoundboardSoundCreateEvent
+  | GatewayDispatchGuildSoundboardSoundDeleteEvent
+  | GatewayDispatchGuildSoundboardSoundUpdateEvent
   | GatewayDispatchInteractionCreateEvent
   | GatewayDispatchMessageDeleteBulkEvent
   | GatewayDispatchMessagePollVoteAddEvent
