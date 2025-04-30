@@ -1,1 +1,1 @@
-export class GatewayError extends Error {}
+export class GatewayManagerError extends Error {}
