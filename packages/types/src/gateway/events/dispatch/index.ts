@@ -4,6 +4,7 @@ export * from "./interaction-create.js";
 export * from "./message-delete-bulk.js";
 export * from "./message-poll-vote-add.js";
 export * from "./message-poll-vote-remove.js";
+export * from "./presence-update.js";
 export * from "./ready.js";
 export * from "./typing-start.js";
 export * from "./user-update.js";
