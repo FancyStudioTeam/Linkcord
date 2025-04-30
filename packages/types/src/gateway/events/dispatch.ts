@@ -8,12 +8,14 @@ import type {
   GatewayDispatchGuildSoundboardSoundCreateEvent,
   GatewayDispatchGuildSoundboardSoundDeleteEvent,
   GatewayDispatchGuildSoundboardSoundUpdateEvent,
+  GatewayDispatchGuildSoundboardSoundsUpdateEvent,
   GatewayDispatchInteractionCreateEvent,
   GatewayDispatchMessageDeleteBulkEvent,
   GatewayDispatchMessagePollVoteAddEvent,
   GatewayDispatchMessagePollVoteRemoveEvent,
   GatewayDispatchPresenceUpdateEvent,
   GatewayDispatchReadyEvent,
+  GatewayDispatchSoundboardSoundsEvent,
   GatewayDispatchTypingStartEvent,
   GatewayDispatchUserUpdateEvent,
   GatewayDispatchVoiceChannelEffectSendEvent,
@@ -35,12 +37,14 @@ export type GatewayDispatchEvent =
   | GatewayDispatchGuildSoundboardSoundCreateEvent
   | GatewayDispatchGuildSoundboardSoundDeleteEvent
   | GatewayDispatchGuildSoundboardSoundUpdateEvent
+  | GatewayDispatchGuildSoundboardSoundsUpdateEvent
   | GatewayDispatchInteractionCreateEvent
   | GatewayDispatchMessageDeleteBulkEvent
   | GatewayDispatchMessagePollVoteAddEvent
   | GatewayDispatchMessagePollVoteRemoveEvent
   | GatewayDispatchPresenceUpdateEvent
   | GatewayDispatchReadyEvent
+  | GatewayDispatchSoundboardSoundsEvent
   | GatewayDispatchTypingStartEvent
   | GatewayDispatchUserUpdateEvent
   | GatewayDispatchVoiceChannelEffectSendEvent
