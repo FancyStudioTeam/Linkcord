@@ -2,7 +2,7 @@ import type { APIUser } from "#payloads";
 import type { Snowflake } from "#shared";
 import type { GatewayActivity } from "../../activity.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
-import type { GatewayDispatchEvents } from "../../event.js";
+import type { GatewayDispatchEvents } from "../dispatch.js";
 import type { StatusTypes } from "../presence-update.js";
 
 /**

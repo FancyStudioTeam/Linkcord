@@ -12,19 +12,19 @@ import type {
 } from "#payloads";
 import type { ISO8601Date } from "#shared";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
-import type { GatewayDispatchEvents } from "../../event.js";
+import type { GatewayDispatchEvents } from "../dispatch.js";
 import type { GatewayPresenceUpdatePayload } from "../presence-update.js";
 
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#guilds
  */
-export interface GatewayDistatchGuildCreateEvent
-  extends GatewayDispatchEventBase<GatewayDispatchEvents.GuildCreate, GatewayDistatchGuildCreateEventData> {}
+export interface GatewayDispatchGuildCreateEvent
+  extends GatewayDispatchEventBase<GatewayDispatchEvents.GuildCreate, GatewayDispatchGuildCreateEventData> {}
 
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#guild-create-guild-create-extra-fields
  */
-export interface GatewayDistatchGuildCreateEventData extends APIGuild {
+export interface GatewayDispatchGuildCreateEventData extends APIGuild {
   channels: APIGuildChannel[];
   guild_scheduled_events: APIGuildScheduledEvent[];
   joined_at: ISO8601Date;

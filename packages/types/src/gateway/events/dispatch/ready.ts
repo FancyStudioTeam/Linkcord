@@ -2,7 +2,7 @@ import type { APIUnavailableGuild, APIUser } from "#payloads";
 import type { APIVersion } from "#shared";
 import type { GatewayApplication } from "../../application.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
-import type { GatewayDispatchEvents } from "../../event.js";
+import type { GatewayDispatchEvents } from "../dispatch.js";
 
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#ready

@@ -1,7 +1,7 @@
 import type { APIGuildMember } from "#payloads";
 import type { Snowflake } from "#shared";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
-import type { GatewayDispatchEvents } from "../../event.js";
+import type { GatewayDispatchEvents } from "../dispatch.js";
 
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#typing-start
