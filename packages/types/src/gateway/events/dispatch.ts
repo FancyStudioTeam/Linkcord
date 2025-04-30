@@ -1,4 +1,5 @@
 import type {
+  GatewayDispatchApplicationCommandPermissionsUpdateEvent,
   GatewayDispatchGuildBanAddEvent,
   GatewayDispatchGuildBanRemoveEvent,
   GatewayDispatchGuildCreateEvent,
@@ -28,6 +29,7 @@ import type {
  * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
 export type GatewayDispatchEvent =
+  | GatewayDispatchApplicationCommandPermissionsUpdateEvent
   | GatewayDispatchGuildBanAddEvent
   | GatewayDispatchGuildBanRemoveEvent
   | GatewayDispatchGuildCreateEvent
