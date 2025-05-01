@@ -3,6 +3,7 @@ import type { GatewayOpcodes } from "../event.js";
 import type { GatewayPresenceUpdatePayload } from "./presence-update.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#identify-identify-connection-properties
  */
 export interface GatewayIdentifyConnectionProperties {
@@ -12,11 +13,13 @@ export interface GatewayIdentifyConnectionProperties {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#identify
  */
 export interface GatewayIdentifyEvent extends GatewayEventBase<GatewayOpcodes.Identify, GatewayIdentifyPayload> {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#identify-identify-structure
  */
 export interface GatewayIdentifyPayload {
@@ -30,6 +33,7 @@ export interface GatewayIdentifyPayload {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#identify-identify-connection-properties
  */
 export type GatewayIdentifyConnectionPropertiesBrowser = "Discord Android" | "Discord iOS" | string;

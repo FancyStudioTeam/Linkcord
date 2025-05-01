@@ -2,6 +2,7 @@ import type { Nullable, Snowflake } from "#shared";
 import type { APIUser } from "./user.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/emoji#emoji-object-emoji-structure
  */
 export interface APIEmoji {
@@ -25,6 +26,7 @@ export interface APIEmoji {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/emoji#emoji-object-emoji-structure
  * @remarks
  * - This type is not documented by Discord.

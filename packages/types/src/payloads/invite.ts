@@ -6,6 +6,7 @@ import type { APIGuild } from "./guild.js";
 import type { APIUser } from "./user.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/invite#invite-object-invite-structure
  */
 export interface APIInvite {
@@ -24,6 +25,7 @@ export interface APIInvite {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/invite#invite-object-invite-structure
  */
 export interface APIInviteGuild
@@ -44,6 +46,7 @@ export interface APIInviteGuild
   > {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/invite#invite-metadata-object-invite-metadata-structure
  */
 export interface APIInviteMetadata {
@@ -55,6 +58,7 @@ export interface APIInviteMetadata {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/invite#invite-object-invite-target-types
  */
 export enum InviteTargetTypes {
@@ -63,6 +67,7 @@ export enum InviteTargetTypes {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/invite#invite-object-invite-types
  */
 export enum InviteTypes {

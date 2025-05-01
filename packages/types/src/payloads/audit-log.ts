@@ -2,6 +2,7 @@ import type { Nullable, Snowflake } from "#shared";
 import type { APIApplicationCommand } from "./application-command.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/audit-log#audit-log-object-audit-log-structure
  */
 export interface APIAuditLog {
@@ -10,6 +11,7 @@ export interface APIAuditLog {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-structure
  */
 export interface APIAuditLogChange {
@@ -19,6 +21,7 @@ export interface APIAuditLogChange {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-entry-structure
  */
 export interface APIAuditLogEntry {
@@ -32,6 +35,7 @@ export interface APIAuditLogEntry {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-optional-audit-entry-info
  */
 export interface APIOptionalAuditEntryInfo {
@@ -50,6 +54,7 @@ export interface APIOptionalAuditEntryInfo {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events
  */
 export enum AuditLogEvents {

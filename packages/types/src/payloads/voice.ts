@@ -2,6 +2,7 @@ import type { ISO8601Date, Nullable, Snowflake } from "#shared";
 import type { APIGuildMember } from "./guild.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure
  */
 export interface APIVoiceRegion {
@@ -17,6 +18,7 @@ export interface APIVoiceRegion {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/voice#voice-state-object-voice-state-structure
  */
 export interface APIVoiceState {

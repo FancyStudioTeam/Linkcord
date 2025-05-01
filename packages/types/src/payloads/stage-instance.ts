@@ -1,6 +1,7 @@
 import type { Nullable, Snowflake } from "#shared";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/stage-instance#stage-instance-object-stage-instance-structure
  */
 export interface APIStageInstance {
@@ -18,6 +19,7 @@ export interface APIStageInstance {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/stage-instance#stage-instance-object-privacy-level
  */
 export enum StageInstancePrivacyLevel {

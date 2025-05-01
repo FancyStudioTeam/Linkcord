@@ -2,6 +2,7 @@ import type { APIMessage, APIPollAnswer, APIPollQuestion, APIUser, PollLayoutTyp
 import type { Snowflake } from "#shared";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/poll#get-answer-voters-query-string-params
  */
 export interface RESTGetAnswerVotesQueryStringParams {
@@ -10,6 +11,7 @@ export interface RESTGetAnswerVotesQueryStringParams {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/poll#get-answer-voters
  */
 export interface RESTGetAnswerVoters {
@@ -17,6 +19,7 @@ export interface RESTGetAnswerVoters {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/poll#poll-create-request-object-poll-create-request-object-structure
  */
 export interface RESTPollCreateRequest {
@@ -28,6 +31,7 @@ export interface RESTPollCreateRequest {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/poll#end-poll
  */
 export type RESTEndPoll = APIMessage;

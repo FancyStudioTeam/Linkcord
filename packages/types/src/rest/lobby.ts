@@ -2,6 +2,7 @@ import type { APILobby, APILobbyMember, APILobbyMemberMetadata, APILobbyMetadata
 import type { Nullable } from "#shared";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#json-params
  */
 export interface RESTAddMemberToLobbyJSONParams {
@@ -10,6 +11,7 @@ export interface RESTAddMemberToLobbyJSONParams {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#json-params
  */
 export interface RESTCreateLobbyJSONParams {
@@ -19,6 +21,7 @@ export interface RESTCreateLobbyJSONParams {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#json-params
  */
 export interface RESTLinkChannelToLobbyJSONParams {
@@ -26,6 +29,7 @@ export interface RESTLinkChannelToLobbyJSONParams {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#json-params
  */
 export interface RESTModifyLobbyJSONParams {
@@ -35,46 +39,55 @@ export interface RESTModifyLobbyJSONParams {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#add-a-member-to-a-lobby
  */
 export type RESTAddMemberToLobby = APILobbyMember;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#create-lobby
  */
 export type RESTCreateLobby = APILobby;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#delete-lobby
  */
 export type RESTDeleteLobby = undefined;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#get-lobby
  */
 export type RESTGetLobby = APILobby;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#leave-lobby
  */
 export type RESTLeaveLobby = undefined;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#link-channel-to-lobby
  */
 export type RESTLinkChannelToLobby = APILobby;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#modify-lobby
  */
 export type RESTModifyLobby = APILobby;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#remove-a-member-from-a-lobby
  */
 export type RESTRemoveMemberFromLobby = undefined;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/lobby#unlink-channel-from-lobby
  */
 export type RESTUnlinkChannelFromLobby = undefined;

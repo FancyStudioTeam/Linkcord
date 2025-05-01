@@ -26,6 +26,7 @@ import type {
 } from "./dispatch/index.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
 export type GatewayDispatchEvent =
@@ -55,6 +56,7 @@ export type GatewayDispatchEvent =
   | GatewayDispatchWebhooksUpdateEvent;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
 export enum GatewayDispatchEvents {

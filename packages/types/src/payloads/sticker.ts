@@ -2,6 +2,7 @@ import type { Nullable, Snowflake } from "#shared";
 import type { APIUser } from "./user.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-structure
  */
 export interface APISticker {
@@ -30,6 +31,7 @@ export interface APISticker {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/sticker#sticker-item-object-sticker-item-structure
  */
 export interface APIStickerItem {
@@ -39,6 +41,7 @@ export interface APIStickerItem {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/sticker#sticker-pack-object-sticker-pack-structure
  */
 export interface APIStickerPack {
@@ -52,6 +55,7 @@ export interface APIStickerPack {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-format-types
  */
 export enum StickerFormatTypes {
@@ -62,6 +66,7 @@ export enum StickerFormatTypes {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-types
  */
 export enum StickerTypes {

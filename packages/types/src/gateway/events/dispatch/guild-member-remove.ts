@@ -4,6 +4,7 @@ import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../dispatch.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#guild-member-remove
  */
 export interface GatewayDispatchGuildMemberRemoveEvent
@@ -13,6 +14,7 @@ export interface GatewayDispatchGuildMemberRemoveEvent
   > {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#guild-member-remove-guild-member-remove-event-fields
  */
 export interface GatewayDispatchGuildMemberRemoveEventData {

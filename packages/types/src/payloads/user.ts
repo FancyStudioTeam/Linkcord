@@ -3,6 +3,7 @@ import type { APIUserCollectibleBase } from "./base/user.js";
 import type { APIPartialIntegration } from "./guild.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/user#application-role-connection-object-application-role-connection-structure
  */
 export interface APIApplicationRoleConnection {
@@ -12,11 +13,13 @@ export interface APIApplicationRoleConnection {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/user#avatar-decoration-data-object-avatar-decoration-data-structure
  */
 export interface APIAvatarDecorationData extends APIUserCollectibleBase {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/user#connection-object-connection-structure
  */
 export interface APIConnection {
@@ -33,6 +36,7 @@ export interface APIConnection {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
  */
 export interface APIUser {
@@ -73,6 +77,7 @@ export interface APIUser {
 }
 
 /**
+ * @alpha
  * @see TBD
  * @remarks
  * - This is not officially documented in the Discord API documentation,
@@ -86,6 +91,7 @@ export interface APIUserClan {
 }
 
 /**
+ * @alpha
  * @see TBD
  * @remarks
  * - This is not officially documented in the Discord API documentation,
@@ -96,6 +102,7 @@ export interface APIUserCollectible {
 }
 
 /**
+ * @alpha
  * @see TBD
  * @remarks
  * - This is not officially documented in the Discord API documentation,
@@ -107,6 +114,7 @@ export interface APIUserCollectibleNameplate extends APIUserCollectibleBase {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/user#connection-object-services
  */
 export enum ConnectionServices {
@@ -146,6 +154,7 @@ export enum ConnectionServices {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/user#user-object-premium-types
  */
 export enum PremiumTypes {
@@ -156,6 +165,7 @@ export enum PremiumTypes {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/user#user-object-user-flags
  */
 export enum UserFlags {
@@ -177,6 +187,7 @@ export enum UserFlags {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/resources/user#connection-object-visibility-types
  */
 export enum VisibilityTypes {

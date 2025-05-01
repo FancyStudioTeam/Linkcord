@@ -3,6 +3,7 @@ import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../dispatch.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#guild-soundboard-sound-delete
  */
 export interface GatewayDispatchGuildSoundboardSoundDeleteEvent
@@ -12,6 +13,7 @@ export interface GatewayDispatchGuildSoundboardSoundDeleteEvent
   > {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#guild-soundboard-sound-delete
  */
 export interface GatewayDispatchGuildSoundboardSoundDeleteEventData {

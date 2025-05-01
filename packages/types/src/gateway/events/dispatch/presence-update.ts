@@ -6,12 +6,14 @@ import type { GatewayDispatchEvents } from "../dispatch.js";
 import type { StatusTypes } from "../presence-update.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#presence-update
  */
 export interface GatewayDispatchPresenceUpdateEvent
   extends GatewayDispatchEventBase<GatewayDispatchEvents.PresenceUpdate, GatewayDispatchPresenceUpdateEventData> {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#presence-update-presence-update-event-fields
  */
 export interface GatewayDispatchPresenceUpdateEventData {
@@ -23,6 +25,7 @@ export interface GatewayDispatchPresenceUpdateEventData {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#client-status-object
  */
 export interface GatewayPresenceUpdateClientStatus {
@@ -32,6 +35,7 @@ export interface GatewayPresenceUpdateClientStatus {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#presence-update
  */
 export type GatewayPresenceUser = Omit<Partial<APIUser>, "id"> & {

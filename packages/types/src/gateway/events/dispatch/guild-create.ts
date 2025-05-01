@@ -16,12 +16,14 @@ import type { GatewayDispatchEvents } from "../dispatch.js";
 import type { GatewayPresenceUpdatePayload } from "../presence-update.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#guilds
  */
 export interface GatewayDispatchGuildCreateEvent
   extends GatewayDispatchEventBase<GatewayDispatchEvents.GuildCreate, GatewayDispatchGuildCreateEventData> {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#guild-create-guild-create-extra-fields
  */
 export interface GatewayDispatchGuildCreateEventData extends APIGuild {
@@ -40,11 +42,13 @@ export interface GatewayDispatchGuildCreateEventData extends APIGuild {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#guild-create-guild-create-extra-fields
  */
 export interface GatewayGuildVoiceState extends Omit<APIVoiceState, "guild_id"> {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/events/gateway-events#guild-create-guild-create-extra-fields
  */
 export type APIGuildChannel = Exclude<APIChannel, APIDMChannel | APIGroupDMChannel>;

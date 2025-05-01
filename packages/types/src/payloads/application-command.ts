@@ -4,6 +4,7 @@ import type { ChannelTypes } from "./channel.js";
 import type { InteractionContextTypes } from "./interaction.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
  */
 export interface APIApplicationCommand {
@@ -26,6 +27,7 @@ export interface APIApplicationCommand {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
 export interface APIApplicationCommandOption {
@@ -44,6 +46,7 @@ export interface APIApplicationCommandOption {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
  */
 export interface APIApplicationCommandOptionChoice {
@@ -53,6 +56,7 @@ export interface APIApplicationCommandOptionChoice {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-application-command-permissions-structure
  */
 export interface APIApplicationCommandPermissions {
@@ -62,6 +66,7 @@ export interface APIApplicationCommandPermissions {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
  */
 export interface APIAutocompleteChoice {
@@ -71,6 +76,7 @@ export interface APIAutocompleteChoice {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure
  */
 export interface APIGuildApplicationCommandPermissions {
@@ -81,6 +87,7 @@ export interface APIGuildApplicationCommandPermissions {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
  */
 export enum ApplicationCommandOptionTypes {
@@ -98,6 +105,7 @@ export enum ApplicationCommandOptionTypes {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-application-command-permission-type
  */
 export enum ApplicationCommandPermissionType {
@@ -107,6 +115,7 @@ export enum ApplicationCommandPermissionType {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
  */
 export enum ApplicationCommandTypes {
@@ -117,6 +126,7 @@ export enum ApplicationCommandTypes {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-entry-point-command-handler-types
  */
 export enum EntryPointCommandHandlerTypes {

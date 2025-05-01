@@ -9,6 +9,7 @@ import type { ChannelTypes } from "./channel.js";
 import type { APIPartialEmoji } from "./emoji.js";
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/interactions/message-components#action-rows
  */
 export interface APIActionRowComponent extends APIComponentBase<ComponentTypes.ActionRow> {
@@ -16,6 +17,7 @@ export interface APIActionRowComponent extends APIComponentBase<ComponentTypes.A
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#channel-select-channel-select-structure
  */
 export interface APIChannelSelectMenuComponent
@@ -24,6 +26,7 @@ export interface APIChannelSelectMenuComponent
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#container-container-structure
  */
 export interface APIContainerComponent extends APIComponentBase<ComponentTypes.Container> {
@@ -33,6 +36,7 @@ export interface APIContainerComponent extends APIComponentBase<ComponentTypes.C
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#file-file-structure
  */
 export interface APIFileComponent extends APIComponentBase<ComponentTypes.File> {
@@ -41,6 +45,7 @@ export interface APIFileComponent extends APIComponentBase<ComponentTypes.File> 
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
 export interface APILinkButtonComponent extends APIButtonComponentBase<ButtonStyles.Link> {
@@ -48,6 +53,7 @@ export interface APILinkButtonComponent extends APIButtonComponentBase<ButtonSty
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#media-gallery-media-gallery-structure
  */
 export interface APIMediaGalleryComponent extends APIComponentBase<ComponentTypes.MediaGallery> {
@@ -55,6 +61,7 @@ export interface APIMediaGalleryComponent extends APIComponentBase<ComponentType
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#media-gallery-media-gallery-item-structure
  */
 export interface APIMediaGalleryItem {
@@ -64,12 +71,14 @@ export interface APIMediaGalleryItem {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#mentionable-select-mentionable-select-structure
  */
 export interface APIMentionableSelectMenuComponent
   extends APIResolvedSelectMenuComponentBase<ComponentTypes.MentionableSelect> {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
 export interface APIPremiumButtonComponent
@@ -78,11 +87,13 @@ export interface APIPremiumButtonComponent
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#role-select-role-select-structure
  */
 export interface APIRoleSelectMenuComponent extends APIResolvedSelectMenuComponentBase<ComponentTypes.RoleSelect> {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
 export interface APITextButtonComponent
@@ -93,6 +104,7 @@ export interface APITextButtonComponent
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#section-section-structure
  */
 export interface APISectionComponent extends APIComponentBase<ComponentTypes.Section> {
@@ -101,6 +113,7 @@ export interface APISectionComponent extends APIComponentBase<ComponentTypes.Sec
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
  */
 export interface APIStringSelectMenuComponent extends APISelectMenuComponentBase<ComponentTypes.StringSelect> {
@@ -108,6 +121,7 @@ export interface APIStringSelectMenuComponent extends APISelectMenuComponentBase
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
 export interface APISelectMenuDefaultValue {
@@ -116,6 +130,7 @@ export interface APISelectMenuDefaultValue {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
  */
 export interface APISelectMenuOption {
@@ -127,6 +142,7 @@ export interface APISelectMenuOption {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
  */
 export interface APISeparatorComponent extends APIComponentBase<ComponentTypes.Separator> {
@@ -135,6 +151,7 @@ export interface APISeparatorComponent extends APIComponentBase<ComponentTypes.S
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#text-display-text-display-structure
  */
 export interface APITextDisplayComponent extends APIComponentBase<ComponentTypes.TextDisplay> {
@@ -142,6 +159,7 @@ export interface APITextDisplayComponent extends APIComponentBase<ComponentTypes
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#text-input-text-input-structure
  */
 export interface APITextInputComponent extends Omit<APIComponentBase<ComponentTypes.TextInput>, "disabled"> {
@@ -156,6 +174,7 @@ export interface APITextInputComponent extends Omit<APIComponentBase<ComponentTy
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#thumbnail-thumbnail-structure
  */
 export interface APIThumbnailComponent extends APIComponentBase<ComponentTypes.Thumbnail> {
@@ -165,6 +184,7 @@ export interface APIThumbnailComponent extends APIComponentBase<ComponentTypes.T
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#unfurled-media-item-structure
  */
 export interface APIUnfurledMediaItem {
@@ -176,26 +196,31 @@ export interface APIUnfurledMediaItem {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#user-select-user-select-structure
  */
 export interface APIUserSelectMenuComponent extends APIResolvedSelectMenuComponentBase<ComponentTypes.UserSelect> {}
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-structure
  */
 export type APIActionRowComponents = APIInteractiveComponents;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
 export type APIButtonComponent = APILinkButtonComponent | APIPremiumButtonComponent | APITextButtonComponent;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#component-reference
  */
 export type APIComponent = APIContentComponents | APIInteractiveComponents | APILayoutComponents;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#container-container-structure
  */
 export type APIContainerComponents =
@@ -207,21 +232,25 @@ export type APIContainerComponents =
   | APITextDisplayComponent;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#component-reference
  */
 export type APIContentComponents = APIMediaGalleryComponent | APIThumbnailComponent | APITextDisplayComponent;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#component-reference
  */
 export type APIInteractiveComponents = APIButtonComponent | APISelectMenuComponent | APITextInputComponent;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#component-reference
  */
 export type APILayoutComponents = APIActionRowComponent | APIContainerComponent | APISectionComponent;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#component-reference
  */
 export type APIResolvedSelectMenu =
@@ -231,16 +260,19 @@ export type APIResolvedSelectMenu =
   | APIUserSelectMenuComponent;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#section-section-structure
  */
 export type APISectionAccessory = APIButtonComponent | APIThumbnailComponent;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#component-reference
  */
 export type APISelectMenuComponent = APIResolvedSelectMenu | APIStringSelectMenuComponent;
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#button-button-styles
  */
 export enum ButtonStyles {
@@ -253,6 +285,7 @@ export enum ButtonStyles {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
 export enum ComponentTypes {
@@ -274,6 +307,7 @@ export enum ComponentTypes {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
 export enum SelectMenuDefaultValueTypes {
@@ -283,6 +317,7 @@ export enum SelectMenuDefaultValueTypes {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
  */
 export enum SeparatorSpacingSizes {
@@ -291,6 +326,7 @@ export enum SeparatorSpacingSizes {
 }
 
 /**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#text-input-text-input-styles
  */
 export enum TextInputStyles {
