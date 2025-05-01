@@ -1,5 +1,5 @@
 /**
- * @internal
+ * @public
  */
 export type If<Condition, TrueResult, FalseResult = null> = Condition extends true
   ? TrueResult
@@ -8,11 +8,11 @@ export type If<Condition, TrueResult, FalseResult = null> = Condition extends tr
     : never;
 
 /**
- * @internal
+ * @public
  */
 export type Nullable<Type> = Type | null;
 
 /**
- * @internal
+ * @public
  */
 export type Optional<Type> = Type | undefined;

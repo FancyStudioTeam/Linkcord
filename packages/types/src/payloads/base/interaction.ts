@@ -13,12 +13,13 @@ import type { APIUser } from "../user.js";
 export interface APIInteractionBase<Type extends InteractionTypes, Data> {
   /**
    * @remarks
-   * - Includes {@link Permissions.AttachFiles | `ATTACH_FILES`},
-   *   {@link Permissions.EmbedLinks | `EMBED_LINKS`} and
-   *   {@link Permissions.MentionEveryone | `MENTION_EVERYONE`} for DMs.
+   * - Includes {@link BitwisePermissionFlags.AttachFiles | `ATTACH_FILES`},
+   *   {@link BitwisePermissionFlags.EmbedLinks | `EMBED_LINKS`} and
+   *   {@link BitwisePermissionFlags.MentionEveryone | `MENTION_EVERYONE`} for
+   *   DMs.
    * - Additionally may include
-   *   {@link Permissions.UseExternalEmojis | `USE_EXTERNAL_EMOJIS` } for DMs with
-   *   application bot user.
+   *   {@link BitwisePermissionFlags.UseExternalEmojis | `USE_EXTERNAL_EMOJIS` }
+   *   for DMs with application bot user.
    */
   app_permissions?: string;
   application_id: Snowflake;

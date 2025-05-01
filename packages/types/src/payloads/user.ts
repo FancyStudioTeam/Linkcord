@@ -46,12 +46,14 @@ export interface APIUser {
   banner?: Nullable<string>;
   bot?: boolean;
   /**
+   * @alpha
    * @remarks
    * - This is not officially documented in the Discord API documentation,
    *   meaning it may change or break at any time.
    */
   clan?: Nullable<APIUserClan>;
   /**
+   * @alpha
    * @remarks
    * - This is not officially documented in the Discord API documentation,
    *   meaning it may change or break at any time.
