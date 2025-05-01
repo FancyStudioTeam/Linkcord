@@ -1,0 +1,10 @@
+@import "@fontsource-variable/jetbrains-mono";
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "JetBrains Mono Variable", monospace;
+}
+
+.shiki {
+  background-color: oklch(14.1% 0.005 285.823) !important;
+}

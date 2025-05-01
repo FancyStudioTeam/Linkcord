@@ -16,6 +16,7 @@
   },
   "scripts": {
     "build": "turbo run build",
+    "extractor:run": "turbo run extractor:run",
     "prepare": "husky",
     "typedoc": "turbo run typedoc",
     "vitest": "turbo run vitest"
