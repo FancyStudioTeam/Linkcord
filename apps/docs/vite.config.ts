@@ -7,7 +7,18 @@ export default defineConfig({
   plugins: [
     remixCloudflareDevProxy(),
     remix({
-      ssr: true,
+      future: {
+        // biome-ignore lint/style/useNamingConvention:
+        v3_fetcherPersist: true,
+        // biome-ignore lint/style/useNamingConvention:
+        v3_lazyRouteDiscovery: true,
+        // biome-ignore lint/style/useNamingConvention:
+        v3_relativeSplatPath: true,
+        // biome-ignore lint/style/useNamingConvention:
+        v3_singleFetch: true,
+        // biome-ignore lint/style/useNamingConvention:
+        v3_throwAbortReason: true,
+      },
     }),
     tailwindcss(),
     tsconfigPaths(),
