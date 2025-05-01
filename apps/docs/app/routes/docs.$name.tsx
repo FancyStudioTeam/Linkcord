@@ -9,7 +9,7 @@ import type {
   ApiProperty,
   ApiVariable,
 } from "@microsoft/api-extractor-model";
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import { CodeBlock } from "~/components/CodeBlock";
 import { KindBadge } from "~/components/docs/KindBadge";
