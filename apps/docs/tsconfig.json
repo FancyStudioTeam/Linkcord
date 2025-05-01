@@ -17,7 +17,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "ES2022",
-    "types": ["@remix-run/node", "vite/client"]
+    "types": ["@remix-run/cloudflare", "vite/client"]
   },
   "include": [
     "**/*.ts",
