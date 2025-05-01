@@ -24,10 +24,9 @@
   },
   "name": "docs",
   "scripts": {
-    "build": "remix vite:build",
-    "dev": "remix vite:dev",
-    "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc"
+    "docs:build": "remix vite:build",
+    "docs:dev": "remix vite:dev",
+    "docs:start": "remix-serve ./build/server/index.js"
   },
   "type": "module"
 }
