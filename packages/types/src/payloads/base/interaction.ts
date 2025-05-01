@@ -8,7 +8,7 @@ import type { APIMessage } from "../message.js";
 import type { APIUser } from "../user.js";
 
 /**
- * @internal
+ * @public
  */
 export interface APIInteractionBase<Type extends InteractionTypes, Data> {
   /**
@@ -46,7 +46,7 @@ export interface APIInteractionBase<Type extends InteractionTypes, Data> {
 }
 
 /**
- * @internal
+ * @public
  */
 export interface APIMessageComponentInteractionDataBase<Type extends ComponentTypes> {
   component_type: Type;
@@ -55,7 +55,7 @@ export interface APIMessageComponentInteractionDataBase<Type extends ComponentTy
 }
 
 /**
- * @internal
+ * @public
  */
 export interface APIMessageComponentSelectInteractionDataBase<Type extends AnySelectMenu>
   extends APIMessageComponentInteractionDataBase<Type> {
@@ -63,7 +63,7 @@ export interface APIMessageComponentSelectInteractionDataBase<Type extends AnySe
 }
 
 /**
- * @internal
+ * @public
  */
 type AnySelectMenu =
   | ComponentTypes.ChannelSelect

@@ -10,7 +10,7 @@ import type {
 import type { APIUser } from "../user.js";
 
 /**
- * @internal
+ * @public
  */
 export interface APIChannelBase<Type extends ChannelTypes> {
   flags?: number;
@@ -20,7 +20,7 @@ export interface APIChannelBase<Type extends ChannelTypes> {
 }
 
 /**
- * @internal
+ * @public
  */
 export interface APIDMChannelBase<Type extends AnyDMChannelType> extends APIChannelBase<Type> {
   recipients?: APIUser[];
@@ -29,7 +29,7 @@ export interface APIDMChannelBase<Type extends AnyDMChannelType> extends APIChan
 }
 
 /**
- * @internal
+ * @public
  */
 export interface APIGuildChannelBase<Type extends ChannelTypes> extends Omit<APIChannelBase<Type>, "name"> {
   guild_id: Snowflake;
@@ -41,7 +41,7 @@ export interface APIGuildChannelBase<Type extends ChannelTypes> extends Omit<API
 }
 
 /**
- * @internal
+ * @public
  */
 export interface APITextChannelBase<Type extends AnyTextChannelType> extends APIGuildChannelBase<Type> {
   default_auto_archive_duration?: AutoArchiveDuration;
@@ -52,7 +52,7 @@ export interface APITextChannelBase<Type extends AnyTextChannelType> extends API
 }
 
 /**
- * @internal
+ * @public
  */
 export interface APIThreadChannelBase<Type extends AnyThreadChannelType>
   extends Omit<
@@ -74,7 +74,7 @@ export interface APIThreadChannelBase<Type extends AnyThreadChannelType>
 }
 
 /**
- * @internal
+ * @public
  */
 export interface APIVoiceChannelBase<Type extends AnyVoiceChannelType>
   extends Omit<APITextChannelBase<Type>, "default_auto_archive_duration" | "last_pin_timestamp" | "topic"> {
@@ -90,21 +90,21 @@ export interface APIVoiceChannelBase<Type extends AnyVoiceChannelType>
 }
 
 /**
- * @internal
+ * @public
  */
 type AnyDMChannelType = ChannelTypes.DirectMessage | ChannelTypes.GroupDM;
 
 /**
- * @internal
+ * @public
  */
 type AnyTextChannelType = Exclude<ChannelTypes, AnyDMChannelType>;
 
 /**
- * @internal
+ * @public
  */
 type AnyThreadChannelType = ChannelTypes.AnnouncementThread | ChannelTypes.PrivateThread | ChannelTypes.PublicThread;
 
 /**
- * @internal
+ * @public
  */
 type AnyVoiceChannelType = ChannelTypes.GuildVoice | ChannelTypes.GuildStageVoice;

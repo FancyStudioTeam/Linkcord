@@ -3,7 +3,7 @@ import type { APIAuthorizingIntegrationOwners, InteractionTypes } from "../inter
 import type { APIUser } from "../user.js";
 
 /**
- * @internal
+ * @public
  */
 export interface APIEmbedMediaContentBase {
   /**
@@ -19,7 +19,7 @@ export interface APIEmbedMediaContentBase {
 }
 
 /**
- * @internal
+ * @public
  */
 export interface APIMessageInteractionMetadataBase<Type extends InteractionTypes> {
   authorizing_integration_owners: APIAuthorizingIntegrationOwners;

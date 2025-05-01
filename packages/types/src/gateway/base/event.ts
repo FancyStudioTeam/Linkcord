@@ -3,7 +3,7 @@ import type { GatewayOpcodes } from "../event.js";
 import type { GatewayDispatchEvents } from "../events/dispatch.js";
 
 /**
- * @internal
+ * @public
  */
 export interface GatewayDispatchEventBase<Event extends GatewayDispatchEvents, Data>
   extends GatewayEventBase<GatewayOpcodes.Dispatch, Data> {
@@ -11,7 +11,7 @@ export interface GatewayDispatchEventBase<Event extends GatewayDispatchEvents, D
 }
 
 /**
- * @internal
+ * @public
  */
 export interface GatewayEventBase<Opcode extends GatewayOpcodes, Data> {
   d: Data;
@@ -21,6 +21,6 @@ export interface GatewayEventBase<Opcode extends GatewayOpcodes, Data> {
 }
 
 /**
- * @internal
+ * @public
  */
 type IsDispatchEvent<Opcode extends GatewayOpcodes> = Opcode extends GatewayOpcodes.Dispatch ? true : false;

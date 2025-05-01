@@ -1,7 +1,7 @@
 import type { Snowflake } from "#shared";
 
 /**
- * @internal
+ * @public
  */
 export interface APIUserCollectibleBase {
   asset: string;

@@ -2,7 +2,7 @@ import type { APISelectMenuDefaultValue, ButtonStyles, ComponentTypes } from "..
 import type { APIPartialEmoji } from "../emoji.js";
 
 /**
- * @internal
+ * @public
  */
 export interface APIComponentBase<Type extends ComponentTypes> {
   id?: number;
@@ -10,7 +10,7 @@ export interface APIComponentBase<Type extends ComponentTypes> {
 }
 
 /**
- * @internal
+ * @public
  */
 export interface APIInteractiveComponentBase<Type extends AnyInteractiveComponent> extends APIComponentBase<Type> {
   custom_id: string;
@@ -18,7 +18,7 @@ export interface APIInteractiveComponentBase<Type extends AnyInteractiveComponen
 }
 
 /**
- * @internal
+ * @public
  */
 export interface APIButtonComponentBase<Style extends ButtonStyles>
   extends APIInteractiveComponentBase<ComponentTypes.Button> {
@@ -28,7 +28,7 @@ export interface APIButtonComponentBase<Style extends ButtonStyles>
 }
 
 /**
- * @internal
+ * @public
  */
 export interface APIResolvedSelectMenuComponentBase<Type extends AnyResolvedSelectMenuType>
   extends APISelectMenuComponentBase<Type> {
@@ -36,7 +36,7 @@ export interface APIResolvedSelectMenuComponentBase<Type extends AnyResolvedSele
 }
 
 /**
- * @internal
+ * @public
  */
 export interface APISelectMenuComponentBase<Type extends AnySelectMenuType> extends APIInteractiveComponentBase<Type> {
   custom_id: string;
@@ -46,7 +46,7 @@ export interface APISelectMenuComponentBase<Type extends AnySelectMenuType> exte
 }
 
 /**
- * @internal
+ * @public
  */
 type AnyInteractiveComponent =
   | ComponentTypes.Button
@@ -58,12 +58,12 @@ type AnyInteractiveComponent =
   | ComponentTypes.UserSelect;
 
 /**
- * @internal
+ * @public
  */
 type AnyResolvedSelectMenuType = Exclude<AnySelectMenuType, ComponentTypes.StringSelect>;
 
 /**
- * @internal
+ * @public
  */
 type AnySelectMenuType =
   | ComponentTypes.ChannelSelect
