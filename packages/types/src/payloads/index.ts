@@ -3,6 +3,7 @@ export * from "./application-role-connection-metadata.js";
 export * from "./application.js";
 export * from "./audit-log.js";
 export * from "./auto-moderation.js";
+export * from "./base/index.js";
 export * from "./channel.js";
 export * from "./channel.js";
 export * from "./component.js";
