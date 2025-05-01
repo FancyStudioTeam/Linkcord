@@ -24,11 +24,15 @@
     "vite-tsconfig-paths": "5.1.4",
     "wrangler": "4.14.1"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "name": "docs",
   "scripts": {
     "docs:build": "remix vite:build",
+    "docs:deploy": "wrangler pages deploy build/client",
     "docs:dev": "remix vite:dev",
-    "docs:start": "wrangler pages dev ./build/client"
+    "docs:start": "wrangler pages dev build/client"
   },
   "type": "module"
 }
