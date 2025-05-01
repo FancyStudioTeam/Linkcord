@@ -1,8 +1,6 @@
 import type {
-  APIChannel,
-  APIDMChannel,
-  APIGroupDMChannel,
   APIGuild,
+  APIGuildChannel,
   APIGuildMember,
   APIGuildScheduledEvent,
   APISoundboardSound,
@@ -46,9 +44,3 @@ export interface GatewayDispatchGuildCreateEventData extends APIGuild {
  * @see https://discord.com/developers/docs/events/gateway-events#guild-create-guild-create-extra-fields
  */
 export interface GatewayGuildVoiceState extends Omit<APIVoiceState, "guild_id"> {}
-
-/**
- * @public
- * @see https://discord.com/developers/docs/events/gateway-events#guild-create-guild-create-extra-fields
- */
-export type APIGuildChannel = Exclude<APIChannel, APIDMChannel | APIGroupDMChannel>;
