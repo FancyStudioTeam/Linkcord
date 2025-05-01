@@ -4,6 +4,7 @@ dist
 
 # Docs
 .typedoc
+apps/docs/public/api
 temp
 
 # Packages
