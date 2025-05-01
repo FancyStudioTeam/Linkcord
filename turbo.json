@@ -5,6 +5,9 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
+    "extractor:run": {
+      "dependsOn": ["build"]
+    },
     "typedoc": {
       "dependsOn": ["build"]
     },
