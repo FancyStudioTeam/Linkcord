@@ -1,44 +1,33 @@
-import { Cuboid, ListTree, SquareChartGantt, Wrench } from "lucide-react";
-import type { ReactNode } from "react";
+import { Cuboid, ListTree, type LucideIcon, SquareChartGantt, Wrench } from "lucide-react";
 import { APIMemberKind, type AnyTopLevelKind } from "#types/APIExtractor";
 
-export const kindData: Record<AnyTopLevelKind, KindData | undefined> = {
+export const KIND_ICONS: Record<AnyTopLevelKind, LucideIcon> = {
+  [APIMemberKind.Enum]: SquareChartGantt,
+  [APIMemberKind.Interface]: ListTree,
+  [APIMemberKind.TypeAlias]: Wrench,
+  [APIMemberKind.Variable]: Cuboid,
+};
+
+export const KIND_COLORS: Record<AnyTopLevelKind, KindColors> = {
   [APIMemberKind.Enum]: {
-    colors: {
-      background: "bg-amber-950",
-      text: "text-amber-500",
-    },
-    icon: <SquareChartGantt />,
+    background: "bg-amber-950",
+    text: "text-amber-500",
   },
   [APIMemberKind.Interface]: {
-    colors: {
-      background: "bg-emerald-950",
-      text: "text-emerald-500",
-    },
-    icon: <ListTree />,
+    background: "bg-emerald-950",
+    text: "text-emerald-500",
   },
   [APIMemberKind.TypeAlias]: {
-    colors: {
-      background: "bg-rose-950",
-      text: "text-rose-500",
-    },
-    icon: <Wrench />,
+    background: "bg-rose-950",
+    text: "text-rose-500",
   },
   [APIMemberKind.Variable]: {
-    colors: {
-      background: "bg-cyan-950",
-      text: "text-cyan-500",
-    },
-    icon: <Cuboid />,
+    background: "bg-cyan-950",
+    text: "text-cyan-500",
   },
 };
 
-interface KindData {
-  colors: KindDataColors;
-  icon: ReactNode;
-}
-
-interface KindDataColors {
+interface KindColors {
   background: string;
   text: string;
 }
