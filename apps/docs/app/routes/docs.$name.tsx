@@ -1,41 +1,31 @@
-import type {
-  ApiClass,
-  ApiEnum,
-  ApiEnumMember,
-  ApiFunction,
-  ApiInterface,
-  ApiItemKind,
-  ApiMethod,
-  ApiProperty,
-  ApiVariable,
-} from "@microsoft/api-extractor-model";
 import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
-import { CodeBlock } from "~/components/CodeBlock";
-import { KindBadge } from "~/components/docs/KindBadge";
-import { makeCodeBlock } from "~/utils/makeCodeBlock";
-import { entryPointMember } from "~/utils/model";
-import { notFound } from "~/utils/notFound";
+import { CodeBlock } from "#components/CodeBlock";
+import { KindBadge } from "#components/docs/KindBadge";
+import type { APIMemberKind } from "#types/APIExtractor";
+import { getTypeMembers } from "#util/apiExtractor";
+import { makeCodeBlock } from "#util/makeCodeBlock";
+import { notFound } from "#util/responses/notFound";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { name: _name } = params;
-  const [kind, name] = _name?.split(":") ?? "";
+  const [_memberKind, _memberName] = _name?.split(":") ?? "";
 
-  if (!(kind && name)) {
+  if (!(_memberKind && _memberName)) {
     throw notFound();
   }
 
-  const member = entryPointMember?.members.find(
-    (member) => member.kind === kind && member.displayName === name,
-  ) as AnyApiMember;
+  const members = await getTypeMembers();
+  const member = members.find((member) => member.kind === _memberKind && member.name === _memberName);
 
   if (!member) {
     throw notFound();
   }
 
+  const { kind, name } = member;
   const data: MemberData = {
-    kind: member.kind,
-    name: member.displayName,
+    kind,
+    name,
   };
 
   if ("excerptTokens" in member) {
@@ -73,18 +63,8 @@ export default () => {
   );
 };
 
-type AnyApiMember =
-  | ApiClass
-  | ApiEnum
-  | ApiEnumMember
-  | ApiFunction
-  | ApiInterface
-  | ApiMethod
-  | ApiProperty
-  | ApiVariable;
-
 interface MemberData {
   codeBlock?: string;
-  kind: ApiItemKind;
+  kind: APIMemberKind;
   name: string;
 }

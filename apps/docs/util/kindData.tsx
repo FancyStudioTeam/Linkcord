@@ -1,16 +1,16 @@
 import { typeSquare as TypeSquare } from "@lucide/lab";
-import { ApiItemKind } from "@microsoft/api-extractor-model";
 import { Box, Icon, SquareChartGantt, Wrench } from "lucide-react";
 import type { ReactNode } from "react";
+import { APIMemberKind } from "#types/APIExtractor";
 
-export const kindData: Record<ApiItemKind, KindData | undefined> = {
-  [ApiItemKind.CallSignature]: undefined,
-  [ApiItemKind.Class]: undefined,
-  [ApiItemKind.ConstructSignature]: undefined,
-  [ApiItemKind.Constructor]: undefined,
-  [ApiItemKind.EntryPoint]: undefined,
-  [ApiItemKind.EnumMember]: undefined,
-  [ApiItemKind.Enum]: {
+export const kindData: Record<APIMemberKind, KindData | undefined> = {
+  [APIMemberKind.CallSignature]: undefined,
+  [APIMemberKind.Class]: undefined,
+  [APIMemberKind.ConstructSignature]: undefined,
+  [APIMemberKind.Constructor]: undefined,
+  [APIMemberKind.EntryPoint]: undefined,
+  [APIMemberKind.EnumMember]: undefined,
+  [APIMemberKind.Enum]: {
     colors: {
       background: "bg-amber-950",
       text: {
@@ -20,9 +20,9 @@ export const kindData: Record<ApiItemKind, KindData | undefined> = {
     },
     icon: (classNames?: string) => <SquareChartGantt className={classNames} />,
   },
-  [ApiItemKind.Function]: undefined,
-  [ApiItemKind.IndexSignature]: undefined,
-  [ApiItemKind.Interface]: {
+  [APIMemberKind.Function]: undefined,
+  [APIMemberKind.IndexSignature]: undefined,
+  [APIMemberKind.Interface]: {
     colors: {
       background: "bg-emerald-950",
       text: {
@@ -32,15 +32,15 @@ export const kindData: Record<ApiItemKind, KindData | undefined> = {
     },
     icon: (classNames?: string) => <Box className={classNames} />,
   },
-  [ApiItemKind.MethodSignature]: undefined,
-  [ApiItemKind.Method]: undefined,
-  [ApiItemKind.Model]: undefined,
-  [ApiItemKind.Namespace]: undefined,
-  [ApiItemKind.None]: undefined,
-  [ApiItemKind.Package]: undefined,
-  [ApiItemKind.PropertySignature]: undefined,
-  [ApiItemKind.Property]: undefined,
-  [ApiItemKind.TypeAlias]: {
+  [APIMemberKind.MethodSignature]: undefined,
+  [APIMemberKind.Method]: undefined,
+  [APIMemberKind.Model]: undefined,
+  [APIMemberKind.Namespace]: undefined,
+  [APIMemberKind.None]: undefined,
+  [APIMemberKind.Package]: undefined,
+  [APIMemberKind.PropertySignature]: undefined,
+  [APIMemberKind.Property]: undefined,
+  [APIMemberKind.TypeAlias]: {
     colors: {
       background: "bg-rose-950",
       text: {
@@ -50,7 +50,7 @@ export const kindData: Record<ApiItemKind, KindData | undefined> = {
     },
     icon: (classNames?: string) => <Icon className={classNames} iconNode={TypeSquare} />,
   },
-  [ApiItemKind.Variable]: {
+  [APIMemberKind.Variable]: {
     colors: {
       background: "bg-blue-950",
       text: {

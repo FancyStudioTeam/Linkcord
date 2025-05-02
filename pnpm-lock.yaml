@@ -57,9 +57,6 @@ importers:
         specifier: 3.3.0
         version: 3.3.0
     devDependencies:
-      '@microsoft/api-extractor-model':
-        specifier: 7.30.6
-        version: 7.30.6(@types/node@22.15.3)
       '@remix-run/cloudflare':
         specifier: 2.16.5
         version: 2.16.5(@cloudflare/workers-types@4.20250430.0)(typescript@5.8.3)

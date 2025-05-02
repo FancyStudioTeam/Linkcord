@@ -13,7 +13,7 @@
     "paths": {
       "#components/*": ["./components/*"],
       "#types/*": ["./types/*"],
-      "#utils/*": ["./utils/*"]
+      "#util/*": ["./util/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

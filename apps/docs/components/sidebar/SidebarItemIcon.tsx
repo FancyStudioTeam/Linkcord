@@ -1,10 +1,10 @@
-import type { ApiItemKind } from "@microsoft/api-extractor-model";
-import { kindData } from "~/utils/kindData";
+import type { APIMemberKind } from "#types/APIExtractor";
+import { kindData } from "#util/kindData";
 
 export const SidebarItemIcon = ({
   kind,
 }: {
-  kind: ApiItemKind;
+  kind: APIMemberKind;
 }) => {
   const data = kindData[kind];
   const icon = data?.icon;

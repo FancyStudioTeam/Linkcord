@@ -11,7 +11,6 @@
     "shiki": "3.3.0"
   },
   "devDependencies": {
-    "@microsoft/api-extractor-model": "7.30.6",
     "@remix-run/cloudflare": "2.16.5",
     "@remix-run/cloudflare-pages": "2.16.5",
     "@remix-run/dev": "2.16.5",
