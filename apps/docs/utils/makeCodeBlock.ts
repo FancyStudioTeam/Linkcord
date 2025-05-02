@@ -5,7 +5,7 @@ import { codeToHtml } from "shiki";
  * @param code - The code to create the code block from.
  * @returns The created HTML code block.
  */
-export const makeCodeBlock = async (code: string) => {
+export const makeCodeBlock = async (code: string): Promise<string> => {
   const highlightedCode = await codeToHtml(code, {
     lang: "typescript",
     theme: "github-dark-default",
