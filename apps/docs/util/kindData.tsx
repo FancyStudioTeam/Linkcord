@@ -1,7 +1,10 @@
-import { typeSquare as TypeSquare } from "@lucide/lab";
-import { Box, Icon, SquareChartGantt, Wrench } from "lucide-react";
+import { Cuboid, ListTree, type LucideIcon, type LucideProps, SquareChartGantt, Wrench } from "lucide-react";
 import type { ReactNode } from "react";
 import { APIMemberKind } from "#types/APIExtractor";
+
+const createIcon = (Icon: LucideIcon, defaultProps?: LucideProps) => (props: LucideProps) => (
+  <Icon {...defaultProps} {...props} />
+);
 
 export const kindData: Record<APIMemberKind, KindData | undefined> = {
   [APIMemberKind.CallSignature]: undefined,
@@ -18,7 +21,7 @@ export const kindData: Record<APIMemberKind, KindData | undefined> = {
         normal: "text-amber-500",
       },
     },
-    icon: (classNames?: string) => <SquareChartGantt className={classNames} />,
+    icon: createIcon(SquareChartGantt),
   },
   [APIMemberKind.Function]: undefined,
   [APIMemberKind.IndexSignature]: undefined,
@@ -30,7 +33,7 @@ export const kindData: Record<APIMemberKind, KindData | undefined> = {
         normal: "text-emerald-500",
       },
     },
-    icon: (classNames?: string) => <Box className={classNames} />,
+    icon: createIcon(ListTree),
   },
   [APIMemberKind.MethodSignature]: undefined,
   [APIMemberKind.Method]: undefined,
@@ -48,23 +51,25 @@ export const kindData: Record<APIMemberKind, KindData | undefined> = {
         normal: "text-rose-500",
       },
     },
-    icon: (classNames?: string) => <Icon className={classNames} iconNode={TypeSquare} />,
+    icon: createIcon(Wrench),
   },
   [APIMemberKind.Variable]: {
     colors: {
-      background: "bg-blue-950",
+      background: "bg-cyan-950",
       text: {
-        light: "text-blue-400",
-        normal: "text-blue-500",
+        light: "text-cyan-400",
+        normal: "text-cyan-500",
       },
     },
-    icon: (classNames?: string) => <Wrench className={classNames} />,
+    icon: createIcon(Cuboid),
   },
 };
 
+type IconRenderer = (props: LucideProps) => ReactNode;
+
 interface KindData {
   colors: KindDataColors;
-  icon: (classNames?: string) => ReactNode;
+  icon: IconRenderer;
 }
 
 interface KindDataColors {
