@@ -1,10 +1,10 @@
-import type { APIEntryPointMember } from "./members/APIEntryPoint.js";
+import type { APIEntryPoint } from "./members/APIEntryPoint.js";
 
 export interface APIExtractor {
   canonicalReference: string;
   docComment: string;
   kind: APIMemberKind.Package;
-  members: APIEntryPointMember[];
+  members: APIEntryPoint[];
   metadata: APIMetadata;
   preserveMemberOrder: boolean;
 }

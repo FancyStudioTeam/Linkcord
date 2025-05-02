@@ -4,6 +4,6 @@ import type { APIEnum } from "./APIEnum.js";
 import type { APIInterface } from "./APIInterface.js";
 import type { APITypeAlias } from "./APITypeAlias.js";
 
-export interface APIEntryPointMember extends APIMemberBase<APIMemberKind.EntryPoint, AnyEntryPointMember> {}
+export interface APIEntryPoint extends APIMemberBase<APIMemberKind.EntryPoint, AnyEntryPointMember> {}
 
 type AnyEntryPointMember = APIEnum | APIInterface | APITypeAlias;
