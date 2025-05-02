@@ -28,6 +28,7 @@
   },
   "name": "docs",
   "scripts": {
+    "api:generate": "cd ../.. && pnpm extractor:run",
     "docs:build": "remix vite:build",
     "docs:deploy": "wrangler pages deploy build/client",
     "docs:dev": "remix vite:dev",
