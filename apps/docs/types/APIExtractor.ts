@@ -1,3 +1,4 @@
+import type { AnyEntryPointMember } from "./APIMember.js";
 import type { APIEntryPoint } from "./members/APIEntryPoint.js";
 
 export interface APIExtractor {
@@ -39,8 +40,4 @@ export enum APIMemberKind {
   Variable = "Variable",
 }
 
-export type AnyTopLevelKind =
-  | APIMemberKind.Enum
-  | APIMemberKind.Interface
-  | APIMemberKind.TypeAlias
-  | APIMemberKind.Variable;
+export type AnyTopLevelKind = AnyEntryPointMember["kind"];
