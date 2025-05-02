@@ -1,4 +1,5 @@
-import { codeToHtml } from "shiki";
+import { createHighlighter } from "shiki";
+import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 
 /**
  * Creates a code block from a string of code.
@@ -6,7 +7,12 @@ import { codeToHtml } from "shiki";
  * @returns The created HTML code block.
  */
 export const makeCodeBlock = async (code: string): Promise<string> => {
-  const highlightedCode = await codeToHtml(code, {
+  const highlighter = await createHighlighter({
+    engine: createJavaScriptRegexEngine(),
+    langs: ["typescript"],
+    themes: ["github-dark-default"],
+  });
+  const highlightedCode = highlighter.codeToHtml(code, {
     lang: "typescript",
     theme: "github-dark-default",
   });

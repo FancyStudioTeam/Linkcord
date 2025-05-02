@@ -28,7 +28,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     name,
   };
 
-  /*if ("excerptTokens" in member) {
+  if ("excerptTokens" in member) {
     const fullExcerptToken = member.excerptTokens
       .map((token) => token.text)
       .join("")
@@ -36,7 +36,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     const codeBlock = await makeCodeBlock(fullExcerptToken);
 
     data.codeBlock = codeBlock;
-  }*/
+  }
 
   return data;
 };
@@ -52,12 +52,12 @@ export default () => {
           <KindBadge kind={kind} />
           {name}
         </h1>
-        {/*codeBlock && (
+        {codeBlock && (
           <>
             <hr className="border-zinc-700" />
             <CodeBlock html={codeBlock} />
           </>
-        )*/}
+        )}
       </div>
     </div>
   );
