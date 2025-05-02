@@ -52,12 +52,12 @@ export default () => {
           <KindBadge kind={kind} />
           {name}
         </h1>
-        {codeBlock && (
+        {/*codeBlock && (
           <>
             <hr className="border-zinc-700" />
             <CodeBlock html={codeBlock} />
           </>
-        )}
+        )*/}
       </div>
     </div>
   );
