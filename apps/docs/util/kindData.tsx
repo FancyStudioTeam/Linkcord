@@ -1,83 +1,44 @@
-import { Cuboid, ListTree, type LucideIcon, type LucideProps, SquareChartGantt, Wrench } from "lucide-react";
+import { Cuboid, ListTree, SquareChartGantt, Wrench } from "lucide-react";
 import type { ReactNode } from "react";
-import { APIMemberKind } from "#types/APIExtractor";
+import { APIMemberKind, type AnyTopLevelKind } from "#types/APIExtractor";
 
-const createIcon = (Icon: LucideIcon, defaultProps?: LucideProps) => (props: LucideProps) => (
-  <Icon {...defaultProps} {...props} />
-);
-
-export const kindData: Record<APIMemberKind, KindData | undefined> = {
-  [APIMemberKind.CallSignature]: undefined,
-  [APIMemberKind.Class]: undefined,
-  [APIMemberKind.ConstructSignature]: undefined,
-  [APIMemberKind.Constructor]: undefined,
-  [APIMemberKind.EntryPoint]: undefined,
-  [APIMemberKind.EnumMember]: undefined,
+export const kindData: Record<AnyTopLevelKind, KindData | undefined> = {
   [APIMemberKind.Enum]: {
     colors: {
       background: "bg-amber-950",
-      text: {
-        light: "text-amber-400",
-        normal: "text-amber-500",
-      },
+      text: "text-amber-500",
     },
-    icon: createIcon(SquareChartGantt),
+    icon: <SquareChartGantt />,
   },
-  [APIMemberKind.Function]: undefined,
-  [APIMemberKind.IndexSignature]: undefined,
   [APIMemberKind.Interface]: {
     colors: {
       background: "bg-emerald-950",
-      text: {
-        light: "text-emerald-400",
-        normal: "text-emerald-500",
-      },
+      text: "text-emerald-500",
     },
-    icon: createIcon(ListTree),
+    icon: <ListTree />,
   },
-  [APIMemberKind.MethodSignature]: undefined,
-  [APIMemberKind.Method]: undefined,
-  [APIMemberKind.Model]: undefined,
-  [APIMemberKind.Namespace]: undefined,
-  [APIMemberKind.None]: undefined,
-  [APIMemberKind.Package]: undefined,
-  [APIMemberKind.PropertySignature]: undefined,
-  [APIMemberKind.Property]: undefined,
   [APIMemberKind.TypeAlias]: {
     colors: {
       background: "bg-rose-950",
-      text: {
-        light: "text-rose-400",
-        normal: "text-rose-500",
-      },
+      text: "text-rose-500",
     },
-    icon: createIcon(Wrench),
+    icon: <Wrench />,
   },
   [APIMemberKind.Variable]: {
     colors: {
       background: "bg-cyan-950",
-      text: {
-        light: "text-cyan-400",
-        normal: "text-cyan-500",
-      },
+      text: "text-cyan-500",
     },
-    icon: createIcon(Cuboid),
+    icon: <Cuboid />,
   },
 };
 
-type IconRenderer = (props: LucideProps) => ReactNode;
-
 interface KindData {
   colors: KindDataColors;
-  icon: IconRenderer;
+  icon: ReactNode;
 }
 
 interface KindDataColors {
   background: string;
-  text: KindDataColorText;
-}
-
-interface KindDataColorText {
-  light: string;
-  normal: string;
+  text: string;
 }

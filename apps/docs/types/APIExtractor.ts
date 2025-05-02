@@ -38,3 +38,9 @@ export enum APIMemberKind {
   TypeAlias = "TypeAlias",
   Variable = "Variable",
 }
+
+export type AnyTopLevelKind =
+  | APIMemberKind.Enum
+  | APIMemberKind.Interface
+  | APIMemberKind.TypeAlias
+  | APIMemberKind.Variable;
