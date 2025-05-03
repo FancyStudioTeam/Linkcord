@@ -1,4 +1,4 @@
-import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import { DocMember } from "#components/docs/DocMember";
 import { getTypeMembers } from "#util/apiExtractor";
@@ -23,6 +23,20 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   const memberData = await getMemberData(member);
 
   return memberData;
+};
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  if (data) {
+    const { displayName, kind } = data;
+
+    return [
+      {
+        title: `${kind}: ${displayName}`,
+      },
+    ];
+  }
+
+  return [];
 };
 
 export default () => {
