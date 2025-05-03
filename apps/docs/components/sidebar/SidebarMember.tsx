@@ -1,21 +1,27 @@
 import { Link } from "@remix-run/react";
 import type { AnyEntryPointMember } from "#types/APIMember.js";
-import { SidebarItemIcon } from "./SidebarItemIcon.jsx";
+import { KIND_COLORS, KIND_ICONS } from "#util/kindData.js";
 
 function truncate(string: string, length: number) {
   return string.length > length ? `${string.slice(0, length - 3)}...` : string;
 }
 
 export const SidebarMember = ({
-  member,
+  groupMember,
 }: {
-  member: AnyEntryPointMember;
+  groupMember: AnyEntryPointMember;
 }) => {
-  const { kind, name } = member;
+  const { kind, name } = groupMember;
+  const color = KIND_COLORS[kind].text;
+
+  const KindIcon = KIND_ICONS[kind];
 
   return (
-    <Link className="flex items-center gap-2 font-mono text-sm" to={`/docs/${kind}:${name}`}>
-      <SidebarItemIcon kind={kind} />
+    <Link
+      className="flex items-center gap-2 font-mono text-sm transition-opacity hover:opacity-50"
+      to={`/docs/${kind}:${name}`}
+    >
+      <KindIcon className={`${color} size-5 shrink-0`} />
       {truncate(name, 25)}
     </Link>
   );
