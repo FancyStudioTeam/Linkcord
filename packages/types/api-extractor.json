@@ -4,7 +4,7 @@
     "enabled": false
   },
   "docModel": {
-    "apiJsonFilePath": "../../apps/docs/public/api/types.api.json",
+    "apiJsonFilePath": "../../apps/docs/extractor/schemas/types.api.json",
     "enabled": true
   },
   "dtsRollup": {
