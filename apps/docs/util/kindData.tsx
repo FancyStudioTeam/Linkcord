@@ -11,28 +11,33 @@ export const KIND_ICONS: Record<AnyTopLevelKind, LucideIcon> = {
 export const KIND_COLORS: Record<AnyTopLevelKind, KindColors> = {
   [APIMemberKind.Enum]: {
     background: "bg-amber-950",
+    border: "border-amber-500",
     icon: "text-amber-500",
-    text: "text-amber-400",
+    text: "text-amber-500",
   },
   [APIMemberKind.Interface]: {
     background: "bg-emerald-950",
+    border: "border-emerald-500",
     icon: "text-emerald-500",
-    text: "text-emerald-400",
+    text: "text-emerald-500",
   },
   [APIMemberKind.TypeAlias]: {
     background: "bg-rose-950",
+    border: "border-rose-500",
     icon: "text-rose-500",
-    text: "text-rose-400",
+    text: "text-rose-500",
   },
   [APIMemberKind.Variable]: {
     background: "bg-cyan-950",
+    border: "border-cyan-500",
     icon: "text-cyan-500",
-    text: "text-cyan-400",
+    text: "text-cyan-500",
   },
 };
 
 interface KindColors {
   background: string;
+  border: string;
   icon: string;
   text: string;
 }
