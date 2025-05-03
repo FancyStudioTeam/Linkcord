@@ -1,9 +1,10 @@
 export class ShardError extends Error {
   shardId: number;
 
-  constructor(shardId: number) {
-    super();
+  constructor(message: string, shardId: number) {
+    super(message);
 
+    this.message = message;
     this.shardId = shardId;
   }
 }
