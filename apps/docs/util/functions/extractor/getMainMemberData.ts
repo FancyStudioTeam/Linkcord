@@ -3,7 +3,7 @@ import type { AnyMember } from "#types/APIMember";
 import { makeCodeBlock } from "#util/makeCodeBlock";
 import { getExcerptTokenString } from "./getExcerptTokenString.js";
 
-export const getMainMemberData = async (member: AnyMember): Promise<MainMemberData> => {
+export const getMainMemberData = (member: AnyMember): MainMemberData => {
   const { kind, name } = member;
   const memberData: MainMemberData = {
     displayName: name,
@@ -12,7 +12,7 @@ export const getMainMemberData = async (member: AnyMember): Promise<MainMemberDa
 
   if (member.excerptTokens) {
     const excerptToken = getExcerptTokenString(member.excerptTokens);
-    const htmlCodeBlock = await makeCodeBlock(excerptToken);
+    const htmlCodeBlock = makeCodeBlock(excerptToken);
 
     memberData.excerptToken = {
       htmlCodeBlock,
