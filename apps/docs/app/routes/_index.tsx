@@ -1,3 +1,5 @@
-export default function () {
-  return <h1>Index page</h1>;
-}
+import { redirect } from "@remix-run/cloudflare";
+
+export const loader = async () => redirect("/docs");
+
+export default () => null;
