@@ -1,11 +1,12 @@
-@import "@fontsource-variable/jetbrains-mono";
 @import "tailwindcss";
+@import "@fontsource-variable/jetbrains-mono";
 
 @theme {
   --font-mono: "JetBrains Mono Variable", monospace;
 }
 
 * {
+  scrollbar-color: oklch(37% 0.013 285.805) transparent;
   scrollbar-gutter: stable;
 }
 

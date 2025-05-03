@@ -37,5 +37,6 @@
     "docs:deploy": "wrangler pages deploy build/client",
     "docs:dev": "remix vite:dev",
     "docs:start": "wrangler pages dev build/client"
-  }
+  },
+  "type": "module"
 }
