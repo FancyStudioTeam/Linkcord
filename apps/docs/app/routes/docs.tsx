@@ -1,17 +1,9 @@
-import { Outlet, useLoaderData } from "@remix-run/react";
-import { Sidebar } from "#components/sidebar/Sidebar";
-import { getTypeMembers } from "#util/apiExtractor";
-
-export const loader = async () => {
-  const members = await getTypeMembers();
-
-  return {
-    members,
-  };
-};
+import { Outlet } from "@remix-run/react";
+import { Sidebar } from "#components/docs/sidebar/Sidebar";
+import { getTypeMembers } from "#util/extractor";
 
 export default function Layout() {
-  const { members } = useLoaderData<typeof loader>();
+  const members = getTypeMembers();
 
   return (
     <div className="flex h-screen flex-row gap-6 p-6">

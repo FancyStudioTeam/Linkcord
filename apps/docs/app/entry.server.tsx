@@ -33,7 +33,7 @@ export default async function handleRequest(
 
   body.allReady.then(() => clearTimeout(timeoutId));
 
-  if (isbot(request.headers.get("user-agent") || "")) {
+  if (isbot(request.headers.get("user-agent") ?? "")) {
     await body.allReady;
   }
 

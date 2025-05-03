@@ -1,9 +1,8 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import { DocMember } from "#components/docs/DocMember";
-import { getTypeMembers } from "#util/apiExtractor";
+import { getTypeMembers } from "#util/extractor";
 import { createMetadata } from "#util/functions/createMetadata";
-import { getMemberData } from "#util/functions/extractor/getMemberData";
 import { notFound } from "#util/responses/notFound";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
@@ -14,22 +13,20 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     throw notFound();
   }
 
-  const members = await getTypeMembers();
+  const members = getTypeMembers();
   const member = members.find((member) => member.kind === _memberKind && member.name === _memberName);
 
   if (!member) {
     throw notFound();
   }
 
-  const memberData = await getMemberData(member);
-
-  return memberData;
+  return member;
 };
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   if (data) {
-    const { displayName, kind } = data;
-    const title = `${kind}: ${displayName}`;
+    const { name, kind } = data;
+    const title = `${kind}: ${name}`;
 
     return createMetadata([
       ["og:locale", "en"],
