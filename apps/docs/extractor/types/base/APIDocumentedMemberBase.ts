@@ -6,5 +6,12 @@ export interface APIDocumentedMemberBase<Kind extends APIMemberKind, Member = un
   docComment: string;
   excerptTokens: APIExcerptToken[];
   fileUrlPath: string;
-  releaseTag: string;
+  releaseTag: APIReleaseTag;
+}
+
+export enum APIReleaseTag {
+  Alpha = "Alpha",
+  Beta = "Beta",
+  Private = "Private",
+  Public = "Public",
 }
