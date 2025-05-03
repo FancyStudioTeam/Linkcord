@@ -28,10 +28,23 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   if (data) {
     const { displayName, kind } = data;
+    const title = `${kind}: ${displayName}`;
 
     return [
       {
-        title: `${kind}: ${displayName}`,
+        property: "og:locale",
+        content: "en",
+      },
+      {
+        property: "og:title",
+        content: title,
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+      {
+        title,
       },
     ];
   }
