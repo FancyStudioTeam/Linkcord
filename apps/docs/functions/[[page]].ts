@@ -1,5 +1,5 @@
 import { createPagesFunctionHandler } from "@remix-run/cloudflare-pages";
-// @ts-expect-error
+// @ts-ignore
 // biome-ignore lint/style/noNamespaceImport:
 // biome-ignore lint/correctness/useImportExtensions:
 import * as build from "../build/server";
