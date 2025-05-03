@@ -11,7 +11,9 @@
     "moduleResolution": "Bundler",
     "noEmit": true,
     "paths": {
+      "#app/*": ["./app/*"],
       "#components/*": ["./components/*"],
+      "#public/*": ["./public/*"],
       "#types/*": ["./types/*"],
       "#util/*": ["./util/*"]
     },

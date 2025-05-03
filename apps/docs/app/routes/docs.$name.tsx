@@ -2,6 +2,7 @@ import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import { DocMember } from "#components/docs/DocMember";
 import { getTypeMembers } from "#util/apiExtractor";
+import { createMetadata } from "#util/functions/createMetadata";
 import { getMemberData } from "#util/functions/extractor/getMemberData";
 import { notFound } from "#util/responses/notFound";
 
@@ -30,23 +31,12 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     const { displayName, kind } = data;
     const title = `${kind}: ${displayName}`;
 
-    return [
-      {
-        property: "og:locale",
-        content: "en",
-      },
-      {
-        property: "og:title",
-        content: title,
-      },
-      {
-        property: "og:type",
-        content: "website",
-      },
-      {
-        title,
-      },
-    ];
+    return createMetadata([
+      ["og:locale", "en"],
+      ["og:title", title],
+      ["og:type", "website"],
+      ["title", title],
+    ]);
   }
 
   return [];
