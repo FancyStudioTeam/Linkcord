@@ -1,14 +1,13 @@
-import APIExtractorTypesJSON from "#public/api/types.api.json";
+import APIExtractorTypesJSON from "./schemas/types.api.json";
 import type { APIPackage } from "./types/APIPackage.js";
 import type { AnyEntryPointMember } from "./types/members/APIEntryPoint.js";
 
-export class APIExtractor {
-  getTypesPackage(): APIPackage {
-    return APIExtractorTypesJSON as APIPackage;
-  }
+const getTypesPackage = () => APIExtractorTypesJSON as APIPackage;
 
+export class APIExtractor {
   getTypesPackageMembers(): AnyEntryPointMember[] {
-    const { members: packageMembers } = this.getTypesPackage();
+    const typesPackage = getTypesPackage();
+    const { members: packageMembers } = typesPackage;
     const entryPoint = packageMembers[0];
     const { members } = entryPoint;
 
