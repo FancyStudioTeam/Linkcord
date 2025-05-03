@@ -18,4 +18,4 @@ export const getMemberData = async (member: AnyMember): Promise<AnyMemberData> =
 };
 
 type Awaitable<Type> = Type | Promise<Type>;
-type AnyMemberData = EnumData;
+export type AnyMemberData = EnumData;
