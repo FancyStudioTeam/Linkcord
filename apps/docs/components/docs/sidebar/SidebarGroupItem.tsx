@@ -21,7 +21,7 @@ export const SidebarGroupItem = ({
       className="flex items-center gap-2 font-mono text-sm transition-opacity hover:opacity-50"
       to={`/docs/${kind}:${name}`}
     >
-      <KindIcon className={twMerge(icon, "size-5 shrink-0")} />
+      <KindIcon className={twMerge("size-5 shrink-0", icon)} />
       {truncate(name, 25)}
     </Link>
   );

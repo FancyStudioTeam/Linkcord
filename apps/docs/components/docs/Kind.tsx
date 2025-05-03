@@ -12,10 +12,10 @@ export const Kind = ({
   return (
     <span
       className={twMerge(
+        "flex select-none items-center gap-2 rounded-full border px-2 py-0.5 font-medium text-xs",
         background,
         border,
         text,
-        "flex select-none items-center gap-2 rounded-full border px-2 py-0.5 font-medium text-sm",
       )}
     >
       {kind}
