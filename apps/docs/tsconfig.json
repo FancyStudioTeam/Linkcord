@@ -13,6 +13,7 @@
     "paths": {
       "#app/*": ["./app/*"],
       "#components/*": ["./components/*"],
+      "#extractor/*": ["./extractor/*"],
       "#public/*": ["./public/*"],
       "#types/*": ["./types/*"],
       "#util/*": ["./util/*"]

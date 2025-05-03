@@ -1,5 +1,4 @@
-import type { APIMemberKind } from "../index.js";
-import type { APIExcerptToken } from "../shared/APIExcerptToken.js";
+import type { APIExcerptToken, APIMemberKind } from "../index.js";
 import type { APIMemberBase } from "./APIMemberBase.js";
 
 export interface APIDocumentedMemberBase<Kind extends APIMemberKind, Member = unknown>

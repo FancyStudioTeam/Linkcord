@@ -1,4 +1,4 @@
-import type { APIExcerptTokenKind } from "../shared/APIExcerptToken.js";
+import type { APIExcerptTokenKind } from "../index.js";
 
 export interface APIExcerptTokenBase<Kind extends APIExcerptTokenKind> {
   kind: Kind;
