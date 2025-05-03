@@ -1,3 +1,5 @@
+export * from "./APIMember.js";
+export * from "./APIPackage.js";
 export * from "./base/index.js";
 export * from "./members/index.js";
 export * from "./shared/index.js";
