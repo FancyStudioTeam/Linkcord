@@ -10,8 +10,5 @@
   },
   "license": "MIT",
   "name": "@fancystudioteam/linkcord",
-  "scripts": {
-    "vitest": "vitest"
-  },
   "version": "0.0.0"
 }
