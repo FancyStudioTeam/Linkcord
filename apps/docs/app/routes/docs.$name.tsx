@@ -1,8 +1,10 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import { DocMember } from "#components/docs/DocMember";
+import { formatExcerptTokens } from "#extractor/functions/formatExcerptTokens";
 import { getTypeMembers } from "#util/extractor";
 import { createMetadata } from "#util/functions/createMetadata";
+import { makeCodeBlock } from "#util/makeCodeBlock";
 import { notFound } from "#util/responses/notFound";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
@@ -20,12 +22,20 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     throw notFound();
   }
 
-  return member;
+  const { excerptTokens } = member;
+  const formattedExcerptTokens = formatExcerptTokens(excerptTokens);
+  const htmlCodeBlock = await makeCodeBlock(formattedExcerptTokens);
+
+  return {
+    _data: member,
+    htmlCodeBlock,
+  };
 };
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   if (data) {
-    const { name, kind } = data;
+    const { _data: member } = data;
+    const { name, kind } = member;
     const title = `${kind}: ${name}`;
 
     return createMetadata([
@@ -40,7 +50,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 };
 
 export default () => {
-  const memberData = useLoaderData<typeof loader>();
+  const { _data: data, htmlCodeBlock } = useLoaderData<typeof loader>();
 
-  return <DocMember memberData={memberData} />;
+  return <DocMember data={data} htmlCodeBlock={htmlCodeBlock} />;
 };
