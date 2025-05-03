@@ -1,4 +1,5 @@
 import { Link } from "@remix-run/react";
+import { twMerge } from "tailwind-merge";
 import type { AnyEntryPointMember } from "#extractor/types";
 import { KIND_COLORS, KIND_ICONS } from "#util/kindData.js";
 
@@ -12,7 +13,7 @@ export const SidebarGroupItem = ({
   item: AnyEntryPointMember;
 }) => {
   const { kind, name } = item;
-  const color = KIND_COLORS[kind].text;
+  const { icon } = KIND_COLORS[kind];
   const KindIcon = KIND_ICONS[kind];
 
   return (
@@ -20,7 +21,7 @@ export const SidebarGroupItem = ({
       className="flex items-center gap-2 font-mono text-sm transition-opacity hover:opacity-50"
       to={`/docs/${kind}:${name}`}
     >
-      <KindIcon className={`${color} size-5 shrink-0`} />
+      <KindIcon className={twMerge(icon, "size-5 shrink-0")} />
       {truncate(name, 25)}
     </Link>
   );

@@ -1,4 +1,5 @@
-import type { AnyTopLevelKind } from "#types/APIExtractor";
+import { twMerge } from "tailwind-merge";
+import type { AnyTopLevelKind } from "#extractor/types";
 import { KIND_COLORS } from "#util/kindData";
 
 export const Kind = ({
@@ -6,7 +7,18 @@ export const Kind = ({
 }: {
   kind: AnyTopLevelKind;
 }) => {
-  const color = KIND_COLORS[kind].text;
+  const { background, border, text } = KIND_COLORS[kind];
 
-  return <span className={`${color} text-md lowercase`}>{kind}</span>;
+  return (
+    <span
+      className={twMerge(
+        background,
+        border,
+        text,
+        "flex select-none items-center gap-2 rounded-full border px-2 py-0.5 font-medium text-sm",
+      )}
+    >
+      {kind}
+    </span>
+  );
 };
