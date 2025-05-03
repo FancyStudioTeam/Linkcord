@@ -1,10 +1,10 @@
 import { ChevronsUpDown } from "lucide-react";
 import { Collapsible as RadixCollapsible } from "radix-ui";
 import { Fragment, type ReactNode, useState } from "react";
-import type { AnyEntryPointMember } from "#extractor/types";
+import type { AnyMember } from "#extractor/types";
 import { Separator } from "./Separator.jsx";
 
-const _renderItem = <Item extends AnyEntryPointMember>(
+const _renderItem = <Item extends AnyMember>(
   item: Item,
   renderFunction: RenderFunction<Item>,
   options: RenderItemOptions,
@@ -21,7 +21,7 @@ const _renderItem = <Item extends AnyEntryPointMember>(
   );
 };
 
-export const Collapsible = <Item extends AnyEntryPointMember>({
+export const Collapsible = <Item extends AnyMember>({
   enableSeparator = false,
   items,
   renderItem,
@@ -57,4 +57,4 @@ interface RenderItemOptions {
   index: number;
 }
 
-type RenderFunction<Item extends AnyEntryPointMember> = (item: Item) => ReactNode;
+type RenderFunction<Item extends AnyMember> = (item: Item) => ReactNode;
