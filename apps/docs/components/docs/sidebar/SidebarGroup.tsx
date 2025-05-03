@@ -19,6 +19,6 @@ export const SidebarGroup = ({
   <Collapsible
     items={items}
     renderItem={(item) => <SidebarGroupItem item={item} />}
-    titleNode={GROUP_KIND_LABELS[kind]}
+    titleNode={<span className="text-sm">{GROUP_KIND_LABELS[kind]}</span>}
   />
 );
