@@ -6,6 +6,7 @@
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "noEmit": true,
     "paths": {
       "#app/*": ["./app/*"],
       "#components/*": ["./components/*"],
@@ -17,5 +18,13 @@
     "target": "ESNext",
     "types": ["@remix-run/cloudflare", "vite/client"]
   },
-  "extends": "../../tsconfig.base.json"
+  "extends": "../../tsconfig.base.json",
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/.server/**/*.ts",
+    "**/.server/**/*.tsx",
+    "**/.client/**/*.ts",
+    "**/.client/**/*.tsx"
+  ]
 }
