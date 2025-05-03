@@ -1,3 +1,7 @@
+export * from "./base/index.js";
+export * from "./members/index.js";
+export * from "./shared/index.js";
+
 export enum APIMemberKind {
   CallSignature = "CallSignature",
   Class = "Class",
