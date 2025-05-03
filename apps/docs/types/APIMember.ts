@@ -7,4 +7,4 @@ import type { APIVariable } from "./members/APIVariable.js";
 
 export type AnyEntryPointMember = APIEnum | APIInterface | APITypeAlias | APIVariable;
 
-export type AnyMember = APIEnum | APIEnumMember | APIInterface | APIPropertySignature | APITypeAlias;
+export type AnyMember = APIEnum | APIEnumMember | APIInterface | APIPropertySignature | APITypeAlias | APIVariable;
