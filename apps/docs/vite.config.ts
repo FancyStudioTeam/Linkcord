@@ -3,6 +3,7 @@ import { vitePlugin as remix, cloudflareDevProxyVitePlugin as remixCloudflareDev
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import arrayBuffer from "vite-plugin-arraybuffer";
+import wasm from "vite-plugin-wasm";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
@@ -27,5 +28,6 @@ export default defineConfig({
     }),
     tailwindcss(),
     tsconfigPaths(),
+    wasm(),
   ],
 });
