@@ -16,5 +16,4 @@ export interface GatewayDispatchApplicationCommandPermissionsUpdateEvent
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#application-command-permissions-update
  */
-export interface GatewayDispatchApplicationCommandPermissionsUpdateEventData
-  extends APIGuildApplicationCommandPermissions {}
+export type GatewayDispatchApplicationCommandPermissionsUpdateEventData = APIGuildApplicationCommandPermissions;

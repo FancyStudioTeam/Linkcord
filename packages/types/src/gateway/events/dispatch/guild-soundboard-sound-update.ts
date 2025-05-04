@@ -16,4 +16,4 @@ export interface GatewayDispatchGuildSoundboardSoundUpdateEvent
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#guild-soundboard-sound-update
  */
-export interface GatewayDispatchGuildSoundboardSoundUpdateEventData extends APISoundboardSound {}
+export type GatewayDispatchGuildSoundboardSoundUpdateEventData = APISoundboardSound;
