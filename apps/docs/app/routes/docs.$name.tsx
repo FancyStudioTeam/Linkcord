@@ -4,6 +4,7 @@ import { DocMember } from "#components/docs/DocMember";
 import { formatExcerptTokens } from "#extractor/functions/formatExcerptTokens";
 import { getTypeMembers } from "#util/extractor";
 import { createMetadata } from "#util/functions/createMetadata";
+import { BASE_URL } from "#util/links";
 import { makeCodeBlock } from "#util/makeCodeBlock";
 import { notFound } from "#util/responses/notFound";
 
@@ -32,16 +33,20 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   };
 };
 
-export const meta: MetaFunction<typeof loader> = ({ data }) => {
+export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
+  const { pathname } = location;
+
   if (data) {
     const { _data: member } = data;
     const { name, kind } = member;
     const title = `${kind}: ${name}`;
 
     return createMetadata([
+      ["og:image", `${BASE_URL}/${pathname}/og.svg`],
       ["og:locale", "en"],
       ["og:title", title],
       ["og:type", "website"],
+      ["og:url", `${BASE_URL}${pathname}`],
       ["title", title],
     ]);
   }
