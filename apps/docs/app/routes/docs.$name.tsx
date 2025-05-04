@@ -2,7 +2,7 @@ import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import { DocMember } from "#components/docs/DocMember";
 import { formatExcerptTokens } from "#extractor/functions/formatExcerptTokens";
-import { getTypeMembers } from "#util/extractor";
+import { getMember } from "#extractor/functions/getMember";
 import { createMetadata } from "#util/functions/createMetadata";
 import { BASE_URL } from "#util/links";
 import { makeCodeBlock } from "#util/makeCodeBlock";
@@ -11,15 +11,9 @@ import { notFound } from "#util/responses/notFound";
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { name: _name } = params;
   const [_memberKind, _memberName] = _name?.split(":") ?? "";
+  const member = getMember(_memberName, _memberKind);
 
-  if (!(_memberKind && _memberName)) {
-    throw notFound();
-  }
-
-  const members = getTypeMembers();
-  const member = members.find((member) => member.kind === _memberKind && member.name === _memberName);
-
-  if (!member) {
+  if (!(_memberKind && _memberName && member)) {
     throw notFound();
   }
 
@@ -42,7 +36,7 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
     const title = `${kind}: ${name}`;
 
     return createMetadata([
-      ["og:image", `${BASE_URL}${pathname}/og.svg`],
+      ["og:image", `${BASE_URL}${pathname}/open_graph.svg`],
       ["og:locale", "en"],
       ["og:title", title],
       ["og:type", "website"],
