@@ -5,6 +5,7 @@
     "@mdx-js/rollup": "3.1.0",
     "@remix-run/react": "2.16.5",
     "@remix-run/serve": "2.16.5",
+    "@resvg/resvg-js": "2.6.2",
     "es-toolkit": "1.36.0",
     "isbot": "5.1.27",
     "lucide-react": "0.503.0",
@@ -12,6 +13,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "remix-utils": "8.5.0",
+    "satori": "0.12.2",
     "shiki": "3.3.0",
     "tailwind-merge": "3.2.0",
     "ts-pattern": "5.7.0"
@@ -26,6 +28,7 @@
     "tailwindcss": "4.1.5",
     "typescript": "5.8.3",
     "vite": "6.3.4",
+    "vite-plugin-arraybuffer": "0.1.0",
     "vite-tsconfig-paths": "5.1.4",
     "wrangler": "4.14.1"
   },

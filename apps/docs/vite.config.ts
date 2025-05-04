@@ -2,10 +2,13 @@ import mdx from "@mdx-js/rollup";
 import { vitePlugin as remix, cloudflareDevProxyVitePlugin as remixCloudflareDevProxy } from "@remix-run/dev";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
+import arrayBuffer from "vite-plugin-arraybuffer";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
+  assetsInclude: ["**/*.ttf"],
   plugins: [
+    arrayBuffer(),
     mdx(),
     remixCloudflareDevProxy(),
     remix({

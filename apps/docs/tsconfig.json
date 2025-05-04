@@ -22,7 +22,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "ES2022",
-    "types": ["@remix-run/cloudflare", "vite/client"]
+    "types": ["@remix-run/cloudflare", "vite/client", "vite-plugin-arraybuffer/types"]
   },
   "include": [
     "**/*.ts",
