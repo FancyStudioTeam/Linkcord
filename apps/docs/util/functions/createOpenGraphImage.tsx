@@ -1,7 +1,7 @@
-import { Resvg } from "@resvg/resvg-js";
+// import { Resvg } from "@resvg/resvg-js";
 import satori from "satori";
 
-export const createOpenGraphImage = async (): Promise<ArrayBuffer> => {
+export const createOpenGraphImage = async (): Promise<string> => {
   const { default: extraBoldFont } = await import("./fonts/JetBrainsMono_ExtraBold.ttf?arraybuffer");
   const jsx = <div>Hello, world!</div>;
   const svg = await satori(jsx, {
@@ -14,9 +14,9 @@ export const createOpenGraphImage = async (): Promise<ArrayBuffer> => {
     height: 720,
     width: 1280,
   });
-  const resvg = new Resvg(svg);
+  /*const resvg = new Resvg(svg);
   const render = resvg.render();
-  const png = render.asPng();
+  const png = render.asPng();*/
 
-  return png;
+  return svg;
 };

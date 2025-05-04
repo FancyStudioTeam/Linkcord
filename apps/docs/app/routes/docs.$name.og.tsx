@@ -5,7 +5,7 @@ export const loader = async () => {
 
   return new Response(dynamicImage, {
     headers: {
-      "Content-Type": "image/png",
+      "Content-Type": "image/svg+xml",
     },
   });
 };
