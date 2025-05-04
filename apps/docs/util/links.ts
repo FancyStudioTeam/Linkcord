@@ -1,4 +1,4 @@
-export const BASE_URL = process.env.NODE_ENV === "production" ? "https://linkcord.pages.dev" : "http://localhost:3000";
+export const BASE_URL = "https://linkcord.pages.dev";
 
 export const LINKS = {
   // biome-ignore lint/style/useNamingConvention:
