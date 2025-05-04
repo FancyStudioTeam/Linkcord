@@ -1,27 +1,42 @@
 import { CodeBlock } from "#components/CodeBlock";
-import type { AnyMemberData } from "#util/functions/extractor/getMemberData";
+import { Separator } from "#components/ui/Separator";
+import { UndocumentedDiscordFeatureTooltip } from "#components/ui/UndocumentedDiscordFeatureTooltip.js";
+import { APIReleaseTag, type AnyEntryPointMember } from "#extractor/types";
 import { getDocData } from "#util/functions/getDocData.js";
+import { KIND_COLORS } from "#util/kindData.js";
+import { AutomaticScroll } from "./AutomaticScroll.js";
 import { Kind } from "./Kind.jsx";
 
 export const DocMember = ({
-  memberData,
+  data,
+  htmlCodeBlock,
 }: {
-  memberData: AnyMemberData;
+  data: AnyEntryPointMember;
+  htmlCodeBlock: string;
 }) => {
-  const { displayName, excerptToken, kind } = memberData;
-  const docDataComponent = getDocData(memberData);
+  const { kind, name, releaseTag } = data;
+  const { icon } = KIND_COLORS[kind];
+  const docData = getDocData(data);
 
   return (
     <div className="flex flex-col gap-6">
+      <AutomaticScroll />
       <div className="flex flex-col gap-4">
-        <h1 className="flex items-center gap-4 font-extrabold font-mono text-2xl">
+        <div className="flex items-center gap-4">
           <Kind kind={kind} />
-          {displayName}
-        </h1>
-        {excerptToken && <CodeBlock html={excerptToken.htmlCodeBlock} />}
+          <h1 className="flex items-center gap-2 font-extrabold text-2xl">
+            {name}
+            {releaseTag === APIReleaseTag.Alpha && <UndocumentedDiscordFeatureTooltip color={icon} />}
+          </h1>
+        </div>
+        <CodeBlock htmlCodeBlock={htmlCodeBlock} />
       </div>
-      <hr className="border-zinc-700" />
-      {docDataComponent}
+      {docData && (
+        <>
+          <Separator />
+          {docData}
+        </>
+      )}
     </div>
   );
 };
