@@ -42,7 +42,7 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
     const title = `${kind}: ${name}`;
 
     return createMetadata([
-      ["og:image", `${BASE_URL}/${pathname}/og.svg`],
+      ["og:image", `${BASE_URL}${pathname}/og.svg`],
       ["og:locale", "en"],
       ["og:title", title],
       ["og:type", "website"],
