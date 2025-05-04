@@ -399,11 +399,26 @@ export enum AllowedMentionTypes {
  * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-flags
  */
 export enum AttachmentFlags {
+  /**
+   * @alpha
+   */
   ContainsExplicitMedia = 1 << 4,
+  /**
+   * @alpha
+   */
   IsAnimated = 1 << 5,
+  /**
+   * @alpha
+   */
   IsClip = 1 << 0,
   IsRemix = 1 << 2,
+  /**
+   * @alpha
+   */
   IsSpoiler = 1 << 3,
+  /**
+   * @alpha
+   */
   IsThumbnail = 1 << 1,
 }
 
