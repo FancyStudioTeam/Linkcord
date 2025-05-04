@@ -1,30 +1,22 @@
-import { ChevronsUpDown } from "lucide-react";
-import { Collapsible } from "radix-ui";
-import { Fragment, useState } from "react";
-import type { EnumMemberData } from "#util/functions/extractor/getEnumData.js";
-import { DocEnumMembersItem } from "./DocEnumMembersItem.js";
+import { SquareChartGantt } from "lucide-react";
+import { Collapsible } from "#components/ui/Collapsible";
+import type { APIEnumMember } from "#extractor/types";
+import { DocEnumMembersItem } from "./DocEnumMembersItem.jsx";
 
 export const DocEnumMembers = ({
-  enumMembers,
+  members,
 }: {
-  enumMembers: EnumMemberData[];
-}) => {
-  const [open, setOpen] = useState(true);
-
-  return (
-    <Collapsible.Root open={open} onOpenChange={setOpen}>
-      <Collapsible.Trigger className="flex w-full cursor-pointer items-center justify-between gap-2 font-extrabold font-mono text-xl transition-opacity hover:opacity-50">
+  members: APIEnumMember[];
+}) => (
+  <Collapsible
+    enableSeparator={true}
+    items={members}
+    renderItem={(member) => <DocEnumMembersItem member={member} />}
+    titleNode={
+      <span className="flex items-center gap-2">
+        <SquareChartGantt className="size-5 shrink-0 text-amber-500" />
         Members
-        <ChevronsUpDown className="size-5" />
-      </Collapsible.Trigger>
-      <Collapsible.Content className="mt-4 flex flex-col gap-2">
-        {enumMembers.map((member, index) => (
-          <Fragment key={member.displayName}>
-            {!!index && <hr className="border-zinc-700" />}
-            <DocEnumMembersItem displayName={member.displayName} value={member.value} />
-          </Fragment>
-        ))}
-      </Collapsible.Content>
-    </Collapsible.Root>
-  );
-};
+      </span>
+    }
+  />
+);

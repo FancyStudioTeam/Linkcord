@@ -1,14 +1,19 @@
-import { SquareChartGantt } from "lucide-react";
+import { UndocumentedDiscordFeatureTooltip } from "#components/ui/UndocumentedDiscordFeatureTooltip";
+import { getEnumMemberValue } from "#extractor/functions/getEnumMemberValue";
+import { type APIEnumMember, APIReleaseTag } from "#extractor/types";
 
 export const DocEnumMembersItem = ({
-  displayName,
-  value,
+  member,
 }: {
-  displayName: string;
-  value: string;
-}) => (
-  <div className="flex items-center gap-2 font-mono">
-    <SquareChartGantt className="shrink-0 text-amber-500" />
-    <span className="font-extrabold">{displayName}</span> = {value}
-  </div>
-);
+  member: APIEnumMember;
+}) => {
+  const { name, releaseTag } = member;
+  const value = getEnumMemberValue(member);
+
+  return (
+    <div className="flex items-center gap-2 font-mono">
+      {releaseTag === APIReleaseTag.Alpha && <UndocumentedDiscordFeatureTooltip color={"text-amber-500"} />}
+      <span className="font-extrabold">{name}</span> = {value}
+    </div>
+  );
+};
