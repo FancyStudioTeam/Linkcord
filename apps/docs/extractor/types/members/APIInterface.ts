@@ -2,7 +2,7 @@ import type { APIDocumentedMemberBase, APIMemberKind, APITokenRange } from "../i
 import type { APIPropertySignature } from "./APIPropertySignature.js";
 
 export interface APIInterface extends APIDocumentedMemberBase<APIMemberKind.Interface, AnyInterfaceMember> {
-  extendsTokenRange: APITokenRange[];
+  extendsTokenRanges: APITokenRange[];
 }
 
 export type AnyInterfaceMember = APIPropertySignature;
