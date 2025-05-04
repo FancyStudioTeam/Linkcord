@@ -9,6 +9,10 @@ apps/docs/extractor/schemas
 apps/docs/public/api
 temp
 
+# Environment
+.env
+.env.*
+
 # Packages
 node_modules
 
