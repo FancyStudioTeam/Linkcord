@@ -11,7 +11,7 @@ export const DocEnumMembersItem = ({
   const value = getEnumMemberValue(member);
 
   return (
-    <div className="flex items-center gap-2 font-mono">
+    <div className="flex items-center gap-2">
       {releaseTag === APIReleaseTag.Alpha && <UndocumentedDiscordFeatureTooltip color={"text-amber-500"} />}
       <span className="font-extrabold">{name}</span> = {value}
     </div>
