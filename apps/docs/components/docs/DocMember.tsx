@@ -20,23 +20,24 @@ export const DocMember = ({
 
   return (
     <div className="flex flex-col gap-6">
-      <AutomaticScroll />
-      <div className="flex flex-col gap-4">
-        <div className="flex items-center gap-4">
-          <Kind kind={kind} />
-          <h1 className="flex items-center gap-2 font-extrabold text-2xl">
-            {name}
-            {releaseTag === APIReleaseTag.Alpha && <UndocumentedDiscordFeatureTooltip color={icon} />}
-          </h1>
+      <AutomaticScroll>
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-4">
+            <Kind kind={kind} />
+            <h1 className="flex items-center gap-2 font-extrabold text-2xl">
+              {name}
+              {releaseTag === APIReleaseTag.Alpha && <UndocumentedDiscordFeatureTooltip color={icon} />}
+            </h1>
+          </div>
+          <CodeBlock htmlCodeBlock={htmlCodeBlock} />
         </div>
-        <CodeBlock htmlCodeBlock={htmlCodeBlock} />
-      </div>
-      {docData && (
-        <>
-          <Separator />
-          {docData}
-        </>
-      )}
+        {docData && (
+          <>
+            <Separator />
+            {docData}
+          </>
+        )}
+      </AutomaticScroll>
     </div>
   );
 };

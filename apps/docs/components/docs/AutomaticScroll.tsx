@@ -1,8 +1,12 @@
 import { useLocation } from "@remix-run/react";
-import { useEffect } from "react";
+import { type ReactNode, useEffect } from "react";
 import { ClientOnly } from "remix-utils/client-only";
 
-const ScrollToElement = () => {
+const ScrollToElement = ({
+  children,
+}: {
+  children: ReactNode;
+}) => {
   const { hash: _hash } = useLocation();
   const hash = _hash.slice(1);
 
@@ -16,7 +20,11 @@ const ScrollToElement = () => {
     }
   }, [hash]);
 
-  return null;
+  return children;
 };
 
-export const AutomaticScroll = () => <ClientOnly>{() => <ScrollToElement />}</ClientOnly>;
+export const AutomaticScroll = ({
+  children,
+}: {
+  children: ReactNode;
+}) => <ClientOnly>{() => <ScrollToElement>{children}</ScrollToElement>}</ClientOnly>;
