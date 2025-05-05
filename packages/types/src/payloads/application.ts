@@ -6,6 +6,29 @@ import type { APIUser } from "./user.js";
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/application#get-application-activity-instance-activity-instance-object
+ */
+export interface APIActivityInstance {
+  application_id: Snowflake;
+  instance_id: string;
+  launch_id: Snowflake;
+  location: APIActivityLocation;
+  users: Snowflake[];
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/application#get-application-activity-instance-activity-location-object
+ */
+export interface APIActivityLocation {
+  channel_id: Snowflake;
+  guild_id?: Nullable<Snowflake>;
+  id: string;
+  kind: ActivityLocationKind;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/application#application-object-application-structure
  */
 export interface APIApplication {
@@ -77,6 +100,15 @@ export interface APIApplicationIntegrationTypesConfiguration {
  *   documentation.
  */
 export interface APIPartialApplication extends Partial<APIApplication> {}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/application#get-application-activity-instance-activity-location-kind-enum
+ */
+export enum ActivityLocationKind {
+  GuildChannel = "gc",
+  PrivateChannel = "pc",
+}
 
 /**
  * @public
