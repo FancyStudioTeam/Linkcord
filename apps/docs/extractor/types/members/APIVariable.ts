@@ -1,8 +1,8 @@
-import type { APIChildMemberBase, APIMemberKind, APITokenRange } from "../index.js";
+import type { APIChildMemberBase, APIMemberKind, APIReleaseTag, APITokenRange } from "../index.js";
 
 export interface APIVariable extends APIChildMemberBase<APIMemberKind.Variable> {
   fileUrlPath: string;
   isReadonly: boolean;
-  releaseTag: string;
+  releaseTag: APIReleaseTag;
   variableTypeTokenRange: APITokenRange;
 }

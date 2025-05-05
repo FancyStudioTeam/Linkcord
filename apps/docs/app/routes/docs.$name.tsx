@@ -36,7 +36,6 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
     const title = `${kind}: ${name}`;
 
     return createMetadata([
-      ["og:image", `${BASE_URL}${pathname}/open_graph`],
       ["og:locale", "en"],
       ["og:title", title],
       ["og:type", "website"],
