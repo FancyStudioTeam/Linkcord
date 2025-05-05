@@ -1,8 +1,7 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import { DocMember } from "#components/docs/DocMember";
-import { formatExcerptTokens } from "#extractor/functions/formatExcerptTokens";
-import { getMember } from "#extractor/functions/getMember";
+import { formatExcerptTokens, getMember } from "#extractor/functions";
 import { createMetadata } from "#util/functions/createMetadata";
 import { BASE_URL } from "#util/links";
 import { makeCodeBlock } from "#util/makeCodeBlock";
@@ -11,7 +10,7 @@ import { notFound } from "#util/responses/notFound";
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { name: _name } = params;
   const [_memberKind, _memberName] = _name?.split(":") ?? "";
-  const member = getMember(_memberName, _memberKind);
+  const member = getMember(_memberName);
 
   if (!(_memberKind && _memberName && member)) {
     throw notFound();
