@@ -72,7 +72,7 @@ export interface APIMessageComponentSelectInteractionDataBase<Type extends AnySe
 /**
  * @public
  */
-type AnySelectMenu =
+export type AnySelectMenu =
   | ComponentTypes.ChannelSelect
   | ComponentTypes.MentionableSelect
   | ComponentTypes.RoleSelect

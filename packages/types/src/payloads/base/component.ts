@@ -48,7 +48,7 @@ export interface APISelectMenuComponentBase<Type extends AnySelectMenuType> exte
 /**
  * @public
  */
-type AnyInteractiveComponent =
+export type AnyInteractiveComponent =
   | ComponentTypes.Button
   | ComponentTypes.ChannelSelect
   | ComponentTypes.MentionableSelect
@@ -60,12 +60,12 @@ type AnyInteractiveComponent =
 /**
  * @public
  */
-type AnyResolvedSelectMenuType = Exclude<AnySelectMenuType, ComponentTypes.StringSelect>;
+export type AnyResolvedSelectMenuType = Exclude<AnySelectMenuType, ComponentTypes.StringSelect>;
 
 /**
  * @public
  */
-type AnySelectMenuType =
+export type AnySelectMenuType =
   | ComponentTypes.ChannelSelect
   | ComponentTypes.MentionableSelect
   | ComponentTypes.RoleSelect

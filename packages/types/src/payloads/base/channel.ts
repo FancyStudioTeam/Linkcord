@@ -91,19 +91,22 @@ export interface APIVoiceChannelBase<Type extends AnyVoiceChannelType>
 /**
  * @public
  */
-type AnyDMChannelType = ChannelTypes.DirectMessage | ChannelTypes.GroupDM;
+export type AnyDMChannelType = ChannelTypes.DirectMessage | ChannelTypes.GroupDM;
 
 /**
  * @public
  */
-type AnyTextChannelType = Exclude<ChannelTypes, AnyDMChannelType>;
+export type AnyTextChannelType = Exclude<ChannelTypes, AnyDMChannelType>;
 
 /**
  * @public
  */
-type AnyThreadChannelType = ChannelTypes.AnnouncementThread | ChannelTypes.PrivateThread | ChannelTypes.PublicThread;
+export type AnyThreadChannelType =
+  | ChannelTypes.AnnouncementThread
+  | ChannelTypes.PrivateThread
+  | ChannelTypes.PublicThread;
 
 /**
  * @public
  */
-type AnyVoiceChannelType = ChannelTypes.GuildVoice | ChannelTypes.GuildStageVoice;
+export type AnyVoiceChannelType = ChannelTypes.GuildVoice | ChannelTypes.GuildStageVoice;
