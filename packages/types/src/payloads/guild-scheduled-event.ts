@@ -9,16 +9,16 @@ export interface APIGuildScheduledEvent {
   channel_id: Snowflake;
   /**
    * @remarks
-   * - This field value may be `null` for events created before `October 25th,
-   *   2021`, at which the concept of the `creator_id` field was introduced and
-   *   started to be tracked.
+   * - This field value may be `null` for events created before
+   *   `October 25th, 2021`, at which the concept of the `creator_id` field was
+   *   introduced and started to be tracked.
    */
   creator?: APIUser;
   /**
    * @remarks
-   * - This field value may be `null` for events created before `October 25th,
-   *   2021`, at which the concept of the `creator_id` field was introduced and
-   *   started to be tracked.
+   * - This field value may be `null` for events created before
+   *   `October 25th, 2021`, at which the concept of the `creator_id` field was
+   *   introduced and started to be tracked.
    */
   creator_id?: Nullable<Snowflake>;
   description?: Nullable<string>;
