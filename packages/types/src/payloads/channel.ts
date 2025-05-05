@@ -63,6 +63,12 @@ export interface APIForumChannel extends APIGuildChannelBase<ChannelTypes.GuildF
   default_forum_layout: ForumLayoutTypes;
   default_reaction_emoji: Nullable<APIDefaultReactionEmoji>;
   default_sort_order: SortOrderTypes;
+  /**
+   * @alpha
+   * @remarks
+   * - This field is not officially documented in the Discord API documentation,
+   *   meaning it may change or break at any time.
+   */
   default_tag_setting: ForumTagSettingTypes;
   default_thread_rate_limit_per_user?: number;
   rate_limit_per_user?: number;
