@@ -1,5 +1,8 @@
 import type {
   GatewayDispatchApplicationCommandPermissionsUpdateEvent,
+  GatewayDispatchAutoModerationRuleCreate,
+  GatewayDispatchAutoModerationRuleDelete,
+  GatewayDispatchAutoModerationRuleUpdate,
   GatewayDispatchGuildBanAddEvent,
   GatewayDispatchGuildBanRemoveEvent,
   GatewayDispatchGuildCreateEvent,
@@ -31,6 +34,9 @@ import type {
  */
 export type GatewayDispatchEvent =
   | GatewayDispatchApplicationCommandPermissionsUpdateEvent
+  | GatewayDispatchAutoModerationRuleCreate
+  | GatewayDispatchAutoModerationRuleDelete
+  | GatewayDispatchAutoModerationRuleUpdate
   | GatewayDispatchGuildBanAddEvent
   | GatewayDispatchGuildBanRemoveEvent
   | GatewayDispatchGuildCreateEvent

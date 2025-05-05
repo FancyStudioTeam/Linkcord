@@ -1,4 +1,7 @@
 export * from "./application-command-permissions-update.js";
+export * from "./auto-moderation-rule-create.js";
+export * from "./auto-moderation-rule-delete.js";
+export * from "./auto-moderation-rule-update.js";
 export * from "./guild-ban-add.js";
 export * from "./guild-ban-remove.js";
 export * from "./guild-create.js";
