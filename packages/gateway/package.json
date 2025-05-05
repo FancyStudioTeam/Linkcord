@@ -2,7 +2,7 @@
   "dependencies": {
     "@fancystudioteam/linkcord-types": "workspace:*",
     "@sapphire/result": "2.7.2",
-    "ws": "8.18.1"
+    "ws": "8.18.2"
   },
   "devDependencies": {
     "@types/ws": "8.18.1"
