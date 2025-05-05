@@ -17,8 +17,7 @@ export interface APIPoll {
   layout_type: PollLayoutTypes;
   /**
    * @remarks
-   * - This field is an {@link APIPollMedia | `APIPollMedia`} object that only
-   *   supports the {@link APIPollMedia.text | `text`} field.
+   * - This field is an `APIPollMedia` object that only supports the `text` field.
    */
   question: APIPollQuestion;
   results?: APIPollResults;

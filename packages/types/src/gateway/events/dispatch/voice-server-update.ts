@@ -19,7 +19,7 @@ export interface GatewayDispatchVoiceServerUpdateEvent
 export interface GatewayDispatchVoiceServerUpdateEventData {
   /**
    * @remarks
-   * - This field may be `null` when the allocated voice server disappears.
+   * - This field value may be `null` when the allocated voice server disappears.
    */
   endpoint: Nullable<string>;
   guild_id: string;

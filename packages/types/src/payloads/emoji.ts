@@ -9,15 +9,15 @@ export interface APIEmoji {
   animated?: boolean;
   /**
    * @remarks
-   * - This field may be `false` if the guild at which the emoji belongs lost
-   *   Server Boosts.
+   * - This field value may be `false` if the guild at which the emoji belongs
+   *   lost Server Boosts which increase the emoji limit.
    */
   available?: boolean;
   id: Nullable<Snowflake>;
   managed?: boolean;
   /**
    * @remarks
-   * - This field may be `null` for reaction emoji objects.
+   * - This field value may be `null` for reaction emoji objects.
    */
   name: Nullable<string>;
   require_colons?: boolean;

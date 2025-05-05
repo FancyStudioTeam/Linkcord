@@ -21,7 +21,7 @@ export interface RESTEditCurrentApplicationJSONParams {
   event_webhooks_url?: string;
   /**
    * @remarks
-   * - This field is only limited to intent flags.
+   * - This field value is only limited to intent flags.
    */
   flags?: number;
   icon?: Nullable<ImageDataUri>;
@@ -29,7 +29,7 @@ export interface RESTEditCurrentApplicationJSONParams {
   integration_types_config?: APIApplicationIntegrationTypesConfiguration;
   /**
    * @remarks
-   * - This field must include a valid endpoint url.
+   * - This field value must include a valid endpoint url.
    */
   interactions_endpoint_url?: string;
   role_connections_verification_url?: string;

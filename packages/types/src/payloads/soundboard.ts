@@ -9,7 +9,7 @@ export interface APISoundboardSound {
   /**
    * @remarks
    * - This field may be `false` if the guild at which the soundboard sound
-   *   belongs lost Server Boosts.
+   *   belongs lost Server Boosts which increase the soundboard sound limit.
    */
   available: boolean;
   emoji_id: Nullable<Snowflake>;

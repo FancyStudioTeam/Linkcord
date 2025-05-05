@@ -144,21 +144,21 @@ export interface APIThreadMember {
   flags: number;
   /**
    * @remarks
-   * - This field may not be present when receiving the
-   *   {@link GatewayDispatchEvents.GuildCreate | `GUILD_CREATE`} event.
+   * - This field may not be present when receiving the `GUILD_CREATE` dispatch
+   *   event.
    */
   id?: Snowflake;
   join_timestamp: ISO8601Date;
   /**
    * @remarks
    * - This field is only present when fetching the thread member(s) with
-   *   `withMember` set to `true`.
+   *   `with_member` query string parameter set to `true`.
    */
   member?: APIGuildMember;
   /**
    * @remarks
-   * - This field may not be present when receiving the
-   *   {@link GatewayDispatchEvents.GuildCreate | `GUILD_CREATE`} event.
+   * - This field may not be present when receiving the `GUILD_CREATE` dispatch
+   *   event.
    */
   user_id?: Snowflake;
 }
@@ -262,7 +262,6 @@ export enum ForumLayoutTypes {
 
 /**
  * @alpha
- * @see TBD
  * @remarks
  * - This is not officially documented in the Discord API documentation,
  *   meaning it may change or break at any time.

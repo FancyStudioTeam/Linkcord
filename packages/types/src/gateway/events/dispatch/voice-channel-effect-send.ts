@@ -26,7 +26,7 @@ export interface GatewayDispatchVoiceChannelEffectSendEventData {
   sound_id?: number | Snowflake;
   /**
    * @remarks
-   * - This field is a double value between `0` and `1`. Example: `0.75`.
+   * - This field value is a double value between `0` and `1`. Example: `0.75`.
    */
   sound_volume?: number;
   user_id: Snowflake;

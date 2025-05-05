@@ -12,6 +12,6 @@ export interface GatewayHeartbeatEvent extends GatewayEventBase<GatewayOpcodes.H
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#heartbeat-example-heartbeat
  * @remarks
- * - This may be `null` when the sequence number was not received yet.
+ * - This field value may be `null` if the sequence number was not received yet.
  */
 export type GatewayHeartbeatPayload = Nullable<number>;

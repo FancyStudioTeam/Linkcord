@@ -31,6 +31,7 @@ export interface APIApplicationCommandInteractionMetadata
     InteractionTypes.ApplicationCommand | InteractionTypes.ApplicationCommandAutocomplete
   > {
   /**
+   * @alpha
    * @remarks
    * - This is not officially documented in the Discord API documentation,
    *   meaning it may change or break at any time.
@@ -46,12 +47,14 @@ export interface APIApplicationCommandInteractionMetadata
  */
 export interface APIAttachment {
   /**
+   * @alpha
    * @remarks
    * - This is not officially documented in the Discord API documentation,
    *   meaning it may change or break at any time.
    */
   clip_created_at?: ISO8601Date;
   /**
+   * @alpha
    * @remarks
    * - This is not officially documented in the Discord API documentation,
    *   meaning it may change or break at any time.
@@ -99,6 +102,7 @@ export interface APIEmbed {
   description?: string;
   fields?: APIEmbedField[];
   /**
+   * @alpha
    * @remarks
    * - This is not officially documented in the Discord API documentation,
    *   meaning it may change or break at any time.
@@ -207,6 +211,7 @@ export interface APIMessage {
   resolved?: APIResolvedData;
   role_subscription_data?: APIRoleSubscriptionData;
   /**
+   * @alpha
    * @remarks
    * - This is not officially documented in the Discord API documentation,
    *   meaning it may change or break at any time.
@@ -273,8 +278,7 @@ export interface APIMessageReference {
   message_id?: Snowflake;
   /**
    * @remarks
-   * - If {@link APIMessageReference.type | `type`} is not present, it will match
-   *   the {@link MessageReferenceTypes.Default | `DEFAULT`} type behavior.
+   * - If `type` is not present, it will match the `DEFAULT` type behavior.
    * - This field will be required in future versions.
    */
   type?: MessageReferenceTypes;
@@ -424,7 +428,6 @@ export enum AttachmentFlags {
 
 /**
  * @alpha
- * @see TBD
  * @remarks
  * - This is not officially documented in the Discord API documentation,
  *   meaning it may change or break at any time.
@@ -435,7 +438,6 @@ export enum EmbedFlags {
 
 /**
  * @alpha
- * @see TBD
  * @remarks
  * - This is not officially documented in the Discord API documentation,
  *   meaning it may change or break at any time.

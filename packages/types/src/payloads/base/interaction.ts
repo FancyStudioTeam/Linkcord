@@ -13,13 +13,9 @@ import type { APIUser } from "../user.js";
 export interface APIInteractionBase<Type extends InteractionTypes, Data> {
   /**
    * @remarks
-   * - Includes {@link BitwisePermissionFlags.AttachFiles | `ATTACH_FILES`},
-   *   {@link BitwisePermissionFlags.EmbedLinks | `EMBED_LINKS`} and
-   *   {@link BitwisePermissionFlags.MentionEveryone | `MENTION_EVERYONE`} for
-   *   DMs.
-   * - Additionally may include
-   *   {@link BitwisePermissionFlags.UseExternalEmojis | `USE_EXTERNAL_EMOJIS` }
-   *   for DMs with application bot user.
+   * - Includes `ATTACH_FILES`, `EMBED_LINKS` and `MENTION_EVERYONE` for DMs.
+   * - Additionally may include `USE_EXTERNAL_EMOJIS` for DMs with application
+   *   bot user.
    */
   app_permissions?: string;
   application_id: Snowflake;
@@ -28,7 +24,11 @@ export interface APIInteractionBase<Type extends InteractionTypes, Data> {
   channel?: APIPartialChannel;
   channel_id?: Snowflake;
   context?: InteractionContextTypes;
-  /** @remarks This is always present on application command, message component, and modal submit interactions. */
+  /**
+   * @remarks
+   * - This field is always present on application command, message component
+   *   and modal submit interactions.
+   */
   data?: Data;
   entitlements: APIEntitlement[];
   guild?: APIPartialGuild;
@@ -36,12 +36,18 @@ export interface APIInteractionBase<Type extends InteractionTypes, Data> {
   guild_locale?: Locale;
   id: Snowflake;
   locale: Locale;
-  /** @remarks This is only present when the interaction was sent in a guild. */
+  /**
+   * @remarks
+   * - This field is only present when the interaction was sent in a guild.
+   */
   member?: APIGuildMember;
   message?: APIMessage;
   token: string;
   type: Type;
-  /** @remarks This is only present when the interaction was sent in a DM. */
+  /**
+   * @remarks
+   * - This field is only present when the interaction was sent in a DM.
+   */
   user?: APIUser;
   version: 1;
 }

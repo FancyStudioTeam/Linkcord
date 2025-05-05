@@ -83,8 +83,7 @@ export interface APIVoiceChannelBase<Type extends AnyVoiceChannelType>
   user_limit?: number;
   /**
    * @remarks
-   * - If this field is not present, the video quality mode will be
-   *   {@link VideoQualityModes.Auto | `AUTO`}.
+   * - If this field is not present, the video quality mode will be `AUTO`.
    */
   video_quality_mode?: VideoQualityModes;
 }

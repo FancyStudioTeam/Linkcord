@@ -9,7 +9,7 @@ export interface APISticker {
   /**
    * @remarks
    * - This field value may be `false` if the guild at which the sticker belongs
-   *   lost Server Boosts.
+   *   lost Server Boosts which increase the sticker limit.
    */
   available?: boolean;
   description: Nullable<string>;

@@ -42,8 +42,7 @@ export interface APIApplicationCommandInteractionData {
   name: string;
   /**
    * @remarks
-   * - This can be partial when type is
-   *   {@link InteractionTypes.ApplicationCommandAutocomplete | `APPLICATION_COMMAND_AUTOCOMPLETE`}.
+   * - This can be partial when type is `APPLICATION_COMMAND_AUTOCOMPLETE`.
    */
   options?: APIApplicationCommandInteractionDataOption[];
   resolved?: APIResolvedData;
@@ -105,9 +104,8 @@ export interface APIInteractionCallbackDataMessage {
   embeds?: APIEmbed[];
   /**
    * @remarks
-   * - If you create a callback with type
-   *   {@link InteractionCallbackTypes.DeferredChannelMessageWithSource | `DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE`},
-   *   the only valid flag to use is {@link MessageFlags.Ephemeral | `EPHEMERAL`}.
+   * - If you create a callback with type `DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE`,
+   *   the only valid flag you may use is `EPHEMERAL`.
    */
   flags?: MessageFlags;
   poll?: RESTPollCreateRequest;
@@ -131,16 +129,14 @@ export interface APIInteractionCallbackDataModal {
 export interface APIInteractionCallbackResource {
   /**
    * @remarks
-   * - This field is only present when callback type is
-   *   {@link InteractionCallbackTypes.LaunchActivity | `LAUNCH_ACTIVITY`}.
+   * - This field is only present when callback type is `LAUNCH_ACTIVITY`.
    */
   activity_instance?: APIInteractionCallbackResourceActivityInstance;
   type: InteractionCallbackTypes;
   /**
    * @remarks
-   * - This field is only present when callback type is
-   *   {@link InteractionCallbackTypes.ChannelMessageWithSource | `CHANNEL_MESSAGE_WITH_SOURCE`}
-   *   or {@link InteractionCallbackTypes.UpdateMessage | `UPDATE_MESSAGE`}.
+   * - This field is only present when callback type is either
+   *   `CHANNEL_MESSAGE_WITH_SOURCE` or `UPDATE_MESSAGE`.
    */
   message?: APIMessage;
 }
@@ -309,9 +305,7 @@ export enum InteractionCallbackTypes {
   LaunchActivity = 12,
   /**
    * @remarks
-   * - This enum is not available for
-   *   {@link InteractionTypes.ModalSubmit | `MODAL_SUBMIT`} and
-   *   {@link InteractionTypes.Ping | `PING`} interactions.
+   * - This enum is not available for `MODAL_SUBMIT` and `PING` interactions.
    */
   Modal = 9,
   Pong = 1,
