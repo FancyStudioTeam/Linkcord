@@ -6,7 +6,7 @@
     "@fancystudioteam/linkcord-utils": "workspace:*",
     "@fancystudioteam/linkcord-voice": "workspace:*",
     "@sapphire/snowflake": "3.5.5",
-    "vitest": "3.1.1"
+    "vitest": "3.1.2"
   },
   "license": "MIT",
   "name": "@fancystudioteam/linkcord",
