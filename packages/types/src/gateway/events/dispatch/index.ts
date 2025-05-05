@@ -1,4 +1,5 @@
 export * from "./application-command-permissions-update.js";
+export * from "./auto-moderation-action-execution.js";
 export * from "./auto-moderation-rule-create.js";
 export * from "./auto-moderation-rule-delete.js";
 export * from "./auto-moderation-rule-update.js";
