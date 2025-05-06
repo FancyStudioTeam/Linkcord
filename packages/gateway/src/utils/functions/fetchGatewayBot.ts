@@ -13,6 +13,7 @@ const replaceBotPrefix = (token: string): string => token.replace(BOT_PREFIX_REG
  * Fetches the gateway information for a Discord bot.
  * @param token - The token of the Discord bot.
  * @returns An object containing the gateway information for the Discord bot.
+ * @throws {string} If the request to the Discord API fails.
  */
 export const fetchGatewayBot = async (token: string): Promise<APIGatewayBot> => {
   const headers = new Headers();
@@ -29,7 +30,8 @@ export const fetchGatewayBot = async (token: string): Promise<APIGatewayBot> => 
   if (!fetchPromise.ok) {
     /**
      * biome-ignore lint/style/useThrowOnlyError: This exception is handled in
-     * the `GatewayManager` class and should not be used in any other context.
+     * the `GatewayManager` class. This function is not intended to be used
+     * outside the `GatewayManager` class.
      */
     throw "Failed to get the gateway information for the Discord bot.";
   }

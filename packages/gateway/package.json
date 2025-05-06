@@ -1,13 +1,39 @@
 {
   "dependencies": {
     "@fancystudioteam/linkcord-types": "workspace:*",
-    "@sapphire/result": "2.7.2",
     "ws": "8.18.2"
   },
   "devDependencies": {
-    "@types/ws": "8.18.1"
+    "@microsoft/api-extractor": "7.52.7",
+    "@swc/cli": "0.7.3",
+    "@swc/core": "1.11.24",
+    "@types/ws": "8.18.1",
+    "rimraf": "6.0.1",
+    "tsc-alias": "1.8.15",
+    "typescript": "5.8.3",
+    "vitest": "3.1.2"
   },
+  "files": ["dist", "README.md", "LICENSE"],
   "license": "MIT",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "name": "@fancystudioteam/linkcord-gateway",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FancyStudioTeam/Linkcord"
+  },
+  "scripts": {
+    "build": "pnpm rimraf && pnpm build:esm && pnpm build:cjs && pnpm build:types",
+    "build:cjs": "swc src --strip-leading-paths -C module.type=commonjs --out-dir dist/cjs",
+    "build:esm": "swc src --strip-leading-paths -C module.type=es6 --out-dir dist/esm",
+    "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist/types",
+    "extractor:run": "api-extractor run",
+    "postbuild": "tsc-alias dist",
+    "rimraf": "rimraf dist"
+  },
+  "types": "dist/types/index.d.ts",
   "version": "0.0.0"
 }

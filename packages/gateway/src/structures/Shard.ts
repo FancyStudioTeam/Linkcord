@@ -10,7 +10,7 @@ import {
   type Nullable,
 } from "@fancystudioteam/linkcord-types";
 import { WebSocket } from "ws";
-import { ShardError } from "#utils/errors/ShardError";
+import { ShardError } from "#utils";
 import type { GatewayManager } from "./GatewayManager.js";
 
 const SENDABLE_OPCODES: AnySendableOpcode[] = [

@@ -3,9 +3,9 @@
   "compilerOptions": {
     "outDir": "dist",
     "paths": {
-      "#structures/*": ["./src/structures/*"],
-      "#types/*": ["./src/types/*"],
-      "#utils/*": ["./src/utils/*"]
+      "#structures": ["./src/structures/index.ts"],
+      "#types": ["./src/types/index.ts"],
+      "#utils": ["./src/utils/index.ts"]
     }
   },
   "extends": "../../tsconfig.base.json"
