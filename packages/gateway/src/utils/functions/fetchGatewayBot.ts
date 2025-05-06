@@ -1,4 +1,5 @@
 import type { APIGatewayBot } from "@fancystudioteam/linkcord-types";
+import { throwUnknown } from "../errors/index.js";
 
 const BOT_PREFIX_REGEX = /^Bot\s/i;
 
@@ -28,12 +29,7 @@ export const fetchGatewayBot = async (token: string): Promise<APIGatewayBot> => 
   });
 
   if (!fetchPromise.ok) {
-    /**
-     * biome-ignore lint/style/useThrowOnlyError: This exception is handled in
-     * the `GatewayManager` class. This function is not intended to be used
-     * outside the `GatewayManager` class.
-     */
-    throw "Failed to get the gateway information for the Discord bot.";
+    return throwUnknown("Failed to get the gateway information for the Discord bot.");
   }
 
   const response = (await fetchPromise.json()) as APIGatewayBot;
