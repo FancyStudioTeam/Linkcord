@@ -1,5 +1,17 @@
-import { Cuboid, ListTree, type LucideIcon, SquareChartGantt, Wrench } from "lucide-react";
+import {
+  Asterisk,
+  BookType,
+  Cuboid,
+  Globe,
+  ListTree,
+  type LucideIcon,
+  Network,
+  SquareChartGantt,
+  Volume2,
+  Wrench,
+} from "lucide-react";
 import { APIMemberKind, type AnyTopLevelKind } from "#extractor/types";
+import { PackageName } from "./extractor.js";
 
 export const KIND_ICONS: Record<AnyTopLevelKind, LucideIcon> = {
   [APIMemberKind.Enum]: SquareChartGantt,
@@ -33,6 +45,24 @@ export const KIND_COLORS: Record<AnyTopLevelKind, KindColors> = {
     icon: "text-cyan-500",
     text: "text-cyan-500",
   },
+};
+
+export const PACKAGE_NAMES: Record<PackageName, string> = {
+  [PackageName.Gateway]: "Gateway",
+  [PackageName.Linkcord]: "Linkcord",
+  [PackageName.Rest]: "REST",
+  [PackageName.Types]: "Types",
+  [PackageName.Utils]: "Utils",
+  [PackageName.Voice]: "Voice",
+};
+
+export const PACKAGE_ICONS: Record<PackageName, LucideIcon> = {
+  [PackageName.Gateway]: Network,
+  [PackageName.Linkcord]: Asterisk,
+  [PackageName.Rest]: Globe,
+  [PackageName.Types]: BookType,
+  [PackageName.Utils]: Wrench,
+  [PackageName.Voice]: Volume2,
 };
 
 interface KindColors {
