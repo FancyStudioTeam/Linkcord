@@ -23,6 +23,9 @@ const SENDABLE_OPCODES: AnySendableOpcode[] = [
   GatewayOpcodes.Resume,
 ];
 
+/**
+ * @public
+ */
 export class Shard {
   id: number;
   manager: GatewayManager;
@@ -33,14 +36,51 @@ export class Shard {
     this.manager = manager;
   }
 
-  get token(): string {
-    return this.manager.token;
+  /**
+   * @internal
+   */
+  private _initializeSocket(url: URL): void {
+    const { searchParams } = url;
+    const { version } = this.manager;
+
+    searchParams.set("v", version.toString());
+    searchParams.set("encoding", "json");
+
+    const socket = new WebSocket(url);
+
+    this.socket = socket;
+    this.socket.on("open", this._onOpen.bind(this));
   }
 
   /**
-   * Gets the shard's `WebSocket` instance.
-   * @returns The shard's `WebSocket` instance.
+   * @internal
    */
+  private _onOpen(): void {
+    this.identify();
+  }
+
+  connect(): void {
+    const { url } = this.manager;
+
+    if (!url) {
+      throw new ShardError("The gateway url has not been set yet.", this.id);
+    }
+
+    this._initializeSocket(url);
+  }
+
+  identify(): void {
+    const { connectionProperties, intents, token, totalShards } = this.manager;
+    const identifyPayload: GatewayIdentifyPayload = {
+      intents,
+      properties: connectionProperties,
+      shard: [this.id, totalShards],
+      token,
+    };
+
+    this.send(GatewayOpcodes.Identify, identifyPayload);
+  }
+
   getWebSocket(): WebSocket {
     const socket = this.socket;
 
@@ -57,11 +97,6 @@ export class Shard {
     return socket;
   }
 
-  /**
-   * Sends any sendable opcode to the Discord gateway.
-   * @param opcode - The gateway opcode to send.
-   * @param payload - The payload related to the opcode to send.
-   */
   send<Opcode extends AnySendableOpcode>(opcode: Opcode, payload: SendPayload[Opcode]): void {
     if (!SENDABLE_OPCODES.includes(opcode)) {
       throw new ShardError("Cannot send a non-sendable opcode to the gateway.", this.id);
@@ -75,6 +110,10 @@ export class Shard {
     const stringifiedDataToSend = JSON.stringify(dataToSend);
 
     socket.send(stringifiedDataToSend);
+  }
+
+  get token(): string {
+    return this.manager.token;
   }
 }
 

@@ -25,27 +25,22 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
     this.token = options.token;
   }
 
-  /**
-   * @public
-   */
-  get connectionProperties(): ConnectionProperties {
+  public get connectionProperties(): ConnectionProperties {
     const { connection } = this.options;
     const { properties } = connection;
 
     return properties;
   }
 
-  /**
-   * @public
-   */
   async spawnShards(): Promise<void> {
     try {
       const { shards, url } = await fetchGatewayBot(this.token);
 
+      this.totalShards = shards;
       this.url = new URL(url);
 
       for (let index = 0; index < shards; index++) {
-        const shard = new Shard(this, index, shards);
+        const shard = new Shard(this, index);
 
         shard.connect();
       }
@@ -56,9 +51,6 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
     }
   }
 
-  /**
-   * @public
-   */
   get version(): APIVersion {
     const { version } = this.options;
 
