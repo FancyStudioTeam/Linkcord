@@ -3,9 +3,9 @@ import type { APIGatewayBot } from "@fancystudioteam/linkcord-types";
 const BOT_PREFIX_REGEX = /^Bot\s/i;
 
 /**
- * Replaces the `Bot ` prefix from the Discord bot token with an empty string.
- * @param token - The token to replace the bot prefix.
- * @returns The replaced Discord bot token.
+ * Removes the `Bot` prefix from the Discord bot token.
+ * @param token - The token to remove the `Bot` prefix.
+ * @returns The Discord bot token without the `Bot` prefix.
  */
 const replaceBotPrefix = (token: string): string => token.replace(BOT_PREFIX_REGEX, "");
 
@@ -27,7 +27,11 @@ export const fetchGatewayBot = async (token: string): Promise<APIGatewayBot> => 
   });
 
   if (!fetchPromise.ok) {
-    throw new Error("Failed to fetch the bot's gateway.");
+    /**
+     * biome-ignore lint/style/useThrowOnlyError: This exception is handled in
+     * the `GatewayManager` class and should not be used in any other context.
+     */
+    throw "Failed to get the gateway information for the Discord bot.";
   }
 
   const response = (await fetchPromise.json()) as APIGatewayBot;
