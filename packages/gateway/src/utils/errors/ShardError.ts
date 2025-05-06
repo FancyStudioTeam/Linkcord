@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export class ShardError extends Error {
   shardId: number;
 
