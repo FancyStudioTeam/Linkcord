@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge";
 import type { AnyTopLevelKind } from "#extractor/types";
-import { KIND_COLORS } from "#util/kindData";
+import { KIND_COLORS } from "#util/data";
 
 export const Kind = ({
   kind,

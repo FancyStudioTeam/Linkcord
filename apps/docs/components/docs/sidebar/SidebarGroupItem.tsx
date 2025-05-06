@@ -1,7 +1,7 @@
 import { Link } from "@remix-run/react";
 import { twMerge } from "tailwind-merge";
 import type { AnyEntryPointMember } from "#extractor/types";
-import { KIND_COLORS, KIND_ICONS } from "#util/kindData.js";
+import { KIND_COLORS, KIND_ICONS } from "#util/data";
 
 function truncate(string: string, length: number) {
   return string.length > length ? `${string.slice(0, length - 3)}...` : string;

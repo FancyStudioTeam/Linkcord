@@ -1,9 +1,9 @@
 import { CodeBlock } from "#components/CodeBlock";
 import { Separator } from "#components/ui/Separator";
-import { UndocumentedDiscordFeatureTooltip } from "#components/ui/UndocumentedDiscordFeatureTooltip.js";
+import { UndocumentedDiscordFeatureTooltip } from "#components/ui/UndocumentedDiscordFeatureTooltip";
 import { APIReleaseTag, type AnyEntryPointMember } from "#extractor/types";
-import { getDocData } from "#util/functions/getDocData.js";
-import { KIND_COLORS } from "#util/kindData.js";
+import { KIND_COLORS } from "#util/data";
+import { getDocData } from "#util/functions/getDocData";
 import { AutomaticScroll } from "./AutomaticScroll.js";
 import { Kind } from "./Kind.jsx";
 
