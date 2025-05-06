@@ -1,4 +1,5 @@
 import {
+  type GatewayEvent,
   type GatewayHeartbeatPayload,
   type GatewayIdentifyPayload,
   GatewayOpcodes,
@@ -9,7 +10,7 @@ import {
   type GatewayVoiceStateUpdatePayload,
   type Nullable,
 } from "@fancystudioteam/linkcord-types";
-import { WebSocket } from "ws";
+import { type RawData, WebSocket } from "ws";
 import { ShardError } from "#utils";
 import type { GatewayManager } from "./GatewayManager.js";
 
@@ -50,6 +51,7 @@ export class Shard {
 
     this.socket = socket;
     this.socket.on("open", this._onOpen.bind(this));
+    this.socket.on("message", this._onMessage.bind(this));
   }
 
   /**
@@ -57,6 +59,27 @@ export class Shard {
    */
   private _onOpen(): void {
     this.identify();
+  }
+
+  /**
+   * @internal
+   */
+  private _onMessage(rawData: RawData): void {
+    const stringifiedRawData = rawData.toString();
+    const message = JSON.parse(stringifiedRawData) as GatewayEvent;
+
+    switch (message.op) {
+      case GatewayOpcodes.Hello: {
+        const { heartbeat_interval } = message.d;
+
+        this.manager.emit("hello", this.id, heartbeat_interval);
+
+        break;
+      }
+      default: {
+        this.manager.emit("debug", this.id, `Received unhandled message opcode: ${message.op}`);
+      }
+    }
   }
 
   connect(): void {
