@@ -1,5 +1,5 @@
 import { EventEmitter } from "node:events";
-import type { APIVersion, Nullable } from "@fancystudioteam/linkcord-types";
+import type { APIVersion, GatewayEvent, Nullable } from "@fancystudioteam/linkcord-types";
 import { GatewayManagerError, fetchGatewayBot } from "#utils";
 import { Shard } from "./Shard.js";
 
@@ -7,12 +7,12 @@ import { Shard } from "./Shard.js";
  * @public
  */
 export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
+  intents: number;
   options: GatewayManagerOptions;
+  shardCount = 0;
   shards: Map<number, Shard> = new Map();
   token: string;
-  totalShards = 0;
   url: Nullable<URL> = null;
-  intents: number;
 
   constructor(options: GatewayManagerOptions) {
     super();
@@ -36,7 +36,7 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
     try {
       const { shards, url } = await fetchGatewayBot(this.token);
 
-      this.totalShards = shards;
+      this.shardCount = shards;
       this.url = new URL(url);
 
       for (let index = 0; index < shards; index++) {
@@ -90,6 +90,7 @@ export interface GatewayManagerConnectionProperties {
 export interface GatewayManagerEvents {
   debug: [shardId: number, message: string];
   hello: [shardId: number, heartbeatInterval: number];
+  packet: [packet: GatewayEvent];
 }
 
 /**

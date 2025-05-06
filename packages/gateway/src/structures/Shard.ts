@@ -93,11 +93,11 @@ export class Shard {
   }
 
   identify(): void {
-    const { connectionProperties, intents, token, totalShards } = this.manager;
+    const { connectionProperties, intents, shardCount, token } = this.manager;
     const identifyPayload: GatewayIdentifyPayload = {
       intents,
       properties: connectionProperties,
-      shard: [this.id, totalShards],
+      shard: [this.id, shardCount],
       token,
     };
 
