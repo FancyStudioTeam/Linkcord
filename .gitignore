@@ -13,6 +13,9 @@ temp
 .env
 .env.*
 
+# Extensions
+.VSCodeCounter
+
 # Packages
 node_modules
 
