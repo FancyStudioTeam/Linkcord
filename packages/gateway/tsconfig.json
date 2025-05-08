@@ -8,5 +8,6 @@
       "#utils": ["./src/utils/index.ts"]
     }
   },
+  "exclude": ["**/*.test.ts"],
   "extends": "../../tsconfig.base.json"
 }
