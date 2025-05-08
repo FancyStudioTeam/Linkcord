@@ -8,6 +8,12 @@ import { replaceBotPrefix } from "./replaceBotPrefix.js";
  * @returns An object containing the gateway information for the Discord bot.
  */
 export const fetchGatewayBot = async (token: string): Promise<APIGatewayBot> => {
+  if (typeof token !== "string") {
+    const typeofToken = typeof token;
+
+    throw ["The provided token is invalid.", `Expected "string", but received "${typeofToken}".`].join("\n");
+  }
+
   const headers = new Headers();
   const tokenWithoutPrefix = replaceBotPrefix(token);
 
