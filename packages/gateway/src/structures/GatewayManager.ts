@@ -80,7 +80,7 @@ export interface GatewayManagerConnectionProperties {
 export interface GatewayManagerEvents {
   debug: [shardId: number, message: string];
   hello: [shardId: number, heartbeatInterval: number];
-  packet: [packet: GatewayEvent];
+  packet: [shardId: number, packet: GatewayEvent];
 }
 
 /**

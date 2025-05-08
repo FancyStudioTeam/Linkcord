@@ -28,6 +28,8 @@ const SENDABLE_OPCODES: AnySendableOpcode[] = [
  * @public
  */
 export class Shard {
+  private _sequence: Nullable<number> = null;
+  heartbeatInterval: Nullable<number> = null;
   id: number;
   manager: GatewayManager;
   socket: Nullable<WebSocket> = null;
@@ -35,6 +37,34 @@ export class Shard {
   constructor(manager: GatewayManager, id: number) {
     this.id = id;
     this.manager = manager;
+  }
+
+  /**
+   * @internal
+   */
+  private _heartbeat(): void {
+    const { _sequence } = this;
+    const heartbeatPayload: GatewayHeartbeatPayload = {
+      d: _sequence,
+      op: GatewayOpcodes.Heartbeat,
+    };
+
+    this.send(GatewayOpcodes.Heartbeat, heartbeatPayload);
+  }
+
+  /**
+   * @internal
+   */
+  private _identify(): void {
+    const { connectionProperties, intents, shardCount, token } = this.manager;
+    const identifyPayload: GatewayIdentifyPayload = {
+      intents,
+      properties: connectionProperties,
+      shard: [this.id, shardCount],
+      token,
+    };
+
+    this.send(GatewayOpcodes.Identify, identifyPayload);
   }
 
   /**
@@ -58,7 +88,7 @@ export class Shard {
    * @internal
    */
   private _onOpen(): void {
-    this.identify();
+    this._identify();
   }
 
   /**
@@ -68,11 +98,23 @@ export class Shard {
     const stringifiedRawData = rawData.toString();
     const message = JSON.parse(stringifiedRawData) as GatewayEvent;
 
+    this.manager.emit("packet", this.id, message);
+
     switch (message.op) {
       case GatewayOpcodes.Hello: {
         const { heartbeat_interval } = message.d;
 
+        this.heartbeatInterval = heartbeat_interval;
         this.manager.emit("hello", this.id, heartbeat_interval);
+
+        setInterval(this._heartbeat.bind(this), heartbeat_interval);
+
+        break;
+      }
+      case GatewayOpcodes.Dispatch: {
+        const { s } = message;
+
+        this._sequence = s;
 
         break;
       }
@@ -90,18 +132,6 @@ export class Shard {
     }
 
     this._initializeSocket(url);
-  }
-
-  identify(): void {
-    const { connectionProperties, intents, shardCount, token } = this.manager;
-    const identifyPayload: GatewayIdentifyPayload = {
-      intents,
-      properties: connectionProperties,
-      shard: [this.id, shardCount],
-      token,
-    };
-
-    this.send(GatewayOpcodes.Identify, identifyPayload);
   }
 
   getWebSocket(): WebSocket {
