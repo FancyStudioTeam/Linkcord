@@ -9,6 +9,20 @@ describe("Function: replaceBotPrefix", () => {
     expect(result).toBe(tokenWithoutPrefix);
   });
 
+  it("Given a token without the 'Bot' prefix and with leading or trailing spaces in the token, should return the original token.", () => {
+    const tokenWithLeadingSpaces = "     ANY_DISCORD_BOT_TOKEN";
+    const tokenWithTrailingSpaces = "ANY_DISCORD_BOT_TOKEN     ";
+    const tokenWithLeadingAndTrailingSpaces = "     ANY_DISCORD_BOT_TOKEN     ";
+
+    const resultWithLeadingSpaces = replaceBotPrefix(tokenWithLeadingSpaces);
+    const resultWithTrailingSpaces = replaceBotPrefix(tokenWithTrailingSpaces);
+    const resultWithLeadingAndTrailingSpaces = replaceBotPrefix(tokenWithLeadingAndTrailingSpaces);
+
+    expect(resultWithLeadingSpaces).toBe("ANY_DISCORD_BOT_TOKEN");
+    expect(resultWithTrailingSpaces).toBe("ANY_DISCORD_BOT_TOKEN");
+    expect(resultWithLeadingAndTrailingSpaces).toBe("ANY_DISCORD_BOT_TOKEN");
+  });
+
   it("Given a token with either all lowercase or uppercase characters in the 'Bot' prefix, should return the token without the prefix.", () => {
     const uppercaseBotPrefixToken = "BOT ANY_DISCORD_BOT_TOKEN";
     const lowercaseBotPrefixToken = "bot ANY_DISCORD_BOT_TOKEN";
@@ -43,5 +57,19 @@ describe("Function: replaceBotPrefix", () => {
     const result = replaceBotPrefix(tokenWithManySpacesPrefix);
 
     expect(result).toBe("ANY_DISCORD_BOT_TOKEN");
+  });
+
+  it("Given a token with leading or trailing spaces in the 'Bot' prefix, should return the token without the prefix.", () => {
+    const tokenWithLeadingBotSpaces = "     Bot ANY_DISCORD_BOT_TOKEN";
+    const tokenWithTrailingBotSpaces = "Bot     ANY_DISCORD_BOT_TOKEN";
+    const tokenWithLeadingAndTrailingBotSpaces = "     Bot     ANY_DISCORD_BOT_TOKEN";
+
+    const resultWithLeadingBotSpaces = replaceBotPrefix(tokenWithLeadingBotSpaces);
+    const resultWithTrailingBotSpaces = replaceBotPrefix(tokenWithTrailingBotSpaces);
+    const resultWithLeadingAndTrailingBotSpaces = replaceBotPrefix(tokenWithLeadingAndTrailingBotSpaces);
+
+    expect(resultWithLeadingBotSpaces).toBe("ANY_DISCORD_BOT_TOKEN");
+    expect(resultWithTrailingBotSpaces).toBe("ANY_DISCORD_BOT_TOKEN");
+    expect(resultWithLeadingAndTrailingBotSpaces).toBe("ANY_DISCORD_BOT_TOKEN");
   });
 });
