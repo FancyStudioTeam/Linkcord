@@ -11,6 +11,7 @@
     "typedoc": {
       "dependsOn": ["build"]
     },
-    "vitest": {}
+    "vitest": {},
+    "vitest:watch": {}
   }
 }

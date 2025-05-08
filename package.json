@@ -20,6 +20,7 @@
     "extractor:run": "turbo run extractor:run",
     "prepare": "husky",
     "typedoc": "turbo run typedoc",
-    "vitest": "turbo run vitest"
+    "vitest": "turbo run vitest",
+    "vitest:watch": "turbo run vitest:watch"
   }
 }
