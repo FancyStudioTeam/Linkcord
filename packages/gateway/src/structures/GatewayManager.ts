@@ -39,6 +39,12 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
     return connectionProperties ?? defaultConnectionProperties;
   }
 
+  getShardIdByGuildId(guildId: string): number {
+    const { shardCount } = this;
+
+    return Number(guildId) >> (22 % shardCount);
+  }
+
   async spawnShards(): Promise<void> {
     try {
       const { shards, url } = await fetchGatewayBot(this.token);
