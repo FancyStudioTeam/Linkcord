@@ -10,7 +10,7 @@
     "@types/node": "22.15.13",
     "@types/ws": "8.18.1",
     "rimraf": "6.0.1",
-    "tsc-alias": "1.8.15",
+    "tsc-alias": "1.8.16",
     "typescript": "5.8.3",
     "vitest": "3.1.2"
   },
