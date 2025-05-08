@@ -1,14 +1,5 @@
 import type { APIGatewayBot } from "@fancystudioteam/linkcord-types";
-
-const BOT_PREFIX_REGEX = /^Bot\s/i;
-
-/**
- * Removes the `Bot` prefix from the Discord bot token.
- * @public
- * @param token - The token to remove the `Bot` prefix.
- * @returns The Discord bot token without the `Bot` prefix.
- */
-const replaceBotPrefix = (token: string): string => token.replace(BOT_PREFIX_REGEX, "");
+import { replaceBotPrefix } from "./replaceBotPrefix.js";
 
 /**
  * Fetches the gateway information for a Discord bot.
