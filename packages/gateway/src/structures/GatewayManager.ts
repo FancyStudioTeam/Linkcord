@@ -7,8 +7,8 @@ import { Shard } from "./Shard.js";
  * @public
  */
 export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
+  readonly options: GatewayManagerOptions;
   intents: number;
-  options: GatewayManagerOptions;
   shardCount = 0;
   shards: Map<number, Shard> = new Map();
   token: string;
@@ -17,19 +17,26 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
   constructor(options: GatewayManagerOptions) {
     super();
 
-    const { connection } = options;
-    const { intents } = connection;
+    const { intents, version, token } = options;
+
+    if (version !== undefined && version < 9) {
+      throw new GatewayManagerError("API versions below 9 are currently deprecated and they should not be used.");
+    }
 
     this.intents = intents;
     this.options = options;
-    this.token = options.token;
+    this.token = token;
   }
 
-  public get connectionProperties(): ConnectionProperties {
-    const { connection } = this.options;
-    const { properties } = connection;
+  public get connectionProperties(): GatewayManagerConnectionProperties {
+    const { connectionProperties } = this.options;
+    const defaultConnectionProperties: GatewayManagerConnectionProperties = {
+      browser: "Linkcord",
+      device: "Linkcord",
+      os: process.platform,
+    };
 
-    return properties;
+    return connectionProperties ?? defaultConnectionProperties;
   }
 
   async spawnShards(): Promise<void> {
@@ -61,23 +68,6 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
 /**
  * @public
  */
-export interface ConnectionProperties {
-  browser: string;
-  device: string;
-  os: string;
-}
-
-/**
- * @public
- */
-export interface GatewayManagerConnection {
-  intents: number;
-  properties: ConnectionProperties;
-}
-
-/**
- * @public
- */
 export interface GatewayManagerConnectionProperties {
   browser: string;
   device: string;
@@ -97,7 +87,8 @@ export interface GatewayManagerEvents {
  * @public
  */
 export interface GatewayManagerOptions {
-  connection: GatewayManagerConnection;
+  connectionProperties?: GatewayManagerConnectionProperties;
+  intents: number;
   token: string;
   version?: APIVersion;
 }

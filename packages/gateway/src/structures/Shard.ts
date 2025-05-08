@@ -140,7 +140,10 @@ export class Shard {
   }
 }
 
-interface SendPayload {
+/**
+ * @public
+ */
+export interface SendPayload {
   [GatewayOpcodes.Heartbeat]: GatewayHeartbeatPayload;
   [GatewayOpcodes.Identify]: GatewayIdentifyPayload;
   [GatewayOpcodes.PresenceUpdate]: GatewayPresenceUpdatePayload;
@@ -150,7 +153,10 @@ interface SendPayload {
   [GatewayOpcodes.VoiceStateUpdate]: GatewayVoiceStateUpdatePayload;
 }
 
-type AnySendableOpcode =
+/**
+ * @public
+ */
+export type AnySendableOpcode =
   | GatewayOpcodes.Heartbeat
   | GatewayOpcodes.Identify
   | GatewayOpcodes.PresenceUpdate
