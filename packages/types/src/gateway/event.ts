@@ -42,6 +42,7 @@ export type GatewaySendEvent =
 export enum GatewayCloseEventCodes {
   AlreadyAuthenticated = 4005,
   AuthenticationFailed = 4004,
+  DecodeError = 4002,
   DisallowedIntents = 4014,
   InvalidAPIVersion = 4012,
   InvalidIntents = 4013,
