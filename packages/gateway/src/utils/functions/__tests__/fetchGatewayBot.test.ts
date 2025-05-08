@@ -36,6 +36,20 @@ describe("Function: fetchGatewayBot", () => {
     await expect(result).rejects.toThrow(expectedErrorMessage);
   });
 
+  it("Given a valid token as argument, but the request fails, should throw a string error.", async () => {
+    const fetchResponse = new Response("Request failed.", {
+      status: 500,
+    });
+
+    global.fetch = vi.fn().mockResolvedValue(fetchResponse);
+
+    const token = "ANY_DISCORD_BOT_TOKEN";
+    const expectedErrorMessage = "Failed to get the gateway information for the Discord bot.";
+    const result = fetchGatewayBot(token);
+
+    await expect(result).rejects.toThrow(expectedErrorMessage);
+  });
+
   it("Given a valid token as argument, should return the gateway information object.", async () => {
     const token = "ANY_DISCORD_BOT_TOKEN";
     const result = fetchGatewayBot(token);
