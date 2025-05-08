@@ -6,6 +6,14 @@ import type { Nullable, Snowflake } from "#shared";
  */
 export interface APIRole {
   color: number;
+  /**
+   * @alpha
+   * @remarks
+   * - This is not officially documented in the Discord API documentation,
+   *   meaning it may change or break at any time.
+   */
+  colors: APIRoleColors;
+  description: Nullable<string>;
   flags: RoleFlags;
   hoist: boolean;
   icon?: Nullable<string>;
@@ -17,6 +25,18 @@ export interface APIRole {
   position: number;
   tags: APIRoleTags;
   unicode_emoji?: Nullable<string>;
+}
+
+/**
+ * @alpha
+ * @remarks
+ * - This is not officially documented in the Discord API documentation,
+ *   meaning it may change or break at any time.
+ */
+export interface APIRoleColors {
+  primary_color: number;
+  secondary_color: Nullable<number>;
+  tertiary_color: Nullable<number>;
 }
 
 /**
