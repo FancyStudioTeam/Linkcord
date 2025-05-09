@@ -58,7 +58,7 @@ export interface APIUser {
    * - This is not officially documented in the Discord API documentation,
    *   meaning it may change or break at any time.
    */
-  collectibles?: APIUserCollectible;
+  collectibles?: Nullable<APIUserCollectible>;
   /**
    * @remarks
    * - This field value will be set to `0` for non-bot users.
