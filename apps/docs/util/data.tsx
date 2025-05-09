@@ -2,7 +2,6 @@ import {
   Asterisk,
   BookType,
   Cuboid,
-  Globe,
   ListTree,
   type LucideIcon,
   Network,
@@ -14,6 +13,7 @@ import { APIMemberKind, type AnyTopLevelKind } from "#extractor/types";
 import { PackageName } from "./extractor.js";
 
 export const KIND_ICONS: Record<AnyTopLevelKind, LucideIcon> = {
+  [APIMemberKind.Class]: Network,
   [APIMemberKind.Enum]: SquareChartGantt,
   [APIMemberKind.Interface]: ListTree,
   [APIMemberKind.TypeAlias]: Wrench,
@@ -21,6 +21,12 @@ export const KIND_ICONS: Record<AnyTopLevelKind, LucideIcon> = {
 };
 
 export const KIND_COLORS: Record<AnyTopLevelKind, KindColors> = {
+  [APIMemberKind.Class]: {
+    background: "bg-indigo-950",
+    border: "border-indigo-500",
+    icon: "text-indigo-500",
+    text: "text-indigo-500",
+  },
   [APIMemberKind.Enum]: {
     background: "bg-amber-950",
     border: "border-amber-500",
@@ -50,18 +56,14 @@ export const KIND_COLORS: Record<AnyTopLevelKind, KindColors> = {
 export const PACKAGE_NAMES: Record<PackageName, string> = {
   [PackageName.Gateway]: "Gateway",
   [PackageName.Linkcord]: "Linkcord",
-  [PackageName.Rest]: "REST",
   [PackageName.Types]: "Types",
-  [PackageName.Utils]: "Utils",
   [PackageName.Voice]: "Voice",
 };
 
 export const PACKAGE_ICONS: Record<PackageName, LucideIcon> = {
   [PackageName.Gateway]: Network,
   [PackageName.Linkcord]: Asterisk,
-  [PackageName.Rest]: Globe,
   [PackageName.Types]: BookType,
-  [PackageName.Utils]: Wrench,
   [PackageName.Voice]: Volume2,
 };
 
