@@ -2,32 +2,11 @@ import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { Navbar } from "#components/docs/navbar/Navbar";
 import { Sidebar } from "#components/docs/sidebar/Sidebar";
-import type { MembersFunction } from "#extractor/APIExtractor";
-import {
-  PackageName,
-  availablePackages,
-  getGatewayMembers,
-  getLinkcordMembers,
-  getTypeMembers,
-  getVoiceMembers,
-} from "#util/extractor";
-import { notFound } from "#util/responses/notFound";
+import { getPackageMembers } from "#util/functions/getPackageMembers";
 
 export const loader = ({ params }: LoaderFunctionArgs) => {
   const { package: _package } = params;
-
-  if (!(_package && availablePackages.includes(_package as PackageName))) {
-    throw notFound();
-  }
-
-  const packageName = _package as PackageName;
-  const packages: Record<PackageName, MembersFunction> = {
-    [PackageName.Gateway]: getGatewayMembers,
-    [PackageName.Linkcord]: getLinkcordMembers,
-    [PackageName.Types]: getTypeMembers,
-    [PackageName.Voice]: getVoiceMembers,
-  };
-  const members = packages[packageName]();
+  const members = getPackageMembers(_package);
 
   return {
     members,
