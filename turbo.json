@@ -8,7 +8,7 @@
     "extractor:run": {
       "dependsOn": ["build"]
     },
-    "typedoc": {
+    "tarball": {
       "dependsOn": ["build"]
     },
     "vitest": {},
