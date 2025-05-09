@@ -19,7 +19,7 @@ export interface GatewayVoiceStateUpdatePayload {
    * - This field value may be `null` to disconnect the client from the voice
    *   channel.
    */
-  channel: Nullable<Snowflake>;
+  channel_id: Nullable<Snowflake>;
   guild_id: Snowflake;
   self_deaf: boolean;
   self_mute: boolean;
