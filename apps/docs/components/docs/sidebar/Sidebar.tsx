@@ -14,7 +14,7 @@ export const Sidebar = ({
   const entries = toPairs(groupedMembers) as [AnyTopLevelKind, AnyEntryPointMember[]][];
 
   return (
-    <div className="flex h-full w-full max-w-80 flex-col gap-4 rounded-lg border border-zinc-700 bg-zinc-900 p-6">
+    <div className="hidden h-full w-full max-w-80 flex-col gap-4 rounded-lg border border-zinc-700 bg-zinc-900 p-6 md:flex">
       <SidebarHeader />
       <Separator />
       <div className="flex flex-col gap-4 overflow-y-auto">

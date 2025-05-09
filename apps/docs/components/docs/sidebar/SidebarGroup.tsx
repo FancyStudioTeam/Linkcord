@@ -3,6 +3,7 @@ import { APIMemberKind, type AnyEntryPointMember, type AnyTopLevelKind } from "#
 import { SidebarGroupItem } from "./SidebarGroupItem.jsx";
 
 const GROUP_KIND_LABELS: Record<AnyTopLevelKind, string> = {
+  [APIMemberKind.Class]: "Classes",
   [APIMemberKind.Enum]: "Enumerations",
   [APIMemberKind.Interface]: "Interfaces",
   [APIMemberKind.TypeAlias]: "Types",

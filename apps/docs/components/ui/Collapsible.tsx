@@ -1,6 +1,7 @@
 import { ChevronsUpDown } from "lucide-react";
 import { Collapsible as RadixCollapsible } from "radix-ui";
 import { Fragment, type ReactNode, useState } from "react";
+import { sortMembers } from "#extractor/functions/sortMembers.js";
 import type { AnyMember } from "#extractor/types";
 import { Separator } from "./Separator.jsx";
 
@@ -33,6 +34,7 @@ export const Collapsible = <Item extends AnyMember>({
   titleNode: ReactNode;
 }) => {
   const [open, setOpen] = useState(true);
+  const sortedItems = sortMembers(items);
 
   return (
     <RadixCollapsible.Root onOpenChange={setOpen} open={open}>
@@ -41,7 +43,7 @@ export const Collapsible = <Item extends AnyMember>({
         <ChevronsUpDown className="size-5" />
       </RadixCollapsible.Trigger>
       <RadixCollapsible.Content className="mt-4 flex flex-col gap-2">
-        {items.map((item, index) =>
+        {sortedItems.map((item, index) =>
           _renderItem(item, renderItem, {
             enableSeparator,
             index,
