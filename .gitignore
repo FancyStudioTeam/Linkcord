@@ -19,5 +19,8 @@ temp
 # Packages
 node_modules
 
+# Tarballs
+*.tgz
+
 # Vitest
 tsconfig.vitest-temp.json
