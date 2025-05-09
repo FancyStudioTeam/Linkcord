@@ -31,7 +31,7 @@ export default () => {
   return (
     <div className="flex h-dvh w-full flex-col items-center justify-center">
       <div className="flex w-full max-w-md flex-col gap-4">
-        <div className="flex w-full flex-col gap-4 rounded-md border border-zinc-700 bg-zinc-900 p-6">
+        <div className="flex flex-col items-center justify-center gap-4 rounded-md border border-zinc-700 bg-zinc-900 p-6">
           {availablePackages.map((packageName) => (
             <Package key={packageName} packageName={packageName} />
           ))}
