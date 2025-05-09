@@ -19,6 +19,16 @@ export interface APIEntitlement {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/entitlement#entitlement-object-entitlement-structure
+ * @remarks
+ * - This type is not documented by Discord.
+ * - Partial structures may be incorrectly implemented here due lack of
+ *   documentation.
+ */
+export type APIPartialEntitlement = Omit<APIEntitlement, "ends_at" | "starts_at" | "subscription_id">;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/entitlement#entitlement-object-entitlement-types
  */
 export enum EntitlementTypes {
