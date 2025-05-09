@@ -375,12 +375,26 @@ export enum GuildFeatures {
   ApplicationCommandPermissionsV2 = "APPLICATION_COMMAND_PERMISSIONS_V2",
   AutoModeration = "AUTO_MODERATION",
   Banner = "BANNER",
+  /**
+   * @alpha
+   * @remarks
+   * - This is not officially documented in the Discord API documentation,
+   *   meaning it may change or break at any time.
+   */
+  BotDeveloperEarlyAccess = "BOT_DEVELOPER_EARLY_ACCESS",
   Community = "COMMUNITY",
   CreatorMonetizableProvisional = "CREATOR_MONETIZABLE_PROVISIONAL",
   CreatorStorePage = "CREATOR_STORE_PAGE",
   DeveloperSupportServer = "DEVELOPER_SUPPORT_SERVER",
   Discoverable = "DISCOVERABLE",
   Featurable = "FEATURABLE",
+  /**
+   * @alpha
+   * @remarks
+   * - This is not officially documented in the Discord API documentation,
+   *   meaning it may change or break at any time.
+   */
+  InternalEmployeeOnly = "INTERNAL_EMPLOYEE_ONLY",
   InviteSplash = "INVITE_SPLASH",
   InvitesDisabled = "INVITES_DISABLED",
   MemberVerificationGateEnabled = "MEMBER_VERIFICATION_GATE_ENABLED",
