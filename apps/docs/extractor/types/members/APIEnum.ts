@@ -1,5 +1,4 @@
-import type { APIDocumentedMemberBase, APIMemberKind } from "../index.js";
-import type { APIEnumMember } from "./APIEnumMember.js";
+import type { APIDocumentedMemberBase, APIEnumMember, APIMemberKind } from "../index.js";
 
 export interface APIEnum extends APIDocumentedMemberBase<APIMemberKind.Enum, AnyEnumMember> {}
 

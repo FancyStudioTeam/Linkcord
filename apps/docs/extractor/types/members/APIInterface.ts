@@ -1,5 +1,4 @@
-import type { APIDocumentedMemberBase, APIMemberKind, APITokenRange } from "../index.js";
-import type { APIPropertySignature } from "./APIPropertySignature.js";
+import type { APIDocumentedMemberBase, APIMemberKind, APIPropertySignature, APITokenRange } from "../index.js";
 
 export interface APIInterface extends APIDocumentedMemberBase<APIMemberKind.Interface, AnyInterfaceMember> {
   extendsTokenRanges: APITokenRange[];
