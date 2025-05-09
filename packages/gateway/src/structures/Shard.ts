@@ -1,4 +1,5 @@
 import {
+  GatewayCloseEventCodes,
   type GatewayEvent,
   type GatewayHeartbeatPayload,
   type GatewayIdentifyPayload,
@@ -14,6 +15,16 @@ import { type RawData, WebSocket } from "ws";
 import { ShardError } from "#utils";
 import type { GatewayManager } from "./GatewayManager.js";
 
+const RECONNECTABLE_CLOSE_CODES: GatewayCloseEventCodes[] = [
+  GatewayCloseEventCodes.UnknownError,
+  GatewayCloseEventCodes.UnknownOpcode,
+  GatewayCloseEventCodes.DecodeError,
+  GatewayCloseEventCodes.NotAuthenticated,
+  GatewayCloseEventCodes.AlreadyAuthenticated,
+  GatewayCloseEventCodes.InvalidSequence,
+  GatewayCloseEventCodes.RateLimited,
+  GatewayCloseEventCodes.SessionTimedOut,
+];
 const SENDABLE_OPCODES: AnySendableOpcode[] = [
   GatewayOpcodes.Heartbeat,
   GatewayOpcodes.Identify,
