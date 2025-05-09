@@ -20,7 +20,7 @@ export const UndocumentedDiscordFeatureTooltip = ({
             Undocumented Discord Feature
           </div>
           <Separator />
-          <p className="text-xs text-zinc-300">
+          <p className="text-xs text-zinc-400">
             This feature has not been oficially documented by Discord, meaning it may change or break at any time.
           </p>
           <Tooltip.Arrow />
