@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "outDir": "dist",
+    "paths": {
+      "#structures/*": ["./src/structures/index.ts"],
+      "#util": ["./src/util/index.ts"]
+    }
+  },
+  "extends": "../../tsconfig.base.json"
+}
