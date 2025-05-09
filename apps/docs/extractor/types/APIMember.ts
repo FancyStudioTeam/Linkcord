@@ -1,3 +1,18 @@
-import type { APIEnum, APIEnumMember, APIInterface, APIPropertySignature, APITypeAlias, APIVariable } from "./index.js";
+import type {
+  APIClass,
+  APIEnum,
+  APIEnumMember,
+  APIInterface,
+  APIPropertySignature,
+  APITypeAlias,
+  APIVariable,
+} from "./index.js";
 
-export type AnyMember = APIEnum | APIEnumMember | APIInterface | APIPropertySignature | APITypeAlias | APIVariable;
+export type AnyMember =
+  | APIClass
+  | APIEnum
+  | APIEnumMember
+  | APIInterface
+  | APIPropertySignature
+  | APITypeAlias
+  | APIVariable;
