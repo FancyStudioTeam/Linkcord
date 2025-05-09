@@ -34,6 +34,7 @@
     "extractor:run": "api-extractor run",
     "postbuild": "tsc-alias dist",
     "rimraf": "rimraf dist",
+    "tarball": "pnpm pack",
     "vitest": "vitest",
     "vitest:watch": "vitest --watch"
   },

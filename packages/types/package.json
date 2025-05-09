@@ -27,7 +27,8 @@
     "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist/types",
     "extractor:run": "api-extractor run",
     "postbuild": "tsc-alias dist",
-    "rimraf": "rimraf dist"
+    "rimraf": "rimraf dist",
+    "tarball": "pnpm pack"
   },
   "types": "dist/types/index.d.ts",
   "version": "0.0.0"
