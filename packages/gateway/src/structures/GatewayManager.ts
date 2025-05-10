@@ -50,7 +50,7 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
   getShardIdByGuildId(guildId: string): number {
     const { shardCount } = this;
 
-    return (Number(guildId) >> 22) % shardCount;
+    return Number(BigInt(guildId) >> 22n) % shardCount;
   }
 
   async spawnShards(): Promise<void> {
