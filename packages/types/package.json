@@ -63,7 +63,6 @@
     "rimraf": "rimraf dist",
     "tarball": "pnpm pack"
   },
-  "type": "module",
   "types": "dist/types/index.d.ts",
-  "version": "0.0.0"
+  "version": "0.0.2"
 }
