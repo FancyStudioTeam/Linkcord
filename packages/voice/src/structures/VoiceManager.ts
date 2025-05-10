@@ -1,3 +1,4 @@
+import { EventEmitter } from "node:events";
 import type { GatewayManager } from "@fancystudioteam/linkcord-gateway";
 import {
   GatewayOpcodes,
@@ -9,12 +10,14 @@ import { VoiceManagerError } from "#utils";
 /**
  * @public
  */
-export class VoiceManager {
+export class VoiceManager extends EventEmitter<VoiceManagerEvents> {
   readonly gateway: GatewayManager;
   readonly options: VoiceManagerOptions;
   readonly version: VoiceVersion;
 
   constructor(options: VoiceManagerOptions) {
+    super();
+
     let { version, gatewayManager } = options;
 
     version ??= 8;
@@ -40,12 +43,18 @@ export class VoiceManager {
       selfMute: false,
     },
   ): void {
-    const { shards, getShardIdByGuildId } = this.gateway;
-    const shardId = getShardIdByGuildId.bind(this.gateway)(guildId);
+    const { shards } = this.gateway;
+    const shardId = this.gateway.getShardIdByGuildId(guildId);
     const shard = shards.get(shardId);
+    const emitMessages = [
+      `Found shard id "${shardId}" for guild "${guildId}".`,
+      `Current shards from gateway manager: ${shards.size}.`,
+    ];
+
+    this.emit("debug", emitMessages.join("\n"));
 
     if (!shard) {
-      throw new VoiceManagerError(`Cannot find shard for guild ${guildId}.`);
+      throw new VoiceManagerError(`Cannot find shard for guild "${guildId}".`);
     }
 
     const voiceStateUpdatePayload: GatewayVoiceStateUpdatePayload = {
@@ -71,6 +80,16 @@ export interface JoinVoiceChannelOptions {
   selfMute: boolean;
 }
 
+/**
+ * @public
+ */
+export interface VoiceManagerEvents {
+  debug: [message: string];
+}
+
+/**
+ * @public
+ */
 export interface VoiceManagerOptions {
   gatewayManager: GatewayManager;
   version?: VoiceVersion;

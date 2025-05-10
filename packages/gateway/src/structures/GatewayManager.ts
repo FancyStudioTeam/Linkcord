@@ -62,7 +62,7 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
     for (let index = 0; index < shards; index++) {
       const shard = new Shard(this, index);
 
-      this.shards.set(index, shard);
+      this.shards.set(shard.id, shard);
 
       shard.connect();
     }
