@@ -11,6 +11,7 @@ export * from "./lobby.js";
 export * from "./poll.js";
 export * from "./sku.js";
 export * from "./soundboard.js";
+export * from "./subscription.js";
 export * from "./user.js";
 export * from "./voice.js";
 export * from "./webhook.js";

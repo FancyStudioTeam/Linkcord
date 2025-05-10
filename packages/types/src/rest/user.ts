@@ -31,10 +31,10 @@ export interface RESTCreateGroupDMJSONParams {
  * @see https://discord.com/developers/docs/resources/user#get-current-user-guilds-query-string-params
  */
 export interface RESTGetCurrentUserGuildsStringParams {
-  after: Snowflake;
-  before: Snowflake;
-  limit: number;
-  with_counts: boolean;
+  after?: Snowflake;
+  before?: Snowflake;
+  limit?: number;
+  with_counts?: boolean;
 }
 
 /**
