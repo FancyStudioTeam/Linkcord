@@ -1,13 +1,18 @@
 {
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@commitlint/types": "19.8.1",
     "husky": "9.1.7",
+    "lint-staged": "15.5.2",
     "turbo": "2.5.3",
     "typescript": "5.8.3"
   },
   "license": "MIT",
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,json}": ["pnpm biome:check"]
+  },
   "name": "linkcord-monorepo",
   "packageManager": "pnpm@10.10.0",
   "private": true,
@@ -16,6 +21,7 @@
     "url": "https://github.com/FancyStudioTeam/Linkcord"
   },
   "scripts": {
+    "biome:check": "biome check --write ",
     "build": "turbo run build",
     "extractor:run": "turbo run extractor:run",
     "prepare": "husky",
