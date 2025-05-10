@@ -10,6 +10,7 @@ export const loader = ({ params }: LoaderFunctionArgs) => {
 
   return {
     members,
+    package: _package ?? "",
   };
 };
 

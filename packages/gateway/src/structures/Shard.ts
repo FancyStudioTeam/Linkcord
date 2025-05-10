@@ -93,13 +93,14 @@ export class Shard {
     this.socket = socket;
     this.socket.on("open", this._onOpen.bind(this));
     this.socket.on("message", this._onMessage.bind(this));
+    this.socket.on("close", this._onClose.bind(this));
   }
 
   /**
    * @internal
    */
-  private _onOpen(): void {
-    this._identify();
+  private _onClose(code: number, reason: Buffer): void {
+    console.log(code, reason);
   }
 
   /**
@@ -109,7 +110,7 @@ export class Shard {
     const stringifiedRawData = rawData.toString();
     const message = JSON.parse(stringifiedRawData) as GatewayEvent;
 
-    this.manager.emit("packet", this.id, message);
+    this.manager.emit("packet", message, this.id);
 
     switch (message.op) {
       case GatewayOpcodes.Hello: {
@@ -130,9 +131,16 @@ export class Shard {
         break;
       }
       default: {
-        this.manager.emit("debug", this.id, `Received unhandled message opcode: ${message.op}`);
+        this.manager.emit("debug", `Received unhandled message opcode: ${message.op}`, this.id);
       }
     }
+  }
+
+  /**
+   * @internal
+   */
+  private _onOpen(): void {
+    this._identify();
   }
 
   connect(): void {
