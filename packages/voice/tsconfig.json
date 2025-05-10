@@ -4,7 +4,7 @@
     "outDir": "dist",
     "paths": {
       "#structures/*": ["./src/structures/index.ts"],
-      "#util": ["./src/util/index.ts"]
+      "#utils": ["./src/utils/index.ts"]
     }
   },
   "extends": "../../tsconfig.base.json"
