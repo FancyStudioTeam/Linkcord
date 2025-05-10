@@ -4,7 +4,7 @@ import {
   type GatewayVoiceStateUpdatePayload,
   type VoiceVersion,
 } from "@fancystudioteam/linkcord-types";
-import { VoiceManagerError } from "#util";
+import { VoiceManagerError } from "#utils";
 
 /**
  * @public
