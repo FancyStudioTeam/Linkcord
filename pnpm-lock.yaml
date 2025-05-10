@@ -160,9 +160,6 @@ importers:
       '@fancystudioteam/linkcord-gateway':
         specifier: workspace:*
         version: link:../gateway
-      '@fancystudioteam/linkcord-rest':
-        specifier: workspace:*
-        version: link:../rest
       '@fancystudioteam/linkcord-types':
         specifier: workspace:*
         version: link:../types
@@ -197,12 +194,6 @@ importers:
       typescript:
         specifier: 5.8.3
         version: 5.8.3
-
-  packages/rest:
-    dependencies:
-      '@fancystudioteam/linkcord-types':
-        specifier: workspace:*
-        version: link:../types
 
   packages/types:
     devDependencies:
