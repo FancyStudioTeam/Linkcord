@@ -51,7 +51,7 @@
     "build:esm": "swc src --strip-leading-paths -C module.type=es6 --ignore **/*.test.ts --out-dir dist/esm",
     "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist/types",
     "extractor:run": "api-extractor run",
-    "release": "pnpm publish --no-git-checks --access public",
+    "release": "pnpm publish --no-git-checks",
     "rimraf": "rimraf dist",
     "tarball": "pnpm pack",
     "vitest": "vitest",
