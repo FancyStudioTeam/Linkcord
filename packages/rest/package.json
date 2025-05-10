@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "@fancystudioteam/linkcord-types": "workspace:*"
-  },
-  "license": "MIT",
-  "name": "@fancystudioteam/linkcord-rest",
-  "version": "0.0.0"
-}
