@@ -31,6 +31,7 @@ for (const _package of packages) {
 
   const packageJsonContent = readFileSync(packageJsonPath, "utf-8");
   const parsedJsonContent = JSON.parse(packageJsonContent);
+  const packageName = parsedJsonContent.name;
   const currentVersion = parsedJsonContent.version;
   let version = currentVersion;
 
@@ -56,4 +57,8 @@ for (const _package of packages) {
 
   writeFileSync(packageJsonPath, `${stringifiedJsonContent}\n`, "utf-8");
   execSync(`biome check --write ${packageJsonPath}`);
+
+  // biome-ignore lint/suspicious/noConsole:
+  // biome-ignore lint/suspicious/noConsoleLog:
+  console.log(`✅ Updated package "${packageName}" version from "${currentVersion}" to "${version}".`);
 }
