@@ -10,8 +10,11 @@ import { replaceBotPrefix } from "./replaceBotPrefix.js";
 export const fetchGatewayBot = async (token: string): Promise<APIGatewayBot> => {
   if (typeof token !== "string") {
     const typeofToken = typeof token;
+    const errorMessage = ["The provided token is invalid.", `Expected "string", but received "${typeofToken}".`].join(
+      "\n",
+    );
 
-    throw ["The provided token is invalid.", `Expected "string", but received "${typeofToken}".`].join("\n");
+    throw new Error(errorMessage);
   }
 
   const headers = new Headers();
@@ -27,8 +30,9 @@ export const fetchGatewayBot = async (token: string): Promise<APIGatewayBot> => 
   });
 
   if (!fetchPromise.ok) {
-    // biome-ignore lint/style/useThrowOnlyError:
-    throw "Failed to get the gateway information for the Discord bot.";
+    const errorMessage = "Failed to get the gateway information for the Discord bot.";
+
+    throw new Error(errorMessage);
   }
 
   const response = (await fetchPromise.json()) as APIGatewayBot;
