@@ -21,7 +21,10 @@
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js",
       "types": "./dist/types/index.d.ts"
-    },
+    }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "imports": {
     "#structures": {
       "import": "./dist/esm/structures/index.js",
       "require": "./dist/cjs/structures/index.js",
@@ -33,10 +36,9 @@
       "types": "./dist/types/utils/index.d.ts"
     }
   },
-  "files": ["dist", "README.md", "LICENSE"],
   "license": "MIT",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "name": "@fancystudioteam/linkcord",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -51,10 +53,10 @@
     "build:esm": "swc src --strip-leading-paths -C module.type=es6 --out-dir dist/esm",
     "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist/types",
     "extractor:run": "api-extractor run",
+    "release": "pnpm publish --no-git-checks --access public",
     "rimraf": "rimraf dist",
     "tarball": "pnpm pack"
   },
-  "type": "module",
-  "types": "./dist/types/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "version": "0.0.0"
 }

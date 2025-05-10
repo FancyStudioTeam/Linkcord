@@ -8,6 +8,9 @@
     "extractor:run": {
       "dependsOn": ["build"]
     },
+    "release": {
+      "dependsOn": ["build"]
+    },
     "tarball": {
       "dependsOn": ["build"]
     },

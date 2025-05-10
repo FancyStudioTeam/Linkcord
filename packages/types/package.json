@@ -60,9 +60,10 @@
     "build:esm": "swc src --strip-leading-paths -C module.type=es6 --out-dir dist/esm",
     "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist/types",
     "extractor:run": "api-extractor run",
+    "release": "pnpm publish --no-git-checks --access public",
     "rimraf": "rimraf dist",
     "tarball": "pnpm pack"
   },
   "types": "dist/types/index.d.ts",
-  "version": "0.0.2"
+  "version": "0.0.0"
 }

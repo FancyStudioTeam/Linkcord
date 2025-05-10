@@ -26,6 +26,7 @@
     "extractor:run": "turbo run extractor:run",
     "postinstall": "turbo run build",
     "prepare": "husky",
+    "release": "turbo run release",
     "tarball": "turbo run tarball",
     "vitest": "turbo run vitest",
     "vitest:watch": "turbo run vitest:watch"
