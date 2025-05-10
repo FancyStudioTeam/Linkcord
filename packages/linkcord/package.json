@@ -40,6 +40,7 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "name": "@fancystudioteam/linkcord",
+  "private": false,
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
