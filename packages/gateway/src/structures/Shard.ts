@@ -117,7 +117,7 @@ export class Shard {
         const { heartbeat_interval } = message.d;
 
         this.heartbeatInterval = heartbeat_interval;
-        this.manager.emit("hello", this.id, heartbeat_interval);
+        this.manager.emit("hello", heartbeat_interval, this.id);
 
         setInterval(this._heartbeat.bind(this), heartbeat_interval);
 
@@ -157,13 +157,12 @@ export class Shard {
     const socket = this.socket;
 
     if (!socket || socket.readyState !== WebSocket.OPEN) {
-      throw new ShardError(
-        [
-          "The shard's socket has not been initialized or opened yet.",
-          "Make sure to connect the shard to initialize and open its socket.",
-        ].join("\n"),
-        this.id,
-      );
+      const errorMessages = [
+        "The shard's socket has not been initialized or opened yet.",
+        "Make sure to connect the shard to initialize and open its socket.",
+      ];
+
+      throw new ShardError(errorMessages.join("\n"), this.id);
     }
 
     return socket;

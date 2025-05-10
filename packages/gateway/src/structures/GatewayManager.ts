@@ -36,15 +36,15 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
     this.version = version;
   }
 
-  get connectionProperties(): GatewayManagerConnectionProperties {
+  get connectionProperties(): ConnectionProperties {
     const { connectionProperties } = this.options;
-    const defaultConnectionProperties: GatewayManagerConnectionProperties = {
-      browser: "Linkcord",
-      device: "Linkcord",
-      os: process.platform,
-    };
+    const { browser, device, os } = connectionProperties ?? {};
 
-    return connectionProperties ?? defaultConnectionProperties;
+    return {
+      browser: browser ?? "Linkcord",
+      device: device ?? "Linkcord",
+      os: os ?? process.platform,
+    };
   }
 
   getShardIdByGuildId(guildId: string): number {
@@ -72,7 +72,7 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
 /**
  * @public
  */
-export interface GatewayManagerConnectionProperties {
+export interface ConnectionProperties {
   browser: string;
   device: string;
   os: string;
@@ -83,7 +83,7 @@ export interface GatewayManagerConnectionProperties {
  */
 export interface GatewayManagerEvents {
   debug: [message: string, shardId?: number];
-  hello: [heartbeatInterval: number, shardId?: number];
+  hello: [heartbeatInterval: number, shardId: number];
   packet: [packet: GatewayEvent, shardId: number];
 }
 
@@ -96,3 +96,8 @@ export interface GatewayManagerOptions {
   token: string;
   version?: APIVersion;
 }
+
+/**
+ * @public
+ */
+export type GatewayManagerConnectionProperties = Partial<ConnectionProperties>;
