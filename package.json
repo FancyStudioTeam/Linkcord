@@ -24,6 +24,7 @@
     "biome:check": "biome check --write ",
     "build": "turbo run build",
     "extractor:run": "turbo run extractor:run",
+    "postinstall": "turbo run build",
     "prepare": "husky",
     "tarball": "turbo run tarball",
     "vitest": "turbo run vitest",
