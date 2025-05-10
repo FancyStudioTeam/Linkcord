@@ -1,15 +1,35 @@
 import type { GatewayManager } from "@fancystudioteam/linkcord-gateway";
-import { GatewayOpcodes, type GatewayVoiceStateUpdatePayload } from "@fancystudioteam/linkcord-types";
+import {
+  GatewayOpcodes,
+  type GatewayVoiceStateUpdatePayload,
+  type VoiceVersion,
+} from "@fancystudioteam/linkcord-types";
 import { VoiceManagerError } from "#util";
 
 /**
  * @public
  */
 export class VoiceManager {
-  gateway: GatewayManager;
+  readonly gateway: GatewayManager;
+  readonly options: VoiceManagerOptions;
+  readonly version: VoiceVersion;
 
-  constructor(gatewayManager: GatewayManager) {
+  constructor(options: VoiceManagerOptions) {
+    let { version, gatewayManager } = options;
+
+    version ??= 8;
+
+    if (version < 4) {
+      throw new VoiceManagerError("Voice versions below 4 are currently deprecated and they should not be used.");
+    }
+
+    if (version > 8) {
+      throw new VoiceManagerError("Invalid voice gateway version.");
+    }
+
     this.gateway = gatewayManager;
+    this.options = options;
+    this.version = version;
   }
 
   joinVoiceChannel(
@@ -49,4 +69,9 @@ export class VoiceManager {
 export interface JoinVoiceChannelOptions {
   selfDeaf: boolean;
   selfMute: boolean;
+}
+
+export interface VoiceManagerOptions {
+  gatewayManager: GatewayManager;
+  version?: VoiceVersion;
 }

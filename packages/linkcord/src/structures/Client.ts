@@ -1,6 +1,6 @@
 import { EventEmitter } from "node:events";
 import { GatewayManager, type GatewayManagerOptions } from "@fancystudioteam/linkcord-gateway";
-import { type JoinVoiceChannelOptions, VoiceManager } from "@fancystudioteam/linkcord-voice";
+import { type JoinVoiceChannelOptions, VoiceManager, type VoiceManagerOptions } from "@fancystudioteam/linkcord-voice";
 
 /**
  * @public
@@ -14,16 +14,20 @@ export class Client<Ready extends boolean = false> extends EventEmitter<ClientEv
   constructor(options: ClientOptions) {
     super();
 
-    const { gateway, token } = options;
+    const { gateway, intents, token, voice } = options;
     const gatewayOptions: GatewayManagerOptions = {
       ...gateway,
+      intents,
       token,
     };
 
     this.gateway = new GatewayManager(gatewayOptions);
     this.options = options;
     this.ready = false as Ready;
-    this.voice = new VoiceManager(this.gateway);
+    this.voice = new VoiceManager({
+      ...voice,
+      gatewayManager: this.gateway,
+    });
   }
 
   async connect(): Promise<void> {
@@ -50,12 +54,16 @@ export interface ClientEvents {
 /**
  * @public
  */
-export interface ClientGatewayOptions extends Omit<GatewayManagerOptions, "token"> {}
+export interface ClientGatewayOptions extends Omit<GatewayManagerOptions, "intents" | "token"> {}
+
+export interface ClientVoiceOptions extends Omit<VoiceManagerOptions, "gatewayManager"> {}
 
 /**
  * @public
  */
 export interface ClientOptions {
-  gateway: ClientGatewayOptions;
+  gateway?: ClientGatewayOptions;
+  intents: number;
   token: string;
+  voice?: ClientVoiceOptions;
 }

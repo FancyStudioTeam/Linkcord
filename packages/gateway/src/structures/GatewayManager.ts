@@ -7,8 +7,9 @@ import { Shard } from "./Shard.js";
  * @public
  */
 export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
+  readonly intents: number;
   readonly options: GatewayManagerOptions;
-  intents: number;
+  readonly version: APIVersion;
   shardCount = 0;
   shards: Map<number, Shard> = new Map();
   token: string;
@@ -17,18 +18,25 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
   constructor(options: GatewayManagerOptions) {
     super();
 
-    const { intents, version, token } = options;
+    let { intents, version, token } = options;
 
-    if (version !== undefined && version < 9) {
+    version ??= 10;
+
+    if (version < 9) {
       throw new GatewayManagerError("API versions below 9 are currently deprecated and they should not be used.");
+    }
+
+    if (version > 10) {
+      throw new GatewayManagerError("Invalid gateway version.");
     }
 
     this.intents = intents;
     this.options = options;
     this.token = token;
+    this.version = version;
   }
 
-  public get connectionProperties(): GatewayManagerConnectionProperties {
+  get connectionProperties(): GatewayManagerConnectionProperties {
     const { connectionProperties } = this.options;
     const defaultConnectionProperties: GatewayManagerConnectionProperties = {
       browser: "Linkcord",
@@ -62,12 +70,6 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
 
       new GatewayManagerError(stringifiedError);
     }
-  }
-
-  get version(): APIVersion {
-    const { version } = this.options;
-
-    return version ?? 10;
   }
 }
 
