@@ -54,11 +54,8 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
   }
 
   async spawnShards(): Promise<void> {
-    console.log("spawnShards");
     try {
-      console.log("fetchGatewayBot");
       const { shards, url } = await fetchGatewayBot(this.token);
-      console.log(shards, url);
 
       this.shardCount = shards;
       this.url = new URL(url);
@@ -69,13 +66,10 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
         shard.connect();
       }
     } catch (error) {
-      console.log(error);
-      console.log("fetchGatewayBot error");
       const stringifiedError = String(error);
 
       new GatewayManagerError(stringifiedError);
     }
-    console.log("spawnShards end");
   }
 }
 
