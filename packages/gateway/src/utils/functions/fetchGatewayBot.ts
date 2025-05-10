@@ -16,8 +16,9 @@ export const fetchGatewayBot = async (token: string): Promise<APIGatewayBot> => 
 
   const headers = new Headers();
   const tokenWithoutPrefix = replaceBotPrefix(token);
+  const authorization = `Bot ${tokenWithoutPrefix}`;
 
-  headers.set("Authorization", tokenWithoutPrefix);
+  headers.set("Authorization", authorization);
   headers.set("Content-Type", "application/json");
 
   const fetchPromise = await fetch("https://discord.com/api/v10/gateway/bot", {
