@@ -24,11 +24,13 @@
   "imports": {
     "#structures": {
       "import": "./dist/esm/structures/index.js",
-      "require": "./dist/cjs/structures/index.js"
+      "require": "./dist/cjs/structures/index.js",
+      "types": "./dist/types/structures/index.d.ts"
     },
     "#utils": {
       "import": "./dist/esm/utils/index.js",
-      "require": "./dist/cjs/utils/index.js"
+      "require": "./dist/cjs/utils/index.js",
+      "types": "./dist/types/utils/index.d.ts"
     }
   },
   "license": "MIT",
@@ -44,6 +46,7 @@
     "rimraf": "rimraf dist",
     "tarball": "pnpm pack"
   },
+  "type": "module",
   "types": "dist/types/index.d.ts",
   "version": "0.0.0"
 }
