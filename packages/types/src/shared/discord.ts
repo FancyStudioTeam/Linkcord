@@ -1,32 +1,5 @@
 /**
  * @public
- * @see https://discord.com/developers/docs/reference#api-versioning-api-versions
- */
-export type APIVersion = 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/reference#image-data
- */
-export type AudioDataUri = `data:audio/mpeg;base64,${string}` | `data:audio/ogg;base64,${string}`;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/reference#image-data
- */
-export type ImageDataUri =
-  | `data:image/jpeg;base64,${string}`
-  | `data:image/png;base64,${string}`
-  | `data:image/gif;base64,${string}`;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/reference#iso8601-datetime
- */
-export type ISO8601Date = string;
-
-/**
- * @public
  * @see https://discord.com/developers/docs/reference#locales
  */
 export interface Locales {
@@ -66,6 +39,35 @@ export interface Locales {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/reference#api-versioning-api-versions
+ * @remarks
+ * - Versions below 9 are deprecated and should not be used.
+ */
+export type APIVersion = 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/reference#image-data
+ */
+export type AudioDataUri = `data:audio/mpeg;base64,${string}` | `data:audio/ogg;base64,${string}`;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/reference#image-data
+ */
+export type ImageDataUri =
+  | `data:image/jpeg;base64,${string}`
+  | `data:image/png;base64,${string}`
+  | `data:image/gif;base64,${string}`;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/reference#iso8601-datetime
+ */
+export type ISO8601Date = string;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/reference#locales
  */
 export type Localizations = Partial<Locales>;
@@ -75,6 +77,14 @@ export type Localizations = Partial<Locales>;
  * @see https://discord.com/developers/docs/reference#snowflakes
  */
 export type Snowflake = string;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/topics/voice-connections#voice-gateway-versioning-gateway-versions
+ * @remarks
+ * - Versions below 4 are deprecated and should not be used.
+ */
+export type VoiceVersion = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 /**
  * @public
