@@ -4,20 +4,21 @@ import type { Snowflake } from "#shared";
  * @public
  * @see https://discord.com/developers/docs/resources/sku#sku-object-sku-structure
  */
-export interface APISku {
+// biome-ignore lint/style/useNamingConvention:
+export interface APISKU {
   application_id: Snowflake;
-  flags: SkuFlags;
+  flags: number;
   id: Snowflake;
   name: string;
   slug: string;
-  type: SkuTypes;
+  type: SKUTypes;
 }
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/sku#sku-object-sku-flags
  */
-export enum SkuFlags {
+export enum SKUFlags {
   Available = 1 << 2,
   GuildSubscription = 1 << 7,
   UserSubscription = 1 << 8,
@@ -27,7 +28,7 @@ export enum SkuFlags {
  * @public
  * @see https://discord.com/developers/docs/resources/sku#sku-object-sku-types
  */
-export enum SkuTypes {
+export enum SKUTypes {
   Consumable = 3,
   Durable = 2,
   Subscription = 5,

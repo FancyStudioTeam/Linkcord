@@ -9,6 +9,7 @@ export * from "./entitlement.js";
 export * from "./gateway.js";
 export * from "./lobby.js";
 export * from "./poll.js";
+export * from "./sku.js";
 export * from "./soundboard.js";
 export * from "./user.js";
 export * from "./voice.js";
