@@ -10,3 +10,6 @@ export * from "./gateway.js";
 export * from "./lobby.js";
 export * from "./poll.js";
 export * from "./soundboard.js";
+export * from "./user.js";
+export * from "./voice.js";
+export * from "./webhook.js";
