@@ -47,8 +47,8 @@ export class Client<Ready extends boolean = false> extends EventEmitter<ClientEv
  * @public
  */
 export interface ClientEvents {
-  debug: [shardId: number, message: string];
-  hello: [shardId: number, heartbeatInterval: number];
+  debug: [message: string, shardId?: number];
+  hello: [heartbeatInterval: number, shardId: number];
 }
 
 /**

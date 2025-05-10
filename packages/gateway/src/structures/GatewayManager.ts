@@ -54,23 +54,17 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
   }
 
   async spawnShards(): Promise<void> {
-    try {
-      const { shards, url } = await fetchGatewayBot(this.token);
+    const { shards, url } = await fetchGatewayBot(this.token);
 
-      this.shardCount = shards;
-      this.url = new URL(url);
+    this.shardCount = shards;
+    this.url = new URL(url);
 
-      for (let index = 0; index < shards; index++) {
-        const shard = new Shard(this, index);
+    for (let index = 0; index < shards; index++) {
+      const shard = new Shard(this, index);
 
-        this.shards.set(index, shard);
+      this.shards.set(index, shard);
 
-        shard.connect();
-      }
-    } catch (error) {
-      const stringifiedError = String(error);
-
-      new GatewayManagerError(stringifiedError);
+      shard.connect();
     }
   }
 }
@@ -88,9 +82,9 @@ export interface GatewayManagerConnectionProperties {
  * @public
  */
 export interface GatewayManagerEvents {
-  debug: [shardId: number, message: string];
-  hello: [shardId: number, heartbeatInterval: number];
-  packet: [shardId: number, packet: GatewayEvent];
+  debug: [message: string, shardId?: number];
+  hello: [heartbeatInterval: number, shardId?: number];
+  packet: [packet: GatewayEvent, shardId: number];
 }
 
 /**
