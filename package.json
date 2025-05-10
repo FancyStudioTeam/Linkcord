@@ -17,7 +17,6 @@
   },
   "name": "linkcord-monorepo",
   "packageManager": "pnpm@10.10.0",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/FancyStudioTeam/Linkcord"
