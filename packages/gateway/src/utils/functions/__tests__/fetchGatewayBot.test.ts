@@ -25,29 +25,30 @@ describe("Function: fetchGatewayBot", () => {
     global.fetch = vi.fn().mockResolvedValue(fetchResponse);
   });
 
-  it("Given an invalid token as argument, should throw a string error.", async () => {
+  it("Given an invalid token as argument, should throw an error.", async () => {
     const token = 123;
-    const expectedErrorMessage = ["The provided token is invalid.", 'Expected "string", but received "number".'].join(
-      "\n",
-    );
+    const expectedErrorMessages = ["The provided token is invalid.", 'Expected "string", but received "number".'];
     // @ts-expect-error
     const result = fetchGatewayBot(token);
 
-    await expect(result).rejects.toThrow(expectedErrorMessage);
+    await expect(result).rejects.toThrow(expectedErrorMessages.join("\n"));
   });
 
-  it("Given a valid token as argument, but the request fails, should throw a string error.", async () => {
-    const fetchResponse = new Response("Request failed.", {
-      status: 500,
+  it("Given an expired token as argument, should throw an error.", async () => {
+    const fetchResponse = new Response("Not authorized", {
+      status: 401,
     });
 
     global.fetch = vi.fn().mockResolvedValue(fetchResponse);
 
-    const token = "ANY_DISCORD_BOT_TOKEN";
-    const expectedErrorMessage = "Failed to get the gateway information for the Discord bot.";
+    const token = "ANY_EXPIRED_DISCORD_BOT_TOKEN";
+    const expectedErrorMessages = [
+      "Failed to get the gateway information for the Discord bot.",
+      "The authentication failed due to an invalid token.",
+    ];
     const result = fetchGatewayBot(token);
 
-    await expect(result).rejects.toThrow(expectedErrorMessage);
+    await expect(result).rejects.toThrow(expectedErrorMessages.join("\n"));
   });
 
   it("Given a valid token as argument, should return the gateway information object.", async () => {

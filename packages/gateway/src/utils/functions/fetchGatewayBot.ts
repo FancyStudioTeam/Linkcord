@@ -1,6 +1,15 @@
 import type { APIGatewayBot } from "@fancystudioteam/linkcord-types";
 import { replaceBotPrefix } from "./replaceBotPrefix.js";
 
+const ADDITIONAL_ERROR_MESSAGES: Record<number, string> = {
+  400: "The request contains invalid JSON.",
+  401: "The authentication failed due to an invalid token.",
+  403: "The token that you are using does not have permission to access this resource.",
+  404: "The resource that you are trying to access does not exist.",
+  405: "The method that you are using is not allowed for this endpoint.",
+  429: "You are being rate limited.",
+};
+
 /**
  * Fetches the gateway information for a Discord bot.
  * @public
@@ -10,11 +19,9 @@ import { replaceBotPrefix } from "./replaceBotPrefix.js";
 export const fetchGatewayBot = async (token: string): Promise<APIGatewayBot> => {
   if (typeof token !== "string") {
     const typeofToken = typeof token;
-    const errorMessage = ["The provided token is invalid.", `Expected "string", but received "${typeofToken}".`].join(
-      "\n",
-    );
+    const errorMessages = ["The provided token is invalid.", `Expected "string", but received "${typeofToken}".`];
 
-    throw new Error(errorMessage);
+    throw new Error(errorMessages.join("\n"));
   }
 
   const headers = new Headers();
@@ -30,9 +37,14 @@ export const fetchGatewayBot = async (token: string): Promise<APIGatewayBot> => 
   });
 
   if (!fetchPromise.ok) {
-    const errorMessage = "Failed to get the gateway information for the Discord bot.";
+    const errorMessages = ["Failed to get the gateway information for the Discord bot."];
+    const additionalErrorMessage = ADDITIONAL_ERROR_MESSAGES[fetchPromise.status] ?? undefined;
 
-    throw new Error(errorMessage);
+    if (additionalErrorMessage) {
+      errorMessages.push(additionalErrorMessage);
+    }
+
+    throw new Error(errorMessages.join("\n"));
   }
 
   const response = (await fetchPromise.json()) as APIGatewayBot;
