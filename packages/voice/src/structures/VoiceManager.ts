@@ -1,11 +1,8 @@
 import { EventEmitter } from "node:events";
-import type { GatewayManager } from "@fancystudioteam/linkcord-gateway";
-import {
-  GatewayOpcodes,
-  type GatewayVoiceStateUpdatePayload,
-  type VoiceVersion,
-} from "@fancystudioteam/linkcord-types";
+import type { GatewayManager, JoinVoiceChannelOptions } from "@fancystudioteam/linkcord-gateway";
+import type { VoiceVersion } from "@fancystudioteam/linkcord-types";
 import { VoiceManagerError } from "#utils";
+import { VoiceConnection } from "./VoiceConnection.js";
 
 /**
  * @public
@@ -35,14 +32,14 @@ export class VoiceManager extends EventEmitter<VoiceManagerEvents> {
     this.version = version;
   }
 
-  joinVoiceChannel(
+  async joinVoiceChannel(
     channelId: string,
     guildId: string,
     options: JoinVoiceChannelOptions = {
       selfDeaf: true,
       selfMute: false,
     },
-  ): void {
+  ): Promise<VoiceConnection> {
     const { shards } = this.gateway;
     const shardId = this.gateway.getShardIdByGuildId(guildId);
     const shard = shards.get(shardId);
@@ -57,27 +54,11 @@ export class VoiceManager extends EventEmitter<VoiceManagerEvents> {
       throw new VoiceManagerError(`Cannot find shard for guild "${guildId}".`);
     }
 
-    const voiceStateUpdatePayload: GatewayVoiceStateUpdatePayload = {
-      // biome-ignore lint/style/useNamingConvention:
-      channel_id: channelId,
-      // biome-ignore lint/style/useNamingConvention:
-      guild_id: guildId,
-      // biome-ignore lint/style/useNamingConvention:
-      self_deaf: options.selfDeaf,
-      // biome-ignore lint/style/useNamingConvention:
-      self_mute: options.selfMute,
-    };
+    const { endpoint, token } = await shard.joinVoiceChannel(channelId, guildId, options);
+    const voiceConnection = new VoiceConnection(this, endpoint, token);
 
-    shard.send(GatewayOpcodes.VoiceStateUpdate, voiceStateUpdatePayload);
+    return voiceConnection;
   }
-}
-
-/**
- * @public
- */
-export interface JoinVoiceChannelOptions {
-  selfDeaf: boolean;
-  selfMute: boolean;
 }
 
 /**

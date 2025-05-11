@@ -4,9 +4,16 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@fancystudioteam/linkcord': link:packages/linkcord
+
 importers:
 
   .:
+    dependencies:
+      '@fancystudioteam/linkcord':
+        specifier: link:packages/linkcord
+        version: link:packages/linkcord
     devDependencies:
       '@biomejs/biome':
         specifier: 1.9.4
@@ -249,6 +256,9 @@ importers:
       '@types/node':
         specifier: 22.15.13
         version: 22.15.13
+      '@types/ws':
+        specifier: 8.18.1
+        version: 8.18.1
       rimraf:
         specifier: 6.0.1
         version: 6.0.1

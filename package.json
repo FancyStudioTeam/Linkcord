@@ -1,4 +1,7 @@
 {
+  "dependencies": {
+    "@fancystudioteam/linkcord": "link:packages/linkcord"
+  },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@commitlint/cli": "19.8.1",
