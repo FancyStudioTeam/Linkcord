@@ -23,17 +23,6 @@ export interface RESTListGuildSoundboardSounds {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound-json-params
- */
-export interface RESTModifyGuildSoundboardSoundJSONParams {
-  emoji_id?: Nullable<Snowflake>;
-  emoji_name?: Nullable<string>;
-  name?: string;
-  volume?: Nullable<number>;
-}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound-json-params
  */
 export interface RESTSendSoundboardSoundJSONParams {
@@ -74,6 +63,12 @@ export type RESTListDefaultSoundboardSounds = APISoundboardSound[];
  * @see https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound
  */
 export type RESTModifyGuildSoundboardSound = APISoundboardSound;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound-json-params
+ */
+export type RESTModifyGuildSoundboardSoundJSONParams = Partial<Omit<RESTCreateGuildSoundboardSoundJSONParams, "sound">>;
 
 /**
  * @public
