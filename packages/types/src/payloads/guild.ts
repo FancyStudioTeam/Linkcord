@@ -444,6 +444,18 @@ export enum GuildNSFWLevel {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/guild#get-guild-widget-image-widget-style-options
+ */
+export enum GuildWidgetStyles {
+  Banner1 = "banner1",
+  Banner2 = "banner2",
+  Banner3 = "banner3",
+  Banner4 = "banner4",
+  Shield = "shield",
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#integration-object-integration-expire-behaviors
  */
 export enum IntegrationExpireBehaviors {

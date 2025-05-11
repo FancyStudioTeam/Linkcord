@@ -1,4 +1,4 @@
-import type { APIInteractionResponse, APIMessage } from "#payloads";
+import type { APIInteractionCallbackResponse, APIInteractionResponse, APIMessage } from "#payloads";
 
 /**
  * @public
@@ -18,7 +18,7 @@ export type RESTCreateFollowupMessage = undefined;
  * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
  */
-export type RESTCreateInteractionResponse = undefined;
+export type RESTCreateInteractionResponse = APIInteractionCallbackResponse | undefined;
 
 /**
  * @public
