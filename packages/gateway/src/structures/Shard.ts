@@ -1,5 +1,5 @@
 import {
-  GatewayCloseEventCodes,
+  GatewayDispatchEvents,
   type GatewayEvent,
   type GatewayHeartbeatPayload,
   type GatewayIdentifyPayload,
@@ -15,7 +15,7 @@ import { type RawData, WebSocket } from "ws";
 import { ShardError } from "#utils";
 import type { GatewayManager } from "./GatewayManager.js";
 
-const RECONNECTABLE_CLOSE_CODES: GatewayCloseEventCodes[] = [
+/*const RECONNECTABLE_CLOSE_CODES: GatewayCloseEventCodes[] = [
   GatewayCloseEventCodes.UnknownError,
   GatewayCloseEventCodes.UnknownOpcode,
   GatewayCloseEventCodes.DecodeError,
@@ -24,8 +24,8 @@ const RECONNECTABLE_CLOSE_CODES: GatewayCloseEventCodes[] = [
   GatewayCloseEventCodes.InvalidSequence,
   GatewayCloseEventCodes.RateLimited,
   GatewayCloseEventCodes.SessionTimedOut,
-];
-const SENDABLE_OPCODES: AnySendableOpcode[] = [
+];*/
+const SENDABLE_OPCODES = [
   GatewayOpcodes.Heartbeat,
   GatewayOpcodes.Identify,
   GatewayOpcodes.PresenceUpdate,
@@ -33,16 +33,19 @@ const SENDABLE_OPCODES: AnySendableOpcode[] = [
   GatewayOpcodes.RequestSoundboardSounds,
   GatewayOpcodes.VoiceStateUpdate,
   GatewayOpcodes.Resume,
-];
+] as const;
 
 /**
  * @public
  */
 export class Shard {
   private _sequence: Nullable<number> = null;
+  private _voiceServerUpdates: Map<string, VoiceServerUpdate> = new Map();
+
+  readonly manager: GatewayManager;
+
   heartbeatInterval: Nullable<number> = null;
   id: number;
-  manager: GatewayManager;
   socket: Nullable<WebSocket> = null;
 
   constructor(manager: GatewayManager, id: number) {
@@ -60,7 +63,7 @@ export class Shard {
       op: GatewayOpcodes.Heartbeat,
     };
 
-    this.send(GatewayOpcodes.Heartbeat, heartbeatPayload);
+    this.sendPayload(GatewayOpcodes.Heartbeat, heartbeatPayload);
   }
 
   /**
@@ -75,7 +78,7 @@ export class Shard {
       token,
     };
 
-    this.send(GatewayOpcodes.Identify, identifyPayload);
+    this.sendPayload(GatewayOpcodes.Identify, identifyPayload);
   }
 
   /**
@@ -93,14 +96,6 @@ export class Shard {
     this.socket = socket;
     this.socket.on("open", this._onOpen.bind(this));
     this.socket.on("message", this._onMessage.bind(this));
-    this.socket.on("close", this._onClose.bind(this));
-  }
-
-  /**
-   * @internal
-   */
-  private _onClose(code: number, reason: Buffer): void {
-    console.log(code, reason);
   }
 
   /**
@@ -127,6 +122,28 @@ export class Shard {
         const { s } = message;
 
         this._sequence = s;
+
+        switch (message.t) {
+          case GatewayDispatchEvents.VoiceServerUpdate: {
+            const { endpoint, guild_id, token } = message.d;
+            const pendingVoiceServerUpdate = this._voiceServerUpdates.get(guild_id);
+
+            if (pendingVoiceServerUpdate) {
+              const { data, resolve } = pendingVoiceServerUpdate;
+
+              data.endpoint = endpoint;
+              data.token = token;
+
+              resolve(data);
+              this._voiceServerUpdates.delete(guild_id);
+            }
+
+            break;
+          }
+          default: {
+            break;
+          }
+        }
 
         break;
       }
@@ -168,7 +185,38 @@ export class Shard {
     return socket;
   }
 
-  send<Opcode extends AnySendableOpcode>(opcode: Opcode, payload: SendPayload[Opcode]): void {
+  joinVoiceChannel(
+    channelId: string,
+    guildId: string,
+    options: JoinVoiceChannelOptions = {
+      selfDeaf: true,
+      selfMute: false,
+    },
+  ): Promise<VoiceServerUpdateData> {
+    const voiceStateUpdatePayload: GatewayVoiceStateUpdatePayload = {
+      channel_id: channelId,
+      guild_id: guildId,
+      self_deaf: options.selfDeaf ?? true,
+      self_mute: options.selfMute ?? false,
+    };
+
+    this.sendPayload(GatewayOpcodes.VoiceStateUpdate, voiceStateUpdatePayload);
+
+    const promise = new Promise<VoiceServerUpdateData>((resolve, reject) =>
+      this._voiceServerUpdates.set(guildId, {
+        data: {
+          endpoint: "",
+          token: "",
+        },
+        reject,
+        resolve: (value) => resolve(value),
+      }),
+    );
+
+    return promise;
+  }
+
+  sendPayload<Opcode extends AnySendableOpcode>(opcode: Opcode, payload: SendPayloadData[Opcode]): void {
     if (!SENDABLE_OPCODES.includes(opcode)) {
       throw new ShardError("Cannot send a non-sendable opcode to the gateway.", this.id);
     }
@@ -191,7 +239,15 @@ export class Shard {
 /**
  * @public
  */
-export interface SendPayload {
+export interface JoinVoiceChannelOptions {
+  selfDeaf?: boolean;
+  selfMute?: boolean;
+}
+
+/**
+ * @public
+ */
+export interface SendPayloadData {
   [GatewayOpcodes.Heartbeat]: GatewayHeartbeatPayload;
   [GatewayOpcodes.Identify]: GatewayIdentifyPayload;
   [GatewayOpcodes.PresenceUpdate]: GatewayPresenceUpdatePayload;
@@ -204,11 +260,21 @@ export interface SendPayload {
 /**
  * @public
  */
-export type AnySendableOpcode =
-  | GatewayOpcodes.Heartbeat
-  | GatewayOpcodes.Identify
-  | GatewayOpcodes.PresenceUpdate
-  | GatewayOpcodes.RequestGuildMembers
-  | GatewayOpcodes.RequestSoundboardSounds
-  | GatewayOpcodes.Resume
-  | GatewayOpcodes.VoiceStateUpdate;
+export interface VoiceServerUpdate {
+  data: VoiceServerUpdateData;
+  reject: (reason?: unknown) => void;
+  resolve: (value: VoiceServerUpdateData) => void;
+}
+
+/**
+ * @public
+ */
+export interface VoiceServerUpdateData {
+  endpoint: string;
+  token: string;
+}
+
+/**
+ * @public
+ */
+export type AnySendableOpcode = (typeof SENDABLE_OPCODES)[number];
