@@ -28,6 +28,14 @@ export interface RESTCreateGuildScheduledEventJSONParams {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/guild-scheduled-event#list-guild-scheduled-events-query-string-params
+ */
+export interface RESTListScheduledEventsForGuildStringParams {
+  with_user_count?: boolean;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#modify-guild-scheduled-event-json-params
  */
 export interface RESTModifyGuildScheduledEventJSONParams {
