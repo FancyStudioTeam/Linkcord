@@ -1,3 +1,18 @@
+import type { ISO8601Date } from "#shared";
+import type { APIPartialApplication } from "./application.js";
+import type { APIUser } from "./user.js";
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/topics/oauth2#get-current-authorization-information-response-structure
+ */
+export interface APIAuthorizationInformation {
+  application: APIPartialApplication;
+  expires: ISO8601Date;
+  scopes: OAuth2Scopes[];
+  user?: APIUser;
+}
+
 /**
  * @public
  * @see https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes
