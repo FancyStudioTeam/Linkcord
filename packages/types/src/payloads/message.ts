@@ -373,6 +373,16 @@ export interface APIRoleSubscriptionData {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
+ * @remarks
+ * - This type is not documented by Discord.
+ * - Partial structures may be incorrectly implemented here due lack of
+ *   documentation.
+ */
+export type APIPartialAttachment = Partial<APIAttachment>;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
  */
 export type APIModalSubmitInteractionMetadataTriggeringInteractionMetadata =
@@ -542,4 +552,13 @@ export enum MessageTypes {
   ThreadCreated = 18,
   ThreadStarterMessage = 21,
   UserJoin = 7,
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#get-reactions-reaction-types
+ */
+export enum ReactionTypes {
+  Burst = 1,
+  Normal = 0,
 }
