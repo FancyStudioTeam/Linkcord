@@ -1,4 +1,5 @@
 import type { ISO8601Date, Nullable, Snowflake } from "#shared";
+import type { APIGuildMember } from "./guild.js";
 import type { APIUser } from "./user.js";
 
 /**
@@ -71,6 +72,16 @@ export interface APIGuildScheduledEventRecurrenceRule {
 export interface APIGuildScheduledEventRecurrenceRuleNWeekday {
   day: GuildScheduledEventRecurrenceRuleWeekday;
   n: number;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-user-object
+ */
+export interface APIGuildScheduledEventUser {
+  guild_scheduled_event_id: Snowflake;
+  member?: APIGuildMember;
+  user: APIUser;
 }
 
 /**
