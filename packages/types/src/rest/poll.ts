@@ -3,6 +3,18 @@ import type { Snowflake } from "#shared";
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/poll#poll-create-request-object-poll-create-request-object-structure
+ */
+export interface RESTCreatePollRequest {
+  allow_multiselect?: boolean;
+  answers: APIPollAnswer[];
+  duration?: number;
+  layout_type?: PollLayoutTypes;
+  question: APIPollQuestion;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/poll#get-answer-voters-query-string-params
  */
 export interface RESTGetAnswerVotesQueryStringParams {
@@ -16,18 +28,6 @@ export interface RESTGetAnswerVotesQueryStringParams {
  */
 export interface RESTGetAnswerVoters {
   users: APIUser[];
-}
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/poll#poll-create-request-object-poll-create-request-object-structure
- */
-export interface RESTPollCreateRequest {
-  allow_multiselect?: boolean;
-  answers: APIPollAnswer[];
-  duration?: number;
-  layout_type?: PollLayoutTypes;
-  question: APIPollQuestion;
 }
 
 /**

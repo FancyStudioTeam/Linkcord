@@ -5,8 +5,10 @@ import type { ISO8601Date, Nullable } from "#shared";
  * @public
  * @see https://discord.com/developers/docs/resources/voice#modify-current-user-voice-state-json-params
  */
-export interface RESTModifyCurrentUserVoiceStateJSONParams extends Partial<RESTModifyUserVoiceStateJSONParams> {
+export interface RESTModifyCurrentUserVoiceStateJSONParams {
+  channel_id?: string;
   request_to_speak_timestamp?: Nullable<ISO8601Date>;
+  suppress?: boolean;
 }
 
 /**

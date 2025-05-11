@@ -12,9 +12,10 @@ export interface RESTCreateGuildStickerFormParams {
   tags: string;
 }
 
-export interface RESTModifyGuildStickerJSONParams
-  extends Partial<Omit<RESTCreateGuildStickerFormParams, "description" | "file">> {
+export interface RESTModifyGuildStickerJSONParams {
   description?: Nullable<string>;
+  name?: string;
+  tags?: string;
 }
 
 /**

@@ -6,8 +6,8 @@ import type { Snowflake } from "#shared";
  * @see https://discord.com/developers/docs/resources/subscription#list-sku-subscriptions-query-string-params
  */
 export interface RESTListSKUSubscriptionsQueryParams {
-  after?: string;
-  before?: string;
+  after?: Snowflake;
+  before?: Snowflake;
   limit?: number;
   user_id?: Snowflake;
 }
