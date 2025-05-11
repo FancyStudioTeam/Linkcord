@@ -1,6 +1,6 @@
 import { EventEmitter } from "node:events";
 import { GatewayManager, type GatewayManagerOptions } from "@fancystudioteam/linkcord-gateway";
-import { type JoinVoiceChannelOptions, VoiceManager, type VoiceManagerOptions } from "@fancystudioteam/linkcord-voice";
+import { VoiceManager, type VoiceManagerOptions } from "@fancystudioteam/linkcord-voice";
 
 /**
  * @public
@@ -9,6 +9,7 @@ export class Client<Ready extends boolean = false> extends EventEmitter<ClientEv
   readonly gateway: GatewayManager;
   readonly options: ClientOptions;
   readonly voice: VoiceManager;
+
   ready: Ready;
 
   constructor(options: ClientOptions) {
@@ -36,10 +37,6 @@ export class Client<Ready extends boolean = false> extends EventEmitter<ClientEv
 
   isReady(): this is Client<true> {
     return this.ready;
-  }
-
-  joinVoiceChannel(channelId: string, guildId: string, options?: JoinVoiceChannelOptions): void {
-    this.voice.joinVoiceChannel(channelId, guildId, options);
   }
 }
 
