@@ -3,12 +3,6 @@ import type { GatewayOpcodes } from "../event.js";
 
 /**
  * @public
- * @see https://discord.com/developers/docs/events/gateway-events#resume
- */
-export interface GatewayResumeEvent extends GatewayEventBase<GatewayOpcodes.Resume, GatewayResumePayload> {}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#resume-resume-structure
  */
 export interface GatewayResumePayload {
@@ -16,3 +10,9 @@ export interface GatewayResumePayload {
   session_id: string;
   token: string;
 }
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#resume
+ */
+export type GatewayResumeEvent = GatewayEventBase<GatewayOpcodes.Resume, GatewayResumePayload>;
