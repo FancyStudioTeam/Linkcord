@@ -1,0 +1,27 @@
+import type { VoiceOpcodes } from "#voice";
+import type { VoiceEventBase } from "../base/index.js";
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/topics/voice-connections#establishing-a-voice-udp-connection-example-select-protocol-payload
+ */
+export interface VoiceSelectProtocolPayload {
+  data: VoiceSelectProtocolPayloadData;
+  protocol: string;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/topics/voice-connections#establishing-a-voice-udp-connection-example-select-protocol-payload
+ */
+export interface VoiceSelectProtocolPayloadData {
+  address: string;
+  mode: string;
+  port: number;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/topics/voice-connections#establishing-a-voice-udp-connection-example-select-protocol-payload
+ */
+export type VoiceSelectProtocolEvent = VoiceEventBase<VoiceOpcodes.SelectProtocol, VoiceSelectProtocolPayload>;
