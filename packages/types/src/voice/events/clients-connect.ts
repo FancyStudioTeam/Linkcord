@@ -1,0 +1,17 @@
+import type { Snowflake } from "#shared";
+import type { VoiceOpcodes } from "#voice";
+import type { VoiceEventBase } from "../base/index.js";
+
+/**
+ * @public
+ * @see https://daveprotocol.com/#clients_connect-11
+ */
+export interface VoiceClientsConnectPayload {
+  user_ids: Snowflake[];
+}
+
+/**
+ * @public
+ * @see https://daveprotocol.com/#clients_connect-11
+ */
+export type VoiceClientsConnectEvent = VoiceEventBase<VoiceOpcodes.ClientsConnect, VoiceClientsConnectPayload>;

@@ -1,10 +1,12 @@
 import type {
+  VoiceClientsConnectEvent,
   VoiceHeartbeatAckEvent,
   VoiceHeartbeatEvent,
   VoiceHelloEvent,
   VoiceIdentifyEvent,
   VoiceReadyEvent,
   VoiceResumeEvent,
+  VoiceResumedEvent,
   VoiceSelectProtocolEvent,
   VoiceSessionDescriptionEvent,
   VoiceSpeakingEvent,
@@ -21,9 +23,11 @@ export type VoiceEvent = VoiceReceiveEvent | VoiceSendEvent;
  * @see https://discord.com/developers/docs/topics/voice-connections
  */
 export type VoiceReceiveEvent =
+  | VoiceClientsConnectEvent
   | VoiceHeartbeatAckEvent
   | VoiceHelloEvent
   | VoiceReadyEvent
+  | VoiceResumedEvent
   | VoiceSessionDescriptionEvent;
 
 /**
