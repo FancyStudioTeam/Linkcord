@@ -1,0 +1,16 @@
+import type { VoiceOpcodes } from "#voice";
+import type { VoiceEventBase } from "../base/index.js";
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/topics/voice-connections#heartbeating-example-heartbeat-ack-payload-since-v8
+ */
+export interface VoiceHeartbeatAckPayload {
+  t: number;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/topics/voice-connections#heartbeating-example-heartbeat-ack-payload-since-v8
+ */
+export type VoiceHeartbeatAckEvent = VoiceEventBase<VoiceOpcodes.HeartbeatAck, VoiceHeartbeatAckPayload>;
