@@ -6,4 +6,5 @@ import type { VoiceOpcodes } from "../event.js";
 export interface VoiceEventBase<Opcode extends VoiceOpcodes, Data> {
   d: Data;
   op: Opcode;
+  seq?: number;
 }
