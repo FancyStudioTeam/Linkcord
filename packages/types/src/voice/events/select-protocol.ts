@@ -1,5 +1,5 @@
-import type { VoiceOpcodes } from "#voice";
 import type { VoiceEventBase } from "../base/event.js";
+import type { VoiceOpcodes } from "../event.js";
 
 /**
  * @public
