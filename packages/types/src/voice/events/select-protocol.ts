@@ -1,5 +1,6 @@
 import type { VoiceEventBase } from "../base/event.js";
 import type { VoiceOpcodes } from "../event.js";
+import type { VoiceEncryptionMode } from "./ready.js";
 
 /**
  * @public
@@ -16,7 +17,7 @@ export interface VoiceSelectProtocolPayload {
  */
 export interface VoiceSelectProtocolPayloadData {
   address: string;
-  mode: string;
+  mode: VoiceEncryptionMode;
   port: number;
 }
 
