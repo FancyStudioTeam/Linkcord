@@ -206,9 +206,13 @@ export class Shard {
     },
   ): Promise<VoiceServerUpdateData> {
     const voiceStateUpdatePayload: GatewayVoiceStateUpdatePayload = {
+      // biome-ignore lint/style/useNamingConvention: Discord fields use snake case.
       channel_id: channelId,
+      // biome-ignore lint/style/useNamingConvention: Discord fields use snake case.
       guild_id: guildId,
+      // biome-ignore lint/style/useNamingConvention: Discord fields use snake case.
       self_deaf: options.selfDeaf ?? true,
+      // biome-ignore lint/style/useNamingConvention: Discord fields use snake case.
       self_mute: options.selfMute ?? false,
     };
 
