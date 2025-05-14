@@ -9,7 +9,7 @@ import type { VoiceOpcodes } from "../event.js";
 export interface VoiceIdentifyPayload {
   max_dave_protocol_version?: number;
   server_id: Snowflake;
-  session: string;
+  session_id: string;
   token: string;
   user_id: Snowflake;
 }

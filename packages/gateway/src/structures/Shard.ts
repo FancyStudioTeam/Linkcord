@@ -58,10 +58,7 @@ export class Shard {
    */
   private _heartbeat(): void {
     const { _sequence } = this;
-    const heartbeatPayload: GatewayHeartbeatPayload = {
-      d: _sequence,
-      op: GatewayOpcodes.Heartbeat,
-    };
+    const heartbeatPayload: GatewayHeartbeatPayload = _sequence;
 
     this.sendPayload(GatewayOpcodes.Heartbeat, heartbeatPayload);
   }
@@ -132,10 +129,25 @@ export class Shard {
               const { data, resolve } = pendingVoiceServerUpdate;
 
               data.endpoint = endpoint;
+              data.guildId = guild_id;
               data.token = token;
 
               resolve(data);
               this._voiceServerUpdates.delete(guild_id);
+            }
+
+            break;
+          }
+          case GatewayDispatchEvents.VoiceStateUpdate: {
+            const { guild_id, session_id, user_id } = message.d;
+            const pendingVoiceServerUpdate = this._voiceServerUpdates.get(guild_id);
+
+            if (pendingVoiceServerUpdate) {
+              const { data } = pendingVoiceServerUpdate;
+
+              data.sessionId = session_id;
+              data.userId = user_id;
+              data.guildId = guild_id;
             }
 
             break;
@@ -206,7 +218,10 @@ export class Shard {
       this._voiceServerUpdates.set(guildId, {
         data: {
           endpoint: "",
+          guildId,
+          sessionId: "",
           token: "",
+          userId: "",
         },
         reject,
         resolve: (value) => resolve(value),
@@ -271,7 +286,19 @@ export interface VoiceServerUpdate {
  */
 export interface VoiceServerUpdateData {
   endpoint: string;
+  guildId: string;
+  sessionId: string;
   token: string;
+  userId: string;
+}
+
+/**
+ * @public
+ */
+export interface VoiceStateUpdateData {
+  guildId: string;
+  sessionId: string;
+  userId: string;
 }
 
 /**
