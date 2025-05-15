@@ -229,10 +229,11 @@ export class VoiceConnection {
     socket.send(stringifiedDataToSend);
   }
 
-  setSpeaking(speaking: number): void {
+  setSpeaking(speaking: boolean | number): void {
+    const speakingValue = typeof speaking === "boolean" ? (speaking === true ? SpeakingFlags.Microphone : 0) : speaking;
     const speakingPayload: VoiceSpeakingPayload = {
       delay: 0,
-      speaking,
+      speaking: speakingValue,
       ssrc: this.ssrc ?? 0,
     };
 

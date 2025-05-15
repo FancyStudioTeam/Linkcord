@@ -7,6 +7,7 @@ import type { VoiceConnection, VoiceConnectionAddress } from "./VoiceConnection.
 
 const IP_DISCOVERY_PACKET_LENGTH = 74;
 const SILENCE_FRAMES = Buffer.from([0xf8, 0xff, 0xfe]);
+const TIMESTAMP_INCREASE = (48000 / 100) * 2;
 
 /**
  * @public
@@ -78,7 +79,7 @@ export class VoiceUDPSocket {
     const selectProtocolPayload: VoiceSelectProtocolPayload = {
       data: {
         address,
-        mode: "aead_aes256_gcm_rtpsize",
+        mode: "aead_xchacha20_poly1305_rtpsize",
         port,
       },
       protocol: "udp",
@@ -113,13 +114,26 @@ export class VoiceUDPSocket {
 
   sendAudioPacket(audioFrame: Buffer): void {
     const { ip, port } = this._localAddress ?? {};
+    let { timestamp, sequence } = this.voiceConnection;
 
     if (!(ip && port)) {
       throw new VoiceConnectionError("Local address has not been set yet.");
     }
 
+    sequence++;
+    timestamp += TIMESTAMP_INCREASE;
+
+    if (sequence >= 2 ** 16) {
+      sequence = 0;
+    }
+
+    if (timestamp >= 2 ** 32) {
+      timestamp = 0;
+    }
+
     const audioPacket = this._createAudioPacket(audioFrame);
 
+    this.voiceConnection.setSpeaking(true);
     this.sendUDPPacket(audioPacket, ip, port);
   }
 
