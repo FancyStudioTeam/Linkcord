@@ -21,3 +21,13 @@ export interface VoiceSpeakingPayload {
  * @see https://discord.com/developers/docs/topics/voice-connections#speaking-example-speaking-payload
  */
 export type VoiceSpeakingEvent = VoiceEventBase<VoiceOpcodes.Speaking, VoiceSpeakingPayload>;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/topics/voice-connections#speaking
+ */
+export enum SpeakingFlags {
+  Microphone = 1 << 0,
+  Priority = 1 << 2,
+  Soundshare = 1 << 1,
+}
