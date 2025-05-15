@@ -16,6 +16,9 @@ temp
 # Extensions
 .VSCodeCounter
 
+# IDEs
+.idea
+
 # Packages
 node_modules
 
