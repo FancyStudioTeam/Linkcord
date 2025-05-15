@@ -240,9 +240,12 @@ importers:
       '@fancystudioteam/linkcord-types':
         specifier: workspace:*
         version: link:../types
+      opusscript:
+        specifier: 0.1.1
+        version: 0.1.1
       prism-media:
         specifier: 1.3.5
-        version: 1.3.5
+        version: 1.3.5(opusscript@0.1.1)
       ws:
         specifier: 8.18.2
         version: 8.18.2
@@ -4609,6 +4612,9 @@ packages:
 
   oniguruma-to-es@4.3.2:
     resolution: {integrity: sha512-Hxxc18dGbVYzcTp2W64YwxQLYabiYM+dOX5Dtycy3qLvuYE4HIQjwfgEeAtPS6chFJs8UdINTQ83/Rlh+1Qwsg==}
+
+  opusscript@0.1.1:
+    resolution: {integrity: sha512-mL0fZZOUnXdZ78woRXp18lApwpp0lF5tozJOD1Wut0dgrA9WuQTgSels/CSmFleaAZrJi/nci5KOVtbuxeWoQA==}
 
   ora@5.4.1:
     resolution: {integrity: sha512-5b6Y85tPxZZ7QytO+BQzysW31HJku27cRIlkbAXaNx+BdcVi+LlRFmVXzeF6a7JCwJpyw5c4b+YSVImQIrBpuQ==}
@@ -10912,6 +10918,8 @@ snapshots:
       regex: 6.0.1
       regex-recursion: 6.0.2
 
+  opusscript@0.1.1: {}
+
   ora@5.4.1:
     dependencies:
       bl: 4.1.0
@@ -11120,7 +11128,9 @@ snapshots:
 
   printable-characters@1.0.42: {}
 
-  prism-media@1.3.5: {}
+  prism-media@1.3.5(opusscript@0.1.1):
+    optionalDependencies:
+      opusscript: 0.1.1
 
   proc-log@3.0.0: {}
 

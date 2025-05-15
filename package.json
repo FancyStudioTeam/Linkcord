@@ -25,7 +25,7 @@
     "url": "https://github.com/FancyStudioTeam/Linkcord"
   },
   "scripts": {
-    "biome:check": "biome check --write ",
+    "biome:check": "biome check --write",
     "build": "turbo run build",
     "bump": "node scripts/bump.mjs",
     "extractor:run": "turbo run extractor:run",
