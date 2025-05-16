@@ -2,6 +2,7 @@ import type { Readable } from "node:stream";
 import prism from "prism-media";
 
 const { FFmpeg, opus } = prism;
+
 const CHANNELS = 2;
 const FRAME_SIZE = 960;
 const RATE = 48000;

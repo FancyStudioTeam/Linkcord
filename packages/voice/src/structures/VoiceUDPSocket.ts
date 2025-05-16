@@ -1,11 +1,15 @@
-import { createCipheriv } from "node:crypto";
 import { type Socket, type SocketType, createSocket } from "node:dgram";
 import { isIPv4 } from "node:net";
 import { type Nullable, VoiceOpcodes, type VoiceSelectProtocolPayload } from "@fancystudioteam/linkcord-types";
+import sodium from "libsodium-wrappers";
 import { VoiceConnectionError } from "#utils";
 import type { VoiceConnection, VoiceConnectionAddress } from "./VoiceConnection.js";
 
+const { crypto_aead_xchacha20poly1305_ietf_encrypt } = sodium;
+
 const IP_DISCOVERY_PACKET_LENGTH = 74;
+const MAX_NONCE_SIZE = 2 ** 32 - 1;
+const NONCE = Buffer.alloc(24);
 const SILENCE_FRAMES = Buffer.from([0xf8, 0xff, 0xfe]);
 const TIMESTAMP_INCREASE = (48000 / 100) * 2;
 
@@ -13,11 +17,14 @@ const TIMESTAMP_INCREASE = (48000 / 100) * 2;
  * @public
  */
 export class VoiceUDPSocket {
-  private _address: VoiceConnectionAddress;
   private _localAddress: Nullable<VoiceConnectionUDPSocketAddress> = null;
   private _secretKey: Buffer = Buffer.alloc(32);
   private _socket: Nullable<Socket> = null;
 
+  readonly _address: VoiceConnectionAddress;
+
+  nonce = 0;
+  nonceBuffer = Buffer.alloc(24);
   voiceConnection: VoiceConnection;
 
   constructor(voiceConnection: VoiceConnection, address: VoiceConnectionAddress) {
@@ -29,31 +36,54 @@ export class VoiceUDPSocket {
   /**
    * @internal
    */
-  private _createAudioPacket(audioFrame: Buffer): Buffer {
+  private _createAudioPacket(opusData: Buffer): Buffer {
     const rtpHeader = this._createRTPHeader();
-    const cipher = createCipheriv("aes-256-gcm", this._secretKey, rtpHeader);
-    const encryptedAudioFrame = Buffer.concat([cipher.update(audioFrame), cipher.final()]);
-    const tag = cipher.getAuthTag();
-    const audioPacket = Buffer.concat([rtpHeader, encryptedAudioFrame, tag]);
+    const encryptedOpusData = this._encryptOpusPacket(opusData, rtpHeader);
 
-    return audioPacket;
+    return Buffer.concat([rtpHeader, encryptedOpusData]);
   }
 
   /**
    * @internal
    */
   private _createRTPHeader(): Buffer {
-    const data = Buffer.alloc(12);
+    const rtpHeader = Buffer.alloc(12);
     const { sequence, ssrc, timestamp } = this.voiceConnection;
 
-    data.writeUInt8(0x80, 0);
-    data.writeUInt8(0x78, 1);
+    rtpHeader.writeUInt8(0x80, 0);
+    rtpHeader.writeUInt8(0x78, 1);
 
-    data.writeUInt16BE(sequence, 2);
-    data.writeUInt32BE(timestamp, 4);
-    data.writeUInt32BE(ssrc ?? 0, 8);
+    rtpHeader.writeUInt16BE(sequence, 2);
+    rtpHeader.writeUInt32BE(timestamp, 4);
+    rtpHeader.writeUInt32BE(ssrc ?? 0, 8);
 
-    return data;
+    rtpHeader.copy(NONCE, 0, 0, 12);
+
+    return rtpHeader;
+  }
+
+  /**
+   * @internal
+   */
+  private _encryptOpusPacket(opusData: Buffer, rtpHeader: Buffer): Buffer {
+    this.nonce++;
+
+    if (this.nonce > MAX_NONCE_SIZE) {
+      this.nonce = 0;
+    }
+
+    this.nonceBuffer.writeUInt32BE(this.nonce, 0);
+
+    const noncePadding = this.nonceBuffer.subarray(0, 4);
+    const encryptedOpusPacket = crypto_aead_xchacha20poly1305_ietf_encrypt(
+      opusData,
+      rtpHeader,
+      null,
+      this.nonceBuffer,
+      this._secretKey,
+    );
+
+    return Buffer.concat([encryptedOpusPacket, noncePadding]);
   }
 
   /**
