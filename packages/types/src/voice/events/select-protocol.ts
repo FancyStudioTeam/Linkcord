@@ -8,7 +8,7 @@ import type { VoiceEncryptionMode } from "./ready.js";
  */
 export interface VoiceSelectProtocolPayload {
   data: VoiceSelectProtocolPayloadData;
-  protocol: string;
+  protocol: VoiceSelectProtocolPayloadProtocol;
 }
 
 /**
@@ -26,3 +26,9 @@ export interface VoiceSelectProtocolPayloadData {
  * @see https://discord.com/developers/docs/topics/voice-connections#establishing-a-voice-udp-connection-example-select-protocol-payload
  */
 export type VoiceSelectProtocolEvent = VoiceEventBase<VoiceOpcodes.SelectProtocol, VoiceSelectProtocolPayload>;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/topics/voice-connections#establishing-a-voice-udp-connection-example-select-protocol-payload
+ */
+export type VoiceSelectProtocolPayloadProtocol = "udp";

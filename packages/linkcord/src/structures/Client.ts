@@ -53,6 +53,9 @@ export interface ClientEvents {
  */
 export interface ClientGatewayOptions extends Omit<GatewayManagerOptions, "intents" | "token"> {}
 
+/**
+ * @public
+ */
 export interface ClientVoiceOptions extends Omit<VoiceManagerOptions, "gatewayManager"> {}
 
 /**

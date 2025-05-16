@@ -12,7 +12,7 @@ export interface VoiceReadyPayload {
    */
   heartbeat_interval: number;
   ip: string;
-  modes: string[];
+  modes: VoiceEncryptionMode[];
   port: number;
   ssrc: number;
 }
