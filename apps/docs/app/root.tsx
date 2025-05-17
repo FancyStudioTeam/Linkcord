@@ -1,4 +1,5 @@
 import "./base.css";
+import { APIMemberKind } from "@fancystudioteam/api-extractor";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useRouteError } from "@remix-run/react";
 import type { ReactNode } from "react";
 
@@ -15,6 +16,7 @@ export const Layout = ({
       <Links />
     </head>
     <body className="bg-zinc-950 font-mono text-white">
+      {APIMemberKind.Enum}
       {children}
       <ScrollRestoration />
       <Scripts />
