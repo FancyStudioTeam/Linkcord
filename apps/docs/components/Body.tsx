@@ -1,7 +1,7 @@
 import { Links, Meta, Scripts, ScrollRestoration } from "@remix-run/react";
 import type { ReactNode } from "react";
 
-export const Layout = ({
+export const Body = ({
   children,
 }: {
   children: ReactNode;

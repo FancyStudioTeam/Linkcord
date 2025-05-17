@@ -1,12 +1,13 @@
 import "./base.css";
 import { Outlet, isRouteErrorResponse, useRouteError } from "@remix-run/react";
 import type { ReactNode } from "react";
+import { Body } from "#components/Body";
 
 export const Layout = ({
   children,
 }: {
   children: ReactNode;
-}) => <Layout>{children}</Layout>;
+}) => <Body>{children}</Body>;
 
 export const ErrorBoundary = () => {
   const error = useRouteError();
@@ -23,7 +24,7 @@ export const ErrorBoundary = () => {
   );
 
   return (
-    <Layout>
+    <Body>
       <div className="flex h-dvh w-full flex-col items-center justify-center gap-4">
         <div className="flex w-full max-w-md flex-col gap-4">
           <div className="flex flex-col items-center justify-center gap-4 rounded-md border border-zinc-700 bg-zinc-900 p-6 text-center">
@@ -31,7 +32,7 @@ export const ErrorBoundary = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </Body>
   );
 };
 
