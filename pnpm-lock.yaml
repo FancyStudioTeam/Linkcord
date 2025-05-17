@@ -95,8 +95,8 @@ importers:
         version: 5.7.0
     devDependencies:
       '@remix-run/cloudflare':
-        specifier: 2.16.5
-        version: 2.16.5(@cloudflare/workers-types@4.20250430.0)(typescript@5.8.3)
+        specifier: 2.16.6
+        version: 2.16.6(@cloudflare/workers-types@4.20250430.0)(typescript@5.8.3)
       '@remix-run/cloudflare-pages':
         specifier: 2.16.5
         version: 2.16.5(@cloudflare/workers-types@4.20250430.0)(typescript@5.8.3)
@@ -2053,6 +2053,16 @@ packages:
 
   '@remix-run/cloudflare@2.16.5':
     resolution: {integrity: sha512-dYPH1BdNhnEvs/mUo+pivtdHbj7hU5LFVDOqv+Q/Ss7VRfAMHbfEref72rQ5Z/Opyc2YyHnXW/+NOH8VB2RKdw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      '@cloudflare/workers-types': ^4.0.0
+      typescript: ^5.1.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
+  '@remix-run/cloudflare@2.16.6':
+    resolution: {integrity: sha512-kuTybRErdMRXk6rnkeq2CE4beqsdfIGblHSJq18S9y6+oX95XgW02I4Dtj3ijIlsQtPZeHlWqULBWV8Y0g/Asg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       '@cloudflare/workers-types': ^4.0.0
@@ -7762,6 +7772,14 @@ snapshots:
       '@cloudflare/kv-asset-handler': 0.1.3
       '@cloudflare/workers-types': 4.20250430.0
       '@remix-run/server-runtime': 2.16.5(typescript@5.8.3)
+    optionalDependencies:
+      typescript: 5.8.3
+
+  '@remix-run/cloudflare@2.16.6(@cloudflare/workers-types@4.20250430.0)(typescript@5.8.3)':
+    dependencies:
+      '@cloudflare/kv-asset-handler': 0.1.3
+      '@cloudflare/workers-types': 4.20250430.0
+      '@remix-run/server-runtime': 2.16.6(typescript@5.8.3)
     optionalDependencies:
       typescript: 5.8.3
 
