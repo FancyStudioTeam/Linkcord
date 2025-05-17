@@ -7,7 +7,7 @@
     "@microsoft/api-extractor": "7.52.7",
     "@swc/cli": "0.7.3",
     "@swc/core": "1.11.24",
-    "@types/node": "22.15.17",
+    "@types/node": "22.15.18",
     "@types/ws": "8.18.1",
     "rimraf": "6.0.1",
     "typescript": "5.8.3",
