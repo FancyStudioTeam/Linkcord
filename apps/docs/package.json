@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@fancystudioteam/api-extractor": "workspace:*",
     "@fontsource-variable/jetbrains-mono": "5.2.5",
     "@icons-pack/react-simple-icons": "12.7.0",
     "@mdx-js/rollup": "3.1.0",
@@ -35,9 +36,9 @@
   "scripts": {
     "api:generate": "cd ../.. && pnpm extractor:run",
     "docs:build": "remix vite:build",
-    "docs:deploy": "wrangler pages deploy build/client",
     "docs:dev": "remix vite:dev",
-    "docs:start": "wrangler pages dev build/client"
+    "docs:start": "wrangler pages dev build/client",
+    "predocs:build": "echo hola"
   },
   "type": "module"
 }

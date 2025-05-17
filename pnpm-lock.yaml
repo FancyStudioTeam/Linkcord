@@ -48,6 +48,9 @@ importers:
 
   apps/docs:
     dependencies:
+      '@fancystudioteam/api-extractor':
+        specifier: workspace:*
+        version: link:../../packages/api-extractor
       '@fontsource-variable/jetbrains-mono':
         specifier: 5.2.5
         version: 5.2.5
