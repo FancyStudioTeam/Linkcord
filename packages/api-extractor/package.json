@@ -1,4 +1,19 @@
 {
+  "devDependencies": {
+    "@microsoft/api-extractor": "7.52.7",
+    "@swc/cli": "0.7.3",
+    "@swc/core": "1.11.24",
+    "rimraf": "6.0.1",
+    "typescript": "5.8.3"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
   "imports": {
     "#types": {
       "module": "./dist/esm/types/index.js",
@@ -6,9 +21,18 @@
       "types": "./dist/types/types/index.d.ts"
     }
   },
-  "name": "@fancystudioteam/api-extractor",
   "licence": "MIT",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "name": "@fancystudioteam/api-extractor",
   "private": true,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FancyStudioTeam/Linkcord"
+  },
   "scripts": {
     "build": "pnpm rimraf && pnpm build:esm && pnpm build:cjs && pnpm build:types",
     "build:cjs": "swc src --strip-leading-paths -C module.type=commonjs --out-dir dist/cjs",
@@ -17,12 +41,6 @@
     "rimraf": "rimraf dist",
     "tarball": "pnpm pack"
   },
-  "version": "0.0.0",
-  "devDependencies": {
-    "@microsoft/api-extractor": "7.52.7",
-    "@swc/cli": "0.7.3",
-    "@swc/core": "1.11.24",
-    "rimraf": "6.0.1",
-    "typescript": "5.8.3"
-  }
+  "types": "dist/types/index.d.ts",
+  "version": "0.0.0"
 }
