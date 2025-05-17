@@ -37,8 +37,7 @@
     "api:generate": "cd ../.. && pnpm extractor:run",
     "docs:build": "remix vite:build",
     "docs:dev": "remix vite:dev",
-    "docs:start": "wrangler pages dev build/client",
-    "predocs:build": "echo hola"
+    "docs:start": "wrangler pages dev build/client"
   },
   "type": "module"
 }
