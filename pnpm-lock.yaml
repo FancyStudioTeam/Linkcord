@@ -131,6 +131,24 @@ importers:
         specifier: 4.14.4
         version: 4.14.4(@cloudflare/workers-types@4.20250430.0)
 
+  packages/api-extractor:
+    devDependencies:
+      '@microsoft/api-extractor':
+        specifier: 7.52.7
+        version: 7.52.7(@types/node@22.15.17)
+      '@swc/cli':
+        specifier: 0.7.3
+        version: 0.7.3(@swc/core@1.11.24)
+      '@swc/core':
+        specifier: 1.11.24
+        version: 1.11.24
+      rimraf:
+        specifier: 6.0.1
+        version: 6.0.1
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+
   packages/gateway:
     dependencies:
       '@fancystudioteam/linkcord-types':
