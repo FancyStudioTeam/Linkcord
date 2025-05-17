@@ -3,5 +3,8 @@ export * from "./entry-point.js";
 export * from "./enum.js";
 export * from "./enum-member.js";
 export * from "./member.js";
+export * from "./method.js";
 export * from "./package.js";
+export * from "./property-signature.js";
+export * from "./type-alias.js";
 export * from "./variable.js";
