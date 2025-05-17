@@ -4,3 +4,4 @@ export * from "./enum.js";
 export * from "./enum-member.js";
 export * from "./member.js";
 export * from "./package.js";
+export * from "./variable.js";
