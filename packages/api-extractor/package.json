@@ -1,4 +1,11 @@
 {
+  "imports": {
+    "#types": {
+      "module": "./dist/esm/types/index.js",
+      "require": "./dist/cjs/types/index.js",
+      "types": "./dist/types/types/index.d.ts"
+    }
+  },
   "name": "@fancystudioteam/api-extractor",
   "licence": "MIT",
   "private": true,
