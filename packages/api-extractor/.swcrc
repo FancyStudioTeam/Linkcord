@@ -1,0 +1,28 @@
+{
+  "$schema": "https://swc.rs/schema.json",
+  "exclude": ["node_modules", "dist"],
+  "jsc": {
+    "experimental": {
+      "keepImportAttributes": true
+    },
+    "keepClassNames": true,
+    "loose": false,
+    "parser": {
+      "decorators": true,
+      "syntax": "typescript",
+      "topLevelAwait": true
+    },
+    "target": "esnext",
+    "transform": {
+      "decoratorMetadata": true,
+      "legacyDecorator": true
+    }
+  },
+  "module": {
+    "lazy": false,
+    "noInterop": false,
+    "strict": true,
+    "strictMode": true,
+    "type": "es6"
+  }
+}

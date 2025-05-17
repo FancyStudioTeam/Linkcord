@@ -9,5 +9,13 @@
   "name": "@fancystudioteam/api-extractor",
   "licence": "MIT",
   "private": true,
+  "scripts": {
+    "build": "pnpm rimraf && pnpm build:esm && pnpm build:cjs && pnpm build:types",
+    "build:cjs": "swc src --strip-leading-paths -C module.type=commonjs --out-dir dist/cjs",
+    "build:esm": "swc src --strip-leading-paths -C module.type=es6 --out-dir dist/esm",
+    "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist/types",
+    "rimraf": "rimraf dist",
+    "tarball": "pnpm pack"
+  },
   "version": "0.0.0"
 }
