@@ -3,6 +3,7 @@ export * from "./class.js";
 export * from "./constructor.js";
 export * from "./entry-point.js";
 export * from "./enum.js";
+export * from "./function.js";
 export * from "./enum-member.js";
 export * from "./interface.js";
 export * from "./member.js";
