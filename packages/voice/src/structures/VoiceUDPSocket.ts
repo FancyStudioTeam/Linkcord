@@ -5,11 +5,8 @@ import sodium from "libsodium-wrappers";
 import { VoiceConnectionError } from "#utils";
 import type { VoiceConnection, VoiceConnectionAddress } from "./VoiceConnection.js";
 
-const { crypto_aead_xchacha20poly1305_ietf_encrypt } = sodium;
-
 const IP_DISCOVERY_PACKET_LENGTH = 74;
 const MAX_NONCE_SIZE = 2 ** 32 - 1;
-const NONCE = Buffer.alloc(24);
 const SILENCE_FRAMES = Buffer.from([0xf8, 0xff, 0xfe]);
 const TIMESTAMP_INCREASE = (48000 / 100) * 2;
 
@@ -18,7 +15,7 @@ const TIMESTAMP_INCREASE = (48000 / 100) * 2;
  */
 export class VoiceUDPSocket {
   private _localAddress: Nullable<VoiceConnectionUDPSocketAddress> = null;
-  private _secretKey: Buffer = Buffer.alloc(32);
+  private _secretKey = Buffer.allocUnsafe(0);
   private _socket: Nullable<Socket> = null;
 
   readonly _address: VoiceConnectionAddress;
@@ -31,6 +28,8 @@ export class VoiceUDPSocket {
     this._address = address;
     this.voiceConnection = voiceConnection;
     this.discovery();
+
+    (async () => await sodium.ready)();
   }
 
   /**
@@ -50,14 +49,12 @@ export class VoiceUDPSocket {
     const rtpHeader = Buffer.alloc(12);
     const { sequence, ssrc, timestamp } = this.voiceConnection;
 
-    rtpHeader.writeUInt8(0x80, 0);
-    rtpHeader.writeUInt8(0x78, 1);
+    rtpHeader[0] = 0x80;
+    rtpHeader[1] = 0x78;
 
     rtpHeader.writeUInt16BE(sequence, 2);
     rtpHeader.writeUInt32BE(timestamp, 4);
     rtpHeader.writeUInt32BE(ssrc ?? 0, 8);
-
-    rtpHeader.copy(NONCE, 0, 0, 12);
 
     return rtpHeader;
   }
@@ -75,7 +72,7 @@ export class VoiceUDPSocket {
     this.nonceBuffer.writeUInt32BE(this.nonce, 0);
 
     const noncePadding = this.nonceBuffer.subarray(0, 4);
-    const encryptedOpusPacket = crypto_aead_xchacha20poly1305_ietf_encrypt(
+    const encryptedOpusPacket = sodium.crypto_aead_xchacha20poly1305_ietf_encrypt(
       opusData,
       rtpHeader,
       null,
