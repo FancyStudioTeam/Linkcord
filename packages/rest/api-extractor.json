@@ -1,0 +1,14 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
+  "apiReport": {
+    "enabled": false
+  },
+  "docModel": {
+    "apiJsonFilePath": "../../apps/docs/extractor/schemas/rest.api.json",
+    "enabled": true
+  },
+  "dtsRollup": {
+    "enabled": false
+  },
+  "mainEntryPointFilePath": "dist/types/index.d.ts"
+}

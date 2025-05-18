@@ -6,7 +6,6 @@
     "@mdx-js/rollup": "3.1.0",
     "@remix-run/react": "2.16.6",
     "@remix-run/serve": "2.16.5",
-    "es-toolkit": "1.37.2",
     "isbot": "5.1.27",
     "lucide-react": "0.503.0",
     "radix-ui": "1.4.1",

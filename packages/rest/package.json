@@ -1,0 +1,35 @@
+{
+  "devDependencies": {
+    "@microsoft/api-extractor": "7.52.7",
+    "@swc/cli": "0.7.3",
+    "@swc/core": "1.11.24",
+    "rimraf": "6.0.1",
+    "typescript": "5.8.3",
+    "vitest": "3.1.3"
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "license": "MIT",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "name": "@fancystudioteam/linkcord-rest",
+  "private": false,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FancyStudioTeam/Linkcord"
+  },
+  "scripts": {
+    "build": "pnpm rimraf && pnpm build:esm && pnpm build:cjs && pnpm build:types",
+    "build:cjs": "swc src --strip-leading-paths -C module.type=commonjs --out-dir dist/cjs",
+    "build:esm": "swc src --strip-leading-paths -C module.type=es6 --out-dir dist/esm",
+    "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist/types",
+    "extractor:run": "api-extractor run",
+    "release": "pnpm publish --access public --no-git-checks",
+    "rimraf": "rimraf dist",
+    "tarball": "pnpm pack"
+  },
+  "types": "dist/types/index.d.ts",
+  "version": "0.0.0"
+}
