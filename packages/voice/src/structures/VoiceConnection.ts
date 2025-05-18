@@ -1,8 +1,8 @@
-import type { Readable } from "node:stream";
 import {
   type Nullable,
   type Snowflake,
   SpeakingFlags,
+  VoiceCloseEventCodes,
   type VoiceEvent,
   type VoiceHeartbeatPayload,
   type VoiceIdentifyPayload,
@@ -14,9 +14,14 @@ import {
 import { type RawData, WebSocket } from "ws";
 import { VoiceConnectionError } from "#utils";
 import type { VoiceManager } from "./VoiceManager.js";
-import { VoiceStreamTransformer } from "./VoiceStreamTransformer.js";
 import { VoiceUDPSocket } from "./VoiceUDPSocket.js";
 
+const RECONNECTABLE_VOICE_CLOSE_CODES = [
+  VoiceCloseEventCodes.UnknownOpcode,
+  VoiceCloseEventCodes.FailedToDecodePayload,
+  VoiceCloseEventCodes.NotAuthenticated,
+  VoiceCloseEventCodes.AlreadyAuthenticated,
+];
 const SENDABLE_VOICE_OPCODES = [
   VoiceOpcodes.Heartbeat,
   VoiceOpcodes.Identify,
@@ -58,12 +63,6 @@ export class VoiceConnection {
     this._initializeSocket(this.endpoint);
   }
 
-  private *_chunkBuffer(buffer: Buffer, chunkSize: number): Generator<Buffer> {
-    for (let offset = 0; offset < buffer.length; offset += chunkSize) {
-      yield buffer.slice(offset, offset + chunkSize);
-    }
-  }
-
   private _heartbeat(): void {
     const { _sequence, _heartbeatAck } = this;
     const heartbeatPayload: VoiceHeartbeatPayload = {
@@ -85,9 +84,9 @@ export class VoiceConnection {
     searchParams.set("v", version.toString());
     searchParams.set("encoding", "json");
 
-    const socket = new WebSocket(url);
+    this.manager.emit("debug", `Creating voice connection socket using "${url}".`);
 
-    this.socket = socket;
+    this.socket = new WebSocket(url);
     this.socket.on("open", this._onOpen.bind(this));
     this.socket.on("message", this._onMessage.bind(this));
     this.socket.on("close", this._onClose.bind(this));
@@ -97,7 +96,11 @@ export class VoiceConnection {
    * @internal
    */
   private _onClose(code: number, reason: Buffer): void {
-    console.log(code, reason.toString());
+    const stringifiedReason = reason.toString();
+    const isReconnectable = RECONNECTABLE_VOICE_CLOSE_CODES.includes(code);
+
+    this.manager.emit("debug", `Voice connection socket closed with code "${code}" and reason "${stringifiedReason}".`);
+    this.manager.emit("close", code, stringifiedReason, isReconnectable);
   }
 
   /**
@@ -198,15 +201,6 @@ export class VoiceConnection {
     }
 
     return socket;
-  }
-
-  async playStream(stream: Readable): Promise<void> {
-    const transformer = new VoiceStreamTransformer();
-    const data: Readable = stream;
-    const opusData = await transformer.transformToOpus(data);
-    const udpSocket = this.getUDPSocket();
-
-    this.setSpeaking(SpeakingFlags.Microphone | SpeakingFlags.Soundshare);
   }
 
   sendVoicePayload<Opcode extends AnySendableVoiceOpcode>(opcode: Opcode, payload: SendVoicePayloadData[Opcode]): void {

@@ -61,6 +61,13 @@ export class VoiceManager extends EventEmitter<VoiceManagerEvents> {
  * @public
  */
 export interface VoiceManagerEvents {
+  /**
+   * Emitted when the voice connection socket is closed.
+   */
+  close: [code: number, reason: string, reconnectable: boolean];
+  /**
+   * Emitted when a debug message is received from the voice connection.
+   */
   debug: [message: string];
 }
 
