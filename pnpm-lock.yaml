@@ -55,8 +55,8 @@ importers:
         specifier: 5.2.5
         version: 5.2.5
       '@icons-pack/react-simple-icons':
-        specifier: 12.7.0
-        version: 12.7.0(react@19.1.0)
+        specifier: 12.8.0
+        version: 12.8.0(react@19.1.0)
       '@mdx-js/rollup':
         specifier: 3.1.0
         version: 3.1.0(acorn@8.14.1)(rollup@4.40.2)
@@ -1075,8 +1075,8 @@ packages:
   '@fontsource-variable/jetbrains-mono@5.2.5':
     resolution: {integrity: sha512-G3sN1xq1moZd0JL+hFaA4MEdsiQS+JXC/z7m+EqA5/Fzn5CQlXGUaaNKFGQdDsFuLTnCfW0KOOSWHjygNfjEPw==}
 
-  '@icons-pack/react-simple-icons@12.7.0':
-    resolution: {integrity: sha512-XpG7e8buAco8AbvCar+4LX5do0L98d/NaeHoTuW4awyUH33id7HQiiMomK+cS1MRxfLNMmhW2W0223/fMC0unw==}
+  '@icons-pack/react-simple-icons@12.8.0':
+    resolution: {integrity: sha512-Xj6tBadpPYVaoDaXqKpSJc5AXtcXSBk+se+GsceRouYin9XvKv2at0fO5GSr1dNDc3WfZSVc1Gs7KGwUY8PfHA==}
     peerDependencies:
       react: ^16.13 || ^17 || ^18 || ^19
 
@@ -6673,7 +6673,7 @@ snapshots:
 
   '@fontsource-variable/jetbrains-mono@5.2.5': {}
 
-  '@icons-pack/react-simple-icons@12.7.0(react@19.1.0)':
+  '@icons-pack/react-simple-icons@12.8.0(react@19.1.0)':
     dependencies:
       react: 19.1.0
 
