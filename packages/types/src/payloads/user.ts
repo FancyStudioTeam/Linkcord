@@ -1,5 +1,4 @@
 import type { Locale, Nullable, Snowflake } from "#shared";
-import type { APIUserCollectibleBase } from "./base/user.js";
 import type { APIPartialIntegration } from "./guild.js";
 
 /**
@@ -16,7 +15,10 @@ export interface APIApplicationRoleConnection {
  * @public
  * @see https://discord.com/developers/docs/resources/user#avatar-decoration-data-object-avatar-decoration-data-structure
  */
-export interface APIAvatarDecorationData extends APIUserCollectibleBase {}
+export interface APIAvatarDecorationData {
+  asset: string;
+  sku_id: Snowflake;
+}
 
 /**
  * @public
@@ -58,7 +60,7 @@ export interface APIUser {
    * - This is not officially documented in the Discord API documentation,
    *   meaning it may change or break at any time.
    */
-  collectibles?: Nullable<APIUserCollectible>;
+  collectibles?: Nullable<APIUserCollectibles>;
   /**
    * @remarks
    * - This field value will be set to `0` for non-bot users.
@@ -97,8 +99,8 @@ export interface APIUserClan {
  * - This is not officially documented in the Discord API documentation,
  *   meaning it may change or break at any time.
  */
-export interface APIUserCollectible {
-  nameplate?: APIUserCollectibleNameplate;
+export interface APIUserCollectibles {
+  nameplate?: APIUserNameplate;
 }
 
 /**
@@ -107,9 +109,11 @@ export interface APIUserCollectible {
  * - This is not officially documented in the Discord API documentation,
  *   meaning it may change or break at any time.
  */
-export interface APIUserCollectibleNameplate extends APIUserCollectibleBase {
+export interface APIUserNameplate {
+  asset: string;
   label: string;
   palette: string;
+  sku_id: Snowflake;
 }
 
 /**
