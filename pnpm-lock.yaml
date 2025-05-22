@@ -221,6 +221,10 @@ importers:
         version: 5.8.3
 
   packages/rest:
+    dependencies:
+      '@fancystudioteam/linkcord-types':
+        specifier: workspace:*
+        version: link:../types
     devDependencies:
       '@microsoft/api-extractor':
         specifier: 7.52.7
@@ -231,6 +235,9 @@ importers:
       '@swc/core':
         specifier: 1.11.24
         version: 1.11.24
+      '@types/node':
+        specifier: 22.15.18
+        version: 22.15.18
       rimraf:
         specifier: 6.0.1
         version: 6.0.1
