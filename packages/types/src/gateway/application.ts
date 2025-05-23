@@ -1,4 +1,4 @@
-import type { APIApplication } from "#payloads";
+import type { APIApplication } from "../payloads/application.js";
 
 /**
  * @public

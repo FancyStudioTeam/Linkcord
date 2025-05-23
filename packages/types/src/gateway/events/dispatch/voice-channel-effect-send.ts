@@ -1,23 +1,14 @@
-import type { APIEmoji } from "#payloads";
-import type { Nullable, Snowflake } from "#shared";
+import type { APIEmoji } from "../../../payloads/emoji.js";
+import type { Nullable } from "../../../shared/custom.js";
+import type { Snowflake } from "../../../shared/discord.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../dispatch.js";
 
 /**
  * @public
- * @see https://discord.com/developers/docs/events/gateway-events#voice-channel-effect-send
- */
-export interface GatewayDispatchVoiceChannelEffectSendEvent
-  extends GatewayDispatchEventBase<
-    GatewayDispatchEvents.VoiceChannelEffectSend,
-    GatewayDispatchVoiceChannelEffectSendEventData
-  > {}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#voice-channel-effect-send-voice-channel-effect-send-event-fields
  */
-export interface GatewayDispatchVoiceChannelEffectSendEventData {
+export interface GatewayDispatchVoiceChannelEffectSendPayload {
   animation_id?: number;
   animation_type?: Nullable<AnimationTypes>;
   channel_id: Snowflake;
@@ -31,6 +22,15 @@ export interface GatewayDispatchVoiceChannelEffectSendEventData {
   sound_volume?: number;
   user_id: Snowflake;
 }
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#voice-channel-effect-send
+ */
+export type GatewayDispatchVoiceChannelEffectSend = GatewayDispatchEventBase<
+  GatewayDispatchEvents.VoiceChannelEffectSend,
+  GatewayDispatchVoiceChannelEffectSendPayload
+>;
 
 /**
  * @public

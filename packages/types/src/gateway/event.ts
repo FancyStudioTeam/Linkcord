@@ -1,14 +1,12 @@
-import type {
-  GatewayDispatchEvent,
-  GatewayHeartbeatEvent,
-  GatewayHelloEvent,
-  GatewayIdentifyEvent,
-  GatewayPresenceUpdateEvent,
-  GatewayRequestGuildMembersEvent,
-  GatewayRequestSoundboardSoundsEvent,
-  GatewayResumeEvent,
-  GatewayVoiceStateUpdateEvent,
-} from "./events/index.js";
+import type { GatewayDispatchEvent } from "./events/dispatch.js";
+import type { GatewayHeartbeatEvent } from "./events/heartbeat.js";
+import type { GatewayHelloEvent } from "./events/hello.js";
+import type { GatewayIdentifyEvent } from "./events/identify.js";
+import type { GatewayPresenceUpdateEvent } from "./events/presence-update.js";
+import type { GatewayRequestGuildMembersEvent } from "./events/request-guild-members.js";
+import type { GatewayRequestSoundboardSoundsEvent } from "./events/request-soundboard-sounds.js";
+import type { GatewayResumeEvent } from "./events/resume.js";
+import type { GatewayVoiceStateUpdateEvent } from "./events/voice-state-update.js";
 
 /**
  * @public

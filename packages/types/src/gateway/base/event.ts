@@ -1,4 +1,4 @@
-import type { If } from "#shared";
+import type { If } from "../../shared/custom.js";
 import type { GatewayOpcodes } from "../event.js";
 import type { GatewayDispatchEvents } from "../events/dispatch.js";
 

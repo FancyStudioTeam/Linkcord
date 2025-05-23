@@ -1,16 +1,18 @@
-import type { APIUser } from "#payloads";
+import type { APIUser } from "../../../payloads/user.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../dispatch.js";
 
 /**
  * @public
- * @see https://discord.com/developers/docs/events/gateway-events#user-update
+ * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
  */
-export interface GatewayDispatchUserUpdateEvent
-  extends GatewayDispatchEventBase<GatewayDispatchEvents.UserUpdate, GatewayDispatchUserUpdateEventData> {}
+export type GatewayDispatchUserUpdatePayload = APIUser;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
+ * @see https://discord.com/developers/docs/events/gateway-events#user-update
  */
-export type GatewayDispatchUserUpdateEventData = APIUser;
+export type GatewayDispatchUserUpdate = GatewayDispatchEventBase<
+  GatewayDispatchEvents.UserUpdate,
+  GatewayDispatchUserUpdatePayload
+>;

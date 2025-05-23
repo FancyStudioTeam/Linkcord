@@ -1,21 +1,15 @@
-import type { APIUnavailableGuild, APIUser } from "#payloads";
-import type { APIVersion } from "#shared";
+import type { APIUnavailableGuild } from "../../../payloads/guild.js";
+import type { APIUser } from "../../../payloads/user.js";
+import type { APIVersion } from "../../../shared/discord.js";
 import type { GatewayApplication } from "../../application.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../dispatch.js";
 
 /**
  * @public
- * @see https://discord.com/developers/docs/events/gateway-events#ready
- */
-export interface GatewayDispatchReadyEvent
-  extends GatewayDispatchEventBase<GatewayDispatchEvents.Ready, GatewayDispatchReadyEventData> {}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#ready-ready-event-fields
  */
-export interface GatewayDispatchReadyEventData {
+export interface GatewayDispatchReadyPayload {
   application: GatewayApplication;
   guilds: APIUnavailableGuild[];
   resume_gateway_url: string;
@@ -24,3 +18,9 @@ export interface GatewayDispatchReadyEventData {
   user: APIUser;
   v: APIVersion;
 }
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#ready
+ */
+export type GatewayDispatchReady = GatewayDispatchEventBase<GatewayDispatchEvents.Ready, GatewayDispatchReadyPayload>;

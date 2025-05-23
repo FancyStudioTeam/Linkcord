@@ -1,67 +1,65 @@
-import type {
-  GatewayDispatchApplicationCommandPermissionsUpdateEvent,
-  GatewayDispatchAutoModerationActionExecutionEvent,
-  GatewayDispatchAutoModerationRuleCreate,
-  GatewayDispatchAutoModerationRuleDelete,
-  GatewayDispatchAutoModerationRuleUpdate,
-  GatewayDispatchGuildBanAddEvent,
-  GatewayDispatchGuildBanRemoveEvent,
-  GatewayDispatchGuildCreateEvent,
-  GatewayDispatchGuildDeleteEvent,
-  GatewayDispatchGuildMemberAddEvent,
-  GatewayDispatchGuildMemberRemoveEvent,
-  GatewayDispatchGuildSoundboardSoundCreateEvent,
-  GatewayDispatchGuildSoundboardSoundDeleteEvent,
-  GatewayDispatchGuildSoundboardSoundUpdateEvent,
-  GatewayDispatchGuildSoundboardSoundsUpdateEvent,
-  GatewayDispatchInteractionCreateEvent,
-  GatewayDispatchMessageDeleteBulkEvent,
-  GatewayDispatchMessagePollVoteAddEvent,
-  GatewayDispatchMessagePollVoteRemoveEvent,
-  GatewayDispatchPresenceUpdateEvent,
-  GatewayDispatchReadyEvent,
-  GatewayDispatchSoundboardSoundsEvent,
-  GatewayDispatchTypingStartEvent,
-  GatewayDispatchUserUpdateEvent,
-  GatewayDispatchVoiceChannelEffectSendEvent,
-  GatewayDispatchVoiceServerUpdateEvent,
-  GatewayDispatchVoiceStateUpdateEvent,
-  GatewayDispatchWebhooksUpdateEvent,
-} from "./dispatch/index.js";
+import type { GatewayDispatchApplicationCommandPermissionsUpdate } from "./dispatch/application-command-permissions-update.js";
+import type { GatewayDispatchAutoModerationActionExecution } from "./dispatch/auto-moderation-action-execution.js";
+import type { GatewayDispatchAutoModerationRuleCreate } from "./dispatch/auto-moderation-rule-create.js";
+import type { GatewayDispatchAutoModerationRuleDelete } from "./dispatch/auto-moderation-rule-delete.js";
+import type { GatewayDispatchAutoModerationRuleUpdate } from "./dispatch/auto-moderation-rule-update.js";
+import type { GatewayDispatchGuildBanAdd } from "./dispatch/guild-ban-add.js";
+import type { GatewayDispatchGuildBanRemove } from "./dispatch/guild-ban-remove.js";
+import type { GatewayDispatchGuildCreate } from "./dispatch/guild-create.js";
+import type { GatewayDispatchGuildDelete } from "./dispatch/guild-delete.js";
+import type { GatewayDispatchGuildMemberAdd } from "./dispatch/guild-member-add.js";
+import type { GatewayDispatchGuildMemberRemove } from "./dispatch/guild-member-remove.js";
+import type { GatewayDispatchGuildSoundboardSoundCreate } from "./dispatch/guild-soundboard-sound-create.js";
+import type { GatewayDispatchGuildSoundboardSoundDelete } from "./dispatch/guild-soundboard-sound-delete.js";
+import type { GatewayDispatchGuildSoundboardSoundUpdate } from "./dispatch/guild-soundboard-sound-update.js";
+import type { GatewayDispatchGuildSoundboardSoundsUpdate } from "./dispatch/guild-soundboard-sounds-update.js";
+import type { GatewayDispatchInteractionCreate } from "./dispatch/interaction-create.js";
+import type { GatewayDispatchMessageDeleteBulk } from "./dispatch/message-delete-bulk.js";
+import type { GatewayDispatchMessagePollVoteAdd } from "./dispatch/message-poll-vote-add.js";
+import type { GatewayDispatchMessagePollVoteRemove } from "./dispatch/message-poll-vote-remove.js";
+import type { GatewayDispatchPresenceUpdate } from "./dispatch/presence-update.js";
+import type { GatewayDispatchReady } from "./dispatch/ready.js";
+import type { GatewayDispatchSoundboardSounds } from "./dispatch/soundboard-sounds.js";
+import type { GatewayDispatchTypingStart } from "./dispatch/typing-start.js";
+import type { GatewayDispatchUserUpdate } from "./dispatch/user-update.js";
+import type { GatewayDispatchVoiceChannelEffectSend } from "./dispatch/voice-channel-effect-send.js";
+import type { GatewayDispatchVoiceServerUpdate } from "./dispatch/voice-server-update.js";
+import type { GatewayDispatchVoiceStateUpdate } from "./dispatch/voice-state-update.js";
+import type { GatewayDispatchWebhooksUpdate } from "./dispatch/webhooks-update.js";
 
 /**
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
 export type GatewayDispatchEvent =
-  | GatewayDispatchApplicationCommandPermissionsUpdateEvent
-  | GatewayDispatchAutoModerationActionExecutionEvent
+  | GatewayDispatchApplicationCommandPermissionsUpdate
+  | GatewayDispatchAutoModerationActionExecution
   | GatewayDispatchAutoModerationRuleCreate
   | GatewayDispatchAutoModerationRuleDelete
   | GatewayDispatchAutoModerationRuleUpdate
-  | GatewayDispatchGuildBanAddEvent
-  | GatewayDispatchGuildBanRemoveEvent
-  | GatewayDispatchGuildCreateEvent
-  | GatewayDispatchGuildDeleteEvent
-  | GatewayDispatchGuildMemberAddEvent
-  | GatewayDispatchGuildMemberRemoveEvent
-  | GatewayDispatchGuildSoundboardSoundCreateEvent
-  | GatewayDispatchGuildSoundboardSoundDeleteEvent
-  | GatewayDispatchGuildSoundboardSoundUpdateEvent
-  | GatewayDispatchGuildSoundboardSoundsUpdateEvent
-  | GatewayDispatchInteractionCreateEvent
-  | GatewayDispatchMessageDeleteBulkEvent
-  | GatewayDispatchMessagePollVoteAddEvent
-  | GatewayDispatchMessagePollVoteRemoveEvent
-  | GatewayDispatchPresenceUpdateEvent
-  | GatewayDispatchReadyEvent
-  | GatewayDispatchSoundboardSoundsEvent
-  | GatewayDispatchTypingStartEvent
-  | GatewayDispatchUserUpdateEvent
-  | GatewayDispatchVoiceChannelEffectSendEvent
-  | GatewayDispatchVoiceServerUpdateEvent
-  | GatewayDispatchVoiceStateUpdateEvent
-  | GatewayDispatchWebhooksUpdateEvent;
+  | GatewayDispatchGuildBanAdd
+  | GatewayDispatchGuildBanRemove
+  | GatewayDispatchGuildCreate
+  | GatewayDispatchGuildDelete
+  | GatewayDispatchGuildMemberAdd
+  | GatewayDispatchGuildMemberRemove
+  | GatewayDispatchGuildSoundboardSoundCreate
+  | GatewayDispatchGuildSoundboardSoundDelete
+  | GatewayDispatchGuildSoundboardSoundUpdate
+  | GatewayDispatchGuildSoundboardSoundsUpdate
+  | GatewayDispatchInteractionCreate
+  | GatewayDispatchMessageDeleteBulk
+  | GatewayDispatchMessagePollVoteAdd
+  | GatewayDispatchMessagePollVoteRemove
+  | GatewayDispatchPresenceUpdate
+  | GatewayDispatchReady
+  | GatewayDispatchSoundboardSounds
+  | GatewayDispatchTypingStart
+  | GatewayDispatchUserUpdate
+  | GatewayDispatchVoiceChannelEffectSend
+  | GatewayDispatchVoiceServerUpdate
+  | GatewayDispatchVoiceStateUpdate
+  | GatewayDispatchWebhooksUpdate;
 
 /**
  * @public

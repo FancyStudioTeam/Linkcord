@@ -1,4 +1,4 @@
-import type { Snowflake } from "#shared";
+import type { Snowflake } from "../../shared/discord.js";
 import type { GatewayEventBase } from "../base/event.js";
 import type { GatewayOpcodes } from "../event.js";
 

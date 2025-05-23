@@ -1,23 +1,14 @@
-import type { APIAutoModerationAction, AutoModerationTriggerTypes } from "#payloads";
-import type { Nullable, Snowflake } from "#shared";
+import type { APIAutoModerationAction, AutoModerationTriggerTypes } from "../../../payloads/auto-moderation.js";
+import type { Nullable } from "../../../shared/custom.js";
+import type { Snowflake } from "../../../shared/discord.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../dispatch.js";
 
 /**
  * @public
- * @see https://discord.com/developers/docs/events/gateway-events#auto-moderation-action-execution
- */
-export interface GatewayDispatchAutoModerationActionExecutionEvent
-  extends GatewayDispatchEventBase<
-    GatewayDispatchEvents.AutoModerationActionExecution,
-    GatewayDispatchAutoModerationActionExecutionEventData
-  > {}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#auto-moderation-action-execution-auto-moderation-action-execution-event-fields
  */
-export interface GatewayDispatchAutoModerationActionExecutionEventData {
+export interface GatewayDispatchAutoModerationActionExecutionPayload {
   action: APIAutoModerationAction;
   /**
    * @remarks
@@ -39,3 +30,12 @@ export interface GatewayDispatchAutoModerationActionExecutionEventData {
   rule_trigger_type: AutoModerationTriggerTypes;
   user_id: Snowflake;
 }
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#auto-moderation-action-execution
+ */
+export type GatewayDispatchAutoModerationActionExecution = GatewayDispatchEventBase<
+  GatewayDispatchEvents.AutoModerationActionExecution,
+  GatewayDispatchAutoModerationActionExecutionPayload
+>;

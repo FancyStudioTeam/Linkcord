@@ -1,4 +1,4 @@
-import type { APIUnavailableGuild } from "#payloads";
+import type { APIUnavailableGuild } from "../../../payloads/guild.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../dispatch.js";
 
@@ -6,13 +6,15 @@ import type { GatewayDispatchEvents } from "../dispatch.js";
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#guild-delete
  */
-export interface GatewayDispatchGuildDeleteEvent
-  extends GatewayDispatchEventBase<GatewayDispatchEvents.GuildDelete, GatewayDispatchGuildDeleteEventData> {}
+export interface GatewayDispatchGuildDeletePayload extends Omit<APIUnavailableGuild, "unavailable"> {
+  unavailable?: boolean;
+}
 
 /**
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#guild-delete
  */
-export interface GatewayDispatchGuildDeleteEventData extends Omit<APIUnavailableGuild, "unavailable"> {
-  unavailable?: boolean;
-}
+export type GatewayDispatchGuildDelete = GatewayDispatchEventBase<
+  GatewayDispatchEvents.GuildDelete,
+  GatewayDispatchGuildDeletePayload
+>;
