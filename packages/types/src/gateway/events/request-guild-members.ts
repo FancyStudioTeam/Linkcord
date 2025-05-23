@@ -19,7 +19,7 @@ export interface GatewayRequestGuildMembersPayload {
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#request-guild-members
  */
-export type GatewayRequestGuildMembersEvent = GatewayEventBase<
+export type GatewayRequestGuildMembers = GatewayEventBase<
   GatewayOpcodes.RequestGuildMembers,
   GatewayRequestGuildMembersPayload
 >;

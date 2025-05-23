@@ -13,4 +13,4 @@ export interface GatewayHelloPayload {
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#hello
  */
-export type GatewayHelloEvent = GatewayEventBase<GatewayOpcodes.Hello, GatewayHelloPayload>;
+export type GatewayHello = GatewayEventBase<GatewayOpcodes.Hello, GatewayHelloPayload>;

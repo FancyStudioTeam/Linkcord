@@ -14,7 +14,7 @@ export interface GatewayRequestSoundboardSoundsPayload {
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#request-soundboard-sounds
  */
-export type GatewayRequestSoundboardSoundsEvent = GatewayEventBase<
+export type GatewayRequestSoundboardSounds = GatewayEventBase<
   GatewayOpcodes.RequestSoundboardSounds,
   GatewayRequestSoundboardSoundsPayload
 >;

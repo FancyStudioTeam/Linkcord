@@ -15,4 +15,4 @@ export interface GatewayResumePayload {
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#resume
  */
-export type GatewayResumeEvent = GatewayEventBase<GatewayOpcodes.Resume, GatewayResumePayload>;
+export type GatewayResume = GatewayEventBase<GatewayOpcodes.Resume, GatewayResumePayload>;

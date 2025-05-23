@@ -31,7 +31,7 @@ import type { GatewayDispatchWebhooksUpdate } from "./dispatch/webhooks-update.j
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
-export type GatewayDispatchEvent =
+export type GatewayDispatch =
   | GatewayDispatchApplicationCommandPermissionsUpdate
   | GatewayDispatchAutoModerationActionExecution
   | GatewayDispatchAutoModerationRuleCreate

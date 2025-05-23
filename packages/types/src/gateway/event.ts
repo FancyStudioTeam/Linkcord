@@ -1,12 +1,12 @@
-import type { GatewayDispatchEvent } from "./events/dispatch.js";
-import type { GatewayHeartbeatEvent } from "./events/heartbeat.js";
-import type { GatewayHelloEvent } from "./events/hello.js";
-import type { GatewayIdentifyEvent } from "./events/identify.js";
-import type { GatewayPresenceUpdateEvent } from "./events/presence-update.js";
-import type { GatewayRequestGuildMembersEvent } from "./events/request-guild-members.js";
-import type { GatewayRequestSoundboardSoundsEvent } from "./events/request-soundboard-sounds.js";
-import type { GatewayResumeEvent } from "./events/resume.js";
-import type { GatewayVoiceStateUpdateEvent } from "./events/voice-state-update.js";
+import type { GatewayDispatch } from "./events/dispatch.js";
+import type { GatewayHeartbeat } from "./events/heartbeat.js";
+import type { GatewayHello } from "./events/hello.js";
+import type { GatewayIdentify } from "./events/identify.js";
+import type { GatewayPresenceUpdate } from "./events/presence-update.js";
+import type { GatewayRequestGuildMembers } from "./events/request-guild-members.js";
+import type { GatewayRequestSoundboardSounds } from "./events/request-soundboard-sounds.js";
+import type { GatewayResume } from "./events/resume.js";
+import type { GatewayVoiceStateUpdate } from "./events/voice-state-update.js";
 
 /**
  * @public
@@ -18,20 +18,20 @@ export type GatewayEvent = GatewayReceiveEvent | GatewaySendEvent;
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
-export type GatewayReceiveEvent = GatewayDispatchEvent | GatewayHelloEvent;
+export type GatewayReceiveEvent = GatewayDispatch | GatewayHello;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#send-events
  */
 export type GatewaySendEvent =
-  | GatewayHeartbeatEvent
-  | GatewayIdentifyEvent
-  | GatewayPresenceUpdateEvent
-  | GatewayRequestGuildMembersEvent
-  | GatewayRequestSoundboardSoundsEvent
-  | GatewayResumeEvent
-  | GatewayVoiceStateUpdateEvent;
+  | GatewayHeartbeat
+  | GatewayIdentify
+  | GatewayPresenceUpdate
+  | GatewayRequestGuildMembers
+  | GatewayRequestSoundboardSounds
+  | GatewayResume
+  | GatewayVoiceStateUpdate;
 
 /**
  * @public
