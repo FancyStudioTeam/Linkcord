@@ -13,4 +13,4 @@ export interface VoiceHelloPayload {
  * @public
  * @see https://discord.com/developers/docs/topics/voice-connections#heartbeating-example-hello-payload
  */
-export type VoiceHelloEvent = VoiceEventBase<VoiceOpcodes.Hello, VoiceHelloPayload>;
+export type VoiceHello = VoiceEventBase<VoiceOpcodes.Hello, VoiceHelloPayload>;

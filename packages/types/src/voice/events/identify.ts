@@ -18,4 +18,4 @@ export interface VoiceIdentifyPayload {
  * @public
  * @see https://discord.com/developers/docs/topics/voice-connections#establishing-a-voice-websocket-connection-example-voice-identify-payload
  */
-export type VoiceIdentifyEvent = VoiceEventBase<VoiceOpcodes.Identify, VoiceIdentifyPayload>;
+export type VoiceIdentify = VoiceEventBase<VoiceOpcodes.Identify, VoiceIdentifyPayload>;

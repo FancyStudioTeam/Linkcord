@@ -20,7 +20,7 @@ export interface VoiceSpeakingPayload {
  * @public
  * @see https://discord.com/developers/docs/topics/voice-connections#speaking-example-speaking-payload
  */
-export type VoiceSpeakingEvent = VoiceEventBase<VoiceOpcodes.Speaking, VoiceSpeakingPayload>;
+export type VoiceSpeaking = VoiceEventBase<VoiceOpcodes.Speaking, VoiceSpeakingPayload>;
 
 /**
  * @public

@@ -13,4 +13,4 @@ export interface VoiceHeartbeatAckPayload {
  * @public
  * @see https://discord.com/developers/docs/topics/voice-connections#heartbeating-example-heartbeat-ack-payload-since-v8
  */
-export type VoiceHeartbeatAckEvent = VoiceEventBase<VoiceOpcodes.HeartbeatAck, VoiceHeartbeatAckPayload>;
+export type VoiceHeartbeatAck = VoiceEventBase<VoiceOpcodes.HeartbeatAck, VoiceHeartbeatAckPayload>;

@@ -1,14 +1,14 @@
-import type { VoiceClientsConnectEvent } from "./events/clients-connect.js";
-import type { VoiceHeartbeatAckEvent } from "./events/heartbeat-ack.js";
-import type { VoiceHeartbeatEvent } from "./events/heartbeat.js";
-import type { VoiceHelloEvent } from "./events/hello.js";
-import type { VoiceIdentifyEvent } from "./events/identify.js";
-import type { VoiceReadyEvent } from "./events/ready.js";
-import type { VoiceResumeEvent } from "./events/resume.js";
-import type { VoiceResumedEvent } from "./events/resumed.js";
-import type { VoiceSelectProtocolEvent } from "./events/select-protocol.js";
-import type { VoiceSessionDescriptionEvent } from "./events/session-description.js";
-import type { VoiceSpeakingEvent } from "./events/speaking.js";
+import type { VoiceClientsConnect } from "./events/clients-connect.js";
+import type { VoiceHeartbeatAck } from "./events/heartbeat-ack.js";
+import type { VoiceHeartbeat } from "./events/heartbeat.js";
+import type { VoiceHello } from "./events/hello.js";
+import type { VoiceIdentify } from "./events/identify.js";
+import type { VoiceReady } from "./events/ready.js";
+import type { VoiceResume } from "./events/resume.js";
+import type { VoiceResumed } from "./events/resumed.js";
+import type { VoiceSelectProtocol } from "./events/select-protocol.js";
+import type { VoiceSessionDescription } from "./events/session-description.js";
+import type { VoiceSpeaking } from "./events/speaking.js";
 
 /**
  * @public
@@ -21,29 +21,24 @@ export type VoiceEvent = VoiceReceiveEvent | VoiceSendEvent;
  * @see https://discord.com/developers/docs/topics/voice-connections
  */
 export type VoiceReceiveEvent =
-  | VoiceClientsConnectEvent
-  | VoiceHeartbeatAckEvent
-  | VoiceHelloEvent
-  | VoiceReadyEvent
-  | VoiceResumedEvent
-  | VoiceSessionDescriptionEvent;
+  | VoiceClientsConnect
+  | VoiceHeartbeatAck
+  | VoiceHello
+  | VoiceReady
+  | VoiceResumed
+  | VoiceSessionDescription;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/topics/voice-connections
  */
-export type VoiceSendEvent =
-  | VoiceHeartbeatEvent
-  | VoiceIdentifyEvent
-  | VoiceResumeEvent
-  | VoiceSelectProtocolEvent
-  | VoiceSpeakingEvent;
+export type VoiceSendEvent = VoiceHeartbeat | VoiceIdentify | VoiceResume | VoiceSelectProtocol | VoiceSpeaking;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#voice-voice-close-event-codes
  */
-export enum VoiceCloseEventCodes {
+export enum VoiceCloseCodes {
   AlreadyAuthenticated = 4005,
   AuthenticationFailed = 4004,
   BadRequest = 4017,

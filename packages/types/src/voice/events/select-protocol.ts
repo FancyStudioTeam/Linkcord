@@ -25,7 +25,7 @@ export interface VoiceSelectProtocolPayloadData {
  * @public
  * @see https://discord.com/developers/docs/topics/voice-connections#establishing-a-voice-udp-connection-example-select-protocol-payload
  */
-export type VoiceSelectProtocolEvent = VoiceEventBase<VoiceOpcodes.SelectProtocol, VoiceSelectProtocolPayload>;
+export type VoiceSelectProtocol = VoiceEventBase<VoiceOpcodes.SelectProtocol, VoiceSelectProtocolPayload>;
 
 /**
  * @public

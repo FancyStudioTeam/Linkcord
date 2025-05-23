@@ -14,4 +14,4 @@ export interface VoiceHeartbeatPayload {
  * @public
  * @see https://discord.com/developers/docs/topics/voice-connections#heartbeating-example-heartbeat-payload-since-v8
  */
-export type VoiceHeartbeatEvent = VoiceEventBase<VoiceOpcodes.Heartbeat, VoiceHeartbeatPayload>;
+export type VoiceHeartbeat = VoiceEventBase<VoiceOpcodes.Heartbeat, VoiceHeartbeatPayload>;

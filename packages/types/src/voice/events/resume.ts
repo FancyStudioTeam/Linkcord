@@ -17,4 +17,4 @@ export interface VoiceResumePayload {
  * @public
  * @see https://discord.com/developers/docs/topics/voice-connections#resuming-voice-connection-example-resume-connection-payload-since-v8
  */
-export type VoiceResumeEvent = VoiceEventBase<VoiceOpcodes.Resume, VoiceResumePayload>;
+export type VoiceResume = VoiceEventBase<VoiceOpcodes.Resume, VoiceResumePayload>;

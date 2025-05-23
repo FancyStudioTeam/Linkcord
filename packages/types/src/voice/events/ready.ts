@@ -34,4 +34,4 @@ export type VoiceEncryptionMode =
  * @public
  * @see https://discord.com/developers/docs/topics/voice-connections#establishing-a-voice-websocket-connection-example-voice-ready-payload
  */
-export type VoiceReadyEvent = VoiceEventBase<VoiceOpcodes.Ready, VoiceReadyPayload>;
+export type VoiceReady = VoiceEventBase<VoiceOpcodes.Ready, VoiceReadyPayload>;

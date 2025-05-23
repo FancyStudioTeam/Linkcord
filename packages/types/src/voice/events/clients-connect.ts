@@ -14,4 +14,4 @@ export interface VoiceClientsConnectPayload {
  * @public
  * @see https://daveprotocol.com/#clients_connect-11
  */
-export type VoiceClientsConnectEvent = VoiceEventBase<VoiceOpcodes.ClientsConnect, VoiceClientsConnectPayload>;
+export type VoiceClientsConnect = VoiceEventBase<VoiceOpcodes.ClientsConnect, VoiceClientsConnectPayload>;
