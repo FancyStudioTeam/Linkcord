@@ -1,5 +1,6 @@
-import type { StatusTypes } from "#gateway";
-import type { ISO8601Date, Nullable, Snowflake } from "#shared";
+import type { StatusTypes } from "../gateway/index.js";
+import type { Nullable } from "../shared/custom.js";
+import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 import type { APIEmoji } from "./emoji.js";
 import type { OAuth2Scopes } from "./oauth2.js";
 import type { APIRole } from "./permission.js";

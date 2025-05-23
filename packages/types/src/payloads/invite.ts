@@ -1,4 +1,5 @@
-import type { ISO8601Date, Nullable } from "#shared";
+import type { Nullable } from "../shared/custom.js";
+import type { ISO8601Date } from "../shared/discord.js";
 import type { APIApplication } from "./application.js";
 import type { APIChannel } from "./channel.js";
 import type { APIGuildScheduledEvent } from "./guild-scheduled-event.js";

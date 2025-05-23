@@ -1,4 +1,5 @@
-import type { ISO8601Date, Nullable } from "#shared";
+import type { Nullable } from "../shared/custom.js";
+import type { ISO8601Date } from "../shared/discord.js";
 import type { APIPartialEmoji } from "./emoji.js";
 
 /**

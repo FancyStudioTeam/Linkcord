@@ -1,4 +1,5 @@
-import type { ISO8601Date, Nullable, Snowflake } from "#shared";
+import type { Nullable } from "../shared/custom.js";
+import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 
 /**
  * @public

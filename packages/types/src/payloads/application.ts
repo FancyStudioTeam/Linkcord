@@ -1,4 +1,5 @@
-import type { Nullable, Snowflake } from "#shared";
+import type { Nullable } from "../shared/custom.js";
+import type { Snowflake } from "../shared/discord.js";
 import type { APIPartialGuild } from "./guild.js";
 import type { OAuth2Scopes } from "./oauth2.js";
 import type { APITeam } from "./team.js";

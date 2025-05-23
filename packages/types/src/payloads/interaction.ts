@@ -1,5 +1,5 @@
-import type { RESTCreatePollRequest } from "#rest";
-import type { Snowflake } from "#shared";
+import type { RESTCreatePollRequest } from "../rest/index.js";
+import type { Snowflake } from "../shared/discord.js";
 import type {
   APIAutocompleteChoice,
   ApplicationCommandOptionTypes,

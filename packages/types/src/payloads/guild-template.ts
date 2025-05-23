@@ -1,4 +1,5 @@
-import type { ISO8601Date, Nullable, Snowflake } from "#shared";
+import type { Nullable } from "../shared/custom.js";
+import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 import type { APIChannel, APIDMChannel, APIGroupDMChannel } from "./channel.js";
 import type { APIGuild } from "./guild.js";
 import type { APIUser } from "./user.js";

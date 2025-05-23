@@ -1,4 +1,3 @@
-import type { ISO8601Date, Nullable, Snowflake } from "#shared";
 import type {
   APIOverwrite,
   APIThreadMember,
@@ -7,6 +6,8 @@ import type {
   ChannelTypes,
   VideoQualityModes,
 } from "../channel.js";
+import type { Nullable } from "../shared/custom.js";
+import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 import type { APIUser } from "../user.js";
 
 /**

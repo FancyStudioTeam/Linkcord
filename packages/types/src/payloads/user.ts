@@ -1,4 +1,5 @@
-import type { Locale, Nullable, Snowflake } from "#shared";
+import type { Nullable } from "../shared/custom.js";
+import type { Locale, Snowflake } from "../shared/discord.js";
 import type { APIPartialIntegration } from "./guild.js";
 
 /**

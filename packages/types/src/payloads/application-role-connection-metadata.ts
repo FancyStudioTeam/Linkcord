@@ -1,4 +1,4 @@
-import type { Localizations } from "#shared";
+import type { Localizations } from "../shared/discord.js";
 
 /**
  * @public

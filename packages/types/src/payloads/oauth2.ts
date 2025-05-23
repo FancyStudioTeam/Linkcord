@@ -1,4 +1,4 @@
-import type { ISO8601Date } from "#shared";
+import type { ISO8601Date } from "../shared/discord.js";
 import type { APIPartialApplication } from "./application.js";
 import type { APIUser } from "./user.js";
 

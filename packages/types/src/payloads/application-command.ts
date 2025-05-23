@@ -1,4 +1,5 @@
-import type { Localizations, Nullable, Snowflake } from "#shared";
+import type { Nullable } from "../shared/custom.js";
+import type { Localizations, Snowflake } from "../shared/discord.js";
 import type { ApplicationIntegrationTypes } from "./application.js";
 import type { ChannelTypes } from "./channel.js";
 import type { InteractionContextTypes } from "./interaction.js";
