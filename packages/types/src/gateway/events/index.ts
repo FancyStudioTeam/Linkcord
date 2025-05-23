@@ -1,3 +1,4 @@
+export * from "./dispatch.js";
 export * from "./dispatch/index.js";
 export * from "./heartbeat.js";
 export * from "./hello.js";
