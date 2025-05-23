@@ -1,16 +1,14 @@
-import type {
-  VoiceClientsConnectEvent,
-  VoiceHeartbeatAckEvent,
-  VoiceHeartbeatEvent,
-  VoiceHelloEvent,
-  VoiceIdentifyEvent,
-  VoiceReadyEvent,
-  VoiceResumeEvent,
-  VoiceResumedEvent,
-  VoiceSelectProtocolEvent,
-  VoiceSessionDescriptionEvent,
-  VoiceSpeakingEvent,
-} from "./events/index.js";
+import type { VoiceClientsConnectEvent } from "./events/clients-connect.js";
+import type { VoiceHeartbeatAckEvent } from "./events/heartbeat-ack.js";
+import type { VoiceHeartbeatEvent } from "./events/heartbeat.js";
+import type { VoiceHelloEvent } from "./events/hello.js";
+import type { VoiceIdentifyEvent } from "./events/identify.js";
+import type { VoiceReadyEvent } from "./events/ready.js";
+import type { VoiceResumeEvent } from "./events/resume.js";
+import type { VoiceResumedEvent } from "./events/resumed.js";
+import type { VoiceSelectProtocolEvent } from "./events/select-protocol.js";
+import type { VoiceSessionDescriptionEvent } from "./events/session-description.js";
+import type { VoiceSpeakingEvent } from "./events/speaking.js";
 
 /**
  * @public

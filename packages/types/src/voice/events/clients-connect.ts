@@ -1,4 +1,4 @@
-import type { Snowflake } from "#shared";
+import type { Snowflake } from "../../shared/discord.js";
 import type { VoiceEventBase } from "../base/event.js";
 import type { VoiceOpcodes } from "../event.js";
 
