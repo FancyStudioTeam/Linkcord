@@ -1,7 +1,7 @@
+import type { APIGuildChannel, APIThreadChannel } from "../payloads/channel.js";
 import type {
   APIBan,
   APIGuild,
-  APIGuildChannel,
   APIGuildMember,
   APIGuildOnboarding,
   APIGuildPreview,
@@ -9,16 +9,16 @@ import type {
   APIGuildWidgetSettings,
   APIIncidentsData,
   APIIntegration,
-  APIInvite,
-  APIRole,
-  APIThreadChannel,
-  APIVoiceRegion,
   APIWelcomeScreen,
   APIWelcomeScreenChannel,
   GuildWidgetStyles,
   MFALevel,
-} from "#payloads";
-import type { ISO8601Date, Nullable, Snowflake } from "#shared";
+} from "../payloads/guild.js";
+import type { APIInvite } from "../payloads/invite.js";
+import type { APIRole } from "../payloads/permission.js";
+import type { APIVoiceRegion } from "../payloads/voice.js";
+import type { Nullable } from "../shared/custom.js";
+import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 
 /**
  * @public

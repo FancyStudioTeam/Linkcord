@@ -4,10 +4,11 @@ import type {
   APIApplicationCommandPermissions,
   APIGuildApplicationCommandPermissions,
   ApplicationCommandTypes,
-  IntegrationTypes,
-  InteractionContextTypes,
-} from "#payloads";
-import type { Localizations, Nullable, Snowflake } from "#shared";
+} from "../payloads/application-command.js";
+import type { IntegrationTypes } from "../payloads/guild.js";
+import type { InteractionContextTypes } from "../payloads/interaction.js";
+import type { Nullable } from "../shared/custom.js";
+import type { Localizations, Snowflake } from "../shared/discord.js";
 
 /**
  * @public

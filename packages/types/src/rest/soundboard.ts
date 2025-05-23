@@ -1,5 +1,6 @@
-import type { APISoundboardSound } from "#payloads";
-import type { AudioDataUri, Nullable, Snowflake } from "#shared";
+import type { APISoundboardSound } from "../payloads/soundboard.js";
+import type { Nullable } from "../shared/custom.js";
+import type { AudioDataUri, Snowflake } from "../shared/discord.js";
 
 /**
  * @public

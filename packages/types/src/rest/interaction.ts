@@ -1,4 +1,5 @@
-import type { APIInteractionCallbackResponse, APIInteractionResponse, APIMessage } from "#payloads";
+import type { APIInteractionCallbackResponse, APIInteractionResponse } from "../payloads/interaction.js";
+import type { APIMessage } from "../payloads/message.js";
 
 /**
  * @public

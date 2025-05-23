@@ -1,4 +1,4 @@
-import type { APIAutoModerationRule } from "#payloads";
+import type { APIAutoModerationRule } from "../payloads/auto-moderation.js";
 
 /**
  * @public

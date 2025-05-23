@@ -6,8 +6,9 @@ import type {
   GuildScheduledEventEntityTypes,
   GuildScheduledEventPrivacyLevel,
   GuildScheduledEventStatus,
-} from "#payloads";
-import type { ISO8601Date, ImageDataUri, Nullable, Snowflake } from "#shared";
+} from "../payloads/guild-scheduled-event.js";
+import type { Nullable } from "../shared/custom.js";
+import type { ISO8601Date, ImageDataUri, Snowflake } from "../shared/discord.js";
 
 /**
  * @public

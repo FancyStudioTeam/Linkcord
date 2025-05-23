@@ -5,8 +5,9 @@ import type {
   APIApplicationIntegrationTypesConfiguration,
   ApplicationEventWebhookStatus,
   ApplicationEventWebhookTypes,
-} from "#payloads";
-import type { ImageDataUri, Nullable } from "#shared";
+} from "../payloads/application.js";
+import type { Nullable } from "../shared/custom.js";
+import type { ImageDataUri } from "../shared/discord.js";
 
 /**
  * @public

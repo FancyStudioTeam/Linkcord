@@ -1,13 +1,10 @@
-import type {
-  APIApplicationRoleConnection,
-  APIConnection,
-  APICurrentUserGuild,
-  APIDMChannel,
-  APIGroupDMChannel,
-  APIGuildMember,
-  APIUser,
-} from "#payloads";
-import type { ImageDataUri, Nullable, Snowflake } from "#shared";
+import type { APIDMChannel } from "../payloads/channel.js";
+import type { APIGroupDMChannel } from "../payloads/channel.js";
+import type { APICurrentUserGuild } from "../payloads/guild.js";
+import type { APIGuildMember } from "../payloads/guild.js";
+import type { APIApplicationRoleConnection, APIConnection, APIUser } from "../payloads/user.js";
+import type { Nullable } from "../shared/custom.js";
+import type { ImageDataUri, Snowflake } from "../shared/discord.js";
 
 /**
  * @public

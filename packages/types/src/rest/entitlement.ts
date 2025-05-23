@@ -1,4 +1,4 @@
-import type { APIEntitlement, APIPartialEntitlement } from "#payloads";
+import type { APIEntitlement, APIPartialEntitlement } from "../payloads/entitlement.js";
 
 /**
  * @public

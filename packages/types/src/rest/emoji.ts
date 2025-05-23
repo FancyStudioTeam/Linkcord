@@ -1,4 +1,4 @@
-import type { APIEmoji } from "#payloads";
+import type { APIEmoji } from "../payloads/emoji.js";
 
 /**
  * @public

@@ -1,5 +1,5 @@
-import type { APIAuditLog, AuditLogEvents } from "#payloads";
-import type { Snowflake } from "#shared";
+import type { APIAuditLog, AuditLogEvents } from "../payloads/audit-log.js";
+import type { Snowflake } from "../shared/discord.js";
 
 /**
  * @public

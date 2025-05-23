@@ -1,14 +1,15 @@
+import type { APIComponent } from "../payloads/component.js";
 import type {
   APIAllowedMentions,
-  APIComponent,
   APIEmbed,
   APIMessage,
   APIMessageReference,
   APIPartialAttachment,
-  APIUser,
   ReactionTypes,
-} from "#payloads";
-import type { Nullable, Snowflake } from "#shared";
+} from "../payloads/message.js";
+import type { APIUser } from "../payloads/user.js";
+import type { Nullable } from "../shared/custom.js";
+import type { Snowflake } from "../shared/discord.js";
 import type { RESTCreatePollRequest } from "./poll.js";
 
 /**

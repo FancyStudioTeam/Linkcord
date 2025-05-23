@@ -1,5 +1,6 @@
-import type { APIVoiceRegion, APIVoiceState } from "#payloads";
-import type { ISO8601Date, Nullable } from "#shared";
+import type { APIVoiceRegion, APIVoiceState } from "../payloads/voice.js";
+import type { Nullable } from "../shared/custom.js";
+import type { ISO8601Date } from "../shared/discord.js";
 
 /**
  * @public

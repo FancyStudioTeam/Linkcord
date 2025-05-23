@@ -1,5 +1,5 @@
-import type { APISubscription } from "#payloads";
-import type { Snowflake } from "#shared";
+import type { APISubscription } from "../payloads/subscription.js";
+import type { Snowflake } from "../shared/discord.js";
 
 /**
  * @public

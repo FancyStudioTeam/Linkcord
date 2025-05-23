@@ -1,4 +1,4 @@
-import type { APIGateway, APIGatewayBot } from "#payloads";
+import type { APIGateway, APIGatewayBot } from "../payloads/gateway.js";
 
 /**
  * @public

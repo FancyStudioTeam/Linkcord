@@ -1,5 +1,5 @@
-import type { APIInvite } from "#payloads";
-import type { Snowflake } from "#shared";
+import type { APIInvite } from "../payloads/index.js";
+import type { Snowflake } from "../shared/discord.js";
 
 /**
  * @public

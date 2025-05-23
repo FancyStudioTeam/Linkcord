@@ -1,5 +1,5 @@
-import type { APILobby, APILobbyMember, APILobbyMemberMetadata, APILobbyMetadata } from "#payloads";
-import type { Nullable } from "#shared";
+import type { APILobby, APILobbyMember, APILobbyMemberMetadata, APILobbyMetadata } from "../payloads/lobby.js";
+import type { Nullable } from "../shared/custom.js";
 
 /**
  * @public

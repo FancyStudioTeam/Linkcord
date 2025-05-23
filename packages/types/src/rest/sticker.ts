@@ -1,5 +1,5 @@
-import type { APISticker, APIStickerPack } from "#payloads";
-import type { Nullable } from "#shared";
+import type { APISticker, APIStickerPack } from "../payloads/sticker.js";
+import type { Nullable } from "../shared/custom.js";
 
 /**
  * @public

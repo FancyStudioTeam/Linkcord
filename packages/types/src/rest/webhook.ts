@@ -1,4 +1,5 @@
-import type { APIChannel, APIMessage, APIWebhook } from "#payloads";
+import type { APIMessage } from "../payloads/message.js";
+import type { APIWebhook } from "../payloads/webhook.js";
 
 /**
  * @public
@@ -52,7 +53,7 @@ export type RESTExecuteWebhook = undefined | APIMessage;
  * @public
  * @see https://discord.com/developers/docs/resources/webhook#get-channel-webhooks
  */
-export type RESTGetChannelWebhooks = APIChannel[];
+export type RESTGetChannelWebhooks = APIWebhook[];
 
 /**
  * @public

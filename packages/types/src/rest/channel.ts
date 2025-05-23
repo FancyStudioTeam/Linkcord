@@ -1,13 +1,13 @@
 import type {
   APIChannel,
   APIFollowedChannel,
-  APIInvite,
-  APIMessage,
   APIPrivateThreadChannel,
   APIPublicThreadChannel,
   APIThreadChannel,
   APIThreadMember,
-} from "#payloads";
+} from "../payloads/channel.js";
+import type { APIInvite } from "../payloads/invite.js";
+import type { APIMessage } from "../payloads/message.js";
 
 /**
  * @public

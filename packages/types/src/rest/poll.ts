@@ -1,5 +1,7 @@
-import type { APIMessage, APIPollAnswer, APIPollQuestion, APIUser, PollLayoutTypes } from "#payloads";
-import type { Snowflake } from "#shared";
+import type { APIMessage } from "../payloads/message.js";
+import type { APIPollAnswer, APIPollQuestion, PollLayoutTypes } from "../payloads/poll.js";
+import type { APIUser } from "../payloads/user.js";
+import type { Snowflake } from "../shared/discord.js";
 
 /**
  * @public

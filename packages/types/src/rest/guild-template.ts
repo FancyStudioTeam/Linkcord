@@ -1,5 +1,7 @@
-import type { APIGuild, APIGuildTemplate } from "#payloads";
-import type { ImageDataUri, Nullable } from "#shared";
+import type { APIGuildTemplate } from "../payloads/guild-template.js";
+import type { APIGuild } from "../payloads/guild.js";
+import type { Nullable } from "../shared/custom.js";
+import type { ImageDataUri } from "../shared/discord.js";
 
 /**
  * @public

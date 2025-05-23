@@ -1,4 +1,4 @@
-import type { APISKU } from "#payloads";
+import type { APISKU } from "../payloads/sku.js";
 
 /**
  * @public

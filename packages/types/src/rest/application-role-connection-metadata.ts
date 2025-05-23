@@ -1,4 +1,4 @@
-import type { APIApplicationRoleConnectionMetadata } from "#payloads";
+import type { APIApplicationRoleConnectionMetadata } from "../payloads/application-role-connection-metadata.js";
 
 /**
  * @public
