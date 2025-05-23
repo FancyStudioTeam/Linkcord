@@ -1,10 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "outDir": "dist",
-    "paths": {
-      "#types": ["./src/types/index.ts"]
-    }
+    "outDir": "dist"
   },
+  "exclude": ["**/*.test.ts"],
   "extends": "../../tsconfig.base.json"
 }
