@@ -15,33 +15,6 @@
     }
   },
   "files": ["dist", "README.md", "LICENSE"],
-  "imports": {
-    "#gateway": {
-      "import": "./dist/esm/gateway/index.js",
-      "require": "./dist/cjs/gateway/index.js",
-      "types": "./dist/types/gateway/index.d.ts"
-    },
-    "#payloads": {
-      "import": "./dist/esm/payloads/index.js",
-      "require": "./dist/cjs/payloads/index.js",
-      "types": "./dist/types/payloads/index.d.ts"
-    },
-    "#rest": {
-      "import": "./dist/esm/rest/index.js",
-      "require": "./dist/cjs/rest/index.js",
-      "types": "./dist/types/rest/index.d.ts"
-    },
-    "#shared": {
-      "import": "./dist/esm/shared/index.js",
-      "require": "./dist/cjs/shared/index.js",
-      "types": "./dist/types/shared/index.d.ts"
-    },
-    "#voice": {
-      "import": "./dist/esm/voice/index.js",
-      "require": "./dist/cjs/voice/index.js",
-      "types": "./dist/types/voice/index.d.ts"
-    }
-  },
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
