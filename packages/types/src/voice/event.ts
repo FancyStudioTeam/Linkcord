@@ -38,7 +38,7 @@ export type VoiceSendEvent = VoiceHeartbeat | VoiceIdentify | VoiceResume | Voic
  * @public
  * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#voice-voice-close-event-codes
  */
-export enum VoiceCloseCodes {
+export enum VoiceCloseEventCodes {
   AlreadyAuthenticated = 4005,
   AuthenticationFailed = 4004,
   BadRequest = 4017,
