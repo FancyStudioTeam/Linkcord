@@ -1,10 +1,10 @@
+import type { Locale, Snowflake } from "../../shared/discord.js";
 import type { APIPartialChannel } from "../channel.js";
 import type { ComponentTypes } from "../component.js";
 import type { APIEntitlement } from "../entitlement.js";
 import type { APIGuildMember, APIPartialGuild } from "../guild.js";
 import type { APIAuthorizingIntegrationOwners, InteractionContextTypes, InteractionTypes } from "../interaction.js";
 import type { APIMessage } from "../message.js";
-import type { Locale, Snowflake } from "../shared/discord.js";
 import type { APIUser } from "../user.js";
 
 /**

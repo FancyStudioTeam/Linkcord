@@ -1,5 +1,5 @@
+import type { Snowflake } from "../../shared/discord.js";
 import type { APIAuthorizingIntegrationOwners, InteractionTypes } from "../interaction.js";
-import type { Snowflake } from "../shared/discord.js";
 import type { APIUser } from "../user.js";
 
 /**
