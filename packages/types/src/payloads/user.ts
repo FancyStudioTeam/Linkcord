@@ -88,10 +88,10 @@ export interface APIUser {
  *   meaning it may change or break at any time.
  */
 export interface APIUserClan {
-  badge: string;
+  badge: Nullable<string>;
   identify_enabled: boolean;
-  identify_guild_id: Snowflake;
-  tag: string;
+  identify_guild_id: Nullable<Snowflake>;
+  tag: Nullable<string>;
 }
 
 /**
@@ -113,7 +113,7 @@ export interface APIUserCollectibles {
 export interface APIUserNameplate {
   asset: string;
   label: string;
-  palette: string;
+  palette: NameplatePalettes;
   sku_id: Snowflake;
 }
 
@@ -155,6 +155,25 @@ export enum ConnectionServices {
   Twitter = "twitter",
   Xbox = "xbox",
   YouTube = "youtube",
+}
+
+/**
+ * @alpha
+ * @remarks
+ * - This is not officially documented in the Discord API documentation,
+ *   meaning it may change or break at any time.
+ */
+export enum NameplatePalettes {
+  Berry = "berry",
+  BubbleGum = "bubble_gum",
+  Clover = "clover",
+  Cobalt = "cobalt",
+  Crimson = "crimson",
+  Forest = "forest",
+  None = "none",
+  Sky = "sky",
+  Teal = "teal",
+  Violet = "violet",
 }
 
 /**

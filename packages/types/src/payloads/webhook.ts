@@ -1,7 +1,7 @@
 import type { Nullable } from "../shared/custom.js";
 import type { Snowflake } from "../shared/discord.js";
-import type { APIPartialChannel } from "./channel.js";
-import type { APIPartialGuild } from "./guild.js";
+import type { APIGuildChannel } from "./channel.js";
+import type { APIGuild } from "./guild.js";
 import type { APIUser } from "./user.js";
 
 /**
@@ -20,18 +20,32 @@ export interface APIWebhook {
    * - This field may not be present when the webhook owner lost access to the
    *   guild at which the channel belongs.
    */
-  source_channel: APIPartialChannel;
+  source_channel: APIWebhookSourceChannel;
   /**
    * @remarks
    * - This field may not be present when the webhook owner lost access to the
    *   guild at which the channel belongs.
    */
-  source_guild?: APIPartialGuild;
+  source_guild?: APIWebhookSourceGuild;
   token?: string;
   type: WebhookTypes;
   url?: string;
   user?: APIUser;
 }
+
+/**
+ * @public
+ * @remarks
+ * - This type is not documented by Discord.
+ */
+export type APIWebhookSourceChannel = Pick<APIGuildChannel, "id" | "name">;
+
+/**
+ * @public
+ * @remarks
+ * - This type is not documented by Discord.
+ */
+export type APIWebhookSourceGuild = Pick<APIGuild, "icon" | "id" | "name">;
 
 /**
  * @public
