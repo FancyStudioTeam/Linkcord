@@ -43,4 +43,15 @@ export class BitFieldResolver {
   has(bit: number): boolean {
     return (this.bitField & bit) === bit;
   }
+
+  /**
+   * Removes a bit from the bitfield.
+   * @param bit - The bit to remove.
+   * @returns The bitfield with the removed bit.
+   */
+  remove(bit: number): number {
+    this.bitField &= ~bit;
+
+    return this.bitField;
+  }
 }
