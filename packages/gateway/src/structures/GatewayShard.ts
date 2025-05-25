@@ -1,6 +1,5 @@
 import {
   GatewayCloseEventCodes,
-  GatewayDispatchEvents,
   type GatewayEvent,
   type GatewayHeartbeatPayload,
   type GatewayIdentifyPayload,
@@ -15,6 +14,7 @@ import {
 import { type RawData, WebSocket } from "ws";
 import { GatewayShardError } from "../utils/index.js";
 import type { GatewayManager } from "./GatewayManager.js";
+import { dispatchHandlers } from "./dispatch/dispatchHandlers.js";
 
 const RECONNECTABLE_CLOSE_CODES: GatewayCloseEventCodes[] = [
   GatewayCloseEventCodes.UnknownError,
@@ -41,9 +41,9 @@ const SENDABLE_OPCODES = [
  */
 export class GatewayShard {
   private _sequence: Nullable<number> = null;
-  private _voiceServerUpdates: Map<string, VoiceServerUpdate> = new Map();
 
   readonly manager: GatewayManager;
+  readonly voiceServerUpdates: Map<string, VoiceServerUpdate> = new Map();
 
   heartbeatInterval: Nullable<number> = null;
   id: number;
@@ -117,6 +117,10 @@ export class GatewayShard {
 
     this.manager.emit("packet", message, this.id);
 
+    if (message.s) {
+      this._sequence = message.s;
+    }
+
     switch (message.op) {
       case GatewayOpcodes.Hello: {
         const { heartbeat_interval } = message.d;
@@ -129,52 +133,10 @@ export class GatewayShard {
         break;
       }
       case GatewayOpcodes.Dispatch: {
-        const { s } = message;
+        const handler = dispatchHandlers[message.t];
 
-        this._sequence = s;
-
-        switch (message.t) {
-          case GatewayDispatchEvents.VoiceServerUpdate: {
-            const { endpoint, guild_id, token } = message.d;
-            const pendingVoiceServerUpdate = this._voiceServerUpdates.get(guild_id);
-
-            if (pendingVoiceServerUpdate) {
-              const { data, resolve } = pendingVoiceServerUpdate;
-
-              if (!endpoint) {
-                throw new GatewayShardError("The voice server update endpoint is missing.", this.id);
-              }
-
-              data.endpoint = endpoint;
-              data.guildId = guild_id;
-              data.token = token;
-
-              resolve(data);
-              this._voiceServerUpdates.delete(guild_id);
-            }
-
-            break;
-          }
-          case GatewayDispatchEvents.VoiceStateUpdate: {
-            const { guild_id, session_id, user_id } = message.d;
-            const pendingVoiceServerUpdate = this._voiceServerUpdates.get(guild_id ?? "");
-
-            if (pendingVoiceServerUpdate) {
-              const { data } = pendingVoiceServerUpdate;
-
-              data.sessionId = session_id;
-              data.userId = user_id;
-
-              if (guild_id) {
-                data.guildId = guild_id;
-              }
-            }
-
-            break;
-          }
-          default: {
-            break;
-          }
+        if (handler) {
+          handler(this, message.d as never);
         }
 
         break;
@@ -239,7 +201,7 @@ export class GatewayShard {
     this.sendPayload(GatewayOpcodes.VoiceStateUpdate, voiceStateUpdatePayload);
 
     const promise = new Promise<VoiceServerUpdateData>((resolve, reject) =>
-      this._voiceServerUpdates.set(guildId, {
+      this.voiceServerUpdates.set(guildId, {
         data: {
           endpoint: "",
           guildId,
