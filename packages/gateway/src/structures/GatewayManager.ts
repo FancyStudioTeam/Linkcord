@@ -1,7 +1,7 @@
 import { EventEmitter } from "node:events";
 import type { APIVersion, GatewayEvent, Nullable } from "@fancystudioteam/linkcord-types";
-import { GatewayManagerError, fetchGatewayBot } from "#utils";
-import { Shard } from "./Shard.js";
+import { fetchGatewayBot } from "../utils/functions/fetchGatewayBot.js";
+import { GatewayShard } from "./GatewayShard.js";
 
 /**
  * @public
@@ -9,31 +9,22 @@ import { Shard } from "./Shard.js";
 export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
   readonly intents: number;
   readonly options: GatewayManagerOptions;
+  readonly shards = new Map<number, GatewayShard>();
+  readonly token: string;
   readonly version: APIVersion;
+
   shardCount = 0;
-  shards: Map<number, Shard> = new Map();
-  token: string;
   url: Nullable<URL> = null;
 
   constructor(options: GatewayManagerOptions) {
     super();
 
-    let { intents, version, token } = options;
-
-    version ??= 10;
-
-    if (version < 9) {
-      throw new GatewayManagerError("API versions below 9 are currently deprecated and they should not be used.");
-    }
-
-    if (version > 10) {
-      throw new GatewayManagerError("Invalid gateway version.");
-    }
+    const { intents, token } = options;
 
     this.intents = intents;
     this.options = options;
     this.token = token;
-    this.version = version;
+    this.version = 10;
   }
 
   get connectionProperties(): ConnectionProperties {
@@ -60,7 +51,7 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
     this.url = new URL(url);
 
     for (let index = 0; index < shards; index++) {
-      const shard = new Shard(this, index);
+      const shard = new GatewayShard(this, index);
 
       this.shards.set(shard.id, shard);
 
@@ -82,8 +73,22 @@ export interface ConnectionProperties {
  * @public
  */
 export interface GatewayManagerEvents {
+  /**
+   * Emitted when the gateway shard socket is closed.
+   */
+  close: [code: number, reason: string, reconnectable: boolean];
+  /**
+   * Emitted when a debug message is received from a gateway shard or from the
+   * manager.
+   */
   debug: [message: string, shardId?: number];
+  /**
+   * Emitted when a gateway shard receives a `HELLO` opcode from the gateway.
+   */
   hello: [heartbeatInterval: number, shardId: number];
+  /**
+   * Emitted when a gateway packet is received from a gateway shard.
+   */
   packet: [packet: GatewayEvent, shardId: number];
 }
 
@@ -94,7 +99,6 @@ export interface GatewayManagerOptions {
   connectionProperties?: GatewayManagerConnectionProperties;
   intents: number;
   token: string;
-  version?: APIVersion;
 }
 
 /**

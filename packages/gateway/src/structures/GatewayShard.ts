@@ -1,4 +1,5 @@
 import {
+  GatewayCloseEventCodes,
   GatewayDispatchEvents,
   type GatewayEvent,
   type GatewayHeartbeatPayload,
@@ -12,10 +13,10 @@ import {
   type Nullable,
 } from "@fancystudioteam/linkcord-types";
 import { type RawData, WebSocket } from "ws";
-import { ShardError } from "#utils";
+import { GatewayShardError } from "../utils/index.js";
 import type { GatewayManager } from "./GatewayManager.js";
 
-/*const RECONNECTABLE_CLOSE_CODES: GatewayCloseEventCodes[] = [
+const RECONNECTABLE_CLOSE_CODES: GatewayCloseEventCodes[] = [
   GatewayCloseEventCodes.UnknownError,
   GatewayCloseEventCodes.UnknownOpcode,
   GatewayCloseEventCodes.DecodeError,
@@ -24,7 +25,7 @@ import type { GatewayManager } from "./GatewayManager.js";
   GatewayCloseEventCodes.InvalidSequence,
   GatewayCloseEventCodes.RateLimited,
   GatewayCloseEventCodes.SessionTimedOut,
-];*/
+];
 const SENDABLE_OPCODES = [
   GatewayOpcodes.Heartbeat,
   GatewayOpcodes.Identify,
@@ -38,7 +39,7 @@ const SENDABLE_OPCODES = [
 /**
  * @public
  */
-export class Shard {
+export class GatewayShard {
   private _sequence: Nullable<number> = null;
   private _voiceServerUpdates: Map<string, VoiceServerUpdate> = new Map();
 
@@ -93,6 +94,18 @@ export class Shard {
     this.socket = socket;
     this.socket.on("open", this._onOpen.bind(this));
     this.socket.on("message", this._onMessage.bind(this));
+    this.socket.on("close", this._onClose.bind(this));
+  }
+
+  /**
+   * @internal
+   */
+  private _onClose(code: number, reason: string): void {
+    const stringifiedReason = reason.toString();
+    const isReconnectable = RECONNECTABLE_CLOSE_CODES.includes(code);
+
+    this.manager.emit("debug", `Received close event with code "${code}" and reason "${reason}".`);
+    this.manager.emit("close", code, stringifiedReason, isReconnectable);
   }
 
   /**
@@ -128,6 +141,10 @@ export class Shard {
             if (pendingVoiceServerUpdate) {
               const { data, resolve } = pendingVoiceServerUpdate;
 
+              if (!endpoint) {
+                throw new GatewayShardError("The voice server update endpoint is missing.", this.id);
+              }
+
               data.endpoint = endpoint;
               data.guildId = guild_id;
               data.token = token;
@@ -140,14 +157,17 @@ export class Shard {
           }
           case GatewayDispatchEvents.VoiceStateUpdate: {
             const { guild_id, session_id, user_id } = message.d;
-            const pendingVoiceServerUpdate = this._voiceServerUpdates.get(guild_id);
+            const pendingVoiceServerUpdate = this._voiceServerUpdates.get(guild_id ?? "");
 
             if (pendingVoiceServerUpdate) {
               const { data } = pendingVoiceServerUpdate;
 
               data.sessionId = session_id;
               data.userId = user_id;
-              data.guildId = guild_id;
+
+              if (guild_id) {
+                data.guildId = guild_id;
+              }
             }
 
             break;
@@ -176,7 +196,7 @@ export class Shard {
     const { url } = this.manager;
 
     if (!url) {
-      throw new ShardError("The gateway url has not been set yet.", this.id);
+      throw new GatewayShardError("The gateway url has not been set yet.", this.id);
     }
 
     this._initializeSocket(url);
@@ -191,7 +211,7 @@ export class Shard {
         "Make sure to connect the shard to initialize and open its socket.",
       ];
 
-      throw new ShardError(errorMessages.join("\n"), this.id);
+      throw new GatewayShardError(errorMessages.join("\n"), this.id);
     }
 
     return socket;
@@ -237,7 +257,7 @@ export class Shard {
 
   sendPayload<Opcode extends AnySendableOpcode>(opcode: Opcode, payload: SendPayloadData[Opcode]): void {
     if (!SENDABLE_OPCODES.includes(opcode)) {
-      throw new ShardError("Cannot send a non-sendable opcode to the gateway.", this.id);
+      throw new GatewayShardError("Cannot send a non-sendable opcode to the gateway.", this.id);
     }
 
     const socket = this.getWebSocket();

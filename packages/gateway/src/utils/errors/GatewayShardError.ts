@@ -1,7 +1,7 @@
 /**
  * @public
  */
-export class ShardError extends Error {
+export class GatewayShardError extends Error {
   shardId: number;
 
   constructor(message: string, shardId: number) {
