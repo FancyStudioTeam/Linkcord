@@ -1,7 +1,7 @@
 import { type GatewayDispatch, GatewayDispatchEvents } from "@fancystudioteam/linkcord-types";
 import type { GatewayShard } from "../GatewayShard.js";
-import { VOICE_SERVER_UPDATE } from "./handlers/voiceServerUpdate.js";
-import { VOICE_STATE_UPDATE } from "./handlers/voiceStateUpdate.js";
+import { VOICE_SERVER_UPDATE } from "./handlers/VOICE_SERVER_UPDATE.js";
+import { VOICE_STATE_UPDATE } from "./handlers/VOICE_STATE_UPDATE.js";
 
 export const dispatchHandlers: Partial<DispatchHandlers> = {
   [GatewayDispatchEvents.VoiceServerUpdate]: VOICE_SERVER_UPDATE,
