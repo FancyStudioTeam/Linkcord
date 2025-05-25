@@ -43,6 +43,7 @@
     "rimraf": "rimraf dist",
     "tarball": "pnpm pack",
     "vitest": "vitest",
+    "vitest:update": "vitest --update",
     "vitest:watch": "vitest --watch"
   },
   "types": "dist/types/index.d.ts",
