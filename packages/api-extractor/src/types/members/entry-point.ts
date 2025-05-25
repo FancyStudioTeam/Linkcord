@@ -7,8 +7,17 @@ import type { APIMemberKind } from "./member.js";
 import type { APITypeAlias } from "./type-alias.js";
 import type { APIVariable } from "./variable.js";
 
+/**
+ * @public
+ */
 export type AnyEntryPointMember = APIClass | APIEnum | APIFunction | APIInterface | APITypeAlias | APIVariable;
 
+/**
+ * @public
+ */
 export type AnyEntryPointMemberKind = AnyEntryPointMember["kind"];
 
+/**
+ * @public
+ */
 export type APIEntryPoint = APIMemberBase<APIMemberKind.EntryPoint, AnyEntryPointMember>;
