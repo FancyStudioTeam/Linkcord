@@ -1,8 +1,7 @@
 /**
  * Calculates the shard id from a guild id.
- * @public
- * @param shardCount - The shard count of the gateway.
- * @param guildId - The guild id to retrieve its shard id.
+ * @param shardCount - The shard count of the client or gateway manager.
+ * @param guildId - The guild id to get its shard id.
  * @returns The shard id of the guild.
  */
 export const calculateShardIdFromGuildId = (shardCount: number, guildId: string): number => {
