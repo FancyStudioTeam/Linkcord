@@ -1,4 +1,4 @@
-import type { ImageExtension, ImageSize } from "../../constants.js";
+import type { ImageUrlOptions } from "../../constants.js";
 import { getDynamicExtension } from "./getDynamicExtension.js";
 
 /**
@@ -12,7 +12,7 @@ import { getDynamicExtension } from "./getDynamicExtension.js";
  */
 export const createImageUrl = (
   assetStringUrl: string,
-  options: CreateImageUrlOptions = {
+  options: ImageUrlOptions = {
     forceStatic: false,
   },
 ): URL => {
@@ -36,22 +36,3 @@ export const createImageUrl = (
 
   return assetUrl;
 };
-
-/**
- * @public
- */
-export interface CreateImageUrlOptions {
-  /**
-   * The extension to use for the asset.
-   */
-  extension?: ImageExtension;
-  /**
-   * Whether to force the use of the static version of the asset even if the
-   * asset hash is animated.
-   */
-  forceStatic?: boolean;
-  /**
-   * The size to use for the asset.
-   */
-  size?: ImageSize;
-}
