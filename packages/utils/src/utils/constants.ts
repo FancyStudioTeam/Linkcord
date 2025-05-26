@@ -1,0 +1,19 @@
+/**
+ * @public
+ */
+export const ALLOWED_IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "gif", "webp"] as const;
+
+/**
+ * @public
+ */
+export const ALLOWED_IMAGE_SIZES = [512, 1024, 2048, 4096] as const;
+
+/**
+ * @public
+ */
+export type ImageExtension = (typeof ALLOWED_IMAGE_EXTENSIONS)[number];
+
+/**
+ * @public
+ */
+export type ImageSize = (typeof ALLOWED_IMAGE_SIZES)[number];
