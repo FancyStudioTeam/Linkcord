@@ -3,12 +3,10 @@ import { isAnimatedAsset } from "./isAnimatedAsset.js";
 
 /**
  * Gets the dynamic extension of an asset hash.
- * @param assetHash - The asset hash to use.
- * @param options - The options to use.
- * @returns The dynamic extension for the asset.
- * @remarks
- * - If the `extension` option is provided, it will take more preference over
- *   the `useAnimated` option.
+ *
+ * @param assetHash - The asset hash from which to get its dynamic extension.
+ * @param options - The options to use for getting the dynamic extension.
+ * @returns The dynamic extension of the asset hash.
  */
 export const getDynamicExtension = (
   assetHash: string,

@@ -2,13 +2,18 @@ import type { ImageUrlOptions } from "../../constants.js";
 import { getDynamicExtension } from "./getDynamicExtension.js";
 
 /**
- * Creates an `URL` object for an asset.
- * @param assetStringUrl - The string url of the asset.
- * @param options - The options to use.
- * @returns The `URL` object to manipulate the asset.
+ * Creates an `URL` object instance for an asset.
+ *
+ * @param assetStringUrl - The string url of the asset from which to create
+ *   the `URL` object instance.
+ * @param options - The options to use when creating the `URL` object
+ *   instance.
+ * @returns The created url object instance.
+ *
  * @remarks
- * - The `assetStringUrl` should not include the extension in the url due we
- *   will get the dynamic extension from the asset and will append it.
+ * - The `assetStringUrl` parameter should not include the extension in the
+ *   url as we will get the dynamic extension from the asset hash and
+ *   append it at the end of the url.
  */
 export const createImageUrl = (
   assetStringUrl: string,
@@ -19,8 +24,11 @@ export const createImageUrl = (
   const { extension, forceStatic, size } = options;
   /**
    * Asset hashes are usually at the end of the url.
-   * We can split the url by "/" and get the last element of the array.
-   * This element will be considered the asset hash for us.
+   *
+   * We can split the url using the "/" separator and get the last element of
+   * the array.
+   *
+   * This element will be considered as the asset hash.
    */
   const assetHash = assetStringUrl.split("/").at(-1) ?? "";
   const dynamicExtension = getDynamicExtension(assetHash, {
