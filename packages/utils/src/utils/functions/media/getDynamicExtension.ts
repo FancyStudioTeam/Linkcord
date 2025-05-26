@@ -13,17 +13,13 @@ import { isAnimatedAsset } from "./isAnimatedAsset.js";
 export const getDynamicExtension = (
   assetHash: string,
   options: GetDynamicExtensionOptions = {
-    useAnimated: true,
+    forceStatic: false,
   },
 ): string => {
-  const { extension, useAnimated } = options;
+  const { extension, forceStatic } = options;
   const defaultExtension = "webp";
 
-  if ((extension && useAnimated) || !useAnimated) {
-    return extension ?? defaultExtension;
-  }
-
-  return isAnimatedAsset(assetHash) ? "gif" : (extension ?? defaultExtension);
+  return isAnimatedAsset(assetHash) && !forceStatic ? "gif" : (extension ?? defaultExtension);
 };
 
 /**
@@ -35,7 +31,8 @@ export interface GetDynamicExtensionOptions {
    */
   extension?: ImageExtension;
   /**
-   * Whether to use the animated version of the asset if it is available.
+   * Whether to force the use of the static version of the asset even if the
+   * asset hash is animated.
    */
-  useAnimated?: boolean;
+  forceStatic?: boolean;
 }

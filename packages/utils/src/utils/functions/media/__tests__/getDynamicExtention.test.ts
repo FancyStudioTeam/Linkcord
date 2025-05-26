@@ -10,12 +10,25 @@ describe("Function: getDynamicExtension", () => {
     expect(getDynamicExtension(STATIC_AVATAR_HASH)).toBe("webp");
   });
 
-  it("Returns the given extension even if the asset hash is animated.", () => {
+  it("Returns the static extension of the asset hash when the 'forceStatic' option is enabled.", () => {
+    expect(
+      getDynamicExtension(DYNAMIC_AVATAR_HASH, {
+        forceStatic: true,
+      }),
+    ).toBe("webp");
+    expect(
+      getDynamicExtension(STATIC_AVATAR_HASH, {
+        forceStatic: true,
+      }),
+    ).toBe("webp");
+  });
+
+  it("Returns the dynamic or the given extension of the asset hash when the 'forceStatic' option is disabled and the 'extension' option is set.", () => {
     expect(
       getDynamicExtension(DYNAMIC_AVATAR_HASH, {
         extension: "png",
       }),
-    ).toBe("png");
+    ).toBe("gif");
     expect(
       getDynamicExtension(STATIC_AVATAR_HASH, {
         extension: "png",
@@ -23,37 +36,18 @@ describe("Function: getDynamicExtension", () => {
     ).toBe("png");
   });
 
-  it("Returns the given extension taking preference over the 'useAnimated' option.", () => {
+  it("Returns the given extension when the 'forceStatic' option is enabled and the 'extension' option is set.", () => {
     expect(
       getDynamicExtension(DYNAMIC_AVATAR_HASH, {
         extension: "png",
-        useAnimated: true,
-      }),
-    ).toBe("png");
-    expect(
-      getDynamicExtension(DYNAMIC_AVATAR_HASH, {
-        extension: "png",
-        useAnimated: false,
+        forceStatic: true,
       }),
     ).toBe("png");
     expect(
       getDynamicExtension(STATIC_AVATAR_HASH, {
         extension: "png",
-        useAnimated: true,
-      }),
-    ).toBe("png");
-    expect(
-      getDynamicExtension(STATIC_AVATAR_HASH, {
-        extension: "png",
-        useAnimated: false,
+        forceStatic: true,
       }),
     ).toBe("png");
   });
-
-  it("Returns the default extension even if the 'useAnimated' option is set to 'false' and there is no extension provided.", () =>
-    expect(
-      getDynamicExtension(DYNAMIC_AVATAR_HASH, {
-        useAnimated: false,
-      }),
-    ).toBe("webp"));
 });
