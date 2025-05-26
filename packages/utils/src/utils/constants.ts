@@ -6,7 +6,7 @@ export const ALLOWED_IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "gif", "webp"] as
 /**
  * @public
  */
-export const ALLOWED_IMAGE_SIZES = [512, 1024, 2048, 4096] as const;
+export const ALLOWED_IMAGE_SIZES = [16, 32, 64, 128, 256, 512, 1024, 2048, 4096] as const;
 
 /**
  * @public
