@@ -41,9 +41,15 @@
           "options": {
             "conventions": [
               {
-                "formats": ["snake_case", "camelCase"],
+                "formats": ["camelCase", "snake_case"],
                 "selector": {
                   "kind": "typeProperty"
+                }
+              },
+              {
+                "formats": ["camelCase", "snake_case"],
+                "selector": {
+                  "kind": "objectLiteralProperty"
                 }
               }
             ],

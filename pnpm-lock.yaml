@@ -157,6 +157,9 @@ importers:
       '@fancystudioteam/linkcord-types':
         specifier: workspace:*
         version: link:../types
+      '@fancystudioteam/linkcord-utils':
+        specifier: workspace:*
+        version: link:../utils
       ws:
         specifier: 8.18.2
         version: 8.18.2
@@ -273,6 +276,10 @@ importers:
         version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.18)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
 
   packages/utils:
+    dependencies:
+      '@fancystudioteam/linkcord-types':
+        specifier: workspace:*
+        version: link:../types
     devDependencies:
       '@microsoft/api-extractor':
         specifier: 7.52.7
