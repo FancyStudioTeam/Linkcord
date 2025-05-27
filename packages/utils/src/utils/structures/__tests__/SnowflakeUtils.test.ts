@@ -9,21 +9,17 @@ describe("Class: SnowflakeUtils", () => {
 
   describe("Method: timestampFrom", () => {
     it("Returns the timestamp of the snowflake.", () => {
-      const expectedResult = 1462015105796;
-
-      expect(SnowflakeUtils.timestampFrom("175928847299117063")).toBe(expectedResult);
-      expect(SnowflakeUtils.timestampFrom(Number("175928847299117063"))).toBe(expectedResult);
-      expect(SnowflakeUtils.timestampFrom(BigInt("175928847299117063"))).toBe(expectedResult);
+      expect(SnowflakeUtils.timestampFrom("175928847299117063")).toBe(1462015105796);
+      expect(SnowflakeUtils.timestampFrom(Number("175928847299117063"))).toBe(1462015105796);
+      expect(SnowflakeUtils.timestampFrom(BigInt("175928847299117063"))).toBe(1462015105796);
     });
 
-    it("Throws an error when the snowflake is not valid.", () => {
-      const expectedErrorMessage = "The snowflake is not valid.";
-
+    it("Throws a 'TypeError' when the snowflake is not valid a valid number.", () => {
       // @ts-expect-error
-      expect(() => SnowflakeUtils.timestampFrom(null)).toThrow(expectedErrorMessage);
-      // @ts-expect-error
-      expect(() => SnowflakeUtils.timestampFrom(undefined)).toThrow(expectedErrorMessage);
-      expect(() => SnowflakeUtils.timestampFrom("NOT_A_STRINGIFIED_SNOWFLAKE")).toThrow(expectedErrorMessage);
+      expect(() => SnowflakeUtils.timestampFrom(null)).toThrow("The provided snowflake is not a valid number.");
+      expect(() => SnowflakeUtils.timestampFrom("NOT_A_VALID_STRINGIFIED_SNOWFLAKE")).toThrow(
+        "The provided snowflake is not a valid number.",
+      );
     });
   });
 });

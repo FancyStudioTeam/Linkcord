@@ -12,7 +12,7 @@ describe("Class: ImageUtils", () => {
     }));
 
   describe("Method: createImageUrl", () => {
-    it("Returns the created image url.", () => {
+    it("Returns the created image url with the default options.", () => {
       const dynamicAssetRoute = `avatars/${USER_ID}/${DYNAMIC_AVATAR_HASH}`;
       const staticAssetRoute = `avatars/${USER_ID}/${STATIC_AVATAR_HASH}`;
 
@@ -20,7 +20,7 @@ describe("Class: ImageUtils", () => {
       expect(ImageUtils.createImageUrl(staticAssetRoute)).toBe(`https://cdn.discordapp.com/${staticAssetRoute}.webp`);
     });
 
-    it("Returns the created image url with the given size.", () => {
+    it("Returns the created image url with the 'size' option set to '1024'.", () => {
       const dynamicAssetRoute = `avatars/${USER_ID}/${DYNAMIC_AVATAR_HASH}`;
       const staticAssetRoute = `avatars/${USER_ID}/${STATIC_AVATAR_HASH}`;
 
@@ -36,7 +36,23 @@ describe("Class: ImageUtils", () => {
       ).toBe(`https://cdn.discordapp.com/${staticAssetRoute}.webp?size=1024`);
     });
 
-    it("Returns the created image url with the 'forceStatic' option enabled and the 'extension' option set.", () => {
+    it("Returns the created image url with the 'extension' option set to 'png'.", () => {
+      const dynamicAssetRoute = `avatars/${USER_ID}/${DYNAMIC_AVATAR_HASH}`;
+      const staticAssetRoute = `avatars/${USER_ID}/${STATIC_AVATAR_HASH}`;
+
+      expect(
+        ImageUtils.createImageUrl(dynamicAssetRoute, {
+          extension: "png",
+        }),
+      ).toBe(`https://cdn.discordapp.com/${dynamicAssetRoute}.gif`);
+      expect(
+        ImageUtils.createImageUrl(staticAssetRoute, {
+          extension: "png",
+        }),
+      ).toBe(`https://cdn.discordapp.com/${staticAssetRoute}.png`);
+    });
+
+    it("Returns the created image url with the 'extension' option set to 'png' and the 'forceStatic' option enabled.", () => {
       const dynamicAssetRoute = `avatars/${USER_ID}/${DYNAMIC_AVATAR_HASH}`;
       const staticAssetRoute = `avatars/${USER_ID}/${STATIC_AVATAR_HASH}`;
 
@@ -56,25 +72,12 @@ describe("Class: ImageUtils", () => {
   });
 
   describe("Method: getDynamicExtension", () => {
-    it("Returns the dynamic extension of the asset hash.", () => {
+    it("Returns the dynamic extension.", () => {
       expect(ImageUtils.getDynamicExtension(DYNAMIC_AVATAR_HASH)).toBe("gif");
       expect(ImageUtils.getDynamicExtension(STATIC_AVATAR_HASH)).toBe("webp");
     });
 
-    it("Returns the default extension when the 'forceStatic' option is enabled.", () => {
-      expect(
-        ImageUtils.getDynamicExtension(DYNAMIC_AVATAR_HASH, {
-          forceStatic: true,
-        }),
-      ).toBe("webp");
-      expect(
-        ImageUtils.getDynamicExtension(STATIC_AVATAR_HASH, {
-          forceStatic: true,
-        }),
-      ).toBe("webp");
-    });
-
-    it("Returns the dynamic or the given extension when the 'extension' option is set.", () => {
+    it("Returns the dynamic or given extension when the the 'extension' option is set to 'png'.", () => {
       expect(
         ImageUtils.getDynamicExtension(DYNAMIC_AVATAR_HASH, {
           extension: "png",
@@ -87,7 +90,20 @@ describe("Class: ImageUtils", () => {
       ).toBe("png");
     });
 
-    it("Returns the given extension when the 'forceStatic' option is enabled and the 'extension' option is set.", () => {
+    it("Returns the default extension when the 'extension' option is not set and the 'forceStatic' option is enabled.", () => {
+      expect(
+        ImageUtils.getDynamicExtension(DYNAMIC_AVATAR_HASH, {
+          forceStatic: true,
+        }),
+      ).toBe("webp");
+      expect(
+        ImageUtils.getDynamicExtension(STATIC_AVATAR_HASH, {
+          forceStatic: true,
+        }),
+      ).toBe("webp");
+    });
+
+    it("Returns the given extension when the 'extension' option is set to 'png' and the 'forceStatic' option is enabled.", () => {
       expect(
         ImageUtils.getDynamicExtension(DYNAMIC_AVATAR_HASH, {
           extension: "png",
@@ -104,12 +120,12 @@ describe("Class: ImageUtils", () => {
   });
 
   describe("Method: isAvailableAsAnimated", () => {
-    it("Returns a boolean indicating whether the asset hash is available in an animated format.", () => {
+    it("Returns a boolean whether the asset hash is available in an animated format.", () => {
       expect(ImageUtils.isAvailableAsAnimated(DYNAMIC_AVATAR_HASH)).toBe(true);
       expect(ImageUtils.isAvailableAsAnimated(STATIC_AVATAR_HASH)).toBe(false);
     });
 
-    it("Returns 'false' when the asset hash is not a string.", () => {
+    it("Returns 'false' when the asset hash is not a valid string.", () => {
       // @ts-expect-error
       expect(ImageUtils.isAvailableAsAnimated(null)).toBe(false);
       // @ts-expect-error

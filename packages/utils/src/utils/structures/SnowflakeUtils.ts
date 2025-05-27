@@ -23,7 +23,7 @@ export class SnowflakeUtils {
     try {
       return Number((BigInt(snowflake) >> 22n) + SnowflakeUtils.DISCORD_EPOCH);
     } catch {
-      throw new Error("The snowflake is not valid.");
+      throw new TypeError("The provided snowflake is not a valid number.");
     }
   }
 }
