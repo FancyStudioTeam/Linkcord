@@ -39,6 +39,19 @@ export interface APIConnection {
 }
 
 /**
+ * @alpha
+ * @remarks
+ * - This is not officially documented in the Discord API documentation,
+ *   meaning it may change or break at any time.
+ */
+export interface APIPrimaryGuild {
+  badge: Nullable<string>;
+  identify_enabled: boolean;
+  identify_guild_id: Nullable<Snowflake>;
+  tag: Nullable<string>;
+}
+
+/**
  * @public
  * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
  */
@@ -48,13 +61,6 @@ export interface APIUser {
   avatar_decoration_data?: Nullable<APIAvatarDecorationData>;
   banner?: Nullable<string>;
   bot?: boolean;
-  /**
-   * @alpha
-   * @remarks
-   * - This is not officially documented in the Discord API documentation,
-   *   meaning it may change or break at any time.
-   */
-  clan?: Nullable<APIUserClan>;
   /**
    * @alpha
    * @remarks
@@ -75,23 +81,17 @@ export interface APIUser {
   locale?: Locale;
   mfa_enabled?: boolean;
   premium_type?: PremiumTypes;
+  /**
+   * @alpha
+   * @remarks
+   * - This is not officially documented in the Discord API documentation,
+   *   meaning it may change or break at any time.
+   */
+  primary_guild?: Nullable<APIPrimaryGuild>;
   public_flags?: number;
   system?: boolean;
   username: string;
   verified?: boolean;
-}
-
-/**
- * @alpha
- * @remarks
- * - This is not officially documented in the Discord API documentation,
- *   meaning it may change or break at any time.
- */
-export interface APIUserClan {
-  badge: Nullable<string>;
-  identify_enabled: boolean;
-  identify_guild_id: Nullable<Snowflake>;
-  tag: Nullable<string>;
 }
 
 /**
