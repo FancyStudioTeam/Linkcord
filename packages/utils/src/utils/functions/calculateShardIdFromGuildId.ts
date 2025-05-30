@@ -1,11 +1,5 @@
 import type { Snowflake } from "@fancystudioteam/linkcord-types";
 
-/**
- * Calculates the shard id from a guild id.
- * @param shardCount - The shard count of the client or gateway manager.
- * @param guildId - The guild id to get its shard id.
- * @returns The shard id of the guild.
- */
 export const calculateShardIdFromGuildId = (shardCount: number, guildId: Snowflake): number => {
   const guildIdBigInt = BigInt(guildId);
 

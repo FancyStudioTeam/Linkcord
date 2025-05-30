@@ -10,11 +10,6 @@ const ADDITIONAL_ERROR_MESSAGES: Partial<Record<number, string>> = {
   429: "You are being rate limited.",
 };
 
-/**
- * Fetches the gateway information for a Discord bot.
- * @param token - The token to use for the request.
- * @returns An object containing the gateway information for the Discord bot.
- */
 export const fetchGatewayBot = async (token: string): Promise<APIGatewayBot> => {
   if (typeof token !== "string") {
     throw new TypeError("The provided token is not a valid string.");
