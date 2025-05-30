@@ -12,10 +12,14 @@ const ADDITIONAL_ERROR_MESSAGES: Partial<Record<number, string>> = {
 
 /**
  * Fetches the gateway information for a Discord bot.
- * @param token - The token of the Discord bot.
+ * @param token - The token to use for the request.
  * @returns An object containing the gateway information for the Discord bot.
  */
 export const fetchGatewayBot = async (token: string): Promise<APIGatewayBot> => {
+  if (typeof token !== "string") {
+    throw new TypeError("The token is not a valid string.");
+  }
+
   const headers = new Headers();
   const tokenWithoutPrefix = replaceBotPrefix(token);
 

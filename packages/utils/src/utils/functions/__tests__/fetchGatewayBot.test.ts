@@ -13,6 +13,11 @@ const GATEWAY_BOT_INFORMATION: APIGatewayBot = {
   shards: 9,
   url: "wss://gateway.discord.gg/",
 };
+/**
+ * @remarks
+ * - Not a real token. Borrowed from the Discord API documentation.
+ */
+const DISCORD_TOKEN = "MTk4NjIyNDgzNDcxOTI1MjQ4.Cl2FMQ.ZnCjm1XVW7vRze4b7Cq4se7kKWs";
 
 describe("Function: fetchGatewayBot", () => {
   beforeEach(() => {
@@ -22,7 +27,14 @@ describe("Function: fetchGatewayBot", () => {
     global.fetch = vi.fn().mockResolvedValue(fetchResponse);
   });
 
-  it("Throws an 'Error' instance when the provided token is invalid or expired.", async () => {
+  it("Returns the gateway information.", async () =>
+    await expect(fetchGatewayBot(DISCORD_TOKEN)).resolves.toStrictEqual(GATEWAY_BOT_INFORMATION));
+
+  it("Throws a 'TypeError' when the token is not a valid string.", async () =>
+    // @ts-expect-error
+    expect(fetchGatewayBot(null)).rejects.toThrow("The token is not a valid string."));
+
+  it("Throws an 'Error' when Discord returns a '401' status code.", async () => {
     const fetchResponse = new Response("Not Authorized", {
       status: 401,
     });
@@ -33,20 +45,17 @@ describe("Function: fetchGatewayBot", () => {
 
     global.fetch = vi.fn().mockResolvedValue(fetchResponse);
 
-    await expect(fetchGatewayBot("ANY_EXPIRED_DISCORD_BOT_TOKEN")).rejects.toThrow(expectedErrorMessages.join("\n"));
+    await expect(fetchGatewayBot(DISCORD_TOKEN)).rejects.toThrow(expectedErrorMessages.join("\n"));
   });
 
-  it("Runs as expected but throws an 'Error' instance when Discord returns a 5xx status code.", async () => {
-    const fetchResponse = new Response("Not Authorized", {
-      status: 401,
+  it("Throws an 'Error' when Discord returns a '5xx' status code.", async () => {
+    const fetchResponse = new Response("Internal Server Error", {
+      status: 500,
     });
     const expectedErrorMessage = "Failed to get the gateway information for the Discord bot.";
 
     global.fetch = vi.fn().mockResolvedValue(fetchResponse);
 
-    await expect(fetchGatewayBot("ANY_DISCORD_BOT_TOKEN")).rejects.toThrow(expectedErrorMessage);
+    await expect(fetchGatewayBot(DISCORD_TOKEN)).rejects.toThrow(expectedErrorMessage);
   });
-
-  it("Returns the gateway information object for the Discord bot.", async () =>
-    await expect(fetchGatewayBot("ANY_DISCORD_BOT_TOKEN")).resolves.toStrictEqual(GATEWAY_BOT_INFORMATION));
 });
