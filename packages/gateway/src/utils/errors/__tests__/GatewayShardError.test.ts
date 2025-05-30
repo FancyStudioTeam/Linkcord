@@ -7,12 +7,12 @@ const trowError = <Error>(error: Error) => {
 
 describe("Class: GatewayShardError", () => {
   it("Returns an instance of the 'GatewayShardError' class", () => {
-    const gatewayShardError = new GatewayShardError("Gateway Shard Error", 0);
+    const expectedErrorMessage = "Gateway Shard Error";
+    const gatewayShardError = new GatewayShardError(expectedErrorMessage, 0);
 
     expect(gatewayShardError).toBeInstanceOf(GatewayShardError);
-    expect(gatewayShardError.message).toBe("Gateway Shard Error");
+    expect(gatewayShardError.message).toBe(expectedErrorMessage);
     expect(gatewayShardError.shardId).toBe(0);
-    expect(() => trowError(gatewayShardError)).toThrowError(GatewayShardError);
-    expect(() => trowError(gatewayShardError)).toThrow("Gateway Shard Error");
+    expect(() => trowError(gatewayShardError)).toThrow(expectedErrorMessage);
   });
 });

@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@fancystudioteam/linkcord-types": "workspace:*",
+    "@fancystudioteam/linkcord-utils": "workspace:*",
     "ws": "8.18.2"
   },
   "devDependencies": {
@@ -42,9 +43,8 @@
     "release": "pnpm publish --access public --no-git-checks",
     "rimraf": "rimraf dist",
     "tarball": "pnpm pack",
-    "vitest": "vitest",
-    "vitest:update": "vitest --update",
-    "vitest:watch": "vitest --watch"
+    "vitest": "vitest -c ../../vitest.config.ts",
+    "vitest:watch": "vitest -c ../../vitest.config.ts --watch"
   },
   "types": "dist/types/index.d.ts",
   "version": "0.0.0"

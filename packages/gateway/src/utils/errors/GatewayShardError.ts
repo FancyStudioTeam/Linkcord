@@ -1,4 +1,6 @@
 /**
+ * An error that is thrown when the gateway shard encounters an error.
+ *
  * @public
  */
 export class GatewayShardError extends Error {

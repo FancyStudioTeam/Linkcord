@@ -7,11 +7,11 @@ const trowError = <Error>(error: Error) => {
 
 describe("Class: GatewayManagerError", () => {
   it("Returns an instance of the 'GatewayManagerError' class", () => {
-    const gatewayManagerError = new GatewayManagerError("Gateway Manager Error");
+    const expectedErrorMessage = "Gateway Manager Error";
+    const gatewayManagerError = new GatewayManagerError(expectedErrorMessage);
 
     expect(gatewayManagerError).toBeInstanceOf(GatewayManagerError);
-    expect(gatewayManagerError.message).toBe("Gateway Manager Error");
-    expect(() => trowError(gatewayManagerError)).toThrowError(GatewayManagerError);
-    expect(() => trowError(gatewayManagerError)).toThrow("Gateway Manager Error");
+    expect(gatewayManagerError.message).toBe(expectedErrorMessage);
+    expect(() => trowError(gatewayManagerError)).toThrow(expectedErrorMessage);
   });
 });
