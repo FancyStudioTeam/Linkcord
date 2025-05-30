@@ -1,6 +1,6 @@
 import { EventEmitter } from "node:events";
 import type { APIVersion, GatewayEvent, Nullable } from "@fancystudioteam/linkcord-types";
-import { fetchGatewayBot } from "../utils/functions/fetchGatewayBot.js";
+import { fetchGatewayBot } from "@fancystudioteam/linkcord-utils";
 import { GatewayShard } from "./GatewayShard.js";
 
 /**
@@ -38,12 +38,6 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
     };
   }
 
-  getShardIdByGuildId(guildId: string): number {
-    const { shardCount } = this;
-
-    return Number(BigInt(guildId) >> 22n) % shardCount;
-  }
-
   async spawnShards(): Promise<void> {
     const { shards, url } = await fetchGatewayBot(this.token);
 
@@ -73,22 +67,9 @@ export interface ConnectionProperties {
  * @public
  */
 export interface GatewayManagerEvents {
-  /**
-   * Emitted when the gateway shard socket is closed.
-   */
   close: [code: number, reason: string, reconnectable: boolean];
-  /**
-   * Emitted when a debug message is received from a gateway shard or from the
-   * manager.
-   */
   debug: [message: string, shardId?: number];
-  /**
-   * Emitted when a gateway shard receives a `HELLO` opcode from the gateway.
-   */
   hello: [heartbeatInterval: number, shardId: number];
-  /**
-   * Emitted when a gateway packet is received from a gateway shard.
-   */
   packet: [packet: GatewayEvent, shardId: number];
 }
 
