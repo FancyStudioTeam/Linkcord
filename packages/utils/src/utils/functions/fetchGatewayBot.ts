@@ -17,7 +17,7 @@ const ADDITIONAL_ERROR_MESSAGES: Partial<Record<number, string>> = {
  */
 export const fetchGatewayBot = async (token: string): Promise<APIGatewayBot> => {
   if (typeof token !== "string") {
-    throw new TypeError("The token is not a valid string.");
+    throw new TypeError("The provided token is not a valid string.");
   }
 
   const headers = new Headers();

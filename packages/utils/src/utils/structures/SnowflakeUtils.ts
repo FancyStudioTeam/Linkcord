@@ -8,6 +8,8 @@ import type { Snowflake } from "@fancystudioteam/linkcord-types";
 export class SnowflakeUtils {
   /**
    * Gets the Discord epoch.
+   *
+   * @returns The Discord epoch.
    */
   static get DISCORD_EPOCH(): bigint {
     return 1420070400000n;
@@ -23,7 +25,7 @@ export class SnowflakeUtils {
     try {
       return Number((BigInt(snowflake) >> 22n) + SnowflakeUtils.DISCORD_EPOCH);
     } catch {
-      throw new TypeError("The provided snowflake is not a valid number.");
+      throw new TypeError("The provided snowflake is not a valid number or string.");
     }
   }
 }

@@ -8,6 +8,7 @@ import type { ImageExtension, ImageSize } from "../constants.js";
 export class ImageUtils {
   /**
    * Gets the Discord CDN url.
+   * @returns The Discord CDN url.
    */
   static get CDN_URL(): string {
     return "https://cdn.discordapp.com";

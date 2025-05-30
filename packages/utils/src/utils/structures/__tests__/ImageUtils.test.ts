@@ -12,7 +12,7 @@ describe("Class: ImageUtils", () => {
     }));
 
   describe("Method: createImageUrl", () => {
-    it("Returns the created image url with the default options.", () => {
+    it("Returns the created image url.", () => {
       const dynamicAssetRoute = `avatars/${USER_ID}/${DYNAMIC_AVATAR_HASH}`;
       const staticAssetRoute = `avatars/${USER_ID}/${STATIC_AVATAR_HASH}`;
 
@@ -77,7 +77,7 @@ describe("Class: ImageUtils", () => {
       expect(ImageUtils.getDynamicExtension(STATIC_AVATAR_HASH)).toBe("webp");
     });
 
-    it("Returns the dynamic or given extension when the the 'extension' option is set to 'png'.", () => {
+    it("Returns the dynamic or provided extension when the the 'extension' option is set to 'png'.", () => {
       expect(
         ImageUtils.getDynamicExtension(DYNAMIC_AVATAR_HASH, {
           extension: "png",
@@ -103,7 +103,7 @@ describe("Class: ImageUtils", () => {
       ).toBe("webp");
     });
 
-    it("Returns the given extension when the 'extension' option is set to 'png' and the 'forceStatic' option is enabled.", () => {
+    it("Returns the provided extension when the 'extension' option is set to 'png' and the 'forceStatic' option is enabled.", () => {
       expect(
         ImageUtils.getDynamicExtension(DYNAMIC_AVATAR_HASH, {
           extension: "png",

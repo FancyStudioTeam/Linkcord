@@ -10,16 +10,17 @@ describe("Class: SnowflakeUtils", () => {
   describe("Method: timestampFrom", () => {
     it("Returns the timestamp of the snowflake.", () => {
       expect(SnowflakeUtils.timestampFrom("175928847299117063")).toBe(1462015105796);
-      expect(SnowflakeUtils.timestampFrom(Number("175928847299117063"))).toBe(1462015105796);
-      expect(SnowflakeUtils.timestampFrom(BigInt("175928847299117063"))).toBe(1462015105796);
+      // biome-ignore lint/correctness/noPrecisionLoss:
+      expect(SnowflakeUtils.timestampFrom(175928847299117063)).toBe(1462015105796);
+      expect(SnowflakeUtils.timestampFrom(175928847299117063n)).toBe(1462015105796);
     });
 
-    it("Throws a 'TypeError' when the snowflake is not valid a valid number.", () => {
+    it("Throws a 'TypeError' when the snowflake is not valid number or string.", () => {
+      const expectedErrorMessage = "The provided snowflake is not a valid number or string.";
+
       // @ts-expect-error
-      expect(() => SnowflakeUtils.timestampFrom(null)).toThrow("The provided snowflake is not a valid number.");
-      expect(() => SnowflakeUtils.timestampFrom("NOT_A_VALID_STRINGIFIED_SNOWFLAKE")).toThrow(
-        "The provided snowflake is not a valid number.",
-      );
+      expect(() => SnowflakeUtils.timestampFrom(null)).toThrow(expectedErrorMessage);
+      expect(() => SnowflakeUtils.timestampFrom("NOT_A_VALID_STRINGIFIED_SNOWFLAKE")).toThrow(expectedErrorMessage);
     });
   });
 });

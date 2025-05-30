@@ -32,7 +32,7 @@ describe("Function: fetchGatewayBot", () => {
 
   it("Throws a 'TypeError' when the token is not a valid string.", async () =>
     // @ts-expect-error
-    expect(fetchGatewayBot(null)).rejects.toThrow("The token is not a valid string."));
+    expect(fetchGatewayBot(null)).rejects.toThrow("The provided token is not a valid string."));
 
   it("Throws an 'Error' when Discord returns a '401' status code.", async () => {
     const fetchResponse = new Response("Not Authorized", {
@@ -42,10 +42,11 @@ describe("Function: fetchGatewayBot", () => {
       "Failed to get the gateway information for the Discord bot.",
       "The authentication failed due to an invalid token.",
     ];
+    const expectedErrorMessage = expectedErrorMessages.join("\n");
 
     global.fetch = vi.fn().mockResolvedValue(fetchResponse);
 
-    await expect(fetchGatewayBot(DISCORD_TOKEN)).rejects.toThrow(expectedErrorMessages.join("\n"));
+    await expect(fetchGatewayBot(DISCORD_TOKEN)).rejects.toThrow(expectedErrorMessage);
   });
 
   it("Throws an 'Error' when Discord returns a '5xx' status code.", async () => {

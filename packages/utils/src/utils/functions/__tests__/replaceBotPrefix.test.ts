@@ -34,5 +34,5 @@ describe("Function: replaceBotPrefix", () => {
 
   it("Throws a 'TypeError' when the token is not a valid string.", () =>
     // @ts-expect-error
-    expect(() => replaceBotPrefix(null)).toThrow("The token is not a valid string."));
+    expect(() => replaceBotPrefix(null)).toThrow("The provided token is not a valid string."));
 });
