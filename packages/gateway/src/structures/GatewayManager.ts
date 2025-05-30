@@ -39,13 +39,14 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
   }
 
   async spawnShards(): Promise<void> {
-    const { shards, url } = await fetchGatewayBot(this.token);
+    const { token } = this;
+    const { shards, url } = await fetchGatewayBot(token);
 
     this.shardCount = shards;
     this.url = new URL(url);
 
-    for (let index = 0; index < shards; index++) {
-      const shard = new GatewayShard(this, index);
+    for (let id = 0; id < shards; id++) {
+      const shard = new GatewayShard(this, id);
 
       this.shards.set(shard.id, shard);
 
