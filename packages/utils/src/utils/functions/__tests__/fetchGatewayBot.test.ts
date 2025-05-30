@@ -15,7 +15,8 @@ const GATEWAY_BOT_INFORMATION: APIGatewayBot = {
 };
 /**
  * @remarks
- * - Not a real token. Borrowed from the Discord API documentation.
+ * - NOT A REAL DISCORD BOT TOKEN!
+ * - Borrowed from the Discord API documentation.
  */
 const DISCORD_TOKEN = "MTk4NjIyNDgzNDcxOTI1MjQ4.Cl2FMQ.ZnCjm1XVW7vRze4b7Cq4se7kKWs";
 

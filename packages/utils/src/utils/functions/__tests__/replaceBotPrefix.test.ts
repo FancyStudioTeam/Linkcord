@@ -3,7 +3,8 @@ import { replaceBotPrefix } from "../replaceBotPrefix.js";
 
 /**
  * @remarks
- * - Not a real token. Borrowed from the Discord API documentation.
+ * - NOT A REAL DISCORD BOT TOKEN!
+ * - Borrowed from the Discord API documentation.
  */
 const EXPECTED_TOKEN = "MTk4NjIyNDgzNDcxOTI1MjQ4.Cl2FMQ.ZnCjm1XVW7vRze4b7Cq4se7kKWs";
 
