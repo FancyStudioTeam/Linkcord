@@ -5,7 +5,7 @@
     "@icons-pack/react-simple-icons": "12.7.0",
     "@mdx-js/rollup": "3.1.0",
     "@remix-run/react": "2.16.6",
-    "@remix-run/serve": "2.16.5",
+    "@remix-run/serve": "2.16.8",
     "isbot": "5.1.27",
     "lucide-react": "0.503.0",
     "radix-ui": "1.4.1",
