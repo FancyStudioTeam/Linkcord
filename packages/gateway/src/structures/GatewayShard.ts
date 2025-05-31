@@ -1,3 +1,4 @@
+import EventEmitter from "node:events";
 import {
   type GatewayEvent,
   type GatewayHeartbeatPayload,
@@ -8,6 +9,7 @@ import {
   type GatewayRequestSoundboardSoundsPayload,
   type GatewayResumePayload,
   type GatewayVoiceStateUpdatePayload,
+  type Snowflake,
 } from "@fancystudioteam/linkcord-types";
 import { type RawData, WebSocket } from "ws";
 import {
@@ -17,12 +19,15 @@ import {
   type SendableOpcodes,
 } from "../utils/index.js";
 import type { GatewayManager } from "./GatewayManager.js";
-import { dispatchHandlers } from "./dispatch/dispatchHandlers.js";
+import { handlers } from "./handlers/handlers.js";
+
+const MAXIMUM_CONNECTION_ATTEMPTS = 5;
+const MAXIMUM_RECONNECTION_ATTEMPTS = 5;
 
 /**
  * @public
  */
-export class GatewayShard {
+export class GatewayShard extends EventEmitter<GatewayShardEvents> {
   private _resumeGatewayUrl: string | null = null;
   private _sequence: number | null = null;
   private _sessionId: string | null = null;
@@ -30,6 +35,7 @@ export class GatewayShard {
   readonly gatewayManager: GatewayManager;
   readonly voiceServerUpdates: Map<string, VoiceServerUpdate> = new Map();
 
+  connectAttempts = 0;
   heartbeatInterval: number | null = null;
   id: number;
   reconnectAttempts = 0;
@@ -37,6 +43,8 @@ export class GatewayShard {
   status: GatewayShardStatus = GatewayShardStatus.Disconnected;
 
   constructor(gatewayManager: GatewayManager, id: number) {
+    super();
+
     this.id = id;
     this.gatewayManager = gatewayManager;
   }
@@ -52,14 +60,24 @@ export class GatewayShard {
       throw new GatewayShardError("Cannot connect without a gateway url.", this.id);
     }
 
+    ++this.connectAttempts;
+    this.status = GatewayShardStatus.Connecting;
+    this.emit("debug", `Attempt ${this.connectAttempts} to connect the shard.`, this.id);
+
+    if (this.connectAttempts > MAXIMUM_CONNECTION_ATTEMPTS) {
+      throw new GatewayShardError("Too many connection attempts.", this.id);
+    }
+
     this._initializeSocket(url);
   }
 
   /**
    * @internal
    */
-  private _handleDisconnect(isReconnectable?: boolean | null): void {
-    isReconnectable ? this._handleResume() : this._handleConnect();
+  private _handleDisconnect(isReconnectable: boolean | null = false): void {
+    if (isReconnectable) {
+      this._handleResume();
+    }
   }
 
   /**
@@ -72,37 +90,18 @@ export class GatewayShard {
       throw new GatewayShardError("Cannot resume without a resume gateway url.", this.id);
     }
 
-    this.reconnectAttempts++;
-
     const resumeGatewayUrl = new URL(_resumeGatewayUrl);
 
+    ++this.reconnectAttempts;
+    this.status = GatewayShardStatus.Resuming;
+    this.emit("debug", `Attempt ${this.reconnectAttempts} to resume the shard.`, this.id);
+
+    if (this.reconnectAttempts > MAXIMUM_RECONNECTION_ATTEMPTS) {
+      throw new GatewayShardError("Too many reconnection attempts.", this.id);
+    }
+
     this._initializeSocket(resumeGatewayUrl);
-    this._resume();
-  }
-
-  /**
-   * @internal
-   */
-  private _heartbeat(): void {
-    const { _sequence } = this;
-    const heartbeatPayload: GatewayHeartbeatPayload = _sequence;
-
-    this.sendPayload(GatewayOpcodes.Heartbeat, heartbeatPayload);
-  }
-
-  /**
-   * @internal
-   */
-  private _identify(): void {
-    const { connectionProperties, intents, shardCount, token } = this.gatewayManager;
-    const identifyPayload: GatewayIdentifyPayload = {
-      intents,
-      properties: connectionProperties,
-      shard: [this.id, shardCount],
-      token,
-    };
-
-    this.sendPayload(GatewayOpcodes.Identify, identifyPayload);
+    this.resume();
   }
 
   /**
@@ -110,10 +109,14 @@ export class GatewayShard {
    */
   private _initializeSocket(url: URL): void {
     const { searchParams } = url;
-    const { version } = this.gatewayManager;
+    const { gatewayManager } = this;
+    const { version } = gatewayManager;
 
     searchParams.set("v", version.toString());
     searchParams.set("encoding", "json");
+
+    this.status = GatewayShardStatus.Handshaking;
+    this.emit("debug", `Handshaking with Discord using url "${url}"...`, this.id);
 
     const socket = new WebSocket(url);
 
@@ -130,8 +133,8 @@ export class GatewayShard {
     const stringifiedReason = reason.toString();
     const isReconnectable = RECONNECTABLE_CLOSE_CODES.includes(code);
 
-    this.gatewayManager.emit("debug", `Received close event with code "${code}" and reason "${reason}".`);
-    this.gatewayManager.emit("close", code, stringifiedReason, isReconnectable);
+    this.emit("debug", `Received close event with code "${code}" and reason "${reason}".`, this.id);
+    this.emit("close", code, stringifiedReason, isReconnectable, this.id);
     this._handleDisconnect(isReconnectable);
   }
 
@@ -142,70 +145,25 @@ export class GatewayShard {
     const stringifiedRawData = rawData.toString();
     const message = JSON.parse(stringifiedRawData) as GatewayEvent;
 
-    this.gatewayManager.emit("packet", message, this.id);
+    this.emit("packet", message, this.id);
     this._updateSequence(message.s);
 
-    switch (message.op) {
-      case GatewayOpcodes.Dispatch: {
-        const handler = dispatchHandlers[message.t];
+    const handler = handlers[message.op];
 
-        if (handler) {
-          handler(this, message.d as never);
-        }
-
-        break;
-      }
-      case GatewayOpcodes.Hello: {
-        const { heartbeat_interval } = message.d;
-
-        this.heartbeatInterval = heartbeat_interval;
-        this.gatewayManager.emit("hello", heartbeat_interval, this.id);
-
-        setInterval(this._heartbeat.bind(this), heartbeat_interval);
-
-        break;
-      }
-      case GatewayOpcodes.InvalidSession: {
-        const isReconnectable = message.d;
-
-        this._handleDisconnect(isReconnectable);
-
-        break;
-      }
-      case GatewayOpcodes.Reconnect: {
-        break;
-      }
-      default: {
-        this.gatewayManager.emit("debug", `Received unhandled message opcode: ${message.op}`, this.id);
-      }
-    }
+    handler?.(this, message as never);
   }
 
   /**
    * @internal
    */
   private _onOpen(): void {
-    this._identify();
-  }
-
-  /**
-   * @internal
-   */
-  private _resume(): void {
-    const { _resumeGatewayUrl, _sequence, _sessionId } = this;
-
-    if (!(_resumeGatewayUrl && _sequence && _sessionId)) {
-      throw new GatewayShardError("Cannot resume without a resume gateway url or session id.", this.id);
+    if (this.status === GatewayShardStatus.Connecting) {
+      this.identify();
     }
 
-    const { token } = this;
-    const resumePayload: GatewayResumePayload = {
-      seq: _sequence,
-      session_id: _sessionId,
-      token,
-    };
-
-    this.sendPayload(GatewayOpcodes.Resume, resumePayload);
+    this.connectAttempts = 0;
+    this.reconnectAttempts = 0;
+    this.status = GatewayShardStatus.Connected;
   }
 
   /**
@@ -218,7 +176,10 @@ export class GatewayShard {
   }
 
   get token(): string {
-    return this.gatewayManager.token;
+    const { gatewayManager } = this;
+    const { token } = gatewayManager;
+
+    return token;
   }
 
   connect(): void {
@@ -229,20 +190,41 @@ export class GatewayShard {
     const socket = this.socket;
 
     if (!socket || socket.readyState !== WebSocket.OPEN) {
-      const errorMessages = [
-        "The shard's socket has not been initialized or opened yet.",
-        "Make sure to connect the shard to initialize and open its socket.",
-      ];
-
-      throw new GatewayShardError(errorMessages.join("\n"), this.id);
+      throw new GatewayShardError(
+        "The shard socket has not been initialized or opened yet. Make sure to connect the shard before accessing its socket.",
+        this.id,
+      );
     }
 
     return socket;
   }
 
+  heartbeat(): void {
+    const { _sequence } = this;
+    const heartbeatPayload: GatewayHeartbeatPayload = _sequence;
+
+    this.sendPayload(GatewayOpcodes.Heartbeat, heartbeatPayload);
+  }
+
+  identify(): void {
+    const { gatewayManager } = this;
+    const { connectionProperties, intents, shardCount, token } = gatewayManager;
+    /**
+     * TODO: Allow to set a custom presence when identifying.
+     */
+    const identifyPayload: GatewayIdentifyPayload = {
+      intents,
+      properties: connectionProperties,
+      shard: [this.id, shardCount],
+      token,
+    };
+
+    this.sendPayload(GatewayOpcodes.Identify, identifyPayload);
+  }
+
   joinVoiceChannel(
-    channelId: string,
-    guildId: string,
+    channelId: Snowflake,
+    guildId: Snowflake,
     options: JoinVoiceChannelOptions = {
       selfDeaf: true,
       selfMute: false,
@@ -274,6 +256,23 @@ export class GatewayShard {
     return promise;
   }
 
+  resume(): void {
+    const { _resumeGatewayUrl, _sequence, _sessionId } = this;
+
+    if (!(_resumeGatewayUrl && _sequence && _sessionId)) {
+      throw new GatewayShardError("Cannot resume without a resume gateway url or session id.", this.id);
+    }
+
+    const { token } = this;
+    const resumePayload: GatewayResumePayload = {
+      seq: _sequence,
+      session_id: _sessionId,
+      token,
+    };
+
+    this.sendPayload(GatewayOpcodes.Resume, resumePayload);
+  }
+
   sendPayload<Opcode extends SendableOpcodes>(opcode: Opcode, payload: SendPayload[Opcode]): void {
     if (!SENDABLE_OPCODES.includes(opcode)) {
       throw new GatewayShardError("Cannot send a non-sendable opcode to the gateway.", this.id);
@@ -288,6 +287,16 @@ export class GatewayShard {
 
     socket.send(stringifiedDataToSend);
   }
+}
+
+/**
+ * @public
+ */
+export interface GatewayShardEvents {
+  close: [code: number, reason: string, reconnectable: boolean, shardId: number];
+  debug: [message: string, shardId: number];
+  hello: [heartbeatInterval: number, shardId: number];
+  packet: [packet: GatewayEvent, shardId: number];
 }
 
 /**

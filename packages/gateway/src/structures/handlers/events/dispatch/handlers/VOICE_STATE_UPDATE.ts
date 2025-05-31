@@ -1,8 +1,13 @@
 import type { GatewayDispatchVoiceStateUpdatePayload } from "@fancystudioteam/linkcord-types";
-import type { GatewayShard } from "../../GatewayShard.js";
+import type { DispatchHandler } from "../dispatchHandlers.js";
 
-export const VOICE_STATE_UPDATE = (gatewayShard: GatewayShard, data: GatewayDispatchVoiceStateUpdatePayload) => {
-  const { guild_id, session_id, user_id } = data;
+/**
+ * @internal
+ */
+export const VOICE_STATE_UPDATE: DispatchHandler<GatewayDispatchVoiceStateUpdatePayload> = (
+  gatewayShard,
+  { guild_id, session_id, user_id },
+) => {
   const { voiceServerUpdates } = gatewayShard;
   const pendingVoiceServerUpdate = voiceServerUpdates.get(guild_id ?? "");
 
@@ -11,9 +16,5 @@ export const VOICE_STATE_UPDATE = (gatewayShard: GatewayShard, data: GatewayDisp
 
     data.sessionId = session_id;
     data.userId = user_id;
-
-    if (guild_id) {
-      data.guildId = guild_id;
-    }
   }
 };

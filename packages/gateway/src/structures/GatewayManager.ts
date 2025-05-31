@@ -51,6 +51,12 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
       this.shards.set(shard.id, shard);
 
       shard.connect();
+      shard.on("close", (code, reason, reconnectable, shardId) =>
+        this.emit("close", code, reason, reconnectable, shardId),
+      );
+      shard.on("debug", (message, shardId) => this.emit("debug", message, shardId));
+      shard.on("hello", (heartbeatInterval, shardId) => this.emit("hello", heartbeatInterval, shardId));
+      shard.on("packet", (packet, shardId) => this.emit("packet", packet, shardId));
     }
   }
 }
@@ -68,7 +74,7 @@ export interface ConnectionProperties {
  * @public
  */
 export interface GatewayManagerEvents {
-  close: [code: number, reason: string, reconnectable: boolean];
+  close: [code: number, reason: string, reconnectable: boolean, shardId: number];
   debug: [message: string, shardId?: number];
   hello: [heartbeatInterval: number, shardId: number];
   packet: [packet: GatewayEvent, shardId: number];
