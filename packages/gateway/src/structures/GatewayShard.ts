@@ -1,5 +1,6 @@
 import EventEmitter from "node:events";
 import {
+  type APIUser,
   type GatewayEvent,
   type GatewayHeartbeatPayload,
   type GatewayIdentifyPayload,
@@ -296,6 +297,14 @@ export interface GatewayShardEvents {
   debug: [message: string, shardId: number];
   hello: [heartbeatInterval: number, shardId: number];
   packet: [packet: GatewayEvent, shardId: number];
+  ready: [data: GatewayShardReady, shardId: number];
+}
+
+/**
+ * @public
+ */
+export interface GatewayShardReady {
+  user: APIUser;
 }
 
 /**

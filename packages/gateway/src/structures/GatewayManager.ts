@@ -1,7 +1,7 @@
 import { EventEmitter } from "node:events";
 import type { APIVersion, GatewayEvent } from "@fancystudioteam/linkcord-types";
 import { fetchGatewayBot } from "@fancystudioteam/linkcord-utils";
-import { GatewayShard } from "./GatewayShard.js";
+import { GatewayShard, type GatewayShardReady } from "./GatewayShard.js";
 
 /**
  * @public
@@ -46,6 +46,10 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
     this.url = new URL(url);
 
     for (let id = 0; id < shards; id++) {
+      if (this.shards.has(id)) {
+        continue;
+      }
+
       const shard = new GatewayShard(this, id);
 
       this.shards.set(shard.id, shard);
@@ -57,6 +61,7 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
       shard.on("debug", (message, shardId) => this.emit("debug", message, shardId));
       shard.on("hello", (heartbeatInterval, shardId) => this.emit("hello", heartbeatInterval, shardId));
       shard.on("packet", (packet, shardId) => this.emit("packet", packet, shardId));
+      shard.on("ready", (data, shardId) => this.emit("ready", data, shardId));
     }
   }
 }
@@ -78,6 +83,7 @@ export interface GatewayManagerEvents {
   debug: [message: string, shardId?: number];
   hello: [heartbeatInterval: number, shardId: number];
   packet: [packet: GatewayEvent, shardId: number];
+  ready: [data: GatewayShardReady, shardId: number];
 }
 
 /**
