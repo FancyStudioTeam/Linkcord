@@ -3,100 +3,66 @@ import type {
   APIUser,
   APIUserCollectibles,
   APIUserNameplate,
-  Nullable,
 } from "@fancystudioteam/linkcord-types";
-import { DiscordSnowflake } from "@sapphire/snowflake";
+import { type ImageUrlOptions, ImageUtils, SnowflakeUtils } from "@fancystudioteam/linkcord-utils";
 import type { AvatarDecoration, User, UserCollectibles, UserNameplate } from "../types/structures/User.js";
 import type { _OmitMethods, _OmitProperties } from "../types/util.js";
 import { BitFieldResolver } from "../utils/structures/BitFieldResolver.js";
 
-/**
- * Gets the avatar decoration url of a user.
- * @param userProperties - The user properties to use.
- * @returns The avatar decoration url of the user or `null`.
- */
-const userAvatarDecorationUrl = (userProperties: UserProperties): Nullable<string> => {
-  const { avatarDecorationData, id } = userProperties;
+const _avatarDecorationUrl = (userProperties: UserProperties, options?: ImageUrlOptions): string | null => {
+  const { avatarDecorationData } = userProperties;
   const { asset } = avatarDecorationData ?? {};
 
   if (!asset) {
     return null;
   }
 
-  const avatarDecorationUrlString = `https://cdn.discordapp.com/avatar-decorations/${id}/${asset}.png`;
-  const avatarDecorationUrl = new URL(avatarDecorationUrlString);
-
-  return avatarDecorationUrl.toString();
+  return ImageUtils.createImageUrl(`avatar-decoration-presets/${asset}`, options);
 };
 
-/**
- * Gets the avatar url of a user.
- * @param userProperties - The user properties to use.
- * @returns The avatar url of the user.
- */
-const userAvatarUrl = (userProperties: UserProperties): string => {
+const _avatarUrl = (userProperties: UserProperties, options?: ImageUrlOptions): string => {
   const { avatar, id } = userProperties;
 
   if (!avatar) {
-    return userDefaultAvatarUrl(userProperties);
+    return _defaultAvatarUrl(userProperties, options);
   }
 
-  const avatarUrlString = `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`;
-  const avatarUrl = new URL(avatarUrlString);
-
-  return avatarUrl.toString();
+  return ImageUtils.createImageUrl(`avatars/${id}/${avatar}`, options);
 };
 
-/**
- * Gets the banner url of a user if it is set.
- * @param userProperties - The user properties to use.
- * @returns The banner url of the user or `null`.
- */
-const userBannerUrl = (userProperties: UserProperties): Nullable<string> => {
+const _bannerUrl = (userProperties: UserProperties, options?: ImageUrlOptions): string | null => {
   const { banner, id } = userProperties;
 
   if (!banner) {
     return null;
   }
 
-  const bannerUrlString = `https://cdn.discordapp.com/banners/${id}/${banner}.png`;
-  const bannerUrl = new URL(bannerUrlString);
-
-  return bannerUrl.toString();
+  return ImageUtils.createImageUrl(`banners/${id}/${banner}`, options);
 };
 
-/**
- * Gets the default avatar url of a user.
- * @param userProperties - The user properties to use.
- * @returns The default avatar url of the user.
- */
-const userDefaultAvatarUrl = (userProperties: UserProperties): string => {
+const _defaultAvatarUrl = (userProperties: UserProperties, options?: ImageUrlOptions): string => {
   const { discriminator, id } = userProperties;
   /**
-   * Users that have their discriminator set to `0` means that they have migrated
-   * to the new Discord username system.
+   * Users that have migrated to the new Discord username system will have
+   * their discriminators set to "0".
    *
-   * We must check if the user has migrated to the new username system to determine
-   * his avatar index.
+   * This is necessary to determine which formula of the user index should be
+   * used.
    */
-  const hasNewUsernameSystem = discriminator === "0";
+  const isMigrated = discriminator === "0";
   /**
    * @see https://discord.com/developers/docs/reference#image-formatting-cdn-endpoints
    */
-  const index = hasNewUsernameSystem ? Number(BigInt(id) >> 22n) % 6 : Number(discriminator) % 5;
-  const avatarUrlString = `https://cdn.discordapp.com/embed/avatars/${index}.png`;
-  const avatarUrl = new URL(avatarUrlString);
+  const index = isMigrated ? Number(BigInt(id) >> 22n) % 6 : Number(discriminator) % 5;
 
-  return avatarUrl.toString();
+  return ImageUtils.createImageUrl(`embed/avatars/${index}`, options);
 };
 
 /**
  * @public
  */
 export class UserTransformer {
-  static transformFromRawAvatarDecoration(
-    rawAvatarDecoration?: Nullable<RawAvatarDecoration>,
-  ): Nullable<AvatarDecoration> {
+  static transformFromRawAvatarDecoration(rawAvatarDecoration?: RawAvatarDecoration | null): AvatarDecoration | null {
     if (!rawAvatarDecoration) {
       return null;
     }
@@ -119,7 +85,7 @@ export class UserTransformer {
       banner: rawUser.banner ?? null,
       bot: rawUser.bot ?? false,
       collectibles: userCollectiblesProperty,
-      createdAt: new Date(DiscordSnowflake.timestampFrom(rawUser.id)),
+      createdAt: new Date(SnowflakeUtils.timestampFrom(rawUser.id)),
       discriminator: rawUser.discriminator,
       flags: new BitFieldResolver(rawUser.flags ?? 0),
       globalName: rawUser.global_name ?? null,
@@ -128,10 +94,10 @@ export class UserTransformer {
       username: rawUser.username,
     };
     const userMethods: UserMethods = {
-      avatarDecorationUrl: () => userAvatarDecorationUrl(userProperties),
-      avatarUrl: () => userAvatarUrl(userProperties),
-      bannerUrl: () => userBannerUrl(userProperties),
-      defaultAvatarUrl: () => userDefaultAvatarUrl(userProperties),
+      avatarDecorationUrl: (options?: ImageUrlOptions) => _avatarDecorationUrl(userProperties, options),
+      avatarUrl: (options?: ImageUrlOptions) => _avatarUrl(userProperties, options),
+      bannerUrl: (options?: ImageUrlOptions) => _bannerUrl(userProperties, options),
+      defaultAvatarUrl: (options?: ImageUrlOptions) => _defaultAvatarUrl(userProperties, options),
     };
     const user = {
       ...userMethods,
@@ -141,7 +107,7 @@ export class UserTransformer {
     return user;
   }
 
-  static transformFromRawUserCollectibles(rawUserCollectibles?: Nullable<RawUserCollectibles>): UserCollectibles {
+  static transformFromRawUserCollectibles(rawUserCollectibles?: RawUserCollectibles | null): UserCollectibles {
     const collectibles: UserCollectibles = {};
 
     if (rawUserCollectibles?.nameplate) {

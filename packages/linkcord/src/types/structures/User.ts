@@ -1,4 +1,5 @@
-import type { Nullable, Snowflake } from "@fancystudioteam/linkcord-types";
+import type { Snowflake } from "@fancystudioteam/linkcord-types";
+import type { ImageUrlOptions } from "@fancystudioteam/linkcord-utils";
 import type { BitFieldResolver } from "../../utils/structures/BitFieldResolver.js";
 
 /**
@@ -13,23 +14,23 @@ export interface AvatarDecoration {
  * @public
  */
 export interface User {
-  accentColor?: Nullable<number>;
-  avatar: Nullable<string>;
-  avatarDecorationData?: Nullable<AvatarDecoration>;
-  banner: Nullable<string>;
+  accentColor: number | null;
+  avatar: string | null;
+  avatarDecorationData: AvatarDecoration | null;
+  banner: string | null;
   bot: boolean;
   collectibles: UserCollectibles;
   createdAt: Date;
   discriminator: string;
   flags: BitFieldResolver;
-  globalName: Nullable<string>;
+  globalName: string | null;
   id: Snowflake;
   system: boolean;
   username: string;
-  avatarDecorationUrl(): Nullable<string>;
-  avatarUrl(): string;
-  bannerUrl(): Nullable<string>;
-  defaultAvatarUrl(): string;
+  avatarDecorationUrl(options?: ImageUrlOptions): string | null;
+  avatarUrl(options?: ImageUrlOptions): string;
+  bannerUrl(options?: ImageUrlOptions): string | null;
+  defaultAvatarUrl(options?: ImageUrlOptions): string;
 }
 
 /**
