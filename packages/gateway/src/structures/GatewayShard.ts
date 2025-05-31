@@ -115,7 +115,6 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
     searchParams.set("v", version.toString());
     searchParams.set("encoding", "json");
 
-    this.status = GatewayShardStatus.Handshaking;
     this.emit("debug", `Handshaking with Discord using url "${url}"...`, this.id);
 
     const socket = new WebSocket(url);
@@ -131,7 +130,7 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
    */
   private _onClose(code: number, reason: string): void {
     const stringifiedReason = reason.toString();
-    const isReconnectable = RECONNECTABLE_CLOSE_CODES.includes(code);
+    const isReconnectable = RECONNECTABLE_CLOSE_CODES.includes(code) || code === 1001;
 
     this.emit("debug", `Received close event with code "${code}" and reason "${reason}".`, this.id);
     this.emit("close", code, stringifiedReason, isReconnectable, this.id);
