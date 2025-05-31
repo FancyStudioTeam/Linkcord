@@ -2,6 +2,7 @@
   "dependencies": {
     "@fancystudioteam/linkcord-gateway": "workspace:*",
     "@fancystudioteam/linkcord-types": "workspace:*",
+    "@fancystudioteam/linkcord-utils": "workspace:*",
     "libsodium-wrappers": "0.7.15",
     "opusscript": "0.1.1",
     "prism-media": "1.3.5",

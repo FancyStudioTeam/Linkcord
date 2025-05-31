@@ -1,14 +1,15 @@
 import { EventEmitter } from "node:events";
+import { calculateShardIdFromGuildId } from "@fancystudioteam/linkcord";
 import type { GatewayManager, JoinVoiceChannelOptions } from "@fancystudioteam/linkcord-gateway";
-import type { VoiceVersion } from "@fancystudioteam/linkcord-types";
-import { VoiceManagerError } from "#utils";
+import type { VoiceEvent, VoiceVersion } from "@fancystudioteam/linkcord-types";
+import { VoiceManagerError } from "../utils/index.js";
 import { VoiceConnection } from "./VoiceConnection.js";
 
 /**
  * @public
  */
 export class VoiceManager extends EventEmitter<VoiceManagerEvents> {
-  readonly gateway: GatewayManager;
+  readonly gatewayManager: GatewayManager;
   readonly options: VoiceManagerOptions;
   readonly version: VoiceVersion;
 
@@ -17,7 +18,7 @@ export class VoiceManager extends EventEmitter<VoiceManagerEvents> {
 
     const { gatewayManager } = options;
 
-    this.gateway = gatewayManager;
+    this.gatewayManager = gatewayManager;
     this.options = options;
     this.version = 8;
   }
@@ -30,19 +31,16 @@ export class VoiceManager extends EventEmitter<VoiceManagerEvents> {
       selfMute: false,
     },
   ): Promise<VoiceConnection> {
-    const { shards } = this.gateway;
-    const shardId = this.gateway.getShardIdByGuildId(guildId);
+    const { gatewayManager } = this;
+    const { shardCount, shards } = gatewayManager;
+    const shardId = calculateShardIdFromGuildId(shardCount, guildId);
     const shard = shards.get(shardId);
-    const emitMessages = [
-      `Found shard id "${shardId}" for guild "${guildId}".`,
-      `Current shards from gateway manager: ${shards.size}.`,
-    ];
-
-    this.emit("debug", emitMessages.join("\n"));
 
     if (!shard) {
       throw new VoiceManagerError(`Cannot find shard for guild "${guildId}".`);
     }
+
+    this.emit("debug", `Found shard ${shardId} for guild "${guildId}".`);
 
     const { endpoint, sessionId, token, userId } = await shard.joinVoiceChannel(channelId, guildId, options);
     const voiceConnection = new VoiceConnection(this, {
@@ -61,14 +59,10 @@ export class VoiceManager extends EventEmitter<VoiceManagerEvents> {
  * @public
  */
 export interface VoiceManagerEvents {
-  /**
-   * Emitted when the voice connection socket is closed.
-   */
   close: [code: number, reason: string, reconnectable: boolean];
-  /**
-   * Emitted when a debug message is received from the voice connection.
-   */
   debug: [message: string];
+  hello: [heartbeatInterval: number];
+  packet: [packet: VoiceEvent];
 }
 
 /**

@@ -311,6 +311,9 @@ importers:
       '@fancystudioteam/linkcord-types':
         specifier: workspace:*
         version: link:../types
+      '@fancystudioteam/linkcord-utils':
+        specifier: workspace:*
+        version: link:../utils
       libsodium-wrappers:
         specifier: 0.7.15
         version: 0.7.15
