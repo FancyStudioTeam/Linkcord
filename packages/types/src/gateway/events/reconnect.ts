@@ -11,4 +11,4 @@ export type GatewayReconnect = GatewayEventBase<GatewayOpcodes.Reconnect, Gatewa
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#reconnect-example-gateway-reconnect
  */
-export type GatewayReconnectPayload = boolean | null;
+export type GatewayReconnectPayload = null;
