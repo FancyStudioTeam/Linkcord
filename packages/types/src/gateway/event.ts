@@ -2,7 +2,9 @@ import type { GatewayDispatch } from "./events/dispatch.js";
 import type { GatewayHeartbeat } from "./events/heartbeat.js";
 import type { GatewayHello } from "./events/hello.js";
 import type { GatewayIdentify } from "./events/identify.js";
+import type { GatewayInvalidSession } from "./events/invalid-session.js";
 import type { GatewayPresenceUpdate } from "./events/presence-update.js";
+import type { GatewayReconnect } from "./events/reconnect.js";
 import type { GatewayRequestGuildMembers } from "./events/request-guild-members.js";
 import type { GatewayRequestSoundboardSounds } from "./events/request-soundboard-sounds.js";
 import type { GatewayResume } from "./events/resume.js";
@@ -18,7 +20,7 @@ export type GatewayEvent = GatewayReceiveEvent | GatewaySendEvent;
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
-export type GatewayReceiveEvent = GatewayDispatch | GatewayHello;
+export type GatewayReceiveEvent = GatewayDispatch | GatewayHello | GatewayInvalidSession | GatewayReconnect;
 
 /**
  * @public
