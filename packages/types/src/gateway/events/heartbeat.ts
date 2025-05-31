@@ -1,4 +1,3 @@
-import type { Nullable } from "../../shared/custom.js";
 import type { GatewayEventBase } from "../base/event.js";
 import type { GatewayOpcodes } from "../event.js";
 
@@ -14,4 +13,4 @@ export type GatewayHeartbeat = GatewayEventBase<GatewayOpcodes.Heartbeat, Gatewa
  * @remarks
  * - This field value may be `null` if the sequence number was not received yet.
  */
-export type GatewayHeartbeatPayload = Nullable<number>;
+export type GatewayHeartbeatPayload = number | null;

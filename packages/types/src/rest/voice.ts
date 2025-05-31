@@ -1,5 +1,4 @@
 import type { APIVoiceRegion, APIVoiceState } from "../payloads/voice.js";
-import type { Nullable } from "../shared/custom.js";
 import type { ISO8601Date } from "../shared/discord.js";
 
 /**
@@ -8,7 +7,7 @@ import type { ISO8601Date } from "../shared/discord.js";
  */
 export interface RESTModifyCurrentUserVoiceStateJSONParams {
   channel_id?: string;
-  request_to_speak_timestamp?: Nullable<ISO8601Date>;
+  request_to_speak_timestamp?: ISO8601Date | null;
   suppress?: boolean;
 }
 

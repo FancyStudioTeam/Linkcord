@@ -1,5 +1,4 @@
 import type { APISticker, APIStickerPack } from "../payloads/sticker.js";
-import type { Nullable } from "../shared/custom.js";
 
 /**
  * @public
@@ -13,7 +12,7 @@ export interface RESTCreateGuildStickerFormParams {
 }
 
 export interface RESTModifyGuildStickerJSONParams {
-  description?: Nullable<string>;
+  description?: string | null;
   name?: string;
   tags?: string;
 }

@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { ISO8601Date } from "../shared/discord.js";
 import type { APIPartialEmoji } from "./emoji.js";
 
@@ -14,7 +13,7 @@ export interface APIPoll {
    * - This field value is marked as nullable to support non-expiring polls in
    *   the future, but currently all polls have an expiry date.
    */
-  expiry: Nullable<ISO8601Date>;
+  expiry: ISO8601Date | null;
   layout_type: PollLayoutTypes;
   /**
    * @remarks

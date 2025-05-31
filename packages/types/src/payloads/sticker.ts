@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { Snowflake } from "../shared/discord.js";
 import type { APIUser } from "./user.js";
 
@@ -13,7 +12,7 @@ export interface APISticker {
    *   lost Server Boosts which increase the sticker limit.
    */
   available?: boolean;
-  description: Nullable<string>;
+  description: string | null;
   format_type: StickerFormatTypes;
   guild_id?: Snowflake;
   id: Snowflake;

@@ -1,4 +1,3 @@
-import type { Nullable } from "../../../shared/custom.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../dispatch.js";
 
@@ -11,7 +10,7 @@ export interface GatewayDispatchVoiceServerUpdatePayload {
    * @remarks
    * - This field value may be `null` when the allocated voice server disappears.
    */
-  endpoint: Nullable<string>;
+  endpoint: string | null;
   guild_id: string;
   token: string;
 }

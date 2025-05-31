@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 import type { ApplicationCommandTypes } from "./application-command.js";
 import type { APIPartialApplication } from "./application.js";
@@ -192,7 +191,7 @@ export interface APIMessage {
   channel_id: Snowflake;
   components?: APIComponent[];
   content: string;
-  edited_timestamp: Nullable<ISO8601Date>;
+  edited_timestamp: ISO8601Date | null;
   embeds: APIEmbed[];
   flags: MessageFlags;
   id: Snowflake;
@@ -208,7 +207,7 @@ export interface APIMessage {
   poll?: APIPoll;
   position?: number;
   reactions?: APIReaction[];
-  referenced_message?: Nullable<APIMessage>;
+  referenced_message?: APIMessage | null;
   resolved?: APIResolvedData;
   role_subscription_data?: APIRoleSubscriptionData;
   /**
@@ -241,7 +240,7 @@ export interface APIMessageActivity {
  */
 export interface APIMessageCall {
   participants: Snowflake[];
-  ended_timestamp?: Nullable<ISO8601Date>;
+  ended_timestamp?: ISO8601Date | null;
 }
 
 /**

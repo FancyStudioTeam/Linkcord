@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { ISO8601Date } from "../shared/discord.js";
 import type { APIApplication } from "./application.js";
 import type { APIChannel } from "./channel.js";
@@ -13,9 +12,9 @@ import type { APIUser } from "./user.js";
 export interface APIInvite {
   approximate_member_count?: number;
   approximate_presence_count?: number;
-  channel: Nullable<APIChannel>;
+  channel: APIChannel | null;
   code: string;
-  expires_at?: Nullable<ISO8601Date>;
+  expires_at?: ISO8601Date | null;
   guild?: APIInviteGuild;
   guild_scheduled_event?: APIGuildScheduledEvent;
   inviter?: APIUser;

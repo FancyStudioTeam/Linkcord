@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { Snowflake } from "../shared/discord.js";
 
 /**
@@ -13,7 +12,7 @@ export interface APIStageInstance {
    */
   discoverable_disabled: boolean;
   guild_id: Snowflake;
-  guild_scheduled_event_id: Nullable<Snowflake>;
+  guild_scheduled_event_id: Snowflake | null;
   id: Snowflake;
   privacy_level: StageInstancePrivacyLevel;
   topic: string;

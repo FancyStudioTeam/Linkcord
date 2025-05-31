@@ -1,4 +1,3 @@
-import type { Nullable } from "../../shared/custom.js";
 import type { Snowflake } from "../../shared/discord.js";
 import type { GatewayEventBase } from "../base/event.js";
 import type { GatewayOpcodes } from "../event.js";
@@ -13,7 +12,7 @@ export interface GatewayVoiceStateUpdatePayload {
    * - This field value may be `null` to disconnect the client from the voice
    *   channel.
    */
-  channel_id: Nullable<Snowflake>;
+  channel_id: Snowflake | null;
   guild_id: Snowflake;
   self_deaf: boolean;
   self_mute: boolean;

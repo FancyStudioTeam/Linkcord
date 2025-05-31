@@ -1,4 +1,3 @@
-import type { Nullable } from "../../shared/custom.js";
 import type { ISO8601Date, Snowflake } from "../../shared/discord.js";
 import type {
   APIOverwrite,
@@ -16,7 +15,7 @@ import type { APIUser } from "../user.js";
 export interface APIChannelBase<Type extends ChannelTypes> {
   flags?: number;
   id: Snowflake;
-  name?: Nullable<string>;
+  name?: string | null;
   type: Type;
 }
 
@@ -25,8 +24,8 @@ export interface APIChannelBase<Type extends ChannelTypes> {
  */
 export interface APIDMChannelBase<Type extends AnyDMChannelType> extends APIChannelBase<Type> {
   recipients?: APIUser[];
-  last_message_id?: Nullable<Snowflake>;
-  last_pin_timestamp?: Nullable<ISO8601Date>;
+  last_message_id?: Snowflake | null;
+  last_pin_timestamp?: ISO8601Date | null;
 }
 
 /**
@@ -36,7 +35,7 @@ export interface APIGuildChannelBase<Type extends ChannelTypes> extends Omit<API
   guild_id: Snowflake;
   name: string;
   nsfw?: boolean;
-  parent_id?: Nullable<Snowflake>;
+  parent_id?: Snowflake | null;
   permission_overwrites?: APIOverwrite[];
   position: number;
 }
@@ -46,10 +45,10 @@ export interface APIGuildChannelBase<Type extends ChannelTypes> extends Omit<API
  */
 export interface APITextChannelBase<Type extends AnyTextChannelType> extends APIGuildChannelBase<Type> {
   default_auto_archive_duration?: AutoArchiveDuration;
-  last_message_id: Nullable<Snowflake>;
-  last_pin_timestamp?: Nullable<ISO8601Date>;
+  last_message_id: Snowflake | null;
+  last_pin_timestamp?: ISO8601Date | null;
   rate_limit_per_user?: number;
-  topic: Nullable<string>;
+  topic: string | null;
 }
 
 /**
@@ -80,7 +79,7 @@ export interface APIThreadChannelBase<Type extends AnyThreadChannelType>
 export interface APIVoiceChannelBase<Type extends AnyVoiceChannelType>
   extends Omit<APITextChannelBase<Type>, "default_auto_archive_duration" | "last_pin_timestamp" | "topic"> {
   bitrate?: number;
-  rtc_region?: Nullable<string>;
+  rtc_region?: string | null;
   user_limit?: number;
   /**
    * @remarks

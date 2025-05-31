@@ -1,5 +1,4 @@
 import type { APIAutoModerationAction, AutoModerationTriggerTypes } from "../../../payloads/auto-moderation.js";
-import type { Nullable } from "../../../shared/custom.js";
 import type { Snowflake } from "../../../shared/discord.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../dispatch.js";
@@ -18,8 +17,8 @@ export interface GatewayDispatchAutoModerationActionExecutionPayload {
   channel_id?: Snowflake;
   content: string;
   guild_id: Snowflake;
-  matched_content: Nullable<string>;
-  matched_keyword: Nullable<string>;
+  matched_content: string | null;
+  matched_keyword: string | null;
   /**
    * @remarks
    * - This field may not exist if the message was blocked by Auto Moderation

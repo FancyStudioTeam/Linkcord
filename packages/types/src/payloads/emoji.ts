@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { Snowflake } from "../shared/discord.js";
 import type { APIUser } from "./user.js";
 
@@ -14,13 +13,13 @@ export interface APIEmoji {
    *   lost Server Boosts which increase the emoji limit.
    */
   available?: boolean;
-  id: Nullable<Snowflake>;
+  id: Snowflake | null;
   managed?: boolean;
   /**
    * @remarks
    * - This field value may be `null` for reaction emoji objects.
    */
-  name: Nullable<string>;
+  name: string | null;
   require_colons?: boolean;
   roles?: Snowflake[];
   user?: APIUser;

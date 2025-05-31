@@ -7,7 +7,6 @@ import type {
   GuildScheduledEventPrivacyLevel,
   GuildScheduledEventStatus,
 } from "../payloads/guild-scheduled-event.js";
-import type { Nullable } from "../shared/custom.js";
 import type { ISO8601Date, ImageDataUri, Snowflake } from "../shared/discord.js";
 
 /**
@@ -40,14 +39,14 @@ export interface RESTListScheduledEventsForGuildStringParams {
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#modify-guild-scheduled-event-json-params
  */
 export interface RESTModifyGuildScheduledEventJSONParams {
-  channel_id?: Nullable<Snowflake>;
-  description?: Nullable<string>;
-  entity_metadata?: Nullable<APIGuildScheduledEventEntityMetadata>;
+  channel_id?: Snowflake | null;
+  description?: string | null;
+  entity_metadata?: APIGuildScheduledEventEntityMetadata | null;
   entity_type?: GuildScheduledEventEntityTypes;
   image?: ImageDataUri;
   name?: string;
   privacy_level?: GuildScheduledEventPrivacyLevel;
-  recurrence_rule?: Nullable<APIGuildScheduledEventRecurrenceRule>;
+  recurrence_rule?: APIGuildScheduledEventRecurrenceRule | null;
   scheduled_end_time?: ISO8601Date;
   scheduled_start_time?: ISO8601Date;
   status?: GuildScheduledEventStatus;

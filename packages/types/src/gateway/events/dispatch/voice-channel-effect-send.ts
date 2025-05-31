@@ -1,5 +1,4 @@
 import type { APIEmoji } from "../../../payloads/emoji.js";
-import type { Nullable } from "../../../shared/custom.js";
 import type { Snowflake } from "../../../shared/discord.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../dispatch.js";
@@ -10,9 +9,9 @@ import type { GatewayDispatchEvents } from "../dispatch.js";
  */
 export interface GatewayDispatchVoiceChannelEffectSendPayload {
   animation_id?: number;
-  animation_type?: Nullable<AnimationTypes>;
+  animation_type?: AnimationTypes | null;
   channel_id: Snowflake;
-  emoji?: Nullable<APIEmoji>;
+  emoji?: APIEmoji | null;
   guild_id: Snowflake;
   sound_id?: number | Snowflake;
   /**

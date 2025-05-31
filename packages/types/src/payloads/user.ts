@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { Locale, Snowflake } from "../shared/discord.js";
 import type { APIPartialIntegration } from "./guild.js";
 
@@ -8,8 +7,8 @@ import type { APIPartialIntegration } from "./guild.js";
  */
 export interface APIApplicationRoleConnection {
   metadata: Record<string, string>;
-  platform_name: Nullable<string>;
-  platform_username: Nullable<string>;
+  platform_name: string | null;
+  platform_username: string | null;
 }
 
 /**
@@ -45,10 +44,10 @@ export interface APIConnection {
  *   meaning it may change or break at any time.
  */
 export interface APIPrimaryGuild {
-  badge: Nullable<string>;
+  badge: string | null;
   identify_enabled: boolean;
-  identify_guild_id: Nullable<Snowflake>;
-  tag: Nullable<string>;
+  identify_guild_id: Snowflake | null;
+  tag: string | null;
 }
 
 /**
@@ -56,10 +55,10 @@ export interface APIPrimaryGuild {
  * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
  */
 export interface APIUser {
-  accent_color?: Nullable<number>;
-  avatar: Nullable<string>;
-  avatar_decoration_data?: Nullable<APIAvatarDecorationData>;
-  banner?: Nullable<string>;
+  accent_color?: number | null;
+  avatar: string | null;
+  avatar_decoration_data?: APIAvatarDecorationData | null;
+  banner?: string | null;
   bot?: boolean;
   /**
    * @alpha
@@ -67,16 +66,16 @@ export interface APIUser {
    * - This is not officially documented in the Discord API documentation,
    *   meaning it may change or break at any time.
    */
-  collectibles?: Nullable<APIUserCollectibles>;
+  collectibles?: APIUserCollectibles | null;
   /**
    * @remarks
    * - This field value will be set to `0` for non-bot users.
    * - Bot users will still have their old discriminator value.
    */
   discriminator: string;
-  email?: Nullable<string>;
+  email?: string | null;
   flags?: number;
-  global_name: Nullable<string>;
+  global_name: string | null;
   id: Snowflake;
   locale?: Locale;
   mfa_enabled?: boolean;
@@ -87,7 +86,7 @@ export interface APIUser {
    * - This is not officially documented in the Discord API documentation,
    *   meaning it may change or break at any time.
    */
-  primary_guild?: Nullable<APIPrimaryGuild>;
+  primary_guild?: APIPrimaryGuild | null;
   public_flags?: number;
   system?: boolean;
   username: string;

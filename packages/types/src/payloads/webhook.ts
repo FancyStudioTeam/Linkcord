@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { Snowflake } from "../shared/discord.js";
 import type { APIGuildChannel } from "./channel.js";
 import type { APIGuild } from "./guild.js";
@@ -9,12 +8,12 @@ import type { APIUser } from "./user.js";
  * @see https://discord.com/developers/docs/resources/webhook#webhook-object-webhook-structure
  */
 export interface APIWebhook {
-  application_id: Nullable<Snowflake>;
-  avatar: Nullable<string>;
-  channel_id: Nullable<Snowflake>;
-  guild_id?: Nullable<Snowflake>;
+  application_id: Snowflake | null;
+  avatar: string | null;
+  channel_id: Snowflake | null;
+  guild_id?: Snowflake | null;
   id: Snowflake;
-  name: Nullable<string>;
+  name: string | null;
   /**
    * @remarks
    * - This field may not be present when the webhook owner lost access to the

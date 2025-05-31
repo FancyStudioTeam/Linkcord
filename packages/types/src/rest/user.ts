@@ -3,7 +3,6 @@ import type { APIGroupDMChannel } from "../payloads/channel.js";
 import type { APICurrentUserGuild } from "../payloads/guild.js";
 import type { APIGuildMember } from "../payloads/guild.js";
 import type { APIApplicationRoleConnection, APIConnection, APIUser } from "../payloads/user.js";
-import type { Nullable } from "../shared/custom.js";
 import type { ImageDataUri, Snowflake } from "../shared/discord.js";
 
 /**
@@ -39,8 +38,8 @@ export interface RESTGetCurrentUserGuildsStringParams {
  * @see https://discord.com/developers/docs/resources/user#modify-current-user-json-params
  */
 export interface RESTModifyCurrentUserJSONParams {
-  avatar?: Nullable<ImageDataUri>;
-  banner?: Nullable<ImageDataUri>;
+  avatar?: ImageDataUri | null;
+  banner?: ImageDataUri | null;
   username?: string;
 }
 

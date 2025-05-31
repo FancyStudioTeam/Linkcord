@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { Snowflake } from "../shared/discord.js";
 import type {
   APIButtonComponentBase,
@@ -190,10 +189,10 @@ export interface APIThumbnailComponent extends APIComponentBase<ComponentTypes.T
  */
 export interface APIUnfurledMediaItem {
   content_type?: string;
-  height?: Nullable<number>;
+  height?: number | null;
   proxy_url?: string;
   url: string;
-  width?: Nullable<number>;
+  width?: number | null;
 }
 
 /**

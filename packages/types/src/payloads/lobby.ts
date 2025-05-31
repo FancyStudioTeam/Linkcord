@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { Snowflake } from "../shared/discord.js";
 import type { APIChannel } from "./channel.js";
 
@@ -11,7 +10,7 @@ export interface APILobby {
   id: Snowflake;
   linked_channel?: APIChannel;
   members: APILobbyMember[];
-  metadata: Nullable<APILobbyMetadata>;
+  metadata: APILobbyMetadata | null;
 }
 
 /**
@@ -21,7 +20,7 @@ export interface APILobby {
 export interface APILobbyMember {
   flags?: LobbyMemberFlags;
   id: Snowflake;
-  metadata?: Nullable<APILobbyMemberMetadata>;
+  metadata?: APILobbyMemberMetadata | null;
 }
 
 /**

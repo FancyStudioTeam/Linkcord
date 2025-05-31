@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { Snowflake } from "../shared/discord.js";
 import type { APIPartialGuild } from "./guild.js";
 import type { OAuth2Scopes } from "./oauth2.js";
@@ -23,7 +22,7 @@ export interface APIActivityInstance {
  */
 export interface APIActivityLocation {
   channel_id: Snowflake;
-  guild_id?: Nullable<Snowflake>;
+  guild_id?: Snowflake | null;
   id: string;
   kind: ActivityLocationKind;
 }
@@ -40,28 +39,28 @@ export interface APIApplication {
   bot_require_code_grant: boolean;
   cover_image?: string;
   custom_install_url?: string;
-  description: Nullable<string>;
+  description: string | null;
   event_webhooks_status: ApplicationEventWebhookStatus;
   event_webhooks_types?: ApplicationEventWebhookTypes[];
-  event_webhooks_url?: Nullable<string>;
+  event_webhooks_url?: string | null;
   flags?: ApplicationFlags;
   guild?: APIPartialGuild;
   guild_id?: Snowflake;
-  icon: Nullable<string>;
+  icon: string | null;
   id: Snowflake;
   install_params?: APIApplicationInstallParams;
   integration_types_config?: APIApplicationIntegrationTypesConfiguration;
-  interactions_endpoint_url?: Nullable<string>;
+  interactions_endpoint_url?: string | null;
   name: string;
   owner?: APIUser;
   privacy_policy_url?: string;
   primary_sku_id?: Snowflake;
   redirect_uris: string[];
-  role_connections_verification_url?: Nullable<string>;
+  role_connections_verification_url?: string | null;
   rpc_origins?: string[];
   slug?: string;
   tags?: string[];
-  team: Nullable<APITeam>;
+  team: APITeam | null;
   terms_of_service_url?: string;
   verify_key: string;
 }

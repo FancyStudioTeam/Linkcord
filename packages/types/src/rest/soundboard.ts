@@ -1,5 +1,4 @@
 import type { APISoundboardSound } from "../payloads/soundboard.js";
-import type { Nullable } from "../shared/custom.js";
 import type { AudioDataUri, Snowflake } from "../shared/discord.js";
 
 /**
@@ -7,11 +6,11 @@ import type { AudioDataUri, Snowflake } from "../shared/discord.js";
  * @see https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound
  */
 export interface RESTCreateGuildSoundboardSoundJSONParams {
-  emoji_id?: Nullable<Snowflake>;
-  emoji_name?: Nullable<string>;
+  emoji_id?: Snowflake | null;
+  emoji_name?: string | null;
   name: string;
   sound: AudioDataUri;
-  volume?: Nullable<number>;
+  volume?: number | null;
 }
 
 /**
@@ -27,10 +26,10 @@ export interface RESTListGuildSoundboardSounds {
  * @see https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound-json-params
  */
 export interface RESTModifyGuildSoundboardSoundJSONParams {
-  emoji_id?: Nullable<Snowflake>;
-  emoji_name?: Nullable<string>;
+  emoji_id?: Snowflake | null;
+  emoji_name?: string | null;
   name?: string;
-  volume?: Nullable<number>;
+  volume?: number | null;
 }
 
 /**

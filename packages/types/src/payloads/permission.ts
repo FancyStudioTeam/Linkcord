@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { Snowflake } from "../shared/discord.js";
 
 /**
@@ -14,10 +13,10 @@ export interface APIRole {
    *   meaning it may change or break at any time.
    */
   colors: APIRoleColors;
-  description: Nullable<string>;
+  description: string | null;
   flags: RoleFlags;
   hoist: boolean;
-  icon?: Nullable<string>;
+  icon?: string | null;
   id: Snowflake;
   managed: boolean;
   mentionable: boolean;
@@ -25,7 +24,7 @@ export interface APIRole {
   permissions: string;
   position: number;
   tags: APIRoleTags;
-  unicode_emoji?: Nullable<string>;
+  unicode_emoji?: string | null;
 }
 
 /**
@@ -36,8 +35,8 @@ export interface APIRole {
  */
 export interface APIRoleColors {
   primary_color: number;
-  secondary_color: Nullable<number>;
-  tertiary_color: Nullable<number>;
+  secondary_color: number | null;
+  tertiary_color: number | null;
 }
 
 /**

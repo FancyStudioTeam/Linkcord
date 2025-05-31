@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { Snowflake } from "../shared/discord.js";
 import type { APIUser } from "./user.js";
 
@@ -13,8 +12,8 @@ export interface APISoundboardSound {
    *   belongs lost Server Boosts which increase the soundboard sound limit.
    */
   available: boolean;
-  emoji_id: Nullable<Snowflake>;
-  emoji_name: Nullable<string>;
+  emoji_id: Snowflake | null;
+  emoji_name: string | null;
   guild_id?: Snowflake;
   name: string;
   sound_id: Snowflake;

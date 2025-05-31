@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { Localizations, Snowflake } from "../shared/discord.js";
 import type { ApplicationIntegrationTypes } from "./application.js";
 import type { ChannelTypes } from "./channel.js";
@@ -11,8 +10,8 @@ import type { InteractionContextTypes } from "./interaction.js";
 export interface APIApplicationCommand {
   application_id: Snowflake;
   contexts?: InteractionContextTypes[];
-  default_member_permissions: Nullable<string>;
-  default_permission?: Nullable<boolean>;
+  default_member_permissions: string | null;
+  default_permission?: boolean | null;
   description: string;
   description_localizations?: Localizations;
   guild_id?: Snowflake;

@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 import type { APIChannel, APIDMChannel, APIGroupDMChannel } from "./channel.js";
 import type { APIGuild } from "./guild.js";
@@ -13,8 +12,8 @@ export interface APIGuildTemplate {
   created_at: ISO8601Date;
   creator: APIUser;
   creator_id: Snowflake;
-  description: Nullable<string>;
-  is_dirty: Nullable<boolean>;
+  description: string | null;
+  is_dirty: boolean | null;
   name: string;
   serialized_source_guild: APIGuildTemplateSerializedSourceGuild;
   source_guild_id: Snowflake;

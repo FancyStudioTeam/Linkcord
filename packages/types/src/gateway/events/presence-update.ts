@@ -1,4 +1,3 @@
-import type { Nullable } from "../../shared/custom.js";
 import type { GatewayActivity } from "../activity.js";
 import type { GatewayEventBase } from "../base/event.js";
 import type { GatewayOpcodes } from "../event.js";
@@ -10,7 +9,7 @@ import type { GatewayOpcodes } from "../event.js";
 export interface GatewayPresenceUpdatePayload {
   activities: GatewayPresenceUpdateActivity[];
   afk: boolean;
-  since: Nullable<number>;
+  since: number | null;
   status: StatusTypes;
 }
 

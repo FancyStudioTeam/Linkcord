@@ -1,44 +1,5 @@
 /**
  * @public
- * @see https://discord.com/developers/docs/reference#locales
- */
-export interface Locales {
-  [Locale.Bulgarian]: string;
-  [Locale.ChineseCN]: string;
-  [Locale.ChineseTW]: string;
-  [Locale.Croatian]: string;
-  [Locale.Czech]: string;
-  [Locale.Danish]: string;
-  [Locale.Dutch]: string;
-  [Locale.EnglishUK]: string;
-  [Locale.EnglishUS]: string;
-  [Locale.Finnish]: string;
-  [Locale.French]: string;
-  [Locale.German]: string;
-  [Locale.Greek]: string;
-  [Locale.Hindi]: string;
-  [Locale.Hungarian]: string;
-  [Locale.Indonesian]: string;
-  [Locale.Italian]: string;
-  [Locale.Japanese]: string;
-  [Locale.Korean]: string;
-  [Locale.Lithuanian]: string;
-  [Locale.Norwegian]: string;
-  [Locale.Polish]: string;
-  [Locale.PortugueseBR]: string;
-  [Locale.Romanian]: string;
-  [Locale.Russian]: string;
-  [Locale.SpanishES]: string;
-  [Locale.SpanishLATAM]: string;
-  [Locale.Swedish]: string;
-  [Locale.Thai]: string;
-  [Locale.Turkish]: string;
-  [Locale.Ukrainian]: string;
-  [Locale.Vietnamese]: string;
-}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/reference#api-versioning-api-versions
  * @remarks
  * - Versions below 9 are deprecated and should not be used.
@@ -65,6 +26,14 @@ export type ImageDataUri =
  * @see https://discord.com/developers/docs/reference#iso8601-datetime
  */
 export type ISO8601Date = string;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/reference#locales
+ */
+export type Locales = {
+  [Key in Locale]: string;
+};
 
 /**
  * @public

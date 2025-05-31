@@ -6,7 +6,6 @@ import type {
   ApplicationEventWebhookStatus,
   ApplicationEventWebhookTypes,
 } from "../payloads/application.js";
-import type { Nullable } from "../shared/custom.js";
 import type { ImageDataUri } from "../shared/discord.js";
 
 /**
@@ -14,7 +13,7 @@ import type { ImageDataUri } from "../shared/discord.js";
  * @see https://discord.com/developers/docs/resources/application#edit-current-application-json-params
  */
 export interface RESTEditCurrentApplicationJSONParams {
-  cover_image?: Nullable<ImageDataUri>;
+  cover_image?: ImageDataUri | null;
   custom_install_url?: string;
   description?: string;
   event_webhooks_status?: ApplicationEventWebhookStatus;
@@ -25,7 +24,7 @@ export interface RESTEditCurrentApplicationJSONParams {
    * - This field value is only limited to intent flags.
    */
   flags?: number;
-  icon?: Nullable<ImageDataUri>;
+  icon?: ImageDataUri | null;
   install_params?: APIApplicationInstallParams;
   integration_types_config?: APIApplicationIntegrationTypesConfiguration;
   /**

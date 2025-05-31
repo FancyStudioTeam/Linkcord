@@ -1,5 +1,4 @@
 import type { StatusTypes } from "../gateway/index.js";
-import type { Nullable } from "../shared/custom.js";
 import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 import type { APIEmoji } from "./emoji.js";
 import type { OAuth2Scopes } from "./oauth2.js";
@@ -12,7 +11,7 @@ import type { APIAvatarDecorationData, APIUser } from "./user.js";
  * @see https://discord.com/developers/docs/resources/guild#ban-object-ban-structure
  */
 export interface APIBan {
-  reason: Nullable<string>;
+  reason: string | null;
   user: APIUser;
 }
 
@@ -38,24 +37,24 @@ export interface APICurrentUserGuild
  * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-structure
  */
 export interface APIGuild {
-  afk_channel_id: Nullable<Snowflake>;
+  afk_channel_id: Snowflake | null;
   afk_timeout: number;
-  application_id: Nullable<Snowflake>;
+  application_id: Snowflake | null;
   approximate_member_count?: number;
   approximate_presence_count?: number;
-  banner: Nullable<string>;
+  banner: string | null;
   default_message_notifications: DefaultMessageNotificationLevel;
-  description: Nullable<string>;
-  discovery_splash: Nullable<string>;
+  description: string | null;
+  discovery_splash: string | null;
   emojis: APIEmoji[];
   explicit_content_filter: ExplicitContentFilterLevel;
   features: GuildFeatures[];
-  icon: Nullable<string>;
-  icon_hash?: Nullable<string>;
+  icon: string | null;
+  icon_hash?: string | null;
   id: Snowflake;
-  incidents_data: Nullable<APIIncidentsData>;
+  incidents_data: APIIncidentsData | null;
   max_members?: number;
-  max_presences?: Nullable<number>;
+  max_presences?: number | null;
   max_video_channel_users?: number;
   mfa_level: MFALevel;
   name: string;
@@ -75,18 +74,18 @@ export interface APIGuild {
   premium_progress_bar_enabled?: boolean;
   premium_subscription_count?: number;
   premium_tier: PremiumTier;
-  public_updates_channel_id: Nullable<Snowflake>;
+  public_updates_channel_id: Snowflake | null;
   roles: APIRole[];
-  rules_channel_id: Nullable<Snowflake>;
-  safety_alerts_channel_id: Nullable<Snowflake>;
-  splash: Nullable<string>;
+  rules_channel_id: Snowflake | null;
+  safety_alerts_channel_id: Snowflake | null;
+  splash: string | null;
   stickers?: APISticker[];
   system_channel_flags: SystemChannelFlags;
-  system_channel_id: Nullable<Snowflake>;
-  vanity_code_url: Nullable<string>;
+  system_channel_id: Snowflake | null;
+  vanity_code_url: string | null;
   verification_level: VerificationLevel;
   welcome_screen?: APIWelcomeScreen;
-  widget_channel_id?: Nullable<Snowflake>;
+  widget_channel_id?: Snowflake | null;
   widget_enabled?: boolean;
 }
 
@@ -95,18 +94,18 @@ export interface APIGuild {
  * @see https://discord.com/developers/docs/resources/guild#guild-member-object-guild-member-structure
  */
 export interface APIGuildMember {
-  avatar?: Nullable<string>;
-  avatar_decoration_data?: Nullable<APIAvatarDecorationData>;
-  banner?: Nullable<string>;
-  communication_disabled_until?: Nullable<ISO8601Date>;
+  avatar?: string | null;
+  avatar_decoration_data?: APIAvatarDecorationData | null;
+  banner?: string | null;
+  communication_disabled_until?: ISO8601Date | null;
   deaf: boolean;
   flags: GuildMemberFlags;
   joined_at: ISO8601Date;
   mute: boolean;
-  nick?: Nullable<string>;
+  nick?: string | null;
   pending?: boolean;
   permissions?: string;
-  premium_since?: Nullable<ISO8601Date>;
+  premium_since?: ISO8601Date | null;
   roles: Snowflake[];
   user?: APIUser;
 }
@@ -143,7 +142,7 @@ export interface APIGuildOnboardingPrompt {
  */
 export interface APIGuildOnboardingPromptOption {
   channel_ids: Snowflake[];
-  description: Nullable<string>;
+  description: string | null;
   emoji?: APIEmoji;
   emoji_animated?: boolean;
   emoji_id?: Snowflake;
@@ -160,14 +159,14 @@ export interface APIGuildOnboardingPromptOption {
 export interface APIGuildPreview {
   approximate_member_count: number;
   approximate_presence_count: number;
-  description: Nullable<string>;
-  discovery_splash: Nullable<string>;
+  description: string | null;
+  discovery_splash: string | null;
   emojis: APIEmoji[];
   features: GuildFeatures[];
-  icon: Nullable<string>;
+  icon: string | null;
   id: Snowflake;
   name: string;
-  splash: Nullable<string>;
+  splash: string | null;
   stickers: APISticker[];
 }
 
@@ -178,7 +177,7 @@ export interface APIGuildPreview {
 export interface APIGuildWidget {
   channels: APIGuildWidgetChannel[];
   id: Snowflake;
-  instant_invite: Nullable<string>;
+  instant_invite: string | null;
   members: APIGuildWidgetMember[];
   name: string;
   presence_count: number;
@@ -199,7 +198,7 @@ export interface APIGuildWidgetChannel {
  * @see https://discord.com/developers/docs/resources/guild#guild-widget-object-guild-widget-structure
  */
 export interface APIGuildWidgetMember {
-  avatar: Nullable<string>;
+  avatar: string | null;
   avatar_url: string;
   discriminator: string;
   id: Snowflake;
@@ -212,7 +211,7 @@ export interface APIGuildWidgetMember {
  * @see https://discord.com/developers/docs/resources/guild#guild-widget-settings-object-guild-widget-settings-structure
  */
 export interface APIGuildWidgetSettings {
-  channel_id: Nullable<Snowflake>;
+  channel_id: Snowflake | null;
   enabled: boolean;
 }
 
@@ -221,10 +220,10 @@ export interface APIGuildWidgetSettings {
  * @see https://discord.com/developers/docs/resources/guild#incidents-data-object-incidents-data-structure
  */
 export interface APIIncidentsData {
-  dm_spam_detected_at?: Nullable<ISO8601Date>;
-  dms_disabled_until: Nullable<ISO8601Date>;
-  invites_disabled_until: Nullable<ISO8601Date>;
-  raid_detected_at?: Nullable<ISO8601Date>;
+  dm_spam_detected_at?: ISO8601Date | null;
+  dms_disabled_until: ISO8601Date | null;
+  invites_disabled_until: ISO8601Date | null;
+  raid_detected_at?: ISO8601Date | null;
 }
 
 /**
@@ -294,7 +293,7 @@ export interface APIIntegrationAccount {
 export interface APIIntegrationApplication {
   bot?: APIUser;
   description: string;
-  icon: Nullable<string>;
+  icon: string | null;
   id: Snowflake;
   name: string;
 }
@@ -332,7 +331,7 @@ export interface APIUnavailableGuild extends Pick<APIGuild, "id"> {
  * @see https://discord.com/developers/docs/resources/guild#welcome-screen-object-welcome-screen-structure
  */
 export interface APIWelcomeScreen {
-  description: Nullable<string>;
+  description: string | null;
   welcome_channels: APIWelcomeScreenChannel[];
 }
 
@@ -343,8 +342,8 @@ export interface APIWelcomeScreen {
 export interface APIWelcomeScreenChannel {
   channel_id: Snowflake;
   description: string;
-  emoji_id: Nullable<Snowflake>;
-  emoji_name: Nullable<string>;
+  emoji_id: Snowflake | null;
+  emoji_name: string | null;
 }
 
 /**

@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { Snowflake } from "../shared/discord.js";
 
 /**
@@ -10,17 +9,17 @@ export interface GatewayActivity {
   assets?: GatewayActivityAssets;
   buttons?: GatewayActivityButton[];
   created_at: number;
-  details?: Nullable<string>;
-  emoji?: Nullable<GatewayActivityEmoji>;
+  details?: string | null;
+  emoji?: GatewayActivityEmoji | null;
   flags?: ActivityFlags;
   instance?: boolean;
   name: string;
   party?: GatewayActivityParty;
   secrets?: GatewayActivitySecrets;
-  state?: Nullable<string>;
+  state?: string | null;
   timestamps: GatewayActivityTimestamps;
   type: ActivityTypes;
-  url?: Nullable<string>;
+  url?: string | null;
 }
 
 /**

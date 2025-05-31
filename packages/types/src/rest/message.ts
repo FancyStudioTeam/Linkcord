@@ -1,6 +1,7 @@
 import type { APIComponent } from "../payloads/component.js";
 import type {
   APIAllowedMentions,
+  APIAttachment,
   APIEmbed,
   APIMessage,
   APIMessageReference,
@@ -8,7 +9,6 @@ import type {
   ReactionTypes,
 } from "../payloads/message.js";
 import type { APIUser } from "../payloads/user.js";
-import type { Nullable } from "../shared/custom.js";
 import type { Snowflake } from "../shared/discord.js";
 import type { RESTCreatePollRequest } from "./poll.js";
 
@@ -63,16 +63,16 @@ export interface RESTGetReactionsStringParams {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/message#edit-message-json-params
+ * @see https://discord.com/developers/docs/resources/message#edit-message-jsonform-params
  */
 export interface RESTEditMessageJSONParams {
-  allowed_mentions?: Nullable<APIAllowedMentions>;
-  attachments?: Nullable<APIPartialAttachment[]>;
-  components?: Nullable<APIComponent[]>;
-  content?: Nullable<string>;
-  embeds?: Nullable<APIEmbed[]>;
-  flags?: Nullable<number>;
-  payload_json?: Nullable<string>;
+  allowed_mentions?: APIAllowedMentions | null;
+  attachments?: APIAttachment[] | null;
+  components?: APIComponent[] | null;
+  content?: string | null;
+  embeds?: APIEmbed[] | null;
+  flags?: number | null;
+  payload_json?: string | null;
 }
 
 /**

@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { Snowflake } from "../shared/discord.js";
 import type { APIApplicationCommand } from "./application-command.js";
 
@@ -31,8 +30,8 @@ export interface APIAuditLogEntry {
   id: Snowflake;
   options?: APIOptionalAuditEntryInfo;
   reason?: string;
-  target_id: Nullable<string>;
-  user_id: Nullable<string>;
+  target_id: string | null;
+  user_id: string | null;
 }
 
 /**

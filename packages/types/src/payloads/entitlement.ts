@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 
 /**
@@ -9,11 +8,11 @@ export interface APIEntitlement {
   application_id: Snowflake;
   consumed?: boolean;
   deleted: boolean;
-  ends_at: Nullable<ISO8601Date>;
+  ends_at: ISO8601Date | null;
   guild_id?: Snowflake;
   id: Snowflake;
   sku_id: Snowflake;
-  starts_at: Nullable<ISO8601Date>;
+  starts_at: ISO8601Date | null;
   type: EntitlementTypes;
   user_id?: Snowflake;
 }

@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 import type {
   APIDMChannelBase,
@@ -40,8 +39,8 @@ export interface APIDMChannel extends APIDMChannelBase<ChannelTypes.DirectMessag
  * @see https://discord.com/developers/docs/resources/channel#default-reaction-object-default-reaction-structure
  */
 export interface APIDefaultReactionEmoji {
-  emoji_id: Nullable<Snowflake>;
-  emoji_name: Nullable<string>;
+  emoji_id: Snowflake | null;
+  emoji_name: string | null;
 }
 
 /**
@@ -60,7 +59,7 @@ export interface APIFollowedChannel {
 export interface APIForumChannel extends APIGuildChannelBase<ChannelTypes.GuildForum> {
   available_tags: APIForumTag[];
   default_forum_layout: ForumLayoutTypes;
-  default_reaction_emoji: Nullable<APIDefaultReactionEmoji>;
+  default_reaction_emoji: APIDefaultReactionEmoji | null;
   default_sort_order: SortOrderTypes;
   /**
    * @alpha
@@ -78,8 +77,8 @@ export interface APIForumChannel extends APIGuildChannelBase<ChannelTypes.GuildF
  * @see https://discord.com/developers/docs/resources/channel#forum-tag-object-forum-tag-structure
  */
 export interface APIForumTag {
-  emoji_id: Nullable<Snowflake>;
-  emoji_name: Nullable<string>;
+  emoji_id: Snowflake | null;
+  emoji_name: string | null;
   id: Snowflake;
   moderated: boolean;
   name: string;
@@ -91,7 +90,7 @@ export interface APIForumTag {
  */
 export interface APIGroupDMChannel extends APIDMChannelBase<ChannelTypes.GroupDM> {
   application_id?: Snowflake;
-  icon: Nullable<string>;
+  icon: string | null;
   managed?: boolean;
   owner_id: Snowflake;
 }
@@ -176,7 +175,7 @@ export interface APIThreadMetadata {
   archive_timestamp: ISO8601Date;
   archived: boolean;
   auto_archive_duration: AutoArchiveDuration;
-  create_timestamp?: Nullable<ISO8601Date>;
+  create_timestamp?: ISO8601Date | null;
   invitable?: boolean;
   locked: boolean;
 }

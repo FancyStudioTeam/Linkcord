@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { Snowflake } from "../shared/discord.js";
 import type { APIUser } from "./user.js";
 
@@ -7,7 +6,7 @@ import type { APIUser } from "./user.js";
  * @see https://discord.com/developers/docs/topics/teams#data-models-team-object
  */
 export interface APITeam {
-  icon: Nullable<string>;
+  icon: string | null;
   id: Snowflake;
   members: APITeamMember[];
   name: string;

@@ -1,6 +1,5 @@
 import type { APIGuildTemplate } from "../payloads/guild-template.js";
 import type { APIGuild } from "../payloads/guild.js";
-import type { Nullable } from "../shared/custom.js";
 import type { ImageDataUri } from "../shared/discord.js";
 
 /**
@@ -17,7 +16,7 @@ export interface RESTCreateGuildFromGuildTemplateJSONParams {
  * @see https://discord.com/developers/docs/resources/guild-template#create-guild-template-json-params
  */
 export interface RESTCreateGuildTemplateJSONParams {
-  description?: Nullable<string>;
+  description?: string | null;
   name: string;
 }
 
@@ -26,7 +25,7 @@ export interface RESTCreateGuildTemplateJSONParams {
  * @see https://discord.com/developers/docs/resources/guild-template#modify-guild-template-json-params
  */
 export interface RESTModifyGuildTemplateJSONParams {
-  description?: Nullable<string>;
+  description?: string | null;
   name?: string;
 }
 

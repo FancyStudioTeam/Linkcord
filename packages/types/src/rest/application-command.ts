@@ -7,7 +7,6 @@ import type {
 } from "../payloads/application-command.js";
 import type { IntegrationTypes } from "../payloads/guild.js";
 import type { InteractionContextTypes } from "../payloads/interaction.js";
-import type { Nullable } from "../shared/custom.js";
 import type { Localizations, Snowflake } from "../shared/discord.js";
 
 /**
@@ -16,13 +15,13 @@ import type { Localizations, Snowflake } from "../shared/discord.js";
  */
 export interface RESTBulkOverwriteGuildApplicationCommandsJSONParams {
   contexts: InteractionContextTypes[];
-  default_member_permissions?: Nullable<string>;
+  default_member_permissions?: string | null;
   description: string;
-  description_localizations?: Nullable<Localizations>;
+  description_localizations?: Localizations | null;
   id?: Snowflake;
   integration_types: IntegrationTypes[];
   name: string;
-  name_localizations?: Nullable<Localizations>;
+  name_localizations?: Localizations | null;
   nsfw?: boolean;
   options?: APIApplicationCommandOption[];
   type?: ApplicationCommandTypes;
@@ -34,12 +33,12 @@ export interface RESTBulkOverwriteGuildApplicationCommandsJSONParams {
  */
 export interface RESTCreateGlobalApplicationCommandJSONParams {
   contexts?: InteractionContextTypes[];
-  default_member_permissions?: Nullable<string>;
+  default_member_permissions?: string | null;
   description?: string;
-  description_localizations?: Nullable<Localizations>;
+  description_localizations?: Localizations | null;
   integration_types?: IntegrationTypes[];
   name: string;
-  name_localizations?: Nullable<Localizations>;
+  name_localizations?: Localizations | null;
   nsfw?: boolean;
   options?: APIApplicationCommandOption[];
   type?: ApplicationCommandTypes;

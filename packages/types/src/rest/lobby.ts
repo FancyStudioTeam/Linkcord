@@ -1,5 +1,4 @@
 import type { APILobby, APILobbyMember, APILobbyMemberMetadata, APILobbyMetadata } from "../payloads/lobby.js";
-import type { Nullable } from "../shared/custom.js";
 
 /**
  * @public
@@ -7,7 +6,7 @@ import type { Nullable } from "../shared/custom.js";
  */
 export interface RESTAddMemberToLobbyJSONParams {
   flags?: number;
-  metadata?: Nullable<APILobbyMemberMetadata>;
+  metadata?: APILobbyMemberMetadata | null;
 }
 
 /**
@@ -17,7 +16,7 @@ export interface RESTAddMemberToLobbyJSONParams {
 export interface RESTCreateLobbyJSONParams {
   idle_timeout_seconds?: number;
   members?: APILobbyMember[];
-  metadata?: Nullable<APILobbyMetadata>;
+  metadata?: APILobbyMetadata | null;
 }
 
 /**

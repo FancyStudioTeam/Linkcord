@@ -1,4 +1,3 @@
-import type { Nullable } from "../shared/custom.js";
 import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 import type { APIGuildMember } from "./guild.js";
 import type { APIUser } from "./user.js";
@@ -22,17 +21,17 @@ export interface APIGuildScheduledEvent {
    *   `October 25th, 2021`, at which the concept of the `creator_id` field was
    *   introduced and started to be tracked.
    */
-  creator_id?: Nullable<Snowflake>;
-  description?: Nullable<string>;
+  creator_id?: Snowflake | null;
+  description?: string | null;
   entity_id: Snowflake;
-  entity_metadata: Nullable<APIGuildScheduledEventEntityMetadata>;
+  entity_metadata: APIGuildScheduledEventEntityMetadata | null;
   entity_type: GuildScheduledEventEntityTypes;
   guild_id: Snowflake;
   id: Snowflake;
   name: string;
   privacy_level: GuildScheduledEventPrivacyLevel;
-  recurrence_rule: Nullable<APIGuildScheduledEventRecurrenceRule>;
-  scheduled_end_time: Nullable<ISO8601Date>;
+  recurrence_rule: APIGuildScheduledEventRecurrenceRule | null;
+  scheduled_end_time: ISO8601Date | null;
   scheduled_start_time: ISO8601Date;
   status: GuildScheduledEventStatus;
 }
@@ -54,13 +53,13 @@ export interface APIGuildScheduledEventEntityMetadata {
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object-guild-scheduled-event-recurrence-rule-structure
  */
 export interface APIGuildScheduledEventRecurrenceRule {
-  by_month: Nullable<GuildScheduledEventRecurrenceRuleMonth[]>;
-  by_month_day: Nullable<number[]>;
-  by_n_weekday: Nullable<APIGuildScheduledEventRecurrenceRuleNWeekday[]>;
-  by_weekday: Nullable<GuildScheduledEventRecurrenceRuleWeekday[]>;
-  by_year_day: Nullable<number[]>;
-  count: Nullable<number>;
-  end: Nullable<ISO8601Date>;
+  by_month: GuildScheduledEventRecurrenceRuleMonth[] | null;
+  by_month_day: number[] | null;
+  by_n_weekday: APIGuildScheduledEventRecurrenceRuleNWeekday[] | null;
+  by_weekday: GuildScheduledEventRecurrenceRuleWeekday[] | null;
+  by_year_day: number[] | null;
+  count: number | null;
+  end: ISO8601Date | null;
   frequency: GuildScheduledEventRecurrenceRuleFrequency;
   interval: number;
   start: ISO8601Date;

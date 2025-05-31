@@ -17,7 +17,6 @@ import type {
 import type { APIInvite } from "../payloads/invite.js";
 import type { APIRole } from "../payloads/permission.js";
 import type { APIVoiceRegion } from "../payloads/voice.js";
-import type { Nullable } from "../shared/custom.js";
 import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 
 /**
@@ -60,7 +59,7 @@ export interface RESTGetGuildPruneCount {
  * @see https://discord.com/developers/docs/resources/guild#get-guild-vanity-url
  */
 export interface RESTGetGuildVanityUrl {
-  code: Nullable<string>;
+  code: string | null;
   uses: number;
 }
 
@@ -98,12 +97,12 @@ export interface RESTModifyGuildIncidentActionsJSONParams {
    * @remarks
    * - Using `null` as the field value will disable the action.
    */
-  dms_disabled_until?: Nullable<ISO8601Date>;
+  dms_disabled_until?: ISO8601Date | null;
   /**
    * @remarks
    * - Using `null` as the field value will disable the action.
    */
-  invites_disabled_until?: Nullable<ISO8601Date>;
+  invites_disabled_until?: ISO8601Date | null;
 }
 
 /**
@@ -119,9 +118,9 @@ export interface RESTModifyGuildMFALevelJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-welcome-screen-json-params
  */
 export interface RESTModifyGuildWelcomeScreenJSONParams {
-  description?: Nullable<string>;
-  enabled?: Nullable<boolean>;
-  welcome_channels?: Nullable<APIWelcomeScreenChannel[]>;
+  description?: string | null;
+  enabled?: boolean | null;
+  welcome_channels?: APIWelcomeScreenChannel[] | null;
 }
 
 /**
