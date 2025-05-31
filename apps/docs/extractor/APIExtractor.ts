@@ -1,10 +1,9 @@
+import type { APIPackage, AnyEntryPointMember } from "@fancystudioteam/api-extractor";
 import { PackageName } from "#util/extractor";
 import APIExtractorGatewayJSON from "./schemas/gateway.api.json";
 import APIExtractorLinkcordJSON from "./schemas/linkcord.api.json";
 import APIExtractorTypesJSON from "./schemas/types.api.json";
 import APIExtractorVoiceJSON from "./schemas/voice.api.json";
-import type { APIPackage } from "./types/APIPackage.js";
-import type { AnyEntryPointMember } from "./types/members/APIEntryPoint.js";
 
 export class APIExtractor {
   private _getGatewayPackage(): APIPackage {

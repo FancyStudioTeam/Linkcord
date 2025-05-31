@@ -1,10 +1,12 @@
+import { APIMemberKind, type AnyEntryPointMember, type AnyEntryPointMemberKind } from "@fancystudioteam/api-extractor";
 import { Collapsible } from "#components/ui/Collapsible.jsx";
-import { APIMemberKind, type AnyEntryPointMember, type AnyTopLevelKind } from "#extractor/types";
+import type { PackageName } from "#util/extractor";
 import { SidebarGroupItem } from "./SidebarGroupItem.jsx";
 
-const GROUP_KIND_LABELS: Record<AnyTopLevelKind, string> = {
+const GROUP_KIND_LABELS: Record<AnyEntryPointMemberKind, string> = {
   [APIMemberKind.Class]: "Classes",
   [APIMemberKind.Enum]: "Enumerations",
+  [APIMemberKind.Function]: "Functions",
   [APIMemberKind.Interface]: "Interfaces",
   [APIMemberKind.TypeAlias]: "Types",
   [APIMemberKind.Variable]: "Variables",
@@ -13,13 +15,15 @@ const GROUP_KIND_LABELS: Record<AnyTopLevelKind, string> = {
 export const SidebarGroup = ({
   items,
   kind,
+  packageName,
 }: {
   items: AnyEntryPointMember[];
   kind: AnyTopLevelKind;
+  packageName: PackageName;
 }) => (
   <Collapsible
     items={items}
-    renderItem={(item) => <SidebarGroupItem item={item} />}
+    renderItem={(item) => <SidebarGroupItem item={item} packageName={packageName} />}
     titleNode={<span className="text-sm">{GROUP_KIND_LABELS[kind]}</span>}
   />
 );

@@ -1,6 +1,6 @@
+import type { APIEnumMember } from "@fancystudioteam/api-extractor";
 import { SquareChartGantt } from "lucide-react";
 import { Collapsible } from "#components/ui/Collapsible";
-import type { APIEnumMember } from "#extractor/types";
 import { DocEnumMembersItem } from "./DocEnumMembersItem.jsx";
 
 export const DocEnumMembers = ({

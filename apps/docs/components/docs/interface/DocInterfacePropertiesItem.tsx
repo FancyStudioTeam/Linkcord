@@ -1,7 +1,7 @@
+import { type APIPropertySignature, APIReleaseTag } from "@fancystudioteam/api-extractor";
 import { Link } from "@remix-run/react";
 import { UndocumentedDiscordFeatureTooltip } from "#components/ui/UndocumentedDiscordFeatureTooltip";
 import { getPropertyType } from "#extractor/functions/getPropertyType";
-import { type APIPropertySignature, APIReleaseTag } from "#extractor/types";
 
 export const DocInterfacePropertiesItem = ({
   member,

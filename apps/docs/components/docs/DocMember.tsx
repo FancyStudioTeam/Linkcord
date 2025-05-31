@@ -1,7 +1,7 @@
+import { APIReleaseTag, type AnyEntryPointMember } from "@fancystudioteam/api-extractor";
 import { CodeBlock } from "#components/CodeBlock";
 import { Separator } from "#components/ui/Separator";
 import { UndocumentedDiscordFeatureTooltip } from "#components/ui/UndocumentedDiscordFeatureTooltip";
-import { APIReleaseTag, type AnyEntryPointMember } from "#extractor/types";
 import { KIND_COLORS } from "#util/data";
 import { getDocData } from "#util/functions/getDocData";
 import { AutomaticScroll } from "./AutomaticScroll.js";

@@ -1,6 +1,6 @@
+import type { APIPropertySignature } from "@fancystudioteam/api-extractor";
 import { Cuboid } from "lucide-react";
 import { Collapsible } from "#components/ui/Collapsible";
-import type { APIPropertySignature } from "#extractor/types";
 import { DocInterfacePropertiesItem } from "./DocInterfacePropertiesItem.js";
 
 export const DocInterfaceProperties = ({

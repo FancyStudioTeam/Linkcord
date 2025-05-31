@@ -1,5 +1,5 @@
+import type { APIInterface, AnyInterfaceMember } from "@fancystudioteam/api-extractor";
 import { getMember, sortMembers } from "#extractor/functions";
-import type { APIInterface, AnyInterfaceMember } from "#extractor/types";
 import { DocInterfaceProperties } from "./DocInterfaceProperties.js";
 
 const GENERIC_TYPE_REGEX = /<.*>/g;

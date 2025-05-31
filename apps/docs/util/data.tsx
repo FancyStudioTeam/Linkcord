@@ -1,3 +1,4 @@
+import { APIMemberKind, type AnyEntryPointMemberKind } from "@fancystudioteam/api-extractor";
 import {
   Asterisk,
   BookType,
@@ -6,21 +7,22 @@ import {
   type LucideIcon,
   Network,
   SquareChartGantt,
+  SquareFunction,
   Volume2,
   Wrench,
 } from "lucide-react";
-import { APIMemberKind, type AnyTopLevelKind } from "#extractor/types";
 import { PackageName } from "./extractor.js";
 
-export const KIND_ICONS: Record<AnyTopLevelKind, LucideIcon> = {
+export const KIND_ICONS: Record<AnyEntryPointMemberKind, LucideIcon> = {
   [APIMemberKind.Class]: Network,
   [APIMemberKind.Enum]: SquareChartGantt,
+  [APIMemberKind.Function]: SquareFunction,
   [APIMemberKind.Interface]: ListTree,
   [APIMemberKind.TypeAlias]: Wrench,
   [APIMemberKind.Variable]: Cuboid,
 };
 
-export const KIND_COLORS: Record<AnyTopLevelKind, KindColors> = {
+export const KIND_COLORS: Record<AnyEntryPointMemberKind, KindColors> = {
   [APIMemberKind.Class]: {
     background: "bg-indigo-950",
     border: "border-indigo-500",
@@ -32,6 +34,12 @@ export const KIND_COLORS: Record<AnyTopLevelKind, KindColors> = {
     border: "border-amber-500",
     icon: "text-amber-500",
     text: "text-amber-500",
+  },
+  [APIMemberKind.Function]: {
+    background: "bg-blue-950",
+    border: "border-blue-500",
+    icon: "text-blue-500",
+    text: "text-blue-500",
   },
   [APIMemberKind.Interface]: {
     background: "bg-emerald-950",

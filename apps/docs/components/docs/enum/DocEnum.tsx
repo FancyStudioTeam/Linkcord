@@ -1,4 +1,4 @@
-import type { APIEnum } from "#extractor/types";
+import type { APIEnum } from "@fancystudioteam/api-extractor";
 import { DocEnumMembers } from "./DocEnumMembers.js";
 
 export const DocEnum = ({

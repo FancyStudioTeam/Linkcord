@@ -1,6 +1,6 @@
+import { type APIEnumMember, APIReleaseTag } from "@fancystudioteam/api-extractor";
 import { UndocumentedDiscordFeatureTooltip } from "#components/ui/UndocumentedDiscordFeatureTooltip";
 import { getEnumMemberValue } from "#extractor/functions/getEnumMemberValue";
-import { type APIEnumMember, APIReleaseTag } from "#extractor/types";
 
 export const DocEnumMembersItem = ({
   member,
