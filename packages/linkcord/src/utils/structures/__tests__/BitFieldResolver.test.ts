@@ -12,7 +12,7 @@ describe("Class: BitFieldResolver", () => {
     expect(bitFieldResolver.frozen).toBe(false);
   });
 
-  it("Adds a bit to the bitfield and returns the updated value.", () => {
+  it("Adds a bit to the bitfield.", () => {
     expect(new BitFieldResolver(0).add(0)).toBe(0);
     expect(new BitFieldResolver(0).add(UserFlags.ActiveDeveloper)).toBe(UserFlags.ActiveDeveloper);
     expect(new BitFieldResolver(UserFlags.ActiveDeveloper).add(UserFlags.Staff)).toBe(
@@ -20,7 +20,7 @@ describe("Class: BitFieldResolver", () => {
     );
   });
 
-  it("Removes a bit from the bitfield and returns the updated value.", () => {
+  it("Removes a bit from the bitfield.", () => {
     expect(new BitFieldResolver(0).remove(0)).toBe(0);
     expect(new BitFieldResolver(UserFlags.ActiveDeveloper).remove(UserFlags.ActiveDeveloper)).toBe(0);
     expect(new BitFieldResolver(UserFlags.ActiveDeveloper | UserFlags.Staff).remove(UserFlags.Staff)).toBe(
@@ -28,7 +28,7 @@ describe("Class: BitFieldResolver", () => {
     );
   });
 
-  it("Checks if the bit is set in the bitfield and returns a boolean.", () => {
+  it("Checks if the bit is set in the bitfield.", () => {
     expect(new BitFieldResolver(0).has(0)).toBe(true);
     expect(new BitFieldResolver(0).has(UserFlags.ActiveDeveloper)).toBe(false);
     expect(new BitFieldResolver(UserFlags.ActiveDeveloper).has(UserFlags.Staff)).toBe(false);
@@ -36,7 +36,7 @@ describe("Class: BitFieldResolver", () => {
     expect(new BitFieldResolver(UserFlags.ActiveDeveloper | UserFlags.Staff).has(UserFlags.Staff)).toBe(true);
   });
 
-  it("Freezes the 'BitFieldResolver' instance and returns a readonly instance.", () => {
+  it("Freezes the 'BitFieldResolver' instance.", () => {
     const frozenBitFieldResolver = new BitFieldResolver(0).freeze();
 
     expect(frozenBitFieldResolver).toBeInstanceOf(BitFieldResolver);
