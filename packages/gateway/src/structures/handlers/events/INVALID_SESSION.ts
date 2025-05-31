@@ -9,7 +9,7 @@ export const INVALID_SESSION: Handler<GatewayInvalidSession> = (gatewayShard, { 
     gatewayShard.emit(
       "debug",
       "The session was invalidated but it can be resumed. Should attempt to resume.",
-      gatewayShard.id,
+      gatewayShard,
     );
     // biome-ignore lint/complexity/useLiteralKeys:
     gatewayShard["_handleResume"]();
@@ -18,7 +18,7 @@ export const INVALID_SESSION: Handler<GatewayInvalidSession> = (gatewayShard, { 
   gatewayShard.emit(
     "debug",
     "The session was invalidated but it cannot be resumed. Should attempt to request a new session.",
-    gatewayShard.id,
+    gatewayShard,
   );
   // biome-ignore lint/complexity/useLiteralKeys:
   gatewayShard["_handleConnect"]();

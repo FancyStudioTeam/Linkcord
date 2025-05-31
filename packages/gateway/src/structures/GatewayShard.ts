@@ -63,7 +63,7 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
 
     ++this.connectAttempts;
     this.status = GatewayShardStatus.Connecting;
-    this.emit("debug", `Attempt ${this.connectAttempts} to connect the shard.`, this.id);
+    this.emit("debug", `Attempt ${this.connectAttempts} to connect the shard.`, this);
 
     if (this.connectAttempts > MAXIMUM_CONNECTION_ATTEMPTS) {
       throw new GatewayShardError("Too many connection attempts.", this.id);
@@ -95,7 +95,7 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
 
     ++this.reconnectAttempts;
     this.status = GatewayShardStatus.Resuming;
-    this.emit("debug", `Attempt ${this.reconnectAttempts} to resume the shard.`, this.id);
+    this.emit("debug", `Attempt ${this.reconnectAttempts} to resume the shard.`, this);
 
     if (this.reconnectAttempts > MAXIMUM_RECONNECTION_ATTEMPTS) {
       throw new GatewayShardError("Too many reconnection attempts.", this.id);
@@ -116,7 +116,7 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
     searchParams.set("v", version.toString());
     searchParams.set("encoding", "json");
 
-    this.emit("debug", `Handshaking with Discord using url "${url}"...`, this.id);
+    this.emit("debug", `Handshaking with Discord using url "${url}"...`, this);
 
     const socket = new WebSocket(url);
 
@@ -133,8 +133,8 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
     const stringifiedReason = reason.toString();
     const isReconnectable = RECONNECTABLE_CLOSE_CODES.includes(code) || code === 1001;
 
-    this.emit("debug", `Received close event with code "${code}" and reason "${reason}".`, this.id);
-    this.emit("close", code, stringifiedReason, isReconnectable, this.id);
+    this.emit("debug", `Received close event with code "${code}" and reason "${reason}".`, this);
+    this.emit("close", code, stringifiedReason, isReconnectable, this);
     this._handleDisconnect(isReconnectable);
   }
 
@@ -145,7 +145,7 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
     const stringifiedRawData = rawData.toString();
     const message = JSON.parse(stringifiedRawData) as GatewayEvent;
 
-    this.emit("packet", message, this.id);
+    this.emit("packet", message, this);
     this._updateSequence(message.s);
 
     const handler = handlers[message.op];
@@ -293,11 +293,11 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
  * @public
  */
 export interface GatewayShardEvents {
-  close: [code: number, reason: string, reconnectable: boolean, shardId: number];
-  debug: [message: string, shardId: number];
-  hello: [heartbeatInterval: number, shardId: number];
-  packet: [packet: GatewayEvent, shardId: number];
-  ready: [data: GatewayShardReady, shardId: number];
+  close: [code: number, reason: string, reconnectable: boolean, shard: GatewayShard];
+  debug: [message: string, shard: GatewayShard];
+  hello: [heartbeatInterval: number, shard: GatewayShard];
+  packet: [packet: GatewayEvent, shard: GatewayShard];
+  ready: [data: GatewayShardReady, shard: GatewayShard];
 }
 
 /**

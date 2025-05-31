@@ -79,11 +79,11 @@ export interface ConnectionProperties {
  * @public
  */
 export interface GatewayManagerEvents {
-  close: [code: number, reason: string, reconnectable: boolean, shardId: number];
-  debug: [message: string, shardId?: number];
-  hello: [heartbeatInterval: number, shardId: number];
-  packet: [packet: GatewayEvent, shardId: number];
-  ready: [data: GatewayShardReady, shardId: number];
+  close: [code: number, reason: string, reconnectable: boolean, shard: GatewayShard];
+  debug: [message: string, shard?: GatewayShard];
+  hello: [heartbeatInterval: number, shard: GatewayShard];
+  packet: [packet: GatewayEvent, shard: GatewayShard];
+  ready: [data: GatewayShardReady, shard: GatewayShard];
 }
 
 /**

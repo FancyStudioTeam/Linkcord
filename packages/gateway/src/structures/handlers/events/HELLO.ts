@@ -5,11 +5,11 @@ import type { Handler } from "../handlers.js";
  * @internal
  */
 export const HELLO: Handler<GatewayHello> = (gatewayShard, { d: { heartbeat_interval } }) => {
-  gatewayShard.emit("hello", heartbeat_interval, gatewayShard.id);
+  gatewayShard.emit("hello", heartbeat_interval, gatewayShard);
   gatewayShard.emit(
     "debug",
     `Received hello opcode with interval of ${heartbeat_interval} milliseconds.`,
-    gatewayShard.id,
+    gatewayShard,
   );
   gatewayShard.heartbeatInterval = heartbeat_interval;
 

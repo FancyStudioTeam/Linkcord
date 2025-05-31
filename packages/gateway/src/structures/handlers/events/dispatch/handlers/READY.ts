@@ -15,5 +15,5 @@ export const READY: DispatchHandler<GatewayDispatchReadyPayload> = (
     user,
   };
 
-  gatewayShard.emit("ready", gatewayShardReady, gatewayShard.id);
+  gatewayShard.emit("ready", gatewayShardReady, gatewayShard);
 };
