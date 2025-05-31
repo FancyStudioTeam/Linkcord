@@ -1,4 +1,4 @@
-import type { Snowflake } from "@fancystudioteam/linkcord-types";
+import type { NameplatePalettes, Snowflake } from "@fancystudioteam/linkcord-types";
 import type { ImageUrlOptions } from "@fancystudioteam/linkcord-utils";
 import type { BitFieldResolver } from "../../utils/structures/BitFieldResolver.js";
 
@@ -46,6 +46,6 @@ export interface UserCollectibles {
 export interface UserNameplate {
   asset: string;
   label: string;
-  palette: string;
+  palette: NameplatePalettes;
   skuId: Snowflake;
 }
