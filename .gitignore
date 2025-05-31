@@ -19,6 +19,9 @@ temp
 # IDEs
 .idea
 
+# Internal
+internal_testing
+
 # Packages
 node_modules
 
