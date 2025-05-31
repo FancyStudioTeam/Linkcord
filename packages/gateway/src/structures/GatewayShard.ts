@@ -293,11 +293,11 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
  * @public
  */
 export interface GatewayShardEvents {
-  close: [code: number, reason: string, reconnectable: boolean, shard: GatewayShard];
-  debug: [message: string, shard: GatewayShard];
-  hello: [heartbeatInterval: number, shard: GatewayShard];
-  packet: [packet: GatewayEvent, shard: GatewayShard];
-  ready: [data: GatewayShardReady, shard: GatewayShard];
+  close: [code: number, reason: string, reconnectable: boolean, gatewayShard: GatewayShard];
+  debug: [message: string, gatewayShard: GatewayShard];
+  hello: [heartbeatInterval: number, gatewayShard: GatewayShard];
+  packet: [packet: GatewayEvent, gatewayShard: GatewayShard];
+  ready: [data: GatewayShardReady, gatewayShard: GatewayShard];
 }
 
 /**

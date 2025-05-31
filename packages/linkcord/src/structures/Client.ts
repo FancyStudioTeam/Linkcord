@@ -67,7 +67,8 @@ export class Client<Ready extends boolean = boolean> extends EventEmitter<Client
  * @public
  */
 export interface ClientEvents {
-  debug: [message: string, shard?: GatewayShard];
+  debug: [message: string, gatewayShard?: GatewayShard];
+  ready: [gatewayShard: GatewayShard];
 }
 
 /**

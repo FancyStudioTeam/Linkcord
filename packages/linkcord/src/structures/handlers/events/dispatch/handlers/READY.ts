@@ -5,7 +5,7 @@ import type { DispatchHandler } from "../dispatchHandlers.js";
 /**
  * @internal
  */
-export const READY: DispatchHandler<GatewayDispatchReadyPayload> = (client, _gatewayShard, { guilds, user }) => {
+export const READY: DispatchHandler<GatewayDispatchReadyPayload> = (client, gatewayShard, { guilds, user }) => {
   if (!client.ready) {
     client.ready = true;
   }
@@ -17,4 +17,5 @@ export const READY: DispatchHandler<GatewayDispatchReadyPayload> = (client, _gat
   }
 
   client.user = UserTransformer.transformFromRawUser(user);
+  client.emit("ready", gatewayShard);
 };
