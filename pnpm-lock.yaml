@@ -194,15 +194,18 @@ importers:
       '@fancystudioteam/linkcord-gateway':
         specifier: workspace:*
         version: link:../gateway
+      '@fancystudioteam/linkcord-rest':
+        specifier: workspace:*
+        version: link:../rest
       '@fancystudioteam/linkcord-types':
         specifier: workspace:*
         version: link:../types
+      '@fancystudioteam/linkcord-utils':
+        specifier: workspace:*
+        version: link:../utils
       '@fancystudioteam/linkcord-voice':
         specifier: workspace:*
         version: link:../voice
-      '@sapphire/snowflake':
-        specifier: 3.5.5
-        version: 3.5.5
     devDependencies:
       '@microsoft/api-extractor':
         specifier: 7.52.7
@@ -2362,10 +2365,6 @@ packages:
 
   '@rushstack/ts-command-line@5.0.1':
     resolution: {integrity: sha512-bsbUucn41UXrQK7wgM8CNM/jagBytEyJqXw/umtI8d68vFm1Jwxh1OtLrlW7uGZgjCWiiPH6ooUNa1aVsuVr3Q==}
-
-  '@sapphire/snowflake@3.5.5':
-    resolution: {integrity: sha512-xzvBr1Q1c4lCe7i6sRnrofxeO1QTP/LKQ6A6qy0iB4x5yfiSfARMEQEghojzTNALDTcv8En04qYNIco9/K9eZQ==}
-    engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
 
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
@@ -8108,8 +8107,6 @@ snapshots:
       string-argv: 0.3.2
     transitivePeerDependencies:
       - '@types/node'
-
-  '@sapphire/snowflake@3.5.5': {}
 
   '@sec-ant/readable-stream@0.4.1': {}
 
