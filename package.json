@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@fancystudioteam/linkcord": "link:packages/linkcord"
+    "@fancystudioteam/linkcord": "link:packages\\linkcord"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
@@ -9,9 +9,9 @@
     "@commitlint/types": "19.8.1",
     "@types/semver": "7.7.0",
     "husky": "9.1.7",
-    "lint-staged": "15.5.2",
-    "semver": "7.7.1",
-    "turbo": "2.5.3",
+    "lint-staged": "16.1.0",
+    "semver": "7.7.2",
+    "turbo": "2.5.4",
     "typescript": "5.8.3"
   },
   "license": "MIT",
