@@ -1,5 +1,4 @@
 import {
-  GatewayCloseEventCodes,
   type GatewayEvent,
   type GatewayHeartbeatPayload,
   type GatewayIdentifyPayload,
@@ -9,49 +8,76 @@ import {
   type GatewayRequestSoundboardSoundsPayload,
   type GatewayResumePayload,
   type GatewayVoiceStateUpdatePayload,
-  type Nullable,
 } from "@fancystudioteam/linkcord-types";
 import { type RawData, WebSocket } from "ws";
-import { GatewayShardError } from "../utils/index.js";
+import {
+  GatewayShardError,
+  RECONNECTABLE_CLOSE_CODES,
+  SENDABLE_OPCODES,
+  type SendableOpcodes,
+} from "../utils/index.js";
 import type { GatewayManager } from "./GatewayManager.js";
 import { dispatchHandlers } from "./dispatch/dispatchHandlers.js";
-
-const RECONNECTABLE_CLOSE_CODES: GatewayCloseEventCodes[] = [
-  GatewayCloseEventCodes.UnknownError,
-  GatewayCloseEventCodes.UnknownOpcode,
-  GatewayCloseEventCodes.DecodeError,
-  GatewayCloseEventCodes.NotAuthenticated,
-  GatewayCloseEventCodes.AlreadyAuthenticated,
-  GatewayCloseEventCodes.InvalidSequence,
-  GatewayCloseEventCodes.RateLimited,
-  GatewayCloseEventCodes.SessionTimedOut,
-];
-const SENDABLE_OPCODES = [
-  GatewayOpcodes.Heartbeat,
-  GatewayOpcodes.Identify,
-  GatewayOpcodes.PresenceUpdate,
-  GatewayOpcodes.RequestGuildMembers,
-  GatewayOpcodes.RequestSoundboardSounds,
-  GatewayOpcodes.VoiceStateUpdate,
-  GatewayOpcodes.Resume,
-] as const;
 
 /**
  * @public
  */
 export class GatewayShard {
-  private _sequence: Nullable<number> = null;
+  private _resumeGatewayUrl: string | null = null;
+  private _sequence: number | null = null;
+  private _sessionId: string | null = null;
 
-  readonly manager: GatewayManager;
+  readonly gatewayManager: GatewayManager;
   readonly voiceServerUpdates: Map<string, VoiceServerUpdate> = new Map();
 
-  heartbeatInterval: Nullable<number> = null;
+  heartbeatInterval: number | null = null;
   id: number;
-  socket: Nullable<WebSocket> = null;
+  reconnectAttempts = 0;
+  socket: WebSocket | null = null;
+  status: GatewayShardStatus = GatewayShardStatus.Disconnected;
 
-  constructor(manager: GatewayManager, id: number) {
+  constructor(gatewayManager: GatewayManager, id: number) {
     this.id = id;
-    this.manager = manager;
+    this.gatewayManager = gatewayManager;
+  }
+
+  /**
+   * @internal
+   */
+  private _handleConnect(): void {
+    const { gatewayManager } = this;
+    const { url } = gatewayManager;
+
+    if (!url) {
+      throw new GatewayShardError("Cannot connect without a gateway url.", this.id);
+    }
+
+    this._initializeSocket(url);
+  }
+
+  /**
+   * @internal
+   */
+  private _handleDisconnect(isReconnectable?: boolean | null): void {
+    isReconnectable ? this._handleResume() : this._handleConnect();
+  }
+
+  /**
+   * @internal
+   */
+  private _handleResume(): void {
+    const { _resumeGatewayUrl } = this;
+
+    if (!_resumeGatewayUrl) {
+      throw new GatewayShardError("Cannot resume without a resume gateway url.", this.id);
+    }
+
+    this.reconnectAttempts++;
+
+    const resumeGatewayUrl = new URL(_resumeGatewayUrl);
+
+    this._initializeSocket(resumeGatewayUrl);
+    this._resume();
   }
 
   /**
@@ -68,7 +94,7 @@ export class GatewayShard {
    * @internal
    */
   private _identify(): void {
-    const { connectionProperties, intents, shardCount, token } = this.manager;
+    const { connectionProperties, intents, shardCount, token } = this.gatewayManager;
     const identifyPayload: GatewayIdentifyPayload = {
       intents,
       properties: connectionProperties,
@@ -84,7 +110,7 @@ export class GatewayShard {
    */
   private _initializeSocket(url: URL): void {
     const { searchParams } = url;
-    const { version } = this.manager;
+    const { version } = this.gatewayManager;
 
     searchParams.set("v", version.toString());
     searchParams.set("encoding", "json");
@@ -104,8 +130,9 @@ export class GatewayShard {
     const stringifiedReason = reason.toString();
     const isReconnectable = RECONNECTABLE_CLOSE_CODES.includes(code);
 
-    this.manager.emit("debug", `Received close event with code "${code}" and reason "${reason}".`);
-    this.manager.emit("close", code, stringifiedReason, isReconnectable);
+    this.gatewayManager.emit("debug", `Received close event with code "${code}" and reason "${reason}".`);
+    this.gatewayManager.emit("close", code, stringifiedReason, isReconnectable);
+    this._handleDisconnect(isReconnectable);
   }
 
   /**
@@ -115,23 +142,10 @@ export class GatewayShard {
     const stringifiedRawData = rawData.toString();
     const message = JSON.parse(stringifiedRawData) as GatewayEvent;
 
-    this.manager.emit("packet", message, this.id);
-
-    if (message.s) {
-      this._sequence = message.s;
-    }
+    this.gatewayManager.emit("packet", message, this.id);
+    this._updateSequence(message.s);
 
     switch (message.op) {
-      case GatewayOpcodes.Hello: {
-        const { heartbeat_interval } = message.d;
-
-        this.heartbeatInterval = heartbeat_interval;
-        this.manager.emit("hello", heartbeat_interval, this.id);
-
-        setInterval(this._heartbeat.bind(this), heartbeat_interval);
-
-        break;
-      }
       case GatewayOpcodes.Dispatch: {
         const handler = dispatchHandlers[message.t];
 
@@ -141,8 +155,28 @@ export class GatewayShard {
 
         break;
       }
+      case GatewayOpcodes.Hello: {
+        const { heartbeat_interval } = message.d;
+
+        this.heartbeatInterval = heartbeat_interval;
+        this.gatewayManager.emit("hello", heartbeat_interval, this.id);
+
+        setInterval(this._heartbeat.bind(this), heartbeat_interval);
+
+        break;
+      }
+      case GatewayOpcodes.InvalidSession: {
+        const isReconnectable = message.d;
+
+        this._handleDisconnect(isReconnectable);
+
+        break;
+      }
+      case GatewayOpcodes.Reconnect: {
+        break;
+      }
       default: {
-        this.manager.emit("debug", `Received unhandled message opcode: ${message.op}`, this.id);
+        this.gatewayManager.emit("debug", `Received unhandled message opcode: ${message.op}`, this.id);
       }
     }
   }
@@ -154,14 +188,41 @@ export class GatewayShard {
     this._identify();
   }
 
-  connect(): void {
-    const { url } = this.manager;
+  /**
+   * @internal
+   */
+  private _resume(): void {
+    const { _resumeGatewayUrl, _sequence, _sessionId } = this;
 
-    if (!url) {
-      throw new GatewayShardError("The gateway url has not been set yet.", this.id);
+    if (!(_resumeGatewayUrl && _sequence && _sessionId)) {
+      throw new GatewayShardError("Cannot resume without a resume gateway url or session id.", this.id);
     }
 
-    this._initializeSocket(url);
+    const { token } = this;
+    const resumePayload: GatewayResumePayload = {
+      seq: _sequence,
+      session_id: _sessionId,
+      token,
+    };
+
+    this.sendPayload(GatewayOpcodes.Resume, resumePayload);
+  }
+
+  /**
+   * @internal
+   */
+  private _updateSequence(sequence?: number | null): void {
+    if (sequence) {
+      this._sequence = sequence;
+    }
+  }
+
+  get token(): string {
+    return this.gatewayManager.token;
+  }
+
+  connect(): void {
+    this._handleConnect();
   }
 
   getWebSocket(): WebSocket {
@@ -188,13 +249,9 @@ export class GatewayShard {
     },
   ): Promise<VoiceServerUpdateData> {
     const voiceStateUpdatePayload: GatewayVoiceStateUpdatePayload = {
-      // biome-ignore lint/style/useNamingConvention: Discord fields use snake case.
       channel_id: channelId,
-      // biome-ignore lint/style/useNamingConvention: Discord fields use snake case.
       guild_id: guildId,
-      // biome-ignore lint/style/useNamingConvention: Discord fields use snake case.
       self_deaf: options.selfDeaf ?? true,
-      // biome-ignore lint/style/useNamingConvention: Discord fields use snake case.
       self_mute: options.selfMute ?? false,
     };
 
@@ -217,7 +274,7 @@ export class GatewayShard {
     return promise;
   }
 
-  sendPayload<Opcode extends AnySendableOpcode>(opcode: Opcode, payload: SendPayloadData[Opcode]): void {
+  sendPayload<Opcode extends SendableOpcodes>(opcode: Opcode, payload: SendPayload[Opcode]): void {
     if (!SENDABLE_OPCODES.includes(opcode)) {
       throw new GatewayShardError("Cannot send a non-sendable opcode to the gateway.", this.id);
     }
@@ -230,10 +287,6 @@ export class GatewayShard {
     const stringifiedDataToSend = JSON.stringify(dataToSend);
 
     socket.send(stringifiedDataToSend);
-  }
-
-  get token(): string {
-    return this.manager.token;
   }
 }
 
@@ -248,7 +301,7 @@ export interface JoinVoiceChannelOptions {
 /**
  * @public
  */
-export interface SendPayloadData {
+export interface SendPayload {
   [GatewayOpcodes.Heartbeat]: GatewayHeartbeatPayload;
   [GatewayOpcodes.Identify]: GatewayIdentifyPayload;
   [GatewayOpcodes.PresenceUpdate]: GatewayPresenceUpdatePayload;
@@ -290,4 +343,10 @@ export interface VoiceStateUpdateData {
 /**
  * @public
  */
-export type AnySendableOpcode = (typeof SENDABLE_OPCODES)[number];
+export enum GatewayShardStatus {
+  Connected = "CONNECTED",
+  Connecting = "CONNECTING",
+  Disconnected = "DISCONNECTED",
+  Handshaking = "HANDSHAKING",
+  Resuming = "RESUMING",
+}

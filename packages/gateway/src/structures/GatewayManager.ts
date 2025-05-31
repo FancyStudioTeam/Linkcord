@@ -1,5 +1,5 @@
 import { EventEmitter } from "node:events";
-import type { APIVersion, GatewayEvent, Nullable } from "@fancystudioteam/linkcord-types";
+import type { APIVersion, GatewayEvent } from "@fancystudioteam/linkcord-types";
 import { fetchGatewayBot } from "@fancystudioteam/linkcord-utils";
 import { GatewayShard } from "./GatewayShard.js";
 
@@ -14,7 +14,7 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
   readonly version: APIVersion;
 
   shardCount = 0;
-  url: Nullable<URL> = null;
+  url: URL | null = null;
 
   constructor(options: GatewayManagerOptions) {
     super();

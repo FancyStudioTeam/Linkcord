@@ -1,2 +1,2 @@
 export * from "./GatewayManager.js";
-export * from "./Shard.js";
+export * from "./GatewayShard.js";
