@@ -4,14 +4,14 @@ import { GatewayCloseEventCodes, GatewayOpcodes } from "@fancystudioteam/linkcor
  * @public
  */
 export const RECONNECTABLE_CLOSE_CODES = [
-  GatewayCloseEventCodes.UnknownError,
-  GatewayCloseEventCodes.UnknownOpcode,
-  GatewayCloseEventCodes.DecodeError,
-  GatewayCloseEventCodes.NotAuthenticated,
   GatewayCloseEventCodes.AlreadyAuthenticated,
+  GatewayCloseEventCodes.DecodeError,
   GatewayCloseEventCodes.InvalidSequence,
+  GatewayCloseEventCodes.NotAuthenticated,
   GatewayCloseEventCodes.RateLimited,
   GatewayCloseEventCodes.SessionTimedOut,
+  GatewayCloseEventCodes.UnknownError,
+  GatewayCloseEventCodes.UnknownOpcode,
 ] as const;
 
 /**
@@ -23,8 +23,8 @@ export const SENDABLE_OPCODES = [
   GatewayOpcodes.PresenceUpdate,
   GatewayOpcodes.RequestGuildMembers,
   GatewayOpcodes.RequestSoundboardSounds,
-  GatewayOpcodes.VoiceStateUpdate,
   GatewayOpcodes.Resume,
+  GatewayOpcodes.VoiceStateUpdate,
 ] as const;
 
 /**
