@@ -26,7 +26,7 @@ export enum StageInstancePrivacyLevel {
   GuildOnly = 2,
   /**
    * @remarks
-   * - This enum is currently deprecated by Discord.
+   * - This privacy level is currently deprecated by Discord.
    */
   Public = 1,
 }
