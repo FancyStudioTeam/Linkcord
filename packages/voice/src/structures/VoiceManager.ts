@@ -1,5 +1,5 @@
 import { EventEmitter } from "node:events";
-import { calculateShardIdFromGuildId } from "@fancystudioteam/linkcord";
+import { GatewayShardStatus, calculateShardIdFromGuildId } from "@fancystudioteam/linkcord";
 import type { GatewayManager, JoinVoiceChannelOptions } from "@fancystudioteam/linkcord-gateway";
 import type { VoiceEvent, VoiceVersion } from "@fancystudioteam/linkcord-types";
 import { VoiceManagerError } from "../utils/index.js";
@@ -20,7 +20,17 @@ export class VoiceManager extends EventEmitter<VoiceManagerEvents> {
 
     this.gatewayManager = gatewayManager;
     this.options = options;
-    this.version = 8;
+    /**
+     * TODO: Upgrade to version "8" when voice connection finally works.
+     */
+    this.version = 4;
+  }
+
+  get isDaveEnabled(): boolean {
+    const { options } = this;
+    const { useDaveProtocol } = options;
+
+    return useDaveProtocol ?? false;
   }
 
   async joinVoiceChannel(
@@ -36,8 +46,8 @@ export class VoiceManager extends EventEmitter<VoiceManagerEvents> {
     const shardId = calculateShardIdFromGuildId(shardCount, guildId);
     const shard = shards.get(shardId);
 
-    if (!shard) {
-      throw new VoiceManagerError(`Cannot find shard for guild "${guildId}".`);
+    if (!shard || shard.status !== GatewayShardStatus.Connected) {
+      throw new VoiceManagerError(`Cannot find shard for guild "${guildId}" or shard is not connected.`);
     }
 
     this.emit("debug", `Found shard ${shardId} for guild "${guildId}".`);
@@ -70,4 +80,5 @@ export interface VoiceManagerEvents {
  */
 export interface VoiceManagerOptions {
   gatewayManager: GatewayManager;
+  useDaveProtocol?: boolean;
 }
