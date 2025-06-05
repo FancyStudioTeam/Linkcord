@@ -29,9 +29,7 @@ const MAXIMUM_RECONNECTION_ATTEMPTS = 5;
  * @public
  */
 export class GatewayShard extends EventEmitter<GatewayShardEvents> {
-  private _resumeGatewayUrl: string | null = null;
   private _sequence: number | null = null;
-  private _sessionId: string | null = null;
 
   readonly gatewayManager: GatewayManager;
   readonly voiceServerUpdates: Map<string, VoiceServerUpdate> = new Map();
@@ -40,6 +38,8 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
   heartbeatInterval: number | null = null;
   id: number;
   reconnectAttempts = 0;
+  resumeGatewayUrl: string | null = null;
+  sessionId: string | null = null;
   socket: WebSocket | null = null;
   status: GatewayShardStatus = GatewayShardStatus.Disconnected;
 
@@ -88,13 +88,13 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
    * @internal
    */
   private _handleResume(): void {
-    const { _resumeGatewayUrl } = this;
+    const { resumeGatewayUrl } = this;
 
-    if (!_resumeGatewayUrl) {
+    if (!resumeGatewayUrl) {
       throw new GatewayShardError("Cannot resume without a resume gateway url.", this.id);
     }
 
-    const resumeGatewayUrl = new URL(_resumeGatewayUrl);
+    const url = new URL(resumeGatewayUrl);
 
     ++this.reconnectAttempts;
     this.status = GatewayShardStatus.Resuming;
@@ -107,7 +107,7 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
       throw new GatewayShardError("Too many reconnection attempts.", this.id);
     }
 
-    this._initializeSocket(resumeGatewayUrl);
+    this._initializeSocket(url);
     this.resume();
   }
 
@@ -181,9 +181,16 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
       this.identify();
     }
 
+    this._resetAttempts();
+    this.status = GatewayShardStatus.Connected;
+  }
+
+  /**
+   * @internal
+   */
+  private _resetAttempts(): void {
     this.connectAttempts = 0;
     this.reconnectAttempts = 0;
-    this.status = GatewayShardStatus.Connected;
   }
 
   /**
@@ -277,16 +284,16 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
   }
 
   resume(): void {
-    const { _resumeGatewayUrl, _sequence, _sessionId } = this;
+    const { _sequence, resumeGatewayUrl, sessionId } = this;
 
-    if (!(_resumeGatewayUrl && _sequence && _sessionId)) {
+    if (!(resumeGatewayUrl && _sequence && sessionId)) {
       throw new GatewayShardError("Cannot resume without a resume gateway url or session id.", this.id);
     }
 
     const { token } = this;
     const resumePayload: GatewayResumePayload = {
       seq: _sequence,
-      session_id: _sessionId,
+      session_id: sessionId,
       token,
     };
 
