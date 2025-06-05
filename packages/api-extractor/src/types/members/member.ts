@@ -11,6 +11,9 @@ import type { APIPropertySignature } from "./property-signature.js";
 import type { APITypeAlias } from "./type-alias.js";
 import type { APIVariable } from "./variable.js";
 
+/**
+ * @public
+ */
 export type AnyMember =
   | APIClass
   | APIConstructor
@@ -25,8 +28,14 @@ export type AnyMember =
   | APITypeAlias
   | APIVariable;
 
+/**
+ * @public
+ */
 export type AnyMemberKind = AnyMember["kind"];
 
+/**
+ * @public
+ */
 export enum APIMemberKind {
   CallSignature = "CallSignature",
   Class = "Class",
