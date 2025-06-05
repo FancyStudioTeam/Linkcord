@@ -63,7 +63,10 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
 
     ++this.connectAttempts;
     this.status = GatewayShardStatus.Connecting;
-    this.emit("debug", `Attempt ${this.connectAttempts} to connect the shard.`, this);
+    this.emit("debug", {
+      gatewayShard: this,
+      message: `Attempt ${this.connectAttempts} to connect the shard.`,
+    });
 
     if (this.connectAttempts > MAXIMUM_CONNECTION_ATTEMPTS) {
       throw new GatewayShardError("Too many connection attempts.", this.id);
@@ -95,7 +98,10 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
 
     ++this.reconnectAttempts;
     this.status = GatewayShardStatus.Resuming;
-    this.emit("debug", `Attempt ${this.reconnectAttempts} to resume the shard.`, this);
+    this.emit("debug", {
+      gatewayShard: this,
+      message: `Attempt ${this.reconnectAttempts} to resume the shard.`,
+    });
 
     if (this.reconnectAttempts > MAXIMUM_RECONNECTION_ATTEMPTS) {
       throw new GatewayShardError("Too many reconnection attempts.", this.id);
@@ -116,7 +122,10 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
     searchParams.set("v", version.toString());
     searchParams.set("encoding", "json");
 
-    this.emit("debug", `Handshaking with Discord using url "${url}"...`, this);
+    this.emit("debug", {
+      gatewayShard: this,
+      message: `Handshaking with Discord using url "${url}"...`,
+    });
 
     const socket = new WebSocket(url);
 
@@ -131,11 +140,19 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
    */
   private _onClose(code: number, reason: string): void {
     const stringifiedReason = reason.toString();
-    const isReconnectable = RECONNECTABLE_CLOSE_CODES.includes(code) || code === 1001;
+    const reconnectable = RECONNECTABLE_CLOSE_CODES.includes(code) || code === 1001;
 
-    this.emit("debug", `Received close event with code "${code}" and reason "${reason}".`, this);
-    this.emit("close", code, stringifiedReason, isReconnectable, this);
-    this._handleDisconnect(isReconnectable);
+    this.emit("debug", {
+      gatewayShard: this,
+      message: `Received close event with code "${code}" and reason "${reason}".`,
+    });
+    this.emit("close", {
+      code,
+      gatewayShard: this,
+      reason: stringifiedReason,
+      reconnectable,
+    });
+    this._handleDisconnect(reconnectable);
   }
 
   /**
@@ -143,14 +160,17 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
    */
   private _onMessage(rawData: RawData): void {
     const stringifiedRawData = rawData.toString();
-    const message = JSON.parse(stringifiedRawData) as GatewayEvent;
+    const packet = JSON.parse(stringifiedRawData) as GatewayEvent;
 
-    this.emit("packet", message, this);
-    this._updateSequence(message.s);
+    this.emit("packet", {
+      gatewayShard: this,
+      packet,
+    });
+    this._updateSequence(packet.s);
 
-    const handler = handlers[message.op];
+    const handler = handlers[packet.op];
 
-    handler?.(this, message as never);
+    handler?.(this, packet as never);
   }
 
   /**
@@ -292,19 +312,49 @@ export class GatewayShard extends EventEmitter<GatewayShardEvents> {
 /**
  * @public
  */
-export interface GatewayShardEvents {
-  close: [code: number, reason: string, reconnectable: boolean, gatewayShard: GatewayShard];
-  debug: [message: string, gatewayShard: GatewayShard];
-  hello: [heartbeatInterval: number, gatewayShard: GatewayShard];
-  packet: [packet: GatewayEvent, gatewayShard: GatewayShard];
-  ready: [data: GatewayShardReady, gatewayShard: GatewayShard];
+export interface GatewayShardClosePayload {
+  code: number;
+  gatewayShard: GatewayShard;
+  reason: string;
+  reconnectable: boolean;
 }
 
 /**
  * @public
  */
-export interface GatewayShardReady {
-  user: APIUser;
+export interface GatewayShardEvents {
+  close: [
+    payload: {
+      code: number;
+      gatewayShard: GatewayShard;
+      reason: string;
+      reconnectable: boolean;
+    },
+  ];
+  debug: [
+    payload: {
+      gatewayShard: GatewayShard;
+      message: string;
+    },
+  ];
+  hello: [
+    payload: {
+      gatewayShard: GatewayShard;
+      heartbeatInterval: number;
+    },
+  ];
+  packet: [
+    payload: {
+      gatewayShard: GatewayShard;
+      packet: GatewayEvent;
+    },
+  ];
+  ready: [
+    payload: {
+      gatewayShard: GatewayShard;
+      user: APIUser;
+    },
+  ];
 }
 
 /**

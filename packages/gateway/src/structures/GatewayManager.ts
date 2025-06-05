@@ -1,7 +1,7 @@
 import { EventEmitter } from "node:events";
-import type { APIVersion, GatewayEvent } from "@fancystudioteam/linkcord-types";
+import type { APIUser, APIVersion, GatewayEvent } from "@fancystudioteam/linkcord-types";
 import { fetchGatewayBot } from "@fancystudioteam/linkcord-utils";
-import { GatewayShard, type GatewayShardReady } from "./GatewayShard.js";
+import { GatewayShard } from "./GatewayShard.js";
 
 /**
  * @public
@@ -25,6 +25,14 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
     this.options = options;
     this.token = token;
     this.version = 10;
+  }
+
+  private _watchGatewayShards(shard: GatewayShard): void {
+    shard.on("close", (data) => this.emit("close", data));
+    shard.on("debug", (data) => this.emit("debug", data));
+    shard.on("hello", (data) => this.emit("hello", data));
+    shard.on("packet", (data) => this.emit("packet", data));
+    shard.on("ready", (data) => this.emit("ready", data));
   }
 
   get connectionProperties(): ConnectionProperties {
@@ -55,13 +63,7 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
       this.shards.set(shard.id, shard);
 
       shard.connect();
-      shard.on("close", (code, reason, reconnectable, shardId) =>
-        this.emit("close", code, reason, reconnectable, shardId),
-      );
-      shard.on("debug", (message, shardId) => this.emit("debug", message, shardId));
-      shard.on("hello", (heartbeatInterval, shardId) => this.emit("hello", heartbeatInterval, shardId));
-      shard.on("packet", (packet, shardId) => this.emit("packet", packet, shardId));
-      shard.on("ready", (data, shardId) => this.emit("ready", data, shardId));
+      this._watchGatewayShards(shard);
     }
   }
 }
@@ -79,11 +81,38 @@ export interface ConnectionProperties {
  * @public
  */
 export interface GatewayManagerEvents {
-  close: [code: number, reason: string, reconnectable: boolean, gatewayShard: GatewayShard];
-  debug: [message: string, gatewayShard?: GatewayShard];
-  hello: [heartbeatInterval: number, gatewayShard: GatewayShard];
-  packet: [packet: GatewayEvent, gatewayShard: GatewayShard];
-  ready: [data: GatewayShardReady, gatewayShard: GatewayShard];
+  close: [
+    payload: {
+      code: number;
+      gatewayShard: GatewayShard;
+      reason: string;
+      reconnectable: boolean;
+    },
+  ];
+  debug: [
+    payload: {
+      gatewayShard: GatewayShard;
+      message: string;
+    },
+  ];
+  hello: [
+    payload: {
+      gatewayShard: GatewayShard;
+      heartbeatInterval: number;
+    },
+  ];
+  packet: [
+    payload: {
+      gatewayShard: GatewayShard;
+      packet: GatewayEvent;
+    },
+  ];
+  ready: [
+    payload: {
+      gatewayShard: GatewayShard;
+      user: APIUser;
+    },
+  ];
 }
 
 /**
