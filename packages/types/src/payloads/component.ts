@@ -1,5 +1,6 @@
 import type { Snowflake } from "../shared/discord.js";
 import type {
+  APIActionRowComponentBase,
   APIButtonComponentBase,
   APIComponentBase,
   APIResolvedSelectMenuComponentBase,
@@ -7,14 +8,6 @@ import type {
 } from "./base/component.js";
 import type { ChannelTypes } from "./channel.js";
 import type { APIPartialEmoji } from "./emoji.js";
-
-/**
- * @public
- * @see https://discord.com/developers/docs/interactions/message-components#action-rows
- */
-export interface APIActionRowComponent extends APIComponentBase<ComponentTypes.ActionRow> {
-  components: APIActionRowComponents[];
-}
 
 /**
  * @public
@@ -197,15 +190,9 @@ export interface APIUnfurledMediaItem {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/components/reference#user-select-user-select-structure
- */
-export interface APIUserSelectMenuComponent extends APIResolvedSelectMenuComponentBase<ComponentTypes.UserSelect> {}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-structure
  */
-export type APIActionRowComponents = APIInteractiveComponents;
+export type APIActionRowComponent = APIMessageActionRowComponent | APIModalActionRowComponent;
 
 /**
  * @public
@@ -224,9 +211,9 @@ export type APIComponent = APIContentComponents | APIInteractiveComponents | API
  * @see https://discord.com/developers/docs/components/reference#container-container-structure
  */
 export type APIContainerComponents =
-  | APIActionRowComponent
   | APIFileComponent
   | APIMediaGalleryComponent
+  | APIMessageActionRowComponent
   | APISectionComponent
   | APISeparatorComponent
   | APITextDisplayComponent;
@@ -251,6 +238,49 @@ export type APILayoutComponents = APIActionRowComponent | APIContainerComponent 
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/interactions/message-components#action-rows
+ */
+export type APIMessageActionRowComponent = APIActionRowComponentBase<APIMessageActionRowComponents>;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/message-components#action-rows
+ */
+export type APIMessageActionRowComponents = APIButtonComponent | APISelectMenuComponent;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/components/reference#component-object-component-types
+ */
+export type APIMessageComponents =
+  | APIContainerComponent
+  | APIFileComponent
+  | APIMediaGalleryComponent
+  | APIMessageActionRowComponent
+  | APISectionComponent
+  | APISeparatorComponent
+  | APITextDisplayComponent;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/message-components#action-rows
+ */
+export type APIModalActionRowComponent = APIActionRowComponentBase<APIModalActionRowComponents>;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/components/reference#component-object-component-types
+ */
+export type APIModalActionRowComponents = APITextInputComponent;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/components/reference#component-object-component-types
+ */
+export type APIModalComponents = APIModalActionRowComponent;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/components/reference#component-reference
  */
 export type APIResolvedSelectMenu =
@@ -270,6 +300,12 @@ export type APISectionAccessory = APIButtonComponent | APIThumbnailComponent;
  * @see https://discord.com/developers/docs/components/reference#component-reference
  */
 export type APISelectMenuComponent = APIResolvedSelectMenu | APIStringSelectMenuComponent;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/components/reference#user-select-user-select-structure
+ */
+export type APIUserSelectMenuComponent = APIResolvedSelectMenuComponentBase<ComponentTypes.UserSelect>;
 
 /**
  * @public
