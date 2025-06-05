@@ -3,7 +3,7 @@ import type { ApplicationCommandTypes } from "./application-command.js";
 import type { APIPartialApplication } from "./application.js";
 import type { APIEmbedMediaContentBase, APIMessageInteractionMetadataBase } from "./base/message.js";
 import type { APIChannel, ChannelTypes } from "./channel.js";
-import type { APIComponent } from "./component.js";
+import type { APIMessageComponents } from "./component.js";
 import type { APIPartialEmoji } from "./emoji.js";
 import type { APIResolvedData, InteractionTypes } from "./interaction.js";
 import type { APIPoll } from "./poll.js";
@@ -189,7 +189,7 @@ export interface APIMessage {
   author: APIUser;
   call?: APIMessageCall;
   channel_id: Snowflake;
-  components?: APIComponent[];
+  components?: APIMessageComponents[];
   content: string;
   edited_timestamp: ISO8601Date | null;
   embeds: APIEmbed[];

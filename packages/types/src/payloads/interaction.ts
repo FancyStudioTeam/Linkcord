@@ -12,7 +12,7 @@ import type {
   APIMessageComponentSelectInteractionDataBase,
 } from "./base/interaction.js";
 import type { APIChannel } from "./channel.js";
-import type { APIComponent, APITextInputComponent, ComponentTypes } from "./component.js";
+import type { APIMessageComponents, APIModalComponents, APITextInputComponent, ComponentTypes } from "./component.js";
 import type { APIGuildMember } from "./guild.js";
 import type {
   APIAllowedMentions,
@@ -99,7 +99,7 @@ export interface APIInteractionCallbackDataAutocomplete {
 export interface APIInteractionCallbackDataMessage {
   allowed_mentions?: APIAllowedMentions;
   attachments?: APIAttachment[];
-  components?: APIComponent[];
+  components?: APIMessageComponents[];
   content?: string;
   embeds?: APIEmbed[];
   /**
@@ -214,7 +214,7 @@ export interface APIModalSubmitInteraction
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-modal-submit-data-structure
  */
 export interface APIModalSubmitInteractionData {
-  components: APIComponent[];
+  components: APIModalComponents[];
   custom_id: string;
 }
 

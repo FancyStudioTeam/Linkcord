@@ -1,4 +1,4 @@
-import type { APIComponent } from "../payloads/component.js";
+import type { APIMessageComponents } from "../payloads/component.js";
 import type {
   APIAllowedMentions,
   APIAttachment,
@@ -27,7 +27,7 @@ export interface RESTBulkDeleteMessagesJSONParams {
 export interface RESTCreateMessageJSONParams {
   allowed_mentions?: APIAllowedMentions;
   attachments?: APIPartialAttachment[];
-  components?: APIComponent[];
+  components?: APIMessageComponents[];
   content?: string;
   embeds?: APIEmbed[];
   enforce_nonce?: boolean;
@@ -68,7 +68,7 @@ export interface RESTGetReactionsStringParams {
 export interface RESTEditMessageJSONParams {
   allowed_mentions?: APIAllowedMentions | null;
   attachments?: APIAttachment[] | null;
-  components?: APIComponent[] | null;
+  components?: APIMessageComponents[] | null;
   content?: string | null;
   embeds?: APIEmbed[] | null;
   flags?: number | null;
