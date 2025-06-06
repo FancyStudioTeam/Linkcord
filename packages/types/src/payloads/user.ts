@@ -45,8 +45,8 @@ export interface APIConnection {
  */
 export interface APIPrimaryGuild {
   badge: string | null;
-  identify_enabled: boolean;
-  identify_guild_id: Snowflake | null;
+  identity_enabled: boolean;
+  identity_guild_id: Snowflake | null;
   tag: string | null;
 }
 
