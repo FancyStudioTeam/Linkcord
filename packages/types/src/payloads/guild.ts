@@ -370,17 +370,19 @@ export enum ExplicitContentFilterLevel {
  * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-features
  */
 export enum GuildFeatures {
+  ActivitiesAlpha = "ACTIVITIES_ALPHA",
+  ActivitiesEmployee = "ACTIVITIES_EMPLOYEE",
+  ActivitiesInternalDev = "ACTIVITIES_INTERNAL_DEV",
+  ActivityFeedDisabledByUser = "ACTIVITY_FEED_DISABLED_BY_USER",
+  ActivityFeedEnabledByUser = "ACTIVITY_FEED_ENABLED_BY_USER",
   AnimatedBanner = "ANIMATED_BANNER",
   AnimatedIcon = "ANIMATED_ICON",
   ApplicationCommandPermissionsV2 = "APPLICATION_COMMAND_PERMISSIONS_V2",
+  AudioBitrate128Kbps = "AUDIO_BITRATE_128_KBPS",
+  AudioBitrate256Kbps = "AUDIO_BITRATE_256_KBPS",
+  AudioBitrate384Kbps = "AUDIO_BITRATE_384_KBPS",
   AutoModeration = "AUTO_MODERATION",
   Banner = "BANNER",
-  /**
-   * @alpha
-   * @remarks
-   * - This is not officially documented in the Discord API documentation,
-   *   meaning it may change or break at any time.
-   */
   BotDeveloperEarlyAccess = "BOT_DEVELOPER_EARLY_ACCESS",
   Community = "COMMUNITY",
   CreatorMonetizableProvisional = "CREATOR_MONETIZABLE_PROVISIONAL",
@@ -388,12 +390,6 @@ export enum GuildFeatures {
   DeveloperSupportServer = "DEVELOPER_SUPPORT_SERVER",
   Discoverable = "DISCOVERABLE",
   Featurable = "FEATURABLE",
-  /**
-   * @alpha
-   * @remarks
-   * - This is not officially documented in the Discord API documentation,
-   *   meaning it may change or break at any time.
-   */
   InternalEmployeeOnly = "INTERNAL_EMPLOYEE_ONLY",
   InviteSplash = "INVITE_SPLASH",
   InvitesDisabled = "INVITES_DISABLED",
@@ -408,10 +404,25 @@ export enum GuildFeatures {
   RoleSubscriptionsAvailableForPurchase = "ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE",
   RoleSubscriptionsEnabled = "ROLE_SUBSCRIPTIONS_ENABLED",
   Soundboard = "SOUNDBOARD",
+  StaffLevelCollaboratorRequired = "STAFF_LEVEL_COLLABORATOR_REQUIRED",
+  StaffLevelRestrictedCollaboratorRequired = "STAFF_LEVEL_RESTRICTED_COLLABORATOR_REQUIRED",
+  SummariesDisabledByUser = "SUMMARIES_DISABLED_BY_USER",
+  SummariesEnabledByUser = "SUMMARIES_ENABLED_BY_USER",
+  SummariesEnabledGA = "SUMMARIES_ENABLED_GA",
+  SummariesLongLookback = "SUMMARIES_LONG_LOOKBACK",
+  SummariesOptOutExperience = "SUMMARIES_OPT_OUT_EXPERIENCE",
+  ThreadDefaultAutoArchiveDuration = "THREAD_DEFAULT_AUTO_ARCHIVE_DURATION",
   TicketedEventsEnabled = "TICKETED_EVENTS_ENABLED",
+  TierlessBoosting = "TIERLESS_BOOSTING",
+  TierlessBoostingClientTest = "TIERLESS_BOOSTING_CLIENT_TEST",
+  TierlessBoostingTest = "TIERLESS_BOOSTING_TEST",
   VIPRegions = "VIP_REGIONS",
   VanityUrl = "VANITY_URL",
   Verified = "VERIFIED",
+  ViceoQuality108060FPS = "VICEO_QUALITY_1080_60_FPS",
+  VideoBitrateEnhanced = "VIDEO_BITRATE_ENHANCED",
+  VideoQuality72060FPS = "VIDEO_QUALITY_720_60_FPS",
+  VoiceInThreads = "VOICE_IN_THREADS",
   WelcomeScreenEnabled = "WELCOME_SCREEN_ENABLED",
 }
 
