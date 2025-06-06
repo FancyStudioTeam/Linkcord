@@ -12,7 +12,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "remix-utils": "8.7.0",
-    "shiki": "3.4.2",
+    "shiki": "3.6.0",
     "tailwind-merge": "3.3.0",
     "ts-pattern": "5.7.1"
   },
