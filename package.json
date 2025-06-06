@@ -12,7 +12,8 @@
     "lint-staged": "16.1.0",
     "semver": "7.7.2",
     "turbo": "2.5.4",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "vitest": "3.1.4"
   },
   "license": "MIT",
   "lint-staged": {
