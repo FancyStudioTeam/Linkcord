@@ -126,6 +126,7 @@ export enum ApplicationEventWebhookStatus {
  */
 export enum ApplicationEventWebhookTypes {
   ApplicationAuthorized = "APPLICATION_AUTHORIZED",
+  ApplicationDeauthorized = "APPLICATION_DEAUTHORIZED",
   EntitlementCreate = "ENTITLEMENT_CREATE",
   QuestUserEnrollment = "QUEST_USER_ENROLLMENT",
 }
