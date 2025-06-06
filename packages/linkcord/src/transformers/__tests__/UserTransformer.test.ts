@@ -1,7 +1,7 @@
 import { UserFlags } from "@fancystudioteam/linkcord-types";
 import { SnowflakeUtils } from "@fancystudioteam/linkcord-utils";
 import { describe, expect, it } from "vitest";
-import type { User } from "../../types/structures/User.js";
+import type { User } from "../../types/structures/user.js";
 import type { _OmitMethods } from "../../types/util.js";
 import { BitFieldResolver } from "../../utils/structures/BitFieldResolver.js";
 import { UserTransformer } from "../UserTransformer.js";
