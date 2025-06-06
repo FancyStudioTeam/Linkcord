@@ -27,6 +27,9 @@ export class GatewayManager extends EventEmitter<GatewayManagerEvents> {
     this.version = 10;
   }
 
+  /**
+   * @internal
+   */
   private _watchGatewayShards(shard: GatewayShard): void {
     shard.on("close", (data) => this.emit("close", data));
     shard.on("debug", (data) => this.emit("debug", data));
