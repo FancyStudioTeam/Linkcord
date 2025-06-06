@@ -11,15 +11,26 @@ export interface APIActionRowComponentBase<Component> extends APIComponentBase<C
 /**
  * @public
  */
-export interface APIComponentBase<Type extends ComponentTypes> {
-  id?: number;
-  type: Type;
+export interface APIButtonComponentBase<ButtonStyle extends ButtonStyles>
+  extends APIInteractiveComponentBase<ComponentTypes.Button> {
+  emoji?: APIPartialEmoji;
+  label?: string;
+  style: ButtonStyle;
 }
 
 /**
  * @public
  */
-export interface APIInteractiveComponentBase<Type extends AnyInteractiveComponent> extends APIComponentBase<Type> {
+export interface APIComponentBase<ComponentType extends ComponentTypes> {
+  id?: number;
+  type: ComponentType;
+}
+
+/**
+ * @public
+ */
+export interface APIInteractiveComponentBase<ComponentType extends AnyInteractiveComponent>
+  extends APIComponentBase<ComponentType> {
   custom_id: string;
   disabled?: boolean;
 }
@@ -27,26 +38,16 @@ export interface APIInteractiveComponentBase<Type extends AnyInteractiveComponen
 /**
  * @public
  */
-export interface APIButtonComponentBase<Style extends ButtonStyles>
-  extends APIInteractiveComponentBase<ComponentTypes.Button> {
-  emoji?: APIPartialEmoji;
-  label?: string;
-  style: Style;
-}
-
-/**
- * @public
- */
-export interface APIResolvedSelectMenuComponentBase<Type extends AnyResolvedSelectMenuType>
-  extends APISelectMenuComponentBase<Type> {
+export interface APIResolvedSelectMenuComponentBase<ComponentType extends AnyResolvedSelectMenuType>
+  extends APISelectMenuComponentBase<ComponentType> {
   default_values?: APISelectMenuDefaultValue[];
 }
 
 /**
  * @public
  */
-export interface APISelectMenuComponentBase<Type extends AnySelectMenuType> extends APIInteractiveComponentBase<Type> {
-  custom_id: string;
+export interface APISelectMenuComponentBase<ComponentType extends AnySelectMenuType>
+  extends APIInteractiveComponentBase<ComponentType> {
   max_values?: number;
   min_values?: number;
   placeholder?: string;
