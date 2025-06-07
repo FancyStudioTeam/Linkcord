@@ -13,6 +13,11 @@ export const ALLOWED_IMAGE_SIZES = [16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
 /**
  * @public
  */
+export const SAFE_CHARACTERS = new Set([":", "?", "@"]);
+
+/**
+ * @public
+ */
 export type ImageExtension = (typeof ALLOWED_IMAGE_EXTENSIONS)[number];
 
 /**
