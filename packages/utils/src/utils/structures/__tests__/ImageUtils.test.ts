@@ -8,7 +8,7 @@ const USER_ID = "945029082314338407";
 describe("Class: ImageUtils", () => {
   describe("Getter: CDN_URL", () =>
     it("Returns the Discord CDN url.", () => {
-      expect(ImageUtils.CDN_URL).toBe("https://cdn.discordapp.com");
+      expect(ImageUtils.DISCORD_CDN_URL).toBe("https://cdn.discordapp.com");
     }));
 
   describe("Method: createImageUrl", () => {
