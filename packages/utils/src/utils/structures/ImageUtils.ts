@@ -4,7 +4,7 @@ import type { ImageExtension, ImageSize } from "../constants.js";
  * @public
  */
 export class ImageUtils {
-  static get CDN_URL(): string {
+  static get DISCORD_CDN_URL(): string {
     return "https://cdn.discordapp.com";
   }
 
@@ -32,7 +32,7 @@ export class ImageUtils {
       extension,
       forceStatic,
     });
-    const assetUrl = new URL(`${ImageUtils.CDN_URL}/${assetRoute}.${dynamicExtension}`);
+    const assetUrl = new URL(`${ImageUtils.DISCORD_CDN_URL}/${assetRoute}.${dynamicExtension}`);
     const { searchParams } = assetUrl;
 
     if (size) {
