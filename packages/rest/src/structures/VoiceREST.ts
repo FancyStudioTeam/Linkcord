@@ -8,7 +8,7 @@ import type {
   RESTModifyUserVoiceStateJSONParams,
   Snowflake,
 } from "@fancystudioteam/linkcord-types";
-import { Endpoints } from "../utils/constants.js";
+import { Endpoints } from "../utils/endpoints/Endpoints.js";
 import type { RESTManager } from "./RESTManager.js";
 
 /**
