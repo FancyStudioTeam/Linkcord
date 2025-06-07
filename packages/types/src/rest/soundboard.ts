@@ -1,11 +1,30 @@
-import type { APISoundboardSound } from "../payloads/soundboard.js";
+import type { APIDefaultSoundboardSound, APIGuildSoundboardSound } from "../payloads/soundboard.js";
 import type { AudioDataUri, Snowflake } from "../shared/discord.js";
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/soundboard#list-guild-soundboard-sounds
+ */
+export interface RESTGetGuildSoundboardSounds {
+  items: APIGuildSoundboardSound[];
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound-json-params
+ */
+export interface RESTPatchGuildSoundboardSoundJSONParams {
+  emoji_id?: Snowflake | null;
+  emoji_name?: string | null;
+  name?: string;
+  volume?: number | null;
+}
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound
  */
-export interface RESTCreateGuildSoundboardSoundJSONParams {
+export interface RESTPostGuildSoundboardSoundJSONParams {
   emoji_id?: Snowflake | null;
   emoji_name?: string | null;
   name: string;
@@ -15,28 +34,9 @@ export interface RESTCreateGuildSoundboardSoundJSONParams {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/soundboard#list-guild-soundboard-sounds
- */
-export interface RESTListGuildSoundboardSounds {
-  items: APISoundboardSound[];
-}
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound-json-params
- */
-export interface RESTModifyGuildSoundboardSoundJSONParams {
-  emoji_id?: Snowflake | null;
-  emoji_name?: string | null;
-  name?: string;
-  volume?: number | null;
-}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound-json-params
  */
-export interface RESTSendSoundboardSoundJSONParams {
+export interface RESTPostSendSoundboardSoundJSONParams {
   sound_id: Snowflake;
   /**
    * @remarks
@@ -47,36 +47,36 @@ export interface RESTSendSoundboardSoundJSONParams {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound
- */
-export type RESTCreateGuildSoundboardSound = APISoundboardSound;
-
-/**
- * @public
  * @see https://discord.com/developers/docs/resources/soundboard#delete-guild-soundboard-sound
  */
 export type RESTDeleteGuildSoundboardSound = undefined;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/soundboard#get-guild-soundboard-sound
+ * @see https://discord.com/developers/docs/resources/soundboard#list-default-soundboard-sounds
  */
-export type RESTGetGuildSoundboardSound = APISoundboardSound;
+export type RESTGetDefaultSoundboardSounds = APIDefaultSoundboardSound[];
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/soundboard#list-default-soundboard-sounds
+ * @see https://discord.com/developers/docs/resources/soundboard#get-guild-soundboard-sound
  */
-export type RESTListDefaultSoundboardSounds = APISoundboardSound[];
+export type RESTGetGuildSoundboardSound = APIGuildSoundboardSound;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound
  */
-export type RESTModifyGuildSoundboardSound = APISoundboardSound;
+export type RESTPatchGuildSoundboardSound = APIGuildSoundboardSound;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound
+ */
+export type RESTPostGuildSoundboardSound = APIGuildSoundboardSound;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound
  */
-export type RESTSendSoundboardSound = undefined;
+export type RESTPostSendSoundboardSound = undefined;

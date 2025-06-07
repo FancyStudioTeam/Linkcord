@@ -1,11 +1,11 @@
 import type {
   RESTGetCurrentUserVoiceState,
   RESTGetUserVoiceState,
-  RESTListVoiceRegions,
-  RESTModifyCurrentUserVoiceState,
-  RESTModifyCurrentUserVoiceStateJSONParams,
-  RESTModifyUserVoiceState,
-  RESTModifyUserVoiceStateJSONParams,
+  RESTGetVoiceRegions,
+  RESTPatchCurrentUserVoiceState,
+  RESTPatchCurrentUserVoiceStateJSONParams,
+  RESTPatchUserVoiceState,
+  RESTPatchUserVoiceStateJSONParams,
   Snowflake,
 } from "@fancystudioteam/linkcord-types";
 import { Endpoints } from "../utils/endpoints/Endpoints.js";
@@ -24,9 +24,9 @@ export class VoiceREST {
   /**
    * @see https://discord.com/developers/docs/resources/voice#get-current-user-voice-state
    */
-  getCurrentUserVoiceState(guildId: Snowflake): Promise<RESTGetCurrentUserVoiceState> {
+  getCurrentUserVoiceState<Result = RESTGetCurrentUserVoiceState>(guildId: Snowflake): Promise<Result> {
     const { restManager } = this;
-    const request = restManager.get<RESTGetCurrentUserVoiceState>(Endpoints.guildVoiceState(guildId, "@me"));
+    const request = restManager.get<Result>(Endpoints.guildVoiceState(guildId, "@me"));
 
     return request;
   }
@@ -34,9 +34,9 @@ export class VoiceREST {
   /**
    * @see https://discord.com/developers/docs/resources/voice#get-user-voice-state
    */
-  getUserVoiceState(guildId: Snowflake, userId: Snowflake): Promise<RESTGetUserVoiceState> {
+  getUserVoiceState<Result = RESTGetUserVoiceState>(guildId: Snowflake, userId: Snowflake): Promise<Result> {
     const { restManager } = this;
-    const request = restManager.get<RESTGetUserVoiceState>(Endpoints.guildVoiceState(guildId, userId));
+    const request = restManager.get<Result>(Endpoints.guildVoiceState(guildId, userId));
 
     return request;
   }
@@ -44,9 +44,9 @@ export class VoiceREST {
   /**
    * @see https://discord.com/developers/docs/resources/voice#list-voice-regions
    */
-  getVoiceRegions(): Promise<RESTListVoiceRegions> {
+  getVoiceRegions<Result = RESTGetVoiceRegions>(): Promise<Result> {
     const { restManager } = this;
-    const request = restManager.get<RESTListVoiceRegions>(Endpoints.voiceRegions());
+    const request = restManager.get<Result>(Endpoints.voiceRegions());
 
     return request;
   }
@@ -54,12 +54,12 @@ export class VoiceREST {
   /**
    * @see https://discord.com/developers/docs/resources/voice#modify-current-user-voice-state
    */
-  patchCurrentUserVoiceState(
+  patchCurrentUserVoiceState<Result = RESTPatchCurrentUserVoiceState>(
     guildId: Snowflake,
     options: PatchCurrentUserVoiceStateOptions,
-  ): Promise<RESTModifyCurrentUserVoiceState> {
+  ): Promise<Result> {
     const { restManager } = this;
-    const request = restManager.patch<RESTModifyCurrentUserVoiceState, RESTModifyCurrentUserVoiceStateJSONParams>(
+    const request = restManager.patch<Result, RESTPatchCurrentUserVoiceStateJSONParams>(
       Endpoints.guildVoiceState(guildId, "@me"),
       options,
     );
@@ -70,13 +70,13 @@ export class VoiceREST {
   /**
    * @see https://discord.com/developers/docs/resources/voice#modify-user-voice-state
    */
-  patchUserVoiceState(
+  patchUserVoiceState<Result = RESTPatchUserVoiceState>(
     guildId: Snowflake,
     userId: Snowflake,
     options: PatchUserVoiceStateOptions,
-  ): Promise<RESTModifyUserVoiceState> {
+  ): Promise<Result> {
     const { restManager } = this;
-    const request = restManager.patch<RESTModifyUserVoiceState, RESTModifyUserVoiceStateJSONParams>(
+    const request = restManager.patch<Result, RESTPatchUserVoiceStateJSONParams>(
       Endpoints.guildVoiceState(guildId, userId),
       options,
     );
@@ -89,12 +89,12 @@ export class VoiceREST {
  * @public
  */
 export interface PatchCurrentUserVoiceStateOptions {
-  json: RESTModifyCurrentUserVoiceStateJSONParams;
+  json: RESTPatchCurrentUserVoiceStateJSONParams;
 }
 
 /**
  * @public
  */
 export interface PatchUserVoiceStateOptions {
-  json: RESTModifyUserVoiceStateJSONParams;
+  json: RESTPatchUserVoiceStateJSONParams;
 }

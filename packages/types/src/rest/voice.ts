@@ -5,7 +5,7 @@ import type { ISO8601Date } from "../shared/discord.js";
  * @public
  * @see https://discord.com/developers/docs/resources/voice#modify-current-user-voice-state-json-params
  */
-export interface RESTModifyCurrentUserVoiceStateJSONParams {
+export interface RESTPatchCurrentUserVoiceStateJSONParams {
   channel_id?: string;
   request_to_speak_timestamp?: ISO8601Date | null;
   suppress?: boolean;
@@ -15,7 +15,7 @@ export interface RESTModifyCurrentUserVoiceStateJSONParams {
  * @public
  * @see https://discord.com/developers/docs/resources/voice#modify-user-voice-state-json-params
  */
-export interface RESTModifyUserVoiceStateJSONParams {
+export interface RESTPatchUserVoiceStateJSONParams {
   channel_id: string;
   suppress?: boolean;
 }
@@ -36,16 +36,16 @@ export type RESTGetUserVoiceState = APIVoiceState;
  * @public
  * @see https://discord.com/developers/docs/resources/voice#list-voice-regions
  */
-export type RESTListVoiceRegions = APIVoiceRegion[];
+export type RESTGetVoiceRegions = APIVoiceRegion[];
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/voice#modify-current-user-voice-state
  */
-export type RESTModifyCurrentUserVoiceState = undefined;
+export type RESTPatchCurrentUserVoiceState = undefined;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/voice#modify-user-voice-state
  */
-export type RESTModifyUserVoiceState = undefined;
+export type RESTPatchUserVoiceState = undefined;

@@ -1,13 +1,14 @@
 import type {
-  RESTCreateGuildSoundboardSound,
-  RESTCreateGuildSoundboardSoundJSONParams,
   RESTDeleteGuildSoundboardSound,
+  RESTGetDefaultSoundboardSounds,
   RESTGetGuildSoundboardSound,
-  RESTListDefaultSoundboardSounds,
-  RESTModifyGuildSoundboardSound,
-  RESTModifyGuildSoundboardSoundJSONParams,
-  RESTSendSoundboardSound,
-  RESTSendSoundboardSoundJSONParams,
+  RESTGetGuildSoundboardSounds,
+  RESTPatchGuildSoundboardSound,
+  RESTPatchGuildSoundboardSoundJSONParams,
+  RESTPostGuildSoundboardSound,
+  RESTPostGuildSoundboardSoundJSONParams,
+  RESTPostSendSoundboardSound,
+  RESTPostSendSoundboardSoundJSONParams,
   Snowflake,
 } from "@fancystudioteam/linkcord-types";
 import { Endpoints } from "../utils/endpoints/Endpoints.js";
@@ -26,14 +27,12 @@ export class SoundboardREST {
   /**
    * @see https://discord.com/developers/docs/resources/soundboard#delete-guild-soundboard-sound
    */
-  async deleteGuildSoundboardSound(
+  async deleteGuildSoundboardSound<Result = RESTDeleteGuildSoundboardSound>(
     guildId: Snowflake,
     soundboardSoundId: Snowflake,
-  ): Promise<RESTDeleteGuildSoundboardSound> {
+  ): Promise<Result> {
     const { restManager } = this;
-    const request = await restManager.delete<RESTDeleteGuildSoundboardSound>(
-      Endpoints.guildSoundboardSound(guildId, soundboardSoundId),
-    );
+    const request = await restManager.delete<Result>(Endpoints.guildSoundboardSound(guildId, soundboardSoundId));
 
     return request;
   }
@@ -41,9 +40,9 @@ export class SoundboardREST {
   /**
    * @see https://discord.com/developers/docs/resources/soundboard#list-default-soundboard-sounds
    */
-  async getDefaultSoundboardSounds(): Promise<RESTListDefaultSoundboardSounds> {
+  async getDefaultSoundboardSounds<Result = RESTGetDefaultSoundboardSounds>(): Promise<Result> {
     const { restManager } = this;
-    const request = await restManager.get<RESTListDefaultSoundboardSounds>(Endpoints.soundboardDefaultSounds());
+    const request = await restManager.get<Result>(Endpoints.soundboardDefaultSounds());
 
     return request;
   }
@@ -51,14 +50,22 @@ export class SoundboardREST {
   /**
    * @see https://discord.com/developers/docs/resources/soundboard#get-guild-soundboard-sound
    */
-  async getGuildSoundboardSound(
+  async getGuildSoundboardSound<Result = RESTGetGuildSoundboardSound>(
     guildId: Snowflake,
     soundboardSoundId: Snowflake,
-  ): Promise<RESTGetGuildSoundboardSound> {
+  ): Promise<Result> {
     const { restManager } = this;
-    const request = await restManager.get<RESTGetGuildSoundboardSound>(
-      Endpoints.guildSoundboardSound(guildId, soundboardSoundId),
-    );
+    const request = await restManager.get<Result>(Endpoints.guildSoundboardSound(guildId, soundboardSoundId));
+
+    return request;
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/soundboard#list-guild-soundboard-sounds
+   */
+  async getGuildSoundboardSounds<Result = RESTGetGuildSoundboardSounds>(guildId: Snowflake): Promise<Result> {
+    const { restManager } = this;
+    const request = await restManager.get<Result>(Endpoints.guildSoundboardSounds(guildId));
 
     return request;
   }
@@ -66,12 +73,12 @@ export class SoundboardREST {
   /**
    * @see https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound
    */
-  async patchGuildSoundboardSound(
+  async patchGuildSoundboardSound<Result = RESTPatchGuildSoundboardSound>(
     guildId: Snowflake,
     options: PatchGuildSoundboardSoundOptions,
-  ): Promise<RESTModifyGuildSoundboardSound> {
+  ): Promise<Result> {
     const { restManager } = this;
-    const request = await restManager.patch<RESTModifyGuildSoundboardSound, RESTModifyGuildSoundboardSoundJSONParams>(
+    const request = await restManager.patch<Result, RESTPatchGuildSoundboardSoundJSONParams>(
       Endpoints.guildSoundboardSounds(guildId),
       options,
     );
@@ -82,12 +89,12 @@ export class SoundboardREST {
   /**
    * @see https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound
    */
-  async postGuildSoundboardSound(
+  async postGuildSoundboardSound<Result = RESTPostGuildSoundboardSound>(
     guildId: Snowflake,
     options: PostGuildSoundboardSoundOptions,
-  ): Promise<RESTCreateGuildSoundboardSound> {
+  ): Promise<Result> {
     const { restManager } = this;
-    const request = await restManager.post<RESTCreateGuildSoundboardSound, RESTCreateGuildSoundboardSoundJSONParams>(
+    const request = await restManager.post<Result, RESTPostGuildSoundboardSoundJSONParams>(
       Endpoints.guildSoundboardSounds(guildId),
       options,
     );
@@ -98,12 +105,12 @@ export class SoundboardREST {
   /**
    * @see https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound
    */
-  async postSendSoundboardSound(
+  async postSendSoundboardSound<Result = RESTPostSendSoundboardSound>(
     channelId: Snowflake,
     options: PostSendSoundboardSoundOptions,
-  ): Promise<RESTSendSoundboardSound> {
+  ): Promise<Result> {
     const { restManager } = this;
-    const request = await restManager.post<RESTSendSoundboardSound, RESTSendSoundboardSoundJSONParams>(
+    const request = await restManager.post<Result, RESTPostSendSoundboardSoundJSONParams>(
       Endpoints.channelSendSoundboardSound(channelId),
       options,
     );
@@ -115,16 +122,16 @@ export class SoundboardREST {
 /**
  * @public
  */
-export interface PostGuildSoundboardSoundOptions {
-  json: RESTCreateGuildSoundboardSoundJSONParams;
+export interface PatchGuildSoundboardSoundOptions {
+  json: RESTPatchGuildSoundboardSound;
   reason?: string;
 }
 
 /**
  * @public
  */
-export interface PatchGuildSoundboardSoundOptions {
-  json: RESTModifyGuildSoundboardSoundJSONParams;
+export interface PostGuildSoundboardSoundOptions {
+  json: RESTPostGuildSoundboardSoundJSONParams;
   reason?: string;
 }
 
@@ -132,5 +139,5 @@ export interface PatchGuildSoundboardSoundOptions {
  * @public
  */
 export interface PostSendSoundboardSoundOptions {
-  json: RESTSendSoundboardSoundJSONParams;
+  json: RESTPostSendSoundboardSoundJSONParams;
 }
