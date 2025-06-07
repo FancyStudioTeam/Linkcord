@@ -61,6 +61,14 @@ export class Endpoints {
     return encodeEndpoint`channels/${channelId}/messages/${messageId}/crosspost`;
   }
 
+  static channelMessagePin(channelId: Snowflake, messageId: Snowflake): string {
+    return encodeEndpoint`channels/${channelId}/messages/pins/${messageId}`;
+  }
+
+  static channelMessagePins(channelId: Snowflake): string {
+    return encodeEndpoint`channels/${channelId}/messages/pins`;
+  }
+
   static channelMessageReaction(channelId: Snowflake, messageId: Snowflake, emojiId: Snowflake): string {
     return encodeEndpoint`channels/${channelId}/messages/${messageId}/reactions/${emojiId}`;
   }
