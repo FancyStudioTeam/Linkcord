@@ -1,5 +1,7 @@
 import { EventEmitter } from "node:events";
-import type { APIVersion } from "@fancystudioteam/linkcord-types";
+import { replaceBotPrefix } from "@fancystudioteam/linkcord-utils";
+import { REST_VERSION } from "../utils/constants.js";
+import { SoundboardREST } from "./SoundboardREST.js";
 import { VoiceREST } from "./VoiceREST.js";
 
 /**
@@ -7,8 +9,8 @@ import { VoiceREST } from "./VoiceREST.js";
  */
 export class RESTManager extends EventEmitter<RESTManagerEvents> {
   readonly options: RESTManagerOptions;
+  readonly soundboard = new SoundboardREST(this);
   readonly token: string;
-  readonly version: APIVersion;
   readonly voice = new VoiceREST(this);
 
   constructor(options: RESTManagerOptions) {
@@ -17,12 +19,11 @@ export class RESTManager extends EventEmitter<RESTManagerEvents> {
     const { token } = options;
 
     this.options = options;
-    this.token = token;
-    this.version = 10;
+    this.token = replaceBotPrefix(token);
   }
 
-  static get DISCORD_API_URL() {
-    return "https://discord.com/api/v10";
+  static get DISCORD_API_URL(): string {
+    return `https://discord.com/api/v${REST_VERSION}`;
   }
 
   /**
@@ -68,18 +69,36 @@ export class RESTManager extends EventEmitter<RESTManagerEvents> {
     return (await request.json()) as Data;
   }
 
-  async get<Data, QueryStringParams = unknown>(
+  async delete<Data>(endpoint: string): Promise<Data> {
+    return await this._makeRequest<Data, never, never>(RESTMethods.Delete, endpoint);
+  }
+
+  async get<Data, QueryStringParams = never>(
     endpoint: string,
     options?: MakeRequestOptions<never, QueryStringParams>,
   ): Promise<Data> {
     return await this._makeRequest<Data, never, QueryStringParams>(RESTMethods.Get, endpoint, options);
   }
 
-  async patch<Data, JSONParams = unknown, QueryStringParams = unknown>(
+  async patch<Data, JSONParams = never>(
     endpoint: string,
-    options?: MakeRequestOptions<JSONParams, QueryStringParams>,
+    options?: MakeRequestOptions<JSONParams, never>,
   ): Promise<Data> {
-    return await this._makeRequest<Data, JSONParams, QueryStringParams>(RESTMethods.Patch, endpoint, options);
+    return await this._makeRequest<Data, JSONParams, never>(RESTMethods.Patch, endpoint, options);
+  }
+
+  async post<Data, JSONParams = never>(
+    endpoint: string,
+    options?: MakeRequestOptions<JSONParams, never>,
+  ): Promise<Data> {
+    return await this._makeRequest<Data, JSONParams, never>(RESTMethods.Post, endpoint, options);
+  }
+
+  async put<Data, JSONParams = never>(
+    endpoint: string,
+    options?: MakeRequestOptions<JSONParams, never>,
+  ): Promise<Data> {
+    return await this._makeRequest<Data, JSONParams, never>(RESTMethods.Put, endpoint, options);
   }
 }
 

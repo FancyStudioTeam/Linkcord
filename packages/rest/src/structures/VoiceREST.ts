@@ -26,7 +26,7 @@ export class VoiceREST {
    */
   getCurrentUserVoiceState(guildId: Snowflake): Promise<RESTGetCurrentUserVoiceState> {
     const { restManager } = this;
-    const request = restManager.get<RESTGetCurrentUserVoiceState>(Endpoints.guildsVoiceState(guildId, "@me"));
+    const request = restManager.get<RESTGetCurrentUserVoiceState>(Endpoints.guildVoiceState(guildId, "@me"));
 
     return request;
   }
@@ -36,7 +36,7 @@ export class VoiceREST {
    */
   getUserVoiceState(guildId: Snowflake, userId: Snowflake): Promise<RESTGetUserVoiceState> {
     const { restManager } = this;
-    const request = restManager.get<RESTGetUserVoiceState>(Endpoints.guildsVoiceState(guildId, userId));
+    const request = restManager.get<RESTGetUserVoiceState>(Endpoints.guildVoiceState(guildId, userId));
 
     return request;
   }
@@ -60,7 +60,7 @@ export class VoiceREST {
   ): Promise<RESTModifyCurrentUserVoiceState> {
     const { restManager } = this;
     const request = restManager.patch<RESTModifyCurrentUserVoiceState, RESTModifyCurrentUserVoiceStateJSONParams>(
-      Endpoints.guildsVoiceState(guildId, "@me"),
+      Endpoints.guildVoiceState(guildId, "@me"),
       options,
     );
 
@@ -77,7 +77,7 @@ export class VoiceREST {
   ): Promise<RESTModifyUserVoiceState> {
     const { restManager } = this;
     const request = restManager.patch<RESTModifyUserVoiceState, RESTModifyUserVoiceStateJSONParams>(
-      Endpoints.guildsVoiceState(guildId, userId),
+      Endpoints.guildVoiceState(guildId, userId),
       options,
     );
 
