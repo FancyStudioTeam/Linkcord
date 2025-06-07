@@ -7,10 +7,7 @@ describe("Function: encodeEndpoint", () => {
   });
 
   it("Returns the encoded endpoint.", () => {
-    const message = "hello world";
-    const transversal = "../channels/1232";
-
-    expect(encodeEndpoint`message/${message}`).toBe("message/hello%20world");
-    expect(encodeEndpoint`message/${transversal}`).toBe("message/..%2Fchannels%2F1232");
+    expect(encodeEndpoint`messages/${"hello world"}`).toBe("messages/hello%20world");
+    expect(encodeEndpoint`messages/${"../channels/123"}`).toBe("messages/..%2Fchannels%2F123");
   });
 });
