@@ -19,7 +19,7 @@ export interface RESTCreatePollRequest {
  * @public
  * @see https://discord.com/developers/docs/resources/poll#get-answer-voters-query-string-params
  */
-export interface RESTGetAnswerVotesQueryStringParams {
+export interface RESTGetPollAnswerVotesStringParams {
   after?: Snowflake;
   limit?: number;
 }
@@ -28,7 +28,7 @@ export interface RESTGetAnswerVotesQueryStringParams {
  * @public
  * @see https://discord.com/developers/docs/resources/poll#get-answer-voters
  */
-export interface RESTGetAnswerVoters {
+export interface RESTGetPollAnswerVotes {
   users: APIUser[];
 }
 
@@ -36,4 +36,4 @@ export interface RESTGetAnswerVoters {
  * @public
  * @see https://discord.com/developers/docs/resources/poll#end-poll
  */
-export type RESTEndPoll = APIMessage;
+export type RESTPostPollExpire = APIMessage;

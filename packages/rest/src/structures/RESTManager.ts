@@ -1,6 +1,8 @@
 import { EventEmitter } from "node:events";
 import { replaceBotPrefix } from "@fancystudioteam/linkcord-utils";
 import { REST_VERSION } from "../utils/constants.js";
+import { PollREST } from "./PollREST.js";
+import { SKUREST } from "./SKUREST.js";
 import { SoundboardREST } from "./SoundboardREST.js";
 import { VoiceREST } from "./VoiceREST.js";
 
@@ -9,6 +11,8 @@ import { VoiceREST } from "./VoiceREST.js";
  */
 export class RESTManager extends EventEmitter<RESTManagerEvents> {
   readonly options: RESTManagerOptions;
+  readonly poll = new PollREST(this);
+  readonly sku = new SKUREST(this);
   readonly soundboard = new SoundboardREST(this);
   readonly token: string;
   readonly voice = new VoiceREST(this);
