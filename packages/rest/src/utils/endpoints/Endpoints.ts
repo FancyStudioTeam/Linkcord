@@ -137,24 +137,20 @@ export class Endpoints {
     return `channels/${channelId}/threads/archived/public`;
   }
 
-  static channelUserThreadsArchivedPrivate(channelId: Snowflake, userId: "@me"): string {
-    return `channels/${channelId}/users/${userId}/threads/archived/private`;
-  }
-
   static channelTyping(channelId: Snowflake): string {
     return `channels/${channelId}/typing`;
+  }
+
+  static channelUserThreadsArchivedPrivate(channelId: Snowflake, userId: "@me"): string {
+    return `channels/${channelId}/users/${userId}/threads/archived/private`;
   }
 
   static channelWebhooks(channelId: Snowflake): string {
     return `channels/${channelId}/webhooks`;
   }
 
-  static guildEmoji(guildId: Snowflake, emojiId: Snowflake): string {
-    return `guilds/${guildId}/emojis/${emojiId}`;
-  }
-
-  static guildEmojis(guildId: Snowflake): string {
-    return `guilds/${guildId}/emojis`;
+  static guild(guildId: Snowflake): string {
+    return `guilds/${guildId}`;
   }
 
   static guildAuditLogs(guildId: Snowflake): string {
@@ -167,34 +163,6 @@ export class Endpoints {
 
   static guildAutoModerationRules(guildId: Snowflake): string {
     return `guilds/${guildId}/auto-moderation/rules`;
-  }
-
-  static guildScheduledEvent(guildId: Snowflake, scheduledEventId: Snowflake): string {
-    return `guilds/${guildId}/scheduled-events/${scheduledEventId}`;
-  }
-
-  static guildScheduledEventUsers(guildId: Snowflake, scheduledEventId: Snowflake): string {
-    return `guilds/${guildId}/scheduled-events/${scheduledEventId}/users`;
-  }
-
-  static guildScheduledEvents(guildId: Snowflake): string {
-    return `guilds/${guildId}/scheduled-events`;
-  }
-
-  static guildTemplate(guildId: Snowflake, templateCode: string): string {
-    return `guilds/${guildId}/templates/${templateCode}`;
-  }
-
-  static guildTemplates(guildId: Snowflake): string {
-    return `guilds/${guildId}/templates`;
-  }
-
-  static guildVoiceState(guildId: Snowflake, userId: Snowflake | "@me"): string {
-    return `guilds/${guildId}/voice-states/${userId}`;
-  }
-
-  static guild(guildId: Snowflake): string {
-    return `guilds/${guildId}`;
   }
 
   static guildBan(guildId: Snowflake, userId: Snowflake): string {
@@ -211,6 +179,14 @@ export class Endpoints {
 
   static guildChannels(guildId: Snowflake): string {
     return `guilds/${guildId}/channels`;
+  }
+
+  static guildEmoji(guildId: Snowflake, emojiId: Snowflake): string {
+    return `guilds/${guildId}/emojis/${emojiId}`;
+  }
+
+  static guildEmojis(guildId: Snowflake): string {
+    return `guilds/${guildId}/emojis`;
   }
 
   static guildIncidentActions(guildId: Snowflake): string {
@@ -233,12 +209,12 @@ export class Endpoints {
     return `guilds/${guildId}/members/${userId}`;
   }
 
-  static guildMembers(guildId: Snowflake): string {
-    return `guilds/${guildId}/members`;
-  }
-
   static guildMemberRole(guildId: Snowflake, userId: Snowflake | "@me", roleId: Snowflake): string {
     return `guilds/${guildId}/members/${userId}/roles/${roleId}`;
+  }
+
+  static guildMembers(guildId: Snowflake): string {
+    return `guilds/${guildId}/members`;
   }
 
   static guildMembersSearch(guildId: Snowflake): string {
@@ -273,6 +249,18 @@ export class Endpoints {
     return `guilds/${guildId}/roles`;
   }
 
+  static guildScheduledEvent(guildId: Snowflake, scheduledEventId: Snowflake): string {
+    return `guilds/${guildId}/scheduled-events/${scheduledEventId}`;
+  }
+
+  static guildScheduledEventUsers(guildId: Snowflake, scheduledEventId: Snowflake): string {
+    return `guilds/${guildId}/scheduled-events/${scheduledEventId}/users`;
+  }
+
+  static guildScheduledEvents(guildId: Snowflake): string {
+    return `guilds/${guildId}/scheduled-events`;
+  }
+
   static guildSoundboardSound(guildId: Snowflake, soundboardSoundId: Snowflake): string {
     return `guilds/${guildId}/soundboard-sounds/${soundboardSoundId}`;
   }
@@ -289,12 +277,24 @@ export class Endpoints {
     return `guilds/${guildId}/stickers`;
   }
 
+  static guildTemplate(guildId: Snowflake, templateCode: string): string {
+    return `guilds/${guildId}/templates/${templateCode}`;
+  }
+
+  static guildTemplates(guildId: Snowflake): string {
+    return `guilds/${guildId}/templates`;
+  }
+
   static guildThreadsActive(guildId: Snowflake): string {
     return `guilds/${guildId}/threads/active`;
   }
 
   static guildVanityUrl(guildId: Snowflake): string {
     return `guilds/${guildId}/vanity-url`;
+  }
+
+  static guildVoiceState(guildId: Snowflake, userId: Snowflake | "@me"): string {
+    return `guilds/${guildId}/voice-states/${userId}`;
   }
 
   static guildWelcomeScreen(guildId: Snowflake): string {
