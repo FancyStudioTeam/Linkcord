@@ -240,6 +240,9 @@ importers:
       '@fancystudioteam/linkcord-utils':
         specifier: workspace:*
         version: link:../utils
+      ts-mixer:
+        specifier: 6.0.4
+        version: 6.0.4
     devDependencies:
       '@microsoft/api-extractor':
         specifier: 7.52.8
@@ -5766,6 +5769,9 @@ packages:
 
   trough@2.2.0:
     resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==}
+
+  ts-mixer@6.0.4:
+    resolution: {integrity: sha512-ufKpbmrugz5Aou4wcr5Wc1UUFWOLhq+Fm6qa6P0w0K5Qw2yhaUoiWszhCVuNQyNwrlGiscHOmqYoAox1PtvgjA==}
 
   ts-pattern@5.7.1:
     resolution: {integrity: sha512-EGs8PguQqAAUIcQfK4E9xdXxB6s2GK4sJfT/vcc9V1ELIvC4LH/zXu2t/5fajtv6oiRCxdv7BgtVK3vWgROxag==}
@@ -12272,6 +12278,8 @@ snapshots:
   trim-lines@3.0.1: {}
 
   trough@2.2.0: {}
+
+  ts-mixer@6.0.4: {}
 
   ts-pattern@5.7.1: {}
 
