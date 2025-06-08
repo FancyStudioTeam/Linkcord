@@ -14,27 +14,21 @@ export class Subscription extends BaseAPI {
   /**
    * @see https://discord.com/developers/docs/resources/subscription#get-sku-subscription
    */
-  getSKUSubscription<Result = RESTGetSKUSubscription>(skuId: Snowflake, subscriptionId: Snowflake): Promise<Result> {
-    const { _restManager } = this;
-    const request = _restManager.get<Result>(Endpoints.skuSubscription(skuId, subscriptionId));
-
-    return request;
+  async getSKUSubscription<Result = RESTGetSKUSubscription>(
+    skuId: Snowflake,
+    subscriptionId: Snowflake,
+  ): Promise<Result> {
+    return await super.get<Result>(Endpoints.skuSubscription(skuId, subscriptionId));
   }
 
   /**
    * @see https://discord.com/developers/docs/resources/subscription#list-sku-subscriptions
    */
-  getSKUSubscriptions<Result = RESTGetSKUSubscriptions>(
+  async getSKUSubscriptions<Result = RESTGetSKUSubscriptions>(
     skuId: Snowflake,
     options?: GetSKUSubscriptionsOptions,
   ): Promise<Result> {
-    const { _restManager } = this;
-    const request = _restManager.get<Result, RESTGetSKUSubscriptionsQueryParams>(
-      Endpoints.skuSubscriptions(skuId),
-      options,
-    );
-
-    return request;
+    return await super.get<Result, RESTGetSKUSubscriptionsQueryParams>(Endpoints.skuSubscriptions(skuId), options);
   }
 }
 

@@ -10,20 +10,14 @@ export class Invite extends BaseAPI {
    * @see https://discord.com/developers/docs/resources/invite#delete-invite
    */
   async deleteInvite<Result = RESTDeleteInvite>(inviteCode: string): Promise<Result> {
-    const { _restManager } = this;
-    const request = await _restManager.delete<Result>(Endpoints.invite(inviteCode));
-
-    return request;
+    return await super.delete<Result>(Endpoints.invite(inviteCode));
   }
 
   /**
    * @see https://discord.com/developers/docs/resources/invite#get-invite
    */
   async getInvite<Result = RESTGetInvite>(inviteCode: string, options?: GetInviteOptions): Promise<Result> {
-    const { _restManager } = this;
-    const request = await _restManager.get<Result, RESTGetInviteStringParams>(Endpoints.invite(inviteCode), options);
-
-    return request;
+    return await super.get<Result, RESTGetInviteStringParams>(Endpoints.invite(inviteCode), options);
   }
 }
 

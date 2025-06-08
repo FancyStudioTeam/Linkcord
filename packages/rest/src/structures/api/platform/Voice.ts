@@ -18,64 +18,49 @@ export class Voice extends BaseAPI {
   /**
    * @see https://discord.com/developers/docs/resources/voice#get-user-voice-state
    */
-  getUserVoiceState<Result = RESTGetUserVoiceState>(guildId: Snowflake, userId: Snowflake): Promise<Result> {
-    const { _restManager } = this;
-    const request = _restManager.get<Result>(Endpoints.guildVoiceState(guildId, userId));
-
-    return request;
+  async getUserVoiceState<Result = RESTGetUserVoiceState>(guildId: Snowflake, userId: Snowflake): Promise<Result> {
+    return await super.get<Result>(Endpoints.guildVoiceState(guildId, userId));
   }
 
   /**
    * @see https://discord.com/developers/docs/resources/voice#get-current-user-voice-state
    */
-  getUserVoiceStateCurrent<Result = RESTGetUserVoiceStateCurrent>(guildId: Snowflake): Promise<Result> {
-    const { _restManager } = this;
-    const request = _restManager.get<Result>(Endpoints.guildVoiceState(guildId, "@me"));
-
-    return request;
+  async getUserVoiceStateCurrent<Result = RESTGetUserVoiceStateCurrent>(guildId: Snowflake): Promise<Result> {
+    return await super.get<Result>(Endpoints.guildVoiceState(guildId, "@me"));
   }
 
   /**
    * @see https://discord.com/developers/docs/resources/voice#list-voice-regions
    */
-  getVoiceRegions<Result = RESTGetVoiceRegions>(): Promise<Result> {
-    const { _restManager } = this;
-    const request = _restManager.get<Result>(Endpoints.voiceRegions());
-
-    return request;
+  async getVoiceRegions<Result = RESTGetVoiceRegions>(): Promise<Result> {
+    return await super.get<Result>(Endpoints.voiceRegions());
   }
 
   /**
    * @see https://discord.com/developers/docs/resources/voice#modify-user-voice-state
    */
-  patchUserVoiceState<Result = RESTPatchUserVoiceState>(
+  async patchUserVoiceState<Result = RESTPatchUserVoiceState>(
     guildId: Snowflake,
     userId: Snowflake,
     options: PatchUserVoiceStateOptions,
   ): Promise<Result> {
-    const { _restManager } = this;
-    const request = _restManager.patch<Result, RESTPatchUserVoiceStateJSONParams>(
+    return await super.patch<Result, RESTPatchUserVoiceStateJSONParams>(
       Endpoints.guildVoiceState(guildId, userId),
       options,
     );
-
-    return request;
   }
 
   /**
    * @see https://discord.com/developers/docs/resources/voice#modify-current-user-voice-state
    */
-  patchUserVoiceStateCurrent<Result = RESTPatchUserVoiceStateCurrent>(
+  async patchUserVoiceStateCurrent<Result = RESTPatchUserVoiceStateCurrent>(
     guildId: Snowflake,
     options: PatchUserVoiceStateCurrentOptions,
   ): Promise<Result> {
-    const { _restManager } = this;
-    const request = _restManager.patch<Result, RESTPatchUserVoiceStateCurrentJSONParams>(
+    return await super.patch<Result, RESTPatchUserVoiceStateCurrentJSONParams>(
       Endpoints.guildVoiceState(guildId, "@me"),
       options,
     );
-
-    return request;
   }
 }
 
