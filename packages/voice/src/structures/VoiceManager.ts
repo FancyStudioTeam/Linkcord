@@ -1,7 +1,7 @@
 import { EventEmitter } from "node:events";
 import { GatewayShardStatus, calculateShardIdFromGuildId } from "@fancystudioteam/linkcord";
 import type { GatewayManager, JoinVoiceChannelOptions } from "@fancystudioteam/linkcord-gateway";
-import type { VoiceEvent, VoiceVersion } from "@fancystudioteam/linkcord-types";
+import type { VoiceEvent } from "@fancystudioteam/linkcord-types";
 import { VoiceManagerError } from "../utils/index.js";
 import { VoiceConnection } from "./VoiceConnection.js";
 
@@ -11,7 +11,6 @@ import { VoiceConnection } from "./VoiceConnection.js";
 export class VoiceManager extends EventEmitter<VoiceManagerEvents> {
   readonly gatewayManager: GatewayManager;
   readonly options: VoiceManagerOptions;
-  readonly version: VoiceVersion;
 
   constructor(options: VoiceManagerOptions) {
     super();
@@ -20,10 +19,6 @@ export class VoiceManager extends EventEmitter<VoiceManagerEvents> {
 
     this.gatewayManager = gatewayManager;
     this.options = options;
-    /**
-     * TODO: Upgrade to version "8" when voice connection finally works.
-     */
-    this.version = 4;
   }
 
   get isDaveEnabled(): boolean {

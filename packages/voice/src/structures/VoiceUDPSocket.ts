@@ -1,22 +1,26 @@
 import { type Socket, type SocketType, createSocket } from "node:dgram";
 import { isIPv4 } from "node:net";
-import { type Nullable, VoiceOpcodes, type VoiceSelectProtocolPayload } from "@fancystudioteam/linkcord-types";
+import {
+  ProtocolTypes,
+  VoiceEncryptionModes,
+  VoiceOpcodes,
+  type VoiceSelectProtocolPayload,
+} from "@fancystudioteam/linkcord-types";
+import { XChaCha20Poly1305 } from "@stablelib/xchacha20poly1305";
 import sodium from "libsodium-wrappers";
-import { VoiceConnectionError } from "#utils";
+import { VoiceConnectionError } from "../utils/index.js";
 import type { VoiceConnection, VoiceConnectionAddress } from "./VoiceConnection.js";
 
 const IP_DISCOVERY_PACKET_LENGTH = 74;
-const MAX_NONCE_SIZE = 2 ** 32 - 1;
 const SILENCE_FRAMES = Buffer.from([0xf8, 0xff, 0xfe]);
-const TIMESTAMP_INCREASE = (48000 / 100) * 2;
 
 /**
  * @public
  */
 export class VoiceUDPSocket {
-  private _localAddress: Nullable<VoiceConnectionUDPSocketAddress> = null;
-  private _secretKey = Buffer.allocUnsafe(0);
-  private _socket: Nullable<Socket> = null;
+  private _localAddress: VoiceConnectionUDPSocketAddress | null = null;
+  private _secretKey = Buffer.alloc(32);
+  private _socket: Socket | null = null;
 
   readonly _address: VoiceConnectionAddress;
 
@@ -59,28 +63,23 @@ export class VoiceUDPSocket {
     return rtpHeader;
   }
 
+  private _createNonceBuffer(rtpHeader: Buffer): Buffer {
+    const nonce = Buffer.alloc(24);
+
+    rtpHeader.copy(nonce, 0, 0, 12);
+
+    return nonce;
+  }
+
   /**
    * @internal
    */
   private _encryptOpusPacket(opusData: Buffer, rtpHeader: Buffer): Buffer {
-    this.nonce++;
+    const cipher = new XChaCha20Poly1305(this._secretKey);
+    const nonce = this._createNonceBuffer(rtpHeader);
+    const encrypted = cipher.seal(nonce, opusData);
 
-    if (this.nonce > MAX_NONCE_SIZE) {
-      this.nonce = 0;
-    }
-
-    this.nonceBuffer.writeUInt32BE(this.nonce, 0);
-
-    const noncePadding = this.nonceBuffer.subarray(0, 4);
-    const encryptedOpusPacket = sodium.crypto_aead_xchacha20poly1305_ietf_encrypt(
-      opusData,
-      rtpHeader,
-      null,
-      this.nonceBuffer,
-      this._secretKey,
-    );
-
-    return Buffer.concat([encryptedOpusPacket, noncePadding]);
+    return Buffer.from(encrypted);
   }
 
   /**
@@ -106,10 +105,10 @@ export class VoiceUDPSocket {
     const selectProtocolPayload: VoiceSelectProtocolPayload = {
       data: {
         address,
-        mode: "aead_xchacha20_poly1305_rtpsize",
+        mode: VoiceEncryptionModes.AEADXChaCha20Poly1305RTPSize,
         port,
       },
-      protocol: "udp",
+      protocol: ProtocolTypes.Udp,
     };
 
     this.voiceConnection.sendVoicePayload(VoiceOpcodes.SelectProtocol, selectProtocolPayload);
@@ -139,26 +138,17 @@ export class VoiceUDPSocket {
     return socket;
   }
 
-  sendAudioPacket(audioFrame: Buffer): void {
+  sendAudioPacket(opusAudioFrame: Buffer): void {
     const { ip, port } = this._localAddress ?? {};
-    let { timestamp, sequence } = this.voiceConnection;
 
     if (!(ip && port)) {
       throw new VoiceConnectionError("Local address has not been set yet.");
     }
 
-    sequence++;
-    timestamp += TIMESTAMP_INCREASE;
+    this.voiceConnection.timestamp = (this.voiceConnection.timestamp + 960) >>> 0;
+    this.voiceConnection.sequence = (this.voiceConnection.sequence + 1) & 0xffff;
 
-    if (sequence >= 2 ** 16) {
-      sequence = 0;
-    }
-
-    if (timestamp >= 2 ** 32) {
-      timestamp = 0;
-    }
-
-    const audioPacket = this._createAudioPacket(audioFrame);
+    const audioPacket = this._createAudioPacket(opusAudioFrame);
 
     this.voiceConnection.setSpeaking(true);
     this.sendUDPPacket(audioPacket, ip, port);

@@ -1,5 +1,5 @@
+import type { Readable } from "node:stream";
 import {
-  type Nullable,
   type Snowflake,
   SpeakingFlags,
   VoiceCloseEventCodes,
@@ -11,11 +11,14 @@ import {
   type VoiceSelectProtocolPayload,
   type VoiceSpeakingPayload,
 } from "@fancystudioteam/linkcord-types";
+import OpusScript from "opusscript";
+import prismMedia from "prism-media";
 import { type RawData, WebSocket } from "ws";
-import { VoiceConnectionError } from "#utils";
+import { CHANNELS, SAMPLE_RATE, VOICE_GATEWAY_VERSION, VoiceConnectionError } from "../utils/index.js";
 import type { VoiceManager } from "./VoiceManager.js";
 import { VoiceUDPSocket } from "./VoiceUDPSocket.js";
 
+const { FFmpeg } = prismMedia;
 const RECONNECTABLE_VOICE_CLOSE_CODES = [
   VoiceCloseEventCodes.UnknownOpcode,
   VoiceCloseEventCodes.FailedToDecodePayload,
@@ -34,7 +37,7 @@ const SENDABLE_VOICE_OPCODES = [
  * @public
  */
 export class VoiceConnection {
-  private _address: Nullable<VoiceConnectionAddress> = null;
+  private _address: VoiceConnectionAddress | null = null;
   private _heartbeatAck = 0;
   private _sequence = 0;
 
@@ -46,10 +49,10 @@ export class VoiceConnection {
   readonly userId: Snowflake;
 
   sequence = 0;
-  socket: Nullable<WebSocket> = null;
-  ssrc: Nullable<number> = null;
+  socket: WebSocket | null = null;
+  ssrc: number | null = null;
   timestamp = 0;
-  udpSocket: Nullable<VoiceUDPSocket> = null;
+  udpSocket: VoiceUDPSocket | null = null;
 
   constructor(manager: VoiceManager, options: VoiceConnectionOptions) {
     const { endpoint, guildId, sessionId, token, userId } = options;
@@ -66,7 +69,6 @@ export class VoiceConnection {
   private _heartbeat(): void {
     const { _sequence, _heartbeatAck } = this;
     const heartbeatPayload: VoiceHeartbeatPayload = {
-      // biome-ignore lint/style/useNamingConvention: Discord fields use snake case.
       seq_ack: _sequence,
       t: _heartbeatAck,
     };
@@ -79,9 +81,8 @@ export class VoiceConnection {
    */
   private _initializeSocket(url: URL): void {
     const { searchParams } = url;
-    const { version } = this.manager;
 
-    searchParams.set("v", version.toString());
+    searchParams.set("v", VOICE_GATEWAY_VERSION.toString());
     searchParams.set("encoding", "json");
 
     this.manager.emit("debug", `Creating voice connection socket using "${url}".`);
@@ -145,8 +146,10 @@ export class VoiceConnection {
         const { secret_key } = message.d;
         const udpSocket = this.getUDPSocket();
 
-        udpSocket.setSecretKey(secret_key);
+        this.setSpeaking(true);
+
         udpSocket.sendSilenceFrames();
+        udpSocket.setSecretKey(secret_key);
 
         break;
       }
@@ -161,11 +164,8 @@ export class VoiceConnection {
    */
   private _onOpen(): void {
     const identifyPayload = {
-      // biome-ignore lint/style/useNamingConvention: Discord fields use snake case.
       server_id: this.guildId,
-      // biome-ignore lint/style/useNamingConvention: Discord fields use snake case.
       user_id: this.userId,
-      // biome-ignore lint/style/useNamingConvention: Discord fields use snake case.
       session_id: this.sessionId,
       token: this.token,
     };
@@ -201,6 +201,65 @@ export class VoiceConnection {
     }
 
     return socket;
+  }
+
+  playRawStream(stream: Readable, opusFactory: OpusFactoryFunction): void {
+    this.setSpeaking(true);
+
+    const startTime = Date.now();
+    const length = 20;
+
+    const send = () => {
+      const buffer = opusFactory(stream);
+      const udpSocket = this.getUDPSocket();
+
+      if (buffer) {
+        udpSocket.sendAudioPacket(buffer);
+      }
+
+      setTimeout(() => send(), startTime + this.sequence * length - Date.now());
+    };
+
+    this.setSpeaking(true);
+    send();
+  }
+
+  playStream(stream: Readable): void {
+    const prismFFmpeg = new FFmpeg({
+      args: [
+        "-analyzeduration",
+        "0",
+        "-loglevel",
+        "0",
+        "-f",
+        "s16le",
+        "-ac",
+        CHANNELS.toString(),
+        "-ar",
+        SAMPLE_RATE.toString(),
+      ],
+    });
+    const encoder = new OpusScript(48000, 2, OpusScript.Application.AUDIO);
+    const pcmStream = stream.pipe(prismFFmpeg);
+
+    const opusFactory = (stream: Readable): Buffer | null => {
+      let packet = stream.read(1920 * 2);
+
+      if (!packet) {
+        return null;
+      }
+
+      if (packet.length !== 1920 * 2) {
+        const newBuffer = Buffer.alloc(1920 * 2).fill(0);
+
+        packet.copy(newBuffer);
+        packet = newBuffer;
+      }
+
+      return encoder.encode(packet, 1920);
+    };
+
+    pcmStream.once("readable", () => this.playRawStream(pcmStream, opusFactory));
   }
 
   sendVoicePayload<Opcode extends AnySendableVoiceOpcode>(opcode: Opcode, payload: SendVoicePayloadData[Opcode]): void {
@@ -269,3 +328,8 @@ export interface VoiceConnectionOptions {
  * @public
  */
 export type AnySendableVoiceOpcode = (typeof SENDABLE_VOICE_OPCODES)[number];
+
+/**
+ * @public
+ */
+export type OpusFactoryFunction = (stream: Readable) => Buffer | null;
