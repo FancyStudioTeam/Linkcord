@@ -1,8 +1,8 @@
 import { Mixin } from "ts-mixer";
 import { GuildAPI } from "./api/guild/GuildAPI.js";
-import { MessageAPI } from "./api/message/index.js";
+import { MessageAPI } from "./api/message/MessageAPI.js";
 import { MonetizationAPI } from "./api/monetization/MonetizationAPI.js";
-import { PlatformAPI } from "./api/platform/index.js";
+import { PlatformAPI } from "./api/platform/PlatformAPI.js";
 
 /**
  * @public
