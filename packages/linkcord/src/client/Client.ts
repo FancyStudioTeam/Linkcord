@@ -5,6 +5,7 @@ import {
   type GatewayManagerOptions,
   type GatewayShard,
 } from "@fancystudioteam/linkcord-gateway";
+import { RESTManager, type RESTManagerOptions } from "@fancystudioteam/linkcord-rest";
 import type { If, Snowflake } from "@fancystudioteam/linkcord-types";
 import { VoiceManager, type VoiceManagerOptions } from "@fancystudioteam/linkcord-voice";
 import type { User } from "../structures/index.js";
@@ -16,6 +17,7 @@ import { handlers } from "./handlers/handlers.js";
 export class Client<Ready extends boolean = boolean> extends EventEmitter<ClientEvents> {
   readonly gateway: GatewayManager;
   readonly options: ClientOptions;
+  readonly rest: RESTManager;
   readonly unavailableGuilds: Map<Snowflake, boolean> = new Map();
   readonly voice: VoiceManager;
 
@@ -34,6 +36,9 @@ export class Client<Ready extends boolean = boolean> extends EventEmitter<Client
     });
     this.options = options;
     this.ready = false as Ready;
+    this.rest = new RESTManager({
+      token,
+    });
     this.voice = new VoiceManager({
       ...voice,
       gatewayManager: this.gateway,
@@ -85,6 +90,11 @@ export interface ClientGatewayOptions extends Omit<GatewayManagerOptions, "inten
 /**
  * @public
  */
+export interface ClientRestOptions extends Omit<RESTManagerOptions, "token"> {}
+
+/**
+ * @public
+ */
 export interface ClientVoiceOptions extends Omit<VoiceManagerOptions, "gatewayManager"> {}
 
 /**
@@ -93,6 +103,7 @@ export interface ClientVoiceOptions extends Omit<VoiceManagerOptions, "gatewayMa
 export interface ClientOptions {
   gateway?: ClientGatewayOptions;
   intents: number;
+  rest?: ClientRestOptions;
   token: string;
   voice?: ClientVoiceOptions;
 }
