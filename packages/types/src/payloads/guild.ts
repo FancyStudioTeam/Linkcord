@@ -43,11 +43,11 @@ export interface APIGuild {
   approximate_member_count?: number;
   approximate_presence_count?: number;
   banner: string | null;
-  default_message_notifications: DefaultMessageNotificationLevel;
+  default_message_notifications: DefaultMessageNotificationLevels;
   description: string | null;
   discovery_splash: string | null;
   emojis: APIEmoji[];
-  explicit_content_filter: ExplicitContentFilterLevel;
+  explicit_content_filter: ExplicitContentFilterLevels;
   features: GuildFeatures[];
   icon: string | null;
   icon_hash?: string | null;
@@ -56,9 +56,9 @@ export interface APIGuild {
   max_members?: number;
   max_presences?: number | null;
   max_video_channel_users?: number;
-  mfa_level: MFALevel;
+  mfa_level: MFALevels;
   name: string;
-  nsfw_level: GuildNSFWLevel;
+  nsfw_level: GuildNSFWLevels;
   /**
    * @remarks
    * - This field is only present when fetching the current user guilds.
@@ -73,7 +73,7 @@ export interface APIGuild {
   preferred_locale: string;
   premium_progress_bar_enabled?: boolean;
   premium_subscription_count?: number;
-  premium_tier: PremiumTier;
+  premium_tier: PremiumTiers;
   public_updates_channel_id: Snowflake | null;
   roles: APIRole[];
   rules_channel_id: Snowflake | null;
@@ -83,7 +83,7 @@ export interface APIGuild {
   system_channel_flags: SystemChannelFlags;
   system_channel_id: Snowflake | null;
   vanity_code_url: string | null;
-  verification_level: VerificationLevel;
+  verification_level: VerificationLevels;
   welcome_screen?: APIWelcomeScreen;
   widget_channel_id?: Snowflake | null;
   widget_enabled?: boolean;
@@ -118,7 +118,7 @@ export interface APIGuildOnboarding {
   default_channel_ids: Snowflake[];
   enabled: boolean;
   guild_id: Snowflake;
-  mode: OnboardingMode;
+  mode: OnboardingModes;
   prompts: APIGuildOnboardingPrompt[];
 }
 
@@ -350,7 +350,7 @@ export interface APIWelcomeScreenChannel {
  * @public
  * @see https://discord.com/developers/docs/resources/guild#guild-object-default-message-notification-level
  */
-export enum DefaultMessageNotificationLevel {
+export enum DefaultMessageNotificationLevels {
   AllMessages = 0,
   OnlyMentions = 1,
 }
@@ -359,7 +359,7 @@ export enum DefaultMessageNotificationLevel {
  * @public
  * @see https://discord.com/developers/docs/resources/guild#guild-object-explicit-content-filter-level
  */
-export enum ExplicitContentFilterLevel {
+export enum ExplicitContentFilterLevels {
   AllMembers = 2,
   Disabled = 0,
   MembersWithoutRoles = 1,
@@ -446,7 +446,7 @@ export enum GuildMemberFlags {
  * @public
  * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-nsfw-level
  */
-export enum GuildNSFWLevel {
+export enum GuildNSFWLevels {
   AgeRestricted = 3,
   Default = 0,
   Explicit = 1,
@@ -489,7 +489,7 @@ export enum IntegrationTypes {
  * @public
  * @see https://discord.com/developers/docs/resources/guild#guild-object-mfa-level
  */
-export enum MFALevel {
+export enum MFALevels {
   Elevated = 1,
   None = 0,
 }
@@ -498,7 +498,7 @@ export enum MFALevel {
  * @public
  * @see https://discord.com/developers/docs/resources/guild#guild-onboarding-object-onboarding-mode
  */
-export enum OnboardingMode {
+export enum OnboardingModes {
   Advanced = 1,
   Default = 0,
 }
@@ -507,7 +507,7 @@ export enum OnboardingMode {
  * @public
  * @see https://discord.com/developers/docs/resources/guild#guild-object-premium-tier
  */
-export enum PremiumTier {
+export enum PremiumTiers {
   None = 0,
   Tier1 = 1,
   Tier2 = 2,
@@ -540,7 +540,7 @@ export enum SystemChannelFlags {
  * @public
  * @see https://discord.com/developers/docs/resources/guild#guild-object-verification-level
  */
-export enum VerificationLevel {
+export enum VerificationLevels {
   High = 3,
   Low = 1,
   Medium = 2,
