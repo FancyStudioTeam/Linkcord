@@ -1,4 +1,3 @@
-import { Endpoints } from "@fancystudioteam/linkcord";
 import type {
   RESTDeleteEntitlementTest,
   RESTGetEntitlement,
@@ -9,6 +8,7 @@ import type {
   RESTPostEntitlementTestJSONParams,
   Snowflake,
 } from "@fancystudioteam/linkcord-types";
+import { Endpoints } from "../../../utils/index.js";
 import { BaseAPI } from "../base/BaseAPI.js";
 
 /**
