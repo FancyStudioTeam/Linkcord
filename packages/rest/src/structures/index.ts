@@ -1,3 +1,4 @@
+export * from "./InviteREST.js";
 export * from "./PollREST.js";
 export * from "./RESTManager.js";
 export * from "./SKUREST.js";

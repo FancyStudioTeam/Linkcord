@@ -13,12 +13,12 @@ export interface RESTGetInviteStringParams {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/invite#get-invite
+ * @see https://discord.com/developers/docs/resources/invite#delete-invite
  */
-export type RESTGetInvite = APIInvite;
+export type RESTDeleteInvite = APIInvite;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/invite#delete-invite
+ * @see https://discord.com/developers/docs/resources/invite#get-invite
  */
-export type RESTDeleteInvite = undefined;
+export type RESTGetInvite = APIInvite;
