@@ -3,9 +3,9 @@ import type { Snowflake } from "../shared/discord.js";
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/subscription#list-sku-subscriptions-query-string-params
+ * @see https://discord.com/developers/docs/resources/subscription#query-string-params
  */
-export interface RESTListSKUSubscriptionsQueryParams {
+export interface RESTGetSKUSubscriptionsQueryParams {
   after?: Snowflake;
   before?: Snowflake;
   limit?: number;
@@ -22,4 +22,4 @@ export type RESTGetSKUSubscription = APISubscription;
  * @public
  * @see https://discord.com/developers/docs/resources/subscription#list-sku-subscriptions
  */
-export type RESTListSKUSubscriptions = APISubscription[];
+export type RESTGetSKUSubscriptions = APISubscription[];

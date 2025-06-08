@@ -29,6 +29,15 @@ export type APIPartialEntitlement = Omit<APIEntitlement, "ends_at" | "starts_at"
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/entitlement#create-test-entitlement
+ */
+export enum EntitlementOwnerTypes {
+  GuildSubscription = 1,
+  UserSubscription = 2,
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/entitlement#entitlement-object-entitlement-types
  */
 export enum EntitlementTypes {

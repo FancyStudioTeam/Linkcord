@@ -1,22 +1,48 @@
-import type { APIEntitlement, APIPartialEntitlement } from "../payloads/entitlement.js";
+import type { APIEntitlement, APIPartialEntitlement, EntitlementOwnerTypes } from "../payloads/entitlement.js";
+import type { Snowflake } from "../shared/discord.js";
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/entitlement#consume-an-entitlement
+ * @see https://discord.com/developers/docs/resources/entitlement#list-entitlements-query-string-params
  */
-export type RESTConsumeEntitlement = undefined;
+export interface RESTGetEntitlementsQueryParams {
+  after?: Snowflake;
+  before?: Snowflake;
+  exclude_deleted?: boolean;
+  exclude_ended?: boolean;
+  guild_id?: Snowflake;
+  limit?: number;
+  sku_ids?: string;
+  user_id?: Snowflake;
+}
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/entitlement#create-test-entitlement
+ * @see https://discord.com/developers/docs/resources/entitlement#create-test-entitlement-json-params
  */
-export type RESTCreateTestEntitlement = APIPartialEntitlement;
+export interface RESTPostEntitlementTestJSONParams {
+  owner_id: Snowflake;
+  owner_type: EntitlementOwnerTypes;
+  sku_id: Snowflake;
+}
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/entitlement#delete-test-entitlement
  */
-export type RESTDeleteTestEntitlement = undefined;
+export type RESTDeleteEntitlementTest = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/entitlement#consume-an-entitlement
+ */
+export type RESTPostEntitlementConsume = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/entitlement#create-test-entitlement
+ */
+export type RESTPostEntitlementTest = APIPartialEntitlement;
 
 /**
  * @public
@@ -28,4 +54,4 @@ export type RESTGetEntitlement = APIEntitlement;
  * @public
  * @see https://discord.com/developers/docs/resources/entitlement#list-entitlements
  */
-export type RESTListEntitlements = APIEntitlement[];
+export type RESTGetEntitlements = APIEntitlement[];
