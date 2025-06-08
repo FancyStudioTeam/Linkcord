@@ -1,17 +1,11 @@
 import type { RESTDeleteInvite, RESTGetInvite, RESTGetInviteStringParams } from "@fancystudioteam/linkcord-types";
-import { Endpoints } from "../utils/index.js";
-import type { RESTManager } from "./RESTManager.js";
+import { Endpoints } from "../../../utils/index.js";
+import { BaseAPI } from "../base/BaseAPI.js";
 
 /**
  * @public
  */
-export class InviteREST {
-  private _restManager: RESTManager;
-
-  constructor(restManager: RESTManager) {
-    this._restManager = restManager;
-  }
-
+export class Invite extends BaseAPI {
   /**
    * @see https://discord.com/developers/docs/resources/invite#delete-invite
    */

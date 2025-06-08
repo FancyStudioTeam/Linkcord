@@ -8,19 +8,13 @@ import type {
   RESTPatchUserVoiceStateJSONParams,
   Snowflake,
 } from "@fancystudioteam/linkcord-types";
-import { Endpoints } from "../utils/endpoints/Endpoints.js";
-import type { RESTManager } from "./RESTManager.js";
+import { Endpoints } from "../../../utils/index.js";
+import { BaseAPI } from "../base/BaseAPI.js";
 
 /**
  * @public
  */
-export class VoiceREST {
-  private _restManager: RESTManager;
-
-  constructor(restManager: RESTManager) {
-    this._restManager = restManager;
-  }
-
+export class Voice extends BaseAPI {
   /**
    * @see https://discord.com/developers/docs/resources/voice#get-user-voice-state
    */
