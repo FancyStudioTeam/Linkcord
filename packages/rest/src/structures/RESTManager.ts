@@ -57,6 +57,7 @@ export class RESTManager extends EventEmitter<RESTManagerEvents> {
   /**
    * TODO: Implement ratelimit manager.
    * TODO: Allow query string params.
+   * TODO: Handle data when response is not JSON.
    */
   private async _makeRequest<Data, JSONParams = never, QueryStringParams = never>(
     method: RESTMethods,
