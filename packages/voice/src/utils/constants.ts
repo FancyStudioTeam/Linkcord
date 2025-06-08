@@ -14,12 +14,27 @@ export const BINARY_VOICE_OPCODES = [
 /**
  * @public
  */
+export const CHANNELS = 2;
+
+/**
+ * @public
+ */
+export const FRAME_SIZE = 960;
+
+/**
+ * @public
+ */
 export const RECONNECTABLE_VOICE_CLOSE_CODES = [
   VoiceCloseEventCodes.AlreadyAuthenticated,
   VoiceCloseEventCodes.FailedToDecodePayload,
   VoiceCloseEventCodes.NotAuthenticated,
   VoiceCloseEventCodes.UnknownOpcode,
 ] as const;
+
+/**
+ * @public
+ */
+export const SAMPLE_RATE = 48000;
 
 /**
  * @public
@@ -31,6 +46,11 @@ export const SENDABLE_VOICE_OPCODES = [
   VoiceOpcodes.SelectProtocol,
   VoiceOpcodes.Speaking,
 ] as const;
+
+/**
+ * @public
+ */
+export const VOICE_GATEWAY_VERSION = 8;
 
 /**
  * @public
