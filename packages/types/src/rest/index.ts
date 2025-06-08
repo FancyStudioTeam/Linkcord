@@ -9,6 +9,7 @@ export * from "./entitlement.js";
 export * from "./gateway.js";
 export * from "./guild-scheduled-events.js";
 export * from "./guild-template.js";
+export * from "./guild.js";
 export * from "./interaction.js";
 export * from "./invite.js";
 export * from "./lobby.js";

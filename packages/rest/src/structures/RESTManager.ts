@@ -1,6 +1,7 @@
 import { EventEmitter } from "node:events";
 import { replaceBotPrefix } from "@fancystudioteam/linkcord-utils";
 import { REST_VERSION } from "../utils/constants.js";
+import { GuildREST } from "./GuildREST.js";
 import { InviteREST } from "./InviteREST.js";
 import { PollREST } from "./PollREST.js";
 import { SKUREST } from "./SKUREST.js";
@@ -11,6 +12,7 @@ import { VoiceREST } from "./VoiceREST.js";
  * @public
  */
 export class RESTManager extends EventEmitter<RESTManagerEvents> {
+  readonly guild = new GuildREST(this);
   readonly invite = new InviteREST(this);
   readonly options: RESTManagerOptions;
   readonly poll = new PollREST(this);

@@ -1,9 +1,21 @@
-import type { APIGuildChannel, APIThreadChannel } from "../payloads/channel.js";
+import type {
+  APIDefaultReactionEmoji,
+  APIForumTag,
+  APIGuildChannel,
+  APIOverwrite,
+  APIThreadChannel,
+  APIThreadMember,
+  ChannelTypes,
+  ForumLayoutTypes,
+  SortOrderTypes,
+  VideoQualityModes,
+} from "../payloads/channel.js";
 import type {
   APIBan,
   APIGuild,
   APIGuildMember,
   APIGuildOnboarding,
+  APIGuildOnboardingPrompt,
   APIGuildPreview,
   APIGuildWidget,
   APIGuildWidgetSettings,
@@ -11,29 +23,26 @@ import type {
   APIIntegration,
   APIWelcomeScreen,
   APIWelcomeScreenChannel,
+  DefaultMessageNotificationLevels,
+  ExplicitContentFilterLevels,
+  GuildFeatures,
   GuildWidgetStyles,
-  MFALevel,
+  MFALevels,
+  OnboardingModes,
+  VerificationLevels,
 } from "../payloads/guild.js";
 import type { APIInvite } from "../payloads/invite.js";
 import type { APIRole } from "../payloads/permission.js";
 import type { APIVoiceRegion } from "../payloads/voice.js";
-import type { ISO8601Date, Snowflake } from "../shared/discord.js";
+import type { ISO8601Date, ImageDataUri, Locale, Snowflake } from "../shared/discord.js";
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/guild#begin-guild-prune
+ * @see https://discord.com/developers/docs/resources/guild#list-active-guild-threads
  */
-export interface RESTBeginGuildPrune {
-  pruned: number;
-}
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/guild#bulk-guild-ban
- */
-export interface RESTBulkGuildBan {
-  banned_users: Snowflake[];
-  failed_users: Snowflake[];
+export interface RESTGetActiveGuildThreads {
+  members: APIThreadMember[];
+  threads: APIThreadChannel[];
 }
 
 /**
@@ -48,10 +57,45 @@ export interface RESTGetGuildBansStringParams {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/guild#search-guild-members-query-string-params
+ */
+export interface RESTGetGuildMembersSearchStringParams {
+  limit?: number;
+  query: string;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#list-guild-members-query-string-params
+ */
+export interface RESTGetGuildMembersStringParams {
+  after?: Snowflake;
+  limit?: number;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#get-guild-prune-count
  */
 export interface RESTGetGuildPruneCount {
   pruned: number;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#get-guild-prune-count-query-string-params
+ */
+export interface RESTGetGuildPruneCountStringParams {
+  days?: number;
+  include_roles?: string;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#get-guild-query-string-params
+ */
+export interface RESTGetGuildStringParams {
+  with_counts?: boolean;
 }
 
 /**
@@ -73,26 +117,211 @@ export interface RESTGetGuildWidgetImageStringParams {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/guild#list-active-guild-threads
+ * @see https://discord.com/developers/docs/resources/guild#modify-guild-channel-positions-json-params
  */
-export interface RESTListActiveGuildThreads {
-  threads: APIThreadChannel[];
+export interface RESTPatchGuildChannelPositionsJSONParams {
+  id: Snowflake;
+  lock_permissions?: boolean | null;
+  parent_id?: Snowflake | null;
+  position?: number | null;
 }
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/guild#list-guild-members-query-string-params
+ * @see https://discord.com/developers/docs/resources/guild#modify-guild-json-params
  */
-export interface RESTListGuildMembersStringParams {
-  after?: Snowflake;
-  limit?: number;
+export interface RESTPatchGuildJSONParams {
+  afk_channel_id?: Snowflake | null;
+  afk_timeout?: number;
+  banner?: ImageDataUri | null;
+  default_message_notifications?: DefaultMessageNotificationLevels | null;
+  description?: string | null;
+  discovery_splash?: ImageDataUri | null;
+  explicit_content_filter?: ExplicitContentFilterLevels | null;
+  features?: GuildFeatures[];
+  icon?: ImageDataUri | null;
+  name?: string;
+  owner_id?: Snowflake;
+  preferred_locale?: Locale | null;
+  premium_progress_bar_enabled?: boolean;
+  public_updates_channel_id?: Snowflake | null;
+  region?: string | null;
+  rules_channel_id?: Snowflake | null;
+  safety_alerts_channel_id?: Snowflake | null;
+  splash?: ImageDataUri | null;
+  system_channel_flags?: number;
+  system_channel_id?: Snowflake | null;
+  verification_level?: VerificationLevels | null;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#modify-current-member-json-params
+ */
+export interface RESTPatchGuildMemberCurrentJSONParams {
+  nick?: string | null;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#modify-guild-member-json-params
+ */
+export interface RESTPatchGuildMemberJSONParams {
+  channel_id?: Snowflake | null;
+  communication_disabled_until?: ISO8601Date | null;
+  deaf?: boolean | null;
+  flags?: number | null;
+  mute?: boolean | null;
+  nick?: string | null;
+  roles?: Snowflake[] | null;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#modify-guild-role-json-params
+ */
+export interface RESTPatchGuildRoleJSONParams {
+  color?: number | null;
+  hoist?: boolean | null;
+  icon?: ImageDataUri | null;
+  mentionable?: boolean | null;
+  name?: string | null;
+  permissions?: string | null;
+  unicode_emoji?: string | null;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#modify-guild-role-positions-json-params
+ */
+export interface RESTPatchGuildRolePositionsJSONParams {
+  id: Snowflake;
+  position?: number | null;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#modify-guild-welcome-screen-json-params
+ */
+export interface RESTPatchGuildWelcomeScreenJSONParams {
+  description?: string | null;
+  enabled?: boolean | null;
+  welcome_channels?: APIWelcomeScreenChannel[] | null;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#modify-guild-widget-json-params
+ */
+export interface RESTPatchGuildWidgetSettingsJSONParams {
+  channel_id?: Snowflake | null;
+  enabled?: boolean | null;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#bulk-guild-ban
+ */
+export interface RESTPostGuildBanBulk {
+  banned_users: Snowflake[];
+  failed_users: Snowflake[];
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#bulk-guild-ban-json-params
+ */
+export interface RESTPostGuildBanBulkJSONParams {
+  user_ids: Snowflake[];
+  delete_message_seconds?: number;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#create-guild-channel-json-params
+ */
+export interface RESTPostGuildChannelJSONParams {
+  available_tags?: APIForumTag[] | null;
+  bitrate?: number | null;
+  default_auto_archive_duration?: number | null;
+  default_forum_layout?: ForumLayoutTypes | null;
+  default_reaction_emoji?: APIDefaultReactionEmoji | null;
+  default_sort_order?: SortOrderTypes | null;
+  default_thread_rate_limit_per_user?: number | null;
+  name: string;
+  nsfw?: boolean | null;
+  parent_id?: Snowflake | null;
+  permission_overwrites?: APIOverwrite[] | null;
+  position?: number | null;
+  rate_limit_per_user?: number | null;
+  rtc_region?: string | null;
+  topic?: string | null;
+  type?: ChannelTypes | null;
+  user_limit?: number | null;
+  video_quality_mode?: VideoQualityModes | null;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#modify-guild-mfa-level
+ */
+export interface RESTPostGuildMFALevel {
+  level: MFALevels;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#modify-guild-mfa-level-json-params
+ */
+export interface RESTPostGuildMFALevelJSONParams {
+  level: MFALevels;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#begin-guild-prune
+ */
+export interface RESTPostGuildPrune {
+  pruned: number;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#begin-guild-prune-json-params
+ */
+export interface RESTPostGuildPruneJSONParams {
+  compute_prune_count: boolean;
+  days: number;
+  include_roles: Snowflake[];
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#create-guild-role-json-params
+ */
+export interface RESTPostGuildRoleJSONParams {
+  color?: number;
+  hoist?: boolean;
+  icon?: ImageDataUri | null;
+  mentionable?: boolean;
+  name?: string;
+  permissions?: string;
+  unicode_emoji?: string | null;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#create-guild-ban-json-params
+ */
+export interface RESTPutGuildBanJSONParams {
+  delete_message_seconds?: number;
 }
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-incident-actions-json-params
  */
-export interface RESTModifyGuildIncidentActionsJSONParams {
+export interface RESTPutGuildIncidentActionsJSONParams {
   /**
    * @remarks
    * - Using `null` as the field value will disable the action.
@@ -107,60 +336,26 @@ export interface RESTModifyGuildIncidentActionsJSONParams {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/guild#modify-guild-mfa-level-json-params
+ * @see https://discord.com/developers/docs/resources/guild#add-guild-member-json-params
  */
-export interface RESTModifyGuildMFALevelJSONParams {
-  level: MFALevel;
+export interface RESTPutGuildMemberJSONParams {
+  access_token: string;
+  deaf?: boolean;
+  mute?: boolean;
+  nick?: string;
+  roles?: Snowflake[];
 }
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/guild#modify-guild-welcome-screen-json-params
+ * @see https://discord.com/developers/docs/resources/guild#modify-guild-onboarding-json-params
  */
-export interface RESTModifyGuildWelcomeScreenJSONParams {
-  description?: string | null;
-  enabled?: boolean | null;
-  welcome_channels?: APIWelcomeScreenChannel[] | null;
+export interface RESTPutGuildOnboardingJSONParams {
+  default_channel_ids: Snowflake[];
+  enabled: boolean;
+  mode: OnboardingModes;
+  prompts: APIGuildOnboardingPrompt[];
 }
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/guild#search-guild-members-query-string-params
- */
-export interface RESTSearchGuildMembersStringParams {
-  limit?: number;
-  query?: string;
-}
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/guild#add-guild-member
- */
-export type RESTAddGuildMember = APIGuildMember | undefined;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/guild#add-guild-member-role
- */
-export type RESTAddGuildMemberRole = undefined;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/guild#create-guild-ban
- */
-export type RESTCreateGuildBan = undefined;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/guild#create-guild-channel
- */
-export type RESTCreateGuildChannel = APIGuildChannel;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/guild#create-guild-role
- */
-export type RESTCreateGuildRole = APIRole;
 
 /**
  * @public
@@ -170,9 +365,27 @@ export type RESTDeleteGuild = undefined;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/guild#remove-guild-ban
+ */
+export type RESTDeleteGuildBan = undefined;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#delete-guild-integration
  */
 export type RESTDeleteGuildIntegration = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#remove-guild-member
+ */
+export type RESTDeleteGuildMember = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#remove-guilld-member-role
+ */
+export type RESTDeleteGuildMemberRole = undefined;
 
 /**
  * @public
@@ -224,6 +437,18 @@ export type RESTGetGuildMember = APIGuildMember;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/guild#list-guild-members
+ */
+export type RESTGetGuildMembers = APIGuildMember[];
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#search-guild-members
+ */
+export type RESTGetGuildMembersSearch = APIGuildMember[];
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#get-guild-onboarding
  */
 export type RESTGetGuildOnboarding = APIGuildOnboarding;
@@ -268,7 +493,7 @@ export type RESTGetGuildWidget = APIGuildWidget;
  * @public
  * @see https://discord.com/developers/docs/resources/guild#get-guild-widget-image
  */
-export type RESTGetGuildWidgetImage = unknown;
+export type RESTGetGuildWidgetImage = Blob;
 
 /**
  * @public
@@ -278,96 +503,90 @@ export type RESTGetGuildWidgetSettings = APIGuildWidgetSettings;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/guild#list-guild-members
- */
-export type RESTListGuildMembers = APIGuildMember[];
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/guild#modify-current-member
- */
-export type RESTModifyCurrentMember = APIGuildMember;
-
-/**
- * @public
  * @see https://discord.com/developers/docs/resources/guild#modify-guild
  */
-export type RESTModifyGuild = APIGuild;
+export type RESTPatchGuild = APIGuild;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-channel-positions
  */
-export type RESTModifyGuildChannelPositions = undefined;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/guild#modify-guild-incident-actions
- */
-export type RESTModifyGuildIncidentActions = APIIncidentsData;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/guild#modify-guild-mfa-level
- */
-export type RESTModifyGuildMFALevel = undefined;
+export type RESTPatchGuildChannelPositions = undefined;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-member
  */
-export type RESTModifyGuildMember = APIGuildMember;
+export type RESTPatchGuildMember = APIGuildMember;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/guild#modify-guild-onboarding
+ * @see https://discord.com/developers/docs/resources/guild#modify-current-member
  */
-export type RESTModifyGuildOnboarding = APIGuildOnboarding;
+export type RESTPatchGuildMemberCurrent = APIGuildMember;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-role
  */
-export type RESTModifyGuildRole = APIRole;
+export type RESTPatchGuildRole = APIRole;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-role-positions
  */
-export type RESTModifyGuildRolePositions = undefined;
+export type RESTPatchGuildRolePositions = undefined;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-welcome-screen
  */
-export type RESTModifyGuildWelcomeScreen = APIWelcomeScreen;
+export type RESTPatchGuildWelcomeScreen = APIWelcomeScreen;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-widget
  */
-export type RESTModifyGuildWidget = APIGuildWidgetSettings;
+export type RESTPatchGuildWidgetSettings = APIGuildWidgetSettings;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/guild#remove-guild-ban
+ * @see https://discord.com/developers/docs/resources/guild#create-guild-channel
  */
-export type RESTRemoveGuildBan = undefined;
+export type RESTPostGuildChannel = APIGuildChannel;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/guild#remove-guild-member
+ * @see https://discord.com/developers/docs/resources/guild#create-guild-role
  */
-export type RESTRemoveGuildMember = undefined;
+export type RESTPostGuildRole = APIRole;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/guild#remove-guilld-member-role
+ * @see https://discord.com/developers/docs/resources/guild#create-guild-ban
  */
-export type RESTRemoveGuildMemberRole = undefined;
+export type RESTPutGuildBan = undefined;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/guild#search-guild-members
+ * @see https://discord.com/developers/docs/resources/guild#modify-guild-incident-actions
  */
-export type RESTSearchGuildMembers = APIGuildMember[];
+export type RESTPutGuildIncidentActions = APIIncidentsData;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#add-guild-member
+ */
+export type RESTPutGuildMember = APIGuildMember | undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#add-guild-member-role
+ */
+export type RESTPutGuildMemberRole = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#modify-guild-onboarding
+ */
+export type RESTPutGuildOnboarding = APIGuildOnboarding;
