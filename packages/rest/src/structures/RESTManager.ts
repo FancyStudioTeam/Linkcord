@@ -75,8 +75,8 @@ export class RESTManager extends EventEmitter<RESTManagerEvents> {
     return (await request.json()) as Data;
   }
 
-  async delete<Data>(endpoint: string): Promise<Data> {
-    return await this._makeRequest<Data, never, never>(RESTMethods.Delete, endpoint);
+  async delete<Data>(endpoint: string, options?: MakeRequestOptions<never, never>): Promise<Data> {
+    return await this._makeRequest<Data, never, never>(RESTMethods.Delete, endpoint, options);
   }
 
   async get<Data, QueryStringParams = never>(
