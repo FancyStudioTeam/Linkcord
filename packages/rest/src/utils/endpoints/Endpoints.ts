@@ -158,6 +158,14 @@ export class Endpoints {
     return encodeEndpoint`channels/${channelId}/webhooks`;
   }
 
+  static gateway(): string {
+    return "gateway";
+  }
+
+  static gatewayBot(): string {
+    return "gateway/bot";
+  }
+
   static guild(guildId: Snowflake): string {
     return encodeEndpoint`guilds/${guildId}`;
   }
