@@ -11,10 +11,10 @@ import type { RESTManager } from "./RESTManager.js";
  * @public
  */
 export class PollREST {
-  restManager: RESTManager;
+  private _restManager: RESTManager;
 
   constructor(restManager: RESTManager) {
-    this.restManager = restManager;
+    this._restManager = restManager;
   }
 
   /**
@@ -26,8 +26,8 @@ export class PollREST {
     answerId: number,
     options?: GetPollAnswerVotesOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = restManager.get<Result, RESTGetPollAnswerVotesStringParams>(
+    const { _restManager } = this;
+    const request = _restManager.get<Result, RESTGetPollAnswerVotesStringParams>(
       Endpoints.channelPollAnswer(channelId, messageId, answerId),
       options,
     );
@@ -39,8 +39,8 @@ export class PollREST {
    * @see https://discord.com/developers/docs/resources/poll#end-poll
    */
   postPollExpire<Result = RESTPostPollExpire>(channelId: Snowflake, messageId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = restManager.post<Result>(Endpoints.channelPollExpire(channelId, messageId));
+    const { _restManager } = this;
+    const request = _restManager.post<Result>(Endpoints.channelPollExpire(channelId, messageId));
 
     return request;
   }

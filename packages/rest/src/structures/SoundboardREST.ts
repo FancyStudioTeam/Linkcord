@@ -18,10 +18,10 @@ import type { RESTManager } from "./RESTManager.js";
  * @public
  */
 export class SoundboardREST {
-  restManager: RESTManager;
+  private _restManager: RESTManager;
 
   constructor(restManager: RESTManager) {
-    this.restManager = restManager;
+    this._restManager = restManager;
   }
 
   /**
@@ -31,8 +31,8 @@ export class SoundboardREST {
     guildId: Snowflake,
     soundboardSoundId: Snowflake,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.delete<Result>(Endpoints.guildSoundboardSound(guildId, soundboardSoundId));
+    const { _restManager } = this;
+    const request = await _restManager.delete<Result>(Endpoints.guildSoundboardSound(guildId, soundboardSoundId));
 
     return request;
   }
@@ -41,8 +41,8 @@ export class SoundboardREST {
    * @see https://discord.com/developers/docs/resources/soundboard#list-default-soundboard-sounds
    */
   async getDefaultSoundboardSounds<Result = RESTGetDefaultSoundboardSounds>(): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.soundboardDefaultSounds());
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.soundboardDefaultSounds());
 
     return request;
   }
@@ -54,8 +54,8 @@ export class SoundboardREST {
     guildId: Snowflake,
     soundboardSoundId: Snowflake,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildSoundboardSound(guildId, soundboardSoundId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildSoundboardSound(guildId, soundboardSoundId));
 
     return request;
   }
@@ -64,8 +64,8 @@ export class SoundboardREST {
    * @see https://discord.com/developers/docs/resources/soundboard#list-guild-soundboard-sounds
    */
   async getGuildSoundboardSounds<Result = RESTGetGuildSoundboardSounds>(guildId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildSoundboardSounds(guildId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildSoundboardSounds(guildId));
 
     return request;
   }
@@ -77,8 +77,8 @@ export class SoundboardREST {
     guildId: Snowflake,
     options: PatchGuildSoundboardSoundOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.patch<Result, RESTPatchGuildSoundboardSoundJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.patch<Result, RESTPatchGuildSoundboardSoundJSONParams>(
       Endpoints.guildSoundboardSounds(guildId),
       options,
     );
@@ -93,8 +93,8 @@ export class SoundboardREST {
     guildId: Snowflake,
     options: PostGuildSoundboardSoundOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.post<Result, RESTPostGuildSoundboardSoundJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.post<Result, RESTPostGuildSoundboardSoundJSONParams>(
       Endpoints.guildSoundboardSounds(guildId),
       options,
     );
@@ -109,8 +109,8 @@ export class SoundboardREST {
     channelId: Snowflake,
     options: PostSendSoundboardSoundOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.post<Result, RESTPostSendSoundboardSoundJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.post<Result, RESTPostSendSoundboardSoundJSONParams>(
       Endpoints.channelSendSoundboardSound(channelId),
       options,
     );

@@ -76,18 +76,18 @@ import type { RESTManager } from "./RESTManager.js";
  * @public
  */
 export class GuildREST {
-  restManager: RESTManager;
+  private _restManager: RESTManager;
 
   constructor(restManager: RESTManager) {
-    this.restManager = restManager;
+    this._restManager = restManager;
   }
 
   /**
    * @see https://discord.com/developers/docs/resources/guild#delete-guild
    */
   async deleteGuild<Result = RESTDeleteGuild>(guildId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.delete<Result>(Endpoints.guild(guildId));
+    const { _restManager } = this;
+    const request = await _restManager.delete<Result>(Endpoints.guild(guildId));
 
     return request;
   }
@@ -100,8 +100,8 @@ export class GuildREST {
     userId: Snowflake,
     options?: DeleteGuildBanOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.delete<Result>(Endpoints.guildBan(guildId, userId), options);
+    const { _restManager } = this;
+    const request = await _restManager.delete<Result>(Endpoints.guildBan(guildId, userId), options);
 
     return request;
   }
@@ -114,8 +114,8 @@ export class GuildREST {
     integrationId: Snowflake,
     options?: DeleteGuildIntegrationOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.delete<Result>(Endpoints.guildIntegration(guildId, integrationId), options);
+    const { _restManager } = this;
+    const request = await _restManager.delete<Result>(Endpoints.guildIntegration(guildId, integrationId), options);
 
     return request;
   }
@@ -128,8 +128,8 @@ export class GuildREST {
     userId: Snowflake,
     options?: DeleteGuildMemberOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.delete<Result>(Endpoints.guildMember(guildId, userId), options);
+    const { _restManager } = this;
+    const request = await _restManager.delete<Result>(Endpoints.guildMember(guildId, userId), options);
 
     return request;
   }
@@ -143,8 +143,8 @@ export class GuildREST {
     roleId: Snowflake,
     options?: DeleteGuildMemberRoleOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.delete<Result>(Endpoints.guildMemberRole(guildId, userId, roleId), options);
+    const { _restManager } = this;
+    const request = await _restManager.delete<Result>(Endpoints.guildMemberRole(guildId, userId, roleId), options);
 
     return request;
   }
@@ -157,8 +157,8 @@ export class GuildREST {
     roleId: Snowflake,
     options?: DeleteGuildRoleOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.delete<Result>(Endpoints.guildRole(guildId, roleId), options);
+    const { _restManager } = this;
+    const request = await _restManager.delete<Result>(Endpoints.guildRole(guildId, roleId), options);
 
     return request;
   }
@@ -167,8 +167,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#list-active-guild-threads
    */
   async getActiveGuildThreads<Result = RESTGetActiveGuildThreads>(guildId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildThreadsActive(guildId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildThreadsActive(guildId));
 
     return request;
   }
@@ -177,8 +177,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild
    */
   async getGuild<Result = RESTGetGuild>(guildId: Snowflake, options?: GetGuildOptions): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result, RESTGetGuildStringParams>(Endpoints.guild(guildId), options);
+    const { _restManager } = this;
+    const request = await _restManager.get<Result, RESTGetGuildStringParams>(Endpoints.guild(guildId), options);
 
     return request;
   }
@@ -187,8 +187,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild-ban
    */
   async getGuildBan<Result = RESTGetGuildBan>(guildId: Snowflake, userId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildBan(guildId, userId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildBan(guildId, userId));
 
     return request;
   }
@@ -197,8 +197,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild-bans
    */
   async getGuildBans<Result = RESTGetGuildBans>(guildId: Snowflake, options?: GetGuildBansOptions): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result, RESTGetGuildBansStringParams>(Endpoints.guildBans(guildId), options);
+    const { _restManager } = this;
+    const request = await _restManager.get<Result, RESTGetGuildBansStringParams>(Endpoints.guildBans(guildId), options);
 
     return request;
   }
@@ -207,8 +207,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild-channels
    */
   async getGuildChannels<Result = RESTGetGuildChannels>(guildId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildChannels(guildId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildChannels(guildId));
 
     return request;
   }
@@ -217,8 +217,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild-integrations
    */
   async getGuildIntegrations<Result = RESTGetGuildIntegrations>(guildId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildIntegrations(guildId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildIntegrations(guildId));
 
     return request;
   }
@@ -227,8 +227,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild-invites
    */
   async getGuildInvites<Result = RESTGetGuildInvites>(guildId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildInvites(guildId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildInvites(guildId));
 
     return request;
   }
@@ -237,8 +237,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild-member
    */
   async getGuildMember<Result = RESTGetGuildMember>(guildId: Snowflake, userId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildMember(guildId, userId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildMember(guildId, userId));
 
     return request;
   }
@@ -250,8 +250,8 @@ export class GuildREST {
     guildId: Snowflake,
     options?: GetGuildMembersOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result, RESTGetGuildMembersStringParams>(
+    const { _restManager } = this;
+    const request = await _restManager.get<Result, RESTGetGuildMembersStringParams>(
       Endpoints.guildMembers(guildId),
       options,
     );
@@ -266,8 +266,8 @@ export class GuildREST {
     guildId: Snowflake,
     options: GetGuildMembersSearchOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result, RESTGetGuildMembersSearchStringParams>(
+    const { _restManager } = this;
+    const request = await _restManager.get<Result, RESTGetGuildMembersSearchStringParams>(
       Endpoints.guildMembersSearch(guildId),
       options,
     );
@@ -279,8 +279,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild-onboarding
    */
   async getGuildOnboarding<Result = RESTGetGuildOnboarding>(guildId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildOnboarding(guildId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildOnboarding(guildId));
 
     return request;
   }
@@ -289,8 +289,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild-preview
    */
   async getGuildPreview<Result = RESTGetGuildPreview>(guildId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildPreview(guildId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildPreview(guildId));
 
     return request;
   }
@@ -302,8 +302,8 @@ export class GuildREST {
     guildId: Snowflake,
     options?: GetGuildPruneCountOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result, RESTGetGuildPruneCountStringParams>(
+    const { _restManager } = this;
+    const request = await _restManager.get<Result, RESTGetGuildPruneCountStringParams>(
       Endpoints.guildPrune(guildId),
       options,
     );
@@ -315,8 +315,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild-role
    */
   async getGuildRole<Result = RESTGetGuildRole>(guildId: Snowflake, roleId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildRole(guildId, roleId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildRole(guildId, roleId));
 
     return request;
   }
@@ -325,8 +325,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild-roles
    */
   async getGuildRoles<Result = RESTGetGuildRoles>(guildId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildRoles(guildId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildRoles(guildId));
 
     return request;
   }
@@ -335,8 +335,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild-vanity-url
    */
   async getGuildVanityUrl<Result = RESTGetGuildVanityUrl>(guildId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildVanityUrl(guildId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildVanityUrl(guildId));
 
     return request;
   }
@@ -345,8 +345,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild-voice-regions
    */
   async getGuildVoiceRegions<Result = RESTGetGuildVoiceRegions>(guildId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildRegions(guildId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildRegions(guildId));
 
     return request;
   }
@@ -355,8 +355,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild-welcome-screen
    */
   async getGuildWelcomeScreen<Result = RESTGetGuildWelcomeScreen>(guildId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildWelcomeScreen(guildId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildWelcomeScreen(guildId));
 
     return request;
   }
@@ -365,8 +365,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild-widget
    */
   async getGuildWidget<Result = RESTGetGuildWidget>(guildId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildWidget(guildId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildWidget(guildId));
 
     return request;
   }
@@ -378,8 +378,8 @@ export class GuildREST {
     guildId: Snowflake,
     options?: GetGuildWidgetImageOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result, RESTGetGuildWidgetImageStringParams>(
+    const { _restManager } = this;
+    const request = await _restManager.get<Result, RESTGetGuildWidgetImageStringParams>(
       Endpoints.guildWidgetPNG(guildId),
       options,
     );
@@ -391,8 +391,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#get-guild-widget-settings
    */
   async getGuildWidgetSettings<Result = RESTGetGuildWidgetSettings>(guildId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.get<Result>(Endpoints.guildWidget(guildId));
+    const { _restManager } = this;
+    const request = await _restManager.get<Result>(Endpoints.guildWidget(guildId));
 
     return request;
   }
@@ -401,8 +401,8 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#modify-guild
    */
   async patchGuild<Result = RESTPatchGuild>(guildId: Snowflake, options: PatchGuildOptions): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.patch<Result, RESTPatchGuildJSONParams>(Endpoints.guild(guildId), options);
+    const { _restManager } = this;
+    const request = await _restManager.patch<Result, RESTPatchGuildJSONParams>(Endpoints.guild(guildId), options);
 
     return request;
   }
@@ -414,8 +414,8 @@ export class GuildREST {
     guildId: Snowflake,
     options: PatchGuildChannelPositionsOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.patch<Result, RESTPatchGuildChannelPositionsJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.patch<Result, RESTPatchGuildChannelPositionsJSONParams>(
       Endpoints.guildChannels(guildId),
       options,
     );
@@ -431,8 +431,8 @@ export class GuildREST {
     userId: Snowflake,
     options: PatchGuildMemberOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.patch<Result, RESTPatchGuildMemberJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.patch<Result, RESTPatchGuildMemberJSONParams>(
       Endpoints.guildMember(guildId, userId),
       options,
     );
@@ -447,8 +447,8 @@ export class GuildREST {
     guildId: Snowflake,
     options: PatchGuildMemberCurrentOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.patch<Result, RESTPatchGuildMemberCurrentJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.patch<Result, RESTPatchGuildMemberCurrentJSONParams>(
       Endpoints.guildMember(guildId, "@me"),
       options,
     );
@@ -464,8 +464,8 @@ export class GuildREST {
     roleId: Snowflake,
     options: PatchGuildRoleOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.patch<Result, RESTPatchGuildRoleJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.patch<Result, RESTPatchGuildRoleJSONParams>(
       Endpoints.guildRole(guildId, roleId),
       options,
     );
@@ -480,8 +480,8 @@ export class GuildREST {
     guildId: Snowflake,
     options: PatchGuildRolePositionsOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.patch<Result, RESTPatchGuildRolePositionsJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.patch<Result, RESTPatchGuildRolePositionsJSONParams>(
       Endpoints.guildRoles(guildId),
       options,
     );
@@ -496,8 +496,8 @@ export class GuildREST {
     guildId: Snowflake,
     options: PatchGuildWelcomeScreenOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.patch<Result, RESTPatchGuildWelcomeScreenJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.patch<Result, RESTPatchGuildWelcomeScreenJSONParams>(
       Endpoints.guildWelcomeScreen(guildId),
       options,
     );
@@ -512,8 +512,8 @@ export class GuildREST {
     guildId: Snowflake,
     options: PatchGuildWidgetSettingsOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.patch<Result, RESTPatchGuildWidgetSettingsJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.patch<Result, RESTPatchGuildWidgetSettingsJSONParams>(
       Endpoints.guildWidget(guildId),
       options,
     );
@@ -528,8 +528,8 @@ export class GuildREST {
     guildId: Snowflake,
     options: PostGuildBanBulkOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.post<Result, RESTPostGuildBanBulkJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.post<Result, RESTPostGuildBanBulkJSONParams>(
       Endpoints.guildBulkBan(guildId),
       options,
     );
@@ -544,8 +544,8 @@ export class GuildREST {
     guildId: Snowflake,
     options: PostGuildChannelOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.post<Result, RESTPostGuildChannelJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.post<Result, RESTPostGuildChannelJSONParams>(
       Endpoints.guildChannels(guildId),
       options,
     );
@@ -560,8 +560,8 @@ export class GuildREST {
     guildId: Snowflake,
     options: PostGuildMFALevelOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.post<Result, RESTPostGuildMFALevelJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.post<Result, RESTPostGuildMFALevelJSONParams>(
       Endpoints.guildMfa(guildId),
       options,
     );
@@ -576,8 +576,8 @@ export class GuildREST {
     guildId: Snowflake,
     options: PostGuildPruneOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.post<Result, RESTPostGuildPruneJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.post<Result, RESTPostGuildPruneJSONParams>(
       Endpoints.guildPrune(guildId),
       options,
     );
@@ -589,8 +589,11 @@ export class GuildREST {
    * @see https://discord.com/developers/docs/resources/guild#create-guild-role
    */
   async postGuildRole<Result = RESTPostGuildRole>(guildId: Snowflake, options: PostGuildRoleOptions): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.post<Result, RESTPostGuildRoleJSONParams>(Endpoints.guildRoles(guildId), options);
+    const { _restManager } = this;
+    const request = await _restManager.post<Result, RESTPostGuildRoleJSONParams>(
+      Endpoints.guildRoles(guildId),
+      options,
+    );
 
     return request;
   }
@@ -603,8 +606,8 @@ export class GuildREST {
     userId: Snowflake,
     options?: PutGuildBanOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.put<Result, RESTPutGuildBanJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.put<Result, RESTPutGuildBanJSONParams>(
       Endpoints.guildBan(guildId, userId),
       options,
     );
@@ -619,8 +622,8 @@ export class GuildREST {
     guildId: Snowflake,
     options: PutGuildIncidentActionsOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.put<Result, RESTPutGuildIncidentActionsJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.put<Result, RESTPutGuildIncidentActionsJSONParams>(
       Endpoints.guildIncidentActions(guildId),
       options,
     );
@@ -636,8 +639,8 @@ export class GuildREST {
     userId: Snowflake,
     options: PutGuildMemberOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.put<Result, RESTPutGuildMemberJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.put<Result, RESTPutGuildMemberJSONParams>(
       Endpoints.guildMember(guildId, userId),
       options,
     );
@@ -654,8 +657,8 @@ export class GuildREST {
     roleId: Snowflake,
     options?: PutGuildMemberRoleOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.put<Result>(Endpoints.guildMemberRole(guildId, userId, roleId), options);
+    const { _restManager } = this;
+    const request = await _restManager.put<Result>(Endpoints.guildMemberRole(guildId, userId, roleId), options);
 
     return request;
   }
@@ -667,8 +670,8 @@ export class GuildREST {
     guildId: Snowflake,
     options: PutGuildOnboardingOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = await restManager.put<Result, RESTPutGuildOnboardingJSONParams>(
+    const { _restManager } = this;
+    const request = await _restManager.put<Result, RESTPutGuildOnboardingJSONParams>(
       Endpoints.guildOnboarding(guildId),
       options,
     );

@@ -1,10 +1,10 @@
 import type {
-  RESTGetCurrentUserVoiceState,
   RESTGetUserVoiceState,
+  RESTGetUserVoiceStateCurrent,
   RESTGetVoiceRegions,
-  RESTPatchCurrentUserVoiceState,
-  RESTPatchCurrentUserVoiceStateJSONParams,
   RESTPatchUserVoiceState,
+  RESTPatchUserVoiceStateCurrent,
+  RESTPatchUserVoiceStateCurrentJSONParams,
   RESTPatchUserVoiceStateJSONParams,
   Snowflake,
 } from "@fancystudioteam/linkcord-types";
@@ -15,28 +15,28 @@ import type { RESTManager } from "./RESTManager.js";
  * @public
  */
 export class VoiceREST {
-  restManager: RESTManager;
+  private _restManager: RESTManager;
 
   constructor(restManager: RESTManager) {
-    this.restManager = restManager;
-  }
-
-  /**
-   * @see https://discord.com/developers/docs/resources/voice#get-current-user-voice-state
-   */
-  getCurrentUserVoiceState<Result = RESTGetCurrentUserVoiceState>(guildId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = restManager.get<Result>(Endpoints.guildVoiceState(guildId, "@me"));
-
-    return request;
+    this._restManager = restManager;
   }
 
   /**
    * @see https://discord.com/developers/docs/resources/voice#get-user-voice-state
    */
   getUserVoiceState<Result = RESTGetUserVoiceState>(guildId: Snowflake, userId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = restManager.get<Result>(Endpoints.guildVoiceState(guildId, userId));
+    const { _restManager } = this;
+    const request = _restManager.get<Result>(Endpoints.guildVoiceState(guildId, userId));
+
+    return request;
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/voice#get-current-user-voice-state
+   */
+  getUserVoiceStateCurrent<Result = RESTGetUserVoiceStateCurrent>(guildId: Snowflake): Promise<Result> {
+    const { _restManager } = this;
+    const request = _restManager.get<Result>(Endpoints.guildVoiceState(guildId, "@me"));
 
     return request;
   }
@@ -45,24 +45,8 @@ export class VoiceREST {
    * @see https://discord.com/developers/docs/resources/voice#list-voice-regions
    */
   getVoiceRegions<Result = RESTGetVoiceRegions>(): Promise<Result> {
-    const { restManager } = this;
-    const request = restManager.get<Result>(Endpoints.voiceRegions());
-
-    return request;
-  }
-
-  /**
-   * @see https://discord.com/developers/docs/resources/voice#modify-current-user-voice-state
-   */
-  patchCurrentUserVoiceState<Result = RESTPatchCurrentUserVoiceState>(
-    guildId: Snowflake,
-    options: PatchCurrentUserVoiceStateOptions,
-  ): Promise<Result> {
-    const { restManager } = this;
-    const request = restManager.patch<Result, RESTPatchCurrentUserVoiceStateJSONParams>(
-      Endpoints.guildVoiceState(guildId, "@me"),
-      options,
-    );
+    const { _restManager } = this;
+    const request = _restManager.get<Result>(Endpoints.voiceRegions());
 
     return request;
   }
@@ -75,9 +59,25 @@ export class VoiceREST {
     userId: Snowflake,
     options: PatchUserVoiceStateOptions,
   ): Promise<Result> {
-    const { restManager } = this;
-    const request = restManager.patch<Result, RESTPatchUserVoiceStateJSONParams>(
+    const { _restManager } = this;
+    const request = _restManager.patch<Result, RESTPatchUserVoiceStateJSONParams>(
       Endpoints.guildVoiceState(guildId, userId),
+      options,
+    );
+
+    return request;
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/voice#modify-current-user-voice-state
+   */
+  patchUserVoiceStateCurrent<Result = RESTPatchUserVoiceStateCurrent>(
+    guildId: Snowflake,
+    options: PatchUserVoiceStateCurrentOptions,
+  ): Promise<Result> {
+    const { _restManager } = this;
+    const request = _restManager.patch<Result, RESTPatchUserVoiceStateCurrentJSONParams>(
+      Endpoints.guildVoiceState(guildId, "@me"),
       options,
     );
 
@@ -88,8 +88,8 @@ export class VoiceREST {
 /**
  * @public
  */
-export interface PatchCurrentUserVoiceStateOptions {
-  json: RESTPatchCurrentUserVoiceStateJSONParams;
+export interface PatchUserVoiceStateCurrentOptions {
+  json: RESTPatchUserVoiceStateCurrentJSONParams;
 }
 
 /**

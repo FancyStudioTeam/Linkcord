@@ -7,18 +7,18 @@ import type { RESTManager } from "./RESTManager.js";
  */
 // biome-ignore lint/style/useNamingConvention:
 export class SKUREST {
-  restManager: RESTManager;
+  private _restManager: RESTManager;
 
   constructor(restManager: RESTManager) {
-    this.restManager = restManager;
+    this._restManager = restManager;
   }
 
   /**
    * @see https://discord.com/developers/docs/resources/sku#list-skus
    */
   getSKUs<Result = RESTGetSKUs>(applicationId: Snowflake): Promise<Result> {
-    const { restManager } = this;
-    const request = restManager.get<Result>(Endpoints.applicationSkus(applicationId));
+    const { _restManager } = this;
+    const request = _restManager.get<Result>(Endpoints.applicationSkus(applicationId));
 
     return request;
   }
