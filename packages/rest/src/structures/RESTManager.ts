@@ -30,9 +30,6 @@ export class RESTManager extends EventEmitter<RESTManagerEvents> {
   private _createHeaders(reason?: string): Headers {
     const headers = new Headers();
 
-    /**
-     * TODO: Clear token if it contains the bot prefix.
-     */
     headers.set("Authorization", `Bot ${this.token}`);
     headers.set("User-Agent", "Linkcord");
 
@@ -68,37 +65,39 @@ export class RESTManager extends EventEmitter<RESTManagerEvents> {
     return (await request.json()) as Data;
   }
 
-  async delete<Data>(endpoint: string, options?: MakeRequestOptions<never, never>): Promise<Data> {
+  async delete<Data>(endpoint: string, options?: DeleteOptions): Promise<Data> {
     return await this._makeRequest<Data, never, never>(RESTMethods.Delete, endpoint, options);
   }
 
-  async get<Data, QueryStringParams = never>(
-    endpoint: string,
-    options?: MakeRequestOptions<never, QueryStringParams>,
-  ): Promise<Data> {
+  async get<Data, QueryStringParams = never>(endpoint: string, options?: GetOptions<QueryStringParams>): Promise<Data> {
     return await this._makeRequest<Data, never, QueryStringParams>(RESTMethods.Get, endpoint, options);
   }
 
-  async patch<Data, JSONParams = never>(
-    endpoint: string,
-    options?: MakeRequestOptions<JSONParams, never>,
-  ): Promise<Data> {
+  async patch<Data, JSONParams = never>(endpoint: string, options?: PatchOptions<JSONParams>): Promise<Data> {
     return await this._makeRequest<Data, JSONParams, never>(RESTMethods.Patch, endpoint, options);
   }
 
-  async post<Data, JSONParams = never>(
-    endpoint: string,
-    options?: MakeRequestOptions<JSONParams, never>,
-  ): Promise<Data> {
+  async post<Data, JSONParams = never>(endpoint: string, options?: PostOptions<JSONParams>): Promise<Data> {
     return await this._makeRequest<Data, JSONParams, never>(RESTMethods.Post, endpoint, options);
   }
 
-  async put<Data, JSONParams = never>(
-    endpoint: string,
-    options?: MakeRequestOptions<JSONParams, never>,
-  ): Promise<Data> {
+  async put<Data, JSONParams = never>(endpoint: string, options?: PutOptions<JSONParams>): Promise<Data> {
     return await this._makeRequest<Data, JSONParams, never>(RESTMethods.Put, endpoint, options);
   }
+}
+
+/**
+ * @public
+ */
+export interface DeleteOptions {
+  reason?: string;
+}
+
+/**
+ * @public
+ */
+export interface GetOptions<QueryStringParams> {
+  query?: QueryStringParams;
 }
 
 /**
@@ -110,6 +109,30 @@ export interface MakeRequestOptions<
 > {
   json?: JSONParams;
   query?: QueryStringParams;
+  reason?: string;
+}
+
+/**
+ * @public
+ */
+export interface PatchOptions<JSONParams> {
+  json?: JSONParams;
+  reason?: string;
+}
+
+/**
+ * @public
+ */
+export interface PostOptions<JSONParams> {
+  json?: JSONParams;
+  reason?: string;
+}
+
+/**
+ * @public
+ */
+export interface PutOptions<JSONParams> {
+  json?: JSONParams;
   reason?: string;
 }
 
