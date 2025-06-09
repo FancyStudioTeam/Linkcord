@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@fancystudioteam/api-extractor": "workspace:*",
-    "@fontsource-variable/jetbrains-mono": "5.2.5",
+    "@fontsource-variable/jetbrains-mono": "5.2.6",
     "@icons-pack/react-simple-icons": "13.0.0",
     "@mdx-js/rollup": "3.1.0",
     "@remix-run/react": "2.16.8",
