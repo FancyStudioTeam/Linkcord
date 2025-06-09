@@ -14,7 +14,7 @@
     "@swc/cli": "0.7.7",
     "@swc/core": "1.11.29",
     "@types/libsodium-wrappers": "0.7.14",
-    "@types/node": "22.15.29",
+    "@types/node": "22.15.30",
     "@types/ws": "8.18.1",
     "rimraf": "6.0.1",
     "typescript": "5.8.3",
