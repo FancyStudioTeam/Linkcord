@@ -12,7 +12,7 @@
   "devDependencies": {
     "@microsoft/api-extractor": "7.52.8",
     "@swc/cli": "0.7.7",
-    "@swc/core": "1.11.29",
+    "@swc/core": "1.11.31",
     "@types/libsodium-wrappers": "0.7.14",
     "@types/node": "22.15.29",
     "@types/ws": "8.18.1",
