@@ -1,22 +1,28 @@
 import { EventEmitter } from "node:events";
 import { replaceBotPrefix } from "@fancystudioteam/linkcord-utils";
 import { REST_VERSION } from "../utils/constants.js";
-import { APIManager } from "./APIManager.js";
+import { Applications } from "./api/Applications.js";
 import { Channels } from "./api/Channels.js";
 import { Guild } from "./api/Guilds.js";
+import { Lobbies } from "./api/Lobbies.js";
 import { Miscellaneous } from "./api/Miscellaneous.js";
+import { Monetization } from "./api/Monetization.js";
+import { Users } from "./api/Users.js";
 import { Webhooks } from "./api/Webhooks.js";
 
 /**
  * @public
  */
 export class RESTManager extends EventEmitter<RESTManagerEvents> {
-  readonly api = new APIManager(this);
+  readonly applications = new Applications(this);
   readonly channels = new Channels(this);
   readonly guilds = new Guild(this);
+  readonly lobbies = new Lobbies(this);
   readonly miscellaneous = new Miscellaneous(this);
+  readonly monetization = new Monetization(this);
   readonly options: RESTManagerOptions;
   readonly token: string;
+  readonly users = new Users(this);
   readonly webhooks = new Webhooks(this);
 
   constructor(options: RESTManagerOptions) {
