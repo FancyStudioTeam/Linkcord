@@ -4,6 +4,7 @@ import { REST_VERSION } from "../utils/constants.js";
 import { APIManager } from "./APIManager.js";
 import { Guild } from "./api/Guilds.js";
 import { Miscellaneous } from "./api/Miscellaneous.js";
+import { Webhooks } from "./api/Webhooks.js";
 
 /**
  * @public
@@ -14,6 +15,7 @@ export class RESTManager extends EventEmitter<RESTManagerEvents> {
   readonly miscellaneous = new Miscellaneous(this);
   readonly options: RESTManagerOptions;
   readonly token: string;
+  readonly webhooks = new Webhooks(this);
 
   constructor(options: RESTManagerOptions) {
     super();
