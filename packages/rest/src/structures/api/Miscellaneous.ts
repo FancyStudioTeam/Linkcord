@@ -1,0 +1,15 @@
+import type { RESTGetDefaultSoundboardSounds } from "@fancystudioteam/linkcord-types";
+import { Endpoints } from "../../utils/index.js";
+import { BaseAPI } from "./base/BaseAPI.js";
+
+/**
+ * @public
+ */
+export class Miscellaneous extends BaseAPI {
+  /**
+   * @see https://discord.com/developers/docs/resources/soundboard#list-default-soundboard-sounds
+   */
+  async getDefaultSoundboardSounds<Result = RESTGetDefaultSoundboardSounds>(): Promise<Result> {
+    return await super.get<Result>(Endpoints.soundboardDefaultSounds());
+  }
+}

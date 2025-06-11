@@ -3,6 +3,7 @@ import { replaceBotPrefix } from "@fancystudioteam/linkcord-utils";
 import { REST_VERSION } from "../utils/constants.js";
 import { APIManager } from "./APIManager.js";
 import { Guild } from "./api/Guilds.js";
+import { Miscellaneous } from "./api/Miscellaneous.js";
 
 /**
  * @public
@@ -10,6 +11,7 @@ import { Guild } from "./api/Guilds.js";
 export class RESTManager extends EventEmitter<RESTManagerEvents> {
   readonly api = new APIManager(this);
   readonly guilds = new Guild(this);
+  readonly miscellaneous = new Miscellaneous(this);
   readonly options: RESTManagerOptions;
   readonly token: string;
 

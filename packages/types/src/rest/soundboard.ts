@@ -22,6 +22,19 @@ export interface RESTPatchGuildSoundboardSoundJSONParams {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound-json-params
+ */
+export interface RESTPostChannelSoundboardSoundJSONParams {
+  sound_id: Snowflake;
+  /**
+   * @remarks
+   * - This field is required to play sounds from different guilds.
+   */
+  source_guild_id?: Snowflake;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound
  */
 export interface RESTPostGuildSoundboardSoundJSONParams {
@@ -30,19 +43,6 @@ export interface RESTPostGuildSoundboardSoundJSONParams {
   name: string;
   sound: AudioDataUri;
   volume?: number | null;
-}
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound-json-params
- */
-export interface RESTPostSendSoundboardSoundJSONParams {
-  sound_id: Snowflake;
-  /**
-   * @remarks
-   * - This field is required to play sounds from different guilds.
-   */
-  source_guild_id?: Snowflake;
 }
 
 /**
@@ -71,12 +71,12 @@ export type RESTPatchGuildSoundboardSound = APIGuildSoundboardSound;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound
+ * @see https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound
  */
-export type RESTPostGuildSoundboardSound = APIGuildSoundboardSound;
+export type RESTPostChannelSoundboardSound = undefined;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound
+ * @see https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound
  */
-export type RESTPostSendSoundboardSound = undefined;
+export type RESTPostGuildSoundboardSound = APIGuildSoundboardSound;
