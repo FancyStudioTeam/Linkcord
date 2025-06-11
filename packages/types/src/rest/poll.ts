@@ -17,23 +17,23 @@ export interface RESTCreatePollRequest {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/poll#get-answer-voters
+ */
+export interface RESTGetChannelPollAnswerVoters {
+  users: APIUser[];
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/poll#get-answer-voters-query-string-params
  */
-export interface RESTGetPollAnswerVotesStringParams {
+export interface RESTGetChannelPollAnswerVotersQueryStringParams {
   after?: Snowflake;
   limit?: number;
 }
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/poll#get-answer-voters
- */
-export interface RESTGetPollAnswerVotes {
-  users: APIUser[];
-}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/resources/poll#end-poll
  */
-export type RESTPostPollExpire = APIMessage;
+export type RESTPostChannelPollExpire = APIMessage;
