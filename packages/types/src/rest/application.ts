@@ -19,18 +19,10 @@ export interface RESTEditCurrentApplicationJSONParams {
   event_webhooks_status?: ApplicationEventWebhookStatus;
   event_webhooks_types?: ApplicationEventWebhookTypes[];
   event_webhooks_url?: string;
-  /**
-   * @remarks
-   * - This field value is only limited to intent flags.
-   */
   flags?: number;
   icon?: ImageDataUri | null;
   install_params?: APIApplicationInstallParams;
   integration_types_config?: APIApplicationIntegrationTypesConfiguration;
-  /**
-   * @remarks
-   * - This field value must include a valid endpoint url.
-   */
   interactions_endpoint_url?: string;
   role_connections_verification_url?: string;
   tags?: string[];

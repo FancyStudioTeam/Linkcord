@@ -9,10 +9,6 @@ export interface RESTCreateStageInstanceJSONParams {
   channel_id: Snowflake;
   guild_scheduled_event_id?: Snowflake;
   privacy_level?: StageInstancePrivacyLevel;
-  /**
-   * @remarks
-   * - The stage moderator must have the `MENTION_EVERYONE` permission.
-   */
   send_start_notification?: boolean;
   topic: string;
 }

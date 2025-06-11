@@ -1,4 +1,8 @@
-import type { RESTGetDefaultSoundboardSounds } from "@fancystudioteam/linkcord-types";
+import type {
+  RESTGetDefaultSoundboardSounds,
+  RESTGetGateway,
+  RESTGetGatewayBot,
+} from "@fancystudioteam/linkcord-types";
 import { Endpoints } from "../../utils/index.js";
 import { BaseAPI } from "./base/BaseAPI.js";
 
@@ -11,5 +15,19 @@ export class Miscellaneous extends BaseAPI {
    */
   async getDefaultSoundboardSounds<Result = RESTGetDefaultSoundboardSounds>(): Promise<Result> {
     return await super.get<Result>(Endpoints.soundboardDefaultSounds());
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/events/gateway#get-gateway
+   */
+  async getGateway<Result = RESTGetGateway>(): Promise<Result> {
+    return await super.get<Result>(Endpoints.gateway());
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/events/gateway#get-gateway-bot
+   */
+  async getGatewayBot<Result = RESTGetGatewayBot>(): Promise<Result> {
+    return await super.get<Result>(Endpoints.gatewayBot());
   }
 }

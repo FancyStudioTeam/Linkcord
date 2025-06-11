@@ -26,10 +26,6 @@ export interface RESTPatchGuildSoundboardSoundJSONParams {
  */
 export interface RESTPostChannelSoundboardSoundJSONParams {
   sound_id: Snowflake;
-  /**
-   * @remarks
-   * - This field is required to play sounds from different guilds.
-   */
   source_guild_id?: Snowflake;
 }
 

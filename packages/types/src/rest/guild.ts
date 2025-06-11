@@ -322,15 +322,7 @@ export interface RESTPutGuildBanJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-incident-actions-json-params
  */
 export interface RESTPutGuildIncidentActionsJSONParams {
-  /**
-   * @remarks
-   * - Using `null` as the field value will disable the action.
-   */
   dms_disabled_until?: ISO8601Date | null;
-  /**
-   * @remarks
-   * - Using `null` as the field value will disable the action.
-   */
   invites_disabled_until?: ISO8601Date | null;
 }
 
