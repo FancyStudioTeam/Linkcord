@@ -300,23 +300,11 @@ export interface APIIntegrationApplication {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-structure
- * @remarks
- * - This type is not documented by Discord.
- * - Partial structures may be incorrectly implemented here due lack of
- *   documentation.
- */
-export interface APIPartialGuild extends Partial<APIGuild> {}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/resources/guild#integration-object-integration-structure
- * @remarks
- * - This type is not documented by Discord.
- * - Partial structures may be incorrectly implemented here due lack of
- *   documentation.
  */
-export interface APIPartialIntegration extends Partial<APIIntegration> {}
+export interface APIPartialIntegration extends Pick<APIIntegration, "account" | "id" | "name" | "type"> {
+  application_id?: Snowflake;
+}
 
 /**
  * @public
@@ -345,6 +333,25 @@ export interface APIWelcomeScreenChannel {
   emoji_id: Snowflake | null;
   emoji_name: string | null;
 }
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-structure
+ */
+export type APIPartialGuild = Pick<
+  APIGuild,
+  | "approximate_member_count"
+  | "approximate_presence_count"
+  | "description"
+  | "discovery_splash"
+  | "emojis"
+  | "features"
+  | "icon"
+  | "id"
+  | "name"
+  | "splash"
+  | "stickers"
+>;
 
 /**
  * @public

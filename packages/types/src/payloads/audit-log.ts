@@ -1,5 +1,11 @@
 import type { Snowflake } from "../shared/discord.js";
 import type { APIApplicationCommand } from "./application-command.js";
+import type { APIAutoModerationRule } from "./auto-moderation.js";
+import type { APIThreadChannel } from "./channel.js";
+import type { APIGuildScheduledEvent } from "./guild-scheduled-event.js";
+import type { APIPartialIntegration } from "./guild.js";
+import type { APIPartialUser } from "./user.js";
+import type { APIWebhook } from "./webhook.js";
 
 /**
  * @public
@@ -8,6 +14,12 @@ import type { APIApplicationCommand } from "./application-command.js";
 export interface APIAuditLog {
   application_commands: APIApplicationCommand[];
   audit_log_entries: APIAuditLogEntry[];
+  auto_moderation_rules: APIAutoModerationRule[];
+  guild_scheduled_events: APIGuildScheduledEvent[];
+  integrations: APIPartialIntegration[];
+  threads: APIThreadChannel[];
+  users: APIPartialUser[];
+  webhooks: APIWebhook[];
 }
 
 /**

@@ -38,6 +38,29 @@ export interface APIConnection {
 }
 
 /**
+ * @public
+ * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
+ */
+export interface APIPartialUser
+  extends Pick<
+    APIUser,
+    | "accent_color"
+    | "avatar"
+    | "avatar_decoration_data"
+    | "banner"
+    | "bot"
+    | "collectibles"
+    | "discriminator"
+    | "id"
+    | "primary_guild"
+    | "public_flags"
+    | "system"
+    | "username"
+  > {
+  global_name?: string | null;
+}
+
+/**
  * @alpha
  * @remarks
  * - This is not officially documented in the Discord API documentation,
