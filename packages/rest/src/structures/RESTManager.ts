@@ -31,11 +31,15 @@ export class RESTManager extends EventEmitter<RESTManagerEvents> {
   /**
    * @internal
    */
-  private _createHeaders(reason?: string): Headers {
+  /**
+   * TODO: Handle authorization when it is not required.
+   */
+  private createHeaders(options?: CreateHeadersOptions): Headers {
+    const { reason } = options ?? {};
     const headers = new Headers();
 
-    headers.set("Authorization", `Bot ${this.token}`);
     headers.set("User-Agent", "Linkcord");
+    headers.set("Authorization", `Bot ${this.token}`);
 
     if (reason) {
       headers.set("X-Audit-Log-Reason", reason);
@@ -52,13 +56,12 @@ export class RESTManager extends EventEmitter<RESTManagerEvents> {
    * TODO: Allow query string params.
    * TODO: Handle data when response is not JSON.
    */
-  private async _makeRequest<Data, JSONParams = never, QueryStringParams = never>(
+  private async makeRequest<Data, JSONParams = never, QueryStringParams = never>(
     method: RESTMethods,
     endpoint: string,
     options?: MakeRequestOptions<JSONParams, QueryStringParams>,
   ): Promise<Data> {
-    const { reason } = options ?? {};
-    const headers = this._createHeaders(reason);
+    const headers = this.createHeaders(options);
     const url = new URL(`${RESTManager.DISCORD_API_URL}/${endpoint}`);
     const urlRequest = url.toString();
     const request = await fetch(urlRequest, {
@@ -69,74 +72,49 @@ export class RESTManager extends EventEmitter<RESTManagerEvents> {
     return (await request.json()) as Data;
   }
 
-  async delete<Data>(endpoint: string, options?: DeleteOptions): Promise<Data> {
-    return await this._makeRequest<Data, never, never>(RESTMethods.Delete, endpoint, options);
+  async delete<Data, QueryStringParams = RequestParams>(
+    endpoint: string,
+    options?: MakeRequestOptions<never, QueryStringParams>,
+  ): Promise<Data> {
+    return await this.makeRequest<Data, never, QueryStringParams>(RESTMethods.Delete, endpoint, options);
   }
 
-  async get<Data, QueryStringParams = never>(endpoint: string, options?: GetOptions<QueryStringParams>): Promise<Data> {
-    return await this._makeRequest<Data, never, QueryStringParams>(RESTMethods.Get, endpoint, options);
+  async get<Data, QueryStringParams = RequestParams>(
+    endpoint: string,
+    options?: MakeRequestOptions<never, QueryStringParams>,
+  ): Promise<Data> {
+    return await this.makeRequest<Data, never, QueryStringParams>(RESTMethods.Get, endpoint, options);
   }
 
-  async patch<Data, JSONParams = never>(endpoint: string, options?: PatchOptions<JSONParams>): Promise<Data> {
-    return await this._makeRequest<Data, JSONParams, never>(RESTMethods.Patch, endpoint, options);
+  async patch<Data, JSONParams = RequestParams, QueryStringParams = RequestParams>(
+    endpoint: string,
+    options: MakeRequestOptions<JSONParams, QueryStringParams>,
+  ): Promise<Data> {
+    return await this.makeRequest<Data, JSONParams, QueryStringParams>(RESTMethods.Patch, endpoint, options);
   }
 
-  async post<Data, JSONParams = never>(endpoint: string, options?: PostOptions<JSONParams>): Promise<Data> {
-    return await this._makeRequest<Data, JSONParams, never>(RESTMethods.Post, endpoint, options);
+  async post<Data, JSONParams = RequestParams, QueryStringParams = RequestParams>(
+    endpoint: string,
+    options: MakeRequestOptions<JSONParams, QueryStringParams>,
+  ): Promise<Data> {
+    return await this.makeRequest<Data, JSONParams, QueryStringParams>(RESTMethods.Post, endpoint, options);
   }
 
-  async put<Data, JSONParams = never>(endpoint: string, options?: PutOptions<JSONParams>): Promise<Data> {
-    return await this._makeRequest<Data, JSONParams, never>(RESTMethods.Put, endpoint, options);
+  async put<Data, JSONParams = RequestParams, QueryStringParams = RequestParams>(
+    endpoint: string,
+    options: MakeRequestOptions<JSONParams, QueryStringParams>,
+  ): Promise<Data> {
+    return await this.makeRequest<Data, JSONParams, QueryStringParams>(RESTMethods.Put, endpoint, options);
   }
 }
 
 /**
  * @public
  */
-export interface DeleteOptions {
-  reason?: string;
-}
-
-/**
- * @public
- */
-export interface GetOptions<QueryStringParams> {
-  query?: QueryStringParams;
-}
-
-/**
- * @public
- */
-export interface MakeRequestOptions<
-  JSONParams = Record<string, boolean | number | string>,
-  QueryStringParams = Record<string, boolean | number | string>,
-> {
+export interface MakeRequestOptions<JSONParams = RequestParams, QueryStringParams = RequestParams> {
+  includeAuthorization?: boolean;
   json?: JSONParams;
   query?: QueryStringParams;
-  reason?: string;
-}
-
-/**
- * @public
- */
-export interface PatchOptions<JSONParams> {
-  json?: JSONParams;
-  reason?: string;
-}
-
-/**
- * @public
- */
-export interface PostOptions<JSONParams> {
-  json?: JSONParams;
-  reason?: string;
-}
-
-/**
- * @public
- */
-export interface PutOptions<JSONParams> {
-  json?: JSONParams;
   reason?: string;
 }
 
@@ -153,6 +131,16 @@ export interface RESTManagerEvents {
 export interface RESTManagerOptions {
   token: string;
 }
+
+/**
+ * @public
+ */
+export type RequestParams = Record<string, boolean | number | string>;
+
+/**
+ * @public
+ */
+export type CreateHeadersOptions = Pick<MakeRequestOptions, "includeAuthorization" | "reason">;
 
 /**
  * @public

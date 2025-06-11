@@ -1,11 +1,4 @@
-import type {
-  DeleteOptions,
-  GetOptions,
-  PatchOptions,
-  PostOptions,
-  PutOptions,
-  RESTManager,
-} from "../../RESTManager.js";
+import type { MakeRequestOptions, RESTManager, RequestParams } from "../../RESTManager.js";
 
 /**
  * @public
@@ -17,7 +10,10 @@ export class BaseAPI {
     this.rest = restManager;
   }
 
-  protected async delete<Result>(endpoint: string, options?: DeleteOptions): Promise<Result> {
+  protected async delete<Result, QueryStringParams = RequestParams>(
+    endpoint: string,
+    options?: MakeRequestOptions<never, QueryStringParams>,
+  ): Promise<Result> {
     const { reason } = options ?? {};
     const { rest } = this;
     const request = await rest.delete<Result>(endpoint, {
@@ -27,9 +23,9 @@ export class BaseAPI {
     return request;
   }
 
-  protected async get<Result, QueryStringParams = never>(
+  protected async get<Result, QueryStringParams = RequestParams>(
     endpoint: string,
-    options?: GetOptions<QueryStringParams>,
+    options?: MakeRequestOptions<never, QueryStringParams>,
   ): Promise<Result> {
     const { query } = options ?? {};
     const { rest } = this;
@@ -40,9 +36,9 @@ export class BaseAPI {
     return request;
   }
 
-  protected async patch<Result, JSONParams = never>(
+  protected async patch<Result, JSONParams = RequestParams, QueryStringParams = RequestParams>(
     endpoint: string,
-    options?: PatchOptions<JSONParams>,
+    options?: MakeRequestOptions<JSONParams, QueryStringParams>,
   ): Promise<Result> {
     const { json, reason } = options ?? {};
     const { rest } = this;
@@ -54,9 +50,9 @@ export class BaseAPI {
     return request;
   }
 
-  protected async post<Result, JSONParams = never>(
+  protected async post<Result, JSONParams = RequestParams, QueryStringParams = RequestParams>(
     endpoint: string,
-    options?: PostOptions<JSONParams>,
+    options?: MakeRequestOptions<JSONParams, QueryStringParams>,
   ): Promise<Result> {
     const { json, reason } = options ?? {};
     const { rest } = this;
@@ -68,7 +64,10 @@ export class BaseAPI {
     return request;
   }
 
-  protected async put<Result, JSONParams = never>(endpoint: string, options?: PutOptions<JSONParams>): Promise<Result> {
+  protected async put<Result, JSONParams = RequestParams, QueryStringParams = RequestParams>(
+    endpoint: string,
+    options?: MakeRequestOptions<JSONParams, QueryStringParams>,
+  ): Promise<Result> {
     const { json, reason } = options ?? {};
     const { rest } = this;
     const request = await rest.put<Result, JSONParams>(endpoint, {
