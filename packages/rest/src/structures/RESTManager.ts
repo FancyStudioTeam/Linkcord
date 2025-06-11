@@ -2,12 +2,14 @@ import { EventEmitter } from "node:events";
 import { replaceBotPrefix } from "@fancystudioteam/linkcord-utils";
 import { REST_VERSION } from "../utils/constants.js";
 import { APIManager } from "./APIManager.js";
+import { Guild } from "./api/Guilds.js";
 
 /**
  * @public
  */
 export class RESTManager extends EventEmitter<RESTManagerEvents> {
   readonly api = new APIManager(this);
+  readonly guilds = new Guild(this);
   readonly options: RESTManagerOptions;
   readonly token: string;
 

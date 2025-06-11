@@ -1,12 +1,17 @@
 import type {
   RESTDeleteGuild,
+  RESTDeleteGuildAutoModerationRule,
   RESTDeleteGuildBan,
   RESTDeleteGuildIntegration,
   RESTDeleteGuildMember,
   RESTDeleteGuildMemberRole,
   RESTDeleteGuildRole,
-  RESTGetActiveGuildThreads,
+  RESTDeleteGuildSoundboardSound,
   RESTGetGuild,
+  RESTGetGuildAuditLog,
+  RESTGetGuildAuditLogStringParams,
+  RESTGetGuildAutoModerationRule,
+  RESTGetGuildAutoModerationRules,
   RESTGetGuildBan,
   RESTGetGuildBans,
   RESTGetGuildBansStringParams,
@@ -24,7 +29,10 @@ import type {
   RESTGetGuildPruneCountStringParams,
   RESTGetGuildRole,
   RESTGetGuildRoles,
+  RESTGetGuildSoundboardSound,
+  RESTGetGuildSoundboardSounds,
   RESTGetGuildStringParams,
+  RESTGetGuildThreadsActive,
   RESTGetGuildVanityUrl,
   RESTGetGuildVoiceRegions,
   RESTGetGuildWelcomeScreen,
@@ -33,6 +41,8 @@ import type {
   RESTGetGuildWidgetImageStringParams,
   RESTGetGuildWidgetSettings,
   RESTPatchGuild,
+  RESTPatchGuildAutoModerationRule,
+  RESTPatchGuildAutoModerationRuleJSONParams,
   RESTPatchGuildChannelPositions,
   RESTPatchGuildChannelPositionsJSONParams,
   RESTPatchGuildJSONParams,
@@ -44,10 +54,14 @@ import type {
   RESTPatchGuildRoleJSONParams,
   RESTPatchGuildRolePositions,
   RESTPatchGuildRolePositionsJSONParams,
+  RESTPatchGuildSoundboardSound,
+  RESTPatchGuildSoundboardSoundJSONParams,
   RESTPatchGuildWelcomeScreen,
   RESTPatchGuildWelcomeScreenJSONParams,
   RESTPatchGuildWidgetSettings,
   RESTPatchGuildWidgetSettingsJSONParams,
+  RESTPostGuildAutoModerationRule,
+  RESTPostGuildAutoModerationRuleJSONParams,
   RESTPostGuildBanBulk,
   RESTPostGuildBanBulkJSONParams,
   RESTPostGuildChannel,
@@ -58,6 +72,8 @@ import type {
   RESTPostGuildPruneJSONParams,
   RESTPostGuildRole,
   RESTPostGuildRoleJSONParams,
+  RESTPostGuildSoundboardSound,
+  RESTPostGuildSoundboardSoundJSONParams,
   RESTPutGuildBan,
   RESTPutGuildBanJSONParams,
   RESTPutGuildIncidentActions,
@@ -69,8 +85,8 @@ import type {
   RESTPutGuildOnboardingJSONParams,
   Snowflake,
 } from "@fancystudioteam/linkcord-types";
-import { Endpoints } from "../../../utils/index.js";
-import { BaseAPI } from "../base/BaseAPI.js";
+import { Endpoints } from "../../utils/index.js";
+import { BaseAPI } from "./base/BaseAPI.js";
 
 /**
  * @public
@@ -81,6 +97,17 @@ export class Guild extends BaseAPI {
    */
   async deleteGuild<Result = RESTDeleteGuild>(guildId: Snowflake): Promise<Result> {
     return await super.delete<Result>(Endpoints.guild(guildId));
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/auto-moderation#delete-auto-moderation-rule
+   */
+  async deleteGuildAutoModerationRule<Result = RESTDeleteGuildAutoModerationRule>(
+    guildId: Snowflake,
+    autoModerationRuleId: Snowflake,
+    options?: DeleteGuildAutoModerationRuleOptions,
+  ): Promise<Result> {
+    return await super.delete<Result>(Endpoints.guildAutoModerationRule(guildId, autoModerationRuleId), options);
   }
 
   /**
@@ -140,10 +167,14 @@ export class Guild extends BaseAPI {
   }
 
   /**
-   * @see https://discord.com/developers/docs/resources/guild#list-active-guild-threads
+   * @see https://discord.com/developers/docs/resources/soundboard#delete-guild-soundboard-sound
    */
-  async getActiveGuildThreads<Result = RESTGetActiveGuildThreads>(guildId: Snowflake): Promise<Result> {
-    return await super.get<Result>(Endpoints.guildThreadsActive(guildId));
+  async deleteGuildSoundboardSound<Result = RESTDeleteGuildSoundboardSound>(
+    guildId: Snowflake,
+    soundboardSoundId: Snowflake,
+    options?: DeleteGuildSoundboardSoundOptions,
+  ): Promise<Result> {
+    return await super.delete<Result>(Endpoints.guildSoundboardSound(guildId, soundboardSoundId), options);
   }
 
   /**
@@ -151,6 +182,33 @@ export class Guild extends BaseAPI {
    */
   async getGuild<Result = RESTGetGuild>(guildId: Snowflake, options?: GetGuildOptions): Promise<Result> {
     return await super.get<Result, RESTGetGuildStringParams>(Endpoints.guild(guildId), options);
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/audit-log#get-guild-audit-log
+   */
+  async getGuildAuditLog<Result = RESTGetGuildAuditLog>(
+    guildId: Snowflake,
+    options?: GetGuildAuditLogOptions,
+  ): Promise<Result> {
+    return await super.get<Result, RESTGetGuildAuditLogStringParams>(Endpoints.guildAuditLogs(guildId), options);
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/auto-moderation#get-auto-moderation-rule
+   */
+  async getGuildAutoModerationRule<Result = RESTGetGuildAutoModerationRule>(
+    guildId: Snowflake,
+    autoModerationRuleId: Snowflake,
+  ): Promise<Result> {
+    return await super.get<Result>(Endpoints.guildAutoModerationRule(guildId, autoModerationRuleId));
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/auto-moderation#list-auto-moderation-rules-for-guild
+   */
+  async getGuildAutoModerationRules<Result = RESTGetGuildAutoModerationRules>(guildId: Snowflake): Promise<Result> {
+    return await super.get<Result>(Endpoints.guildAutoModerationRules(guildId));
   }
 
   /**
@@ -257,6 +315,30 @@ export class Guild extends BaseAPI {
   }
 
   /**
+   * @see https://discord.com/developers/docs/resources/soundboard#get-guild-soundboard-sound
+   */
+  async getGuildSoundboardSound<Result = RESTGetGuildSoundboardSound>(
+    guildId: Snowflake,
+    soundboardSoundId: Snowflake,
+  ): Promise<Result> {
+    return await super.get<Result>(Endpoints.guildSoundboardSound(guildId, soundboardSoundId));
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/soundboard#list-guild-soundboard-sounds
+   */
+  async getGuildSoundboardSounds<Result = RESTGetGuildSoundboardSounds>(guildId: Snowflake): Promise<Result> {
+    return await super.get<Result>(Endpoints.guildSoundboardSounds(guildId));
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/guild#list-active-guild-threads
+   */
+  async getGuildThreadsActive<Result = RESTGetGuildThreadsActive>(guildId: Snowflake): Promise<Result> {
+    return await super.get<Result>(Endpoints.guildThreadsActive(guildId));
+  }
+
+  /**
    * @see https://discord.com/developers/docs/resources/guild#get-guild-vanity-url
    */
   async getGuildVanityUrl<Result = RESTGetGuildVanityUrl>(guildId: Snowflake): Promise<Result> {
@@ -306,6 +388,20 @@ export class Guild extends BaseAPI {
    */
   async patchGuild<Result = RESTPatchGuild>(guildId: Snowflake, options: PatchGuildOptions): Promise<Result> {
     return await super.patch<Result, RESTPatchGuildJSONParams>(Endpoints.guild(guildId), options);
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/auto-moderation#modify-auto-moderation-rule
+   */
+  async patchGuildAutoModerationRule<Result = RESTPatchGuildAutoModerationRule>(
+    guildId: Snowflake,
+    autoModerationRuleId: Snowflake,
+    options: PatchGuildAutoModerationRuleOptions,
+  ): Promise<Result> {
+    return await super.patch<Result, RESTPatchGuildAutoModerationRuleJSONParams>(
+      Endpoints.guildAutoModerationRule(guildId, autoModerationRuleId),
+      options,
+    );
   }
 
   /**
@@ -367,6 +463,19 @@ export class Guild extends BaseAPI {
   }
 
   /**
+   * @see https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound
+   */
+  async patchGuildSoundboardSound<Result = RESTPatchGuildSoundboardSound>(
+    guildId: Snowflake,
+    options: PatchGuildSoundboardSoundOptions,
+  ): Promise<Result> {
+    return await super.patch<Result, RESTPatchGuildSoundboardSoundJSONParams>(
+      Endpoints.guildSoundboardSounds(guildId),
+      options,
+    );
+  }
+
+  /**
    * @see https://discord.com/developers/docs/resources/guild#modify-guild-welcome-screen
    */
   async patchGuildWelcomeScreen<Result = RESTPatchGuildWelcomeScreen>(
@@ -387,6 +496,19 @@ export class Guild extends BaseAPI {
     options: PatchGuildWidgetSettingsOptions,
   ): Promise<Result> {
     return await super.patch<Result, RESTPatchGuildWidgetSettingsJSONParams>(Endpoints.guildWidget(guildId), options);
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/auto-moderation#create-auto-moderation-rule
+   */
+  async postGuildAutoModerationRule<Result = RESTPostGuildAutoModerationRule>(
+    guildId: Snowflake,
+    options: PostGuildAutoModerationRuleOptions,
+  ): Promise<Result> {
+    return await super.post<Result, RESTPostGuildAutoModerationRuleJSONParams>(
+      Endpoints.guildAutoModerationRules(guildId),
+      options,
+    );
   }
 
   /**
@@ -434,6 +556,19 @@ export class Guild extends BaseAPI {
    */
   async postGuildRole<Result = RESTPostGuildRole>(guildId: Snowflake, options: PostGuildRoleOptions): Promise<Result> {
     return await super.post<Result, RESTPostGuildRoleJSONParams>(Endpoints.guildRoles(guildId), options);
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound
+   */
+  async postGuildSoundboardSound<Result = RESTPostGuildSoundboardSound>(
+    guildId: Snowflake,
+    options: PostGuildSoundboardSoundOptions,
+  ): Promise<Result> {
+    return await super.post<Result, RESTPostGuildSoundboardSoundJSONParams>(
+      Endpoints.guildSoundboardSounds(guildId),
+      options,
+    );
   }
 
   /**
@@ -497,6 +632,13 @@ export class Guild extends BaseAPI {
 /**
  * @public
  */
+export interface DeleteGuildAutoModerationRuleOptions {
+  reason?: string;
+}
+
+/**
+ * @public
+ */
 export interface DeleteGuildBanOptions {
   reason?: string;
 }
@@ -527,6 +669,20 @@ export interface DeleteGuildMemberRoleOptions {
  */
 export interface DeleteGuildRoleOptions {
   reason?: string;
+}
+
+/**
+ * @public
+ */
+export interface DeleteGuildSoundboardSoundOptions {
+  reason?: string;
+}
+
+/**
+ * @public
+ */
+export interface GetGuildAuditLogOptions {
+  query?: RESTGetGuildAuditLogStringParams;
 }
 
 /**
@@ -574,6 +730,14 @@ export interface GetGuildWidgetImageOptions {
 /**
  * @public
  */
+export interface PatchGuildAutoModerationRuleOptions {
+  json: RESTPatchGuildAutoModerationRuleJSONParams;
+  reason?: string;
+}
+
+/**
+ * @public
+ */
 export interface PatchGuildChannelPositionsOptions {
   json: RESTPatchGuildChannelPositionsJSONParams;
   reason?: string;
@@ -598,6 +762,14 @@ export interface PatchGuildMemberOptions {
 /**
  * @public
  */
+export interface PatchGuildOptions {
+  json: RESTPatchGuildJSONParams;
+  reason?: string;
+}
+
+/**
+ * @public
+ */
 export interface PatchGuildRoleOptions {
   json: RESTPatchGuildRoleJSONParams;
   reason?: string;
@@ -614,8 +786,8 @@ export interface PatchGuildRolePositionsOptions {
 /**
  * @public
  */
-export interface PatchGuildOptions {
-  json: RESTPatchGuildJSONParams;
+export interface PatchGuildSoundboardSoundOptions {
+  json: RESTPatchGuildSoundboardSoundJSONParams;
   reason?: string;
 }
 
@@ -632,6 +804,14 @@ export interface PatchGuildWelcomeScreenOptions {
  */
 export interface PatchGuildWidgetSettingsOptions {
   json: RESTPatchGuildWidgetSettingsJSONParams;
+  reason?: string;
+}
+
+/**
+ * @public
+ */
+export interface PostGuildAutoModerationRuleOptions {
+  json: RESTPostGuildAutoModerationRuleJSONParams;
   reason?: string;
 }
 
@@ -669,6 +849,14 @@ export interface PostGuildPruneOptions {
  */
 export interface PostGuildRoleOptions {
   json: RESTPostGuildRoleJSONParams;
+  reason?: string;
+}
+
+/**
+ * @public
+ */
+export interface PostGuildSoundboardSoundOptions {
+  json: RESTPostGuildSoundboardSoundJSONParams;
   reason?: string;
 }
 

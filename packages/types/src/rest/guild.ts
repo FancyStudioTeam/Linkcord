@@ -38,15 +38,6 @@ import type { ISO8601Date, ImageDataUri, Locale, Snowflake } from "../shared/dis
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/guild#list-active-guild-threads
- */
-export interface RESTGetActiveGuildThreads {
-  members: APIThreadMember[];
-  threads: APIThreadChannel[];
-}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/resources/guild#get-guild-bans-query-string-params
  */
 export interface RESTGetGuildBansStringParams {
@@ -96,6 +87,15 @@ export interface RESTGetGuildPruneCountStringParams {
  */
 export interface RESTGetGuildStringParams {
   with_counts?: boolean;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild#list-active-guild-threads
+ */
+export interface RESTGetGuildThreadsActive {
+  members: APIThreadMember[];
+  threads: APIThreadChannel[];
 }
 
 /**
