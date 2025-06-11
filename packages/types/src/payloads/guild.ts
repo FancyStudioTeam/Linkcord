@@ -308,6 +308,27 @@ export interface APIPartialIntegration extends Pick<APIIntegration, "account" | 
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-structure
+ */
+export interface APIPartialGuild
+  extends Pick<
+    APIGuild,
+    | "approximate_member_count"
+    | "approximate_presence_count"
+    | "description"
+    | "discovery_splash"
+    | "features"
+    | "icon"
+    | "id"
+    | "name"
+    | "splash"
+    | "stickers"
+  > {
+  emojis?: APIEmoji[];
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#unavailable-guild-object-example-unavailable-guild
  */
 export interface APIUnavailableGuild extends Pick<APIGuild, "id"> {
@@ -333,25 +354,6 @@ export interface APIWelcomeScreenChannel {
   emoji_id: Snowflake | null;
   emoji_name: string | null;
 }
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-structure
- */
-export type APIPartialGuild = Pick<
-  APIGuild,
-  | "approximate_member_count"
-  | "approximate_presence_count"
-  | "description"
-  | "discovery_splash"
-  | "emojis"
-  | "features"
-  | "icon"
-  | "id"
-  | "name"
-  | "splash"
-  | "stickers"
->;
 
 /**
  * @public
