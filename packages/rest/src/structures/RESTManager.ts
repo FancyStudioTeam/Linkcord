@@ -2,6 +2,7 @@ import { EventEmitter } from "node:events";
 import { replaceBotPrefix } from "@fancystudioteam/linkcord-utils";
 import { REST_VERSION } from "../utils/constants.js";
 import { APIManager } from "./APIManager.js";
+import { Channels } from "./api/Channels.js";
 import { Guild } from "./api/Guilds.js";
 import { Miscellaneous } from "./api/Miscellaneous.js";
 import { Webhooks } from "./api/Webhooks.js";
@@ -11,6 +12,7 @@ import { Webhooks } from "./api/Webhooks.js";
  */
 export class RESTManager extends EventEmitter<RESTManagerEvents> {
   readonly api = new APIManager(this);
+  readonly channels = new Channels(this);
   readonly guilds = new Guild(this);
   readonly miscellaneous = new Miscellaneous(this);
   readonly options: RESTManagerOptions;
