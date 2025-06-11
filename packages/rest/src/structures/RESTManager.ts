@@ -4,6 +4,7 @@ import { REST_VERSION } from "../utils/constants.js";
 import { Applications } from "./api/Applications.js";
 import { Channels } from "./api/Channels.js";
 import { Guild } from "./api/Guilds.js";
+import { Invites } from "./api/Invites.js";
 import { Lobbies } from "./api/Lobbies.js";
 import { Miscellaneous } from "./api/Miscellaneous.js";
 import { Monetization } from "./api/Monetization.js";
@@ -17,10 +18,10 @@ export class RESTManager extends EventEmitter<RESTManagerEvents> {
   readonly applications = new Applications(this);
   readonly channels = new Channels(this);
   readonly guilds = new Guild(this);
+  readonly invites = new Invites(this);
   readonly lobbies = new Lobbies(this);
   readonly miscellaneous = new Miscellaneous(this);
   readonly monetization = new Monetization(this);
-  readonly options: RESTManagerOptions;
   readonly token: string;
   readonly users = new Users(this);
   readonly webhooks = new Webhooks(this);
@@ -30,7 +31,6 @@ export class RESTManager extends EventEmitter<RESTManagerEvents> {
 
     const { token } = options;
 
-    this.options = options;
     this.token = replaceBotPrefix(token);
   }
 

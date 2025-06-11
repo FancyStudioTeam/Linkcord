@@ -35,6 +35,8 @@ import type {
   RESTGetGuildThreadsActive,
   RESTGetGuildVanityUrl,
   RESTGetGuildVoiceRegions,
+  RESTGetGuildVoiceState,
+  RESTGetGuildVoiceStateCurrent,
   RESTGetGuildWebhooks,
   RESTGetGuildWelcomeScreen,
   RESTGetGuildWidget,
@@ -57,6 +59,10 @@ import type {
   RESTPatchGuildRolePositionsJSONParams,
   RESTPatchGuildSoundboardSound,
   RESTPatchGuildSoundboardSoundJSONParams,
+  RESTPatchGuildVoiceState,
+  RESTPatchGuildVoiceStateCurrent,
+  RESTPatchGuildVoiceStateCurrentJSONParams,
+  RESTPatchGuildVoiceStateJSONParams,
   RESTPatchGuildWelcomeScreen,
   RESTPatchGuildWelcomeScreenJSONParams,
   RESTPatchGuildWidgetSettings,
@@ -354,6 +360,20 @@ export class Guild extends BaseAPI {
   }
 
   /**
+   * @see https://discord.com/developers/docs/resources/voice#get-user-voice-state
+   */
+  async getGuildVoiceState<Result = RESTGetGuildVoiceState>(guildId: Snowflake, userId: Snowflake): Promise<Result> {
+    return await super.get<Result>(Endpoints.guildVoiceState(guildId, userId));
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/voice#get-current-user-voice-state
+   */
+  async getGuildVoiceStateCurrent<Result = RESTGetGuildVoiceStateCurrent>(guildId: Snowflake): Promise<Result> {
+    return await super.get<Result>(Endpoints.guildVoiceState(guildId, "@me"));
+  }
+
+  /**
    * @see https://discord.com/developers/docs/resources/webhook#get-guild-webhooks
    */
   async getGuildWebhooks<Result = RESTGetGuildWebhooks>(guildId: Snowflake): Promise<Result> {
@@ -479,6 +499,33 @@ export class Guild extends BaseAPI {
   ): Promise<Result> {
     return await super.patch<Result, RESTPatchGuildSoundboardSoundJSONParams>(
       Endpoints.guildSoundboardSounds(guildId),
+      options,
+    );
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/voice#modify-user-voice-state
+   */
+  async patchGuildVoiceState<Result = RESTPatchGuildVoiceState>(
+    guildId: Snowflake,
+    userId: Snowflake,
+    options: PatchGuildVoiceStateOptions,
+  ): Promise<Result> {
+    return await super.patch<Result, RESTPatchGuildVoiceStateJSONParams>(
+      Endpoints.guildVoiceState(guildId, userId),
+      options,
+    );
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/voice#modify-current-user-voice-state
+   */
+  async patchGuildVoiceStateCurrent<Result = RESTPatchGuildVoiceStateCurrent>(
+    guildId: Snowflake,
+    options: PatchGuildVoiceStateCurrentOptions,
+  ): Promise<Result> {
+    return await super.patch<Result, RESTPatchGuildVoiceStateCurrentJSONParams>(
+      Endpoints.guildVoiceState(guildId, "@me"),
       options,
     );
   }
@@ -796,6 +843,22 @@ export interface PatchGuildRolePositionsOptions {
  */
 export interface PatchGuildSoundboardSoundOptions {
   json: RESTPatchGuildSoundboardSoundJSONParams;
+  reason?: string;
+}
+
+/**
+ * @public
+ */
+export interface PatchGuildVoiceStateCurrentOptions {
+  json: RESTPatchGuildVoiceStateCurrentJSONParams;
+  reason?: string;
+}
+
+/**
+ * @public
+ */
+export interface PatchGuildVoiceStateOptions {
+  json: RESTPatchGuildVoiceStateJSONParams;
   reason?: string;
 }
 

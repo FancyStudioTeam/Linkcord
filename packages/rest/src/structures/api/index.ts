@@ -1,6 +1,7 @@
 export * from "./Applications.js";
 export * from "./Channels.js";
 export * from "./Guilds.js";
+export * from "./Invites.js";
 export * from "./Lobbies.js";
 export * from "./Miscellaneous.js";
 export * from "./Monetization.js";

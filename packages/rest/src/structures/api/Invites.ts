@@ -1,16 +1,16 @@
 import type { RESTDeleteInvite, RESTGetInvite, RESTGetInviteStringParams } from "@fancystudioteam/linkcord-types";
-import { Endpoints } from "../../../utils/index.js";
-import { BaseAPI } from "../base/BaseAPI.js";
+import { Endpoints } from "../../utils/index.js";
+import { BaseAPI } from "./base/BaseAPI.js";
 
 /**
  * @public
  */
-export class Invite extends BaseAPI {
+export class Invites extends BaseAPI {
   /**
    * @see https://discord.com/developers/docs/resources/invite#delete-invite
    */
-  async deleteInvite<Result = RESTDeleteInvite>(inviteCode: string): Promise<Result> {
-    return await super.delete<Result>(Endpoints.invite(inviteCode));
+  async deleteInvite<Result = RESTDeleteInvite>(inviteCode: string, options?: DeleteInviteOptions): Promise<Result> {
+    return await super.delete<Result>(Endpoints.invite(inviteCode), options);
   }
 
   /**
@@ -19,6 +19,13 @@ export class Invite extends BaseAPI {
   async getInvite<Result = RESTGetInvite>(inviteCode: string, options?: GetInviteOptions): Promise<Result> {
     return await super.get<Result, RESTGetInviteStringParams>(Endpoints.invite(inviteCode), options);
   }
+}
+
+/**
+ * @public
+ */
+export interface DeleteInviteOptions {
+  reason?: string;
 }
 
 /**
