@@ -35,6 +35,7 @@ import type {
   RESTGetGuildThreadsActive,
   RESTGetGuildVanityUrl,
   RESTGetGuildVoiceRegions,
+  RESTGetGuildWebhooks,
   RESTGetGuildWelcomeScreen,
   RESTGetGuildWidget,
   RESTGetGuildWidgetImage,
@@ -350,6 +351,13 @@ export class Guild extends BaseAPI {
    */
   async getGuildVoiceRegions<Result = RESTGetGuildVoiceRegions>(guildId: Snowflake): Promise<Result> {
     return await super.get<Result>(Endpoints.guildRegions(guildId));
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/webhook#get-guild-webhooks
+   */
+  async getGuildWebhooks<Result = RESTGetGuildWebhooks>(guildId: Snowflake): Promise<Result> {
+    return await super.get<Result>(Endpoints.guildWebhooks(guildId));
   }
 
   /**

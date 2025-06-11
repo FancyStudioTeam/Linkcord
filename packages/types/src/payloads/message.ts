@@ -316,12 +316,22 @@ export interface APIMessageSnapshotMessage
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
- * @remarks
- * - This type is not documented by Discord.
- * - Partial structures may be incorrectly implemented here due lack of
- *   documentation.
  */
-export interface APIPartialMessage extends Partial<APIMessage> {}
+export interface APIPartialMessage
+  extends Pick<APIMessage, "application_id" | "author" | "channel_id" | "content" | "flags" | "id"> {
+  channel?: APIChannel;
+  recipient_id?: Snowflake;
+  type?: MessageTypes;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
+ */
+export interface APIPartialAttachment {
+  filename?: string;
+  id: Snowflake;
+}
 
 /**
  * @public
@@ -370,16 +380,6 @@ export interface APIRoleSubscriptionData {
   tier_name: string;
   total_months_subscribed: number;
 }
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
- * @remarks
- * - This type is not documented by Discord.
- * - Partial structures may be incorrectly implemented here due lack of
- *   documentation.
- */
-export type APIPartialAttachment = Partial<APIAttachment>;
 
 /**
  * @public

@@ -314,6 +314,10 @@ export class Endpoints {
     return encodeEndpoint`guilds/${guildId}/voice-states/${userId}`;
   }
 
+  static guildWebhooks(guildId: Snowflake): string {
+    return encodeEndpoint`guilds/${guildId}/webhooks`;
+  }
+
   static guildWelcomeScreen(guildId: Snowflake): string {
     return encodeEndpoint`guilds/${guildId}/welcome-screen`;
   }
