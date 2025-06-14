@@ -54,9 +54,10 @@ export class BaseAPI {
     endpoint: string,
     options?: MakeRequestOptions<JSONParams, QueryStringParams, FormParams>,
   ): Promise<Result> {
-    const { json, reason } = options ?? {};
+    const { form, json, reason } = options ?? {};
     const { rest } = this;
     const request = await rest.post<Result, JSONParams, QueryStringParams, FormParams>(endpoint, {
+      form,
       json,
       reason,
     });

@@ -105,7 +105,7 @@ export class RESTManager extends EventEmitter<RESTManagerEvents> {
 
   async post<Data, JSONParams = never, QueryStringParams = never, FormParams = never>(
     endpoint: string,
-    options: MakeRequestOptions<JSONParams, QueryStringParams>,
+    options: MakeRequestOptions<JSONParams, QueryStringParams, FormParams>,
   ): Promise<Data> {
     return await this.makeRequest<Data, JSONParams, QueryStringParams, FormParams>(RESTMethods.Post, endpoint, options);
   }
