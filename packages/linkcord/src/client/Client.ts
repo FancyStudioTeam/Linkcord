@@ -8,6 +8,7 @@ import {
 import { RESTManager, type RESTManagerOptions } from "@fancystudioteam/linkcord-rest";
 import type { If, Snowflake } from "@fancystudioteam/linkcord-types";
 import { VoiceManager, type VoiceManagerOptions } from "@fancystudioteam/linkcord-voice";
+import type { ChatInputCommandInteraction } from "../structures/discord/ChatInputCommandInteraction.js";
 import type { User } from "../structures/index.js";
 import { handlers } from "./handlers/handlers.js";
 
@@ -80,6 +81,7 @@ export class Client<Ready extends boolean = boolean> extends EventEmitter<Client
 export interface ClientEvents {
   debug: [message: string, gatewayShard?: GatewayShard];
   ready: [gatewayShard: GatewayShard];
+  interactionCreate: [interaction: ChatInputCommandInteraction];
 }
 
 /**
