@@ -62,9 +62,6 @@ export interface APIPartialUser
 
 /**
  * @alpha
- * @remarks
- * - This is not officially documented in the Discord API documentation,
- *   meaning it may change or break at any time.
  */
 export interface APIPrimaryGuild {
   badge: string | null;
@@ -83,18 +80,7 @@ export interface APIUser {
   avatar_decoration_data?: APIAvatarDecorationData | null;
   banner?: string | null;
   bot?: boolean;
-  /**
-   * @alpha
-   * @remarks
-   * - This is not officially documented in the Discord API documentation,
-   *   meaning it may change or break at any time.
-   */
   collectibles?: APIUserCollectibles | null;
-  /**
-   * @remarks
-   * - This field value will be set to `0` for non-bot users.
-   * - Bot users will still have their old discriminator value.
-   */
   discriminator: string;
   email?: string | null;
   flags?: number;
@@ -105,9 +91,6 @@ export interface APIUser {
   premium_type?: PremiumTypes;
   /**
    * @alpha
-   * @remarks
-   * - This is not officially documented in the Discord API documentation,
-   *   meaning it may change or break at any time.
    */
   primary_guild?: APIPrimaryGuild | null;
   public_flags?: number;
@@ -117,20 +100,16 @@ export interface APIUser {
 }
 
 /**
- * @alpha
- * @remarks
- * - This is not officially documented in the Discord API documentation,
- *   meaning it may change or break at any time.
+ * @public
+ * @see TBD
  */
 export interface APIUserCollectibles {
   nameplate?: APIUserNameplate;
 }
 
 /**
- * @alpha
- * @remarks
- * - This is not officially documented in the Discord API documentation,
- *   meaning it may change or break at any time.
+ * @public
+ * @see TBD
  */
 export interface APIUserNameplate {
   asset: string;
@@ -153,10 +132,6 @@ export enum ConnectionServices {
   EpicGames = "epicgames",
   Facebook = "facebook",
   GitHub = "github",
-  /**
-   * @remarks
-   * - This service can no longer be added by users.
-   */
   Instagram = "instagram",
   LeagueOfLegends = "leagueoflegends",
   Mastodon = "mastodon",
@@ -165,10 +140,6 @@ export enum ConnectionServices {
   Reddit = "reddit",
   RiotGames = "riotgames",
   Roblox = "roblox",
-  /**
-   * @remarks
-   * - This service can no longer be added by users.
-   */
   Skype = "skype",
   Spotify = "spotify",
   Steam = "steam",
@@ -180,10 +151,8 @@ export enum ConnectionServices {
 }
 
 /**
- * @alpha
- * @remarks
- * - This is not officially documented in the Discord API documentation,
- *   meaning it may change or break at any time.
+ * @public
+ * @see TBD
  */
 export enum NameplatePalettes {
   Berry = "berry",
