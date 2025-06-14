@@ -9,23 +9,16 @@ import { VoiceConnection } from "./VoiceConnection.js";
  * @public
  */
 export class VoiceManager extends EventEmitter<VoiceManagerEvents> {
-  readonly gatewayManager: GatewayManager;
-  readonly options: VoiceManagerOptions;
+  readonly daveEnabled: boolean;
+  readonly gateway: GatewayManager;
 
   constructor(options: VoiceManagerOptions) {
     super();
 
     const { gatewayManager } = options;
 
-    this.gatewayManager = gatewayManager;
-    this.options = options;
-  }
-
-  get isDaveEnabled(): boolean {
-    const { options } = this;
-    const { useDaveProtocol } = options;
-
-    return useDaveProtocol ?? false;
+    this.daveEnabled = options.useDaveProtocol ?? false;
+    this.gateway = gatewayManager;
   }
 
   async joinVoiceChannel(
@@ -36,8 +29,8 @@ export class VoiceManager extends EventEmitter<VoiceManagerEvents> {
       selfMute: false,
     },
   ): Promise<VoiceConnection> {
-    const { gatewayManager } = this;
-    const { shardCount, shards } = gatewayManager;
+    const { gateway } = this;
+    const { shardCount, shards } = gateway;
     const shardId = calculateShardIdFromGuildId(shardCount, guildId);
     const shard = shards.get(shardId);
 

@@ -50,7 +50,7 @@ export const SENDABLE_VOICE_OPCODES = [
 /**
  * @public
  */
-export const VOICE_GATEWAY_VERSION = 8;
+export const VOICE_GATEWAY_VERSION = 4;
 
 /**
  * @public
