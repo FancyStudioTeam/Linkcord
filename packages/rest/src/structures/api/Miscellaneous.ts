@@ -2,7 +2,11 @@ import type {
   RESTGetDefaultSoundboardSounds,
   RESTGetGateway,
   RESTGetGatewayBot,
+  RESTGetSticker,
+  RESTGetStickerPack,
+  RESTGetStickerPacks,
   RESTGetVoiceRegions,
+  Snowflake,
 } from "@fancystudioteam/linkcord-types";
 import { Endpoints } from "../../utils/index.js";
 import { BaseAPI } from "./base/BaseAPI.js";
@@ -30,6 +34,27 @@ export class Miscellaneous extends BaseAPI {
    */
   async getGatewayBot<Result = RESTGetGatewayBot>(): Promise<Result> {
     return await super.get<Result>(Endpoints.gatewayBot());
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/sticker#get-sticker
+   */
+  async getSticker<Result = RESTGetSticker>(stickerId: Snowflake): Promise<Result> {
+    return await super.get<Result>(Endpoints.sticker(stickerId));
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/sticker#get-sticker-pack
+   */
+  async getStickerPack<Result = RESTGetStickerPack>(stickerPackId: Snowflake): Promise<Result> {
+    return await super.get<Result>(Endpoints.stickerPack(stickerPackId));
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/sticker#list-sticker-packs
+   */
+  async getStickerPacks<Result = RESTGetStickerPacks>(): Promise<Result> {
+    return await super.get<Result>(Endpoints.stickerPacks());
   }
 
   /**

@@ -7,6 +7,7 @@ import type {
   RESTDeleteGuildMemberRole,
   RESTDeleteGuildRole,
   RESTDeleteGuildSoundboardSound,
+  RESTDeleteGuildSticker,
   RESTGetGuild,
   RESTGetGuildAuditLog,
   RESTGetGuildAuditLogStringParams,
@@ -31,6 +32,8 @@ import type {
   RESTGetGuildRoles,
   RESTGetGuildSoundboardSound,
   RESTGetGuildSoundboardSounds,
+  RESTGetGuildSticker,
+  RESTGetGuildStickers,
   RESTGetGuildStringParams,
   RESTGetGuildThreadsActive,
   RESTGetGuildVanityUrl,
@@ -59,6 +62,8 @@ import type {
   RESTPatchGuildRolePositionsJSONParams,
   RESTPatchGuildSoundboardSound,
   RESTPatchGuildSoundboardSoundJSONParams,
+  RESTPatchGuildSticker,
+  RESTPatchGuildStickerJSONParams,
   RESTPatchGuildVoiceState,
   RESTPatchGuildVoiceStateCurrent,
   RESTPatchGuildVoiceStateCurrentJSONParams,
@@ -81,6 +86,8 @@ import type {
   RESTPostGuildRoleJSONParams,
   RESTPostGuildSoundboardSound,
   RESTPostGuildSoundboardSoundJSONParams,
+  RESTPostGuildSticker,
+  RESTPostGuildStickerFormParams,
   RESTPutGuildBan,
   RESTPutGuildBanJSONParams,
   RESTPutGuildIncidentActions,
@@ -182,6 +189,17 @@ export class Guild extends BaseAPI {
     options?: DeleteGuildSoundboardSoundOptions,
   ): Promise<Result> {
     return await super.delete<Result>(Endpoints.guildSoundboardSound(guildId, soundboardSoundId), options);
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/sticker#delete-guild-sticker
+   */
+  async deleteGuildSticker<Result = RESTDeleteGuildSticker>(
+    guildId: Snowflake,
+    stickerId: Snowflake,
+    options?: DeleteGuildStickerOptions,
+  ): Promise<Result> {
+    return await super.delete<Result>(Endpoints.guildSticker(guildId, stickerId), options);
   }
 
   /**
@@ -336,6 +354,20 @@ export class Guild extends BaseAPI {
    */
   async getGuildSoundboardSounds<Result = RESTGetGuildSoundboardSounds>(guildId: Snowflake): Promise<Result> {
     return await super.get<Result>(Endpoints.guildSoundboardSounds(guildId));
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/sticker#get-guild-sticker
+   */
+  async getGuildSticker<Result = RESTGetGuildSticker>(guildId: Snowflake, stickerId: Snowflake): Promise<Result> {
+    return await super.get<Result>(Endpoints.guildSticker(guildId, stickerId));
+  }
+
+  /**
+   * @see https://discord.com/developers/docs/resources/sticker#list-guild-stickers
+   */
+  async getGuildStickers<Result = RESTGetGuildStickers>(guildId: Snowflake): Promise<Result> {
+    return await super.get<Result>(Endpoints.guildStickers(guildId));
   }
 
   /**
@@ -504,6 +536,20 @@ export class Guild extends BaseAPI {
   }
 
   /**
+   * @see https://discord.com/developers/docs/resources/sticker#modify-guild-sticker
+   */
+  async patchGuildSticker<Result = RESTPatchGuildSticker>(
+    guildId: Snowflake,
+    stickerId: Snowflake,
+    options: PatchGuildStickerOptions,
+  ): Promise<Result> {
+    return await super.patch<Result, RESTPatchGuildStickerJSONParams>(
+      Endpoints.guildSticker(guildId, stickerId),
+      options,
+    );
+  }
+
+  /**
    * @see https://discord.com/developers/docs/resources/voice#modify-user-voice-state
    */
   async patchGuildVoiceState<Result = RESTPatchGuildVoiceState>(
@@ -627,6 +673,19 @@ export class Guild extends BaseAPI {
   }
 
   /**
+   * @see https://discord.com/developers/docs/resources/sticker#create-guild-sticker
+   */
+  async postGuildSticker<Result = RESTPostGuildSticker>(
+    guildId: Snowflake,
+    options: PostGuildStickerOptions,
+  ): Promise<Result> {
+    return await super.post<Result, never, never, RESTPostGuildStickerFormParams>(
+      Endpoints.guildStickers(guildId),
+      options,
+    );
+  }
+
+  /**
    * @see https://discord.com/developers/docs/resources/guild#create-guild-ban
    */
   async putGuildBan<Result = RESTPutGuildBan>(
@@ -730,6 +789,13 @@ export interface DeleteGuildRoleOptions {
  * @public
  */
 export interface DeleteGuildSoundboardSoundOptions {
+  reason?: string;
+}
+
+/**
+ * @public
+ */
+export interface DeleteGuildStickerOptions {
   reason?: string;
 }
 
@@ -849,6 +915,14 @@ export interface PatchGuildSoundboardSoundOptions {
 /**
  * @public
  */
+export interface PatchGuildStickerOptions {
+  json: RESTPatchGuildStickerJSONParams;
+  reason?: string;
+}
+
+/**
+ * @public
+ */
 export interface PatchGuildVoiceStateCurrentOptions {
   json: RESTPatchGuildVoiceStateCurrentJSONParams;
   reason?: string;
@@ -928,6 +1002,14 @@ export interface PostGuildRoleOptions {
  */
 export interface PostGuildSoundboardSoundOptions {
   json: RESTPostGuildSoundboardSoundJSONParams;
+  reason?: string;
+}
+
+/**
+ * @public
+ */
+export interface PostGuildStickerOptions {
+  form: RESTPostGuildStickerFormParams;
   reason?: string;
 }
 
