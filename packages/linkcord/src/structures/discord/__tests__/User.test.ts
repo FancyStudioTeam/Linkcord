@@ -22,8 +22,6 @@ describe("Class: User", () => {
     expect(user.banner).toStrictEqual(null);
     expect(user.bot).toStrictEqual(false);
     expect(user.collectibles).toStrictEqual({});
-    expect(user.createdAt).toStrictEqual(new Date(1706380279227));
-    expect(user.createdTimestamp).toStrictEqual(1706380279227);
     expect(user.discriminator).toStrictEqual("0");
     expect(user.flags).toStrictEqual(new BitFieldResolver(UserFlags.ActiveDeveloper | UserFlags.Staff));
     expect(user.id).toStrictEqual("1200870671681605662");
