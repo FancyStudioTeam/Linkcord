@@ -5,7 +5,7 @@ import type { Snowflake } from "../shared/discord.js";
  * @public
  * @see https://discord.com/developers/docs/resources/entitlement#list-entitlements-query-string-params
  */
-export interface RESTGetEntitlementsQueryParams {
+export interface RESTGetApplicationEntitlementsQueryParams {
   after?: Snowflake;
   before?: Snowflake;
   exclude_deleted?: boolean;
@@ -20,7 +20,7 @@ export interface RESTGetEntitlementsQueryParams {
  * @public
  * @see https://discord.com/developers/docs/resources/entitlement#create-test-entitlement-json-params
  */
-export interface RESTPostEntitlementTestJSONParams {
+export interface RESTPostApplicationEntitlementTestJSONParams {
   owner_id: Snowflake;
   owner_type: EntitlementOwnerTypes;
   sku_id: Snowflake;
@@ -30,28 +30,28 @@ export interface RESTPostEntitlementTestJSONParams {
  * @public
  * @see https://discord.com/developers/docs/resources/entitlement#delete-test-entitlement
  */
-export type RESTDeleteEntitlementTest = undefined;
+export type RESTDeleteApplicationEntitlementTest = undefined;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/entitlement#consume-an-entitlement
  */
-export type RESTPostEntitlementConsume = undefined;
+export type RESTPostApplicationEntitlementConsume = undefined;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/entitlement#create-test-entitlement
  */
-export type RESTPostEntitlementTest = APIPartialEntitlement;
+export type RESTPostApplicationEntitlementTest = APIPartialEntitlement;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/entitlement#get-entitlement
  */
-export type RESTGetEntitlement = APIEntitlement;
+export type RESTGetApplicationEntitlement = APIEntitlement;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/entitlement#list-entitlements
  */
-export type RESTGetEntitlements = APIEntitlement[];
+export type RESTGetApplicationEntitlements = APIEntitlement[];

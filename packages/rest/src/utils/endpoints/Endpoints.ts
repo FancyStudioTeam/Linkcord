@@ -37,7 +37,7 @@ export class Endpoints {
     return encodeEndpoint`applications/${applicationId}/role-connections/metadata`;
   }
 
-  static applicationSkus(applicationId: Snowflake): string {
+  static applicationSKUs(applicationId: Snowflake): string {
     return encodeEndpoint`applications/${applicationId}/skus`;
   }
 
