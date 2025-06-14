@@ -1,7 +1,6 @@
 import type { APIMessageComponents } from "../payloads/component.js";
 import type {
   APIAllowedMentions,
-  APIAttachment,
   APIEmbed,
   APIMessage,
   APIMessageReference,
@@ -14,37 +13,9 @@ import type { RESTCreatePollRequest } from "./poll.js";
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/message#bulk-delete-messages-json-params
- */
-export interface RESTBulkDeleteMessagesJSONParams {
-  messages: Snowflake[];
-}
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/message#create-message-json-params
- */
-export interface RESTCreateMessageJSONParams {
-  allowed_mentions?: APIAllowedMentions;
-  attachments?: APIPartialAttachment[];
-  components?: APIMessageComponents[];
-  content?: string;
-  embeds?: APIEmbed[];
-  enforce_nonce?: boolean;
-  flags?: number;
-  message_reference?: APIMessageReference;
-  nonce?: number | string;
-  payload_json?: string;
-  poll?: RESTCreatePollRequest;
-  sticker_ids?: Snowflake[];
-  tts?: boolean;
-}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/resources/message#get-channel-messages-query-string-params
  */
-export interface RESTGetChannelMessagesStringParams {
+export interface RESTGetChannelMessageQueryStringParams {
   after?: Snowflake;
   around?: Snowflake;
   before?: Snowflake;
@@ -55,7 +26,7 @@ export interface RESTGetChannelMessagesStringParams {
  * @public
  * @see https://discord.com/developers/docs/resources/message#get-reactions-query-string-params
  */
-export interface RESTGetReactionsStringParams {
+export interface RESTGetChannelMessageReactionsQueryStringParams {
   after?: Snowflake;
   limit?: number;
   type?: ReactionTypes;
@@ -65,69 +36,71 @@ export interface RESTGetReactionsStringParams {
  * @public
  * @see https://discord.com/developers/docs/resources/message#edit-message-jsonform-params
  */
-export interface RESTEditMessageJSONParams {
+export interface RESTPatchChannelMessageJSONParams {
   allowed_mentions?: APIAllowedMentions | null;
-  attachments?: APIAttachment[] | null;
+  attachments?: APIPartialAttachment[] | null;
   components?: APIMessageComponents[] | null;
   content?: string | null;
   embeds?: APIEmbed[] | null;
   flags?: number | null;
-  payload_json?: string | null;
 }
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/message#bulk-delete-messages
+ * @see https://discord.com/developers/docs/resources/message#create-message-jsonform-params
  */
-export type RESTBulkDeleteMessages = undefined;
+export interface RESTPostChannelMessageJSONParams {
+  allowed_mentions?: APIAllowedMentions;
+  attachments?: APIPartialAttachment[];
+  components?: APIMessageComponents[];
+  content?: string;
+  embeds?: APIEmbed[];
+  enforce_nonce?: boolean;
+  flags?: number;
+  message_reference?: APIMessageReference;
+  nonce?: number | string;
+  poll?: RESTCreatePollRequest;
+  sticker_ids?: Snowflake[];
+  tts?: boolean;
+}
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/message#create-message
+ * @see https://discord.com/developers/docs/resources/message#bulk-delete-messages-json-params
  */
-export type RESTCreateMessage = APIMessage;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/message#create-reaction
- */
-export type RESTCreateReaction = undefined;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/message#crosspost-message
- */
-export type RESTCrosspostMessage = APIMessage;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/message#delete-all-reactions
- */
-export type RESTDeleteAllReactions = undefined;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/message#delete-all-reactions-for-emoji
- */
-export type RESTDeleteAllReactionsForEmoji = undefined;
+export interface RESTPostChannelMessagesBulkJSONParams {
+  messages: Snowflake[];
+}
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/message#delete-message
  */
-export type RESTDeleteMessage = undefined;
+export type RESTDeleteChannelMessage = undefined;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/message#delete-own-reaction
  */
-export type RESTDeleteOwnReaction = undefined;
+export type RESTDeleteChannelMessageReactionOwn = undefined;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/message#delete-user-reaction
  */
-export type RESTDeleteUserReaction = undefined;
+export type RESTDeleteChannelMessageReactionUser = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#delete-all-reactions
+ */
+export type RESTDeleteChannelMessageReactionsBulk = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#delete-all-reactions-for-emoji
+ */
+export type RESTDeleteChannelMessageReactionsEmojiBulk = undefined;
 
 /**
  * @public
@@ -137,12 +110,42 @@ export type RESTGetChannelMessage = APIMessage;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/message#get-reactions
+ */
+export type RESTGetChannelMessageReactions = APIUser[];
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/message#get-channel-messages
  */
 export type RESTGetChannelMessages = APIMessage[];
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/message#get-reactions
+ * @see https://discord.com/developers/docs/resources/message#edit-message
  */
-export type RESTGetReactions = APIUser[];
+export type RESTPatchChannelMessage = APIMessage;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#create-message
+ */
+export type RESTPostChannelMessage = APIMessage;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#crosspost-message
+ */
+export type RESTPostChannelMessageCrosspost = APIMessage;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#bulk-delete-messages
+ */
+export type RESTPostChannelMessagesBulk = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#create-reaction
+ */
+export type RESTPutChannelMessageReactionOwn = undefined;
