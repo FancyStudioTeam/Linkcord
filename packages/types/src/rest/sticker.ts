@@ -2,16 +2,17 @@ import type { APISticker, APIStickerPack } from "../payloads/sticker.js";
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/sticker#create-guild-sticker-form-params
+ * @see https://discord.com/developers/docs/resources/sticker#list-sticker-packs
  */
-export interface RESTCreateGuildStickerFormParams {
-  description: string;
-  file: unknown;
-  name: string;
-  tags: string;
+export interface RESTGetStickerPacks {
+  sticker_packs: APIStickerPack[];
 }
 
-export interface RESTModifyGuildStickerJSONParams {
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/sticker#modify-guild-sticker-json-params
+ */
+export interface RESTPatchGuildStickerJSONParams {
   description?: string | null;
   name?: string;
   tags?: string;
@@ -19,23 +20,32 @@ export interface RESTModifyGuildStickerJSONParams {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/sticker#list-sticker-packs
+ * @see https://discord.com/developers/docs/resources/sticker#create-guild-sticker-form-params
  */
-export interface RESTListStickerPacks {
-  sticker_packs: APIStickerPack[];
+export interface RESTPostGuildStickerFormParams {
+  description: string;
+  file: unknown;
+  name: string;
+  tags: string;
 }
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/sticker#create-guild-sticker
- */
-export type RESTCreateGuildSticker = APISticker;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/sticker#delete-guild-sticker
  */
 export type RESTDeleteGuildSticker = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/sticker#get-guild-sticker
+ */
+export type RESTGetGuildSticker = APISticker;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/sticker#list-guild-stickers
+ */
+export type RESTGetGuildStickers = APISticker[];
 
 /**
  * @public
@@ -51,12 +61,12 @@ export type RESTGetStickerPack = APIStickerPack;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/sticker#list-guild-stickers
+ * @see https://discord.com/developers/docs/resources/sticker#modify-guild-sticker-json-params
  */
-export type RESTListGuildStickers = APISticker[];
+export type RESTPatchGuildSticker = APISticker;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/sticker#modify-guild-sticker
+ * @see https://discord.com/developers/docs/resources/sticker#create-guild-sticker
  */
-export type RESTModifyGuildSticker = APISticker;
+export type RESTPostGuildSticker = APISticker;
