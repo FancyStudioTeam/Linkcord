@@ -1,10 +1,10 @@
-import type { MakeRequestOptions } from "../RESTManager.js";
-
 /**
  * @internal
  */
-export interface CreateHeadersOptions extends Pick<MakeRequestOptions, "includeAuthorization" | "reason"> {
+export interface CreateHeadersOptions {
   contentType?: CreateHeadersContentType;
+  includeAuthorization?: boolean;
+  reason?: string;
 }
 
 /**

@@ -35,9 +35,7 @@
     "extractor:run": "api-extractor run",
     "release": "pnpm publish --access public --no-git-checks",
     "rimraf": "rimraf dist",
-    "tarball": "pnpm pack",
-    "vitest": "vitest -c ../../vitest.config.ts",
-    "vitest:watch": "vitest -c ../../vitest.config.ts --watch"
+    "tarball": "pnpm pack"
   },
   "types": "dist/types/index.d.ts",
   "version": "0.0.0"
