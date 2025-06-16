@@ -1,6 +1,7 @@
 import { EventEmitter } from "node:events";
 import { replaceBotPrefix } from "@fancystudioteam/linkcord-utils";
 import { REST_VERSION } from "../utils/constants.js";
+import { RESTError } from "../utils/errors/RESTError.js";
 import { Applications } from "./api/Applications.js";
 import { Channels } from "./api/Channels.js";
 import { Guild } from "./api/Guilds.js";
@@ -10,11 +11,20 @@ import { Miscellaneous } from "./api/Miscellaneous.js";
 import { Monetization } from "./api/Monetization.js";
 import { Users } from "./api/Users.js";
 import { Webhooks } from "./api/Webhooks.js";
+import {
+  type CreateHeadersOptions,
+  type CreateRequestData,
+  type CreateRequestDataOptions,
+  type RESTManagerEventsMap,
+  type RESTManagerOptions,
+  RESTMethods,
+  type RequestFile,
+} from "./types/RESTManager.js";
 
 /**
  * @public
  */
-export class RESTManager extends EventEmitter<RESTManagerEvents> {
+export class RESTManager extends EventEmitter<RESTManagerEventsMap> {
   readonly applications = new Applications(this);
   readonly channels = new Channels(this);
   readonly guilds = new Guild(this);
@@ -41,18 +51,90 @@ export class RESTManager extends EventEmitter<RESTManagerEvents> {
   /**
    * @internal
    */
+  private createRequestBody(json?: unknown, files?: RequestFile[]): BodyInit {
+    /**
+     * Check whether the request has files.
+     *
+     * If it does, the request should be sent as a `multipart/form-data`
+     * request.
+     *
+     * @see https://discord.com/developers/docs/reference#uploading-files
+     */
+    const isMultipart = files && files.length > 0;
+
+    if (isMultipart) {
+      const formData = new FormData();
+
+      for (const file of files) {
+        const { blob, fileName, id } = file;
+
+        /**
+         * Files must be appended to the `FormData` using the `files[n]`
+         * syntax with its `Blob` value and file name.
+         */
+        formData.append(`files[${id}]`, blob, fileName);
+      }
+
+      return formData;
+    }
+
+    return JSON.stringify(json);
+  }
+
   /**
-   * TODO: Handle authorization when it is not required.
+   * @internal
    */
-  private createHeaders(options?: CreateHeadersOptions): Headers {
-    const { reason } = options ?? {};
+  private createRequestData<JSONParams = never, QueryStringParams = never>(
+    method: RESTMethods,
+    endpoint: string,
+    options: CreateRequestDataOptions<JSONParams, QueryStringParams>,
+  ): CreateRequestData {
+    const { files, includeAuthorization, json, query, reason } = options;
+    /**
+     * Check whether the request has files.
+     *
+     * If it does, the request should be sent as a `multipart/form-data`
+     * request.
+     *
+     * @see https://discord.com/developers/docs/reference#uploading-files
+     */
+    const isMultipart = files && files.length > 0;
+    const headers = this.createRequestHeaders({
+      contentType: isMultipart ? "multipart/form-data" : "application/json",
+      includeAuthorization,
+      reason,
+    });
+    const url = this.createRequestUrl(endpoint, query);
+    const bodyInit = this.createRequestBody(json, files);
+    const requestInit: RequestInit = {
+      body: bodyInit,
+      headers,
+      method,
+    };
+
+    return {
+      init: requestInit,
+      url: url.toString(),
+    };
+  }
+
+  /**
+   * @internal
+   */
+  private createRequestHeaders(options?: CreateHeadersOptions): Headers {
+    const { token } = this;
+    const { contentType, includeAuthorization, reason } = options ?? {};
     const headers = new Headers();
 
     headers.set("User-Agent", "Linkcord");
-    headers.set("Authorization", `Bot ${this.token}`);
+    headers.set("Content-Type", contentType ?? "application/json");
 
     if (reason) {
       headers.set("X-Audit-Log-Reason", reason);
+    }
+
+    if (includeAuthorization) {
+      headers.set("Authorization", `Bot ${token}`);
     }
 
     return headers;
@@ -61,25 +143,71 @@ export class RESTManager extends EventEmitter<RESTManagerEvents> {
   /**
    * @internal
    */
+  private createRequestUrl<QueryStringParams = never>(endpoint: string, query?: QueryStringParams): string {
+    const url = new URL(`${RESTManager.DISCORD_API_URL}/${endpoint}`);
+    const { searchParams } = url;
+
+    if (query && typeof query === "object") {
+      for (const [key, value] of Object.entries(query)) {
+        searchParams.append(key, value.toString());
+      }
+    }
+
+    return url.toString();
+  }
+
+  /**
+   * @internal
+   */
   /**
    * TODO: Implement ratelimit manager.
-   * TODO: Allow query string params.
-   * TODO: Handle data when response is not JSON.
    */
   private async makeRequest<Data, JSONParams = never, QueryStringParams = never, FormParams = never>(
     method: RESTMethods,
     endpoint: string,
     options?: MakeRequestOptions<JSONParams, QueryStringParams, FormParams>,
   ): Promise<Data> {
-    const headers = this.createHeaders(options);
-    const url = new URL(`${RESTManager.DISCORD_API_URL}/${endpoint}`);
-    const urlRequest = url.toString();
-    const request = await fetch(urlRequest, {
-      method,
+    const { json, reason, files, includeAuthorization } = options ?? {};
+    const { init, url } = this.createRequestData(method, endpoint, {
+      files,
+      includeAuthorization: includeAuthorization ?? true,
+      json,
+      reason,
+    });
+    const request = await fetch(url, init);
+    const { status, statusText, headers } = request;
+
+    this.emit("request", {
+      endpoint,
       headers,
+      method,
+      status,
+      statusText,
+      url,
     });
 
-    return (await request.json()) as Data;
+    if (!request.ok) {
+      const errorMessageObject = await request.json();
+      const { message, code } = errorMessageObject;
+
+      throw new RESTError(message, code, method, url);
+    }
+
+    if (status === 204) {
+      return undefined as Data;
+    }
+
+    const isImage = headers.get("Content-Type")?.startsWith("image/") ?? false;
+
+    if (status === 200 && isImage) {
+      const blob = await request.blob();
+
+      return blob as Data;
+    }
+
+    const data = (await request.json()) as Data;
+
+    return data;
   }
 
   async delete<Data, QueryStringParams = never>(
@@ -127,34 +255,5 @@ export interface MakeRequestOptions<JSONParams = never, QueryStringParams = neve
   json?: JSONParams;
   query?: QueryStringParams;
   reason?: string;
-}
-
-/**
- * @public
- */
-export interface RESTManagerEvents {
-  debug: [message: string];
-}
-
-/**
- * @public
- */
-export interface RESTManagerOptions {
-  token: string;
-}
-
-/**
- * @public
- */
-export type CreateHeadersOptions = Pick<MakeRequestOptions, "includeAuthorization" | "reason">;
-
-/**
- * @public
- */
-export enum RESTMethods {
-  Delete = "DELETE",
-  Get = "GET",
-  Patch = "PATCH",
-  Post = "POST",
-  Put = "PUT",
+  files?: RequestFile[];
 }
