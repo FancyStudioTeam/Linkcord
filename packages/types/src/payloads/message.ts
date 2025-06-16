@@ -32,9 +32,6 @@ export interface APIApplicationCommandInteractionMetadata
   > {
   /**
    * @alpha
-   * @remarks
-   * - This is not officially documented in the Discord API documentation,
-   *   meaning it may change or break at any time.
    */
   command_type?: ApplicationCommandTypes;
   target_message_id?: Snowflake;
@@ -48,26 +45,15 @@ export interface APIApplicationCommandInteractionMetadata
 export interface APIAttachment {
   /**
    * @alpha
-   * @remarks
-   * - This is not officially documented in the Discord API documentation,
-   *   meaning it may change or break at any time.
    */
   clip_created_at?: ISO8601Date;
   /**
    * @alpha
-   * @remarks
-   * - This is not officially documented in the Discord API documentation,
-   *   meaning it may change or break at any time.
    */
   clip_participants?: APIUser[];
   content_type?: string;
   description?: string;
   duration_secs?: number;
-  /**
-   * @remarks
-   * - Ephemeral attachments will be automatically removed after a period of time,
-   *   but they are guaranteed to be available as long the message exists.
-   */
   ephemeral?: boolean;
   filename: string;
   flags?: AttachmentFlags;
@@ -103,9 +89,6 @@ export interface APIEmbed {
   fields?: APIEmbedField[];
   /**
    * @alpha
-   * @remarks
-   * - This is not officially documented in the Discord API documentation,
-   *   meaning it may change or break at any time.
    */
   flags?: number;
   footer?: APIEmbedFooter;
@@ -212,9 +195,6 @@ export interface APIMessage {
   role_subscription_data?: APIRoleSubscriptionData;
   /**
    * @alpha
-   * @remarks
-   * - This is not officially documented in the Discord API documentation,
-   *   meaning it may change or break at any time.
    */
   soundboard_sounds?: APISoundboardSound[];
   sticker_items?: APIStickerItem[];
@@ -266,21 +246,10 @@ export interface APIModalSubmitInteractionMetadata
  * @see https://discord.com/developers/docs/resources/message#message-reference-structure
  */
 export interface APIMessageReference {
-  /**
-   * @remarks
-   * - This field is optional when creating a message reply but will be always
-   *   present when receiving a response or event with this data model.
-   * - This field is required for message forwarding.
-   */
   channel_id?: Snowflake;
   fail_if_not_exists?: boolean;
   guild_id?: Snowflake;
   message_id?: Snowflake;
-  /**
-   * @remarks
-   * - If `type` is not present, it will match the `DEFAULT` type behavior.
-   * - This field will be required in future versions.
-   */
   type?: MessageReferenceTypes;
 }
 
@@ -409,6 +378,15 @@ export enum AllowedMentionTypes {
 }
 
 /**
+ * @alpha
+ * @see TBD
+ */
+export enum ContentScanFlags {
+  Explicit = 1 << 0,
+  Gore = 1 << 1,
+}
+
+/**
  * @public
  * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-flags
  */
@@ -417,6 +395,10 @@ export enum AttachmentFlags {
    * @alpha
    */
   ContainsExplicitMedia = 1 << 4,
+  /**
+   * @alpha
+   */
+  ContainsGoreContent = 1 << 6,
   /**
    * @alpha
    */
@@ -438,19 +420,15 @@ export enum AttachmentFlags {
 
 /**
  * @alpha
- * @remarks
- * - This is not officially documented in the Discord API documentation,
- *   meaning it may change or break at any time.
  */
 export enum EmbedFlags {
   ContainsExplicitMedia = 1 << 4,
+  ContainsGoreContent = 1 << 6,
+  ContentInventoryEntry = 1 << 5,
 }
 
 /**
  * @alpha
- * @remarks
- * - This is not officially documented in the Discord API documentation,
- *   meaning it may change or break at any time.
  */
 export enum EmbedMediaFlags {
   IsAnimated = 1 << 5,

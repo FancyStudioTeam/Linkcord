@@ -161,10 +161,12 @@ export enum NameplatePalettes {
   Cobalt = "cobalt",
   Crimson = "crimson",
   Forest = "forest",
+  Lemon = "lemon",
   None = "none",
   Sky = "sky",
   Teal = "teal",
   Violet = "violet",
+  White = "white",
 }
 
 /**
