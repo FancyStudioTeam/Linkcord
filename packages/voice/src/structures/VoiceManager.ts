@@ -1,7 +1,11 @@
 import { EventEmitter } from "node:events";
-import { GatewayShardStatus, calculateShardIdFromGuildId } from "@fancystudioteam/linkcord";
-import type { GatewayManager, JoinVoiceChannelOptions } from "@fancystudioteam/linkcord-gateway";
+import {
+  type GatewayManager,
+  GatewayShardStatus,
+  type JoinVoiceChannelOptions,
+} from "@fancystudioteam/linkcord-gateway";
 import type { VoiceEvent } from "@fancystudioteam/linkcord-types";
+import { calculateShardIdFromGuildId } from "@fancystudioteam/linkcord-utils";
 import { VoiceManagerError } from "../utils/index.js";
 import { VoiceConnection } from "./VoiceConnection.js";
 
