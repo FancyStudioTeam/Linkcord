@@ -1,1 +1,1 @@
-export * from "./RESTError.js";
+export * from "./RESTRequestError.js";

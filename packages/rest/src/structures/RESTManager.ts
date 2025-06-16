@@ -1,7 +1,7 @@
 import { EventEmitter } from "node:events";
 import { replaceBotPrefix } from "@fancystudioteam/linkcord-utils";
 import { REST_VERSION } from "../utils/constants.js";
-import { RESTError } from "../utils/errors/RESTError.js";
+import { RESTRequestError } from "../utils/errors/RESTRequestError.js";
 import { Applications } from "./api/Applications.js";
 import { Channels } from "./api/Channels.js";
 import { Guild } from "./api/Guilds.js";
@@ -190,7 +190,7 @@ export class RESTManager extends EventEmitter<RESTManagerEventsMap> {
       const errorMessageObject = await request.json();
       const { message, code } = errorMessageObject;
 
-      throw new RESTError(message, code, method, url);
+      throw new RESTRequestError(message, code, method, url);
     }
 
     if (status === 204) {

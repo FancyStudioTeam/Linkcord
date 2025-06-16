@@ -3,7 +3,7 @@ import type { RESTMethods } from "../../structures/index.js";
 /**
  * @public
  */
-export class RESTError extends Error {
+export class RESTRequestError extends Error {
   readonly code: number;
   readonly method: RESTMethods;
   readonly url: string;
