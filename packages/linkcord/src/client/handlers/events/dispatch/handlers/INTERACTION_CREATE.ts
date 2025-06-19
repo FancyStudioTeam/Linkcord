@@ -11,7 +11,7 @@ import type { DispatchHandler } from "../dispatchHandlers.js";
  */
 export const INTERACTION_CREATE: DispatchHandler<GatewayDispatchInteractionCreatePayload> = (
   client,
-  _gatewayShard,
+  shard,
   interaction,
 ) => {
   const { type, data } = interaction;
@@ -19,6 +19,9 @@ export const INTERACTION_CREATE: DispatchHandler<GatewayDispatchInteractionCreat
   if (type === InteractionTypes.ApplicationCommand && data?.type === ApplicationCommandTypes.ChatInput) {
     const chatInputCommandInteraction = new ChatInputCommandInteraction(interaction.id, interaction);
 
-    client.emit("interactionCreate", chatInputCommandInteraction);
+    client.emit("interactionCreate", {
+      interaction: chatInputCommandInteraction,
+      shard,
+    });
   }
 };

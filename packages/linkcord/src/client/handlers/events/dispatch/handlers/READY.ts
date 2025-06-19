@@ -5,10 +5,13 @@ import type { DispatchHandler } from "../dispatchHandlers.js";
 /**
  * @internal
  */
-export const READY: DispatchHandler<GatewayDispatchReadyPayload> = (client, gatewayShard, { guilds, user }) => {
+export const READY: DispatchHandler<GatewayDispatchReadyPayload> = (client, shard, { guilds, user }) => {
   if (!client.ready) {
     client.ready = true;
-    client.emit("ready", gatewayShard);
+    client.user = new User(user.id, user);
+    client.emit("ready", {
+      shard,
+    });
   }
 
   for (const guild of guilds) {
@@ -16,6 +19,4 @@ export const READY: DispatchHandler<GatewayDispatchReadyPayload> = (client, gate
 
     client.unavailableGuilds.set(id, unavailable);
   }
-
-  client.user = new User(user.id, user);
 };
