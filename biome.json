@@ -47,6 +47,7 @@
         "useImportExtensions": "error"
       },
       "nursery": {
+        "noUnresolvedImports": "off",
         "useSortedClasses": "error"
       },
       "performance": {
