@@ -12,7 +12,7 @@ importers:
   .:
     dependencies:
       '@fancystudioteam/linkcord':
-        specifier: link:packages\linkcord
+        specifier: link:packages/linkcord
         version: link:packages/linkcord
     devDependencies:
       '@biomejs/biome':
