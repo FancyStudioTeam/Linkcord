@@ -1,7 +1,7 @@
-/**
- * @public
- */
 export class BitFieldResolver {
+  /**
+   * The bitfield of the current instance.
+   */
   bitField: number;
 
   constructor(bitField: number) {
@@ -9,8 +9,9 @@ export class BitFieldResolver {
   }
 
   /**
-   * Checks if the current instance is frozen.
-   * @returns A boolean indicating if the current instance is frozen.
+   * Checks whether the current instance is frozen.
+   *
+   * @returns A boolean indicating whether the current instance is frozen.
    */
   get frozen(): boolean {
     return Object.isFrozen(this);
@@ -18,8 +19,10 @@ export class BitFieldResolver {
 
   /**
    * Adds a bit to the bitfield.
+   *
    * @param bit - The bit to add.
-   * @returns The bitfield with the added bit.
+   *
+   * @returns The updated bitfield.
    */
   add(bit: number): number {
     this.bitField |= bit;
@@ -29,6 +32,7 @@ export class BitFieldResolver {
 
   /**
    * Freezes the current instance.
+   *
    * @returns The current frozen instance.
    */
   freeze(): Readonly<this> {
@@ -36,9 +40,12 @@ export class BitFieldResolver {
   }
 
   /**
-   * Checks if the bit is set in the bitfield.
+   * Checks whether the bit is included in the bitfield.
+   *
    * @param bit - The bit to check.
-   * @returns A boolean indicating if the bit is set.
+   *
+   * @returns A boolean indicating whether the bit is included in the
+   * bitfield.
    */
   has(bit: number): boolean {
     return (this.bitField & bit) === bit;
@@ -46,8 +53,10 @@ export class BitFieldResolver {
 
   /**
    * Removes a bit from the bitfield.
+   *
    * @param bit - The bit to remove.
-   * @returns The bitfield with the removed bit.
+   *
+   * @returns The updated bitfield.
    */
   remove(bit: number): number {
     this.bitField &= ~bit;
