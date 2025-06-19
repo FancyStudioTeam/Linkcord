@@ -4,7 +4,8 @@
     "@fancystudioteam/linkcord-rest": "workspace:*",
     "@fancystudioteam/linkcord-types": "workspace:*",
     "@fancystudioteam/linkcord-utils": "workspace:*",
-    "@fancystudioteam/linkcord-voice": "workspace:*"
+    "@fancystudioteam/linkcord-voice": "workspace:*",
+    "glob": "11.0.3"
   },
   "devDependencies": {
     "@swc/cli": "0.7.7",
