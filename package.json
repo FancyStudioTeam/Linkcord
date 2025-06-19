@@ -3,7 +3,7 @@
     "@fancystudioteam/linkcord": "link:packages\\linkcord"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.0.0",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@commitlint/types": "19.8.1",
@@ -13,11 +13,13 @@
     "semver": "7.7.2",
     "turbo": "2.5.4",
     "typescript": "5.8.3",
-    "vitest": "3.2.3"
+    "vitest": "3.2.4"
   },
   "license": "MIT",
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,json}": ["pnpm biome:check"]
+    "**/*.{js,jsx,ts,tsx,json}": [
+      "pnpm biome:check"
+    ]
   },
   "name": "linkcord-monorepo",
   "packageManager": "pnpm@10.11.0",

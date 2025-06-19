@@ -1,7 +1,23 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "files": {
-    "ignore": ["apps/docs/build", "apps/docs/extractor/schemas", "dist", "node_modules"]
+  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
+  "assist": {
+    "actions": {
+      "recommended": true,
+      "source": {
+        "useSortedAttributes": "on",
+        "useSortedKeys": "on",
+        "useSortedProperties": "on"
+      }
+    },
+    "enabled": true
+  },
+  "css": {
+    "formatter": {
+      "enabled": true
+    },
+    "linter": {
+      "enabled": true
+    }
   },
   "formatter": {
     "enabled": true,
@@ -18,7 +34,6 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "all": true,
       "complexity": {
         "noStaticOnlyClass": "off"
       },
@@ -34,6 +49,7 @@
         "noBarrelFile": "off",
         "noReExportAll": "off"
       },
+      "recommended": true,
       "style": {
         "noDefaultExport": "off",
         "useNamingConvention": {
@@ -61,8 +77,5 @@
         "noReactSpecificProps": "off"
       }
     }
-  },
-  "organizeImports": {
-    "enabled": true
   }
 }

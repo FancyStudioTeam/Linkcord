@@ -2,5 +2,4 @@ overrides:
   "@fancystudioteam/linkcord": link:packages/linkcord
 
 packages:
-  - apps/*
   - packages/*
