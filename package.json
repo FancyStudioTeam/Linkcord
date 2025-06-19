@@ -32,7 +32,6 @@
     "biome:check": "biome check --write",
     "build": "turbo run build",
     "bump": "node scripts/bump.mjs",
-    "extractor:run": "turbo run extractor:run",
     "prepare": "husky",
     "release": "turbo run release",
     "tarball": "turbo run tarball",

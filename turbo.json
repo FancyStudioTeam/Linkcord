@@ -5,9 +5,6 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "extractor:run": {
-      "dependsOn": ["build"]
-    },
     "release": {
       "dependsOn": ["build"]
     },

@@ -1,6 +1,5 @@
 {
   "devDependencies": {
-    "@microsoft/api-extractor": "7.52.8",
     "@swc/cli": "0.7.7",
     "@swc/core": "1.12.1",
     "rimraf": "6.0.1",
@@ -14,7 +13,11 @@
       "types": "./dist/types/index.d.ts"
     }
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -32,7 +35,6 @@
     "build:cjs": "swc src --strip-leading-paths -C module.type=commonjs --ignore **/*.test.ts --out-dir dist/cjs",
     "build:esm": "swc src --strip-leading-paths -C module.type=es6 --ignore **/*.test.ts --out-dir dist/esm",
     "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist/types",
-    "extractor:run": "api-extractor run",
     "release": "pnpm publish --access public --no-git-checks",
     "rimraf": "rimraf dist",
     "tarball": "pnpm pack"
