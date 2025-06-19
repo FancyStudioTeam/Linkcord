@@ -1,23 +1,18 @@
 import { EventEmitter } from "node:events";
-import {
-  GatewayManager,
-  type GatewayManagerEvents,
-  type GatewayManagerOptions,
-  type GatewayShard,
-} from "@fancystudioteam/linkcord-gateway";
-import { RESTManager, type RESTManagerOptions } from "@fancystudioteam/linkcord-rest";
-import type { If, Snowflake } from "@fancystudioteam/linkcord-types";
-import { VoiceManager, type VoiceManagerOptions } from "@fancystudioteam/linkcord-voice";
-import type { ChatInputCommandInteraction } from "../structures/discord/ChatInputCommandInteraction.js";
+import { GatewayManager, type GatewayManagerEvents } from "@fancystudioteam/linkcord-gateway";
+import { RESTManager } from "@fancystudioteam/linkcord-rest";
+import type { GatewayIntents, If, Snowflake } from "@fancystudioteam/linkcord-types";
+import { VoiceManager } from "@fancystudioteam/linkcord-voice";
+import { getConfig, loadConfigFile } from "../configuration/internal.js";
 import type { User } from "../structures/index.js";
 import { handlers } from "./handlers/handlers.js";
+import type { ClientEventsMap } from "./types/Client.js";
 
 /**
  * @public
  */
-export class Client<Ready extends boolean = boolean> extends EventEmitter<ClientEvents> {
+export class Client<Ready extends boolean = boolean> extends EventEmitter<ClientEventsMap> {
   readonly gateway: GatewayManager;
-  readonly options: ClientOptions;
   readonly rest: RESTManager;
   readonly unavailableGuilds: Map<Snowflake, boolean> = new Map();
   readonly voice: VoiceManager;
@@ -25,43 +20,55 @@ export class Client<Ready extends boolean = boolean> extends EventEmitter<Client
   ready: Ready;
   user: If<Ready, User, null> = null as If<Ready, User, null>;
 
-  constructor(options: ClientOptions) {
+  constructor() {
     super();
 
-    const { gateway, intents, token, voice } = options;
+    (async () => {
+      await loadConfigFile();
+    })();
+
+    const { gateway, intents: unresolvedIntents, rest, token, voice } = getConfig();
+
+    if (!token || !unresolvedIntents) {
+      throw new TypeError("Token or intents are missing from the configuration file.");
+    }
+
+    const intents = this.resolveGatewayIntents(unresolvedIntents);
 
     this.gateway = new GatewayManager({
       ...gateway,
       intents,
       token,
     });
-    this.options = options;
     this.ready = false as Ready;
     this.rest = new RESTManager({
+      ...rest,
       token,
     });
     this.voice = new VoiceManager({
       ...voice,
       gatewayManager: this.gateway,
     });
-    this._watchGateway();
+    this.watch();
   }
 
-  /**
-   * @internal
-   */
-  private _watchGateway(): void {
-    this.gateway.on("packet", this._handleOnGatewayPacket.bind(this));
-  }
-
-  /**
-   * @internal
-   */
-  private _handleOnGatewayPacket({ gatewayShard, packet }: GatewayManagerEvents["packet"][0]): void {
+  private handleOnGatewayPacket({ gatewayShard, packet }: GatewayManagerEvents["packet"][0]): void {
     const { op } = packet;
     const handler = handlers[op];
 
     handler?.(this, gatewayShard, packet as never);
+  }
+
+  private resolveGatewayIntents(intents: GatewayIntents[] | number): number {
+    return Array.isArray(intents) ? intents.reduce((acc, curr) => acc | curr, 0) : intents;
+  }
+
+  private watch(): void {
+    this.watchGateway();
+  }
+
+  private watchGateway(): void {
+    this.gateway.on("packet", this.handleOnGatewayPacket.bind(this));
   }
 
   async connect(): Promise<void> {
@@ -73,39 +80,4 @@ export class Client<Ready extends boolean = boolean> extends EventEmitter<Client
   isReady(): this is Client<true> {
     return this.ready;
   }
-}
-
-/**
- * @public
- */
-export interface ClientEvents {
-  debug: [message: string, gatewayShard?: GatewayShard];
-  ready: [gatewayShard: GatewayShard];
-  interactionCreate: [interaction: ChatInputCommandInteraction];
-}
-
-/**
- * @public
- */
-export interface ClientGatewayOptions extends Omit<GatewayManagerOptions, "intents" | "token"> {}
-
-/**
- * @public
- */
-export interface ClientRestOptions extends Omit<RESTManagerOptions, "token"> {}
-
-/**
- * @public
- */
-export interface ClientVoiceOptions extends Omit<VoiceManagerOptions, "gatewayManager"> {}
-
-/**
- * @public
- */
-export interface ClientOptions {
-  gateway?: ClientGatewayOptions;
-  intents: number;
-  rest?: ClientRestOptions;
-  token: string;
-  voice?: ClientVoiceOptions;
 }

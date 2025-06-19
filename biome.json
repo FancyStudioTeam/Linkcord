@@ -32,6 +32,10 @@
     }
   },
   "linter": {
+    "domains": {
+      "project": "all",
+      "test": "all"
+    },
     "enabled": true,
     "rules": {
       "complexity": {
@@ -52,6 +56,7 @@
       "recommended": true,
       "style": {
         "noDefaultExport": "off",
+        "useImportType": "error",
         "useNamingConvention": {
           "level": "warn",
           "options": {
@@ -74,7 +79,8 @@
         }
       },
       "suspicious": {
-        "noReactSpecificProps": "off"
+        "noReactSpecificProps": "off",
+        "useAwait": "error"
       }
     }
   }
