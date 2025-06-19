@@ -1,28 +1,12 @@
 import { existsSync } from "node:fs";
-import { createRequire } from "node:module";
 import { join } from "node:path";
+import { importModule } from "../utils/functions/importModule.js";
 import type { LinkcordOptions } from "./types.js";
 
 // @ts-expect-error
 export const options: LinkcordOptions = {};
-const isCommonJS: boolean = typeof module !== "undefined";
 
-const importModule = <Data>(module: string): Data => {
-  if (isCommonJS) {
-    return require(module);
-  }
-
-  // @ts-ignore
-  return createRequire(import.meta.url)(module);
-};
-
-export const getConfig = (): Readonly<LinkcordOptions> => {
-  if (!options) {
-    throw new Error("Options have not been initialized yet.");
-  }
-
-  return options;
-};
+export const getConfig = (): Readonly<LinkcordOptions> => options;
 
 export const loadConfigFile = async (): Promise<void> => {
   const allowedExtensions = ["js", "cjs", "mjs", "ts", "cts", "mts"];
