@@ -1,6 +1,6 @@
 import { existsSync } from "node:fs";
 import { basename, join } from "node:path";
-import { importModule } from "../../utils/functions/importModule.js";
+import { requireModule } from "../../utils/functions/requireModule.js";
 import type { LinkcordOptions } from "../functions/defineConfig.js";
 
 const ALLOWED_FILE_EXTENSIONS = ["js", "cjs", "mjs", "ts", "cts", "mts"] as const;
@@ -31,7 +31,7 @@ export class LinkcordConfiguration {
         continue;
       }
 
-      const importConfigurationFileData = importModule<ImportConfigurationFileData>(configurationFilePath);
+      const importConfigurationFileData = requireModule<ImportConfigurationFileData>(configurationFilePath);
       const configurationFileName = basename(configurationFilePath);
       const { default: defaultExport } = importConfigurationFileData;
 
