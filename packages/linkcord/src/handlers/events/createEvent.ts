@@ -1,4 +1,4 @@
-import type { ClientEventsMap } from "../../client/types/Client.js";
+import type { ClientEventsMap } from "../../client/events.js";
 
 export const createEvent = <EventName extends ClientEventNames>(
   options: CreateEventOptions<EventName, CreateEventOptionsData<EventName>>,
