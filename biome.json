@@ -20,7 +20,7 @@
     }
   },
   "files": {
-    "includes": ["src/**/*.{js,ts,jsx,tsx}"]
+    "includes": ["**", "!**/.turbo/**", "!**/dist/**"]
   },
   "formatter": {
     "enabled": true,
