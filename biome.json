@@ -19,6 +19,9 @@
       "enabled": true
     }
   },
+  "files": {
+    "includes": [".js", "*.json", "*.ts", "src"]
+  },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
