@@ -28,8 +28,8 @@
     "url": "https://github.com/FancyStudioTeam/Linkcord"
   },
   "scripts": {
-    "biome": "biome check",
-    "biome:check": "biome check --write",
+    "biome": "biome check --config-path biome.json",
+    "biome:check": "biome check --config-path biome.json --write",
     "build": "turbo run build",
     "bump": "node scripts/bump.mjs",
     "prepare": "husky",

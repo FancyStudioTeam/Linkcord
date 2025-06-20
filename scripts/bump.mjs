@@ -1,7 +1,7 @@
 // @ts-check
 
 import { execSync } from "node:child_process";
-import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import semver from "semver";
 
@@ -10,7 +10,6 @@ const [, , ...args] = process.argv;
 const [semverOrVersion] = args;
 
 if (!semverOrVersion) {
-  // biome-ignore lint/suspicious/noConsole:
   console.error("Missing semver or version");
   process.exit(1);
 }
@@ -43,7 +42,6 @@ for (const _package of packages) {
     const isValidVersion = valid(semverOrVersion);
 
     if (!isValidVersion) {
-      // biome-ignore lint/suspicious/noConsole:
       console.error(`Invalid version: "${semverOrVersion}".`);
       process.exit(1);
     }
@@ -58,7 +56,7 @@ for (const _package of packages) {
   writeFileSync(packageJsonPath, `${stringifiedJsonContent}\n`, "utf-8");
   execSync(`biome check --write ${packageJsonPath}`);
 
-  // biome-ignore lint/suspicious/noConsole:
-  // biome-ignore lint/suspicious/noConsoleLog:
-  console.log(`✅ Updated package "${packageName}" version from "${currentVersion}" to "${version}".`);
+  console.log(
+    `✅ Updated package "${packageName}" version from "${currentVersion}" to "${version}".`
+  );
 }
