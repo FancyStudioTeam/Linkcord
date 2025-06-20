@@ -32,7 +32,7 @@ export class LinkcordConfiguration {
         const errorMessages = [
           `File '${configurationFileName}' must export a default export.`,
           "- If you are using 'CommonJS', export the configuration using 'module.exports.default' or 'exports.default'.",
-          "- If you are using 'ESM', export the configuration using 'export default' or 'export'.",
+          "- If you are using 'ESModules', export the configuration using 'export default'.",
         ];
 
         throw new Error(errorMessages.join("\n"));
