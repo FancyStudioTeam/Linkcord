@@ -1,6 +1,6 @@
 export * from "./clients-connect.js";
-export * from "./heartbeat-ack.js";
 export * from "./heartbeat.js";
+export * from "./heartbeat-ack.js";
 export * from "./hello.js";
 export * from "./identify.js";
 export * from "./ready.js";

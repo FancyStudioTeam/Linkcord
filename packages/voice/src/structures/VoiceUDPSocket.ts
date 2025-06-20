@@ -1,4 +1,4 @@
-import { type Socket, type SocketType, createSocket } from "node:dgram";
+import { createSocket, type Socket, type SocketType } from "node:dgram";
 import { isIPv4 } from "node:net";
 import {
   ProtocolTypes,

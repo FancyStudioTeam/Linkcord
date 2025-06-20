@@ -1,6 +1,6 @@
 import type { VoiceClientsConnect } from "./events/clients-connect.js";
-import type { VoiceHeartbeatAck } from "./events/heartbeat-ack.js";
 import type { VoiceHeartbeat } from "./events/heartbeat.js";
+import type { VoiceHeartbeatAck } from "./events/heartbeat-ack.js";
 import type { VoiceHello } from "./events/hello.js";
 import type { VoiceIdentify } from "./events/identify.js";
 import type { VoiceReady } from "./events/ready.js";

@@ -8,7 +8,7 @@ export const READY: DispatchHandler<GatewayDispatchReadyPayload> = (
   gatewayShard.resumeGatewayUrl = resume_gateway_url;
   gatewayShard.sessionId = session_id;
   gatewayShard.emit("ready", {
-    user,
     gatewayShard,
+    user,
   });
 };

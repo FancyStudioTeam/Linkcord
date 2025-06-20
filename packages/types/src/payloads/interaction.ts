@@ -1,11 +1,11 @@
 import type { RESTCreatePollRequest } from "../rest/index.js";
 import type { Snowflake } from "../shared/discord.js";
+import { ApplicationIntegrationTypes } from "./application.js";
 import type {
   APIAutocompleteChoice,
   ApplicationCommandOptionTypes,
   ApplicationCommandTypes,
 } from "./application-command.js";
-import { ApplicationIntegrationTypes } from "./application.js";
 import type {
   APIInteractionBase,
   APIMessageComponentInteractionDataBase,

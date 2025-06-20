@@ -1,6 +1,6 @@
 import type { APIGuildChannel, APIThreadChannel } from "../../../payloads/channel.js";
-import type { APIGuildScheduledEvent } from "../../../payloads/guild-scheduled-event.js";
 import type { APIGuild, APIGuildMember } from "../../../payloads/guild.js";
+import type { APIGuildScheduledEvent } from "../../../payloads/guild-scheduled-event.js";
 import type { APISoundboardSound } from "../../../payloads/soundboard.js";
 import type { APIStageInstance } from "../../../payloads/stage-instance.js";
 import type { APIVoiceState } from "../../../payloads/voice.js";

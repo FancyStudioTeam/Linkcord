@@ -1,4 +1,5 @@
 export * from "./Applications.js";
+export * from "./base/index.js";
 export * from "./Channels.js";
 export * from "./Guilds.js";
 export * from "./Invites.js";
@@ -7,4 +8,3 @@ export * from "./Miscellaneous.js";
 export * from "./Monetization.js";
 export * from "./Users.js";
 export * from "./Webhooks.js";
-export * from "./base/index.js";

@@ -1,5 +1,5 @@
-import type { APIGuildTemplate } from "../payloads/guild-template.js";
 import type { APIGuild } from "../payloads/guild.js";
+import type { APIGuildTemplate } from "../payloads/guild-template.js";
 import type { ImageDataUri } from "../shared/discord.js";
 
 /**

@@ -2,8 +2,8 @@ import type { Snowflake } from "../shared/discord.js";
 import type { APIApplicationCommand } from "./application-command.js";
 import type { APIAutoModerationRule } from "./auto-moderation.js";
 import type { APIThreadChannel } from "./channel.js";
-import type { APIGuildScheduledEvent } from "./guild-scheduled-event.js";
 import type { APIPartialIntegration } from "./guild.js";
+import type { APIGuildScheduledEvent } from "./guild-scheduled-event.js";
 import type { APIPartialUser } from "./user.js";
 import type { APIWebhook } from "./webhook.js";
 
