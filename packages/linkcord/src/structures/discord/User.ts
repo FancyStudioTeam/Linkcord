@@ -59,7 +59,7 @@ export class User extends Base {
   }
 
   /**
-   * @private
+   * @internal
    */
   private _transformCollectibles(rawCollectibles?: APIUserCollectibles | null): UserCollectibles {
     const { nameplate } = rawCollectibles ?? {};
@@ -138,17 +138,11 @@ export class User extends Base {
   }
 }
 
-/**
- * @public
- */
 export interface AvatarDecorationData {
   asset: string;
   skuId: Snowflake;
 }
 
-/**
- * @public
- */
 export interface PrimaryGuild {
   badge: string | null;
   identityEnabled: boolean;
@@ -156,16 +150,10 @@ export interface PrimaryGuild {
   tag: string | null;
 }
 
-/**
- * @public
- */
 export interface UserCollectibles {
   nameplate?: UserNameplate;
 }
 
-/**
- * @public
- */
 export interface UserNameplate {
   asset: string;
   label: string;
