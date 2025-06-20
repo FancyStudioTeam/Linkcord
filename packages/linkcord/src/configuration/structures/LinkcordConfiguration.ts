@@ -4,22 +4,15 @@ import { requireModule } from "../../utils/functions/requireModule.js";
 import type { LinkcordOptions } from "../functions/defineConfig.js";
 
 const ALLOWED_FILE_EXTENSIONS = ["js", "cjs", "mjs", "ts", "cts", "mts"] as const;
-const LINKCORD_CONFIGURATION: LinkcordOptions | null = null;
+// @ts-expect-error
+const LINKCORD_CONFIGURATION: LinkcordOptions = {};
 
 export class LinkcordConfiguration {
   static freeze(): void {
-    if (typeof LINKCORD_CONFIGURATION !== "object" || LINKCORD_CONFIGURATION === null) {
-      throw new TypeError("Cannot freeze an invalid object.");
-    }
-
     Object.freeze(LINKCORD_CONFIGURATION);
   }
 
   static getOptions(): Readonly<LinkcordOptions> {
-    if (typeof LINKCORD_CONFIGURATION !== "object" || LINKCORD_CONFIGURATION === null) {
-      throw new TypeError("Cannot get options from an invalid object.");
-    }
-
     return LINKCORD_CONFIGURATION;
   }
 
@@ -35,8 +28,14 @@ export class LinkcordConfiguration {
       const configurationFileName = basename(configurationFilePath);
       const { default: defaultExport } = importConfigurationFileData;
 
-      if (!defaultExport) {
-        throw new Error(`File '${configurationFileName}' must include a default export.`);
+      if (!("default" in importConfigurationFileData) || !defaultExport) {
+        const errorMessages = [
+          `File '${configurationFileName}' must export a default export.`,
+          "- If you are using 'CommonJS', export the configuration using 'module.exports.default' or 'exports.default'.",
+          "- If you are using 'ESM', export the configuration using 'export default' or 'export'.",
+        ];
+
+        throw new Error(errorMessages.join("\n"));
       }
 
       LinkcordConfiguration.setOptions(defaultExport);
@@ -49,10 +48,6 @@ export class LinkcordConfiguration {
   }
 
   static setOptions(options: LinkcordOptions): LinkcordOptions {
-    if (typeof LINKCORD_CONFIGURATION !== "object" || LINKCORD_CONFIGURATION === null) {
-      throw new TypeError("Cannot assing properties to an invalid object.");
-    }
-
     return Object.assign(LINKCORD_CONFIGURATION, options);
   }
 }
