@@ -19,7 +19,11 @@ export const INTERACTION_CREATE: DispatchHandler<GatewayDispatchInteractionCreat
   if (type === InteractionTypes.ApplicationCommand && data?.type === ApplicationCommandTypes.ChatInput) {
     const chatInputCommandInteraction = new ChatInputCommandInteraction(interaction.id, interaction);
 
-    client.emit("interactionCreate", {
+    /**
+     * biome-ignore lint/complexity/useLiteralKeys: Accessing private
+     * properties.
+     */
+    client["emit"]("interactionCreate", {
       interaction: chatInputCommandInteraction,
       shard,
     });

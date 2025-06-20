@@ -9,8 +9,14 @@ export const READY: DispatchHandler<GatewayDispatchReadyPayload> = (client, shar
   if (!client.ready) {
     client.ready = true;
     client.user = new User(user.id, user);
-    client.emit("ready", {
+
+    /**
+     * biome-ignore lint/complexity/useLiteralKeys: Accessing private
+     * properties.
+     */
+    client["emit"]("ready", {
       shard,
+      user: client.user,
     });
   }
 
