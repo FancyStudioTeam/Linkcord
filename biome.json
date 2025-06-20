@@ -20,7 +20,7 @@
     }
   },
   "files": {
-    "includes": [".js", "*.json", "*.ts", "src"]
+    "includes": ["src/**/*.{js,ts,jsx,tsx}"]
   },
   "formatter": {
     "enabled": true,
