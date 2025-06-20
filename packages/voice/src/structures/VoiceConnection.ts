@@ -68,12 +68,13 @@ export class VoiceConnection {
 
   private _heartbeat(): void {
     const { _sequence, _heartbeatAck } = this;
-    const heartbeatPayload: VoiceHeartbeatPayload = {
+    /*const heartbeatPayload: VoiceHeartbeatPayload = {
       seq_ack: _sequence,
       t: _heartbeatAck,
-    };
+    };*/
 
-    this.sendVoicePayload(VoiceOpcodes.Heartbeat, heartbeatPayload);
+    // @ts-expect-error
+    this.sendVoicePayload(VoiceOpcodes.Heartbeat, _heartbeatAck);
   }
 
   /**
@@ -165,9 +166,9 @@ export class VoiceConnection {
   private _onOpen(): void {
     const identifyPayload = {
       server_id: this.guildId,
-      user_id: this.userId,
       session_id: this.sessionId,
       token: this.token,
+      user_id: this.userId,
     };
 
     this.sendVoicePayload(VoiceOpcodes.Identify, identifyPayload);
