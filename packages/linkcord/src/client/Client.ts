@@ -1,17 +1,21 @@
-import { EventEmitter } from "node:events";
+import { join } from "node:path";
 import { GatewayManager, type GatewayManagerEvents } from "@fancystudioteam/linkcord-gateway";
 import { RESTManager } from "@fancystudioteam/linkcord-rest";
 import type { GatewayIntents, If, Snowflake } from "@fancystudioteam/linkcord-types";
 import { VoiceManager } from "@fancystudioteam/linkcord-voice";
-import { getConfig, loadConfigFile } from "../configuration/internal.js";
+import { LinkcordConfiguration } from "../configuration/structures/LinkcordConfiguration.js";
+import type { ClientEventNames, EventData } from "../handlers/events/index.js";
+import { EventsLoader } from "../handlers/events/loaders/EventsLoader.js";
 import type { User } from "../structures/index.js";
+import type { ClientEventsMap } from "./events.js";
 import { handlers } from "./handlers/handlers.js";
-import type { ClientEventsMap } from "./types/Client.js";
 
 /**
  * @public
  */
-export class Client<Ready extends boolean = boolean> extends EventEmitter<ClientEventsMap> {
+export class Client<Ready extends boolean = boolean> {
+  private events: Map<ClientEventNames, EventData[]> = new Map();
+
   readonly gateway: GatewayManager;
   readonly rest: RESTManager;
   readonly unavailableGuilds: Map<Snowflake, boolean> = new Map();
@@ -21,13 +25,7 @@ export class Client<Ready extends boolean = boolean> extends EventEmitter<Client
   user: If<Ready, User, null> = null as If<Ready, User, null>;
 
   constructor() {
-    super();
-
-    (async () => {
-      await loadConfigFile();
-    })();
-
-    const { gateway, intents: unresolvedIntents, rest, token, voice } = getConfig();
+    const { gateway, intents: unresolvedIntents, rest, token, voice } = LinkcordConfiguration.loadConfigurationFile();
 
     if (!token || !unresolvedIntents) {
       throw new TypeError("Token or intents are missing from the configuration file.");
@@ -52,6 +50,25 @@ export class Client<Ready extends boolean = boolean> extends EventEmitter<Client
     this.watch();
   }
 
+  /**
+   * @internal
+   */
+  private emit<ClientEventName extends ClientEventNames>(
+    name: ClientEventName,
+    ...data: ClientEventsMap[ClientEventName]
+  ): void {
+    const eventsArray = this.events.get(name);
+
+    if (Array.isArray(eventsArray)) {
+      for (const event of eventsArray) {
+        event.run(...data);
+      }
+    }
+  }
+
+  /**
+   * @internal
+   */
   private handleOnGatewayPacket({ gatewayShard, packet }: GatewayManagerEvents["packet"][0]): void {
     const { op } = packet;
     const handler = handlers[op];
@@ -59,22 +76,42 @@ export class Client<Ready extends boolean = boolean> extends EventEmitter<Client
     handler?.(this, gatewayShard, packet as never);
   }
 
+  /**
+   * @internal
+   */
   private resolveGatewayIntents(intents: GatewayIntents[] | number): number {
     return Array.isArray(intents) ? intents.reduce((acc, curr) => acc | curr, 0) : intents;
   }
 
+  /**
+   * @internal
+   */
   private watch(): void {
     this.watchGateway();
   }
 
+  /**
+   * @internal
+   */
   private watchGateway(): void {
     this.gateway.on("packet", this.handleOnGatewayPacket.bind(this));
   }
 
-  async connect(): Promise<void> {
+  async init(): Promise<void> {
     const { gateway } = this;
+    const { locations } = LinkcordConfiguration.getOptions();
 
     await gateway.spawnShards();
+
+    if (locations) {
+      const { base, events } = locations;
+
+      if (events) {
+        const eventsFolderPath = join(process.cwd(), base, events);
+
+        await EventsLoader.registerEventsToClient(eventsFolderPath, this);
+      }
+    }
   }
 
   isReady(): this is Client<true> {
