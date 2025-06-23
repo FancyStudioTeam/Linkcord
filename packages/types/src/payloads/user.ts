@@ -101,7 +101,7 @@ export interface APIUser {
 
 /**
  * @public
- * @see TBD
+ * @see https://discord.com/developers/docs/resources/user#collectibles-collectible-structure
  */
 export interface APIUserCollectibles {
   nameplate?: APIUserNameplate;
@@ -109,7 +109,7 @@ export interface APIUserCollectibles {
 
 /**
  * @public
- * @see TBD
+ * @see https://discord.com/developers/docs/resources/user#nameplate-nameplate-structure
  */
 export interface APIUserNameplate {
   asset: string;
@@ -152,7 +152,7 @@ export enum ConnectionServices {
 
 /**
  * @public
- * @see TBD
+ * @see https://discord.com/developers/docs/resources/user#nameplate-nameplate-structure
  */
 export enum NameplatePalettes {
   Berry = "berry",
