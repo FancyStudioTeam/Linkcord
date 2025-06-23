@@ -234,6 +234,15 @@ export interface APIMessageComponentInteractionMetadata
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/message#message-pin-object-message-pin-object-struture
+ */
+export interface APIMessagePin {
+  message: APIMessage;
+  pinned_at: ISO8601Date;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-modal-submit-interaction-metadata-structure
  */
 export interface APIModalSubmitInteractionMetadata
@@ -379,7 +388,6 @@ export enum AllowedMentionTypes {
 
 /**
  * @alpha
- * @see TBD
  */
 export enum ContentScanFlags {
   Explicit = 1 << 0,
