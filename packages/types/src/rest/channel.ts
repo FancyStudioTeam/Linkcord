@@ -7,7 +7,6 @@ import type {
   APIThreadMember,
 } from "../payloads/channel.js";
 import type { APIInvite } from "../payloads/invite.js";
-import type { APIMessage } from "../payloads/message.js";
 
 /**
  * @public
@@ -56,12 +55,6 @@ export type RESTGetChannel = APIChannel;
  * @see https://discord.com/developers/docs/resources/channel#get-channel-invites
  */
 export type RESTGetChannelInvites = APIInvite[];
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/channel#get-pinned-messages
- */
-export type RESTGetPinnedMessages = APIMessage[];
 
 /**
  * @public
@@ -125,12 +118,6 @@ export type RESTModifyChannel = APIChannel;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/channel#pin-message
- */
-export type RESTPinMessage = undefined;
-
-/**
- * @public
  * @see https://discord.com/developers/docs/resources/channel#remove-thread-member
  */
 export type RESTRemoveThreadMember = undefined;
@@ -158,9 +145,3 @@ export type RESTStartThreadWithoutMessage = APIThreadChannel;
  * @see https://discord.com/developers/docs/resources/channel#trigger-typing-indicator
  */
 export type RESTTriggerTypingIndicator = undefined;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/channel#unpin-message
- */
-export type RESTUnpinMessage = undefined;

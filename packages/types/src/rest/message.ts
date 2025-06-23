@@ -3,13 +3,32 @@ import type {
   APIAllowedMentions,
   APIEmbed,
   APIMessage,
+  APIMessagePin,
   APIMessageReference,
   APIPartialAttachment,
   ReactionTypes,
 } from "../payloads/message.js";
 import type { APIUser } from "../payloads/user.js";
-import type { Snowflake } from "../shared/discord.js";
+import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 import type { RESTCreatePollRequest } from "./poll.js";
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#get-channel-pins-response-structure
+ */
+export interface RESTGetChannelMessagePins {
+  has_more: boolean;
+  items: APIMessagePin[];
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#get-channel-pins-query-string-params
+ */
+export interface RESTGetChannelMessagePinsQueryStringParams {
+  before?: ISO8601Date;
+  limit?: number;
+}
 
 /**
  * @public
@@ -80,6 +99,12 @@ export type RESTDeleteChannelMessage = undefined;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/message#unpin-message
+ */
+export type RESTDeleteChannelMessagePin = undefined;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/message#delete-own-reaction
  */
 export type RESTDeleteChannelMessageReactionOwn = undefined;
@@ -143,6 +168,12 @@ export type RESTPostChannelMessageCrosspost = APIMessage;
  * @see https://discord.com/developers/docs/resources/message#bulk-delete-messages
  */
 export type RESTPostChannelMessagesBulk = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#pin-message
+ */
+export type RESTPutChannelMessagePin = undefined;
 
 /**
  * @public
