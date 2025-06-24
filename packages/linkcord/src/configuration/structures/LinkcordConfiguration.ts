@@ -1,21 +1,40 @@
 import { existsSync } from "node:fs";
 import { basename, join } from "node:path";
 import { requireModule } from "../../utils/functions/requireModule.js";
-import type { LinkcordOptions } from "../functions/defineConfig.js";
+import type { LinkcordOptions } from "../defineConfig.js";
 
+/**
+ * @internal
+ */
 const ALLOWED_FILE_EXTENSIONS = ["js", "cjs", "mjs", "ts", "cts", "mts"] as const;
+
+/**
+ * @internal
+ */
 // @ts-expect-error
 const LINKCORD_CONFIGURATION: LinkcordOptions = {};
 
+/**
+ * @internal
+ */
 export class LinkcordConfiguration {
+  /**
+   * @internal
+   */
   static freeze(): void {
     Object.freeze(LINKCORD_CONFIGURATION);
   }
 
+  /**
+   * @internal
+   */
   static getOptions(): Readonly<LinkcordOptions> {
     return LINKCORD_CONFIGURATION;
   }
 
+  /**
+   * @internal
+   */
   static loadConfigurationFile(): Readonly<LinkcordOptions> {
     for (const extension of ALLOWED_FILE_EXTENSIONS) {
       const configurationFilePath = join(process.cwd(), `linkcord.config.${extension}`);
@@ -47,11 +66,17 @@ export class LinkcordConfiguration {
     return LinkcordConfiguration.getOptions();
   }
 
+  /**
+   * @internal
+   */
   static setOptions(options: LinkcordOptions): LinkcordOptions {
     return Object.assign(LINKCORD_CONFIGURATION, options);
   }
 }
 
+/**
+ * @internal
+ */
 interface ImportConfigurationFileData {
   default?: LinkcordOptions;
 }
