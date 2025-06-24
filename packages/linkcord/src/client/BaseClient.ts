@@ -11,7 +11,9 @@ export class BaseClient {
   events = new EventsManager();
 
   constructor() {
-    (async () => await LinkcordConfiguration.loadConfigurationFile())();
+    LinkcordConfiguration.loadConfigurationFile().catch((exception) =>
+      console.error("Error loading the configuration file: ", exception),
+    );
   }
 
   async init(): Promise<void> {
