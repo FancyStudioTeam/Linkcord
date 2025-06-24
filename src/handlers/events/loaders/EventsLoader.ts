@@ -1,7 +1,6 @@
 import { glob } from "glob";
-import type { BaseClient } from "../../../client/BaseClient.js";
-import type { Client } from "../../../client/Client.js";
-import { ImportUtils } from "../../../utils/structures/ImportUtils.js";
+import type { BaseClient } from "#client/BaseClient.js";
+import { ImportUtils } from "#utils/ImportUtils.js";
 import type { EventData } from "../createEvent.js";
 
 export class EventsLoader {
@@ -26,25 +25,10 @@ export class EventsLoader {
         throw new Error(`Event file '${fileName}' must include a default export.`);
       }
 
-      const { data } = defaultExport;
+      const { data, run } = defaultExport;
       const { name: eventName } = data;
-      /**
-       * biome-ignore lint/complexity/useLiteralKeys: Accessing private
-       * properties.
-       */
-      const eventListenersArray = client["events"].get(eventName);
 
-      if (!eventListenersArray || !Array.isArray(eventListenersArray)) {
-        /**
-         * biome-ignore lint/complexity/useLiteralKeys: Accessing private
-         * properties.
-         */
-        client["events"].set(eventName, [defaultExport]);
-
-        continue;
-      }
-
-      eventListenersArray.push(defaultExport);
+      client.events.register(eventName, run);
     }
   }
 }

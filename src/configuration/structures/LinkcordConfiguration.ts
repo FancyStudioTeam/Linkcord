@@ -1,6 +1,6 @@
 import { existsSync } from "node:fs";
 import { basename, join } from "node:path";
-import type { LinkcordOptions } from "../defineConfig.js";
+import type { LinkcordOptions } from "../defineConfig.ts";
 
 /**
  * @internal

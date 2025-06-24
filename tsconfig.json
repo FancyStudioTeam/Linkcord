@@ -14,8 +14,8 @@
     "paths": {
       "#client/*": ["./src/client/*"],
       "#configuration/*": ["./src/configuration/*"],
-      "#gateway/*": ["./src/gateway/*"],
-      "#rest/*": ["./src/rest/*"],
+      "#handlers/*": ["./src/handlers/*"],
+      "#structures/*": ["./src/structures/*"],
       "#types/*": ["./src/types/*"],
       "#utils/*": ["./src/utils/*"]
     },

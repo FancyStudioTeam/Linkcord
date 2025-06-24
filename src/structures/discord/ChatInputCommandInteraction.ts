@@ -1,8 +1,4 @@
-import {
-  type APIApplicationCommandInteraction,
-  ApplicationCommandTypes,
-  type Snowflake,
-} from "@fancystudioteam/linkcord-types";
+import { type APIApplicationCommandInteraction, ApplicationCommandTypes, type Snowflake } from "#types/index.js";
 import { CommandInteractionBase } from "./base/CommandInteractionBase.js";
 
 /**

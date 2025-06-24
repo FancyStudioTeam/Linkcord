@@ -5,9 +5,8 @@ import type {
   APIUserCollectibles,
   NameplatePalettes,
   Snowflake,
-} from "@fancystudioteam/linkcord-types";
-import { type ImageUrlOptions, ImageUtils } from "@fancystudioteam/linkcord-utils";
-import { BitFieldResolver } from "../../utils/index.js";
+} from "#types/index.js";
+import { BitFieldResolver } from "#utils/BitFieldResolver.js";
 import { Base } from "./base/Base.js";
 
 /**
@@ -97,44 +96,6 @@ export class User extends Base {
 
   get isMigrated(): boolean {
     return this.discriminator === "0" || this.discriminator === undefined;
-  }
-
-  avatarDecorationUrl(options?: ImageUrlOptions): string | null {
-    const { avatarDecorationData } = this;
-    const { asset } = avatarDecorationData ?? {};
-
-    if (!asset) {
-      return null;
-    }
-
-    return ImageUtils.createImageUrl(`avatar-decoration-presets/${asset}`, options);
-  }
-
-  avatarUrl(options?: ImageUrlOptions): string {
-    const { avatar, id } = this;
-
-    if (!avatar) {
-      return this.defaultAvatarUrl(options);
-    }
-
-    return ImageUtils.createImageUrl(`avatars/${id}/${avatar}`, options);
-  }
-
-  bannerUrl(options?: ImageUrlOptions): string | null {
-    const { banner, id } = this;
-
-    if (!banner) {
-      return null;
-    }
-
-    return ImageUtils.createImageUrl(`banners/${id}/${banner}`, options);
-  }
-
-  defaultAvatarUrl(options?: ImageUrlOptions): string {
-    const { discriminator, id, isMigrated } = this;
-    const index = isMigrated ? Number(BigInt(id) >> 22n) % 6 : Number(discriminator) % 5;
-
-    return ImageUtils.createImageUrl(`embed/avatars/${index}`, options);
   }
 }
 

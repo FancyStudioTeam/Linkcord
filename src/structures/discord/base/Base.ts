@@ -1,5 +1,5 @@
-import type { Snowflake } from "@fancystudioteam/linkcord-types";
-import { SnowflakeUtils } from "@fancystudioteam/linkcord-utils";
+import type { Snowflake } from "#types/index.js";
+import { SnowflakeUtils } from "#utils/SnowflakeUtils.js";
 
 /**
  * @public

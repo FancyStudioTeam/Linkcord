@@ -1,4 +1,4 @@
-import type { APIEntitlement, EntitlementTypes, Snowflake } from "@fancystudioteam/linkcord-types";
+import type { APIEntitlement, EntitlementTypes, Snowflake } from "#types/index.js";
 import { Base } from "./base/Base.js";
 
 /**

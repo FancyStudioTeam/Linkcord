@@ -1,17 +1,16 @@
-import type { GatewayShard } from "../gateway/index.js";
-import type { ChatInputCommandInteraction } from "../structures/discord/ChatInputCommandInteraction.js";
-import type { User } from "../structures/index.js";
-import type { GatewayEvent } from "../types/raw/index.js";
+import type { ChatInputCommandInteraction } from "#structures/discord/ChatInputCommandInteraction.js";
+import type { User } from "#structures/index.js";
+import type { GatewayEvent } from "#types/index.js";
 
 /**
  * @public
  */
 export interface ClientEventsMap {
-  debug: [message: string, shard?: GatewayShard];
-  interactionCreate: [interaction: ChatInputCommandInteraction, shard: GatewayShard];
+  debug: [message: string];
+  interactionCreate: [interaction: ChatInputCommandInteraction];
   ready: [user: User];
-  shardPacket: [shard: GatewayShard, packet: GatewayEvent];
-  shardReady: [shard: GatewayShard, user: User];
+  shardPacket: [packet: GatewayEvent];
+  shardReady: [user: User];
 }
 
 /**
