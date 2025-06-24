@@ -7,8 +7,7 @@ import type { Snowflake } from "../shared/discord.js";
 export interface APIStageInstance {
   channel_id: Snowflake;
   /**
-   * @remarks
-   * - This field is currently deprecated by Discord.
+   * @deprecated
    */
   discoverable_disabled: boolean;
   guild_id: Snowflake;
@@ -25,8 +24,7 @@ export interface APIStageInstance {
 export enum StageInstancePrivacyLevel {
   GuildOnly = 2,
   /**
-   * @remarks
-   * - This privacy level is currently deprecated by Discord.
+   * @deprecated
    */
   Public = 1,
 }

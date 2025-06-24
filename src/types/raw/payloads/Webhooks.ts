@@ -1,7 +1,7 @@
 import type { Snowflake } from "../shared/discord.js";
 import type { APIGuildChannel } from "./channel.js";
 import type { APIGuild } from "./guild.js";
-import type { APIUser } from "./user.js";
+import type { APIUser } from "./Users.js";
 
 /**
  * @public
@@ -14,17 +14,7 @@ export interface APIWebhook {
   guild_id?: Snowflake | null;
   id: Snowflake;
   name: string | null;
-  /**
-   * @remarks
-   * - This field may not be present when the webhook owner lost access to the
-   *   guild at which the channel belongs.
-   */
   source_channel: APIWebhookSourceChannel;
-  /**
-   * @remarks
-   * - This field may not be present when the webhook owner lost access to the
-   *   guild at which the channel belongs.
-   */
   source_guild?: APIWebhookSourceGuild;
   token?: string;
   type: WebhookTypes;
@@ -34,15 +24,13 @@ export interface APIWebhook {
 
 /**
  * @public
- * @remarks
- * - This type is not documented by Discord.
+ * @see https://discord.com/developers/docs/resources/webhook#webhook-object-example-channel-follower-webhook
  */
 export type APIWebhookSourceChannel = Pick<APIGuildChannel, "id" | "name">;
 
 /**
  * @public
- * @remarks
- * - This type is not documented by Discord.
+ * @see https://discord.com/developers/docs/resources/webhook#webhook-object-example-channel-follower-webhook
  */
 export type APIWebhookSourceGuild = Pick<APIGuild, "icon" | "id" | "name">;
 

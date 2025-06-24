@@ -1,16 +1,11 @@
 import type { Snowflake } from "../shared/discord.js";
-import type { APIUser } from "./user.js";
+import type { APIUser } from "./Users.js";
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-structure
  */
 export interface APISticker {
-  /**
-   * @remarks
-   * - This field value may be `false` if the guild at which the sticker belongs
-   *   lost Server Boosts which increase the sticker limit.
-   */
   available?: boolean;
   description: string | null;
   format_type: StickerFormatTypes;
@@ -19,12 +14,6 @@ export interface APISticker {
   name: string;
   pack_id?: Snowflake;
   sort_value?: number;
-  /**
-   * @remarks
-   * - This field is a comma separated list of keywords for standard stickers.
-   * - The Discord client will use a generated name from an emoji as the value
-   *   for this field when creating or modifying a guild sticker.
-   */
   tags: string;
   type: StickerTypes;
   user?: APIUser;

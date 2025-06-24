@@ -1,5 +1,5 @@
 import type { Snowflake } from "../shared/discord.js";
-import type { APIUser } from "./user.js";
+import type { APIUser } from "./Users.js";
 
 /**
  * @public
