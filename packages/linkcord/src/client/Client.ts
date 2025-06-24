@@ -6,9 +6,10 @@ import type { ClientEventNames, EventData } from "../handlers/events/index.js";
 import { EventsLoader } from "../handlers/events/loaders/EventsLoader.js";
 import { RESTManager } from "../rest/structures/RESTManager.js";
 import type { User } from "../structures/index.js";
-import type { GatewayIntents, If, Snowflake } from "../types/raw/index.js";
+import type { If, Snowflake } from "../types/raw/index.js";
 import { VoiceManager } from "../voice/structures/VoiceManager.js";
 import type { ClientEventsMap } from "./ClientEvents.js";
+import { resolveGatewayIntents } from "./functions/resolveGatewayIntents.js";
 import { handlers } from "./handlers/handlers.js";
 
 /**
@@ -26,17 +27,15 @@ export class Client<Ready extends boolean = boolean> {
   user: If<Ready, User, null> = null as If<Ready, User, null>;
 
   constructor() {
-    const { gateway, intents: unresolvedIntents, rest, token, voice } = LinkcordConfiguration.loadConfigurationFile();
+    const { gateway, intents, rest, token, voice } = LinkcordConfiguration.loadConfigurationFile();
 
-    if (!token || !unresolvedIntents) {
+    if (!token || !intents) {
       throw new TypeError("Token or intents are missing from the configuration file.");
     }
 
-    const intents = this.resolveGatewayIntents(unresolvedIntents);
-
     this.gateway = new GatewayManager({
       ...gateway,
-      intents,
+      intents: resolveGatewayIntents(intents),
       token,
     });
     this.ready = false as Ready;
@@ -48,7 +47,6 @@ export class Client<Ready extends boolean = boolean> {
       ...voice,
       gatewayManager: this.gateway,
     });
-    this.watch();
   }
 
   /**
@@ -75,20 +73,6 @@ export class Client<Ready extends boolean = boolean> {
     const handler = handlers[op];
 
     handler?.(this, gatewayShard, packet as never);
-  }
-
-  /**
-   * @internal
-   */
-  private resolveGatewayIntents(intents: GatewayIntents[] | number): number {
-    return Array.isArray(intents) ? intents.reduce((acc, curr) => acc | curr, 0) : intents;
-  }
-
-  /**
-   * @internal
-   */
-  private watch(): void {
-    this.watchGateway();
   }
 
   /**

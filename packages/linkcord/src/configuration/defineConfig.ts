@@ -39,12 +39,17 @@ export interface LinkcordLocationsOptions {
 export interface LinkcordOptions {
   commandsCache?: LinkcordCommandsCacheOptions;
   gateway?: LinkcordGatewayOptions;
-  intents: GatewayIntents[] | number;
+  intents: GatewayIntents[] | GatewayIntentsString[] | number;
   locations: LinkcordLocationsOptions;
   rest?: LinkcordRestOptions;
   token: string;
   voice?: LinkcordVoiceOptions;
 }
+
+/**
+ * @public
+ */
+export type GatewayIntentsString = keyof typeof GatewayIntents;
 
 /**
  * @public
