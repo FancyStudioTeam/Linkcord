@@ -5,6 +5,11 @@ import type { VoiceManagerOptions } from "@fancystudioteam/linkcord-voice";
 
 export const defineConfig = (options: LinkcordOptions): LinkcordOptions => options;
 
+export interface LinkcordCommandsCacheOptions {
+  cachePath?: string;
+  enabled: boolean;
+}
+
 export interface LinkcordLocationsBase {
   development: string;
   production: string;
@@ -17,6 +22,7 @@ export interface LinkcordLocationsOptions {
 }
 
 export interface LinkcordOptions {
+  commandsCache?: LinkcordCommandsCacheOptions;
   gateway?: LinkcordGatewayOptions;
   intents: GatewayIntents[] | number;
   locations: LinkcordLocationsOptions;
