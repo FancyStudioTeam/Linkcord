@@ -1,17 +1,11 @@
-import type { BaseClient } from "../BaseClient.js";
 import type { ClientEventsMap, ClientEventsString } from "../ClientEvents.js";
 
 /**
  * @public
  */
 export class EventsManager {
-  readonly client: BaseClient;
   // biome-ignore lint/complexity/noBannedTypes: (x)
   readonly listeners = new Map<ClientEventsString, Function[]>();
-
-  constructor(client: BaseClient) {
-    this.client = client;
-  }
 
   emit<ClientEvent extends ClientEventsString>(name: ClientEvent, ...data: ClientEventsMap[ClientEvent]): void {
     const { listeners } = this;

@@ -8,7 +8,7 @@ import { EventsManager } from "./managers/EventsManager.js";
  * @public
  */
 export class BaseClient {
-  events = new EventsManager(this);
+  events = new EventsManager();
 
   constructor() {
     (async () => await LinkcordConfiguration.loadConfigurationFile())();
