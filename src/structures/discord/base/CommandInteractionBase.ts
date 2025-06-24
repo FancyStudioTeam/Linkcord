@@ -3,7 +3,7 @@ import {
   type ApplicationCommandTypes,
   InteractionTypes,
   type Snowflake,
-} from "@fancystudioteam/linkcord-types";
+} from "#types/index.js";
 import { InteractionBase } from "./InteractionBase.js";
 
 /**

@@ -5,7 +5,7 @@ import type {
   InteractionTypes,
   Locale,
   Snowflake,
-} from "@fancystudioteam/linkcord-types";
+} from "#types/index.js";
 import { Entitlement } from "../Entitlement.js";
 import { Base } from "./Base.js";
 
