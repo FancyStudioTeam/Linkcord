@@ -3,6 +3,6 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "exclude": ["**/*.test.ts"],
+  "exclude": ["**/*.test.ts", "**/internal_testing"],
   "extends": "../../tsconfig.base.json"
 }
