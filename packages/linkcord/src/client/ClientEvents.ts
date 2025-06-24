@@ -6,43 +6,11 @@ import type { GatewayEvent } from "../types/raw/index.js";
 /**
  * @public
  */
-export interface ClientEventsInteractionCreate {
-  interaction: ChatInputCommandInteraction;
-  shard: GatewayShard;
-}
-
-/**
- * @public
- */
 export interface ClientEventsMap {
-  interactionCreate: [payload: ClientEventsInteractionCreate];
-  ready: [payload: ClientEventsReady];
-  shardPacket: [payload: ClientEventsShardPacket];
-  shardReady: [payload: ClientEventsShardReady];
-}
-
-/**
- * @public
- */
-export interface ClientEventsReady {
-  shard: GatewayShard;
-  user: User;
-}
-
-/**
- * @public
- */
-export interface ClientEventsShardPacket {
-  packet: GatewayEvent;
-  shard: GatewayShard;
-}
-
-/**
- * @public
- */
-export interface ClientEventsShardReady {
-  shard: GatewayShard;
-  user: User;
+  interactionCreate: [interaction: ChatInputCommandInteraction, shard: GatewayShard];
+  ready: [user: User];
+  shardPacket: [shard: GatewayShard, packet: GatewayEvent];
+  shardReady: [shard: GatewayShard, user: User];
 }
 
 /**
