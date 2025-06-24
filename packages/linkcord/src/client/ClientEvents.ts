@@ -44,3 +44,8 @@ export interface ClientEventsShardReady {
   shard: GatewayShard;
   user: User;
 }
+
+/**
+ * @public
+ */
+export type ClientEventsString = keyof ClientEventsMap;
