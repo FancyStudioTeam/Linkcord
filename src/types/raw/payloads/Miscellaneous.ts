@@ -7,10 +7,6 @@ import type { APIGuildMember } from "./guild.js";
  */
 export interface APIVoiceRegion {
   custom: boolean;
-  /**
-   * @remarks
-   * - Users should avoid switching to deprecated regions.
-   */
   deprecated: boolean;
   id: string;
   name: string;
