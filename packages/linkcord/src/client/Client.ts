@@ -1,13 +1,14 @@
 import { join } from "node:path";
-import { GatewayManager, type GatewayManagerEvents } from "@fancystudioteam/linkcord-gateway";
-import { RESTManager } from "@fancystudioteam/linkcord-rest";
-import type { GatewayIntents, If, Snowflake } from "@fancystudioteam/linkcord-types";
-import { VoiceManager } from "@fancystudioteam/linkcord-voice";
 import { LinkcordConfiguration } from "../configuration/structures/LinkcordConfiguration.js";
+import { GatewayManager, type GatewayManagerEvents } from "../gateway/index.js";
+import { CommandsLoader } from "../handlers/commands/loaders/CommandsLoader.js";
 import type { ClientEventNames, EventData } from "../handlers/events/index.js";
 import { EventsLoader } from "../handlers/events/loaders/EventsLoader.js";
+import { RESTManager } from "../rest/structures/RESTManager.js";
 import type { User } from "../structures/index.js";
-import type { ClientEventsMap } from "./events.js";
+import type { GatewayIntents, If, Snowflake } from "../types/raw/index.js";
+import { VoiceManager } from "../voice/structures/VoiceManager.js";
+import type { ClientEventsMap } from "./ClientEvents.js";
 import { handlers } from "./handlers/handlers.js";
 
 /**
@@ -104,12 +105,18 @@ export class Client<Ready extends boolean = boolean> {
     await gateway.spawnShards();
 
     if (locations) {
-      const { base, events } = locations;
+      const { base, commands, events } = locations;
 
       if (events) {
         const eventsFolderPath = join(process.cwd(), base, events);
 
         await EventsLoader.registerEventsToClient(eventsFolderPath, this);
+      }
+
+      if (commands) {
+        const commandsFolderPath = join(process.cwd(), base, commands);
+
+        await CommandsLoader.registerCommandsToClient(commandsFolderPath, this);
       }
     }
   }
