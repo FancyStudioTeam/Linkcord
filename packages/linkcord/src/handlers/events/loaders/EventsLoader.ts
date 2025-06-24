@@ -22,7 +22,7 @@ export class EventsLoader {
       const { default: defaultExport } = importEventData;
 
       if (!defaultExport) {
-        throw new Error(`Event file '${fileName}' must export a default export.`);
+        throw new Error(`Event file '${fileName}' must include a default export.`);
       }
 
       const { data } = defaultExport;
