@@ -1,9 +1,10 @@
-import type { GatewayIntentsStrings } from "../../configuration/defineConfig.js";
+import type { GatewayIntentsString } from "../../configuration/defineConfig.js";
 import { GatewayIntents } from "../../types/raw/index.js";
 
-export const resolveGatewayIntents = (
-  intentsToResolve: GatewayIntents[] | GatewayIntentsStrings[] | number,
-): number => {
+/**
+ * @internal
+ */
+export const resolveGatewayIntents = (intentsToResolve: GatewayIntents[] | GatewayIntentsString[] | number): number => {
   if (Array.isArray(intentsToResolve)) {
     return intentsToResolve.reduce((accumulator, intent) => {
       if (typeof intent === "string") {
