@@ -1,28 +1,53 @@
 {
   "dependencies": {
-    "@fancystudioteam/linkcord": "link:packages\\linkcord"
+    "glob": "11.0.3",
+    "ws": "8.18.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.4",
+    "@biomejs/biome": "2.0.5",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@commitlint/types": "19.8.1",
+    "@swc/cli": "0.7.7",
+    "@swc/core": "1.12.5",
+    "@types/node": "24.0.3",
     "@types/semver": "7.7.0",
+    "@types/ws": "8.18.1",
     "husky": "9.1.7",
     "lint-staged": "16.1.2",
+    "rimraf": "6.0.1",
     "semver": "7.7.2",
+    "tsup": "8.5.0",
     "turbo": "2.5.4",
     "typescript": "5.8.3",
     "vitest": "3.2.4"
   },
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "license": "MIT",
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,json}": [
       "pnpm biome:check"
     ]
   },
-  "name": "linkcord-monorepo",
-  "packageManager": "pnpm@10.11.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "name": "@fancystudioteam/linkcord",
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0",
+  "private": false,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/FancyStudioTeam/Linkcord"
@@ -30,13 +55,17 @@
   "scripts": {
     "biome": "biome check --config-path biome.json",
     "biome:check": "biome check --config-path biome.json --write",
-    "build": "turbo run build",
-    "bump": "node scripts/bump.mjs",
-    "prepare": "husky",
-    "release": "turbo run release",
-    "tarball": "turbo run tarball",
-    "vitest": "turbo run vitest",
-    "vitest:update": "turbo run vitest:update",
-    "vitest:watch": "turbo run vitest:watch"
-  }
+    "build": "pnpm rimraf && pnpm build:esm && pnpm build:cjs && pnpm build:types",
+    "build:cjs": "swc src --strip-leading-paths -C module.type=commonjs --ignore **/*.test.ts --out-dir dist/cjs",
+    "build:esm": "swc src --strip-leading-paths -C module.type=es6 --ignore **/*.test.ts --out-dir dist/esm",
+    "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist/types",
+    "release": "pnpm publish --access public --no-git-checks",
+    "rimraf": "rimraf dist",
+    "tarball": "pnpm pack",
+    "tsup": "pnpm rimraf && tsup",
+    "vitest": "vitest -c ../../vitest.config.ts",
+    "vitest:watch": "vitest -c ../../vitest.config.ts --watch"
+  },
+  "types": "dist/types/index.d.ts",
+  "version": "0.0.0"
 }
