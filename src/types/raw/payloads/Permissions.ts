@@ -54,7 +54,9 @@ export interface APIRoleTags {
  * @see https://discord.com/developers/docs/topics/permissions#permissions-bitwise-permission-flags
  */
 /**
- * biome-ignore-start lint/style/useNamingConvention: Use pascal case.
+ * biome-ignore-start lint/style/useNamingConvention: This should be an enum,
+ * but due some limitations with large numeric values, this is a constant
+ * using "BigInt" with "Pascal Case".
  */
 export const BitwisePermissionFlags = {
   AddReactions: 1n << 6n,
@@ -108,7 +110,9 @@ export const BitwisePermissionFlags = {
   ViewGuildInsights: 1n << 19n,
 };
 /**
- * biome-ignore-end lint/style/useNamingConvention: Use pascal case.
+ * biome-ignore-end lint/style/useNamingConvention: This should be an enum,
+ * but due some limitations with large numeric values, this is a constant
+ * using "BigInt" with "Pascal Case".
  */
 
 /**

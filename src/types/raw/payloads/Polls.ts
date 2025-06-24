@@ -8,17 +8,8 @@ import type { APIPartialEmoji } from "./emoji.js";
 export interface APIPoll {
   allow_multiselect: boolean;
   answers: APIPollAnswer[];
-  /**
-   * @remarks
-   * - This field value is marked as nullable to support non-expiring polls in
-   *   the future, but currently all polls have an expiry date.
-   */
   expiry: ISO8601Date | null;
   layout_type: PollLayoutTypes;
-  /**
-   * @remarks
-   * - This field is an `APIPollMedia` object that only supports the `text` field.
-   */
   question: APIPollQuestion;
   results?: APIPollResults;
 }
@@ -28,10 +19,6 @@ export interface APIPoll {
  * @see https://discord.com/developers/docs/resources/poll#poll-answer-object-poll-answer-object-structure
  */
 export interface APIPollAnswer {
-  /**
-   * @remarks
-   * - This field is only present for Gateway events.
-   */
   answer_id?: number;
   poll_media: APIPollMedia;
 }
@@ -52,19 +39,8 @@ export interface APIPollAnswerCount {
  */
 export interface APIPollMedia {
   emoji?: APIPartialEmoji;
-  /**
-   * @remarks
-   * - This field should be always non-null for questions and answers, but this
-   *   may change in the future.
-   */
   text?: string;
 }
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/poll#poll-media-object-poll-media-object-structure
- */
-export interface APIPollQuestion extends Pick<APIPollMedia, "text"> {}
 
 /**
  * @public
@@ -74,6 +50,12 @@ export interface APIPollResults {
   answer_counts: APIPollAnswerCount[];
   is_finalized: boolean;
 }
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/poll#poll-media-object-poll-media-object-structure
+ */
+export type APIPollQuestion = Pick<APIPollMedia, "text">;
 
 /**
  * @public

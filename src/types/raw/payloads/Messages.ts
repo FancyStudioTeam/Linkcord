@@ -6,10 +6,10 @@ import type { APIChannel, ChannelTypes } from "./channel.js";
 import type { APIMessageComponents } from "./component.js";
 import type { APIPartialEmoji } from "./emoji.js";
 import type { APIResolvedData, InteractionTypes } from "./interaction.js";
-import type { APIPoll } from "./poll.js";
-import type { APISoundboardSound } from "./soundboard.js";
-import type { APIStickerItem } from "./sticker.js";
-import type { APIUser } from "./user.js";
+import type { APIPoll } from "./Polls.js";
+import type { APISoundboardSound } from "./Soundboards.js";
+import type { APIStickerItem } from "./Stickers.js";
+import type { APIUser } from "./Users.js";
 
 /**
  * @public
@@ -135,30 +135,12 @@ export interface APIEmbedFooter {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/message#embed-object-embed-image-structure
- */
-export interface APIEmbedImage extends APIEmbedMediaContentBase {}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-provider-structure
  */
 export interface APIEmbedProvider {
   name?: string;
   url?: string;
 }
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/message#embed-object-embed-thumbnail-structure
- */
-export interface APIEmbedThumbnail extends APIEmbedMediaContentBase {}
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/message#embed-object-embed-video-structure
- */
-export interface APIEmbedVideo extends Omit<APIEmbedMediaContentBase, "flags"> {}
 
 /**
  * @public
@@ -274,27 +256,6 @@ export interface APIMessageSnapshot {
  * @public
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
  */
-export interface APIMessageSnapshotMessage
-  extends Pick<
-    APIMessage,
-    | "attachments"
-    | "components"
-    | "content"
-    | "edited_timestamp"
-    | "embeds"
-    | "flags"
-    | "mention_roles"
-    | "mentions"
-    | "soundboard_sounds"
-    | "sticker_items"
-    | "timestamp"
-    | "type"
-  > {}
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
- */
 export interface APIPartialMessage
   extends Pick<APIMessage, "application_id" | "author" | "channel_id" | "content" | "flags" | "id"> {
   channel?: APIChannel;
@@ -361,6 +322,24 @@ export interface APIRoleSubscriptionData {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/message#embed-object-embed-image-structure
+ */
+export type APIEmbedImage = APIEmbedMediaContentBase;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#embed-object-embed-thumbnail-structure
+ */
+export type APIEmbedThumbnail = APIEmbedMediaContentBase;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#embed-object-embed-video-structure
+ */
+export type APIEmbedVideo = APIEmbedMediaContentBase;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
  */
 export type APIModalSubmitInteractionMetadataTriggeringInteractionMetadata =
@@ -375,6 +354,26 @@ export type APIMessageInteractionMetadata =
   | APIApplicationCommandInteractionMetadata
   | APIMessageComponentInteractionMetadata
   | APIModalSubmitInteractionMetadata;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
+ */
+export type APIMessageSnapshotMessage = Pick<
+  APIMessage,
+  | "attachments"
+  | "components"
+  | "content"
+  | "edited_timestamp"
+  | "embeds"
+  | "flags"
+  | "mention_roles"
+  | "mentions"
+  | "soundboard_sounds"
+  | "sticker_items"
+  | "timestamp"
+  | "type"
+>;
 
 /**
  * @public
