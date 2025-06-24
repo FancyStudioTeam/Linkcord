@@ -15,7 +15,7 @@ export * from "./guild-scheduled-event.js";
 export * from "./guild-template.js";
 export * from "./interaction.js";
 export * from "./invite.js";
-export * from "./lobby.js";
+export * from "./Lobbies.js";
 export * from "./Messages.js";
 export * from "./OAuth2.js";
 export * from "./Permissions.js";

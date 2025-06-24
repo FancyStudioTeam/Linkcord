@@ -10,7 +10,7 @@ export interface APILobby {
   id: Snowflake;
   linked_channel?: APIChannel;
   members: APILobbyMember[];
-  metadata: APILobbyMetadata | null;
+  metadata: Record<string, string> | null;
 }
 
 /**
@@ -20,20 +20,8 @@ export interface APILobby {
 export interface APILobbyMember {
   flags?: LobbyMemberFlags;
   id: Snowflake;
-  metadata?: APILobbyMemberMetadata | null;
+  metadata?: Record<string, string> | null;
 }
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-structure
- */
-export type APILobbyMemberMetadata = APILobbyMetadata;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/lobby#lobby-object-lobby-structure
- */
-export type APILobbyMetadata = Record<string, string>;
 
 /**
  * @public
