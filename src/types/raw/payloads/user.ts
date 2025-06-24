@@ -65,7 +65,7 @@ export interface APIPartialUser
  */
 export interface APIPrimaryGuild {
   badge: string | null;
-  identity_enabled: boolean;
+  identity_enabled: boolean | null;
   identity_guild_id: Snowflake | null;
   tag: string | null;
 }
