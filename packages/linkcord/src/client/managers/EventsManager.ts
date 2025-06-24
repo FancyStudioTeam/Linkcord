@@ -1,4 +1,3 @@
-import type { EventData } from "../../handlers/index.js";
 import type { BaseClient } from "../BaseClient.js";
 import type { ClientEventsMap, ClientEventsString } from "../ClientEvents.js";
 
@@ -7,26 +6,35 @@ import type { ClientEventsMap, ClientEventsString } from "../ClientEvents.js";
  */
 export class EventsManager {
   readonly client: BaseClient;
-  readonly handlers: Map<ClientEventsString, EventData[]> = new Map();
-
-  listeners: Partial<EventListeners> = {};
+  // biome-ignore lint/complexity/noBannedTypes: (x)
+  readonly listeners = new Map<ClientEventsString, Function[]>();
 
   constructor(client: BaseClient) {
     this.client = client;
   }
 
   emit<ClientEvent extends ClientEventsString>(name: ClientEvent, ...data: ClientEventsMap[ClientEvent]): void {
-    const { handlers, listeners } = this;
-    const handlersArray = handlers.get(name) ?? [];
+    const { listeners } = this;
+    const existing = listeners.get(name) ?? [];
 
-    for (const handler of handlersArray) {
-      handler.run(...data);
+    for (const listener of existing) {
+      listener(...data);
+    }
+  }
+
+  register<ClientEvent extends keyof ClientEventsMap>(
+    name: ClientEvent,
+    listener: (...data: ClientEventsMap[ClientEvent]) => unknown,
+  ): void {
+    const { listeners } = this;
+    const existing = listeners.get(name);
+
+    if (!existing || !Array.isArray(existing)) {
+      listeners.set(name, [listener]);
+
+      return;
     }
 
-    listeners[name]?.(...data);
+    existing.push(listener);
   }
 }
-
-type EventListeners = {
-  [Key in keyof ClientEventsMap]: (...data: ClientEventsMap[Key]) => unknown;
-};
