@@ -1,17 +1,15 @@
 {
   "dependencies": {
-    "@fancystudioteam/linkcord-gateway": "workspace:*",
-    "@fancystudioteam/linkcord-rest": "workspace:*",
-    "@fancystudioteam/linkcord-types": "workspace:*",
-    "@fancystudioteam/linkcord-utils": "workspace:*",
-    "@fancystudioteam/linkcord-voice": "workspace:*",
-    "glob": "11.0.3"
+    "glob": "11.0.3",
+    "ws": "8.18.2"
   },
   "devDependencies": {
     "@swc/cli": "0.7.7",
     "@swc/core": "1.12.5",
     "@types/node": "24.0.3",
+    "@types/ws": "8.18.1",
     "rimraf": "6.0.1",
+    "tsup": "8.5.0",
     "typescript": "5.8.3",
     "vitest": "3.2.4"
   },
@@ -47,6 +45,7 @@
     "release": "pnpm publish --access public --no-git-checks",
     "rimraf": "rimraf dist",
     "tarball": "pnpm pack",
+    "tsup": "pnpm rimraf && tsup",
     "vitest": "vitest -c ../../vitest.config.ts",
     "vitest:watch": "vitest -c ../../vitest.config.ts --watch"
   },

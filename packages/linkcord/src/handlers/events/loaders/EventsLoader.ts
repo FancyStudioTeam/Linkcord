@@ -1,4 +1,5 @@
 import { glob } from "glob";
+import type { BaseClient } from "../../../client/BaseClient.js";
 import type { Client } from "../../../client/Client.js";
 import { ImportUtils } from "../../../utils/structures/ImportUtils.js";
 import type { EventData } from "../createEvent.js";
@@ -8,7 +9,7 @@ export class EventsLoader {
     return "**/*.event.{js,cjs,mjs,ts,cts,mts,jsx,tsx}";
   }
 
-  static async registerEventsToClient(eventsFolderPath: string, client: Client): Promise<void> {
+  static async registerEventsToClient(eventsFolderPath: string, client: BaseClient): Promise<void> {
     const globPattern = EventsLoader.GLOB_PATTERN;
     const eventFilePaths = await glob(globPattern, {
       cwd: eventsFolderPath,

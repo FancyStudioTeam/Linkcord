@@ -1,7 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "#client/*": ["./src/client/*"],
+      "#configuration/*": ["./src/configuration/*"],
+      "#gateway/*": ["./src/gateway/*"],
+      "#rest/*": ["./src/rest/*"],
+      "#types/*": ["./src/types/*"],
+      "#utils/*": ["./src/utils/*"]
+    }
   },
   "exclude": ["**/*.test.ts", "**/internal_testing"],
   "extends": "../../tsconfig.base.json"
