@@ -1,6 +1,6 @@
-import type { APIAutoModerationRule } from "../../../payloads/auto-moderation.js";
+import type { APIAutoModerationRule } from "#types/raw/payloads/AutoModeration.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
-import type { GatewayDispatchEvents } from "../dispatch.js";
+import type { GatewayDispatchEvents } from "../Dispatch.js";
 
 /**
  * @public

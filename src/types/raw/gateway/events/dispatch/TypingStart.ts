@@ -1,7 +1,7 @@
-import type { APIGuildMember } from "../../../payloads/guild.js";
-import type { Snowflake } from "../../../shared/discord.js";
+import type { APIGuildMember } from "#types/raw/payloads/Guilds.js";
+import type { Snowflake } from "#types/raw/shared/discord.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
-import type { GatewayDispatchEvents } from "../dispatch.js";
+import type { GatewayDispatchEvents } from "../Dispatch.js";
 
 /**
  * @public

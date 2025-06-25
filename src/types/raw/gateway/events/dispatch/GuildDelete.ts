@@ -1,6 +1,6 @@
-import type { APIUnavailableGuild } from "../../../payloads/guild.js";
+import type { APIUnavailableGuild } from "#types/raw/payloads/Guilds.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
-import type { GatewayDispatchEvents } from "../dispatch.js";
+import type { GatewayDispatchEvents } from "../Dispatch.js";
 
 /**
  * @public

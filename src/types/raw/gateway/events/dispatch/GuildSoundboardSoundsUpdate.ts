@@ -1,7 +1,7 @@
-import type { APISoundboardSound } from "../../../payloads/soundboard.js";
-import type { Snowflake } from "../../../shared/discord.js";
+import type { APISoundboardSound } from "#types/raw/payloads/Soundboards.js";
+import type { Snowflake } from "#types/raw/shared/discord.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
-import type { GatewayDispatchEvents } from "../dispatch.js";
+import type { GatewayDispatchEvents } from "../Dispatch.js";
 
 /**
  * @public

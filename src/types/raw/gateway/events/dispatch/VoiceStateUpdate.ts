@@ -1,6 +1,6 @@
-import type { APIVoiceState } from "../../../payloads/voice.js";
+import type { APIVoiceState } from "#types/raw/payloads/Voice.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
-import type { GatewayDispatchEvents } from "../dispatch.js";
+import type { GatewayDispatchEvents } from "../Dispatch.js";
 
 /**
  * @public

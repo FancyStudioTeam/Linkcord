@@ -1,7 +1,7 @@
-import type { APIEmoji } from "../../../payloads/emoji.js";
-import type { Snowflake } from "../../../shared/discord.js";
+import type { APIEmoji } from "#types/raw/payloads/Emojis.js";
+import type { Snowflake } from "#types/raw/shared/discord.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
-import type { GatewayDispatchEvents } from "../dispatch.js";
+import type { GatewayDispatchEvents } from "../Dispatch.js";
 
 /**
  * @public
@@ -14,10 +14,6 @@ export interface GatewayDispatchVoiceChannelEffectSendPayload {
   emoji?: APIEmoji | null;
   guild_id: Snowflake;
   sound_id?: number | Snowflake;
-  /**
-   * @remarks
-   * - This field value is a double value between `0` and `1`. Example: `0.75`.
-   */
   sound_volume?: number;
   user_id: Snowflake;
 }

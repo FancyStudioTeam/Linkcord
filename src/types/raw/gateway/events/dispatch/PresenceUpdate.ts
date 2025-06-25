@@ -1,9 +1,9 @@
-import type { APIUser } from "../../../payloads/user.js";
-import type { Snowflake } from "../../../shared/discord.js";
+import type { APIUser } from "#types/raw/payloads/Users.js";
+import type { Snowflake } from "#types/raw/shared/discord.js";
 import type { GatewayActivity } from "../../activity.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
-import type { GatewayDispatchEvents } from "../dispatch.js";
-import type { StatusTypes } from "../presence-update.js";
+import type { StatusTypes } from "../../presence.js";
+import type { GatewayDispatchEvents } from "../Dispatch.js";
 
 /**
  * @public

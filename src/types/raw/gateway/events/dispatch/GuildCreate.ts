@@ -1,13 +1,13 @@
-import type { APIGuildChannel, APIThreadChannel } from "../../../payloads/channel.js";
-import type { APIGuild, APIGuildMember } from "../../../payloads/guild.js";
-import type { APIGuildScheduledEvent } from "../../../payloads/guild-scheduled-event.js";
-import type { APISoundboardSound } from "../../../payloads/soundboard.js";
-import type { APIStageInstance } from "../../../payloads/stage-instance.js";
+import type { APIGuildChannel, APIThreadChannel } from "#types/raw/payloads/Channels.js";
+import type { APIGuildScheduledEvent } from "#types/raw/payloads/GuildScheduledEvents.js";
+import type { APIGuild, APIGuildMember } from "#types/raw/payloads/Guilds.js";
+import type { APISoundboardSound } from "#types/raw/payloads/Soundboards.js";
+import type { APIStageInstance } from "#types/raw/payloads/StageInstances.js";
+import type { ISO8601Date } from "#types/raw/shared/discord.js";
 import type { APIVoiceState } from "../../../payloads/voice.js";
-import type { ISO8601Date } from "../../../shared/discord.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
-import type { GatewayDispatchEvents } from "../dispatch.js";
-import type { GatewayPresenceUpdatePayload } from "../presence-update.js";
+import type { GatewayPresence } from "../../presence.js";
+import type { GatewayDispatchEvents } from "../Dispatch.js";
 
 /**
  * @public
@@ -20,7 +20,7 @@ export interface GatewayDispatchGuildCreatePayload extends APIGuild {
   large: boolean;
   member_count: number;
   members: APIGuildMember[];
-  presences: GatewayPresenceUpdatePayload[];
+  presences: GatewayPresence[];
   soundboard_sounds: APISoundboardSound[];
   stage_instances: APIStageInstance[];
   threads: APIThreadChannel[];

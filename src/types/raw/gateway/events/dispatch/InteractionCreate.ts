@@ -1,6 +1,6 @@
-import type { APIInteraction } from "../../../payloads/interaction.js";
+import type { APIInteraction } from "#types/raw/payloads/Interactions.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
-import type { GatewayDispatchEvents } from "../dispatch.js";
+import type { GatewayDispatchEvents } from "../Dispatch.js";
 
 /**
  * @public
