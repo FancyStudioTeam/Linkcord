@@ -1,6 +1,6 @@
-import type { APIMessageComponents } from "../payloads/component.js";
-import type { APIAllowedMentions, APIEmbed, APIMessage, APIPartialAttachment } from "../payloads/message.js";
-import type { APIWebhook } from "../payloads/webhook.js";
+import type { APITopLevelMessageComponent } from "../payloads/Components.js";
+import type { APIAllowedMentions, APIEmbed, APIMessage, APIPartialAttachment } from "../payloads/Messages.js";
+import type { APIWebhook } from "../payloads/Webhooks.js";
 import type { ImageDataUri, Snowflake } from "../shared/discord.js";
 import type { RESTCreatePollRequest } from "./poll.js";
 
@@ -27,7 +27,7 @@ export interface RESTGetWebhookMessageQueryStringParams {
 export interface RESTPatchWebhookMessageJSONParams {
   allowed_mentions?: APIAllowedMentions | null;
   attachments?: APIPartialAttachment[] | null;
-  components?: APIMessageComponents[] | null;
+  components?: APITopLevelMessageComponent[] | null;
   content?: string | null;
   embeds?: APIEmbed[] | null;
   flags?: number | null;
@@ -70,7 +70,7 @@ export interface RESTPostWebhookJSONParams {
   applied_tags?: Snowflake[];
   attachments?: APIPartialAttachment[];
   avatar_url?: string;
-  components?: APIMessageComponents[];
+  components?: APITopLevelMessageComponent[];
   content?: string;
   embeds?: APIEmbed[];
   flags?: number;

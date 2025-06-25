@@ -9,7 +9,7 @@ import type {
   ForumLayoutTypes,
   SortOrderTypes,
   VideoQualityModes,
-} from "../payloads/channel.js";
+} from "../payloads/Channels.js";
 import type {
   APIBan,
   APIGuild,
@@ -30,10 +30,10 @@ import type {
   MFALevels,
   OnboardingModes,
   VerificationLevels,
-} from "../payloads/guild.js";
-import type { APIInvite } from "../payloads/invite.js";
-import type { APIRole } from "../payloads/permission.js";
-import type { APIVoiceRegion } from "../payloads/Voice.js";
+} from "../payloads/Guilds.js";
+import type { APIInvite } from "../payloads/Invites.js";
+import type { APIRole } from "../payloads/Permissions.js";
+import type { APIVoiceRegion, APIVoiceState } from "../payloads/Voice.js";
 import type { ImageDataUri, ISO8601Date, Locale, Snowflake } from "../shared/discord.js";
 
 /**
@@ -106,6 +106,18 @@ export interface RESTGetGuildVanityUrl {
   code: string | null;
   uses: number;
 }
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/voice#get-user-voice-state
+ */
+export type RESTGetGuildVoiceState = APIVoiceState;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/voice#get-current-user-voice-state
+ */
+export type RESTGetGuildVoiceStateCurrent = APIVoiceState;
 
 /**
  * @public
@@ -207,6 +219,25 @@ export interface RESTPatchGuildWelcomeScreenJSONParams {
   description?: string | null;
   enabled?: boolean | null;
   welcome_channels?: APIWelcomeScreenChannel[] | null;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/voice#modify-current-user-voice-state-json-params
+ */
+export interface RESTPatchGuildVoiceStateCurrentJSONParams {
+  channel_id?: string;
+  request_to_speak_timestamp?: ISO8601Date | null;
+  suppress?: boolean;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/voice#modify-user-voice-state-json-params
+ */
+export interface RESTPatchGuildVoiceStateJSONParams {
+  channel_id: string;
+  suppress?: boolean;
 }
 
 /**
@@ -528,6 +559,18 @@ export type RESTPatchGuildRole = APIRole;
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-role-positions
  */
 export type RESTPatchGuildRolePositions = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/voice#modify-user-voice-state
+ */
+export type RESTPatchGuildVoiceState = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/voice#modify-current-user-voice-state
+ */
+export type RESTPatchGuildVoiceStateCurrent = undefined;
 
 /**
  * @public
