@@ -1,5 +1,12 @@
 import type { APIAuditLog, AuditLogEvents } from "../payloads/AuditLogs.js";
 import type {
+  APIAutoModerationAction,
+  APIAutoModerationRule,
+  APIAutoModerationTriggerMetadata,
+  AutoModerationEventTypes,
+  AutoModerationTriggerTypes,
+} from "../payloads/AutoModeration.js";
+import type {
   APIDefaultReactionEmoji,
   APIForumTag,
   APIGuildChannel,
@@ -11,6 +18,7 @@ import type {
   SortOrderTypes,
   VideoQualityModes,
 } from "../payloads/Channels.js";
+import type { APIEmoji } from "../payloads/Emojis.js";
 import type {
   APIBan,
   APIGuild,
@@ -140,6 +148,20 @@ export interface RESTGetGuildWidgetImageStringParams {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/auto-moderation#modify-auto-moderation-rule-json-params
+ */
+export interface RESTPatchGuildAutoModerationRuleJSONParams {
+  actions?: APIAutoModerationAction[];
+  enabled?: boolean;
+  event_type?: AutoModerationEventTypes;
+  exempt_channels?: Snowflake[];
+  exempt_roles?: Snowflake[];
+  name?: string;
+  trigger_metadata?: APIAutoModerationTriggerMetadata;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-channel-positions-json-params
  */
 export interface RESTPatchGuildChannelPositionsJSONParams {
@@ -147,6 +169,15 @@ export interface RESTPatchGuildChannelPositionsJSONParams {
   lock_permissions?: boolean | null;
   parent_id?: Snowflake | null;
   position?: number | null;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/emoji#modify-guild-emoji-json-params
+ */
+export interface RESTPatchGuildEmojiJSONParams {
+  name?: string;
+  roles?: Snowflake[] | null;
 }
 
 /**
@@ -283,6 +314,21 @@ export interface RESTPatchGuildWidgetSettingsJSONParams {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/auto-moderation#create-auto-moderation-rule-json-params
+ */
+export interface RESTPostGuildAutoModerationRuleJSONParams {
+  actions: APIAutoModerationAction[];
+  enabled?: boolean;
+  event_type: AutoModerationEventTypes;
+  exempt_channels?: Snowflake[];
+  exempt_roles?: Snowflake[];
+  name: string;
+  trigger_metadata?: APIAutoModerationTriggerMetadata;
+  trigger_type: AutoModerationTriggerTypes;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#bulk-guild-ban
  */
 export interface RESTPostGuildBanBulk {
@@ -322,6 +368,16 @@ export interface RESTPostGuildChannelJSONParams {
   type?: ChannelTypes | null;
   user_limit?: number | null;
   video_quality_mode?: VideoQualityModes | null;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/emoji#create-guild-emoji-json-params
+ */
+export interface RESTPostGuildEmojiJSONParams {
+  image: ImageDataUri;
+  name: string;
+  roles: Snowflake[];
 }
 
 /**
@@ -443,9 +499,21 @@ export type RESTDeleteGuild = undefined;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/auto-moderation#delete-auto-moderation-rule
+ */
+export type RESTDeleteGuildAutoModerationRule = undefined;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#remove-guild-ban
  */
 export type RESTDeleteGuildBan = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/emoji#delete-guild-emoji
+ */
+export type RESTDeleteGuildEmoji = undefined;
 
 /**
  * @public
@@ -497,6 +565,18 @@ export type RESTGetGuildAuditLog = APIAuditLog;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/auto-moderation#get-auto-moderation-rule
+ */
+export type RESTGetGuildAutoModerationRule = APIAutoModerationRule;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/auto-moderation#list-auto-moderation-rules-for-guild
+ */
+export type RESTGetGuildAutoModerationRules = APIAutoModerationRule[];
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#get-guild-ban
  */
 export type RESTGetGuildBan = APIBan;
@@ -512,6 +592,18 @@ export type RESTGetGuildBans = APIBan[];
  * @see https://discord.com/developers/docs/resources/guild#get-guild-channels
  */
 export type RESTGetGuildChannels = APIGuildChannel[];
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/emoji#get-guild-emoji
+ */
+export type RESTGetGuildEmoji = APIEmoji;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/emoji#list-guild-emojis
+ */
+export type RESTGetGuildEmojis = APIEmoji[];
 
 /**
  * @public
@@ -635,9 +727,21 @@ export type RESTPatchGuild = APIGuild;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/auto-moderation#modify-auto-moderation-rule
+ */
+export type RESTPatchGuildAutoModerationRule = APIAutoModerationRule;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-channel-positions
  */
 export type RESTPatchGuildChannelPositions = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/emoji#modify-guild-emoji
+ */
+export type RESTPatchGuildEmoji = APIEmoji;
 
 /**
  * @public
@@ -701,9 +805,21 @@ export type RESTPatchGuildWidgetSettings = APIGuildWidgetSettings;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/auto-moderation#create-auto-moderation-rule
+ */
+export type RESTPostGuildAutoModerationRule = APIAutoModerationRule;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#create-guild-channel
  */
 export type RESTPostGuildChannel = APIGuildChannel;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/emoji#create-guild-emoji
+ */
+export type RESTPostGuildEmoji = APIEmoji;
 
 /**
  * @public
