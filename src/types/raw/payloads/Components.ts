@@ -243,19 +243,6 @@ export type APIMessageActionRowComponents = APIButtonComponent | APISelectMenuCo
 
 /**
  * @public
- * @see https://discord.com/developers/docs/components/reference#component-object-component-types
- */
-export type APIMessageComponent =
-  | APIContainerComponent
-  | APIFileComponent
-  | APIMediaGalleryComponent
-  | APIMessageActionRowComponent
-  | APISectionComponent
-  | APISeparatorComponent
-  | APITextDisplayComponent;
-
-/**
- * @public
  * @see https://discord.com/developers/docs/interactions/message-components#action-rows
  */
 export type APIModalActionRowComponent = APIActionRowComponentBase<APIModalActionRowComponents>;
@@ -299,6 +286,19 @@ export type APISectionAccessory = APIButtonComponent | APIThumbnailComponent;
  * @see https://discord.com/developers/docs/components/reference#component-reference
  */
 export type APISelectMenuComponent = APIResolvedSelectMenu | APIStringSelectMenuComponent;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/components/reference#component-object-component-types
+ */
+export type APITopLevelMessageComponent =
+  | APIContainerComponent
+  | APIFileComponent
+  | APIMediaGalleryComponent
+  | APIMessageActionRowComponent
+  | APISectionComponent
+  | APISeparatorComponent
+  | APITextDisplayComponent;
 
 /**
  * @public
