@@ -6,7 +6,6 @@ export * from "./Invites.js";
 export * from "./Lobbies.js";
 export * from "./Miscellaneous.js";
 export * from "./Monetization.js";
-export * from "./message.js";
 export * from "./OAuth2.js";
 export * from "./StageInstances.js";
 export * from "./Stickers.js";

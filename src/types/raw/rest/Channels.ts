@@ -15,10 +15,59 @@ import type {
   SortOrderTypes,
   VideoQualityModes,
 } from "../payloads/Channels.js";
+import type { APITopLevelMessageComponent } from "../payloads/Components.js";
 import type { APIInvite, InviteTargetTypes } from "../payloads/Invites.js";
-import type { APIForumMessage, APIMessage } from "../payloads/Messages.js";
+import type {
+  APIAllowedMentions,
+  APIEmbed,
+  APIForumMessage,
+  APIMessage,
+  APIMessagePin,
+  APIMessageReference,
+  APIPartialAttachment,
+  ReactionTypes,
+} from "../payloads/Messages.js";
+import type { APIMessagePoll } from "../payloads/Polls.js";
 import type { APIUser } from "../payloads/Users.js";
 import type { ImageDataUri, ISO8601Date, Snowflake } from "../shared/discord.js";
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#get-channel-messages-query-string-params
+ */
+export interface RESTGetChannelMessageQueryStringParams {
+  after?: Snowflake;
+  around?: Snowflake;
+  before?: Snowflake;
+  limit?: number;
+}
+
+/**
+ * @public https://discord.com/developers/docs/resources/message#get-channel-pins
+ */
+export interface RESTGetChannelMessagePins {
+  has_more: boolean;
+  items: APIMessagePin[];
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#get-channel-pins-query-string-params
+ */
+export interface RESTGetChannelMessagePinsQueryStringParams {
+  before?: ISO8601Date;
+  limit?: number;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#get-reactions-query-string-params
+ */
+export interface RESTGetChannelMessageReactionsQueryStringParams {
+  after?: Snowflake;
+  limit?: number;
+  type?: ReactionTypes;
+}
 
 /**
  * @public
@@ -149,6 +198,19 @@ export interface RESTPatchChannelJSONParams {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/message#edit-message-jsonform-params
+ */
+export interface RESTPatchChannelMessageJSONParams {
+  allowed_mentions?: APIAllowedMentions | null;
+  attachments?: APIPartialAttachment[] | null;
+  components?: APITopLevelMessageComponent[] | null;
+  content?: string | null;
+  embeds?: APIEmbed[] | null;
+  flags?: number | null;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/channel#modify-channel-json-params-thread
  */
 export interface RESTPatchChannelThreadJSONParams {
@@ -198,12 +260,39 @@ export interface RESTPostChannelInviteJSONParams {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/message#create-message-jsonform-params
+ */
+export interface RESTPostChannelMessageJSONParams {
+  allowed_mentions?: APIAllowedMentions;
+  attachments?: APIPartialAttachment[];
+  components?: APITopLevelMessageComponent[];
+  content?: string;
+  embeds?: APIEmbed[];
+  enforce_nonce?: boolean;
+  flags?: number;
+  message_reference?: APIMessageReference;
+  nonce?: number | string;
+  poll?: APIMessagePoll;
+  sticker_ids?: Snowflake[];
+  tts?: boolean;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/channel#start-thread-from-message-json-params
  */
 export interface RESTPostChannelMessageThreadJSONParams {
   auto_archive_duration?: AutoArchiveDuration;
   name: string;
   rate_limit_per_user?: number | null;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#bulk-delete-messages-json-params
+ */
+export interface RESTPostChannelMessagesBulkJSONParams {
+  messages: Snowflake[];
 }
 
 /**
@@ -254,6 +343,42 @@ export type RESTDeleteChannel = APIChannel;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/message#delete-message
+ */
+export type RESTDeleteChannelMessage = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#unpin-message
+ */
+export type RESTDeleteChannelMessagePin = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#delete-user-reaction
+ */
+export type RESTDeleteChannelMessageReaction = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#delete-own-reaction
+ */
+export type RESTDeleteChannelMessageReactionOwn = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#delete-all-reactions-for-emoji
+ */
+export type RESTDeleteChannelMessageReactions = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#delete-all-reactions
+ */
+export type RESTDeleteChannelMessageReactionsBulk = undefined;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/channel#delete-channel-permission
  */
 export type RESTDeleteChannelPermission = undefined;
@@ -290,6 +415,24 @@ export type RESTGetChannelInvites = APIInvite[];
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/message#get-channel-message
+ */
+export type RESTGetChannelMessage = APIMessage;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#get-reactions
+ */
+export type RESTGetChannelMessageReactions = APIUser[];
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#get-channel-messages
+ */
+export type RESTGetChannelMessages = APIMessage[];
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/channel#get-thread-member
  */
 export type RESTGetChannelThreadMember = APIThreadMember;
@@ -308,6 +451,12 @@ export type RESTPatchChannel = APIChannel;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/message#edit-message
+ */
+export type RESTPatchChannelMessage = APIMessage;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/channel#follow-announcement-channel
  */
 export type RESTPostChannelFollower = APIFollowedChannel;
@@ -323,6 +472,24 @@ export type RESTPostChannelForumThread = APIThreadChannel;
  * @see https://discord.com/developers/docs/resources/channel#create-channel-invite
  */
 export type RESTPostChannelInvite = APIInvite;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#create-message
+ */
+export type RESTPostChannelMessage = APIMessage;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#bulk-delete-messages
+ */
+export type RESTPostChannelMessagesBulk = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#crosspost-message
+ */
+export type RESTPostChannelMessageCrosspost = APIMessage;
 
 /**
  * @public
@@ -353,6 +520,18 @@ export type RESTPostChannelThread = APIThreadChannel;
  * @see https://discord.com/developers/docs/resources/channel#trigger-typing-indicator
  */
 export type RESTPostChannelTyping = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#pin-message
+ */
+export type RESTPutChannelMessagePin = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/message#create-reaction
+ */
+export type RESTPutChannelMessageReactionOwn = undefined;
 
 /**
  * @public
