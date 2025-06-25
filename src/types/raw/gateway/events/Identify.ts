@@ -1,6 +1,6 @@
 import type { GatewayEventBase } from "../base/event.js";
 import type { GatewayOpcodes } from "../event.js";
-import type { GatewayPresenceUpdatePayload } from "./presence-update.js";
+import type { GatewayPresenceUpdatePayload } from "./PresenceUpdate.js";
 
 /**
  * @public

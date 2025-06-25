@@ -1,14 +1,14 @@
-import type { GatewayDispatch } from "./events/dispatch.js";
-import type { GatewayHeartbeat } from "./events/heartbeat.js";
-import type { GatewayHello } from "./events/hello.js";
-import type { GatewayIdentify } from "./events/identify.js";
-import type { GatewayInvalidSession } from "./events/invalid-session.js";
-import type { GatewayPresenceUpdate } from "./events/presence-update.js";
-import type { GatewayReconnect } from "./events/reconnect.js";
-import type { GatewayRequestGuildMembers } from "./events/request-guild-members.js";
-import type { GatewayRequestSoundboardSounds } from "./events/request-soundboard-sounds.js";
-import type { GatewayResume } from "./events/resume.js";
-import type { GatewayVoiceStateUpdate } from "./events/voice-state-update.js";
+import type { GatewayDispatch } from "./events/Dispatch.js";
+import type { GatewayHeartbeat } from "./events/Heartbeat.js";
+import type { GatewayHello } from "./events/Hello.js";
+import type { GatewayIdentify } from "./events/Identify.js";
+import type { GatewayInvalidSession } from "./events/InvalidSession.js";
+import type { GatewayPresenceUpdate } from "./events/PresenceUpdate.js";
+import type { GatewayReconnect } from "./events/Reconnect.js";
+import type { GatewayRequestGuildMembers } from "./events/RequestGuildMembers.js";
+import type { GatewayRequestSoundboardSounds } from "./events/RequestSoundboardSounds.js";
+import type { GatewayResume } from "./events/Resume.js";
+import type { GatewayVoiceStateUpdate } from "./events/VoiceStateUpdate.js";
 
 /**
  * @public

@@ -7,11 +7,6 @@ import type { GatewayOpcodes } from "../event.js";
  * @see https://discord.com/developers/docs/events/gateway-events#update-voice-state-gateway-voice-state-update-structure
  */
 export interface GatewayVoiceStateUpdatePayload {
-  /**
-   * @remarks
-   * - This field value may be `null` to disconnect the client from the voice
-   *   channel.
-   */
   channel_id: Snowflake | null;
   guild_id: Snowflake;
   self_deaf: boolean;

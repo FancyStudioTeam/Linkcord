@@ -1,13 +1,11 @@
-import type { GatewayActivity } from "../activity.js";
-import type { GatewayEventBase } from "../base/event.js";
-import type { GatewayOpcodes } from "../event.js";
+import type { GatewayActivity } from "./activity.js";
 
 /**
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#update-presence-gateway-presence-update-structure
  */
-export interface GatewayPresenceUpdatePayload {
-  activities: GatewayPresenceUpdateActivity[];
+export interface GatewayPresence {
+  activities: GatewayPresenceActivity[];
   afk: boolean;
   since: number | null;
   status: StatusTypes;
@@ -15,15 +13,9 @@ export interface GatewayPresenceUpdatePayload {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/events/gateway-events#update-presence
- */
-export type GatewayPresenceUpdate = GatewayEventBase<GatewayOpcodes.PresenceUpdate, GatewayPresenceUpdatePayload>;
-
-/**
- * @public
  * @see https://discord.com/developers/docs/events/gateway-events#update-presence-example-gateway-presence-update
  */
-export type GatewayPresenceUpdateActivity = Pick<GatewayActivity, "name" | "state" | "type" | "url">;
+export type GatewayPresenceActivity = Pick<GatewayActivity, "name" | "state" | "type" | "url">;
 
 /**
  * @public

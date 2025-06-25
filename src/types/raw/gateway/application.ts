@@ -1,7 +1,7 @@
-import type { APIApplication } from "../payloads/application.js";
+import type { APIApplication } from "../payloads/Applications.js";
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/application#application-object-application-structure
  */
-export interface GatewayApplication extends Required<Pick<APIApplication, "flags" | "id">> {}
+export type GatewayApplication = Required<Pick<APIApplication, "flags" | "id">>;
