@@ -18,7 +18,7 @@ export * from "./MessageDeleteBulk.js";
 export * from "./MessagePollVoteAdd.js";
 export * from "./MessagePollVoteRemove.js";
 export * from "./PresenceUpdate.js";
-export * from "./ready.js";
+export * from "./Ready.js";
 export * from "./SoundboardSounds.js";
 export * from "./TypingStart.js";
 export * from "./UserUpdate.js";
