@@ -3,7 +3,6 @@ export * from "./ApplicationRoleConnectionMetadata.js";
 export * from "./Applications.js";
 export * from "./AuditLogs.js";
 export * from "./AutoModeration.js";
-export * from "./base/index.js";
 export * from "./Channels.js";
 export * from "./Components.js";
 export * from "./Emojis.js";

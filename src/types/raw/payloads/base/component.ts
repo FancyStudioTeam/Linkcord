@@ -1,5 +1,5 @@
-import type { APISelectMenuDefaultValue, ButtonStyles, ComponentTypes } from "../component.js";
-import type { APIPartialEmoji } from "../emoji.js";
+import type { APISelectMenuDefaultValue, ButtonStyles, ComponentTypes } from "../Components.js";
+import type { APIPartialEmoji } from "../Emojis.js";
 
 /**
  * @public
@@ -66,14 +66,14 @@ export type AnyInteractiveComponent =
   | ComponentTypes.UserSelect;
 
 /**
- * @public
+ * @internal
  */
-export type AnyResolvedSelectMenuType = Exclude<AnySelectMenuType, ComponentTypes.StringSelect>;
+type AnyResolvedSelectMenuType = Exclude<AnySelectMenuType, ComponentTypes.StringSelect>;
 
 /**
- * @public
+ * @internal
  */
-export type AnySelectMenuType =
+type AnySelectMenuType =
   | ComponentTypes.ChannelSelect
   | ComponentTypes.MentionableSelect
   | ComponentTypes.RoleSelect

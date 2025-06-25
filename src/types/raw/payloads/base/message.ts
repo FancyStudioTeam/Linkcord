@@ -1,6 +1,6 @@
 import type { Snowflake } from "../../shared/discord.js";
-import type { APIAuthorizingIntegrationOwners, InteractionTypes } from "../interaction.js";
-import type { APIUser } from "../user.js";
+import type { APIAuthorizingIntegrationOwners, InteractionTypes } from "../Interactions.js";
+import type { APIUser } from "../Users.js";
 
 /**
  * @public
@@ -8,9 +8,6 @@ import type { APIUser } from "../user.js";
 export interface APIEmbedMediaContentBase {
   /**
    * @alpha
-   * @remarks
-   * - This is not officially documented in the Discord API documentation,
-   *   meaning it may change or break at any time.
    */
   flags?: number;
   height?: number;

@@ -6,8 +6,8 @@ import type {
   AutoArchiveDuration,
   ChannelTypes,
   VideoQualityModes,
-} from "../channel.js";
-import type { APIUser } from "../user.js";
+} from "../Channels.js";
+import type { APIUser } from "../Users.js";
 
 /**
  * @public
@@ -61,11 +61,6 @@ export interface APIThreadChannelBase<Type extends AnyThreadChannelType>
   > {
   applied_tags?: Snowflake[];
   member?: APIThreadMember;
-  /**
-   * @remarks
-   * - This field may be innacurate when it is greather than `50` for threads
-   *   created before `July 1st, 2021`.
-   */
   member_count?: number;
   message_count?: number;
   owner_id: Snowflake;
@@ -81,32 +76,25 @@ export interface APIVoiceChannelBase<Type extends AnyVoiceChannelType>
   bitrate?: number;
   rtc_region?: string | null;
   user_limit?: number;
-  /**
-   * @remarks
-   * - If this field is not present, the video quality mode will be `AUTO`.
-   */
   video_quality_mode?: VideoQualityModes;
 }
 
 /**
- * @public
+ * @internal
  */
-export type AnyDMChannelType = ChannelTypes.DirectMessage | ChannelTypes.GroupDM;
+type AnyDMChannelType = ChannelTypes.DirectMessage | ChannelTypes.GroupDM;
 
 /**
- * @public
+ * @internal
  */
-export type AnyTextChannelType = Exclude<ChannelTypes, AnyDMChannelType>;
+type AnyTextChannelType = Exclude<ChannelTypes, AnyDMChannelType>;
 
 /**
- * @public
+ * @internal
  */
-export type AnyThreadChannelType =
-  | ChannelTypes.AnnouncementThread
-  | ChannelTypes.PrivateThread
-  | ChannelTypes.PublicThread;
+type AnyThreadChannelType = ChannelTypes.AnnouncementThread | ChannelTypes.PrivateThread | ChannelTypes.PublicThread;
 
 /**
- * @public
+ * @internal
  */
-export type AnyVoiceChannelType = ChannelTypes.GuildVoice | ChannelTypes.GuildStageVoice;
+type AnyVoiceChannelType = ChannelTypes.GuildVoice | ChannelTypes.GuildStageVoice;
