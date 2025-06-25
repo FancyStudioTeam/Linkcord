@@ -1,4 +1,4 @@
-import type { APITopLevelMessageComponent } from "../payloads/Components.js";
+import type { APIMessageComponent } from "../payloads/Components.js";
 import type { APIAllowedMentions, APIEmbed, APIMessage, APIPartialAttachment } from "../payloads/Messages.js";
 import type { APIMessagePoll } from "../payloads/Polls.js";
 import type { APIWebhook } from "../payloads/Webhooks.js";
@@ -27,7 +27,7 @@ export interface RESTGetWebhookMessageQueryStringParams {
 export interface RESTPatchWebhookMessageJSONParams {
   allowed_mentions?: APIAllowedMentions | null;
   attachments?: APIPartialAttachment[] | null;
-  components?: APITopLevelMessageComponent[] | null;
+  components?: APIMessageComponent[] | null;
   content?: string | null;
   embeds?: APIEmbed[] | null;
   flags?: number | null;
@@ -70,7 +70,7 @@ export interface RESTPostWebhookJSONParams {
   applied_tags?: Snowflake[];
   attachments?: APIPartialAttachment[];
   avatar_url?: string;
-  components?: APITopLevelMessageComponent[];
+  components?: APIMessageComponent[];
   content?: string;
   embeds?: APIEmbed[];
   flags?: number;

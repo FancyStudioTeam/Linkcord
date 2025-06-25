@@ -3,7 +3,7 @@ import type { ApplicationCommandTypes } from "./ApplicationCommands.js";
 import type { APIPartialApplication } from "./Applications.js";
 import type { APIEmbedMediaContentBase, APIMessageInteractionMetadataBase } from "./base/message.js";
 import type { APIChannel, ChannelTypes } from "./Channels.js";
-import type { APITopLevelMessageComponent } from "./Components.js";
+import type { APIMessageComponent } from "./Components.js";
 import type { APIPartialEmoji } from "./Emojis.js";
 import type { APIResolvedData, InteractionTypes } from "./Interactions.js";
 import type { APIPoll } from "./Polls.js";
@@ -149,7 +149,7 @@ export interface APIEmbedProvider {
 export interface APIForumMessage {
   allowed_mentions?: APIAllowedMentions;
   attachments?: APIPartialAttachment[];
-  components?: APITopLevelMessageComponent[];
+  components?: APIMessageComponent[];
   content?: string;
   embeds?: APIEmbed[];
   flags?: number;
@@ -168,7 +168,7 @@ export interface APIMessage {
   author: APIUser;
   call?: APIMessageCall;
   channel_id: Snowflake;
-  components?: APITopLevelMessageComponent[];
+  components?: APIMessageComponent[];
   content: string;
   edited_timestamp: ISO8601Date | null;
   embeds: APIEmbed[];

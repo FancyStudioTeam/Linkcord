@@ -15,7 +15,7 @@ import type {
   SortOrderTypes,
   VideoQualityModes,
 } from "../payloads/Channels.js";
-import type { APITopLevelMessageComponent } from "../payloads/Components.js";
+import type { APIMessageComponent } from "../payloads/Components.js";
 import type { APIInvite, InviteTargetTypes } from "../payloads/Invites.js";
 import type {
   APIAllowedMentions,
@@ -203,7 +203,7 @@ export interface RESTPatchChannelJSONParams {
 export interface RESTPatchChannelMessageJSONParams {
   allowed_mentions?: APIAllowedMentions | null;
   attachments?: APIPartialAttachment[] | null;
-  components?: APITopLevelMessageComponent[] | null;
+  components?: APIMessageComponent[] | null;
   content?: string | null;
   embeds?: APIEmbed[] | null;
   flags?: number | null;
@@ -265,7 +265,7 @@ export interface RESTPostChannelInviteJSONParams {
 export interface RESTPostChannelMessageJSONParams {
   allowed_mentions?: APIAllowedMentions;
   attachments?: APIPartialAttachment[];
-  components?: APITopLevelMessageComponent[];
+  components?: APIMessageComponent[];
   content?: string;
   embeds?: APIEmbed[];
   enforce_nonce?: boolean;
