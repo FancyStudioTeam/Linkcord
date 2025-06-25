@@ -1,6 +1,6 @@
 import type { GatewayEventBase } from "../base/event.js";
 import type { GatewayOpcodes } from "../event.js";
-import type { GatewayPresenceUpdatePayload } from "./PresenceUpdate.js";
+import type { GatewayPresence } from "../presence.js";
 
 /**
  * @public
@@ -20,7 +20,7 @@ export interface GatewayIdentifyPayload {
   compress?: boolean;
   intents: number;
   large_threshold?: number;
-  presence?: GatewayPresenceUpdatePayload;
+  presence?: GatewayPresence;
   properties: GatewayIdentifyConnectionProperties;
   shard?: [number, number];
   token: string;
