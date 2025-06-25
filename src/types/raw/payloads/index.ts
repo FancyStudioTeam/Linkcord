@@ -5,7 +5,7 @@ export * from "./AuditLogs.js";
 export * from "./AutoModeration.js";
 export * from "./base/index.js";
 export * from "./Channels.js";
-export * from "./component.js";
+export * from "./Components.js";
 export * from "./Emojis.js";
 export * from "./Entitlements.js";
 export * from "./Gateway.js";

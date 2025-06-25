@@ -12,7 +12,7 @@ import type {
   APIMessageComponentSelectInteractionDataBase,
 } from "./base/interaction.js";
 import type { APIChannel } from "./Channels.js";
-import type { APIMessageComponents, APIModalComponents, APITextInputComponent, ComponentTypes } from "./component.js";
+import type { APIMessageComponent, APIModalComponents, APITextInputComponent, ComponentTypes } from "./Components.js";
 import type { APIGuildMember } from "./Guilds.js";
 import type {
   APIAllowedMentions,
@@ -88,7 +88,7 @@ export interface APIInteractionCallbackDataAutocomplete {
 export interface APIInteractionCallbackDataMessage {
   allowed_mentions?: APIAllowedMentions;
   attachments?: APIAttachment[];
-  components?: APIMessageComponents[];
+  components?: APIMessageComponent[];
   content?: string;
   embeds?: APIEmbed[];
   flags?: MessageFlags;

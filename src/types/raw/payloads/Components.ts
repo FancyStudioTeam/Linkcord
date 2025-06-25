@@ -6,7 +6,7 @@ import type {
   APIResolvedSelectMenuComponentBase,
   APISelectMenuComponentBase,
 } from "./base/component.js";
-import type { ChannelTypes } from "./channel.js";
+import type { ChannelTypes } from "./Channels.js";
 import type { APIPartialEmoji } from "./Emojis.js";
 
 /**
@@ -65,25 +65,12 @@ export interface APIMediaGalleryItem {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/components/reference#mentionable-select-mentionable-select-structure
- */
-export interface APIMentionableSelectMenuComponent
-  extends APIResolvedSelectMenuComponentBase<ComponentTypes.MentionableSelect> {}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
 export interface APIPremiumButtonComponent
   extends Omit<APIButtonComponentBase<ButtonStyles.Premium>, "emoji" | "label"> {
   sku_id: Snowflake;
 }
-
-/**
- * @public
- * @see https://discord.com/developers/docs/components/reference#role-select-role-select-structure
- */
-export interface APIRoleSelectMenuComponent extends APIResolvedSelectMenuComponentBase<ComponentTypes.RoleSelect> {}
 
 /**
  * @public
@@ -238,6 +225,12 @@ export type APILayoutComponents = APIActionRowComponent | APIContainerComponent 
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/components/reference#mentionable-select-mentionable-select-structure
+ */
+export type APIMentionableSelectMenuComponent = APIResolvedSelectMenuComponentBase<ComponentTypes.MentionableSelect>;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/interactions/message-components#action-rows
  */
 export type APIMessageActionRowComponent = APIActionRowComponentBase<APIMessageActionRowComponents>;
@@ -252,7 +245,7 @@ export type APIMessageActionRowComponents = APIButtonComponent | APISelectMenuCo
  * @public
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export type APIMessageComponents =
+export type APIMessageComponent =
   | APIContainerComponent
   | APIFileComponent
   | APIMediaGalleryComponent
@@ -288,6 +281,12 @@ export type APIResolvedSelectMenu =
   | APIMentionableSelectMenuComponent
   | APIRoleSelectMenuComponent
   | APIUserSelectMenuComponent;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/components/reference#role-select-role-select-structure
+ */
+export type APIRoleSelectMenuComponent = APIResolvedSelectMenuComponentBase<ComponentTypes.RoleSelect>;
 
 /**
  * @public
