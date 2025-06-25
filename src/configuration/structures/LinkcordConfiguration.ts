@@ -46,7 +46,7 @@ export class LinkcordConfiguration {
       const configurationFileName = basename(configurationFilePath);
       const { default: defaultExport } = importConfigurationFileData;
 
-      if (!("default" in importConfigurationFileData) || !defaultExport) {
+      if (!("default" in importConfigurationFileData && defaultExport)) {
         throw new Error(`File '${configurationFileName}' must include a default export.`);
       }
 

@@ -13,7 +13,7 @@ export class Client extends BaseClient {
 
     const { intents, token } = LinkcordConfiguration.getOptions();
 
-    if (!token || !intents) {
+    if (!(token && intents)) {
       throw new TypeError("Token or intents are missing from the configuration file.");
     }
   }

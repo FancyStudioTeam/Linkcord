@@ -23,7 +23,7 @@ export class EventsManager {
     const { listeners } = this;
     const existing = listeners.get(name);
 
-    if (!existing || !Array.isArray(existing)) {
+    if (!(existing && Array.isArray(existing))) {
       listeners.set(name, [listener]);
 
       return;
