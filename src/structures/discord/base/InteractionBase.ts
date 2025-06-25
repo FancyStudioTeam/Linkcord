@@ -3,7 +3,7 @@ import type {
   APIInteraction,
   InteractionContextTypes,
   InteractionTypes,
-  Locale,
+  Locales,
   Snowflake,
 } from "#types/index.js";
 import { Entitlement } from "../Entitlement.js";
@@ -19,8 +19,8 @@ export class InteractionBase<InteractionType extends InteractionTypes> extends B
   context: InteractionContextTypes | null;
   entitlements: Map<Snowflake, Entitlement>;
   guildId: Snowflake | null;
-  guildLocale: Locale | null;
-  locale: Locale;
+  guildLocale: Locales | null;
+  locale: Locales;
   token: string;
   type: InteractionType;
   version: 1;

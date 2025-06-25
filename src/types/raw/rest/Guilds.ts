@@ -55,7 +55,7 @@ import type { APIRole } from "../payloads/Permissions.js";
 import type { APIGuildSoundboardSound } from "../payloads/Soundboards.js";
 import type { APISticker } from "../payloads/Stickers.js";
 import type { APIVoiceRegion, APIVoiceState } from "../payloads/Voice.js";
-import type { AudioDataUri, ImageDataUri, ISO8601Date, Locale, Snowflake } from "../shared/discord.js";
+import type { AudioDataUri, ImageDataUri, ISO8601Date, Locales, Snowflake } from "../shared/discord.js";
 
 /**
  * @public
@@ -233,7 +233,7 @@ export interface RESTPatchGuildJSONParams {
   icon?: ImageDataUri | null;
   name?: string;
   owner_id?: Snowflake;
-  preferred_locale?: Locale | null;
+  preferred_locale?: Locales | null;
   premium_progress_bar_enabled?: boolean;
   public_updates_channel_id?: Snowflake | null;
   region?: string | null;

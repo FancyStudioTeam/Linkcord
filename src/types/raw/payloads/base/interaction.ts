@@ -1,4 +1,4 @@
-import type { Locale, Snowflake } from "../../shared/discord.js";
+import type { Locales, Snowflake } from "../../shared/discord.js";
 import type { APIPartialChannel } from "../Channels.js";
 import type { ComponentTypes } from "../Components.js";
 import type { APIEntitlement } from "../Entitlements.js";
@@ -22,9 +22,9 @@ export interface APIInteractionBase<Type extends InteractionTypes, Data> {
   entitlements: APIEntitlement[];
   guild?: APIPartialGuild;
   guild_id?: Snowflake;
-  guild_locale?: Locale;
+  guild_locale?: Locales;
   id: Snowflake;
-  locale: Locale;
+  locale: Locales;
   member?: APIGuildMember;
   message?: APIMessage;
   token: string;
