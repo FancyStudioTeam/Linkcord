@@ -5,14 +5,15 @@ import type {
   APIApplicationIntegrationTypesConfiguration,
   ApplicationEventWebhookStatus,
   ApplicationEventWebhookTypes,
-} from "../payloads/application.js";
+} from "../payloads/Applications.js";
+import type { APISKU } from "../payloads/SKUs.js";
 import type { ImageDataUri } from "../shared/discord.js";
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/application#edit-current-application-json-params
  */
-export interface RESTEditCurrentApplicationJSONParams {
+export interface RESTPatchApplicationCurrentJSONParams {
   cover_image?: ImageDataUri | null;
   custom_install_url?: string;
   description?: string;
@@ -30,12 +31,6 @@ export interface RESTEditCurrentApplicationJSONParams {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/application#edit-current-application
- */
-export type RESTEditCurrentApplication = APIApplication;
-
-/**
- * @public
  * @see https://discord.com/developers/docs/resources/application#get-application-activity-instance
  */
 export type RESTGetApplicationActivityInstance = APIActivityInstance;
@@ -44,4 +39,16 @@ export type RESTGetApplicationActivityInstance = APIActivityInstance;
  * @public
  * @see https://discord.com/developers/docs/resources/application#get-current-application
  */
-export type RESTGetCurrentApplication = APIApplication;
+export type RESTGetApplicationCurrent = APIApplication;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/sku#list-skus
+ */
+export type RESTGetApplicationSKUs = APISKU[];
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/application#edit-current-application
+ */
+export type RESTPatchApplicationCurrent = APIApplication;

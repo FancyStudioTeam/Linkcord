@@ -144,6 +144,20 @@ export interface APIEmbedProvider {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/channel#start-thread-in-forum-or-media-channel-forum-and-media-thread-message-params-object
+ */
+export interface APIForumMessage {
+  allowed_mentions?: APIAllowedMentions;
+  attachments?: APIPartialAttachment[];
+  components?: APITopLevelMessageComponent[];
+  content?: string;
+  embeds?: APIEmbed[];
+  flags?: number;
+  sticker_ids?: Snowflake[];
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
  */
 export interface APIMessage {

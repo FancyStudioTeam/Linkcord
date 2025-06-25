@@ -33,8 +33,10 @@ import type {
 } from "../payloads/Guilds.js";
 import type { APIInvite } from "../payloads/Invites.js";
 import type { APIRole } from "../payloads/Permissions.js";
+import type { APIGuildSoundboardSound } from "../payloads/Soundboards.js";
+import type { APISticker } from "../payloads/Stickers.js";
 import type { APIVoiceRegion, APIVoiceState } from "../payloads/Voice.js";
-import type { ImageDataUri, ISO8601Date, Locale, Snowflake } from "../shared/discord.js";
+import type { AudioDataUri, ImageDataUri, ISO8601Date, Locale, Snowflake } from "../shared/discord.js";
 
 /**
  * @public
@@ -79,6 +81,14 @@ export interface RESTGetGuildPruneCount {
 export interface RESTGetGuildPruneCountStringParams {
   days?: number;
   include_roles?: string;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/soundboard#list-guild-soundboard-sounds
+ */
+export interface RESTGetGuildSoundboardSounds {
+  items: APIGuildSoundboardSound[];
 }
 
 /**
@@ -213,6 +223,27 @@ export interface RESTPatchGuildRolePositionsJSONParams {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound-json-params
+ */
+export interface RESTPatchGuildSoundboardSoundJSONParams {
+  emoji_id?: Snowflake | null;
+  emoji_name?: string | null;
+  name?: string;
+  volume?: number | null;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/sticker#modify-guild-sticker-json-params
+ */
+export interface RESTPatchGuildStickerJSONParams {
+  description?: string | null;
+  name?: string;
+  tags?: string;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-welcome-screen-json-params
  */
 export interface RESTPatchGuildWelcomeScreenJSONParams {
@@ -342,6 +373,29 @@ export interface RESTPostGuildRoleJSONParams {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound
+ */
+export interface RESTPostGuildSoundboardSoundJSONParams {
+  emoji_id?: Snowflake | null;
+  emoji_name?: string | null;
+  name: string;
+  sound: AudioDataUri;
+  volume?: number | null;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/sticker#create-guild-sticker-form-params
+ */
+export interface RESTPostGuildStickerFormParams {
+  description: string;
+  file: unknown;
+  name: string;
+  tags: string;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#create-guild-ban-json-params
  */
 export interface RESTPutGuildBanJSONParams {
@@ -415,6 +469,18 @@ export type RESTDeleteGuildMemberRole = undefined;
  * @see https://discord.com/developers/docs/resources/guild#delete-guild-role
  */
 export type RESTDeleteGuildRole = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/soundboard#delete-guild-soundboard-sound
+ */
+export type RESTDeleteGuildSoundboardSound = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/sticker#delete-guild-sticker
+ */
+export type RESTDeleteGuildSticker = undefined;
 
 /**
  * @public
@@ -496,6 +562,24 @@ export type RESTGetGuildRoles = APIRole[];
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/soundboard#get-guild-soundboard-sound
+ */
+export type RESTGetGuildSoundboardSound = APIGuildSoundboardSound;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/sticker#get-guild-sticker
+ */
+export type RESTGetGuildSticker = APISticker;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/sticker#list-guild-stickers
+ */
+export type RESTGetGuildStickers = APISticker[];
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#get-guild-voice-regions
  */
 export type RESTGetGuildVoiceRegions = APIVoiceRegion[];
@@ -562,6 +646,18 @@ export type RESTPatchGuildRolePositions = undefined;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound
+ */
+export type RESTPatchGuildSoundboardSound = APIGuildSoundboardSound;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/sticker#modify-guild-sticker-json-params
+ */
+export type RESTPatchGuildSticker = APISticker;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/voice#modify-user-voice-state
  */
 export type RESTPatchGuildVoiceState = undefined;
@@ -595,6 +691,18 @@ export type RESTPostGuildChannel = APIGuildChannel;
  * @see https://discord.com/developers/docs/resources/guild#create-guild-role
  */
 export type RESTPostGuildRole = APIRole;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound
+ */
+export type RESTPostGuildSoundboardSound = APIGuildSoundboardSound;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/sticker#create-guild-sticker
+ */
+export type RESTPostGuildSticker = APISticker;
 
 /**
  * @public

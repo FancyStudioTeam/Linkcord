@@ -1,8 +1,8 @@
 import type { APITopLevelMessageComponent } from "../payloads/Components.js";
 import type { APIAllowedMentions, APIEmbed, APIMessage, APIPartialAttachment } from "../payloads/Messages.js";
+import type { APIMessagePoll } from "../payloads/Polls.js";
 import type { APIWebhook } from "../payloads/Webhooks.js";
 import type { ImageDataUri, Snowflake } from "../shared/discord.js";
-import type { RESTCreatePollRequest } from "./poll.js";
 
 /**
  * @public
@@ -31,7 +31,7 @@ export interface RESTPatchWebhookMessageJSONParams {
   content?: string | null;
   embeds?: APIEmbed[] | null;
   flags?: number | null;
-  poll?: RESTCreatePollRequest | null;
+  poll?: APIMessagePoll | null;
 }
 
 /**
@@ -74,7 +74,7 @@ export interface RESTPostWebhookJSONParams {
   content?: string;
   embeds?: APIEmbed[];
   flags?: number;
-  poll?: RESTCreatePollRequest;
+  poll?: APIMessagePoll;
   thread_name?: string;
   tts?: boolean;
   username?: string;

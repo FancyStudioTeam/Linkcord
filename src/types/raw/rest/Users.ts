@@ -1,6 +1,6 @@
-import type { APIDMChannel, APIGroupDMChannel } from "../payloads/channel.js";
-import type { APICurrentUserGuild, APIGuildMember } from "../payloads/guild.js";
-import type { APIApplicationRoleConnection, APIConnection, APIUser } from "../payloads/user.js";
+import type { APIDMChannel, APIGroupDMChannel } from "../payloads/Channels.js";
+import type { APICurrentUserGuild, APIGuildMember } from "../payloads/Guilds.js";
+import type { APIApplicationRoleConnection, APIConnection, APIUser } from "../payloads/Users.js";
 import type { ImageDataUri, Snowflake } from "../shared/discord.js";
 
 /**

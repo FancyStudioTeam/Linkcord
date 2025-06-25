@@ -1,23 +1,26 @@
-import type { APIStageInstance, StageInstancePrivacyLevel } from "../payloads/stage-instance.js";
+import type { APIStageInstance, StageInstancePrivacyLevel } from "../payloads/StageInstances.js";
 import type { Snowflake } from "../shared/discord.js";
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/stage-instance#modify-stage-instance-json-params
+ */
+export interface RESTPatchStageInstanceJSONParams {
+  channel_id?: Snowflake;
+  topic?: string;
+}
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/stage-instance#create-stage-instance-json-params
  */
-export interface RESTCreateStageInstanceJSONParams {
+export interface RESTPostStageInstanceJSONParams {
   channel_id: Snowflake;
   guild_scheduled_event_id?: Snowflake;
   privacy_level?: StageInstancePrivacyLevel;
   send_start_notification?: boolean;
   topic: string;
 }
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/stage-instance#create-stage-instance
- */
-export type RESTCreateStageInstance = APIStageInstance;
 
 /**
  * @public
@@ -35,12 +38,10 @@ export type RESTGetStageInstance = APIStageInstance;
  * @public
  * @see https://discord.com/developers/docs/resources/stage-instance#modify-stage-instance
  */
-export type RESTModifyStageInstance = APIStageInstance;
+export type RESTPatchStageInstance = APIStageInstance;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/stage-instance#modify-stage-instance-json-params
+ * @see https://discord.com/developers/docs/resources/stage-instance#create-stage-instance
  */
-export type RESTModifyStageInstanceJSONParams = Partial<
-  Pick<RESTCreateStageInstanceJSONParams, "topic" | "privacy_level">
->;
+export type RESTPostStageInstance = APIStageInstance;

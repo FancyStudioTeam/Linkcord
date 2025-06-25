@@ -1,5 +1,5 @@
-import type { APIApplication } from "../payloads/application.js";
-import type { APIAuthorizationInformation } from "../payloads/oauth2.js";
+import type { APIApplication } from "../payloads/Applications.js";
+import type { APIAuthorizationInformation } from "../payloads/OAuth2.js";
 
 /**
  * @public

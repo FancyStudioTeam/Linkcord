@@ -1,4 +1,4 @@
-import type { APISubscription } from "../payloads/subscription.js";
+import type { APISubscription } from "../payloads/Subscriptions.js";
 import type { Snowflake } from "../shared/discord.js";
 
 /**

@@ -3,6 +3,18 @@ import type { APIPartialEmoji } from "./Emojis.js";
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/poll#poll-create-request-object-poll-create-request-object-structure
+ */
+export interface APIMessagePoll {
+  allow_multiselect?: boolean;
+  answers: APIPollAnswer[];
+  duration?: number;
+  layout_type?: PollLayoutTypes;
+  question: APIPollQuestion;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/poll#poll-object-poll-object-structure
  */
 export interface APIPoll {
