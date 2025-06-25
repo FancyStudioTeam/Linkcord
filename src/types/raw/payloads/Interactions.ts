@@ -1,4 +1,3 @@
-import type { RESTCreatePollRequest } from "../rest/index.js";
 import type { Snowflake } from "../shared/discord.js";
 import type {
   APIAutocompleteChoice,
@@ -28,6 +27,7 @@ import type {
   MessageFlags,
 } from "./Messages.js";
 import type { APIRole } from "./Permissions.js";
+import type { APIMessagePoll } from "./Polls.js";
 import type { APIUser } from "./Users.js";
 
 /**
@@ -97,7 +97,7 @@ export interface APIInteractionCallbackDataMessage {
   content?: string;
   embeds?: APIEmbed[];
   flags?: MessageFlags;
-  poll?: RESTCreatePollRequest;
+  poll?: APIMessagePoll;
   tts?: boolean;
 }
 
