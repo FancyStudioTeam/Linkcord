@@ -1,13 +1,9 @@
-name: 🔺 Biome Code
+name: 🔺 Biome Continuous Integration
 
 on: [push, pull_request]
 
 jobs:
-  biome:
-    permissions:
-      contents: read
-      pull-requests: write
-
+  biome-ci:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,5 +21,5 @@ jobs:
       - name: 📥 Install Dependencies
         run: pnpm install
 
-      - name: 🔺 Run Biome CI
+      - name: 🔺 Run Biome Continuous Integration
         run: pnpm biome:ci
