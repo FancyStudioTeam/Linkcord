@@ -1,4 +1,4 @@
-import type { ImageExtension, ImageSize } from "../constants.js";
+import type { ImageExtension, ImageSize } from "#utils/constants.js";
 
 /**
  * @public
@@ -55,11 +55,7 @@ export class ImageUtils {
   }
 
   static isAvailableAsAnimated(assetHash: string): boolean {
-    if (typeof assetHash !== "string") {
-      return false;
-    }
-
-    return assetHash.startsWith("a_");
+    return typeof assetHash === "string" && assetHash.startsWith("a_");
   }
 }
 

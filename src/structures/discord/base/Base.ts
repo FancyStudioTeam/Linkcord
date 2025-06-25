@@ -1,5 +1,5 @@
 import type { Snowflake } from "#types/index.js";
-import { SnowflakeUtils } from "#utils/SnowflakeUtils.js";
+import { SnowflakeUtils } from "#utils/index.js";
 
 /**
  * @public
