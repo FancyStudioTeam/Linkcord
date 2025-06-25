@@ -1,8 +1,8 @@
 import type { Snowflake } from "../shared/discord.js";
 import type { APIPartialGuild } from "./guild.js";
-import type { OAuth2Scopes } from "./oauth2.js";
-import type { APITeam } from "./team.js";
-import type { APIUser } from "./user.js";
+import type { OAuth2Scopes } from "./OAuth2.js";
+import type { APITeam } from "./Teams.js";
+import type { APIUser } from "./Users.js";
 
 /**
  * @public
@@ -33,6 +33,7 @@ export interface APIActivityLocation {
  */
 export interface APIApplication {
   approximate_guild_count?: number;
+  approximate_user_authorization_count?: number;
   approximate_user_install_count?: number;
   bot?: APIUser;
   bot_public: boolean;
@@ -53,8 +54,8 @@ export interface APIApplication {
   interactions_endpoint_url?: string | null;
   name: string;
   owner?: APIUser;
-  privacy_policy_url?: string;
   primary_sku_id?: Snowflake;
+  privacy_policy_url?: string;
   redirect_uris: string[];
   role_connections_verification_url?: string | null;
   rpc_origins?: string[];
@@ -94,12 +95,32 @@ export interface APIApplicationIntegrationTypesConfiguration {
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/application#application-object-application-structure
- * @remarks
- * - This type is not documented by Discord.
- * - Partial structures may be incorrectly implemented here due lack of
- *   documentation.
  */
-export interface APIPartialApplication extends Partial<APIApplication> {}
+export type APIPartialApplication = Pick<
+  APIApplication,
+  | "bot"
+  | "bot_public"
+  | "bot_require_code_grant"
+  | "cover_image"
+  | "custom_install_url"
+  | "description"
+  | "flags"
+  | "guild"
+  | "guild_id"
+  | "icon"
+  | "id"
+  | "install_params"
+  | "integration_types_config"
+  | "name"
+  | "primary_sku_id"
+  | "privacy_policy_url"
+  | "rpc_origins"
+  | "slug"
+  | "tags"
+  | "team"
+  | "terms_of_service_url"
+  | "verify_key"
+>;
 
 /**
  * @public

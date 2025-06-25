@@ -4,8 +4,8 @@ import type { APIAutoModerationRule } from "./auto-moderation.js";
 import type { APIThreadChannel } from "./channel.js";
 import type { APIPartialIntegration } from "./guild.js";
 import type { APIGuildScheduledEvent } from "./guild-scheduled-event.js";
-import type { APIPartialUser } from "./user.js";
-import type { APIWebhook } from "./webhook.js";
+import type { APIPartialUser } from "./Users.js";
+import type { APIWebhook } from "./Webhooks.js";
 
 /**
  * @public
