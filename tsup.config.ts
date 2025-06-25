@@ -1,32 +1,10 @@
-import { defineConfig, type Options } from "tsup";
+import { defineConfig } from "tsup";
 
-const defineSharedOptions = (options?: Options): Options => ({
+export default defineConfig({
   clean: true,
+  dts: true,
   entry: ["src/index.ts"],
-  outDir: "dist",
+  format: ["esm", "cjs"],
   sourcemap: true,
   splitting: false,
-  target: "esnext",
-  ...options,
 });
-
-export default [
-  defineConfig(
-    defineSharedOptions({
-      dts: true,
-      format: "esm",
-      outExtension: () => ({
-        dts: ".d.ts",
-        js: ".mjs",
-      }),
-    }),
-  ),
-  defineConfig(
-    defineSharedOptions({
-      format: "cjs",
-      outExtension: () => ({
-        js: ".js",
-      }),
-    }),
-  ),
-];

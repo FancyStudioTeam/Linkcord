@@ -8,6 +8,7 @@
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@commitlint/types": "19.8.1",
+    "@swc/core": "1.12.6",
     "@types/node": "24.0.4",
     "@types/semver": "7.7.0",
     "@types/ws": "8.18.1",
@@ -21,9 +22,8 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js",
-      "types": "./dist/types/index.d.ts"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
   },
   "files": [
@@ -37,8 +37,8 @@
       "pnpm biome:write"
     ]
   },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "name": "@fancystudioteam/linkcord",
   "packageManager": "pnpm@10.12.3",
   "publishConfig": {
@@ -59,6 +59,6 @@
     "vitest": "vitest -c vitest.config.ts",
     "vitest:watch": "vitest -c vitest.config.ts --watch"
   },
-  "types": "dist/types/index.d.ts",
+  "types": "dist/index.d.ts",
   "version": "0.0.0"
 }

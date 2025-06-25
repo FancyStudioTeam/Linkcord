@@ -1,5 +1,6 @@
 import { existsSync } from "node:fs";
 import { basename, join } from "node:path";
+import { ImportUtils } from "#utils/structures/ImportUtils.js";
 import type { LinkcordOptions } from "../defineConfig.ts";
 
 /**
@@ -42,7 +43,8 @@ export class LinkcordConfiguration {
         continue;
       }
 
-      const importConfigurationFileData = (await import(configurationFilePath)) as ImportConfigurationFileData;
+      const importConfigurationFilePath = ImportUtils.resolvePath(configurationFilePath);
+      const importConfigurationFileData = (await import(importConfigurationFilePath)) as ImportConfigurationFileData;
       const configurationFileName = basename(configurationFilePath);
       const { default: defaultExport } = importConfigurationFileData;
 

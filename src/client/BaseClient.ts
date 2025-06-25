@@ -10,20 +10,22 @@ import { EventsManager } from "./managers/EventsManager.js";
 export class BaseClient {
   events = new EventsManager();
 
-  constructor() {
-    LinkcordConfiguration.loadConfigurationFile().catch((exception) =>
-      console.error("Error loading the configuration file: ", exception),
-    );
-  }
-
   async init(): Promise<void> {
-    const { locations } = LinkcordConfiguration.getOptions();
-    const { base, commands, events } = locations ?? {};
-    const promises: Promise<void>[] = [
-      commands ? CommandsLoader.registerCommandsToClient(join(process.cwd(), base, commands), this) : Promise.resolve(),
-      events ? EventsLoader.registerEventsToClient(join(process.cwd(), base, events), this) : Promise.resolve(),
-    ];
+    const { intents, locations, token } = await LinkcordConfiguration.loadConfigurationFile();
 
-    await Promise.all(promises);
+    if (!(token && intents)) {
+      throw new TypeError("Token or intents are missing from the configuration file.");
+    }
+
+    if (locations) {
+      const { base, commands, events } = locations;
+      const createPath = (folder: string) => join(process.cwd(), base, folder);
+      const locationPromises: Promise<unknown>[] = [
+        commands ? CommandsLoader.registerCommandsToClient(createPath(commands), this) : Promise.resolve(false),
+        events ? EventsLoader.registerEventsToClient(createPath(events), this) : Promise.resolve(false),
+      ];
+
+      await Promise.all(locationPromises);
+    }
   }
 }
