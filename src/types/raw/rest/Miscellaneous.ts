@@ -3,6 +3,28 @@ import type { APIDefaultSoundboardSound } from "../payloads/Soundboards.js";
 import type { APIVoiceRegion } from "../payloads/Voice.js";
 
 /**
+ * @alpha
+ */
+export interface APIRefreshedAttachment {
+  original: string;
+  refreshed: string;
+}
+
+/**
+ * @alpha
+ */
+export interface RESTPostRefreshAttachments {
+  refreshed_urls: APIRefreshedAttachment[];
+}
+
+/**
+ * @alpha
+ */
+export interface RESTPostRefreshAttachmentsJSONParams {
+  attachment_urls: string[];
+}
+
+/**
  * @public
  * @see https://discord.com/developers/docs/resources/soundboard#list-default-soundboard-sounds
  */

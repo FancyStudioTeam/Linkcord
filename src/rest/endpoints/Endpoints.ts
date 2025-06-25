@@ -41,6 +41,10 @@ export class Endpoints {
     return encode`applications/${applicationId}/skus`;
   }
 
+  static attachmentRefreshUrls(): string {
+    return "attachments/refresh-urls";
+  }
+
   static channel(channelId: Snowflake): string {
     return encode`channels/${channelId}`;
   }
