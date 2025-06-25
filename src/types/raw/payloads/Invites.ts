@@ -3,7 +3,7 @@ import type { APIApplication } from "./application.js";
 import type { APIChannel } from "./channel.js";
 import type { APIGuild } from "./guild.js";
 import type { APIGuildScheduledEvent } from "./guild-scheduled-event.js";
-import type { APIUser } from "./user.js";
+import type { APIUser } from "./Users.js";
 
 /**
  * @public
@@ -26,27 +26,6 @@ export interface APIInvite {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/invite#invite-object-invite-structure
- */
-export interface APIInviteGuild
-  extends Pick<
-    APIGuild,
-    | "banner"
-    | "description"
-    | "features"
-    | "icon"
-    | "id"
-    | "name"
-    | "nsfw_level"
-    | "premium_subscription_count"
-    | "premium_tier"
-    | "splash"
-    | "vanity_code_url"
-    | "verification_level"
-  > {}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/resources/invite#invite-metadata-object-invite-metadata-structure
  */
 export interface APIInviteMetadata {
@@ -56,6 +35,26 @@ export interface APIInviteMetadata {
   temporary: boolean;
   uses: number;
 }
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/invite#invite-object-example-invite-object
+ */
+export type APIInviteGuild = Pick<
+  APIGuild,
+  | "banner"
+  | "description"
+  | "features"
+  | "icon"
+  | "id"
+  | "name"
+  | "nsfw_level"
+  | "premium_subscription_count"
+  | "premium_tier"
+  | "splash"
+  | "vanity_url_code"
+  | "verification_level"
+>;
 
 /**
  * @public
