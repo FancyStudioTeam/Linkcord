@@ -16,6 +16,7 @@
       "#configuration/*": ["./src/configuration/*"],
       "#handlers/*": ["./src/handlers/*"],
       "#structures/*": ["./src/structures/*"],
+      "#transformers/*": ["./src/transformers/*"],
       "#types/*": ["./src/types/*"],
       "#utils/*": ["./src/utils/*"]
     },
