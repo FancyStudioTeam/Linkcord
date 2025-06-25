@@ -1,3 +1,9 @@
+import type {
+  APIApplicationCommand,
+  APIApplicationCommandOption,
+  APIApplicationCommandPermissions,
+  ApplicationCommandTypes,
+} from "../payloads/ApplicationCommands.js";
 import type { APIApplicationRoleConnectionMetadata } from "../payloads/ApplicationRoleConnectionMetadata.js";
 import type {
   APIActivityInstance,
@@ -9,8 +15,26 @@ import type {
 } from "../payloads/Applications.js";
 import type { APIEmoji } from "../payloads/Emojis.js";
 import type { APIEntitlement, APIPartialEntitlement, EntitlementOwnerTypes } from "../payloads/Entitlements.js";
+import type { IntegrationTypes } from "../payloads/Guilds.js";
+import type { InteractionContextTypes } from "../payloads/Interactions.js";
 import type { APISKU } from "../payloads/SKUs.js";
-import type { ImageDataUri, Snowflake } from "../shared/discord.js";
+import type { ImageDataUri, Localizations, Snowflake } from "../shared/discord.js";
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#get-global-application-commands-query-string-params
+ */
+export interface RESTGetApplicationCommandsGlobalQueryStringParams {
+  with_localizations?: boolean;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#get-guild-application-commands-query-string-params
+ */
+export interface RESTGetApplicationCommandsGuildQueryStringParams {
+  with_localizations?: boolean;
+}
 
 /**
  * @public
@@ -33,6 +57,36 @@ export interface RESTGetApplicationEntitlementsQueryStringParams {
   limit?: number;
   sku_ids?: string;
   user_id?: Snowflake;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#edit-global-application-command-json-params
+ */
+export interface RESTPatchApplicationCommandGlobalJSONParams {
+  contexts?: InteractionContextTypes[];
+  default_member_permissions?: string | null;
+  description?: string;
+  description_localizations?: Localizations | null;
+  integration_types?: IntegrationTypes[];
+  name?: string;
+  name_localizations?: Localizations | null;
+  nsfw?: boolean;
+  options?: APIApplicationCommandOption[];
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#edit-guild-application-command-json-params
+ */
+export interface RESTPatchApplicationCommandGuildJSONParams {
+  default_member_permissions?: string | null;
+  description?: string;
+  description_localizations?: Localizations | null;
+  name?: string;
+  name_localizations?: Localizations | null;
+  nsfw?: boolean;
+  options?: APIApplicationCommandOption[];
 }
 
 /**
@@ -65,6 +119,38 @@ export interface RESTPatchApplicationEmojiJSONParams {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
+ */
+export interface RESTPostApplicationCommandGlobalJSONParams {
+  contexts?: InteractionContextTypes[];
+  default_member_permissions?: string | null;
+  description?: string;
+  description_localizations?: Localizations | null;
+  integration_types?: IntegrationTypes[];
+  name: string;
+  name_localizations?: Localizations | null;
+  nsfw?: boolean;
+  options?: APIApplicationCommandOption[];
+  type?: ApplicationCommandTypes;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command-json-params
+ */
+export interface RESTPostApplicationCommandGuildJSONParams {
+  default_member_permissions?: string | null;
+  description?: string;
+  description_localizations?: Localizations | null;
+  name: string;
+  name_localizations?: Localizations | null;
+  nsfw?: boolean;
+  options?: APIApplicationCommandOption[];
+  type?: ApplicationCommandTypes;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/emoji#create-application-emoji-json-params
  */
 export interface RESTPostApplicationEmojiJSONParams {
@@ -84,6 +170,44 @@ export interface RESTPostApplicationEntitlementTestJSONParams {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-guild-application-commands-json-params
+ */
+export interface RESTPutApplicationCommandsGuildJSONParams {
+  contexts: InteractionContextTypes[];
+  default_member_permissions?: string | null;
+  description?: string;
+  description_localizations?: Localizations | null;
+  id?: Snowflake;
+  integration_types: IntegrationTypes[];
+  name: string;
+  name_localizations?: Localizations | null;
+  nsfw?: boolean;
+  options?: APIApplicationCommandOption[];
+  type?: ApplicationCommandTypes;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#edit-application-command-permissions-json-params
+ */
+export interface RESTPutApplicationCommandPermissionsJSONParams {
+  permissions: APIApplicationCommandPermissions[];
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#delete-global-application-command
+ */
+export type RESTDeleteApplicationCommandGlobal = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#delete-guild-application-command
+ */
+export type RESTDeleteApplicationCommandGuild = undefined;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/emoji#delete-application-emoji
  */
 export type RESTDeleteApplicationEmoji = undefined;
@@ -99,6 +223,42 @@ export type RESTDeleteApplicationEntitlementTest = undefined;
  * @see https://discord.com/developers/docs/resources/application#get-application-activity-instance
  */
 export type RESTGetApplicationActivityInstance = APIActivityInstance;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#get-global-application-command
+ */
+export type RESTGetApplicationCommandGlobal = APIApplicationCommand;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#get-guild-application-command
+ */
+export type RESTGetApplicationCommandGuild = APIApplicationCommand;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#get-global-application-commands
+ */
+export type RESTGetApplicationCommandsGlobal = APIApplicationCommand[];
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#get-guild-application-commands
+ */
+export type RESTGetApplicationCommandsGuild = APIApplicationCommand[];
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#get-application-command-permissions
+ */
+export type RESTGetApplicationCommandPermissions = APIApplicationCommandPermissions[];
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#get-guild-application-command-permissions
+ */
+export type RESTGetApplicationCommandsPermissions = APIApplicationCommandPermissions[];
 
 /**
  * @public
@@ -138,6 +298,18 @@ export type RESTGetApplicationSKUs = APISKU[];
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#edit-global-application-command
+ */
+export type RESTPatchApplicationCommandGlobal = APIApplicationCommand;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#edit-guild-application-command
+ */
+export type RESTPatchApplicationCommandGuild = APIApplicationCommand;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/application#edit-current-application
  */
 export type RESTPatchApplicationCurrent = APIApplication;
@@ -147,6 +319,18 @@ export type RESTPatchApplicationCurrent = APIApplication;
  * @see https://discord.com/developers/docs/resources/emoji#modify-application-emoji
  */
 export type RESTPatchApplicationEmoji = APIEmoji;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command
+ */
+export type RESTPostApplicationCommandGlobal = APIApplicationCommand;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command
+ */
+export type RESTPostApplicationCommandGuild = APIApplicationCommand;
 
 /**
  * @public
@@ -165,6 +349,30 @@ export type RESTPostApplicationEntitlementConsume = undefined;
  * @see https://discord.com/developers/docs/resources/entitlement#create-test-entitlement
  */
 export type RESTPostApplicationEntitlementTest = APIPartialEntitlement;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
+ */
+export type RESTPutApplicationCommandsGlobal = APIApplicationCommand[];
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
+ */
+export type RESTPutApplicationCommandsGlobalJSONParams = APIApplicationCommand[];
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-guild-application-commands
+ */
+export type RESTPutApplicationCommandsGuild = APIApplicationCommand[];
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/application-commands#edit-application-command-permissions
+ */
+export type RESTPutApplicationCommandPermissions = APIApplicationCommandPermissions;
 
 /**
  * @public

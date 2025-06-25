@@ -1,5 +1,4 @@
 export * from "./Applications.js";
-export * from "./application-command.js";
 export * from "./Channels.js";
 export * from "./Guilds.js";
 export * from "./Invites.js";
