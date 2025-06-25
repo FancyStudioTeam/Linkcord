@@ -10,7 +10,5 @@ export type GatewayHeartbeat = GatewayEventBase<GatewayOpcodes.Heartbeat, Gatewa
 /**
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#heartbeat-example-heartbeat
- * @remarks
- * - This field value may be `null` if the sequence number was not received yet.
  */
 export type GatewayHeartbeatPayload = number | null;
