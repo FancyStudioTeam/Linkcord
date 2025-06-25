@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export class BitFieldResolver {
   bitField: number;
 
