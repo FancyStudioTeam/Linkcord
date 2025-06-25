@@ -1,7 +1,5 @@
 export * from "./Applications.js";
 export * from "./application-command.js";
-export * from "./application-role-connection-metadata.js";
-export * from "./audit-log.js";
 export * from "./auto-moderation.js";
 export * from "./Channels.js";
 export * from "./emoji.js";

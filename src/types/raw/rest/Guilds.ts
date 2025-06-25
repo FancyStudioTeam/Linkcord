@@ -1,3 +1,4 @@
+import type { APIAuditLog, AuditLogEvents } from "../payloads/AuditLogs.js";
 import type {
   APIDefaultReactionEmoji,
   APIForumTag,
@@ -37,6 +38,18 @@ import type { APIGuildSoundboardSound } from "../payloads/Soundboards.js";
 import type { APISticker } from "../payloads/Stickers.js";
 import type { APIVoiceRegion, APIVoiceState } from "../payloads/Voice.js";
 import type { AudioDataUri, ImageDataUri, ISO8601Date, Locale, Snowflake } from "../shared/discord.js";
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/audit-log#get-guild-audit-log-query-string-params
+ */
+export interface RESTGetGuildAuditLogStringParams {
+  action_type?: AuditLogEvents;
+  after?: Snowflake;
+  before?: Snowflake;
+  limit?: number;
+  user_id?: Snowflake;
+}
 
 /**
  * @public
@@ -116,18 +129,6 @@ export interface RESTGetGuildVanityUrl {
   code: string | null;
   uses: number;
 }
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/voice#get-user-voice-state
- */
-export type RESTGetGuildVoiceState = APIVoiceState;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/voice#get-current-user-voice-state
- */
-export type RESTGetGuildVoiceStateCurrent = APIVoiceState;
 
 /**
  * @public
@@ -490,6 +491,12 @@ export type RESTGetGuild = APIGuild;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/audit-log#get-guild-audit-log
+ */
+export type RESTGetGuildAuditLog = APIAuditLog;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#get-guild-ban
  */
 export type RESTGetGuildBan = APIBan;
@@ -583,6 +590,18 @@ export type RESTGetGuildStickers = APISticker[];
  * @see https://discord.com/developers/docs/resources/guild#get-guild-voice-regions
  */
 export type RESTGetGuildVoiceRegions = APIVoiceRegion[];
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/voice#get-user-voice-state
+ */
+export type RESTGetGuildVoiceState = APIVoiceState;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/voice#get-current-user-voice-state
+ */
+export type RESTGetGuildVoiceStateCurrent = APIVoiceState;
 
 /**
  * @public

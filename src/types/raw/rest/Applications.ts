@@ -1,3 +1,4 @@
+import type { APIApplicationRoleConnectionMetadata } from "../payloads/ApplicationRoleConnectionMetadata.js";
 import type {
   APIActivityInstance,
   APIApplication,
@@ -43,6 +44,12 @@ export type RESTGetApplicationCurrent = APIApplication;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/application-role-connection-metadata#get-application-role-connection-metadata-records
+ */
+export type RESTGetApplicationRoleConnectionMetadata = APIApplicationRoleConnectionMetadata[];
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/sku#list-skus
  */
 export type RESTGetApplicationSKUs = APISKU[];
@@ -52,3 +59,9 @@ export type RESTGetApplicationSKUs = APISKU[];
  * @see https://discord.com/developers/docs/resources/application#edit-current-application
  */
 export type RESTPatchApplicationCurrent = APIApplication;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/application-role-connection-metadata#update-application-role-connection-metadata-records
+ */
+export type RESTPutApplicationRoleConnectionMetadata = APIApplicationRoleConnectionMetadata[];
