@@ -2,7 +2,7 @@ import type { APIAvatarDecorationData, APIPrimaryGuild, APIUserCollectibles, API
 import type { AvatarDecorationData, PrimaryGuild, UserCollectibles, UserNameplate } from "#types/parsed/Users.js";
 
 /**
- * @public
+ * @internal
  */
 export class UserTransformer {
   /**

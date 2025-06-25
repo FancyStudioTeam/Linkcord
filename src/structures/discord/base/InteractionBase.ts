@@ -1,3 +1,4 @@
+import { MonetizationTransformer } from "#transformers/MonetizationTransformer.js";
 import type {
   APIEntitlement,
   APIInteraction,
@@ -6,7 +7,7 @@ import type {
   Locales,
   Snowflake,
 } from "#types/index.js";
-import { Entitlement } from "../Entitlement.js";
+import type { Entitlement } from "../Entitlement.js";
 import { Base } from "./Base.js";
 
 /**
@@ -32,25 +33,12 @@ export class InteractionBase<InteractionType extends InteractionTypes> extends B
     this.attachmentSizeLimit = data.attachment_size_limit;
     this.channelId = data.channel_id ?? null;
     this.context = data.context ?? null;
-    this.entitlements = this._transformEntitlements(data.entitlements);
+    this.entitlements = MonetizationTransformer.transformEntitlementsMap(data.entitlements);
     this.guildId = data.guild_id ?? null;
     this.guildLocale = data.guild_locale ?? null;
     this.locale = data.locale;
     this.token = data.token;
     this.type = type;
     this.version = data.version;
-  }
-
-  /**
-   * @internal
-   */
-  private _transformEntitlements(entitlements: APIEntitlement[]): Map<Snowflake, Entitlement> {
-    const transformedEntitlements = entitlements.map((entitlement) => new Entitlement(entitlement.id, entitlement));
-    const entitlementsMap = transformedEntitlements.map<[Snowflake, Entitlement]>((entitlement) => [
-      entitlement.id,
-      entitlement,
-    ]);
-
-    return new Map(entitlementsMap);
   }
 }

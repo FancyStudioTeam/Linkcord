@@ -20,7 +20,7 @@ export class CommandInteractionBase<
 
     if (!data.data) {
       throw new TypeError(
-        "Field 'data' is missing from the API interaction but is always present for application command interactions.",
+        "Field 'data' is missing from interaction data but should be always present for application command interactions.",
       );
     }
 
