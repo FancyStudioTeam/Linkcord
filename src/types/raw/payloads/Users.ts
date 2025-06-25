@@ -1,5 +1,5 @@
 import type { Locale, Snowflake } from "../shared/discord.js";
-import type { APIPartialIntegration } from "./guild.js";
+import type { APIPartialIntegration } from "./Guilds.js";
 
 /**
  * @public

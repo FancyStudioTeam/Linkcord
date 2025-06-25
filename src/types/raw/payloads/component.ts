@@ -7,7 +7,7 @@ import type {
   APISelectMenuComponentBase,
 } from "./base/component.js";
 import type { ChannelTypes } from "./channel.js";
-import type { APIPartialEmoji } from "./emoji.js";
+import type { APIPartialEmoji } from "./Emojis.js";
 
 /**
  * @public

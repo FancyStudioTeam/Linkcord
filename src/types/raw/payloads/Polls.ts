@@ -1,5 +1,5 @@
 import type { ISO8601Date } from "../shared/discord.js";
-import type { APIPartialEmoji } from "./emoji.js";
+import type { APIPartialEmoji } from "./Emojis.js";
 
 /**
  * @public

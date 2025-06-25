@@ -1,5 +1,5 @@
 import type { Snowflake } from "../shared/discord.js";
-import type { APIPartialGuild } from "./guild.js";
+import type { APIPartialGuild } from "./Guilds.js";
 import type { OAuth2Scopes } from "./OAuth2.js";
 import type { APITeam } from "./Teams.js";
 import type { APIUser } from "./Users.js";

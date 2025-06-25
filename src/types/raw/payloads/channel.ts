@@ -6,7 +6,7 @@ import type {
   APIThreadChannelBase,
   APIVoiceChannelBase,
 } from "./base/channel.js";
-import type { APIGuildMember } from "./guild.js";
+import type { APIGuildMember } from "./Guilds.js";
 
 /**
  * @public

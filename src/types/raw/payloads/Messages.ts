@@ -1,11 +1,11 @@
 import type { ISO8601Date, Snowflake } from "../shared/discord.js";
-import type { APIPartialApplication } from "./application.js";
-import type { ApplicationCommandTypes } from "./application-command.js";
+import type { ApplicationCommandTypes } from "./ApplicationCommands.js";
+import type { APIPartialApplication } from "./Applications.js";
 import type { APIEmbedMediaContentBase, APIMessageInteractionMetadataBase } from "./base/message.js";
 import type { APIChannel, ChannelTypes } from "./channel.js";
 import type { APIMessageComponents } from "./component.js";
-import type { APIPartialEmoji } from "./emoji.js";
-import type { APIResolvedData, InteractionTypes } from "./interaction.js";
+import type { APIPartialEmoji } from "./Emojis.js";
+import type { APIResolvedData, InteractionTypes } from "./Interactions.js";
 import type { APIPoll } from "./Polls.js";
 import type { APISoundboardSound } from "./Soundboards.js";
 import type { APIStickerItem } from "./Stickers.js";

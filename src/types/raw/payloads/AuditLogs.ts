@@ -1,9 +1,9 @@
 import type { Snowflake } from "../shared/discord.js";
-import type { APIApplicationCommand } from "./application-command.js";
-import type { APIAutoModerationRule } from "./auto-moderation.js";
+import type { APIApplicationCommand } from "./ApplicationCommands.js";
+import type { APIAutoModerationRule } from "./AutoModeration.js";
 import type { APIThreadChannel } from "./channel.js";
-import type { APIPartialIntegration } from "./guild.js";
-import type { APIGuildScheduledEvent } from "./guild-scheduled-event.js";
+import type { APIGuildScheduledEvent } from "./GuildScheduledEvents.js";
+import type { APIPartialIntegration } from "./Guilds.js";
 import type { APIPartialUser } from "./Users.js";
 import type { APIWebhook } from "./Webhooks.js";
 

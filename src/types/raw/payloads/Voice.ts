@@ -1,5 +1,5 @@
 import type { ISO8601Date, Snowflake } from "../shared/discord.js";
-import type { APIGuildMember } from "./guild.js";
+import type { APIGuildMember } from "./Guilds.js";
 
 /**
  * @public

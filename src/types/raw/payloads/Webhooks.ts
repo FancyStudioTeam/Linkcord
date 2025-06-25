@@ -1,6 +1,6 @@
 import type { Snowflake } from "../shared/discord.js";
 import type { APIGuildChannel } from "./channel.js";
-import type { APIGuild } from "./guild.js";
+import type { APIGuild } from "./Guilds.js";
 import type { APIUser } from "./Users.js";
 
 /**
