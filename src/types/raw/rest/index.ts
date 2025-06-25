@@ -12,7 +12,7 @@ export * from "./guild-scheduled-events.js";
 export * from "./guild-template.js";
 export * from "./interaction.js";
 export * from "./invite.js";
-export * from "./lobby.js";
+export * from "./Lobbies.js";
 export * from "./Miscellaneous.js";
 export * from "./Monetization.js";
 export * from "./message.js";
