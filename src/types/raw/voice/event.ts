@@ -1,14 +1,14 @@
-import type { VoiceClientsConnect } from "./events/clients-connect.js";
-import type { VoiceHeartbeat } from "./events/heartbeat.js";
-import type { VoiceHeartbeatAck } from "./events/heartbeat-ack.js";
-import type { VoiceHello } from "./events/hello.js";
-import type { VoiceIdentify } from "./events/identify.js";
-import type { VoiceReady } from "./events/ready.js";
-import type { VoiceResume } from "./events/resume.js";
-import type { VoiceResumed } from "./events/resumed.js";
-import type { VoiceSelectProtocol } from "./events/select-protocol.js";
-import type { VoiceSessionDescription } from "./events/session-description.js";
-import type { VoiceSpeaking } from "./events/speaking.js";
+import type { VoiceClientsConnect } from "./events/ClientsConnect.js";
+import type { VoiceHeartbeat } from "./events/Heartbeat.js";
+import type { VoiceHeartbeatAck } from "./events/HeartbeatAck.js";
+import type { VoiceHello } from "./events/Hello.js";
+import type { VoiceIdentify } from "./events/Identify.js";
+import type { VoiceReady } from "./events/Ready.js";
+import type { VoiceResume } from "./events/Resume.js";
+import type { VoiceResumed } from "./events/Resumed.js";
+import type { VoiceSelectProtocol } from "./events/SelectProtocol.js";
+import type { VoiceSessionDescription } from "./events/SessionDescription.js";
+import type { VoiceSpeaking } from "./events/Speaking.js";
 
 /**
  * @public
