@@ -1,4 +1,5 @@
 import type { APIGateway, APIGatewayBot } from "../payloads/Gateway.js";
+import type { APIInteractionCallbackResponse, APIInteractionResponse } from "../payloads/index.js";
 import type { APIDefaultSoundboardSound } from "../payloads/Soundboards.js";
 import type { APIVoiceRegion } from "../payloads/Voice.js";
 
@@ -8,6 +9,14 @@ import type { APIVoiceRegion } from "../payloads/Voice.js";
 export interface APIRefreshedAttachment {
   original: string;
   refreshed: string;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response-query-string-params
+ */
+export interface RESTPostInteractionQueryStringParams {
+  with_response?: boolean;
 }
 
 /**
@@ -47,3 +56,15 @@ export type RESTGetGatewayBot = APIGatewayBot;
  * @see https://discord.com/developers/docs/resources/voice#list-voice-regions
  */
 export type RESTGetVoiceRegions = APIVoiceRegion[];
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
+ */
+export type RESTPostInteraction = APIInteractionCallbackResponse | undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
+ */
+export type RESTPostInteractionJSONParams = APIInteractionResponse;

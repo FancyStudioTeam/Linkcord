@@ -3,7 +3,6 @@ export * from "./application-command.js";
 export * from "./Channels.js";
 export * from "./Guilds.js";
 export * from "./Invites.js";
-export * from "./interaction.js";
 export * from "./Lobbies.js";
 export * from "./Miscellaneous.js";
 export * from "./Monetization.js";
