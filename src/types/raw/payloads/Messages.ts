@@ -509,6 +509,10 @@ export enum MessageTypes {
   ChatInputCommand = 20,
   ContextMenuCommand = 23,
   Default = 0,
+  /**
+   * @alpha
+   */
+  EmojiAdded = 63,
   GuildApplicationPremiumSubscription = 32,
   GuildBoost = 8,
   GuildBoostTier1 = 9,

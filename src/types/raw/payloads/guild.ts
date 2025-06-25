@@ -1,10 +1,10 @@
 import type { StatusTypes } from "../gateway/index.js";
 import type { ISO8601Date, Snowflake } from "../shared/discord.js";
-import type { APIEmoji } from "./emoji.js";
-import type { OAuth2Scopes } from "./oauth2.js";
-import type { APIRole } from "./permission.js";
-import type { APISticker } from "./sticker.js";
-import type { APIAvatarDecorationData, APIUser } from "./user.js";
+import type { APIEmoji } from "./Emojis.js";
+import type { OAuth2Scopes } from "./OAuth2.js";
+import type { APIRole } from "./Permissions.js";
+import type { APISticker } from "./Stickers.js";
+import type { APIAvatarDecorationData, APIUser } from "./Users.js";
 
 /**
  * @public
@@ -80,9 +80,9 @@ export interface APIGuild {
   safety_alerts_channel_id: Snowflake | null;
   splash: string | null;
   stickers?: APISticker[];
-  system_channel_flags: SystemChannelFlags;
+  system_channel_flags: number;
   system_channel_id: Snowflake | null;
-  vanity_code_url: string | null;
+  vanity_url_code: string | null;
   verification_level: VerificationLevels;
   welcome_screen?: APIWelcomeScreen;
   widget_channel_id?: Snowflake | null;
@@ -537,12 +537,20 @@ export enum PromptTypes {
  * @see https://discord.com/developers/docs/resources/guild#guild-object-system-channel-flags
  */
 export enum SystemChannelFlags {
+  /**
+   * @alpha
+   */
+  SuppressChannelPromptDeadchat = 1 << 7,
   SuppressGuildReminderNotifications = 1 << 2,
+  SuppressJoinNotificationReplies = 1 << 3,
   SuppressJoinNotifications = 1 << 0,
   SuppressPremiumSubscriptions = 1 << 1,
-  SupressJoinNotificationReplies = 1 << 3,
-  SupressRoleSubscriptionPurchaseNotificationReplies = 1 << 5,
-  SupressRoleSubscriptionPurchaseNotifications = 1 << 4,
+  SuppressRoleSubscriptionPurchaseNotificationReplies = 1 << 5,
+  SuppressRoleSubscriptionPurchaseNotifications = 1 << 4,
+  /**
+   * @alpha
+   */
+  SuppressUgcAddedNotifications = 1 << 8,
 }
 
 /**
