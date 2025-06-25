@@ -1,6 +1,6 @@
 import type { VoiceEventBase } from "../base/event.js";
 import type { VoiceOpcodes } from "../event.js";
-import type { VoiceEncryptionModes } from "./ready.js";
+import type { VoiceEncryptionModes } from "./Ready.js";
 
 /**
  * @public
