@@ -1,12 +1,5 @@
 import { MonetizationTransformer } from "#transformers/MonetizationTransformer.js";
-import type {
-  APIEntitlement,
-  APIInteraction,
-  InteractionContextTypes,
-  InteractionTypes,
-  Locales,
-  Snowflake,
-} from "#types/index.js";
+import type { APIInteraction, InteractionContextTypes, InteractionTypes, Locales, Snowflake } from "#types/index.js";
 import type { Entitlement } from "../Entitlement.js";
 import { Base } from "./Base.js";
 
