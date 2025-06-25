@@ -1,5 +1,5 @@
 import type { Snowflake } from "../shared/discord.js";
-import type { APIChannel } from "./channel.js";
+import type { APIChannel } from "./Channels.js";
 
 /**
  * @public

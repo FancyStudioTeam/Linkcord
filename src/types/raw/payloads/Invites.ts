@@ -1,6 +1,6 @@
 import type { ISO8601Date } from "../shared/discord.js";
 import type { APIApplication } from "./Applications.js";
-import type { APIChannel } from "./channel.js";
+import type { APIChannel } from "./Channels.js";
 import type { APIGuildScheduledEvent } from "./GuildScheduledEvents.js";
 import type { APIGuild } from "./Guilds.js";
 import type { APIUser } from "./Users.js";

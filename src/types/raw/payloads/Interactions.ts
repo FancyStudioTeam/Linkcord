@@ -11,7 +11,7 @@ import type {
   APIMessageComponentInteractionDataBase,
   APIMessageComponentSelectInteractionDataBase,
 } from "./base/interaction.js";
-import type { APIChannel } from "./channel.js";
+import type { APIChannel } from "./Channels.js";
 import type { APIMessageComponents, APIModalComponents, APITextInputComponent, ComponentTypes } from "./component.js";
 import type { APIGuildMember } from "./Guilds.js";
 import type {

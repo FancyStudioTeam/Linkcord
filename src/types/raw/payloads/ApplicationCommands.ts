@@ -1,6 +1,6 @@
 import type { Localizations, Snowflake } from "../shared/discord.js";
 import type { ApplicationIntegrationTypes } from "./Applications.js";
-import type { ChannelTypes } from "./channel.js";
+import type { ChannelTypes } from "./Channels.js";
 import type { InteractionContextTypes } from "./Interactions.js";
 
 /**

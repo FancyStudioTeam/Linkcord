@@ -2,7 +2,7 @@ import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 import type { ApplicationCommandTypes } from "./ApplicationCommands.js";
 import type { APIPartialApplication } from "./Applications.js";
 import type { APIEmbedMediaContentBase, APIMessageInteractionMetadataBase } from "./base/message.js";
-import type { APIChannel, ChannelTypes } from "./channel.js";
+import type { APIChannel, ChannelTypes } from "./Channels.js";
 import type { APIMessageComponents } from "./component.js";
 import type { APIPartialEmoji } from "./Emojis.js";
 import type { APIResolvedData, InteractionTypes } from "./Interactions.js";
