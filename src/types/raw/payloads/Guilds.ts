@@ -17,23 +17,6 @@ export interface APIBan {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/user#get-current-user-guilds-example-partial-guild
- */
-export interface APICurrentUserGuild
-  extends Pick<
-    APIGuild,
-    | "approximate_member_count"
-    | "approximate_presence_count"
-    | "features"
-    | "icon"
-    | "id"
-    | "name"
-    | "owner"
-    | "permissions"
-  > {}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-structure
  */
 export interface APIGuild {
@@ -59,16 +42,8 @@ export interface APIGuild {
   mfa_level: MFALevels;
   name: string;
   nsfw_level: GuildNSFWLevels;
-  /**
-   * @remarks
-   * - This field is only present when fetching the current user guilds.
-   */
   owner?: boolean;
   owner_id: Snowflake;
-  /**
-   * @remarks
-   * - This field is only present when fetching the current user guilds.
-   */
   permissions?: string;
   preferred_locale: string;
   premium_progress_bar_enabled?: boolean;
@@ -233,45 +208,17 @@ export interface APIIncidentsData {
 export interface APIIntegration {
   account: APIIntegrationAccount;
   application?: APIIntegrationApplication;
-  /**
-   * @remarks
-   * - This field is not provided for Discord bot integrations.
-   */
   enable_emoticons?: boolean;
   enabled: boolean;
-  /**
-   * @remarks
-   * - This field is not provided for Discord bot integrations.
-   */
   expire_behavior?: IntegrationExpireBehaviors;
-  /**
-   * @remarks
-   * - This field is not provided for Discord bot integrations.
-   */
   expire_grace_period?: number;
   id: Snowflake;
   name: string;
-  /**
-   * @remarks
-   * - This field is not provided for Discord bot integrations.
-   */
   revoked?: boolean;
-  /**
-   * @remarks
-   * - This field is not provided for Discord bot integrations.
-   */
   role_id?: Snowflake;
   scopes?: OAuth2Scopes[];
-  /**
-   * @remarks
-   * - This field is not provided for Discord bot integrations.
-   */
   subscriber_count?: number;
   synced_at?: ISO8601Date;
-  /**
-   * @remarks
-   * - This field is not provided for Discord bot integrations.
-   */
   syncing?: boolean;
   type: IntegrationTypes;
   user?: APIUser;
@@ -331,7 +278,8 @@ export interface APIPartialGuild
  * @public
  * @see https://discord.com/developers/docs/resources/guild#unavailable-guild-object-example-unavailable-guild
  */
-export interface APIUnavailableGuild extends Pick<APIGuild, "id"> {
+export interface APIUnavailableGuild {
+  id: Snowflake;
   unavailable: boolean;
 }
 
@@ -354,6 +302,22 @@ export interface APIWelcomeScreenChannel {
   emoji_id: Snowflake | null;
   emoji_name: string | null;
 }
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/user#get-current-user-guilds-example-partial-guild
+ */
+export type APICurrentUserGuild = Pick<
+  APIGuild,
+  | "approximate_member_count"
+  | "approximate_presence_count"
+  | "features"
+  | "icon"
+  | "id"
+  | "name"
+  | "owner"
+  | "permissions"
+>;
 
 /**
  * @public

@@ -10,9 +10,10 @@ export interface APIGateway {
  * @public
  * @see https://discord.com/developers/docs/events/gateway#get-gateway-bot
  */
-export interface APIGatewayBot extends APIGateway {
+export interface APIGatewayBot {
   shards: number;
   session_start_limit: APIGatewayBotSessionStartLimit;
+  url: string;
 }
 
 /**

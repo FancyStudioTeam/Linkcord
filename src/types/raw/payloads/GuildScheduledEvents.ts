@@ -1,6 +1,6 @@
 import type { ISO8601Date, Snowflake } from "../shared/discord.js";
-import type { APIGuildMember } from "./guild.js";
-import type { APIUser } from "./user.js";
+import type { APIGuildMember } from "./Guilds.js";
+import type { APIUser } from "./Users.js";
 
 /**
  * @public
@@ -8,19 +8,7 @@ import type { APIUser } from "./user.js";
  */
 export interface APIGuildScheduledEvent {
   channel_id: Snowflake;
-  /**
-   * @remarks
-   * - This field value may be `null` for events created before
-   *   `October 25th, 2021`, at which the concept of the `creator_id` field was
-   *   introduced and started to be tracked.
-   */
   creator?: APIUser;
-  /**
-   * @remarks
-   * - This field value may be `null` for events created before
-   *   `October 25th, 2021`, at which the concept of the `creator_id` field was
-   *   introduced and started to be tracked.
-   */
   creator_id?: Snowflake | null;
   description?: string | null;
   entity_id: Snowflake;
@@ -41,10 +29,6 @@ export interface APIGuildScheduledEvent {
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-entity-metadata
  */
 export interface APIGuildScheduledEventEntityMetadata {
-  /**
-   * @remarks
-   * - This field is required when `type` is `EXTERNAL`.
-   */
   location?: string;
 }
 
