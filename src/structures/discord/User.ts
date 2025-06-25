@@ -1,7 +1,7 @@
 import { UserTransformer } from "#transformers/UserTransformer.js";
 import type { APIUser } from "#types/index.js";
 import type { AvatarDecorationData, PrimaryGuild, UserCollectibles } from "#types/parsed/Users.js";
-import { BitFieldResolver } from "#utils/BitFieldResolver.js";
+import { BitFieldResolver } from "#utils/index.js";
 import { Base } from "./base/Base.js";
 
 /**

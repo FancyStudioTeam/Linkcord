@@ -1,6 +1,6 @@
 import { glob } from "glob";
 import type { BaseClient } from "#client/BaseClient.js";
-import { ImportUtils } from "#utils/ImportUtils.js";
+import { ImportUtils } from "#utils/structures/ImportUtils.js";
 import type { EventData } from "../createEvent.js";
 
 export class EventsLoader {

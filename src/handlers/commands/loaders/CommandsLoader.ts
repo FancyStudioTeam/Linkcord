@@ -3,7 +3,7 @@ import { glob } from "glob";
 import type { BaseClient } from "#client/BaseClient.js";
 import { LinkcordConfiguration } from "#configuration/structures/LinkcordConfiguration.js";
 import { ApplicationCommandTypes } from "#types/index.js";
-import { ImportUtils } from "#utils/ImportUtils.js";
+import { ImportUtils } from "#utils/structures/ImportUtils.js";
 import type { UserContextCommand } from "../structures/UserContextCommand.js";
 import type { UserContextCommandInstance } from "../types.js";
 
