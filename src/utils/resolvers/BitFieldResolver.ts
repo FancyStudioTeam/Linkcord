@@ -1,12 +1,8 @@
 export class BitFieldResolver {
   bitField: number;
 
-  constructor(bitField: number) {
-    this.bitField = bitField;
-  }
-
-  get frozen(): boolean {
-    return Object.isFrozen(this);
+  constructor(bitField?: number) {
+    this.bitField = bitField ?? 0;
   }
 
   add(bit: number): number {

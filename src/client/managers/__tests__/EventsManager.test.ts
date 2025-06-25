@@ -3,7 +3,7 @@ import { EventsManager } from "../EventsManager.js";
 
 describe("Class: EventsManager", () => {
   describe("Method: emit", () =>
-    it("Registers an event listener and emits all listeners.", () => {
+    it("Registers an event listener and emits all its listeners.", () => {
       const eventsManager = new EventsManager();
       const debugListener = vi.fn();
 

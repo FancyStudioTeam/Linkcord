@@ -8,8 +8,6 @@
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@commitlint/types": "19.8.1",
-    "@swc/cli": "0.7.7",
-    "@swc/core": "1.12.6",
     "@types/node": "24.0.4",
     "@types/semver": "7.7.0",
     "@types/ws": "8.18.1",
