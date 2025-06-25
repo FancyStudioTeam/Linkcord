@@ -1,4 +1,4 @@
-name: 🌀 Continuous Integration (Packages)
+name: 🌀 Continuous Integration
 
 on: [push, pull_request]
 

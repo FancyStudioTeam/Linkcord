@@ -36,7 +36,7 @@
   "license": "MIT",
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,json}": [
-      "pnpm biome:check"
+      "pnpm biome:write"
     ]
   },
   "main": "dist/cjs/index.js",
@@ -52,7 +52,8 @@
   },
   "scripts": {
     "biome": "biome check --config-path biome.json",
-    "biome:check": "biome check --config-path biome.json --write",
+    "biome:ci": "biome ci --config-path biome.json",
+    "biome:write": "biome check --config-path biome.json --write",
     "build": "pnpm rimraf && tsup",
     "release": "pnpm publish --access public --no-git-checks",
     "rimraf": "rimraf dist",

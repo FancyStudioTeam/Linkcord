@@ -1,4 +1,4 @@
-name: 🔺 Biome Code Quality
+name: 🔺 Biome Code
 
 on: [push, pull_request]
 
@@ -14,5 +14,16 @@ jobs:
       - name: 📂 Checkout Code
         uses: actions/checkout@v4
 
-      - name: 🔍 Check code with Biome
-        uses: mongolyy/reviewdog-action-biome@v1
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: 📦 Install PNPM
+        run: npm install -g pnpm
+
+      - name: 📥 Install Dependencies
+        run: pnpm install
+
+      - name: 🔺 Run Biome CI
+        run: pnpm biome:ci
