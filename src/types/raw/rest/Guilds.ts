@@ -20,6 +20,15 @@ import type {
 } from "../payloads/Channels.js";
 import type { APIEmoji } from "../payloads/Emojis.js";
 import type {
+  APIGuildScheduledEvent,
+  APIGuildScheduledEventEntityMetadata,
+  APIGuildScheduledEventRecurrenceRule,
+  APIGuildScheduledEventUser,
+  GuildScheduledEventEntityTypes,
+  GuildScheduledEventPrivacyLevel,
+  GuildScheduledEventStatus,
+} from "../payloads/GuildScheduledEvents.js";
+import type {
   APIBan,
   APIGuild,
   APIGuildMember,
@@ -40,6 +49,7 @@ import type {
   OnboardingModes,
   VerificationLevels,
 } from "../payloads/Guilds.js";
+import type { APIGuildTemplate } from "../payloads/GuildTemplates.js";
 import type { APIInvite } from "../payloads/Invites.js";
 import type { APIRole } from "../payloads/Permissions.js";
 import type { APIGuildSoundboardSound } from "../payloads/Soundboards.js";
@@ -102,6 +112,33 @@ export interface RESTGetGuildPruneCount {
 export interface RESTGetGuildPruneCountStringParams {
   days?: number;
   include_roles?: string;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild-scheduled-event#get-guild-scheduled-event-query-string-params
+ */
+export interface RESTGetGuildScheduledEventQueryStringParams {
+  with_user_count?: boolean;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild-scheduled-event#get-guild-scheduled-event-users-query-string-params
+ */
+export interface RESTGetGuildScheduledEventUsersQueryStringParams {
+  after?: Snowflake;
+  before?: Snowflake;
+  limit?: number;
+  with_member?: boolean;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild-scheduled-event#list-scheduled-events-for-guild-query-string-params
+ */
+export interface RESTGetGuildScheduledEventsQueryStringParams {
+  with_user_count?: boolean;
 }
 
 /**
@@ -255,6 +292,24 @@ export interface RESTPatchGuildRolePositionsJSONParams {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/guild-scheduled-event#modify-guild-scheduled-event-json-params
+ */
+export interface RESTPatchGuildScheduledEventJSONParams {
+  channel_id?: Snowflake | null;
+  description?: string | null;
+  entity_metadata?: APIGuildScheduledEventEntityMetadata | null;
+  entity_type?: GuildScheduledEventEntityTypes;
+  image?: ImageDataUri;
+  name?: string;
+  privacy_level?: GuildScheduledEventPrivacyLevel;
+  recurrence_rule?: APIGuildScheduledEventRecurrenceRule | null;
+  scheduled_end_time?: ISO8601Date;
+  scheduled_start_time?: ISO8601Date;
+  status?: GuildScheduledEventStatus;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound-json-params
  */
 export interface RESTPatchGuildSoundboardSoundJSONParams {
@@ -272,6 +327,15 @@ export interface RESTPatchGuildStickerJSONParams {
   description?: string | null;
   name?: string;
   tags?: string;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild-template#modify-guild-template-json-params
+ */
+export interface RESTPatchGuildTemplateJSONParams {
+  description?: string | null;
+  name?: string;
 }
 
 /**
@@ -382,6 +446,15 @@ export interface RESTPostGuildEmojiJSONParams {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/guild-template#create-guild-from-guild-template-json-params
+ */
+export interface RESTPostGuildFromTemplateJSONParams {
+  icon?: ImageDataUri;
+  name: string;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-mfa-level
  */
 export interface RESTPostGuildMFALevel {
@@ -430,6 +503,23 @@ export interface RESTPostGuildRoleJSONParams {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/guild-scheduled-event#create-guild-scheduled-event-json-params
+ */
+export interface RESTPostGuildScheduledEventJSONParams {
+  channel_id?: Snowflake;
+  description?: string;
+  entity_metadata?: APIGuildScheduledEventEntityMetadata;
+  entity_type: GuildScheduledEventEntityTypes;
+  image?: ImageDataUri;
+  name: string;
+  privacy_level: GuildScheduledEventPrivacyLevel;
+  recurrence_rule?: APIGuildScheduledEventRecurrenceRule;
+  scheduled_end_time?: ISO8601Date;
+  scheduled_start_time: ISO8601Date;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound
  */
 export interface RESTPostGuildSoundboardSoundJSONParams {
@@ -449,6 +539,15 @@ export interface RESTPostGuildStickerFormParams {
   file: unknown;
   name: string;
   tags: string;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild-template#create-guild-template-json-params
+ */
+export interface RESTPostGuildTemplateJSONParams {
+  description?: string | null;
+  name: string;
 }
 
 /**
@@ -541,6 +640,12 @@ export type RESTDeleteGuildRole = undefined;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/guild-scheduled-event#delete-guild-scheduled-event
+ */
+export type RESTDeleteGuildScheduledEvent = undefined;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/soundboard#delete-guild-soundboard-sound
  */
 export type RESTDeleteGuildSoundboardSound = undefined;
@@ -550,6 +655,12 @@ export type RESTDeleteGuildSoundboardSound = undefined;
  * @see https://discord.com/developers/docs/resources/sticker#delete-guild-sticker
  */
 export type RESTDeleteGuildSticker = undefined;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild-template#delete-guild-template
+ */
+export type RESTDeleteGuildTemplate = APIGuildTemplate;
 
 /**
  * @public
@@ -661,6 +772,24 @@ export type RESTGetGuildRoles = APIRole[];
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/guild-scheduled-event#get-guild-scheduled-event
+ */
+export type RESTGetGuildScheduledEvent = APIGuildScheduledEvent;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild-scheduled-event#get-guild-scheduled-event-users
+ */
+export type RESTGetGuildScheduledEventUsers = APIGuildScheduledEventUser[];
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild-scheduled-event#list-scheduled-events-for-guild
+ */
+export type RESTGetGuildScheduledEvents = APIGuildScheduledEvent[];
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/soundboard#get-guild-soundboard-sound
  */
 export type RESTGetGuildSoundboardSound = APIGuildSoundboardSound;
@@ -676,6 +805,18 @@ export type RESTGetGuildSticker = APISticker;
  * @see https://discord.com/developers/docs/resources/sticker#list-guild-stickers
  */
 export type RESTGetGuildStickers = APISticker[];
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild-template#get-guild-template
+ */
+export type RESTGetGuildTemplate = APIGuildTemplate;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild-template#get-guild-templates
+ */
+export type RESTGetGuildTemplates = APIGuildTemplate[];
 
 /**
  * @public
@@ -769,6 +910,12 @@ export type RESTPatchGuildRolePositions = undefined;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/guild-scheduled-event#modify-guild-scheduled-event
+ */
+export type RESTPatchGuildScheduledEvent = APIGuildScheduledEvent;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound
  */
 export type RESTPatchGuildSoundboardSound = APIGuildSoundboardSound;
@@ -778,6 +925,12 @@ export type RESTPatchGuildSoundboardSound = APIGuildSoundboardSound;
  * @see https://discord.com/developers/docs/resources/sticker#modify-guild-sticker-json-params
  */
 export type RESTPatchGuildSticker = APISticker;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild-template#modify-guild-template
+ */
+export type RESTPatchGuildTemplate = APIGuildTemplate;
 
 /**
  * @public
@@ -823,9 +976,21 @@ export type RESTPostGuildEmoji = APIEmoji;
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/guild-template#create-guild-from-guild-template
+ */
+export type RESTPostGuildFromTemplate = APIGuild;
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/guild#create-guild-role
  */
 export type RESTPostGuildRole = APIRole;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild-scheduled-event#create-guild-scheduled-event
+ */
+export type RESTPostGuildScheduledEvent = APIGuildScheduledEvent;
 
 /**
  * @public
@@ -838,6 +1003,12 @@ export type RESTPostGuildSoundboardSound = APIGuildSoundboardSound;
  * @see https://discord.com/developers/docs/resources/sticker#create-guild-sticker
  */
 export type RESTPostGuildSticker = APISticker;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild-template#create-guild-template
+ */
+export type RESTPostGuildTemplate = APIGuildTemplate;
 
 /**
  * @public
@@ -868,3 +1039,9 @@ export type RESTPutGuildMemberRole = undefined;
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-onboarding
  */
 export type RESTPutGuildOnboarding = APIGuildOnboarding;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/guild-template#sync-guild-template
+ */
+export type RESTPutGuildTemplate = APIGuildTemplate;

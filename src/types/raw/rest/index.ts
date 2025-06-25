@@ -2,8 +2,6 @@ export * from "./Applications.js";
 export * from "./application-command.js";
 export * from "./Channels.js";
 export * from "./Guilds.js";
-export * from "./guild-scheduled-events.js";
-export * from "./guild-template.js";
 export * from "./Invites.js";
 export * from "./interaction.js";
 export * from "./Lobbies.js";
