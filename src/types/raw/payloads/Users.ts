@@ -1,4 +1,4 @@
-import type { Locale, Snowflake } from "../shared/discord.js";
+import type { Locales, Snowflake } from "../shared/discord.js";
 import type { APIPartialIntegration } from "./Guilds.js";
 
 /**
@@ -86,7 +86,7 @@ export interface APIUser {
   flags?: number;
   global_name: string | null;
   id: Snowflake;
-  locale?: Locale;
+  locale?: Locales;
   mfa_enabled?: boolean;
   premium_type?: PremiumTypes;
   /**
