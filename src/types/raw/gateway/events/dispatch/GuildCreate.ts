@@ -3,8 +3,8 @@ import type { APIGuildScheduledEvent } from "#types/raw/payloads/GuildScheduledE
 import type { APIGuild, APIGuildMember } from "#types/raw/payloads/Guilds.js";
 import type { APISoundboardSound } from "#types/raw/payloads/Soundboards.js";
 import type { APIStageInstance } from "#types/raw/payloads/StageInstances.js";
+import type { APIVoiceState } from "#types/raw/payloads/Voice.js";
 import type { ISO8601Date } from "#types/raw/shared/discord.js";
-import type { APIVoiceState } from "../../../payloads/voice.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayPresence } from "../../presence.js";
 import type { GatewayDispatchEvents } from "../Dispatch.js";

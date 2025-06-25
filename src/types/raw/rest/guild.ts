@@ -33,7 +33,7 @@ import type {
 } from "../payloads/guild.js";
 import type { APIInvite } from "../payloads/invite.js";
 import type { APIRole } from "../payloads/permission.js";
-import type { APIVoiceRegion } from "../payloads/voice.js";
+import type { APIVoiceRegion } from "../payloads/Voice.js";
 import type { ImageDataUri, ISO8601Date, Locale, Snowflake } from "../shared/discord.js";
 
 /**

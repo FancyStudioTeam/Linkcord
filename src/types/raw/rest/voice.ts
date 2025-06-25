@@ -1,4 +1,4 @@
-import type { APIVoiceRegion, APIVoiceState } from "../payloads/voice.js";
+import type { APIVoiceRegion, APIVoiceState } from "../payloads/Voice.js";
 import type { ISO8601Date } from "../shared/discord.js";
 
 /**
