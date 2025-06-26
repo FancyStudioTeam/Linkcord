@@ -3,6 +3,16 @@ import type { Snowflake } from "#types/raw/index.js";
 /**
  * @public
  */
+export interface IncidentsData {
+  dmSpamDetectedAt: Date | null;
+  dmsDisabledUntil: Date | null;
+  invitesDisabledUntil: Date | null;
+  raidDetectedAt: Date | null;
+}
+
+/**
+ * @public
+ */
 export interface RoleColors {
   primaryColor: number;
   secondaryColor: number | null;
@@ -19,4 +29,22 @@ export interface RoleTags {
   integrationId?: Snowflake;
   premiumSubscriber?: true;
   subscriptionListingId?: Snowflake;
+}
+
+/**
+ * @public
+ */
+export interface WelcomeScreen {
+  description: string | null;
+  welcomeChannels: WelcomeScreenChannel[];
+}
+
+/**
+ * @public
+ */
+export interface WelcomeScreenChannel {
+  channelId: Snowflake;
+  description: string;
+  emojiId: Snowflake | null;
+  emojiName: string | null;
 }

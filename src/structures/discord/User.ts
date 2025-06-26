@@ -36,7 +36,7 @@ export class User extends Base {
     } = data;
 
     this.accentColor = accent_color ?? null;
-    this.avatar = avatar ?? null;
+    this.avatar = avatar;
     this.avatarDecorationData =
       UserTransformer.transformAvatarDecorationData(avatar_decoration_data);
     this.banner = banner ?? null;
@@ -47,4 +47,68 @@ export class User extends Base {
     this.primaryGuild = UserTransformer.transformPrimaryGuild(primary_guild);
     this.username = username;
   }
+
+  /**
+   * @internal
+   */
+  protected patch(data: UserData): void {
+    const {
+      accent_color,
+      avatar,
+      avatar_decoration_data,
+      banner,
+      bot,
+      collectibles,
+      discriminator,
+      flags,
+      primary_guild,
+      username,
+    } = data;
+
+    if (accent_color) {
+      this.accentColor = accent_color;
+    }
+
+    if (avatar) {
+      this.avatar = avatar;
+    }
+
+    if (avatar_decoration_data) {
+      this.avatarDecorationData =
+        UserTransformer.transformAvatarDecorationData(avatar_decoration_data);
+    }
+
+    if (banner) {
+      this.banner = banner;
+    }
+
+    if (bot) {
+      this.bot = bot;
+    }
+
+    if (collectibles) {
+      this.collectibles = UserTransformer.transformCollectibles(collectibles);
+    }
+
+    if (discriminator) {
+      this.discriminator = discriminator;
+    }
+
+    if (flags) {
+      this.flags = new BitFieldResolver(flags);
+    }
+
+    if (primary_guild) {
+      this.primaryGuild = UserTransformer.transformPrimaryGuild(primary_guild);
+    }
+
+    if (username) {
+      this.username = username;
+    }
+  }
 }
+
+/**
+ * @internal
+ */
+type UserData = Partial<APIUser>;

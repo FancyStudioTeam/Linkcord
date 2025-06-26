@@ -1,4 +1,19 @@
-import type { APIRoleColors, APIRoleTags, RoleColors, RoleTags } from "#types/index.js";
+import { Role, SoundboardSound } from "#structures/index.js";
+import type {
+  APIGuildSoundboardSound,
+  APIIncidentsData,
+  APIRole,
+  APIRoleColors,
+  APIRoleTags,
+  APIWelcomeScreenChannel,
+  IncidentsData,
+  RoleColors,
+  RoleTags,
+  Snowflake,
+  WelcomeScreen,
+  WelcomeScreenChannel,
+} from "#types/index.js";
+import type { APIWelcomeScreen } from "../../dist/index.mjs";
 
 /**
  * @internal
@@ -7,8 +22,27 @@ export class GuildTransformer {
   /**
    * @internal
    */
-  static transformRoleColors(colors: APIRoleColors): RoleColors {
-    const { primary_color, secondary_color, tertiary_color } = colors;
+  static transformIncidentsData(incidentsData: APIIncidentsData | null): IncidentsData | null {
+    if (!incidentsData) {
+      return null;
+    }
+
+    const { dm_spam_detected_at, dms_disabled_until, invites_disabled_until, raid_detected_at } =
+      incidentsData;
+
+    return {
+      dmSpamDetectedAt: dm_spam_detected_at ? new Date(dm_spam_detected_at) : null,
+      dmsDisabledUntil: dms_disabled_until ? new Date(dms_disabled_until) : null,
+      invitesDisabledUntil: invites_disabled_until ? new Date(invites_disabled_until) : null,
+      raidDetectedAt: raid_detected_at ? new Date(raid_detected_at) : null,
+    };
+  }
+
+  /**
+   * @internal
+   */
+  static transformRoleColors(colorsData: APIRoleColors): RoleColors {
+    const { primary_color, secondary_color, tertiary_color } = colorsData;
 
     return {
       primaryColor: primary_color,
@@ -60,5 +94,66 @@ export class GuildTransformer {
     }
 
     return tags;
+  }
+
+  /**
+   * @internal
+   */
+  static transformRoles(roles: APIRole[]): Map<Snowflake, Role> {
+    const transformedRoles = roles.map((role) => new Role(role.id, role));
+    const rolesMap = transformedRoles.map<[Snowflake, Role]>((role) => [role.id, role]);
+
+    return new Map(rolesMap);
+  }
+
+  /**
+   * @internal
+   */
+  static transformSoundboardSounds(
+    soundboardSounds: APIGuildSoundboardSound[],
+  ): Map<Snowflake, SoundboardSound> {
+    const transformedSoundboardSounds = soundboardSounds.map(
+      (soundboardSound) => new SoundboardSound(soundboardSound.sound_id, soundboardSound),
+    );
+    const soundboardSoundsMap = transformedSoundboardSounds.map<[Snowflake, SoundboardSound]>(
+      (soundboardSound) => [soundboardSound.soundId, soundboardSound],
+    );
+
+    return new Map(soundboardSoundsMap);
+  }
+
+  /**
+   * @internal
+   */
+  static transformWelcomeScreen(welcomeScreen?: APIWelcomeScreen): WelcomeScreen | null {
+    if (!welcomeScreen) {
+      return null;
+    }
+
+    const { description, welcome_channels } = welcomeScreen;
+    const welcomeChannels = welcome_channels.map((welcomeChannel) =>
+      GuildTransformer.transformWelcomeScreenChannel(welcomeChannel),
+    );
+
+    return {
+      description,
+      welcomeChannels,
+    };
+  }
+
+  /**
+   * @internal
+   */
+  static transformWelcomeScreenChannel(
+    welcomeScreenChannel: APIWelcomeScreenChannel,
+  ): WelcomeScreenChannel {
+    const { channel_id, description, emoji_id, emoji_name } = welcomeScreenChannel;
+
+    return {
+      channelId: channel_id,
+      description,
+      emojiId: emoji_id ?? null,
+      emojiName: emoji_name ?? null,
+    };
   }
 }

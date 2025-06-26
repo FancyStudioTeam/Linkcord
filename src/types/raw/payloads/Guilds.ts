@@ -1,5 +1,5 @@
 import type { StatusTypes } from "../gateway/index.js";
-import type { ISO8601Date, Snowflake } from "../shared/discord.js";
+import type { ISO8601Date, Locales, Snowflake } from "../shared/discord.js";
 import type { APIEmoji } from "./Emojis.js";
 import type { OAuth2Scopes } from "./OAuth2.js";
 import type { APIRole } from "./Permissions.js";
@@ -38,6 +38,7 @@ export interface APIGuild {
   incidents_data: APIIncidentsData | null;
   max_members?: number;
   max_presences?: number | null;
+  max_stage_video_channel_users?: number;
   max_video_channel_users?: number;
   mfa_level: MFALevels;
   name: string;
@@ -45,7 +46,7 @@ export interface APIGuild {
   owner?: boolean;
   owner_id: Snowflake;
   permissions?: string;
-  preferred_locale: string;
+  preferred_locale: Locales;
   premium_progress_bar_enabled?: boolean;
   premium_subscription_count?: number;
   premium_tier: PremiumTiers;
