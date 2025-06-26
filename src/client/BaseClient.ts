@@ -11,7 +11,7 @@ export class BaseClient {
   events = new EventsManager();
 
   async init(): Promise<void> {
-    const { intents, locations, token } = await LinkcordConfiguration.loadConfigurationFile();
+    const { intents, locations, token } = LinkcordConfiguration.getOptions();
 
     if (!(token && intents)) {
       throw new TypeError("Token or intents are missing from the configuration file.");
