@@ -6,3 +6,5 @@ export * from "./rest/index.js";
 export * from "./structures/index.js";
 export * from "./types/index.js";
 export * from "./utils/index.js";
+
+export const LINKCORD_VERSION: string = "[VI]{{inject}}[/VI]";
