@@ -18,14 +18,16 @@ export class Entitlement extends Base {
   constructor(id: Snowflake, data: APIEntitlement) {
     super(id);
 
-    this.applicationId = data.application_id;
-    this.consumed = Boolean(data.consumed);
-    this.deleted = Boolean(data.deleted);
-    this.endsAt = data.ends_at ? new Date(data.ends_at) : null;
-    this.guildId = data.guild_id ?? null;
-    this.skuId = data.sku_id;
-    this.startsAt = data.starts_at ? new Date(data.starts_at) : null;
-    this.type = data.type;
-    this.userId = data.user_id ?? null;
+    const { application_id, consumed, deleted, ends_at, guild_id, sku_id, starts_at, type, user_id } = data;
+
+    this.applicationId = application_id;
+    this.consumed = Boolean(consumed);
+    this.deleted = Boolean(deleted);
+    this.endsAt = ends_at ? new Date(ends_at) : null;
+    this.guildId = guild_id ?? null;
+    this.skuId = sku_id;
+    this.startsAt = starts_at ? new Date(starts_at) : null;
+    this.type = type;
+    this.userId = user_id ?? null;
   }
 }
