@@ -16,7 +16,7 @@ export interface APIRole {
   name: string;
   permissions: string;
   position: number;
-  tags: APIRoleTags;
+  tags?: APIRoleTags;
   unicode_emoji?: string | null;
 
   /**

@@ -20,7 +20,7 @@ export class GuildTransformer {
   /**
    * @internal
    */
-  static transformRoleTags(tags: APIRoleTags): RoleTags {
+  static transformRoleTags(tags?: APIRoleTags): RoleTags {
     const {
       available_for_purchase,
       bot_id,
@@ -28,7 +28,7 @@ export class GuildTransformer {
       integration_id,
       premium_subscriber,
       subscription_listing_id,
-    } = tags;
+    } = tags ?? {};
 
     return {
       availableForPurchase: available_for_purchase === null ? true : undefined,
