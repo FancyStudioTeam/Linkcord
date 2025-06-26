@@ -25,5 +25,6 @@ export class Client extends BaseClient {
 
     gateway.setIntents(intents);
     gateway.setToken(token);
+    await gateway.init();
   }
 }

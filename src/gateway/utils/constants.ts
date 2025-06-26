@@ -3,6 +3,11 @@ import { GatewayOpcodes } from "#types/index.js";
 /**
  * @public
  */
+export const GATEWAY_URL_BASE = "wss://gateway.discord.gg";
+
+/**
+ * @public
+ */
 export const GATEWAY_VERSION = 10;
 
 /**
