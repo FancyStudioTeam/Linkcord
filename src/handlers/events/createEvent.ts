@@ -1,19 +1,19 @@
 import type { ClientEventsMap, ClientEventsString } from "#client/ClientEvents.js";
 
-export const createEvent = <EventName extends ClientEventsString>(
-  options: CreateEventOptions<EventName, CreateEventOptionsData<EventName>>,
+export const createEvent = <Event extends ClientEventsString>(
+  options: CreateEventOptions<Event, CreateEventOptionsData<Event>>,
 ) => options;
 
-export interface CreateEventOptions<
-  ClientEvent extends ClientEventsString,
-  ClientEventData extends CreateEventOptionsData<ClientEvent>,
-> {
-  data: ClientEventData;
-  run: (...data: ClientEventsMap[ClientEvent]) => void;
+export interface CreateEventOptions<Event extends ClientEventsString, EventData extends CreateEventOptionsData<Event>> {
+  data: EventData;
+  /**
+   * biome-ignore lint/suspicious/noExplicitAny: (x)
+   */
+  run: (...data: ClientEventsMap[Event]) => any;
 }
 
-interface CreateEventOptionsData<ClientEvent extends ClientEventsString> {
-  name: ClientEvent;
+interface CreateEventOptionsData<Event extends ClientEventsString> {
+  name: Event;
   once?: boolean;
 }
 
