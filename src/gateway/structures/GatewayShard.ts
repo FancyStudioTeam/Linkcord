@@ -185,6 +185,9 @@ export class GatewayShard {
   }
 }
 
+/**
+ * @internal
+ */
 type SendPayload = {
   [GatewayOpcodes.Heartbeat]: GatewayHeartbeatPayload;
   [GatewayOpcodes.Identify]: GatewayIdentifyPayload;
@@ -195,4 +198,7 @@ type SendPayload = {
   [GatewayOpcodes.VoiceStateUpdate]: GatewayVoiceStateUpdatePayload;
 };
 
+/**
+ * @internal
+ */
 type AnySendableOpcode = (typeof SENDABLE_OPCODES)[number];
