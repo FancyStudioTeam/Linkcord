@@ -1,7 +1,7 @@
 /**
  * @internal
  */
-export const createReadonlyDescriptor = <Type>(value: Type): PropertyDescriptor => ({
+export const createReadonlyPropertyDescriptor = <Type>(value: Type): PropertyDescriptor => ({
   configurable: false,
   enumerable: true,
   value,
