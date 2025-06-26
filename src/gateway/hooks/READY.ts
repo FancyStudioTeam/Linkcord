@@ -14,5 +14,9 @@ export const READY = (client: Client, shard: GatewayShard, { guilds, user }: Gat
   }
 
   events.emit("shardReady", clientUser, shard);
-  manager.checkReady();
+  /**
+   * biome-ignore lint/complexity/useLiteralKeys: Accessing private members
+   * from the manager.
+   */
+  manager["checkReady"]();
 };
