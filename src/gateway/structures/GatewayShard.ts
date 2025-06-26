@@ -66,7 +66,10 @@ export class GatewayShard {
     const { intents, token } = manager;
 
     /**
-     * TODO: Implement sharding and custom properties.
+     * TODO: Implement `shard` for guild sharding.
+     */
+    /**
+     * TODO: Allow using custom values for `properties` and `presence`.
      */
     this.send(GatewayOpcodes.Identify, {
       intents,
@@ -97,7 +100,7 @@ export class GatewayShard {
     const { searchParams } = urlObject;
 
     /**
-     * TODO: Implement "compress" (?)
+     * TODO: Add compression using `zlib`. (?)
      */
     searchParams.append("v", GATEWAY_VERSION.toString());
     searchParams.append("encoding", "json");
@@ -105,7 +108,7 @@ export class GatewayShard {
     const ws = new WebSocket(urlObject.toString());
 
     /**
-     * TODO: Handle reconnections.
+     * TODO: Handle when a shard disconnects.
      */
     this.ws = ws;
     this.ws.on("message", this.onMessage.bind(this));
