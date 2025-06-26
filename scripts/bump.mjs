@@ -56,5 +56,7 @@ for (const _package of packages) {
   writeFileSync(packageJsonPath, `${stringifiedJsonContent}\n`, "utf-8");
   execSync(`biome check --write ${packageJsonPath}`);
 
-  console.log(`✅ Updated package "${packageName}" version from "${currentVersion}" to "${version}".`);
+  console.log(
+    `✅ Updated package "${packageName}" version from "${currentVersion}" to "${version}".`,
+  );
 }

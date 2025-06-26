@@ -16,8 +16,12 @@ describe("Class: ImageUtils", () => {
       const dynamicAssetRoute = `avatars/${USER_ID}/${DYNAMIC_AVATAR_HASH}`;
       const staticAssetRoute = `avatars/${USER_ID}/${STATIC_AVATAR_HASH}`;
 
-      expect(ImageUtils.createImageUrl(dynamicAssetRoute)).toBe(`https://cdn.discordapp.com/${dynamicAssetRoute}.gif`);
-      expect(ImageUtils.createImageUrl(staticAssetRoute)).toBe(`https://cdn.discordapp.com/${staticAssetRoute}.webp`);
+      expect(ImageUtils.createImageUrl(dynamicAssetRoute)).toBe(
+        `https://cdn.discordapp.com/${dynamicAssetRoute}.gif`,
+      );
+      expect(ImageUtils.createImageUrl(staticAssetRoute)).toBe(
+        `https://cdn.discordapp.com/${staticAssetRoute}.webp`,
+      );
     });
 
     it("Returns the created image url with the 'size' option set to '1024'.", () => {

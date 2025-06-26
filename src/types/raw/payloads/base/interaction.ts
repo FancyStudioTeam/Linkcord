@@ -3,7 +3,11 @@ import type { APIPartialChannel } from "../Channels.js";
 import type { ComponentTypes } from "../Components.js";
 import type { APIEntitlement } from "../Entitlements.js";
 import type { APIGuildMember, APIPartialGuild } from "../Guilds.js";
-import type { APIAuthorizingIntegrationOwners, InteractionContextTypes, InteractionTypes } from "../Interactions.js";
+import type {
+  APIAuthorizingIntegrationOwners,
+  InteractionContextTypes,
+  InteractionTypes,
+} from "../Interactions.js";
 import type { APIMessage } from "../Messages.js";
 import type { APIUser } from "../Users.js";
 

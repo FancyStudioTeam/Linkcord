@@ -14,7 +14,11 @@ import type {
   ApplicationEventWebhookTypes,
 } from "../payloads/Applications.js";
 import type { APIEmoji } from "../payloads/Emojis.js";
-import type { APIEntitlement, APIPartialEntitlement, EntitlementOwnerTypes } from "../payloads/Entitlements.js";
+import type {
+  APIEntitlement,
+  APIPartialEntitlement,
+  EntitlementOwnerTypes,
+} from "../payloads/Entitlements.js";
 import type { IntegrationTypes } from "../payloads/Guilds.js";
 import type { InteractionContextTypes } from "../payloads/Interactions.js";
 import type { APISKU } from "../payloads/SKUs.js";

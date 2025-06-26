@@ -17,4 +17,7 @@ export interface GatewayVoiceStateUpdatePayload {
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#update-voice-state
  */
-export type GatewayVoiceStateUpdate = GatewayEventBase<GatewayOpcodes.VoiceStateUpdate, GatewayVoiceStateUpdatePayload>;
+export type GatewayVoiceStateUpdate = GatewayEventBase<
+  GatewayOpcodes.VoiceStateUpdate,
+  GatewayVoiceStateUpdatePayload
+>;

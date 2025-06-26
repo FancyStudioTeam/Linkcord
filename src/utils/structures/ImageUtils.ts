@@ -51,7 +51,9 @@ export class ImageUtils {
   ): string {
     const { extension, forceStatic } = options;
 
-    return ImageUtils.isAvailableAsAnimated(assetHash) && !forceStatic ? "gif" : (extension ?? "webp");
+    return ImageUtils.isAvailableAsAnimated(assetHash) && !forceStatic
+      ? "gif"
+      : (extension ?? "webp");
   }
 
   static isAvailableAsAnimated(assetHash: string): boolean {

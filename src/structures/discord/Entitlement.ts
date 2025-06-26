@@ -18,7 +18,17 @@ export class Entitlement extends Base {
   constructor(id: Snowflake, data: APIEntitlement) {
     super(id);
 
-    const { application_id, consumed, deleted, ends_at, guild_id, sku_id, starts_at, type, user_id } = data;
+    const {
+      application_id,
+      consumed,
+      deleted,
+      ends_at,
+      guild_id,
+      sku_id,
+      starts_at,
+      type,
+      user_id,
+    } = data;
 
     this.applicationId = application_id;
     this.consumed = Boolean(consumed);

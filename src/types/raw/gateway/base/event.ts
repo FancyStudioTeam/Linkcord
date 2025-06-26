@@ -23,4 +23,6 @@ export interface GatewayEventBase<Opcode extends GatewayOpcodes, Data> {
 /**
  * @public
  */
-export type IsDispatchEvent<Opcode extends GatewayOpcodes> = Opcode extends GatewayOpcodes.Dispatch ? true : false;
+export type IsDispatchEvent<Opcode extends GatewayOpcodes> = Opcode extends GatewayOpcodes.Dispatch
+  ? true
+  : false;

@@ -20,7 +20,11 @@ export type GatewayEvent = GatewayReceiveEvent | GatewaySendEvent;
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
-export type GatewayReceiveEvent = GatewayDispatch | GatewayHello | GatewayInvalidSession | GatewayReconnect;
+export type GatewayReceiveEvent =
+  | GatewayDispatch
+  | GatewayHello
+  | GatewayInvalidSession
+  | GatewayReconnect;
 
 /**
  * @public

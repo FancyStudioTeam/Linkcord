@@ -1,5 +1,15 @@
-import type { APIAvatarDecorationData, APIPrimaryGuild, APIUserCollectibles, APIUserNameplate } from "#types/index.js";
-import type { AvatarDecorationData, PrimaryGuild, UserCollectibles, UserNameplate } from "#types/parsed/Users.js";
+import type {
+  APIAvatarDecorationData,
+  APIPrimaryGuild,
+  APIUserCollectibles,
+  APIUserNameplate,
+} from "#types/index.js";
+import type {
+  AvatarDecorationData,
+  PrimaryGuild,
+  UserCollectibles,
+  UserNameplate,
+} from "#types/parsed/Users.js";
 
 /**
  * @internal

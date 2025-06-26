@@ -37,7 +37,8 @@ export class User extends Base {
 
     this.accentColor = accent_color ?? null;
     this.avatar = avatar ?? null;
-    this.avatarDecorationData = UserTransformer.transformAvatarDecorationData(avatar_decoration_data);
+    this.avatarDecorationData =
+      UserTransformer.transformAvatarDecorationData(avatar_decoration_data);
     this.banner = banner ?? null;
     this.bot = Boolean(bot);
     this.collectibles = UserTransformer.transformCollectibles(collectibles);

@@ -7,7 +7,9 @@ describe("Function: resolveGatewayIntents", () => {
     expect(resolveGatewayIntents(["Guilds", "MessageContent"])).toBe(32769));
 
   it("Given an array of number intents, returns the resolved intents.", () =>
-    expect(resolveGatewayIntents([GatewayIntents.Guilds, GatewayIntents.MessageContent])).toBe(32769));
+    expect(resolveGatewayIntents([GatewayIntents.Guilds, GatewayIntents.MessageContent])).toBe(
+      32769,
+    ));
 
   it("Given an array of number and string intents, returns the resolved intents.", () =>
     // @ts-expect-error

@@ -1,7 +1,10 @@
 import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 import type { ApplicationCommandTypes } from "./ApplicationCommands.js";
 import type { APIPartialApplication } from "./Applications.js";
-import type { APIEmbedMediaContentBase, APIMessageInteractionMetadataBase } from "./base/message.js";
+import type {
+  APIEmbedMediaContentBase,
+  APIMessageInteractionMetadataBase,
+} from "./base/message.js";
 import type { APIChannel, ChannelTypes } from "./Channels.js";
 import type { APIMessageComponent } from "./Components.js";
 import type { APIPartialEmoji } from "./Emojis.js";
@@ -275,7 +278,10 @@ export interface APIMessageSnapshot {
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
  */
 export interface APIPartialMessage
-  extends Pick<APIMessage, "application_id" | "author" | "channel_id" | "content" | "flags" | "id"> {
+  extends Pick<
+    APIMessage,
+    "application_id" | "author" | "channel_id" | "content" | "flags" | "id"
+  > {
   channel?: APIChannel;
   recipient_id?: Snowflake;
   type?: MessageTypes;

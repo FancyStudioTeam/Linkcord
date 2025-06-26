@@ -65,7 +65,11 @@ export class CDNEndpoints {
     return encode`emojis/${emojiId}`;
   }
 
-  static guildScheduledEvent(guildId: Snowflake, scheduledEventId: Snowflake, scheduledEventCover: string): string {
+  static guildScheduledEvent(
+    guildId: Snowflake,
+    scheduledEventId: Snowflake,
+    scheduledEventCover: string,
+  ): string {
     return encode`guilds/${guildId}/scheduled-events/${scheduledEventId}/${scheduledEventCover}`;
   }
 

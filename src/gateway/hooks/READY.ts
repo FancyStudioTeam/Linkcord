@@ -3,7 +3,11 @@ import type { GatewayShard } from "#gateway/structures/GatewayShard.js";
 import { User } from "#structures/index.js";
 import type { GatewayDispatchReadyPayload } from "#types/index.js";
 
-export const READY = (client: Client, shard: GatewayShard, { guilds, user }: GatewayDispatchReadyPayload) => {
+export const READY = (
+  client: Client,
+  shard: GatewayShard,
+  { guilds, user }: GatewayDispatchReadyPayload,
+) => {
   const { manager } = shard;
   const { events, unavailableGuilds } = client;
   const { id: userId } = user;

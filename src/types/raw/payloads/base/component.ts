@@ -4,7 +4,8 @@ import type { APIPartialEmoji } from "../Emojis.js";
 /**
  * @public
  */
-export interface APIActionRowComponentBase<Component> extends APIComponentBase<ComponentTypes.ActionRow> {
+export interface APIActionRowComponentBase<Component>
+  extends APIComponentBase<ComponentTypes.ActionRow> {
   components: Component[];
 }
 

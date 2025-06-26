@@ -11,8 +11,7 @@ export interface UserContextCommandOptions {
   name: string;
 }
 
-type DeclareOptions<Target extends AnyDeclarableInstance> = Target extends UserContextCommandInstance
-  ? UserContextCommandOptions
-  : never;
+type DeclareOptions<Target extends AnyDeclarableInstance> =
+  Target extends UserContextCommandInstance ? UserContextCommandOptions : never;
 
 type AnyDeclarableInstance = UserContextCommandInstance;

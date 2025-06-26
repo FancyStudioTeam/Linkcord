@@ -32,7 +32,12 @@ export type VoiceReceiveEvent =
  * @public
  * @see https://discord.com/developers/docs/topics/voice-connections
  */
-export type VoiceSendEvent = VoiceHeartbeat | VoiceIdentify | VoiceResume | VoiceSelectProtocol | VoiceSpeaking;
+export type VoiceSendEvent =
+  | VoiceHeartbeat
+  | VoiceIdentify
+  | VoiceResume
+  | VoiceSelectProtocol
+  | VoiceSpeaking;
 
 /**
  * @public

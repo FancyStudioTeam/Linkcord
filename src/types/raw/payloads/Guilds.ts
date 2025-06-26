@@ -249,7 +249,8 @@ export interface APIIntegrationApplication {
  * @public
  * @see https://discord.com/developers/docs/resources/guild#integration-object-integration-structure
  */
-export interface APIPartialIntegration extends Pick<APIIntegration, "account" | "id" | "name" | "type"> {
+export interface APIPartialIntegration
+  extends Pick<APIIntegration, "account" | "id" | "name" | "type"> {
   application_id?: Snowflake;
 }
 

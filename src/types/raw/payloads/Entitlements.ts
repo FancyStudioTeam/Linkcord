@@ -21,7 +21,10 @@ export interface APIEntitlement {
  * @public
  * @see https://discord.com/developers/docs/resources/entitlement#entitlement-object-entitlement-structure
  */
-export type APIPartialEntitlement = Omit<APIEntitlement, "ends_at" | "starts_at" | "subscription_id">;
+export type APIPartialEntitlement = Omit<
+  APIEntitlement,
+  "ends_at" | "starts_at" | "subscription_id"
+>;
 
 /**
  * @public

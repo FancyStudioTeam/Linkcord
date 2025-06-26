@@ -15,4 +15,5 @@ export type GatewayDispatchApplicationCommandPermissionsUpdate = GatewayDispatch
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#application-command-permissions-update
  */
-export type GatewayDispatchApplicationCommandPermissionsUpdatePayload = APIGuildApplicationCommandPermissions;
+export type GatewayDispatchApplicationCommandPermissionsUpdatePayload =
+  APIGuildApplicationCommandPermissions;

@@ -73,7 +73,11 @@ export class Endpoints {
     return encode`channels/${channelId}/messages/pins`;
   }
 
-  static channelMessageReaction(channelId: Snowflake, messageId: Snowflake, emojiId: Snowflake): string {
+  static channelMessageReaction(
+    channelId: Snowflake,
+    messageId: Snowflake,
+    emojiId: Snowflake,
+  ): string {
     return encode`channels/${channelId}/messages/${messageId}/reactions/${emojiId}`;
   }
 
@@ -427,7 +431,9 @@ export class Endpoints {
   }
 
   static webhook(webhookId: Snowflake, webhookToken?: string): string {
-    return webhookToken ? encode`webhooks/${webhookId}/${webhookToken}` : encode`webhooks/${webhookId}`;
+    return webhookToken
+      ? encode`webhooks/${webhookId}/${webhookToken}`
+      : encode`webhooks/${webhookId}`;
   }
 
   static webhookGitHub(webhookId: Snowflake, webhookToken: string): string {

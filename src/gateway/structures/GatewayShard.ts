@@ -85,7 +85,10 @@ export class GatewayShard {
   /**
    * @internal
    */
-  protected emit<Event extends ClientEventsString>(name: Event, ...data: ClientEventsMap[Event]): void {
+  protected emit<Event extends ClientEventsString>(
+    name: Event,
+    ...data: ClientEventsMap[Event]
+  ): void {
     const { client } = this;
     const { events } = client;
 

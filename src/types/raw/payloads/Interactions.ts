@@ -11,7 +11,12 @@ import type {
   APIMessageComponentSelectInteractionDataBase,
 } from "./base/interaction.js";
 import type { APIChannel } from "./Channels.js";
-import type { APIMessageComponent, APIModalComponents, APITextInputComponent, ComponentTypes } from "./Components.js";
+import type {
+  APIMessageComponent,
+  APIModalComponents,
+  APITextInputComponent,
+  ComponentTypes,
+} from "./Components.js";
 import type { APIGuildMember } from "./Guilds.js";
 import type {
   APIAllowedMentions,
@@ -219,7 +224,8 @@ export type APIInteractionData =
  * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
  */
-export type APIMessageComponentButtonInteractionData = APIMessageComponentInteractionDataBase<ComponentTypes.Button>;
+export type APIMessageComponentButtonInteractionData =
+  APIMessageComponentInteractionDataBase<ComponentTypes.Button>;
 
 /**
  * @public
@@ -257,7 +263,10 @@ export type APIMessageComponentStringSelectInteractionData =
  * @public
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
  */
-export type APIModalSubmitInteraction = APIInteractionBase<InteractionTypes.ModalSubmit, APIModalSubmitInteractionData>;
+export type APIModalSubmitInteraction = APIInteractionBase<
+  InteractionTypes.ModalSubmit,
+  APIModalSubmitInteractionData
+>;
 
 /**
  * @public

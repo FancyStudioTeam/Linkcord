@@ -4,7 +4,9 @@ import { GatewayIntents } from "../../types/raw/index.js";
 /**
  * @internal
  */
-export const resolveGatewayIntents = (intentsToResolve: GatewayIntents[] | GatewayIntentsString[] | number): number => {
+export const resolveGatewayIntents = (
+  intentsToResolve: GatewayIntents[] | GatewayIntentsString[] | number,
+): number => {
   if (Array.isArray(intentsToResolve)) {
     return intentsToResolve.reduce((accumulator, intent) => {
       if (typeof intent === "string") {

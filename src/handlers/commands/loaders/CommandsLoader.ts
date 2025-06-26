@@ -17,7 +17,9 @@ export class CommandsLoader {
       const slicedExtension = extension.slice(1);
 
       if (slicedExtension && slicedExtension !== "json") {
-        throw new Error(`Invalid cache file extension "${extension}". Cache file must be a JSON file.`);
+        throw new Error(
+          `Invalid cache file extension "${extension}". Cache file must be a JSON file.`,
+        );
       }
 
       return extension ? cachePath : `${cachePath}.json`;
@@ -43,7 +45,10 @@ export class CommandsLoader {
 
   static handleUserContextCommand(command: UserContextCommand): void {}
 
-  static async registerCommandsToClient(commandsFolderPath: string, client: BaseClient): Promise<void> {
+  static async registerCommandsToClient(
+    commandsFolderPath: string,
+    client: BaseClient,
+  ): Promise<void> {
     const globPattern = CommandsLoader.GLOB_PATTERN;
     // const { cacheEnabled, cachePath } = CommandsLoader.CACHE_CONFIGURATION;
     const commandFilePaths = await glob(globPattern, {

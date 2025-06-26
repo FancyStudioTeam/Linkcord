@@ -14,4 +14,7 @@ export interface VoiceSessionDescriptionPayload {
  * @public
  * @see https://discord.com/developers/docs/topics/voice-connections#transport-encryption-modes-example-session-description-payload
  */
-export type VoiceSessionDescription = VoiceEventBase<VoiceOpcodes.SessionDescription, VoiceSessionDescriptionPayload>;
+export type VoiceSessionDescription = VoiceEventBase<
+  VoiceOpcodes.SessionDescription,
+  VoiceSessionDescriptionPayload
+>;

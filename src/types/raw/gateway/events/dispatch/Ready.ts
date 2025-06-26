@@ -23,4 +23,7 @@ export interface GatewayDispatchReadyPayload {
  * @public
  * @see https://discord.com/developers/docs/events/gateway-events#ready
  */
-export type GatewayDispatchReady = GatewayDispatchEventBase<GatewayDispatchEvents.Ready, GatewayDispatchReadyPayload>;
+export type GatewayDispatchReady = GatewayDispatchEventBase<
+  GatewayDispatchEvents.Ready,
+  GatewayDispatchReadyPayload
+>;

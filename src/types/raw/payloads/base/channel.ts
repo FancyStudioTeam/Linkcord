@@ -31,7 +31,8 @@ export interface APIDMChannelBase<Type extends AnyDMChannelType> extends APIChan
 /**
  * @public
  */
-export interface APIGuildChannelBase<Type extends ChannelTypes> extends Omit<APIChannelBase<Type>, "name"> {
+export interface APIGuildChannelBase<Type extends ChannelTypes>
+  extends Omit<APIChannelBase<Type>, "name"> {
   guild_id: Snowflake;
   name: string;
   nsfw?: boolean;
@@ -43,7 +44,8 @@ export interface APIGuildChannelBase<Type extends ChannelTypes> extends Omit<API
 /**
  * @public
  */
-export interface APITextChannelBase<Type extends AnyTextChannelType> extends APIGuildChannelBase<Type> {
+export interface APITextChannelBase<Type extends AnyTextChannelType>
+  extends APIGuildChannelBase<Type> {
   default_auto_archive_duration?: AutoArchiveDuration;
   last_message_id: Snowflake | null;
   last_pin_timestamp?: ISO8601Date | null;
@@ -72,7 +74,10 @@ export interface APIThreadChannelBase<Type extends AnyThreadChannelType>
  * @public
  */
 export interface APIVoiceChannelBase<Type extends AnyVoiceChannelType>
-  extends Omit<APITextChannelBase<Type>, "default_auto_archive_duration" | "last_pin_timestamp" | "topic"> {
+  extends Omit<
+    APITextChannelBase<Type>,
+    "default_auto_archive_duration" | "last_pin_timestamp" | "topic"
+  > {
   bitrate?: number;
   rtc_region?: string | null;
   user_limit?: number;
@@ -92,7 +97,10 @@ type AnyTextChannelType = Exclude<ChannelTypes, AnyDMChannelType>;
 /**
  * @internal
  */
-type AnyThreadChannelType = ChannelTypes.AnnouncementThread | ChannelTypes.PrivateThread | ChannelTypes.PublicThread;
+type AnyThreadChannelType =
+  | ChannelTypes.AnnouncementThread
+  | ChannelTypes.PrivateThread
+  | ChannelTypes.PublicThread;
 
 /**
  * @internal

@@ -35,7 +35,9 @@ export class LinkcordConfiguration {
   /**
    * @internal
    */
-  static async loadConfigurationFile(workingDirectory = process.cwd()): Promise<Readonly<LinkcordOptions>> {
+  static async loadConfigurationFile(
+    workingDirectory = process.cwd(),
+  ): Promise<Readonly<LinkcordOptions>> {
     for (const extension of ALLOWED_FILE_EXTENSIONS) {
       const configurationFilePath = join(workingDirectory, `linkcord.config.${extension}`);
 
@@ -44,7 +46,9 @@ export class LinkcordConfiguration {
       }
 
       const importConfigurationFilePath = ImportUtils.resolvePath(configurationFilePath);
-      const importConfigurationFileData = (await import(importConfigurationFilePath)) as ImportConfigurationFileData;
+      const importConfigurationFileData = (await import(
+        importConfigurationFilePath
+      )) as ImportConfigurationFileData;
       const configurationFileName = basename(configurationFilePath);
       const { default: defaultExport } = importConfigurationFileData;
 

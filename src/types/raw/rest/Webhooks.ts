@@ -1,5 +1,10 @@
 import type { APIMessageComponent } from "../payloads/Components.js";
-import type { APIAllowedMentions, APIEmbed, APIMessage, APIPartialAttachment } from "../payloads/Messages.js";
+import type {
+  APIAllowedMentions,
+  APIEmbed,
+  APIMessage,
+  APIPartialAttachment,
+} from "../payloads/Messages.js";
 import type { APIMessagePoll } from "../payloads/Polls.js";
 import type { APIWebhook } from "../payloads/Webhooks.js";
 import type { ImageDataUri, Snowflake } from "../shared/discord.js";

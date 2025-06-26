@@ -12,7 +12,8 @@ import type { APIGuildMember } from "./Guilds.js";
  * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-channel-category
  */
-export interface APICategoryChannel extends Omit<APIGuildChannelBase<ChannelTypes.GuildCategory>, "parent_id"> {
+export interface APICategoryChannel
+  extends Omit<APIGuildChannelBase<ChannelTypes.GuildCategory>, "parent_id"> {
   parent_id: null;
 }
 
@@ -184,7 +185,10 @@ export type APITextChannel = APITextChannelBase<ChannelTypes.GuildText>;
  * @public
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-thread-channel
  */
-export type APIThreadChannel = APIAnnouncementThreadChannel | APIPrivateThreadChannel | APIPublicThreadChannel;
+export type APIThreadChannel =
+  | APIAnnouncementThreadChannel
+  | APIPrivateThreadChannel
+  | APIPublicThreadChannel;
 
 /**
  * @public
