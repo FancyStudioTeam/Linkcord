@@ -51,7 +51,7 @@ import type {
 } from "../payloads/Guilds.js";
 import type { APIGuildTemplate } from "../payloads/GuildTemplates.js";
 import type { APIInvite } from "../payloads/Invites.js";
-import type { APIRole } from "../payloads/Permissions.js";
+import type { APIRole, APIRoleColors } from "../payloads/Permissions.js";
 import type { APIGuildSoundboardSound } from "../payloads/Soundboards.js";
 import type { APISticker } from "../payloads/Stickers.js";
 import type { APIVoiceRegion, APIVoiceState } from "../payloads/Voice.js";
@@ -273,6 +273,7 @@ export interface RESTPatchGuildMemberJSONParams {
  */
 export interface RESTPatchGuildRoleJSONParams {
   color?: number | null;
+  colors?: APIRoleColors | null;
   hoist?: boolean | null;
   icon?: ImageDataUri | null;
   mentionable?: boolean | null;
@@ -493,6 +494,7 @@ export interface RESTPostGuildPruneJSONParams {
  */
 export interface RESTPostGuildRoleJSONParams {
   color?: number;
+  colors?: APIRoleColors;
   hoist?: boolean;
   icon?: ImageDataUri | null;
   mentionable?: boolean;

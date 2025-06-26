@@ -6,9 +6,6 @@ import type { Snowflake } from "../shared/discord.js";
  */
 export interface APIRole {
   color: number;
-  /**
-   * @alpha
-   */
   colors: APIRoleColors;
   /**
    * @alpha
@@ -28,7 +25,8 @@ export interface APIRole {
 }
 
 /**
- * @alpha
+ * @public
+ * @see TBD
  */
 export interface APIRoleColors {
   primary_color: number;
