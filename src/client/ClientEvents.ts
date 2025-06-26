@@ -1,3 +1,4 @@
+import type { GatewayShard } from "#gateway/index.js";
 import type { ChatInputCommandInteraction } from "#structures/discord/ChatInputCommandInteraction.js";
 import type { User } from "#structures/index.js";
 import type { GatewayEvent } from "#types/index.js";
@@ -8,9 +9,10 @@ import type { GatewayEvent } from "#types/index.js";
 export interface ClientEventsMap {
   debug: [message: string];
   interactionCreate: [interaction: ChatInputCommandInteraction];
-  ready: [user: User];
-  shardPacket: [packet: GatewayEvent];
-  shardReady: [user: User];
+  ready: [];
+  shardHello: [heartbeatInterval: number, shard: GatewayShard];
+  shardPacket: [packet: GatewayEvent, shard: GatewayShard];
+  shardReady: [user: User, shard: GatewayShard];
 }
 
 /**
