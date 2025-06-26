@@ -9,7 +9,7 @@ export class EventsManager {
    */
   readonly listeners = new Map<ClientEventsString, Function[]>();
 
-  emit<ClientEvent extends ClientEventsString>(name: ClientEvent, ...data: ClientEventsMap[ClientEvent]): void {
+  emit<Event extends ClientEventsString>(name: Event, ...data: ClientEventsMap[Event]): void {
     const { listeners } = this;
     const existing = listeners.get(name) ?? [];
 
@@ -18,9 +18,9 @@ export class EventsManager {
     }
   }
 
-  register<ClientEvent extends keyof ClientEventsMap>(
-    name: ClientEvent,
-    listener: (...data: ClientEventsMap[ClientEvent]) => unknown,
+  register<Event extends keyof ClientEventsMap>(
+    name: Event,
+    listener: (...data: ClientEventsMap[Event]) => unknown,
   ): void {
     const { listeners } = this;
     const existing = listeners.get(name);
