@@ -9,6 +9,9 @@ import type { GatewayDispatchGuildCreate } from "./dispatch/GuildCreate.js";
 import type { GatewayDispatchGuildDelete } from "./dispatch/GuildDelete.js";
 import type { GatewayDispatchGuildMemberAdd } from "./dispatch/GuildMemberAdd.js";
 import type { GatewayDispatchGuildMemberRemove } from "./dispatch/GuildMemberRemove.js";
+import type { GatewayDispatchGuildRoleCreate } from "./dispatch/GuildRoleCreate.js";
+import type { GatewayDispatchGuildRoleDelete } from "./dispatch/GuildRoleDelete.js";
+import type { GatewayDispatchGuildRoleUpdate } from "./dispatch/GuildRoleUpdate.js";
 import type { GatewayDispatchGuildSoundboardSoundCreate } from "./dispatch/GuildSoundboardSoundCreate.js";
 import type { GatewayDispatchGuildSoundboardSoundDelete } from "./dispatch/GuildSoundboardSoundDelete.js";
 import type { GatewayDispatchGuildSoundboardSoundsUpdate } from "./dispatch/GuildSoundboardSoundsUpdate.js";
@@ -43,6 +46,9 @@ export type GatewayDispatch =
   | GatewayDispatchGuildDelete
   | GatewayDispatchGuildMemberAdd
   | GatewayDispatchGuildMemberRemove
+  | GatewayDispatchGuildRoleCreate
+  | GatewayDispatchGuildRoleDelete
+  | GatewayDispatchGuildRoleUpdate
   | GatewayDispatchGuildSoundboardSoundCreate
   | GatewayDispatchGuildSoundboardSoundDelete
   | GatewayDispatchGuildSoundboardSoundUpdate
