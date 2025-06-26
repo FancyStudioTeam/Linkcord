@@ -8,8 +8,8 @@ export const READY = (
   shard: GatewayShard,
   { guilds, user }: GatewayDispatchReadyPayload,
 ) => {
-  const { manager } = shard;
   const { events, unavailableGuilds } = client;
+  const { manager } = shard;
   const { id: userId } = user;
   const clientUser = new User(userId, user);
 
