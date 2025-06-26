@@ -43,12 +43,13 @@ export interface APIForumChannel extends APIGuildChannelBase<ChannelTypes.GuildF
   default_forum_layout: ForumLayoutTypes;
   default_reaction_emoji: APIDefaultReactionEmoji | null;
   default_sort_order: SortOrderTypes;
-  /**
-   * @alpha
-   */
-  default_tag_setting: ForumTagSettingTypes;
   default_thread_rate_limit_per_user?: number;
   rate_limit_per_user?: number;
+
+  /**
+   * @undocumented
+   */
+  default_tag_setting: ForumTagSettingTypes;
 }
 
 /**
@@ -243,7 +244,7 @@ export enum ForumLayoutTypes {
 }
 
 /**
- * @alpha
+ * @undocumented
  */
 export enum ForumTagSettingTypes {
   MatchAll = "match_all",

@@ -30,12 +30,13 @@ export interface APIApplicationCommandInteractionMetadata
   extends APIMessageInteractionMetadataBase<
     InteractionTypes.ApplicationCommand | InteractionTypes.ApplicationCommandAutocomplete
   > {
-  /**
-   * @alpha
-   */
-  command_type?: ApplicationCommandTypes;
   target_message_id?: Snowflake;
   target_user?: APIUser;
+
+  /**
+   * @undocumented
+   */
+  command_type?: ApplicationCommandTypes;
 }
 
 /**
@@ -43,14 +44,6 @@ export interface APIApplicationCommandInteractionMetadata
  * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
  */
 export interface APIAttachment {
-  /**
-   * @alpha
-   */
-  clip_created_at?: ISO8601Date;
-  /**
-   * @alpha
-   */
-  clip_participants?: APIUser[];
   content_type?: string;
   description?: string;
   duration_secs?: number;
@@ -65,6 +58,15 @@ export interface APIAttachment {
   url: string;
   waveform?: string;
   width?: number;
+
+  /**
+   * @undocumented
+   */
+  clip_created_at?: ISO8601Date;
+  /**
+   * @undocumented
+   */
+  clip_participants?: APIUser[];
 }
 
 /**
@@ -87,10 +89,6 @@ export interface APIEmbed {
   color?: number;
   description?: string;
   fields?: APIEmbedField[];
-  /**
-   * @alpha
-   */
-  flags?: number;
   footer?: APIEmbedFooter;
   image?: APIEmbedImage;
   provider?: APIEmbedProvider;
@@ -100,6 +98,11 @@ export interface APIEmbed {
   type: EmbedTypes;
   url?: string;
   video?: APIEmbedVideo;
+
+  /**
+   * @undocumented
+   */
+  flags?: number;
 }
 
 /**
@@ -189,16 +192,17 @@ export interface APIMessage {
   referenced_message?: APIMessage | null;
   resolved?: APIResolvedData;
   role_subscription_data?: APIRoleSubscriptionData;
-  /**
-   * @alpha
-   */
-  soundboard_sounds?: APISoundboardSound[];
   sticker_items?: APIStickerItem[];
   thread?: APIChannel;
   timestamp: ISO8601Date;
   tts: boolean;
   type: MessageTypes;
   webhook_id?: Snowflake;
+
+  /**
+   * @undocumented
+   */
+  soundboard_sounds?: APISoundboardSound[];
 }
 
 /**
@@ -400,7 +404,7 @@ export enum AllowedMentionTypes {
 }
 
 /**
- * @alpha
+ * @undocumented
  */
 export enum ContentScanFlags {
   Explicit = 1 << 0,
@@ -412,35 +416,36 @@ export enum ContentScanFlags {
  * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-flags
  */
 export enum AttachmentFlags {
+  IsRemix = 1 << 2,
+
   /**
-   * @alpha
+   * @undocumented
    */
   ContainsExplicitMedia = 1 << 4,
   /**
-   * @alpha
+   * @undocumented
    */
   ContainsGoreContent = 1 << 6,
   /**
-   * @alpha
+   * @undocumented
    */
   IsAnimated = 1 << 5,
   /**
-   * @alpha
+   * @undocumented
    */
   IsClip = 1 << 0,
-  IsRemix = 1 << 2,
   /**
-   * @alpha
+   * @undocumented
    */
   IsSpoiler = 1 << 3,
   /**
-   * @alpha
+   * @undocumented
    */
   IsThumbnail = 1 << 1,
 }
 
 /**
- * @alpha
+ * @undocumented
  */
 export enum EmbedFlags {
   ContainsExplicitMedia = 1 << 4,
@@ -449,7 +454,7 @@ export enum EmbedFlags {
 }
 
 /**
- * @alpha
+ * @undocumented
  */
 export enum EmbedMediaFlags {
   IsAnimated = 1 << 5,
@@ -523,10 +528,6 @@ export enum MessageTypes {
   ChatInputCommand = 20,
   ContextMenuCommand = 23,
   Default = 0,
-  /**
-   * @alpha
-   */
-  EmojiAdded = 63,
   GuildApplicationPremiumSubscription = 32,
   GuildBoost = 8,
   GuildBoostTier1 = 9,
@@ -555,6 +556,11 @@ export enum MessageTypes {
   ThreadCreated = 18,
   ThreadStarterMessage = 21,
   UserJoin = 7,
+
+  /**
+   * @undocumented
+   */
+  EmojiAdded = 63,
 }
 
 /**

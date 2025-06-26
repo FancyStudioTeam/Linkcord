@@ -502,18 +502,19 @@ export enum PromptTypes {
  * @see https://discord.com/developers/docs/resources/guild#guild-object-system-channel-flags
  */
 export enum SystemChannelFlags {
-  /**
-   * @alpha
-   */
-  SuppressChannelPromptDeadchat = 1 << 7,
   SuppressGuildReminderNotifications = 1 << 2,
   SuppressJoinNotificationReplies = 1 << 3,
   SuppressJoinNotifications = 1 << 0,
   SuppressPremiumSubscriptions = 1 << 1,
   SuppressRoleSubscriptionPurchaseNotificationReplies = 1 << 5,
   SuppressRoleSubscriptionPurchaseNotifications = 1 << 4,
+
   /**
-   * @alpha
+   * @undocumented
+   */
+  SuppressChannelPromptDeadchat = 1 << 7,
+  /**
+   * @undocumented
    */
   SuppressUgcAddedNotifications = 1 << 8,
 }

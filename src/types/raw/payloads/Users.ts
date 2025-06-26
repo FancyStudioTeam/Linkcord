@@ -61,7 +61,7 @@ export interface APIPartialUser
 }
 
 /**
- * @alpha
+ * @undocumented
  */
 export interface APIPrimaryGuild {
   badge: string | null;
@@ -89,14 +89,15 @@ export interface APIUser {
   locale?: Locales;
   mfa_enabled?: boolean;
   premium_type?: PremiumTypes;
-  /**
-   * @alpha
-   */
-  primary_guild?: APIPrimaryGuild | null;
   public_flags?: number;
   system?: boolean;
   username: string;
   verified?: boolean;
+
+  /**
+   * @undocumented
+   */
+  primary_guild?: APIPrimaryGuild | null;
 }
 
 /**

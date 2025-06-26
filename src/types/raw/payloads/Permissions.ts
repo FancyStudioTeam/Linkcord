@@ -7,10 +7,6 @@ import type { Snowflake } from "../shared/discord.js";
 export interface APIRole {
   color: number;
   colors: APIRoleColors;
-  /**
-   * @alpha
-   */
-  description: string | null;
   flags: RoleFlags;
   hoist: boolean;
   icon?: string | null;
@@ -22,6 +18,11 @@ export interface APIRole {
   position: number;
   tags: APIRoleTags;
   unicode_emoji?: string | null;
+
+  /**
+   * @undocumented
+   */
+  description: string | null;
 }
 
 /**

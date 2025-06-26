@@ -4,7 +4,7 @@ import type { APIDefaultSoundboardSound } from "../payloads/Soundboards.js";
 import type { APIVoiceRegion } from "../payloads/Voice.js";
 
 /**
- * @alpha
+ * @undocumented
  */
 export interface APIRefreshedAttachment {
   original: string;
@@ -20,14 +20,14 @@ export interface RESTPostInteractionQueryStringParams {
 }
 
 /**
- * @alpha
+ * @undocumented
  */
 export interface RESTPostRefreshAttachments {
   refreshed_urls: APIRefreshedAttachment[];
 }
 
 /**
- * @alpha
+ * @undocumented
  */
 export interface RESTPostRefreshAttachmentsJSONParams {
   attachment_urls: string[];

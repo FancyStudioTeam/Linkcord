@@ -6,14 +6,15 @@ import type { APIUser } from "../Users.js";
  * @public
  */
 export interface APIEmbedMediaContentBase {
-  /**
-   * @alpha
-   */
-  flags?: number;
   height?: number;
   proxy_url?: string;
   url: string;
   width?: number;
+
+  /**
+   * @undocumented
+   */
+  flags?: number;
 }
 
 /**
