@@ -18,7 +18,7 @@ export class Role extends Base {
   name: string;
   permissions: string;
   position: number;
-  tags: RoleTags;
+  tags: RoleTags | null;
   unicodeEmoji: string | null;
 
   constructor(id: Snowflake, data: APIRole) {
