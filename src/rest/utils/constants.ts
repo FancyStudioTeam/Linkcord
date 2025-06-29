@@ -3,6 +3,11 @@ import { LINKCORD_VERSION } from "../../index.js";
 /**
  * @public
  */
+export const REST_URL_BASE = "https://discord.com/api/v10";
+
+/**
+ * @public
+ */
 export const REST_VERSION = 10;
 
 /**
