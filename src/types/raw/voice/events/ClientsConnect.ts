@@ -7,7 +7,7 @@ import type { VoiceOpcodes } from "../event.js";
  * @see https://daveprotocol.com/#clients_connect-11
  */
 export interface VoiceClientsConnectPayload {
-  user_ids: Snowflake[];
+    user_ids: Snowflake[];
 }
 
 /**
@@ -15,6 +15,6 @@ export interface VoiceClientsConnectPayload {
  * @see https://daveprotocol.com/#clients_connect-11
  */
 export type VoiceClientsConnect = VoiceEventBase<
-  VoiceOpcodes.ClientsConnect,
-  VoiceClientsConnectPayload
+    VoiceOpcodes.ClientsConnect,
+    VoiceClientsConnectPayload
 >;

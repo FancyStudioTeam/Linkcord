@@ -7,24 +7,24 @@ import type { GatewayEvent, Snowflake } from "#types/index.js";
  * @public
  */
 export interface ClientEventsMap {
-  debug: [message: string];
-  guildCreate: [guild: Guild];
-  guildRoleCreate: [role: Role, guildId: Snowflake];
-  guildRoleDelete: [roleId: Snowflake, guildId: Snowflake];
-  guildRoleUpdate: [newRole: Role, oldRole: Role | Uncached, guildId: Snowflake];
-  interactionCreate: [interaction: ChatInputCommandInteraction];
-  ready: [];
-  shardHello: [heartbeatInterval: number, shard: GatewayShard];
-  shardPacket: [packet: GatewayEvent, shard: GatewayShard];
-  shardReady: [user: User, shard: GatewayShard];
+    debug: [message: string];
+    guildCreate: [guild: Guild];
+    guildRoleCreate: [role: Role, guildId: Snowflake];
+    guildRoleDelete: [roleId: Snowflake, guildId: Snowflake];
+    guildRoleUpdate: [newRole: Role, oldRole: Role | Uncached, guildId: Snowflake];
+    interactionCreate: [interaction: ChatInputCommandInteraction];
+    ready: [];
+    shardHello: [heartbeatInterval: number, shard: GatewayShard];
+    shardPacket: [packet: GatewayEvent, shard: GatewayShard];
+    shardReady: [user: User, shard: GatewayShard];
 }
 
 /**
  * @public
  */
 export interface Uncached {
-  id: Snowflake;
-  uncached: true;
+    id: Snowflake;
+    uncached: true;
 }
 
 /**

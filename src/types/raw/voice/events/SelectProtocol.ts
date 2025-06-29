@@ -7,8 +7,8 @@ import type { VoiceEncryptionModes } from "./Ready.js";
  * @see https://discord.com/developers/docs/topics/voice-connections#establishing-a-voice-udp-connection-example-select-protocol-payload
  */
 export interface VoiceSelectProtocolPayload {
-  data: VoiceSelectProtocolPayloadData;
-  protocol: ProtocolTypes;
+    data: VoiceSelectProtocolPayloadData;
+    protocol: ProtocolTypes;
 }
 
 /**
@@ -16,9 +16,9 @@ export interface VoiceSelectProtocolPayload {
  * @see https://discord.com/developers/docs/topics/voice-connections#establishing-a-voice-udp-connection-example-select-protocol-payload
  */
 export interface VoiceSelectProtocolPayloadData {
-  address: string;
-  mode: VoiceEncryptionModes;
-  port: number;
+    address: string;
+    mode: VoiceEncryptionModes;
+    port: number;
 }
 
 /**
@@ -26,8 +26,8 @@ export interface VoiceSelectProtocolPayloadData {
  * @see https://discord.com/developers/docs/topics/voice-connections#establishing-a-voice-udp-connection-example-select-protocol-payload
  */
 export type VoiceSelectProtocol = VoiceEventBase<
-  VoiceOpcodes.SelectProtocol,
-  VoiceSelectProtocolPayload
+    VoiceOpcodes.SelectProtocol,
+    VoiceSelectProtocolPayload
 >;
 
 /**
@@ -35,5 +35,5 @@ export type VoiceSelectProtocol = VoiceEventBase<
  * @see https://discord.com/developers/docs/topics/voice-connections#establishing-a-voice-udp-connection-example-select-protocol-payload
  */
 export enum ProtocolTypes {
-  Udp = "udp",
+    Udp = "udp",
 }

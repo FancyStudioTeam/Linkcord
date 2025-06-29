@@ -1,65 +1,65 @@
 {
-  "dependencies": {
-    "glob": "11.0.3",
-    "ws": "8.18.2"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.0.5",
-    "@commitlint/cli": "19.8.1",
-    "@commitlint/config-conventional": "19.8.1",
-    "@commitlint/types": "19.8.1",
-    "@swc/core": "1.12.6",
-    "@types/node": "24.0.4",
-    "@types/semver": "7.7.0",
-    "@types/ws": "8.18.1",
-    "esbuild-plugin-version-injector": "1.2.1",
-    "husky": "9.1.7",
-    "lint-staged": "16.1.2",
-    "rimraf": "6.0.1",
-    "semver": "7.7.2",
-    "tsup": "8.5.0",
-    "typescript": "5.8.3",
-    "vitest": "3.2.4"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    }
-  },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ],
-  "license": "MIT",
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,json}": [
-      "pnpm biome:write"
-    ]
-  },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "name": "@fancystudioteam/linkcord",
-  "packageManager": "pnpm@10.12.3",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/FancyStudioTeam/Linkcord"
-  },
-  "scripts": {
-    "biome": "biome check --config-path biome.json",
-    "biome:ci": "biome ci --config-path biome.json",
-    "biome:write": "biome check --config-path biome.json --write",
-    "build": "pnpm rimraf && tsup",
-    "release": "pnpm publish --access public --no-git-checks",
-    "rimraf": "rimraf dist",
-    "tarball": "pnpm pack",
-    "vitest": "vitest -c vitest.config.ts",
-    "vitest:watch": "vitest -c vitest.config.ts --watch"
-  },
-  "types": "dist/index.d.ts",
-  "version": "0.0.0"
+    "dependencies": {
+        "glob": "11.0.3",
+        "ws": "8.18.2"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "2.0.5",
+        "@commitlint/cli": "19.8.1",
+        "@commitlint/config-conventional": "19.8.1",
+        "@commitlint/types": "19.8.1",
+        "@swc/core": "1.12.6",
+        "@types/node": "24.0.4",
+        "@types/semver": "7.7.0",
+        "@types/ws": "8.18.1",
+        "esbuild-plugin-version-injector": "1.2.1",
+        "husky": "9.1.7",
+        "lint-staged": "16.1.2",
+        "rimraf": "6.0.1",
+        "semver": "7.7.2",
+        "tsup": "8.5.0",
+        "typescript": "5.8.3",
+        "vitest": "3.2.4"
+    },
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "license": "MIT",
+    "lint-staged": {
+        "**/*.{js,jsx,ts,tsx,json}": [
+            "pnpm biome:write"
+        ]
+    },
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "name": "@fancystudioteam/linkcord",
+    "packageManager": "pnpm@10.12.3",
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/FancyStudioTeam/Linkcord"
+    },
+    "scripts": {
+        "biome": "biome check --config-path biome.json",
+        "biome:ci": "biome ci --config-path biome.json",
+        "biome:write": "biome check --config-path biome.json --write",
+        "build": "pnpm rimraf && tsup",
+        "release": "pnpm publish --access public --no-git-checks",
+        "rimraf": "rimraf dist",
+        "tarball": "pnpm pack",
+        "vitest": "vitest -c vitest.config.ts",
+        "vitest:watch": "vitest -c vitest.config.ts --watch"
+    },
+    "types": "dist/index.d.ts",
+    "version": "0.0.0"
 }

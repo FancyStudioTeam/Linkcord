@@ -10,53 +10,53 @@ const [, , ...args] = process.argv;
 const [semverOrVersion] = args;
 
 if (!semverOrVersion) {
-  console.error("Missing semver or version");
-  process.exit(1);
+    console.error("Missing semver or version");
+    process.exit(1);
 }
 
 const packagesPath = join(process.cwd(), "packages");
 const packages = readdirSync(packagesPath, {
-  withFileTypes: true,
+    withFileTypes: true,
 });
 
 for (const _package of packages) {
-  const { name, parentPath } = _package;
-  const packageJsonPath = join(parentPath, name, "package.json");
-  const existsPackageJson = existsSync(packageJsonPath);
+    const { name, parentPath } = _package;
+    const packageJsonPath = join(parentPath, name, "package.json");
+    const existsPackageJson = existsSync(packageJsonPath);
 
-  if (!existsPackageJson) {
-    continue;
-  }
-
-  const packageJsonContent = readFileSync(packageJsonPath, "utf-8");
-  const parsedJsonContent = JSON.parse(packageJsonContent);
-  const packageName = parsedJsonContent.name;
-  const currentVersion = parsedJsonContent.version;
-  let version = currentVersion;
-
-  // @ts-ignore
-  if (RELEASE_TYPES.includes(semverOrVersion.toLowerCase())) {
-    // @ts-ignore
-    version = inc(currentVersion, semverOrVersion.toLowerCase());
-  } else {
-    const isValidVersion = valid(semverOrVersion);
-
-    if (!isValidVersion) {
-      console.error(`Invalid version: "${semverOrVersion}".`);
-      process.exit(1);
+    if (!existsPackageJson) {
+        continue;
     }
 
-    version = semverOrVersion;
-  }
+    const packageJsonContent = readFileSync(packageJsonPath, "utf-8");
+    const parsedJsonContent = JSON.parse(packageJsonContent);
+    const packageName = parsedJsonContent.name;
+    const currentVersion = parsedJsonContent.version;
+    let version = currentVersion;
 
-  parsedJsonContent.version = version;
+    // @ts-ignore
+    if (RELEASE_TYPES.includes(semverOrVersion.toLowerCase())) {
+        // @ts-ignore
+        version = inc(currentVersion, semverOrVersion.toLowerCase());
+    } else {
+        const isValidVersion = valid(semverOrVersion);
 
-  const stringifiedJsonContent = JSON.stringify(parsedJsonContent, null, 2);
+        if (!isValidVersion) {
+            console.error(`Invalid version: "${semverOrVersion}".`);
+            process.exit(1);
+        }
 
-  writeFileSync(packageJsonPath, `${stringifiedJsonContent}\n`, "utf-8");
-  execSync(`biome check --write ${packageJsonPath}`);
+        version = semverOrVersion;
+    }
 
-  console.log(
-    `✅ Updated package "${packageName}" version from "${currentVersion}" to "${version}".`,
-  );
+    parsedJsonContent.version = version;
+
+    const stringifiedJsonContent = JSON.stringify(parsedJsonContent, null, 2);
+
+    writeFileSync(packageJsonPath, `${stringifiedJsonContent}\n`, "utf-8");
+    execSync(`biome check --write ${packageJsonPath}`);
+
+    console.log(
+        `✅ Updated package "${packageName}" version from "${currentVersion}" to "${version}".`,
+    );
 }

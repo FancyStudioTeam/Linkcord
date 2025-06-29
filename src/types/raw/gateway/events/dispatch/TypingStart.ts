@@ -8,11 +8,11 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#typing-start-typing-start-event-fields
  */
 export interface GatewayDispatchTypingStartPayload {
-  channel_id: Snowflake;
-  guild_id?: Snowflake;
-  member?: APIGuildMember;
-  timestamp: number;
-  user_id: Snowflake;
+    channel_id: Snowflake;
+    guild_id?: Snowflake;
+    member?: APIGuildMember;
+    timestamp: number;
+    user_id: Snowflake;
 }
 
 /**
@@ -20,6 +20,6 @@ export interface GatewayDispatchTypingStartPayload {
  * @see https://discord.com/developers/docs/events/gateway-events#typing-start
  */
 export type GatewayDispatchTypingStart = GatewayDispatchEventBase<
-  GatewayDispatchEvents.TypingStart,
-  GatewayDispatchTypingStartPayload
+    GatewayDispatchEvents.TypingStart,
+    GatewayDispatchTypingStartPayload
 >;

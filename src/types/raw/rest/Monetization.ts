@@ -6,10 +6,10 @@ import type { Snowflake } from "../shared/discord.js";
  * @see https://discord.com/developers/docs/resources/subscription#query-string-params
  */
 export interface RESTGetSKUSubscriptionsQueryParams {
-  after?: Snowflake;
-  before?: Snowflake;
-  limit?: number;
-  user_id?: Snowflake;
+    after?: Snowflake;
+    before?: Snowflake;
+    limit?: number;
+    user_id?: Snowflake;
 }
 
 /**

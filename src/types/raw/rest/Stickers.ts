@@ -5,7 +5,7 @@ import type { APISticker, APIStickerPack } from "../payloads/Stickers.js";
  * @see https://discord.com/developers/docs/resources/sticker#list-sticker-packs
  */
 export interface RESTGetStickerPacks {
-  sticker_packs: APIStickerPack[];
+    sticker_packs: APIStickerPack[];
 }
 
 /**

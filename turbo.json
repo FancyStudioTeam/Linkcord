@@ -1,18 +1,18 @@
 {
-  "$schema": "https://turborepo.org/schema.json",
-  "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
-    },
-    "release": {
-      "dependsOn": ["build"]
-    },
-    "tarball": {
-      "dependsOn": ["build"]
-    },
-    "vitest": {},
-    "vitest:update": {},
-    "vitest:watch": {}
-  }
+    "$schema": "https://turborepo.org/schema.json",
+    "tasks": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**"]
+        },
+        "release": {
+            "dependsOn": ["build"]
+        },
+        "tarball": {
+            "dependsOn": ["build"]
+        },
+        "vitest": {},
+        "vitest:update": {},
+        "vitest:watch": {}
+    }
 }

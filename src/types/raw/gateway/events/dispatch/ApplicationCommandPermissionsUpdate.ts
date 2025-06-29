@@ -7,8 +7,8 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#application-command-permissions-update
  */
 export type GatewayDispatchApplicationCommandPermissionsUpdate = GatewayDispatchEventBase<
-  GatewayDispatchEvents.ApplicationCommandPermissionsUpdate,
-  GatewayDispatchApplicationCommandPermissionsUpdatePayload
+    GatewayDispatchEvents.ApplicationCommandPermissionsUpdate,
+    GatewayDispatchApplicationCommandPermissionsUpdatePayload
 >;
 
 /**
@@ -16,4 +16,4 @@ export type GatewayDispatchApplicationCommandPermissionsUpdate = GatewayDispatch
  * @see https://discord.com/developers/docs/events/gateway-events#application-command-permissions-update
  */
 export type GatewayDispatchApplicationCommandPermissionsUpdatePayload =
-  APIGuildApplicationCommandPermissions;
+    APIGuildApplicationCommandPermissions;

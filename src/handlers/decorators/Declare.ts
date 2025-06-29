@@ -1,17 +1,17 @@
 import type { UserContextCommandInstance } from "../commands/types.js";
 
 export const Declare =
-  <Target extends AnyDeclarableInstance>(declareOptions: DeclareOptions<Target>) =>
-  (target: AnyDeclarableInstance) =>
-    class extends target {
-      readonly declareOptions = declareOptions;
-    };
+    <Target extends AnyDeclarableInstance>(declareOptions: DeclareOptions<Target>) =>
+    (target: AnyDeclarableInstance) =>
+        class extends target {
+            readonly declareOptions = declareOptions;
+        };
 
 export interface UserContextCommandOptions {
-  name: string;
+    name: string;
 }
 
 type DeclareOptions<Target extends AnyDeclarableInstance> =
-  Target extends UserContextCommandInstance ? UserContextCommandOptions : never;
+    Target extends UserContextCommandInstance ? UserContextCommandOptions : never;
 
 type AnyDeclarableInstance = UserContextCommandInstance;

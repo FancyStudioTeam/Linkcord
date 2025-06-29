@@ -8,17 +8,17 @@ import type { APIUser } from "./Users.js";
  * @see https://discord.com/developers/docs/resources/guild-template#guild-template-object-guild-template-structure
  */
 export interface APIGuildTemplate {
-  code: string;
-  created_at: ISO8601Date;
-  creator: APIUser;
-  creator_id: Snowflake;
-  description: string | null;
-  is_dirty: boolean | null;
-  name: string;
-  serialized_source_guild: APIGuildTemplateSerializedSourceGuild;
-  source_guild_id: Snowflake;
-  updated_at: ISO8601Date;
-  usage_count: number;
+    code: string;
+    created_at: ISO8601Date;
+    creator: APIUser;
+    creator_id: Snowflake;
+    description: string | null;
+    is_dirty: boolean | null;
+    name: string;
+    serialized_source_guild: APIGuildTemplateSerializedSourceGuild;
+    source_guild_id: Snowflake;
+    updated_at: ISO8601Date;
+    usage_count: number;
 }
 
 /**
@@ -26,7 +26,7 @@ export interface APIGuildTemplate {
  * @see https://discord.com/developers/docs/resources/guild-template#guild-template-object-example-guild-template-object
  */
 export interface APIGuildTemplateChannel extends Omit<APIGuildChannel, "id"> {
-  id: number;
+    id: number;
 }
 
 /**
@@ -34,20 +34,20 @@ export interface APIGuildTemplateChannel extends Omit<APIGuildChannel, "id"> {
  * @see https://discord.com/developers/docs/resources/guild-template#guild-template-object-example-guild-template-object
  */
 export interface APIGuildTemplateSerializedSourceGuild
-  extends Pick<
-    APIGuild,
-    | "afk_channel_id"
-    | "afk_timeout"
-    | "default_message_notifications"
-    | "description"
-    | "explicit_content_filter"
-    | "icon_hash"
-    | "name"
-    | "preferred_locale"
-    | "roles"
-    | "system_channel_flags"
-    | "system_channel_id"
-    | "verification_level"
-  > {
-  channels: APIGuildTemplateChannel[];
+    extends Pick<
+        APIGuild,
+        | "afk_channel_id"
+        | "afk_timeout"
+        | "default_message_notifications"
+        | "description"
+        | "explicit_content_filter"
+        | "icon_hash"
+        | "name"
+        | "preferred_locale"
+        | "roles"
+        | "system_channel_flags"
+        | "system_channel_id"
+        | "verification_level"
+    > {
+    channels: APIGuildTemplateChannel[];
 }

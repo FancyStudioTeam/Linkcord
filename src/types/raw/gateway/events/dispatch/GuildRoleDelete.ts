@@ -7,8 +7,8 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#guild-role-delete-guild-role-delete-event-fields
  */
 export interface GatewayDispatchGuildRoleDeletePayload {
-  guild_id: Snowflake;
-  role_id: Snowflake;
+    guild_id: Snowflake;
+    role_id: Snowflake;
 }
 
 /**
@@ -16,6 +16,6 @@ export interface GatewayDispatchGuildRoleDeletePayload {
  * @see https://discord.com/developers/docs/events/gateway-events#guild-role-delete
  */
 export type GatewayDispatchGuildRoleDelete = GatewayDispatchEventBase<
-  GatewayDispatchEvents.GuildRoleDelete,
-  GatewayDispatchGuildRoleDeletePayload
+    GatewayDispatchEvents.GuildRoleDelete,
+    GatewayDispatchGuildRoleDeletePayload
 >;

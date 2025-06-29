@@ -8,18 +8,18 @@ import type { APIUser } from "./Users.js";
  * @see https://discord.com/developers/docs/resources/webhook#webhook-object-webhook-structure
  */
 export interface APIWebhook {
-  application_id: Snowflake | null;
-  avatar: string | null;
-  channel_id: Snowflake | null;
-  guild_id?: Snowflake | null;
-  id: Snowflake;
-  name: string | null;
-  source_channel: APIWebhookSourceChannel;
-  source_guild?: APIWebhookSourceGuild;
-  token?: string;
-  type: WebhookTypes;
-  url?: string;
-  user?: APIUser;
+    application_id: Snowflake | null;
+    avatar: string | null;
+    channel_id: Snowflake | null;
+    guild_id?: Snowflake | null;
+    id: Snowflake;
+    name: string | null;
+    source_channel: APIWebhookSourceChannel;
+    source_guild?: APIWebhookSourceGuild;
+    token?: string;
+    type: WebhookTypes;
+    url?: string;
+    user?: APIUser;
 }
 
 /**
@@ -39,7 +39,7 @@ export type APIWebhookSourceGuild = Pick<APIGuild, "icon" | "id" | "name">;
  * @see https://discord.com/developers/docs/resources/webhook#webhook-object-webhook-types
  */
 export enum WebhookTypes {
-  Application = 3,
-  ChannelFollower = 2,
-  Incoming = 1,
+    Application = 3,
+    ChannelFollower = 2,
+    Incoming = 1,
 }

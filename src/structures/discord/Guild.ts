@@ -1,18 +1,18 @@
 import { GuildTransformer } from "#transformers/GuildTransformer.js";
 import type {
-  APIGuild,
-  DefaultMessageNotificationLevels,
-  ExplicitContentFilterLevels,
-  GatewayDispatchGuildCreatePayload,
-  GuildFeatures,
-  GuildNSFWLevels,
-  IncidentsData,
-  Locales,
-  MFALevels,
-  PremiumTiers,
-  Snowflake,
-  VerificationLevels,
-  WelcomeScreen,
+    APIGuild,
+    DefaultMessageNotificationLevels,
+    ExplicitContentFilterLevels,
+    GatewayDispatchGuildCreatePayload,
+    GuildFeatures,
+    GuildNSFWLevels,
+    IncidentsData,
+    Locales,
+    MFALevels,
+    PremiumTiers,
+    Snowflake,
+    VerificationLevels,
+    WelcomeScreen,
 } from "#types/index.js";
 import { BitFieldResolver } from "#utils/index.js";
 import { Base } from "./base/Base.js";
@@ -23,347 +23,347 @@ import type { SoundboardSound } from "./SounboardSound.js";
  * @public
  */
 export class Guild extends Base {
-  afkChannelId: Snowflake | null;
-  afkTimeout: number;
-  approximateMemberCount: number | null;
-  approximatePresenceCount: number | null;
-  banner: string | null;
-  defaultMessageNotifications: DefaultMessageNotificationLevels;
-  description: string | null;
-  discoverySplash!: string | null;
-  explicitContentFilter!: ExplicitContentFilterLevels;
-  features: GuildFeatures[];
-  icon!: string | null;
-  iconHash: string | null;
-  incidentsData: IncidentsData | null;
-  large: boolean;
-  maximumMembers: number | null;
-  maximumPresences: number | null;
-  maximumStageVideoChannelUsers: number | null;
-  maximumVideoChannelUsers: number | null;
-  memberCount: number;
-  mfaLevel: MFALevels;
-  name: string;
-  nsfwLevel: GuildNSFWLevels;
-  ownerId: Snowflake;
-  preferredLocale: Locales;
-  premiumProgressBarEnabled: boolean;
-  premiumSubscriptionCount: number | null;
-  premiumTier: PremiumTiers;
-  publicUpdatesChannelId: Snowflake | null;
-  roles: Map<Snowflake, Role>;
-  rulesChannelId: Snowflake | null;
-  safetyAlertsChannelId: Snowflake | null;
-  soundboardSounds: Map<Snowflake, SoundboardSound>;
-  splash: string | null;
-  systemChannelFlags: BitFieldResolver;
-  systemChannelId: Snowflake | null;
-  vanityURLCode: string | null;
-  verificationLevel: VerificationLevels;
-  welcomeScreen: WelcomeScreen | null;
-  widgetChannelId: Snowflake | null;
-  widgetEnabled: boolean;
+    afkChannelId: Snowflake | null;
+    afkTimeout: number;
+    approximateMemberCount: number | null;
+    approximatePresenceCount: number | null;
+    banner: string | null;
+    defaultMessageNotifications: DefaultMessageNotificationLevels;
+    description: string | null;
+    discoverySplash!: string | null;
+    explicitContentFilter!: ExplicitContentFilterLevels;
+    features: GuildFeatures[];
+    icon!: string | null;
+    iconHash: string | null;
+    incidentsData: IncidentsData | null;
+    large: boolean;
+    maximumMembers: number | null;
+    maximumPresences: number | null;
+    maximumStageVideoChannelUsers: number | null;
+    maximumVideoChannelUsers: number | null;
+    memberCount: number;
+    mfaLevel: MFALevels;
+    name: string;
+    nsfwLevel: GuildNSFWLevels;
+    ownerId: Snowflake;
+    preferredLocale: Locales;
+    premiumProgressBarEnabled: boolean;
+    premiumSubscriptionCount: number | null;
+    premiumTier: PremiumTiers;
+    publicUpdatesChannelId: Snowflake | null;
+    roles: Map<Snowflake, Role>;
+    rulesChannelId: Snowflake | null;
+    safetyAlertsChannelId: Snowflake | null;
+    soundboardSounds: Map<Snowflake, SoundboardSound>;
+    splash: string | null;
+    systemChannelFlags: BitFieldResolver;
+    systemChannelId: Snowflake | null;
+    vanityURLCode: string | null;
+    verificationLevel: VerificationLevels;
+    welcomeScreen: WelcomeScreen | null;
+    widgetChannelId: Snowflake | null;
+    widgetEnabled: boolean;
 
-  constructor(id: Snowflake, data: APIGuild) {
-    super(id);
+    constructor(id: Snowflake, data: APIGuild) {
+        super(id);
 
-    const {
-      afk_channel_id,
-      afk_timeout,
-      approximate_member_count,
-      approximate_presence_count,
-      banner,
-      default_message_notifications,
-      description,
-      discovery_splash,
-      explicit_content_filter,
-      features,
-      icon,
-      icon_hash,
-      incidents_data,
-      max_members,
-      max_presences,
-      max_stage_video_channel_users,
-      max_video_channel_users,
-      mfa_level,
-      name,
-      nsfw_level,
-      owner_id,
-      preferred_locale,
-      premium_progress_bar_enabled,
-      premium_subscription_count,
-      premium_tier,
-      public_updates_channel_id,
-      roles,
-      rules_channel_id,
-      safety_alerts_channel_id,
-      splash,
-      system_channel_flags,
-      system_channel_id,
-      vanity_url_code,
-      verification_level,
-      welcome_screen,
-      widget_channel_id,
-      widget_enabled,
-    } = data;
+        const {
+            afk_channel_id,
+            afk_timeout,
+            approximate_member_count,
+            approximate_presence_count,
+            banner,
+            default_message_notifications,
+            description,
+            discovery_splash,
+            explicit_content_filter,
+            features,
+            icon,
+            icon_hash,
+            incidents_data,
+            max_members,
+            max_presences,
+            max_stage_video_channel_users,
+            max_video_channel_users,
+            mfa_level,
+            name,
+            nsfw_level,
+            owner_id,
+            preferred_locale,
+            premium_progress_bar_enabled,
+            premium_subscription_count,
+            premium_tier,
+            public_updates_channel_id,
+            roles,
+            rules_channel_id,
+            safety_alerts_channel_id,
+            splash,
+            system_channel_flags,
+            system_channel_id,
+            vanity_url_code,
+            verification_level,
+            welcome_screen,
+            widget_channel_id,
+            widget_enabled,
+        } = data;
 
-    this.afkChannelId = afk_channel_id;
-    this.afkTimeout = afk_timeout;
-    this.approximateMemberCount = approximate_member_count ?? null;
-    this.approximatePresenceCount = approximate_presence_count ?? null;
-    this.banner = banner;
-    this.defaultMessageNotifications = default_message_notifications;
-    this.description = description;
-    this.discoverySplash = discovery_splash;
-    this.explicitContentFilter = explicit_content_filter;
-    this.features = features;
-    this.icon = icon;
-    this.iconHash = icon_hash ?? null;
-    this.incidentsData = GuildTransformer.transformIncidentsData(incidents_data);
-    this.large = false;
-    this.maximumMembers = max_members ?? null;
-    this.maximumPresences = max_presences ?? null;
-    this.maximumStageVideoChannelUsers = max_stage_video_channel_users ?? null;
-    this.maximumVideoChannelUsers = max_video_channel_users ?? null;
-    this.memberCount = 0;
-    this.mfaLevel = mfa_level;
-    this.name = name;
-    this.nsfwLevel = nsfw_level;
-    this.ownerId = owner_id;
-    this.preferredLocale = preferred_locale;
-    this.premiumProgressBarEnabled = premium_progress_bar_enabled ?? false;
-    this.premiumSubscriptionCount = premium_subscription_count ?? null;
-    this.premiumTier = premium_tier;
-    this.publicUpdatesChannelId = public_updates_channel_id;
-    this.roles = GuildTransformer.transformRoles(roles);
-    this.rulesChannelId = rules_channel_id;
-    this.safetyAlertsChannelId = safety_alerts_channel_id;
-    this.soundboardSounds = new Map();
-    this.splash = splash;
-    this.systemChannelFlags = new BitFieldResolver(system_channel_flags);
-    this.systemChannelId = system_channel_id;
-    this.vanityURLCode = vanity_url_code;
-    this.verificationLevel = verification_level;
-    this.welcomeScreen = GuildTransformer.transformWelcomeScreen(welcome_screen);
-    this.widgetChannelId = widget_channel_id ?? null;
-    this.widgetEnabled = widget_enabled ?? false;
-    this.patch(data);
-  }
-
-  /**
-   * @internal
-   */
-  protected patch(data: GuildData): void {
-    const {
-      afk_channel_id,
-      afk_timeout,
-      approximate_member_count,
-      approximate_presence_count,
-      banner,
-      channels,
-      default_message_notifications,
-      description,
-      discovery_splash,
-      explicit_content_filter,
-      features,
-      guild_scheduled_events,
-      icon,
-      icon_hash,
-      incidents_data,
-      large,
-      max_members,
-      max_presences,
-      max_stage_video_channel_users,
-      max_video_channel_users,
-      member_count,
-      members,
-      mfa_level,
-      name,
-      nsfw_level,
-      owner_id,
-      preferred_locale,
-      premium_progress_bar_enabled,
-      premium_subscription_count,
-      premium_tier,
-      presences,
-      public_updates_channel_id,
-      roles,
-      rules_channel_id,
-      safety_alerts_channel_id,
-      soundboard_sounds,
-      splash,
-      stage_instances,
-      system_channel_flags,
-      system_channel_id,
-      threads,
-      vanity_url_code,
-      verification_level,
-      voice_states,
-      welcome_screen,
-      widget_channel_id,
-      widget_enabled,
-    } = data;
-
-    if (afk_channel_id) {
-      this.afkChannelId = afk_channel_id;
+        this.afkChannelId = afk_channel_id;
+        this.afkTimeout = afk_timeout;
+        this.approximateMemberCount = approximate_member_count ?? null;
+        this.approximatePresenceCount = approximate_presence_count ?? null;
+        this.banner = banner;
+        this.defaultMessageNotifications = default_message_notifications;
+        this.description = description;
+        this.discoverySplash = discovery_splash;
+        this.explicitContentFilter = explicit_content_filter;
+        this.features = features;
+        this.icon = icon;
+        this.iconHash = icon_hash ?? null;
+        this.incidentsData = GuildTransformer.transformIncidentsData(incidents_data);
+        this.large = false;
+        this.maximumMembers = max_members ?? null;
+        this.maximumPresences = max_presences ?? null;
+        this.maximumStageVideoChannelUsers = max_stage_video_channel_users ?? null;
+        this.maximumVideoChannelUsers = max_video_channel_users ?? null;
+        this.memberCount = 0;
+        this.mfaLevel = mfa_level;
+        this.name = name;
+        this.nsfwLevel = nsfw_level;
+        this.ownerId = owner_id;
+        this.preferredLocale = preferred_locale;
+        this.premiumProgressBarEnabled = premium_progress_bar_enabled ?? false;
+        this.premiumSubscriptionCount = premium_subscription_count ?? null;
+        this.premiumTier = premium_tier;
+        this.publicUpdatesChannelId = public_updates_channel_id;
+        this.roles = GuildTransformer.transformRoles(roles);
+        this.rulesChannelId = rules_channel_id;
+        this.safetyAlertsChannelId = safety_alerts_channel_id;
+        this.soundboardSounds = new Map();
+        this.splash = splash;
+        this.systemChannelFlags = new BitFieldResolver(system_channel_flags);
+        this.systemChannelId = system_channel_id;
+        this.vanityURLCode = vanity_url_code;
+        this.verificationLevel = verification_level;
+        this.welcomeScreen = GuildTransformer.transformWelcomeScreen(welcome_screen);
+        this.widgetChannelId = widget_channel_id ?? null;
+        this.widgetEnabled = widget_enabled ?? false;
+        this.patch(data);
     }
 
-    if (afk_timeout) {
-      this.afkTimeout = afk_timeout;
-    }
+    /**
+     * @internal
+     */
+    protected patch(data: GuildData): void {
+        const {
+            afk_channel_id,
+            afk_timeout,
+            approximate_member_count,
+            approximate_presence_count,
+            banner,
+            channels,
+            default_message_notifications,
+            description,
+            discovery_splash,
+            explicit_content_filter,
+            features,
+            guild_scheduled_events,
+            icon,
+            icon_hash,
+            incidents_data,
+            large,
+            max_members,
+            max_presences,
+            max_stage_video_channel_users,
+            max_video_channel_users,
+            member_count,
+            members,
+            mfa_level,
+            name,
+            nsfw_level,
+            owner_id,
+            preferred_locale,
+            premium_progress_bar_enabled,
+            premium_subscription_count,
+            premium_tier,
+            presences,
+            public_updates_channel_id,
+            roles,
+            rules_channel_id,
+            safety_alerts_channel_id,
+            soundboard_sounds,
+            splash,
+            stage_instances,
+            system_channel_flags,
+            system_channel_id,
+            threads,
+            vanity_url_code,
+            verification_level,
+            voice_states,
+            welcome_screen,
+            widget_channel_id,
+            widget_enabled,
+        } = data;
 
-    if (approximate_member_count) {
-      this.approximateMemberCount = approximate_member_count;
-    }
+        if (afk_channel_id) {
+            this.afkChannelId = afk_channel_id;
+        }
 
-    if (approximate_presence_count) {
-      this.approximatePresenceCount = approximate_presence_count;
-    }
+        if (afk_timeout) {
+            this.afkTimeout = afk_timeout;
+        }
 
-    if (banner) {
-      this.banner = banner;
-    }
+        if (approximate_member_count) {
+            this.approximateMemberCount = approximate_member_count;
+        }
 
-    if (default_message_notifications) {
-      this.defaultMessageNotifications = default_message_notifications;
-    }
+        if (approximate_presence_count) {
+            this.approximatePresenceCount = approximate_presence_count;
+        }
 
-    if (description) {
-      this.description = description;
-    }
+        if (banner) {
+            this.banner = banner;
+        }
 
-    if (discovery_splash) {
-      this.discoverySplash = discovery_splash;
-    }
+        if (default_message_notifications) {
+            this.defaultMessageNotifications = default_message_notifications;
+        }
 
-    if (explicit_content_filter) {
-      this.explicitContentFilter = explicit_content_filter;
-    }
+        if (description) {
+            this.description = description;
+        }
 
-    if (features) {
-      this.features = features;
-    }
+        if (discovery_splash) {
+            this.discoverySplash = discovery_splash;
+        }
 
-    if (icon) {
-      this.icon = icon;
-    }
+        if (explicit_content_filter) {
+            this.explicitContentFilter = explicit_content_filter;
+        }
 
-    if (icon_hash) {
-      this.iconHash = icon_hash;
-    }
+        if (features) {
+            this.features = features;
+        }
 
-    if (incidents_data) {
-      this.incidentsData = GuildTransformer.transformIncidentsData(incidents_data);
-    }
+        if (icon) {
+            this.icon = icon;
+        }
 
-    if (large) {
-      this.large = large;
-    }
+        if (icon_hash) {
+            this.iconHash = icon_hash;
+        }
 
-    if (max_members) {
-      this.maximumMembers = max_members;
-    }
+        if (incidents_data) {
+            this.incidentsData = GuildTransformer.transformIncidentsData(incidents_data);
+        }
 
-    if (max_presences) {
-      this.maximumPresences = max_presences;
-    }
+        if (large) {
+            this.large = large;
+        }
 
-    if (max_stage_video_channel_users) {
-      this.maximumStageVideoChannelUsers = max_stage_video_channel_users;
-    }
+        if (max_members) {
+            this.maximumMembers = max_members;
+        }
 
-    if (max_video_channel_users) {
-      this.maximumVideoChannelUsers = max_video_channel_users;
-    }
+        if (max_presences) {
+            this.maximumPresences = max_presences;
+        }
 
-    if (member_count) {
-      this.memberCount = member_count;
-    }
+        if (max_stage_video_channel_users) {
+            this.maximumStageVideoChannelUsers = max_stage_video_channel_users;
+        }
 
-    if (mfa_level) {
-      this.mfaLevel = mfa_level;
-    }
+        if (max_video_channel_users) {
+            this.maximumVideoChannelUsers = max_video_channel_users;
+        }
 
-    if (name) {
-      this.name = name;
-    }
+        if (member_count) {
+            this.memberCount = member_count;
+        }
 
-    if (nsfw_level) {
-      this.nsfwLevel = nsfw_level;
-    }
+        if (mfa_level) {
+            this.mfaLevel = mfa_level;
+        }
 
-    if (owner_id) {
-      this.ownerId = owner_id;
-    }
+        if (name) {
+            this.name = name;
+        }
 
-    if (preferred_locale) {
-      this.preferredLocale = preferred_locale;
-    }
+        if (nsfw_level) {
+            this.nsfwLevel = nsfw_level;
+        }
 
-    if (premium_progress_bar_enabled) {
-      this.premiumProgressBarEnabled = premium_progress_bar_enabled;
-    }
+        if (owner_id) {
+            this.ownerId = owner_id;
+        }
 
-    if (premium_subscription_count) {
-      this.premiumSubscriptionCount = premium_subscription_count;
-    }
+        if (preferred_locale) {
+            this.preferredLocale = preferred_locale;
+        }
 
-    if (premium_tier) {
-      this.premiumTier = premium_tier;
-    }
+        if (premium_progress_bar_enabled) {
+            this.premiumProgressBarEnabled = premium_progress_bar_enabled;
+        }
 
-    if (public_updates_channel_id) {
-      this.publicUpdatesChannelId = public_updates_channel_id;
-    }
+        if (premium_subscription_count) {
+            this.premiumSubscriptionCount = premium_subscription_count;
+        }
 
-    if (roles) {
-      this.roles = GuildTransformer.transformRoles(roles);
-    }
+        if (premium_tier) {
+            this.premiumTier = premium_tier;
+        }
 
-    if (rules_channel_id) {
-      this.rulesChannelId = rules_channel_id;
-    }
+        if (public_updates_channel_id) {
+            this.publicUpdatesChannelId = public_updates_channel_id;
+        }
 
-    if (safety_alerts_channel_id) {
-      this.safetyAlertsChannelId = safety_alerts_channel_id;
-    }
+        if (roles) {
+            this.roles = GuildTransformer.transformRoles(roles);
+        }
 
-    if (soundboard_sounds) {
-      this.soundboardSounds = GuildTransformer.transformSoundboardSounds(soundboard_sounds);
-    }
+        if (rules_channel_id) {
+            this.rulesChannelId = rules_channel_id;
+        }
 
-    if (splash) {
-      this.splash = splash;
-    }
+        if (safety_alerts_channel_id) {
+            this.safetyAlertsChannelId = safety_alerts_channel_id;
+        }
 
-    if (system_channel_flags) {
-      this.systemChannelFlags = new BitFieldResolver(system_channel_flags);
-    }
+        if (soundboard_sounds) {
+            this.soundboardSounds = GuildTransformer.transformSoundboardSounds(soundboard_sounds);
+        }
 
-    if (system_channel_id) {
-      this.systemChannelId = system_channel_id;
-    }
+        if (splash) {
+            this.splash = splash;
+        }
 
-    if (vanity_url_code) {
-      this.vanityURLCode = vanity_url_code;
-    }
+        if (system_channel_flags) {
+            this.systemChannelFlags = new BitFieldResolver(system_channel_flags);
+        }
 
-    if (verification_level) {
-      this.verificationLevel = verification_level;
-    }
+        if (system_channel_id) {
+            this.systemChannelId = system_channel_id;
+        }
 
-    if (welcome_screen) {
-      this.welcomeScreen = GuildTransformer.transformWelcomeScreen(welcome_screen);
-    }
+        if (vanity_url_code) {
+            this.vanityURLCode = vanity_url_code;
+        }
 
-    if (widget_channel_id) {
-      this.widgetChannelId = widget_channel_id;
-    }
+        if (verification_level) {
+            this.verificationLevel = verification_level;
+        }
 
-    if (widget_enabled) {
-      this.widgetEnabled = widget_enabled;
+        if (welcome_screen) {
+            this.welcomeScreen = GuildTransformer.transformWelcomeScreen(welcome_screen);
+        }
+
+        if (widget_channel_id) {
+            this.widgetChannelId = widget_channel_id;
+        }
+
+        if (widget_enabled) {
+            this.widgetEnabled = widget_enabled;
+        }
     }
-  }
 }
 
 /**

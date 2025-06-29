@@ -13,6 +13,6 @@ export type GatewayDispatchUserUpdatePayload = APIUser;
  * @see https://discord.com/developers/docs/events/gateway-events#user-update
  */
 export type GatewayDispatchUserUpdate = GatewayDispatchEventBase<
-  GatewayDispatchEvents.UserUpdate,
-  GatewayDispatchUserUpdatePayload
+    GatewayDispatchEvents.UserUpdate,
+    GatewayDispatchUserUpdatePayload
 >;

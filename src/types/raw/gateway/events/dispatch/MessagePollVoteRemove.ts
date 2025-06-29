@@ -7,11 +7,11 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#message-poll-vote-remove-message-poll-vote-remove-fields
  */
 export interface GatewayDispatchMessagePollVoteRemovePayload {
-  answer_id: number;
-  channel_id: Snowflake;
-  guild_id?: Snowflake;
-  message_id: Snowflake;
-  user_id: Snowflake;
+    answer_id: number;
+    channel_id: Snowflake;
+    guild_id?: Snowflake;
+    message_id: Snowflake;
+    user_id: Snowflake;
 }
 
 /**
@@ -19,6 +19,6 @@ export interface GatewayDispatchMessagePollVoteRemovePayload {
  * @see https://discord.com/developers/docs/events/gateway-events#message-poll-vote-remove
  */
 export type GatewayDispatchMessagePollVoteRemove = GatewayDispatchEventBase<
-  GatewayDispatchEvents.MessagePollVoteRemove,
-  GatewayDispatchMessagePollVoteRemovePayload
+    GatewayDispatchEvents.MessagePollVoteRemove,
+    GatewayDispatchMessagePollVoteRemovePayload
 >;

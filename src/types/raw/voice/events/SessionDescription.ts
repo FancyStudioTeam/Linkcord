@@ -6,8 +6,8 @@ import type { VoiceOpcodes } from "../event.js";
  * @see https://discord.com/developers/docs/topics/voice-connections#transport-encryption-modes-example-session-description-payload
  */
 export interface VoiceSessionDescriptionPayload {
-  secret_key: number[];
-  mode: string;
+    secret_key: number[];
+    mode: string;
 }
 
 /**
@@ -15,6 +15,6 @@ export interface VoiceSessionDescriptionPayload {
  * @see https://discord.com/developers/docs/topics/voice-connections#transport-encryption-modes-example-session-description-payload
  */
 export type VoiceSessionDescription = VoiceEventBase<
-  VoiceOpcodes.SessionDescription,
-  VoiceSessionDescriptionPayload
+    VoiceOpcodes.SessionDescription,
+    VoiceSessionDescriptionPayload
 >;

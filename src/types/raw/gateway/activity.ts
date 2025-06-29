@@ -5,21 +5,21 @@ import type { Snowflake } from "../shared/discord.js";
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-structure
  */
 export interface GatewayActivity {
-  application_id?: Snowflake;
-  assets?: GatewayActivityAssets;
-  buttons?: GatewayActivityButton[];
-  created_at: number;
-  details?: string | null;
-  emoji?: GatewayActivityEmoji | null;
-  flags?: ActivityFlags;
-  instance?: boolean;
-  name: string;
-  party?: GatewayActivityParty;
-  secrets?: GatewayActivitySecrets;
-  state?: string | null;
-  timestamps: GatewayActivityTimestamps;
-  type: ActivityTypes;
-  url?: string | null;
+    application_id?: Snowflake;
+    assets?: GatewayActivityAssets;
+    buttons?: GatewayActivityButton[];
+    created_at: number;
+    details?: string | null;
+    emoji?: GatewayActivityEmoji | null;
+    flags?: ActivityFlags;
+    instance?: boolean;
+    name: string;
+    party?: GatewayActivityParty;
+    secrets?: GatewayActivitySecrets;
+    state?: string | null;
+    timestamps: GatewayActivityTimestamps;
+    type: ActivityTypes;
+    url?: string | null;
 }
 
 /**
@@ -27,10 +27,10 @@ export interface GatewayActivity {
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-assets
  */
 export interface GatewayActivityAssets {
-  large_image?: string;
-  large_text?: string;
-  small_image?: string;
-  small_text?: string;
+    large_image?: string;
+    large_text?: string;
+    small_image?: string;
+    small_text?: string;
 }
 
 /**
@@ -38,8 +38,8 @@ export interface GatewayActivityAssets {
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-buttons
  */
 export interface GatewayActivityButton {
-  label: string;
-  url: string;
+    label: string;
+    url: string;
 }
 
 /**
@@ -47,9 +47,9 @@ export interface GatewayActivityButton {
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-emoji
  */
 export interface GatewayActivityEmoji {
-  name: string;
-  id?: Snowflake;
-  animated?: boolean;
+    name: string;
+    id?: Snowflake;
+    animated?: boolean;
 }
 
 /**
@@ -57,8 +57,8 @@ export interface GatewayActivityEmoji {
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-party
  */
 export interface GatewayActivityParty {
-  id?: Snowflake;
-  size?: [number, number];
+    id?: Snowflake;
+    size?: [number, number];
 }
 
 /**
@@ -66,9 +66,9 @@ export interface GatewayActivityParty {
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-secrets
  */
 export interface GatewayActivitySecrets {
-  join?: string;
-  match?: string;
-  spectate?: string;
+    join?: string;
+    match?: string;
+    spectate?: string;
 }
 
 /**
@@ -76,8 +76,8 @@ export interface GatewayActivitySecrets {
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-timestamps
  */
 export interface GatewayActivityTimestamps {
-  end?: number;
-  start?: number;
+    end?: number;
+    start?: number;
 }
 
 /**
@@ -85,15 +85,15 @@ export interface GatewayActivityTimestamps {
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-flags
  */
 export enum ActivityFlags {
-  Embedded = 1 << 8,
-  Instance = 1 << 0,
-  Join = 1 << 1,
-  JoinRequest = 1 << 3,
-  PartyPrivacyFriends = 1 << 6,
-  PartyPrivacyVoiceChannel = 1 << 7,
-  Play = 1 << 5,
-  Spectate = 1 << 2,
-  Sync = 1 << 4,
+    Embedded = 1 << 8,
+    Instance = 1 << 0,
+    Join = 1 << 1,
+    JoinRequest = 1 << 3,
+    PartyPrivacyFriends = 1 << 6,
+    PartyPrivacyVoiceChannel = 1 << 7,
+    Play = 1 << 5,
+    Spectate = 1 << 2,
+    Sync = 1 << 4,
 }
 
 /**
@@ -101,10 +101,10 @@ export enum ActivityFlags {
  * @see https://discord.com/developers/docs/events/gateway-events#activity-object-activity-types
  */
 export enum ActivityTypes {
-  Competing = 5,
-  Custom = 4,
-  Listening = 2,
-  Playing = 0,
-  Streaming = 1,
-  Watching = 3,
+    Competing = 5,
+    Custom = 4,
+    Listening = 2,
+    Playing = 0,
+    Streaming = 1,
+    Watching = 3,
 }

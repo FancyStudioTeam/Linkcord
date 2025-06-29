@@ -6,8 +6,8 @@ import type { VoiceOpcodes } from "../event.js";
  * @see https://discord.com/developers/docs/topics/voice-connections#heartbeating-example-heartbeat-payload-since-v8
  */
 export interface VoiceHeartbeatPayload {
-  seq_ack: number;
-  t: number;
+    seq_ack: number;
+    t: number;
 }
 
 /**

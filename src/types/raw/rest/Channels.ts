@@ -1,31 +1,31 @@
 import type {
-  APIChannel,
-  APIDefaultReactionEmoji,
-  APIFollowedChannel,
-  APIForumTag,
-  APIOverwrite,
-  APIPrivateThreadChannel,
-  APIPublicThreadChannel,
-  APIThreadChannel,
-  APIThreadMember,
-  AutoArchiveDuration,
-  ChannelTypes,
-  ForumLayoutTypes,
-  OverwriteTypes,
-  SortOrderTypes,
-  VideoQualityModes,
+    APIChannel,
+    APIDefaultReactionEmoji,
+    APIFollowedChannel,
+    APIForumTag,
+    APIOverwrite,
+    APIPrivateThreadChannel,
+    APIPublicThreadChannel,
+    APIThreadChannel,
+    APIThreadMember,
+    AutoArchiveDuration,
+    ChannelTypes,
+    ForumLayoutTypes,
+    OverwriteTypes,
+    SortOrderTypes,
+    VideoQualityModes,
 } from "../payloads/Channels.js";
 import type { APIMessageComponent } from "../payloads/Components.js";
 import type { APIInvite, InviteTargetTypes } from "../payloads/Invites.js";
 import type {
-  APIAllowedMentions,
-  APIEmbed,
-  APIForumMessage,
-  APIMessage,
-  APIMessagePin,
-  APIMessageReference,
-  APIPartialAttachment,
-  ReactionTypes,
+    APIAllowedMentions,
+    APIEmbed,
+    APIForumMessage,
+    APIMessage,
+    APIMessagePin,
+    APIMessageReference,
+    APIPartialAttachment,
+    ReactionTypes,
 } from "../payloads/Messages.js";
 import type { APIMessagePoll } from "../payloads/Polls.js";
 import type { APIUser } from "../payloads/Users.js";
@@ -36,18 +36,18 @@ import type { ImageDataUri, ISO8601Date, Snowflake } from "../shared/discord.js"
  * @see https://discord.com/developers/docs/resources/message#get-channel-messages-query-string-params
  */
 export interface RESTGetChannelMessageQueryStringParams {
-  after?: Snowflake;
-  around?: Snowflake;
-  before?: Snowflake;
-  limit?: number;
+    after?: Snowflake;
+    around?: Snowflake;
+    before?: Snowflake;
+    limit?: number;
 }
 
 /**
  * @public https://discord.com/developers/docs/resources/message#get-channel-pins
  */
 export interface RESTGetChannelMessagePins {
-  has_more: boolean;
-  items: APIMessagePin[];
+    has_more: boolean;
+    items: APIMessagePin[];
 }
 
 /**
@@ -55,8 +55,8 @@ export interface RESTGetChannelMessagePins {
  * @see https://discord.com/developers/docs/resources/message#get-channel-pins-query-string-params
  */
 export interface RESTGetChannelMessagePinsQueryStringParams {
-  before?: ISO8601Date;
-  limit?: number;
+    before?: ISO8601Date;
+    limit?: number;
 }
 
 /**
@@ -64,9 +64,9 @@ export interface RESTGetChannelMessagePinsQueryStringParams {
  * @see https://discord.com/developers/docs/resources/message#get-reactions-query-string-params
  */
 export interface RESTGetChannelMessageReactionsQueryStringParams {
-  after?: Snowflake;
-  limit?: number;
-  type?: ReactionTypes;
+    after?: Snowflake;
+    limit?: number;
+    type?: ReactionTypes;
 }
 
 /**
@@ -74,7 +74,7 @@ export interface RESTGetChannelMessageReactionsQueryStringParams {
  * @see https://discord.com/developers/docs/resources/poll#get-answer-voters
  */
 export interface RESTGetChannelPollAnswerVoters {
-  users: APIUser[];
+    users: APIUser[];
 }
 
 /**
@@ -82,8 +82,8 @@ export interface RESTGetChannelPollAnswerVoters {
  * @see https://discord.com/developers/docs/resources/poll#get-answer-voters-query-string-params
  */
 export interface RESTGetChannelPollAnswerVotersQueryStringParams {
-  after?: Snowflake;
-  limit?: number;
+    after?: Snowflake;
+    limit?: number;
 }
 
 /**
@@ -91,9 +91,9 @@ export interface RESTGetChannelPollAnswerVotersQueryStringParams {
  * @see https://discord.com/developers/docs/resources/channel#list-private-archived-threads
  */
 export interface RESTGetChannelPrivateThreadsArchived {
-  has_more: boolean;
-  members: APIThreadMember[];
-  threads: APIPrivateThreadChannel[];
+    has_more: boolean;
+    members: APIThreadMember[];
+    threads: APIPrivateThreadChannel[];
 }
 
 /**
@@ -101,8 +101,8 @@ export interface RESTGetChannelPrivateThreadsArchived {
  * @see https://discord.com/developers/docs/resources/channel#list-private-archived-threads-query-string-params
  */
 export interface RESTGetChannelPrivateThreadsArchivedQueryStringParams {
-  before?: ISO8601Date;
-  limit?: number;
+    before?: ISO8601Date;
+    limit?: number;
 }
 
 /**
@@ -110,9 +110,9 @@ export interface RESTGetChannelPrivateThreadsArchivedQueryStringParams {
  * @see https://discord.com/developers/docs/resources/channel#list-public-archived-threads
  */
 export interface RESTGetChannelPublicThreadsArchived {
-  has_more: boolean;
-  members: APIThreadMember[];
-  threads: APIPublicThreadChannel[];
+    has_more: boolean;
+    members: APIThreadMember[];
+    threads: APIPublicThreadChannel[];
 }
 
 /**
@@ -120,8 +120,8 @@ export interface RESTGetChannelPublicThreadsArchived {
  * @see https://discord.com/developers/docs/resources/channel#list-public-archived-threads-query-string-params
  */
 export interface RESTGetChannelPublicThreadsArchivedQueryStringParams {
-  before?: ISO8601Date;
-  limit?: number;
+    before?: ISO8601Date;
+    limit?: number;
 }
 
 /**
@@ -129,7 +129,7 @@ export interface RESTGetChannelPublicThreadsArchivedQueryStringParams {
  * @see https://discord.com/developers/docs/resources/channel#get-thread-member-query-string-params
  */
 export interface RESTGetChannelThreadMemberQueryStringParams {
-  with_member?: boolean;
+    with_member?: boolean;
 }
 
 /**
@@ -137,9 +137,9 @@ export interface RESTGetChannelThreadMemberQueryStringParams {
  * @see https://discord.com/developers/docs/resources/channel#list-thread-members-query-string-params
  */
 export interface RESTGetChannelThreadMembersQueryStringParams {
-  after?: Snowflake;
-  limit?: number;
-  with_member?: boolean;
+    after?: Snowflake;
+    limit?: number;
+    with_member?: boolean;
 }
 
 /**
@@ -147,9 +147,9 @@ export interface RESTGetChannelThreadMembersQueryStringParams {
  * @see https://discord.com/developers/docs/resources/channel#list-joined-private-archived-threads
  */
 export interface RESTGetChannelUserPrivateThreadsArchived {
-  has_more: boolean;
-  members: APIThreadMember[];
-  threads: APIPrivateThreadChannel[];
+    has_more: boolean;
+    members: APIThreadMember[];
+    threads: APIPrivateThreadChannel[];
 }
 
 /**
@@ -157,8 +157,8 @@ export interface RESTGetChannelUserPrivateThreadsArchived {
  * @see https://discord.com/developers/docs/resources/channel#list-joined-private-archived-threads-query-string-params
  */
 export interface RESTGetChannelUserPrivateThreadsArchivedQueryStringParams {
-  before?: ISO8601Date;
-  limit?: number;
+    before?: ISO8601Date;
+    limit?: number;
 }
 
 /**
@@ -166,8 +166,8 @@ export interface RESTGetChannelUserPrivateThreadsArchivedQueryStringParams {
  * @see https://discord.com/developers/docs/resources/channel#modify-channel-json-params-group-dm
  */
 export interface RESTPatchChannelGroupDMJSONParams {
-  icon?: ImageDataUri;
-  name?: string;
+    icon?: ImageDataUri;
+    name?: string;
 }
 
 /**
@@ -175,25 +175,25 @@ export interface RESTPatchChannelGroupDMJSONParams {
  * @see https://discord.com/developers/docs/resources/channel#modify-channel-json-params-guild-channel
  */
 export interface RESTPatchChannelJSONParams {
-  available_tags?: APIForumTag[];
-  bitrate?: number | null;
-  default_auto_archive_duration?: AutoArchiveDuration | null;
-  default_forum_layout?: ForumLayoutTypes;
-  default_reaction_emoji?: APIDefaultReactionEmoji | null;
-  default_sort_order?: SortOrderTypes | null;
-  default_thread_rate_limit_per_user?: number;
-  flags?: number;
-  name?: string;
-  nsfw?: boolean | null;
-  parent_id?: Snowflake | null;
-  permission_overwrites?: APIOverwrite[] | null;
-  position?: number | null;
-  rate_limit_per_user?: number | null;
-  rtc_region?: string | null;
-  topic?: string | null;
-  type?: ChannelTypes.GuildAnnouncement | ChannelTypes.GuildText;
-  user_limit?: number | null;
-  video_quality_mode?: VideoQualityModes | null;
+    available_tags?: APIForumTag[];
+    bitrate?: number | null;
+    default_auto_archive_duration?: AutoArchiveDuration | null;
+    default_forum_layout?: ForumLayoutTypes;
+    default_reaction_emoji?: APIDefaultReactionEmoji | null;
+    default_sort_order?: SortOrderTypes | null;
+    default_thread_rate_limit_per_user?: number;
+    flags?: number;
+    name?: string;
+    nsfw?: boolean | null;
+    parent_id?: Snowflake | null;
+    permission_overwrites?: APIOverwrite[] | null;
+    position?: number | null;
+    rate_limit_per_user?: number | null;
+    rtc_region?: string | null;
+    topic?: string | null;
+    type?: ChannelTypes.GuildAnnouncement | ChannelTypes.GuildText;
+    user_limit?: number | null;
+    video_quality_mode?: VideoQualityModes | null;
 }
 
 /**
@@ -201,12 +201,12 @@ export interface RESTPatchChannelJSONParams {
  * @see https://discord.com/developers/docs/resources/message#edit-message-jsonform-params
  */
 export interface RESTPatchChannelMessageJSONParams {
-  allowed_mentions?: APIAllowedMentions | null;
-  attachments?: APIPartialAttachment[] | null;
-  components?: APIMessageComponent[] | null;
-  content?: string | null;
-  embeds?: APIEmbed[] | null;
-  flags?: number | null;
+    allowed_mentions?: APIAllowedMentions | null;
+    attachments?: APIPartialAttachment[] | null;
+    components?: APIMessageComponent[] | null;
+    content?: string | null;
+    embeds?: APIEmbed[] | null;
+    flags?: number | null;
 }
 
 /**
@@ -214,14 +214,14 @@ export interface RESTPatchChannelMessageJSONParams {
  * @see https://discord.com/developers/docs/resources/channel#modify-channel-json-params-thread
  */
 export interface RESTPatchChannelThreadJSONParams {
-  applied_tags?: Snowflake[];
-  archived?: boolean;
-  auto_archive_duration?: AutoArchiveDuration;
-  flags?: number;
-  invitable?: boolean;
-  locked?: boolean;
-  name?: string;
-  rate_limit_per_user?: number | null;
+    applied_tags?: Snowflake[];
+    archived?: boolean;
+    auto_archive_duration?: AutoArchiveDuration;
+    flags?: number;
+    invitable?: boolean;
+    locked?: boolean;
+    name?: string;
+    rate_limit_per_user?: number | null;
 }
 
 /**
@@ -229,7 +229,7 @@ export interface RESTPatchChannelThreadJSONParams {
  * @see https://discord.com/developers/docs/resources/channel#follow-announcement-channel-json-params
  */
 export interface RESTPostChannelFollowerJSONParams {
-  webhook_channel_id: Snowflake;
+    webhook_channel_id: Snowflake;
 }
 
 /**
@@ -237,11 +237,11 @@ export interface RESTPostChannelFollowerJSONParams {
  * @see https://discord.com/developers/docs/resources/channel#start-thread-in-forum-or-media-channel-jsonform-params
  */
 export interface RESTPostChannelForumThreadJSONParams {
-  applied_tags?: Snowflake[];
-  auto_archive_duration?: AutoArchiveDuration;
-  message: APIForumMessage;
-  name: string;
-  rate_limit_per_user?: number | null;
+    applied_tags?: Snowflake[];
+    auto_archive_duration?: AutoArchiveDuration;
+    message: APIForumMessage;
+    name: string;
+    rate_limit_per_user?: number | null;
 }
 
 /**
@@ -249,13 +249,13 @@ export interface RESTPostChannelForumThreadJSONParams {
  * @see https://discord.com/developers/docs/resources/channel#create-channel-invite-json-params
  */
 export interface RESTPostChannelInviteJSONParams {
-  max_age?: number;
-  max_uses?: number;
-  target_application_id?: Snowflake;
-  target_type: InviteTargetTypes;
-  target_user_id?: Snowflake;
-  temporary?: boolean;
-  unique?: boolean;
+    max_age?: number;
+    max_uses?: number;
+    target_application_id?: Snowflake;
+    target_type: InviteTargetTypes;
+    target_user_id?: Snowflake;
+    temporary?: boolean;
+    unique?: boolean;
 }
 
 /**
@@ -263,18 +263,18 @@ export interface RESTPostChannelInviteJSONParams {
  * @see https://discord.com/developers/docs/resources/message#create-message-jsonform-params
  */
 export interface RESTPostChannelMessageJSONParams {
-  allowed_mentions?: APIAllowedMentions;
-  attachments?: APIPartialAttachment[];
-  components?: APIMessageComponent[];
-  content?: string;
-  embeds?: APIEmbed[];
-  enforce_nonce?: boolean;
-  flags?: number;
-  message_reference?: APIMessageReference;
-  nonce?: number | string;
-  poll?: APIMessagePoll;
-  sticker_ids?: Snowflake[];
-  tts?: boolean;
+    allowed_mentions?: APIAllowedMentions;
+    attachments?: APIPartialAttachment[];
+    components?: APIMessageComponent[];
+    content?: string;
+    embeds?: APIEmbed[];
+    enforce_nonce?: boolean;
+    flags?: number;
+    message_reference?: APIMessageReference;
+    nonce?: number | string;
+    poll?: APIMessagePoll;
+    sticker_ids?: Snowflake[];
+    tts?: boolean;
 }
 
 /**
@@ -282,9 +282,9 @@ export interface RESTPostChannelMessageJSONParams {
  * @see https://discord.com/developers/docs/resources/channel#start-thread-from-message-json-params
  */
 export interface RESTPostChannelMessageThreadJSONParams {
-  auto_archive_duration?: AutoArchiveDuration;
-  name: string;
-  rate_limit_per_user?: number | null;
+    auto_archive_duration?: AutoArchiveDuration;
+    name: string;
+    rate_limit_per_user?: number | null;
 }
 
 /**
@@ -292,7 +292,7 @@ export interface RESTPostChannelMessageThreadJSONParams {
  * @see https://discord.com/developers/docs/resources/message#bulk-delete-messages-json-params
  */
 export interface RESTPostChannelMessagesBulkJSONParams {
-  messages: Snowflake[];
+    messages: Snowflake[];
 }
 
 /**
@@ -300,8 +300,8 @@ export interface RESTPostChannelMessagesBulkJSONParams {
  * @see https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound-json-params
  */
 export interface RESTPostChannelSoundboardSoundJSONParams {
-  sound_id: Snowflake;
-  source_guild_id?: Snowflake;
+    sound_id: Snowflake;
+    source_guild_id?: Snowflake;
 }
 
 /**
@@ -309,11 +309,11 @@ export interface RESTPostChannelSoundboardSoundJSONParams {
  * @see https://discord.com/developers/docs/resources/channel#start-thread-without-message-json-params
  */
 export interface RESTPostChannelThreadJSONParams {
-  name: string;
-  auto_archive_duration?: AutoArchiveDuration;
-  type?: ChannelTypes.AnnouncementThread | ChannelTypes.PrivateThread | ChannelTypes.PublicThread;
-  invitable?: boolean;
-  rate_limit_per_user?: number | null;
+    name: string;
+    auto_archive_duration?: AutoArchiveDuration;
+    type?: ChannelTypes.AnnouncementThread | ChannelTypes.PrivateThread | ChannelTypes.PublicThread;
+    invitable?: boolean;
+    rate_limit_per_user?: number | null;
 }
 
 /**
@@ -321,9 +321,9 @@ export interface RESTPostChannelThreadJSONParams {
  * @see https://discord.com/developers/docs/resources/channel#edit-channel-permissions-json-params
  */
 export interface RESTPutChannelPermissionsJSONParams {
-  allow?: string | null;
-  deny?: string | null;
-  type: OverwriteTypes;
+    allow?: string | null;
+    deny?: string | null;
+    type: OverwriteTypes;
 }
 
 /**
@@ -331,8 +331,8 @@ export interface RESTPutChannelPermissionsJSONParams {
  * @see https://discord.com/developers/docs/resources/channel#group-dm-add-recipient-json-params
  */
 export interface RESTPutChannelRecipientJSONParams {
-  access_token: string;
-  nick: string;
+    access_token: string;
+    nick: string;
 }
 
 /**

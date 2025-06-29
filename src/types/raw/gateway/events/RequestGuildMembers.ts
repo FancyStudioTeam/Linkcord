@@ -7,12 +7,12 @@ import type { GatewayOpcodes } from "../event.js";
  * @see https://discord.com/developers/docs/events/gateway-events#request-guild-members-request-guild-members-structure
  */
 export interface GatewayRequestGuildMembersPayload {
-  guild_id: Snowflake;
-  limit: number;
-  nonce?: string;
-  presences?: boolean;
-  query?: string;
-  user_ids: Snowflake[];
+    guild_id: Snowflake;
+    limit: number;
+    nonce?: string;
+    presences?: boolean;
+    query?: string;
+    user_ids: Snowflake[];
 }
 
 /**
@@ -20,6 +20,6 @@ export interface GatewayRequestGuildMembersPayload {
  * @see https://discord.com/developers/docs/events/gateway-events#request-guild-members
  */
 export type GatewayRequestGuildMembers = GatewayEventBase<
-  GatewayOpcodes.RequestGuildMembers,
-  GatewayRequestGuildMembersPayload
+    GatewayOpcodes.RequestGuildMembers,
+    GatewayRequestGuildMembersPayload
 >;

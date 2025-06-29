@@ -5,17 +5,17 @@ import { SnowflakeUtils } from "#utils/index.js";
  * @public
  */
 export abstract class Base {
-  id: Snowflake;
+    id: Snowflake;
 
-  constructor(id: Snowflake) {
-    this.id = id;
-  }
+    constructor(id: Snowflake) {
+        this.id = id;
+    }
 
-  get createdAt(): Date {
-    return new Date(this.createdTimestamp);
-  }
+    get createdAt(): Date {
+        return new Date(this.createdTimestamp);
+    }
 
-  get createdTimestamp(): number {
-    return SnowflakeUtils.timestampFrom(this.id);
-  }
+    get createdTimestamp(): number {
+        return SnowflakeUtils.timestampFrom(this.id);
+    }
 }

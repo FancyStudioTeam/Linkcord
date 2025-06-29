@@ -7,9 +7,9 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#message-delete-bulk-message-delete-bulk-event-fields
  */
 export interface GatewayDispatchMessageDeleteBulkPayload {
-  channel_id: Snowflake;
-  guild_id?: Snowflake;
-  ids: Snowflake[];
+    channel_id: Snowflake;
+    guild_id?: Snowflake;
+    ids: Snowflake[];
 }
 
 /**
@@ -17,6 +17,6 @@ export interface GatewayDispatchMessageDeleteBulkPayload {
  * @see https://discord.com/developers/docs/events/gateway-events#message-delete-bulk
  */
 export type GatewayDispatchMessageDeleteBulk = GatewayDispatchEventBase<
-  GatewayDispatchEvents.MessageDeleteBulk,
-  GatewayDispatchMessageDeleteBulkPayload
+    GatewayDispatchEvents.MessageDeleteBulk,
+    GatewayDispatchMessageDeleteBulkPayload
 >;

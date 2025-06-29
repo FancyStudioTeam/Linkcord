@@ -12,11 +12,11 @@ import { READY } from "./READY.js";
  * same as the dispatch event name.
  */
 export const DispatchHooks: Partial<DispatchHooksMap> = {
-  GUILD_CREATE,
-  GUILD_ROLE_CREATE,
-  GUILD_ROLE_DELETE,
-  GUILD_ROLE_UPDATE,
-  READY,
+    GUILD_CREATE,
+    GUILD_ROLE_CREATE,
+    GUILD_ROLE_DELETE,
+    GUILD_ROLE_UPDATE,
+    READY,
 };
 /**
  * biome-ignore-end lint/style/useNamingConvention: Keys must be exactly the
@@ -32,14 +32,14 @@ type Awaitable<Return> = Promise<Return> | Return;
  * @internal
  */
 type DispatchHookFunction<Dispatch extends GatewayDispatch> = (
-  client: Client,
-  shard: GatewayShard,
-  data: Dispatch["d"],
+    client: Client,
+    shard: GatewayShard,
+    data: Dispatch["d"],
 ) => Awaitable<void>;
 
 /**
  * @internal
  */
 type DispatchHooksMap = {
-  [Dispatch in GatewayDispatch as Dispatch["t"]]: DispatchHookFunction<Dispatch>;
+    [Dispatch in GatewayDispatch as Dispatch["t"]]: DispatchHookFunction<Dispatch>;
 };

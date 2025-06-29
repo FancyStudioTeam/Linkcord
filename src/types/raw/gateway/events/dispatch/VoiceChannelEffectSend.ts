@@ -8,14 +8,14 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#voice-channel-effect-send-voice-channel-effect-send-event-fields
  */
 export interface GatewayDispatchVoiceChannelEffectSendPayload {
-  animation_id?: number;
-  animation_type?: AnimationTypes | null;
-  channel_id: Snowflake;
-  emoji?: APIEmoji | null;
-  guild_id: Snowflake;
-  sound_id?: number | Snowflake;
-  sound_volume?: number;
-  user_id: Snowflake;
+    animation_id?: number;
+    animation_type?: AnimationTypes | null;
+    channel_id: Snowflake;
+    emoji?: APIEmoji | null;
+    guild_id: Snowflake;
+    sound_id?: number | Snowflake;
+    sound_volume?: number;
+    user_id: Snowflake;
 }
 
 /**
@@ -23,8 +23,8 @@ export interface GatewayDispatchVoiceChannelEffectSendPayload {
  * @see https://discord.com/developers/docs/events/gateway-events#voice-channel-effect-send
  */
 export type GatewayDispatchVoiceChannelEffectSend = GatewayDispatchEventBase<
-  GatewayDispatchEvents.VoiceChannelEffectSend,
-  GatewayDispatchVoiceChannelEffectSendPayload
+    GatewayDispatchEvents.VoiceChannelEffectSend,
+    GatewayDispatchVoiceChannelEffectSendPayload
 >;
 
 /**
@@ -32,6 +32,6 @@ export type GatewayDispatchVoiceChannelEffectSend = GatewayDispatchEventBase<
  * @see https://discord.com/developers/docs/events/gateway-events#voice-channel-effect-send-animation-types
  */
 export enum AnimationTypes {
-  Basic = 1,
-  Premium = 0,
+    Basic = 1,
+    Premium = 0,
 }

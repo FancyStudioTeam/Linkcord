@@ -1,84 +1,84 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json",
-  "assist": {
-    "actions": {
-      "recommended": true,
-      "source": {
-        "useSortedAttributes": "on",
-        "useSortedKeys": "on",
-        "useSortedProperties": "on"
-      }
+    "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json",
+    "assist": {
+        "actions": {
+            "recommended": true,
+            "source": {
+                "useSortedAttributes": "on",
+                "useSortedKeys": "on",
+                "useSortedProperties": "on"
+            }
+        },
+        "enabled": true
     },
-    "enabled": true
-  },
-  "files": {
-    "includes": ["**", "!**/.turbo/**", "!**/dist/**"]
-  },
-  "formatter": {
-    "enabled": true,
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineEnding": "lf",
-    "lineWidth": 100
-  },
-  "javascript": {
-    "parser": {
-      "unsafeParameterDecoratorsEnabled": true
-    }
-  },
-  "linter": {
-    "domains": {
-      "project": "all",
-      "test": "all"
+    "files": {
+        "includes": ["**", "!**/.turbo/**", "!**/dist/**"]
     },
-    "enabled": true,
-    "rules": {
-      "complexity": {
-        "noStaticOnlyClass": "off",
-        "useSimplifiedLogicExpression": "error"
-      },
-      "correctness": {
-        "noNodejsModules": "off",
-        "noUndeclaredDependencies": "off",
-        "useImportExtensions": "error"
-      },
-      "nursery": {
-        "noUnresolvedImports": "off",
-        "useSortedClasses": "error"
-      },
-      "performance": {
-        "noBarrelFile": "off",
-        "noReExportAll": "off"
-      },
-      "recommended": true,
-      "style": {
-        "noDefaultExport": "off",
-        "useImportType": "error",
-        "useNamingConvention": {
-          "level": "warn",
-          "options": {
-            "conventions": [
-              {
-                "formats": ["camelCase", "snake_case"],
-                "selector": {
-                  "kind": "typeProperty"
-                }
-              },
-              {
-                "formats": ["camelCase", "snake_case"],
-                "selector": {
-                  "kind": "objectLiteralProperty"
-                }
-              }
-            ],
-            "strictCase": false
-          }
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineEnding": "lf",
+        "lineWidth": 100
+    },
+    "javascript": {
+        "parser": {
+            "unsafeParameterDecoratorsEnabled": true
         }
-      },
-      "suspicious": {
-        "noReactSpecificProps": "off",
-        "useAwait": "error"
-      }
+    },
+    "linter": {
+        "domains": {
+            "project": "all",
+            "test": "all"
+        },
+        "enabled": true,
+        "rules": {
+            "complexity": {
+                "noStaticOnlyClass": "off",
+                "useSimplifiedLogicExpression": "error"
+            },
+            "correctness": {
+                "noNodejsModules": "off",
+                "noUndeclaredDependencies": "off",
+                "useImportExtensions": "error"
+            },
+            "nursery": {
+                "noUnresolvedImports": "off",
+                "useSortedClasses": "error"
+            },
+            "performance": {
+                "noBarrelFile": "off",
+                "noReExportAll": "off"
+            },
+            "recommended": true,
+            "style": {
+                "noDefaultExport": "off",
+                "useImportType": "error",
+                "useNamingConvention": {
+                    "level": "warn",
+                    "options": {
+                        "conventions": [
+                            {
+                                "formats": ["camelCase", "snake_case"],
+                                "selector": {
+                                    "kind": "typeProperty"
+                                }
+                            },
+                            {
+                                "formats": ["camelCase", "snake_case"],
+                                "selector": {
+                                    "kind": "objectLiteralProperty"
+                                }
+                            }
+                        ],
+                        "strictCase": false
+                    }
+                }
+            },
+            "suspicious": {
+                "noReactSpecificProps": "off",
+                "useAwait": "error"
+            }
+        }
     }
-  }
 }

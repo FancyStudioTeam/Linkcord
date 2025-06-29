@@ -7,9 +7,9 @@ import type { GatewayPresence } from "../presence.js";
  * @see https://discord.com/developers/docs/events/gateway-events#identify-identify-connection-properties
  */
 export interface GatewayIdentifyConnectionProperties {
-  browser: string;
-  device: string;
-  os: string;
+    browser: string;
+    device: string;
+    os: string;
 }
 
 /**
@@ -17,13 +17,13 @@ export interface GatewayIdentifyConnectionProperties {
  * @see https://discord.com/developers/docs/events/gateway-events#identify-identify-structure
  */
 export interface GatewayIdentifyPayload {
-  compress?: boolean;
-  intents: number;
-  large_threshold?: number;
-  presence?: GatewayPresence;
-  properties: GatewayIdentifyConnectionProperties;
-  shard?: [number, number];
-  token: string;
+    compress?: boolean;
+    intents: number;
+    large_threshold?: number;
+    presence?: GatewayPresence;
+    properties: GatewayIdentifyConnectionProperties;
+    shard?: [number, number];
+    token: string;
 }
 
 /**

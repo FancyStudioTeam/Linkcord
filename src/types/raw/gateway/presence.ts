@@ -5,10 +5,10 @@ import type { GatewayActivity } from "./activity.js";
  * @see https://discord.com/developers/docs/events/gateway-events#update-presence-gateway-presence-update-structure
  */
 export interface GatewayPresence {
-  activities: GatewayPresenceActivity[];
-  afk: boolean;
-  since: number | null;
-  status: StatusTypes;
+    activities: GatewayPresenceActivity[];
+    afk: boolean;
+    since: number | null;
+    status: StatusTypes;
 }
 
 /**
@@ -22,9 +22,9 @@ export type GatewayPresenceActivity = Pick<GatewayActivity, "name" | "state" | "
  * @see https://discord.com/developers/docs/events/gateway-events#update-presence-status-types
  */
 export enum StatusTypes {
-  DoNotDisturb = "dnd",
-  Idle = "idle",
-  Invisible = "invisible",
-  Offline = "offline",
-  Online = "online",
+    DoNotDisturb = "dnd",
+    Idle = "idle",
+    Invisible = "invisible",
+    Offline = "offline",
+    Online = "online",
 }

@@ -6,11 +6,11 @@ import type { APIUser } from "./Users.js";
  * @see https://discord.com/developers/docs/topics/teams#data-models-team-object
  */
 export interface APITeam {
-  icon: string | null;
-  id: Snowflake;
-  members: APITeamMember[];
-  name: string;
-  owner_user_id: Snowflake;
+    icon: string | null;
+    id: Snowflake;
+    members: APITeamMember[];
+    name: string;
+    owner_user_id: Snowflake;
 }
 
 /**
@@ -18,10 +18,10 @@ export interface APITeam {
  * @see https://discord.com/developers/docs/topics/teams#data-models-team-member-object
  */
 export interface APITeamMember {
-  membership_state: TeamMembershipState;
-  role: TeamMemberRoleTypes;
-  team_id: Snowflake;
-  user: APIUser;
+    membership_state: TeamMembershipState;
+    role: TeamMemberRoleTypes;
+    team_id: Snowflake;
+    user: APIUser;
 }
 
 /**
@@ -29,9 +29,9 @@ export interface APITeamMember {
  * @see https://discord.com/developers/docs/topics/teams#team-member-roles-team-member-role-types
  */
 export enum TeamMemberRoleTypes {
-  Admin = "admin",
-  Developer = "developer",
-  ReadOnly = "read_only",
+    Admin = "admin",
+    Developer = "developer",
+    ReadOnly = "read_only",
 }
 
 /**
@@ -39,6 +39,6 @@ export enum TeamMemberRoleTypes {
  * @see https://discord.com/developers/docs/topics/teams#data-models-membership-state-enum
  */
 export enum TeamMembershipState {
-  Accepted = 2,
-  Invited = 1,
+    Accepted = 2,
+    Invited = 1,
 }

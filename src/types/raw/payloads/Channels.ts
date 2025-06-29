@@ -1,10 +1,10 @@
 import type { ISO8601Date, Snowflake } from "../shared/discord.js";
 import type {
-  APIDMChannelBase,
-  APIGuildChannelBase,
-  APITextChannelBase,
-  APIThreadChannelBase,
-  APIVoiceChannelBase,
+    APIDMChannelBase,
+    APIGuildChannelBase,
+    APITextChannelBase,
+    APIThreadChannelBase,
+    APIVoiceChannelBase,
 } from "./base/channel.js";
 import type { APIGuildMember } from "./Guilds.js";
 
@@ -13,8 +13,8 @@ import type { APIGuildMember } from "./Guilds.js";
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-channel-category
  */
 export interface APICategoryChannel
-  extends Omit<APIGuildChannelBase<ChannelTypes.GuildCategory>, "parent_id"> {
-  parent_id: null;
+    extends Omit<APIGuildChannelBase<ChannelTypes.GuildCategory>, "parent_id"> {
+    parent_id: null;
 }
 
 /**
@@ -22,8 +22,8 @@ export interface APICategoryChannel
  * @see https://discord.com/developers/docs/resources/channel#default-reaction-object-default-reaction-structure
  */
 export interface APIDefaultReactionEmoji {
-  emoji_id: Snowflake | null;
-  emoji_name: string | null;
+    emoji_id: Snowflake | null;
+    emoji_name: string | null;
 }
 
 /**
@@ -31,8 +31,8 @@ export interface APIDefaultReactionEmoji {
  * @see https://discord.com/developers/docs/resources/channel#followed-channel-object-followed-channel-structure
  */
 export interface APIFollowedChannel {
-  channel_id: Snowflake;
-  webhook_id: Snowflake;
+    channel_id: Snowflake;
+    webhook_id: Snowflake;
 }
 
 /**
@@ -40,17 +40,17 @@ export interface APIFollowedChannel {
  * @see https://discord.com/developers/docs/topics/threads#forums
  */
 export interface APIForumChannel extends APIGuildChannelBase<ChannelTypes.GuildForum> {
-  available_tags: APIForumTag[];
-  default_forum_layout: ForumLayoutTypes;
-  default_reaction_emoji: APIDefaultReactionEmoji | null;
-  default_sort_order: SortOrderTypes;
-  default_thread_rate_limit_per_user?: number;
-  rate_limit_per_user?: number;
+    available_tags: APIForumTag[];
+    default_forum_layout: ForumLayoutTypes;
+    default_reaction_emoji: APIDefaultReactionEmoji | null;
+    default_sort_order: SortOrderTypes;
+    default_thread_rate_limit_per_user?: number;
+    rate_limit_per_user?: number;
 
-  /**
-   * @undocumented
-   */
-  default_tag_setting: ForumTagSettingTypes;
+    /**
+     * @undocumented
+     */
+    default_tag_setting: ForumTagSettingTypes;
 }
 
 /**
@@ -58,11 +58,11 @@ export interface APIForumChannel extends APIGuildChannelBase<ChannelTypes.GuildF
  * @see https://discord.com/developers/docs/resources/channel#forum-tag-object-forum-tag-structure
  */
 export interface APIForumTag {
-  emoji_id: Snowflake | null;
-  emoji_name: string | null;
-  id: Snowflake;
-  moderated: boolean;
-  name: string;
+    emoji_id: Snowflake | null;
+    emoji_name: string | null;
+    id: Snowflake;
+    moderated: boolean;
+    name: string;
 }
 
 /**
@@ -70,10 +70,10 @@ export interface APIForumTag {
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-group-dm-channel
  */
 export interface APIGroupDMChannel extends APIDMChannelBase<ChannelTypes.GroupDM> {
-  application_id?: Snowflake;
-  icon: string | null;
-  managed?: boolean;
-  owner_id: Snowflake;
+    application_id?: Snowflake;
+    icon: string | null;
+    managed?: boolean;
+    owner_id: Snowflake;
 }
 
 /**
@@ -81,10 +81,10 @@ export interface APIGroupDMChannel extends APIDMChannelBase<ChannelTypes.GroupDM
  * @see https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure
  */
 export interface APIOverwrite {
-  allow: string;
-  deny: string;
-  id: Snowflake;
-  type: OverwriteTypes;
+    allow: string;
+    deny: string;
+    id: Snowflake;
+    type: OverwriteTypes;
 }
 
 /**
@@ -92,11 +92,11 @@ export interface APIOverwrite {
  * @see https://discord.com/developers/docs/resources/channel#thread-member-object-thread-member-structure
  */
 export interface APIThreadMember {
-  flags: number;
-  id?: Snowflake;
-  join_timestamp: ISO8601Date;
-  member?: APIGuildMember;
-  user_id?: Snowflake;
+    flags: number;
+    id?: Snowflake;
+    join_timestamp: ISO8601Date;
+    member?: APIGuildMember;
+    user_id?: Snowflake;
 }
 
 /**
@@ -104,12 +104,12 @@ export interface APIThreadMember {
  * @see https://discord.com/developers/docs/resources/channel#thread-metadata-object-thread-metadata-structure
  */
 export interface APIThreadMetadata {
-  archive_timestamp: ISO8601Date;
-  archived: boolean;
-  auto_archive_duration: AutoArchiveDuration;
-  create_timestamp?: ISO8601Date | null;
-  invitable?: boolean;
-  locked: boolean;
+    archive_timestamp: ISO8601Date;
+    archived: boolean;
+    auto_archive_duration: AutoArchiveDuration;
+    create_timestamp?: ISO8601Date | null;
+    invitable?: boolean;
+    locked: boolean;
 }
 
 /**
@@ -129,15 +129,15 @@ export type APIAnnouncementThreadChannel = APIThreadChannelBase<ChannelTypes.Ann
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
  */
 export type APIChannel =
-  | APIAnnouncementChannel
-  | APICategoryChannel
-  | APIDMChannel
-  | APIForumChannel
-  | APIGroupDMChannel
-  | APIStageVoiceChannel
-  | APITextChannel
-  | APIThreadChannel
-  | APIVoiceChannel;
+    | APIAnnouncementChannel
+    | APICategoryChannel
+    | APIDMChannel
+    | APIForumChannel
+    | APIGroupDMChannel
+    | APIStageVoiceChannel
+    | APITextChannel
+    | APIThreadChannel
+    | APIVoiceChannel;
 
 /**
  * @public
@@ -186,9 +186,9 @@ export type APITextChannel = APITextChannelBase<ChannelTypes.GuildText>;
  * @see https://discord.com/developers/docs/resources/channel#channel-object-example-thread-channel
  */
 export type APIThreadChannel =
-  | APIAnnouncementThreadChannel
-  | APIPrivateThreadChannel
-  | APIPublicThreadChannel;
+    | APIAnnouncementThreadChannel
+    | APIPrivateThreadChannel
+    | APIPublicThreadChannel;
 
 /**
  * @public
@@ -201,10 +201,10 @@ export type APIVoiceChannel = APIVoiceChannelBase<ChannelTypes.GuildVoice>;
  * @see https://discord.com/developers/docs/resources/channel#thread-metadata-object-thread-metadata-structure
  */
 export enum AutoArchiveDuration {
-  OneDay = 1440,
-  OneHour = 60,
-  OneWeek = 10080,
-  ThreeDays = 4320,
+    OneDay = 1440,
+    OneHour = 60,
+    OneWeek = 10080,
+    ThreeDays = 4320,
 }
 
 /**
@@ -212,9 +212,9 @@ export enum AutoArchiveDuration {
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-flags
  */
 export enum ChannelFlags {
-  HideMediaDownloadOptions = 1 << 15,
-  Pinned = 1 << 1,
-  RequireTag = 1 << 4,
+    HideMediaDownloadOptions = 1 << 15,
+    Pinned = 1 << 1,
+    RequireTag = 1 << 4,
 }
 
 /**
@@ -222,19 +222,19 @@ export enum ChannelFlags {
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-types
  */
 export enum ChannelTypes {
-  AnnouncementThread = 10,
-  DirectMessage = 1,
-  GroupDM = 3,
-  GuildAnnouncement = 5,
-  GuildCategory = 4,
-  GuildDirectory = 14,
-  GuildForum = 15,
-  GuildMedia = 16,
-  GuildStageVoice = 13,
-  GuildText = 0,
-  GuildVoice = 2,
-  PrivateThread = 12,
-  PublicThread = 11,
+    AnnouncementThread = 10,
+    DirectMessage = 1,
+    GroupDM = 3,
+    GuildAnnouncement = 5,
+    GuildCategory = 4,
+    GuildDirectory = 14,
+    GuildForum = 15,
+    GuildMedia = 16,
+    GuildStageVoice = 13,
+    GuildText = 0,
+    GuildVoice = 2,
+    PrivateThread = 12,
+    PublicThread = 11,
 }
 
 /**
@@ -242,17 +242,17 @@ export enum ChannelTypes {
  * @see https://discord.com/developers/docs/resources/channel#channel-object-forum-layout-types
  */
 export enum ForumLayoutTypes {
-  GalleryView = 2,
-  ListView = 1,
-  NotSet = 0,
+    GalleryView = 2,
+    ListView = 1,
+    NotSet = 0,
 }
 
 /**
  * @undocumented
  */
 export enum ForumTagSettingTypes {
-  MatchAll = "match_all",
-  MatchSome = "match_some",
+    MatchAll = "match_all",
+    MatchSome = "match_some",
 }
 
 /**
@@ -260,8 +260,8 @@ export enum ForumTagSettingTypes {
  * @see https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure
  */
 export enum OverwriteTypes {
-  Member = 1,
-  Role = 0,
+    Member = 1,
+    Role = 0,
 }
 
 /**
@@ -269,8 +269,8 @@ export enum OverwriteTypes {
  * @see https://discord.com/developers/docs/resources/channel#channel-object-sort-order-types
  */
 export enum SortOrderTypes {
-  CreationDate = 1,
-  LatestActivity = 0,
+    CreationDate = 1,
+    LatestActivity = 0,
 }
 
 /**
@@ -278,6 +278,6 @@ export enum SortOrderTypes {
  * @see https://discord.com/developers/docs/resources/channel#channel-object-video-quality-modes
  */
 export enum VideoQualityModes {
-  Auto = 1,
-  Full = 0,
+    Auto = 1,
+    Full = 0,
 }

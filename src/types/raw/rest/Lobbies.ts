@@ -6,7 +6,7 @@ import type { Snowflake } from "../shared/discord.js";
  * @see https://discord.com/developers/docs/resources/lobby#json-params
  */
 export interface RESTPatchLobbyChannelLinkingJSONParams {
-  channel_id?: Snowflake;
+    channel_id?: Snowflake;
 }
 
 /**
@@ -14,9 +14,9 @@ export interface RESTPatchLobbyChannelLinkingJSONParams {
  * @see https://discord.com/developers/docs/resources/lobby#json-params
  */
 export interface RESTPatchLobbyJSONParams {
-  idle_timeout_seconds?: number;
-  members?: APILobbyMember[];
-  metadata?: Record<string, string> | null;
+    idle_timeout_seconds?: number;
+    members?: APILobbyMember[];
+    metadata?: Record<string, string> | null;
 }
 
 /**
@@ -24,9 +24,9 @@ export interface RESTPatchLobbyJSONParams {
  * @see https://discord.com/developers/docs/resources/lobby#json-params
  */
 export interface RESTPostLobbyJSONParams {
-  idle_timeout_seconds?: number;
-  members?: APILobbyMember[];
-  metadata?: Record<string, string> | null;
+    idle_timeout_seconds?: number;
+    members?: APILobbyMember[];
+    metadata?: Record<string, string> | null;
 }
 
 /**
@@ -34,8 +34,8 @@ export interface RESTPostLobbyJSONParams {
  * @see https://discord.com/developers/docs/resources/lobby#json-params
  */
 export interface RESTPutLobbyMemberJSONParams {
-  flags?: number;
-  metadata?: Record<string, string> | null;
+    flags?: number;
+    metadata?: Record<string, string> | null;
 }
 
 /**

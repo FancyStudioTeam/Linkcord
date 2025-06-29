@@ -6,8 +6,8 @@ import type { GatewayOpcodes } from "../event.js";
  * @see https://discord.com/developers/docs/events/gateway-events#invalid-session
  */
 export type GatewayInvalidSession = GatewayEventBase<
-  GatewayOpcodes.InvalidSession,
-  GatewayInvalidSessionPayload
+    GatewayOpcodes.InvalidSession,
+    GatewayInvalidSessionPayload
 >;
 
 /**

@@ -8,8 +8,8 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#soundboard-sounds-soundboard-sounds-event-fields
  */
 export interface GatewayDispatchSoundboardSoundsPayload {
-  guild_id: Snowflake;
-  soundboard_sounds: APISoundboardSound[];
+    guild_id: Snowflake;
+    soundboard_sounds: APISoundboardSound[];
 }
 
 /**
@@ -17,6 +17,6 @@ export interface GatewayDispatchSoundboardSoundsPayload {
  * @see https://discord.com/developers/docs/events/gateway-events#soundboard-sounds
  */
 export type GatewayDispatchSoundboardSounds = GatewayDispatchEventBase<
-  GatewayDispatchEvents.SoundboardSounds,
-  GatewayDispatchSoundboardSoundsPayload
+    GatewayDispatchEvents.SoundboardSounds,
+    GatewayDispatchSoundboardSoundsPayload
 >;

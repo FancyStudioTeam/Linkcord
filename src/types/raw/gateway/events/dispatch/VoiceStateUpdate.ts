@@ -7,8 +7,8 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#voice-state-update
  */
 export type GatewayDispatchVoiceStateUpdate = GatewayDispatchEventBase<
-  GatewayDispatchEvents.VoiceStateUpdate,
-  GatewayDispatchVoiceStateUpdatePayload
+    GatewayDispatchEvents.VoiceStateUpdate,
+    GatewayDispatchVoiceStateUpdatePayload
 >;
 
 /**

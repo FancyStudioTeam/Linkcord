@@ -7,11 +7,11 @@ import type { VoiceOpcodes } from "../event.js";
  * @see https://discord.com/developers/docs/topics/voice-connections#establishing-a-voice-websocket-connection-example-voice-identify-payload
  */
 export interface VoiceIdentifyPayload {
-  max_dave_protocol_version?: number;
-  server_id: Snowflake;
-  session_id: string;
-  token: string;
-  user_id: Snowflake;
+    max_dave_protocol_version?: number;
+    server_id: Snowflake;
+    session_id: string;
+    token: string;
+    user_id: Snowflake;
 }
 
 /**
