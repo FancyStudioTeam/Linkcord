@@ -1,9 +1,4 @@
 import type { Client } from "#client/Client.js";
-import { resolveGatewayIntents } from "#client/functions/resolveGatewayIntents.js";
-import type { GatewayIntentsString } from "#configuration/defineConfig.js";
-import { createReadonlyPropertyDescriptor } from "#gateway/functions/createReadonlyPropertyDescriptor.js";
-import { getPropertyDescriptorValue } from "#gateway/functions/getPropertyDescriptorValue.js";
-import type { GatewayIntents } from "#types/index.js";
 import { GatewayShard } from "./GatewayShard.js";
 
 /**
@@ -14,21 +9,24 @@ export class GatewayManager {
   readonly shards = new Map<number, GatewayShard>();
 
   ready = false;
+  shardCount = 0;
 
   constructor(client: Client) {
     this.client = client;
   }
 
   get intents(): Readonly<number> {
-    return Number(getPropertyDescriptorValue(this, "_intents", true));
-  }
+    const { client } = this;
+    const { intents } = client;
 
-  get shardCount(): number {
-    return Number(getPropertyDescriptorValue(this, "_shardCount") ?? 0);
+    return intents;
   }
 
   get token(): Readonly<string> {
-    return String(getPropertyDescriptorValue(this, "_token", true));
+    const { client } = this;
+    const { token } = client;
+
+    return token;
   }
 
   /**
@@ -42,6 +40,13 @@ export class GatewayManager {
     }
 
     this.triggerReady();
+  }
+
+  /**
+   * @internal
+   */
+  protected setShardCount(shardCount: number): void {
+    this.shardCount = shardCount;
   }
 
   /**
@@ -64,19 +69,5 @@ export class GatewayManager {
     shard.init();
 
     await Promise.resolve();
-  }
-
-  setIntents(intents: GatewayIntents[] | GatewayIntentsString[] | number): void {
-    const resolvedIntents = resolveGatewayIntents(intents);
-
-    Object.defineProperty(this, "_intents", createReadonlyPropertyDescriptor(resolvedIntents));
-  }
-
-  setShardCount(shardCount: number): void {
-    Object.defineProperty(this, "_shardCount", createReadonlyPropertyDescriptor(shardCount));
-  }
-
-  setToken(token: string): void {
-    Object.defineProperty(this, "_token", createReadonlyPropertyDescriptor(token));
   }
 }
