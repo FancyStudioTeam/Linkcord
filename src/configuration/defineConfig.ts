@@ -6,7 +6,7 @@ import type { GatewayIntents } from "../types/raw/index.js";
 export const defineConfig = (options: LinkcordOptions): LinkcordOptions => options;
 
 /**
- * @public
+ * @experimental
  */
 export interface LinkcordCommandsCacheOptions {
   cachePath?: string;
@@ -34,7 +34,14 @@ export interface LinkcordLocationsOptions {
  * @public
  */
 export interface LinkcordOptions {
+  /**
+   * @experimental
+   */
   commandsCache?: LinkcordCommandsCacheOptions;
+  /**
+   * @experimental
+   */
+  compress?: boolean;
   intents: GatewayIntents[] | GatewayIntentsString[] | number;
   locations: LinkcordLocationsOptions;
   token: string;
