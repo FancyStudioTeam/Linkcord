@@ -11,15 +11,15 @@ describe("Class: ImageUtils", () => {
       expect(ImageUtils.DISCORD_CDN_URL).toBe("https://cdn.discordapp.com");
     }));
 
-  describe("Method: createImageUrl", () => {
+  describe("Method: createImageURL", () => {
     it("Returns the created image url.", () => {
       const dynamicAssetRoute = `avatars/${USER_ID}/${DYNAMIC_AVATAR_HASH}`;
       const staticAssetRoute = `avatars/${USER_ID}/${STATIC_AVATAR_HASH}`;
 
-      expect(ImageUtils.createImageUrl(dynamicAssetRoute)).toBe(
+      expect(ImageUtils.createImageURL(dynamicAssetRoute)).toBe(
         `https://cdn.discordapp.com/${dynamicAssetRoute}.gif`,
       );
-      expect(ImageUtils.createImageUrl(staticAssetRoute)).toBe(
+      expect(ImageUtils.createImageURL(staticAssetRoute)).toBe(
         `https://cdn.discordapp.com/${staticAssetRoute}.webp`,
       );
     });
@@ -29,12 +29,12 @@ describe("Class: ImageUtils", () => {
       const staticAssetRoute = `avatars/${USER_ID}/${STATIC_AVATAR_HASH}`;
 
       expect(
-        ImageUtils.createImageUrl(dynamicAssetRoute, {
+        ImageUtils.createImageURL(dynamicAssetRoute, {
           size: 1024,
         }),
       ).toBe(`https://cdn.discordapp.com/${dynamicAssetRoute}.gif?size=1024`);
       expect(
-        ImageUtils.createImageUrl(staticAssetRoute, {
+        ImageUtils.createImageURL(staticAssetRoute, {
           size: 1024,
         }),
       ).toBe(`https://cdn.discordapp.com/${staticAssetRoute}.webp?size=1024`);
@@ -45,12 +45,12 @@ describe("Class: ImageUtils", () => {
       const staticAssetRoute = `avatars/${USER_ID}/${STATIC_AVATAR_HASH}`;
 
       expect(
-        ImageUtils.createImageUrl(dynamicAssetRoute, {
+        ImageUtils.createImageURL(dynamicAssetRoute, {
           extension: "png",
         }),
       ).toBe(`https://cdn.discordapp.com/${dynamicAssetRoute}.gif`);
       expect(
-        ImageUtils.createImageUrl(staticAssetRoute, {
+        ImageUtils.createImageURL(staticAssetRoute, {
           extension: "png",
         }),
       ).toBe(`https://cdn.discordapp.com/${staticAssetRoute}.png`);
@@ -61,13 +61,13 @@ describe("Class: ImageUtils", () => {
       const staticAssetRoute = `avatars/${USER_ID}/${STATIC_AVATAR_HASH}`;
 
       expect(
-        ImageUtils.createImageUrl(dynamicAssetRoute, {
+        ImageUtils.createImageURL(dynamicAssetRoute, {
           extension: "png",
           forceStatic: true,
         }),
       ).toBe(`https://cdn.discordapp.com/${dynamicAssetRoute}.png`);
       expect(
-        ImageUtils.createImageUrl(staticAssetRoute, {
+        ImageUtils.createImageURL(staticAssetRoute, {
           extension: "png",
           forceStatic: true,
         }),

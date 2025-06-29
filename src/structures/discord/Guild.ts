@@ -58,7 +58,7 @@ export class Guild extends Base {
   splash: string | null;
   systemChannelFlags: BitFieldResolver;
   systemChannelId: Snowflake | null;
-  vanityUrlCode: string | null;
+  vanityURLCode: string | null;
   verificationLevel: VerificationLevels;
   welcomeScreen: WelcomeScreen | null;
   widgetChannelId: Snowflake | null;
@@ -142,7 +142,7 @@ export class Guild extends Base {
     this.splash = splash;
     this.systemChannelFlags = new BitFieldResolver(system_channel_flags);
     this.systemChannelId = system_channel_id;
-    this.vanityUrlCode = vanity_url_code;
+    this.vanityURLCode = vanity_url_code;
     this.verificationLevel = verification_level;
     this.welcomeScreen = GuildTransformer.transformWelcomeScreen(welcome_screen);
     this.widgetChannelId = widget_channel_id ?? null;
@@ -345,7 +345,7 @@ export class Guild extends Base {
     }
 
     if (vanity_url_code) {
-      this.vanityUrlCode = vanity_url_code;
+      this.vanityURLCode = vanity_url_code;
     }
 
     if (verification_level) {

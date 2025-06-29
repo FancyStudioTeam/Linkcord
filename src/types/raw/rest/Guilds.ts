@@ -176,7 +176,7 @@ export interface RESTGetGuildThreadsActive {
  * @public
  * @see https://discord.com/developers/docs/resources/guild#get-guild-vanity-url
  */
-export interface RESTGetGuildVanityUrl {
+export interface RESTGetGuildVanityURL {
   code: string | null;
   uses: number;
 }

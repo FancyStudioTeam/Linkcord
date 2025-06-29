@@ -41,7 +41,7 @@ export class Endpoints {
     return encode`applications/${applicationId}/skus`;
   }
 
-  static attachmentRefreshUrls(): string {
+  static attachmentRefreshURLs(): string {
     return "attachments/refresh-urls";
   }
 
@@ -314,7 +314,7 @@ export class Endpoints {
     return encode`guilds/${guildId}/threads/active`;
   }
 
-  static guildVanityUrl(guildId: Snowflake): string {
+  static guildVanityURL(guildId: Snowflake): string {
     return encode`guilds/${guildId}/vanity-url`;
   }
 

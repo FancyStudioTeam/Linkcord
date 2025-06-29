@@ -393,7 +393,7 @@ export enum GuildFeatures {
   TierlessBoostingClientTest = "TIERLESS_BOOSTING_CLIENT_TEST",
   TierlessBoostingTest = "TIERLESS_BOOSTING_TEST",
   VIPRegions = "VIP_REGIONS",
-  VanityUrl = "VANITY_URL",
+  VanityURL = "VANITY_URL",
   Verified = "VERIFIED",
   VideoQuality108060FPS = "VIDEO_QUALITY_1080_60_FPS",
   VideoBitrateEnhanced = "VIDEO_BITRATE_ENHANCED",

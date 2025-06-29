@@ -98,8 +98,8 @@ export class GatewayShard {
   /**
    * @internal
    */
-  protected initializeWebSocket(gatewayUrl: string = GATEWAY_URL_BASE): void {
-    const urlObject = new URL(gatewayUrl);
+  protected initializeWebSocket(gatewayURL: string = GATEWAY_URL_BASE): void {
+    const urlObject = new URL(gatewayURL);
     const { searchParams } = urlObject;
 
     /**

@@ -1,4 +1,4 @@
-import type { CreateImageUrlOptions } from "./structures/ImageUtils.js";
+import type { CreateImageURLOptions } from "./structures/ImageUtils.js";
 
 /**
  * @public
@@ -23,4 +23,4 @@ export type ImageSize = (typeof ALLOWED_IMAGE_SIZES)[number];
 /**
  * @public
  */
-export type ImageUrlOptions = CreateImageUrlOptions;
+export type ImageURLOptions = CreateImageURLOptions;

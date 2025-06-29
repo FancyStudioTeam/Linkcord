@@ -8,9 +8,9 @@ export class ImageUtils {
     return "https://cdn.discordapp.com";
   }
 
-  static createImageUrl(
+  static createImageURL(
     assetRoute: string,
-    options: CreateImageUrlOptions = {
+    options: CreateImageURLOptions = {
       extension: "webp",
       forceStatic: false,
     },
@@ -32,14 +32,14 @@ export class ImageUtils {
       extension,
       forceStatic,
     });
-    const assetUrl = new URL(`${ImageUtils.DISCORD_CDN_URL}/${assetRoute}.${dynamicExtension}`);
-    const { searchParams } = assetUrl;
+    const assetURL = new URL(`${ImageUtils.DISCORD_CDN_URL}/${assetRoute}.${dynamicExtension}`);
+    const { searchParams } = assetURL;
 
     if (size) {
       searchParams.set("size", size.toString());
     }
 
-    return assetUrl.toString();
+    return assetURL.toString();
   }
 
   static getDynamicExtension(
@@ -64,7 +64,7 @@ export class ImageUtils {
 /**
  * @public
  */
-export interface CreateImageUrlOptions {
+export interface CreateImageURLOptions {
   extension?: ImageExtension;
   forceStatic?: boolean;
   size?: ImageSize;
