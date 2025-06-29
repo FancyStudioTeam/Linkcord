@@ -22,3 +22,8 @@ export const SENDABLE_OPCODES = [
   GatewayOpcodes.RequestSoundboardSounds,
   GatewayOpcodes.VoiceStateUpdate,
 ] as const;
+
+/**
+ * @public
+ */
+export const ZLIB_SUFFIX = Buffer.from([0x00, 0x00, 0xff, 0xff]);
