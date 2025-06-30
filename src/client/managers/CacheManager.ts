@@ -30,6 +30,20 @@ export class CacheManager<Key extends string, Value> {
     /**
      * @internal
      */
+    protected remove(key: Snowflake): void {
+        const { cache } = this;
+        const existing = cache.get(key);
+
+        if (existing) {
+            cache.delete(key);
+        }
+
+        return;
+    }
+
+    /**
+     * @internal
+     */
     protected patch(key: Snowflake, value: Record<number | string, unknown>): void {
         const { cache } = this;
         const existing = cache.get(key);

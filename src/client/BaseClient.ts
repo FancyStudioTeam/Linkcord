@@ -8,7 +8,7 @@ import { EventsManager } from "./managers/EventsManager.js";
  * @public
  */
 export class BaseClient {
-    events = new EventsManager();
+    readonly events = new EventsManager();
 
     async init(): Promise<void> {
         const { intents, locations, token } = LinkcordConfiguration.getOptions();

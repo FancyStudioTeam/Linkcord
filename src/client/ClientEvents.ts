@@ -10,6 +10,7 @@ import type { Client } from "./Client.js";
 export interface ClientEventsMap {
     debug: [message: string];
     guildCreate: [guild: Guild];
+    guildDelete: [guild: Guild | Uncached];
     guildRoleCreate: [role: Role, guildId: Snowflake];
     guildRoleDelete: [roleId: Snowflake, guildId: Snowflake];
     guildRoleUpdate: [newRole: Role, oldRole: Role | Uncached, guildId: Snowflake];

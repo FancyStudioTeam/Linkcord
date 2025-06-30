@@ -2,6 +2,7 @@ import type { Client } from "#client/Client.js";
 import type { GatewayShard } from "#gateway/structures/GatewayShard.js";
 import type { GatewayDispatch } from "#types/index.js";
 import { GUILD_CREATE } from "./GUILD_CREATE.js";
+import { GUILD_DELETE } from "./GUILD_DELETE.js";
 import { GUILD_ROLE_CREATE } from "./GUILD_ROLE_CREATE.js";
 import { GUILD_ROLE_DELETE } from "./GUILD_ROLE_DELETE.js";
 import { GUILD_ROLE_UPDATE } from "./GUILD_ROLE_UPDATE.js";
@@ -13,6 +14,7 @@ import { READY } from "./READY.js";
  */
 export const DispatchHooks: Partial<DispatchHooksMap> = {
     GUILD_CREATE,
+    GUILD_DELETE,
     GUILD_ROLE_CREATE,
     GUILD_ROLE_DELETE,
     GUILD_ROLE_UPDATE,

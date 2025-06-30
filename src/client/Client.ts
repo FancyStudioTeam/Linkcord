@@ -14,7 +14,6 @@ export class Client extends BaseClient {
     readonly gateway: GatewayManager;
     readonly guilds = new CacheManager<Snowflake, Guild>();
     readonly rest: RESTManager;
-    readonly unavailableGuilds = new Map<Snowflake, boolean>();
     readonly users = new CacheManager<Snowflake, User>();
 
     constructor() {

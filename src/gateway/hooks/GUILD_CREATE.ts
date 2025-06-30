@@ -8,20 +8,19 @@ export const GUILD_CREATE = (
     _shard: GatewayShard,
     guildData: GatewayDispatchGuildCreatePayload,
 ) => {
-    const { events, unavailableGuilds } = client;
+    const { events, guilds } = client;
     const { id: guildId, unavailable } = guildData;
 
     if (unavailable) {
         return;
     }
 
-    if (unavailableGuilds.has(guildId)) {
-        unavailableGuilds.delete(guildId);
-
-        return;
-    }
-
     const guild = new Guild(guildId, guildData);
 
+    /**
+     * biome-ignore lint/complexity/useLiteralKeys: Accessing private members
+     * from the manager.
+     */
+    guilds["add"](guildId, guild);
     events.emit("guildCreate", guild);
 };
