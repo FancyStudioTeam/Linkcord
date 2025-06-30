@@ -19,7 +19,8 @@
         "semver": "7.7.2",
         "tsup": "8.5.0",
         "typescript": "5.8.3",
-        "vitest": "3.2.4"
+        "vitest": "3.2.4",
+        "vitest-tsconfig-paths": "3.4.1"
     },
     "exports": {
         ".": {
