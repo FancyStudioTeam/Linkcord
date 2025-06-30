@@ -57,7 +57,7 @@ export class GatewayManager {
         const { events } = client;
 
         this.ready = true;
-        events.emit("ready");
+        events.emit("ready", client);
     }
 
     async init(): Promise<void> {

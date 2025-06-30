@@ -18,4 +18,9 @@ export abstract class Base {
     get createdTimestamp(): number {
         return SnowflakeUtils.timestampFrom(this.id);
     }
+
+    /**
+     * @internal
+     */
+    abstract patch(data: Record<number | string, unknown>): void;
 }
