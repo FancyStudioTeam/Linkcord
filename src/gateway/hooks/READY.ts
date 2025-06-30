@@ -8,10 +8,16 @@ export const READY = (
     shard: GatewayShard,
     { guilds, user: userData }: GatewayDispatchReadyPayload,
 ) => {
-    const { events, unavailableGuilds } = client;
+    const { events, unavailableGuilds, users } = client;
     const { manager } = shard;
     const { id: userId } = userData;
     const user = new User(userId, userData);
+
+    /**
+     * biome-ignore lint/complexity/useLiteralKeys: Accessing private members
+     * from the manager.
+     */
+    users["add"](userId, user);
 
     for (const { id: guildId, unavailable } of guilds) {
         unavailableGuilds.set(guildId, unavailable);
