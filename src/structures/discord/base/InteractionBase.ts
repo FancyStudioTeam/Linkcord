@@ -1,4 +1,4 @@
-import { MonetizationTransformer } from "#transformers/MonetizationTransformer.js";
+import { MonetizationTransformer } from "#structures/transformers/MonetizationTransformer.js";
 import type {
     APIInteraction,
     InteractionContextTypes,
