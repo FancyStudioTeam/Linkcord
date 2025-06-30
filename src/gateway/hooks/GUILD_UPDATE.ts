@@ -20,7 +20,7 @@ export const GUILD_UPDATE = (
     const guild = cache.get(guildId);
 
     if (guild) {
-        events.emit("guildUpdate", guild);
+        return events.emit("guildUpdate", guild);
     }
 
     events.emit("guildUpdate", {

@@ -11,15 +11,16 @@ export const GUILD_DELETE = (
     const { cache } = guilds;
     const guild = cache.get(guildId);
 
-    if (guild) {
-        events.emit("guildDelete", guild);
-    }
-
     /**
      * biome-ignore lint/complexity/useLiteralKeys: Accessing private members
      * from the manager.
      */
     guilds["remove"](guildId);
+
+    if (guild) {
+        return events.emit("guildDelete", guild);
+    }
+
     events.emit("guildDelete", {
         id: guildId,
         uncached: true,
