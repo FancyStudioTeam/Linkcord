@@ -8,6 +8,8 @@
         "forceConsistentCasingInFileNames": true,
         "incremental": false,
         "isolatedModules": true,
+        "jsx": "react",
+        "jsxFactory": "jsx",
         "module": "NodeNext",
         "moduleResolution": "nodenext",
         "outDir": "dist",

@@ -25,12 +25,16 @@
         ".": {
             "import": "./dist/index.mjs",
             "require": "./dist/index.js"
+        },
+        "./jsx-runtime": {
+            "import": "./dist/jsx-runtime/runtime.mjs",
+            "require": "./dist/jsx-runtime/runtime.js"
         }
     },
     "files": [
-        "dist",
+        "LICENSE",
         "README.md",
-        "LICENSE"
+        "dist"
     ],
     "license": "MIT",
     "lint-staged": {
