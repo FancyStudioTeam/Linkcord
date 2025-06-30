@@ -10,7 +10,7 @@ import type { Entitlement } from "../Entitlement.js";
 import { Base } from "./Base.js";
 
 /**
- * @public
+ * @internal
  */
 export class InteractionBase<InteractionType extends InteractionTypes> extends Base {
     applicationId: Snowflake;

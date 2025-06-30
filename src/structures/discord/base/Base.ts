@@ -2,7 +2,7 @@ import type { Snowflake } from "#types/index.js";
 import { SnowflakeUtils } from "#utils/index.js";
 
 /**
- * @public
+ * @internal
  */
 export abstract class Base {
     id: Snowflake;
@@ -12,15 +12,14 @@ export abstract class Base {
     }
 
     get createdAt(): Date {
-        return new Date(this.createdTimestamp);
+        const { createdTimestamp } = this;
+
+        return new Date(createdTimestamp);
     }
 
     get createdTimestamp(): number {
-        return SnowflakeUtils.timestampFrom(this.id);
-    }
+        const { id } = this;
 
-    /**
-     * @internal
-     */
-    abstract patch(data: Record<number | string, unknown>): void;
+        return SnowflakeUtils.timestampFrom(id);
+    }
 }

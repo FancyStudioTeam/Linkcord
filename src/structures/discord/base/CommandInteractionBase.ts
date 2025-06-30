@@ -7,7 +7,7 @@ import {
 import { InteractionBase } from "./InteractionBase.js";
 
 /**
- * @public
+ * @internal
  */
 export class CommandInteractionBase<
     ApplicationCommandType extends ApplicationCommandTypes,
