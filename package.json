@@ -1,15 +1,15 @@
 {
     "dependencies": {
         "glob": "11.0.3",
-        "ws": "8.18.2"
+        "ws": "8.18.3"
     },
     "devDependencies": {
-        "@biomejs/biome": "2.0.5",
+        "@biomejs/biome": "2.0.6",
         "@commitlint/cli": "19.8.1",
         "@commitlint/config-conventional": "19.8.1",
         "@commitlint/types": "19.8.1",
-        "@swc/core": "1.12.6",
-        "@types/node": "24.0.4",
+        "@swc/core": "1.12.7",
+        "@types/node": "24.0.7",
         "@types/semver": "7.7.0",
         "@types/ws": "8.18.1",
         "esbuild-plugin-version-injector": "1.2.1",
