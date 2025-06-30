@@ -6,9 +6,9 @@ import type { GatewayDispatchReadyPayload } from "#types/index.js";
 export const READY = (
     client: Client,
     shard: GatewayShard,
-    { guilds, user: userData }: GatewayDispatchReadyPayload,
+    { user: userData }: GatewayDispatchReadyPayload,
 ) => {
-    const { events, unavailableGuilds, users } = client;
+    const { events, users } = client;
     const { manager } = shard;
     const { id: userId } = userData;
     const user = new User(userId, userData);
@@ -18,11 +18,6 @@ export const READY = (
      * from the manager.
      */
     users["add"](userId, user);
-
-    for (const { id: guildId, unavailable } of guilds) {
-        unavailableGuilds.set(guildId, unavailable);
-    }
-
     events.emit("shardReady", user, shard);
     /**
      * biome-ignore lint/complexity/useLiteralKeys: Accessing private members
