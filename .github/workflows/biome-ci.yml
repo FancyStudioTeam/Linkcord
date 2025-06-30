@@ -3,23 +3,23 @@ name: 🔺 Biome Continuous Integration
 on: [push, pull_request]
 
 jobs:
-  biome-ci:
-    runs-on: ubuntu-latest
+    biome-ci:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: 📂 Checkout Code
-        uses: actions/checkout@v4
+        steps:
+            - name: 📂 Checkout Code
+              uses: actions/checkout@v4
 
-      - name: 🔧 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
+            - name: 🔧 Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
 
-      - name: 📦 Install PNPM
-        run: npm install -g pnpm
+            - name: 📦 Install PNPM
+              run: npm install -g pnpm
 
-      - name: 📥 Install Dependencies
-        run: pnpm install
+            - name: 📥 Install Dependencies
+              run: pnpm install
 
-      - name: 🔺 Run Biome Continuous Integration
-        run: pnpm biome:ci
+            - name: 🔺 Run Biome Continuous Integration
+              run: pnpm biome:ci
