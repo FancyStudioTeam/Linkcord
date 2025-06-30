@@ -1,4 +1,4 @@
-import { GuildTransformer } from "#transformers/GuildTransformer.js";
+import { GuildTransformer } from "#structures/transformers/GuildTransformer.js";
 import type { APIRole, RoleColors, RoleTags, Snowflake } from "#types/index.js";
 import { BitFieldResolver } from "#utils/index.js";
 import { Base } from "./base/Base.js";

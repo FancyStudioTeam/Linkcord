@@ -1,4 +1,4 @@
-import { UserTransformer } from "#transformers/UserTransformer.js";
+import { UserTransformer } from "#structures/transformers/UserTransformer.js";
 import type { APIUser, Snowflake } from "#types/index.js";
 import type { AvatarDecorationData, PrimaryGuild, UserCollectibles } from "#types/parsed/Users.js";
 import { BitFieldResolver } from "#utils/index.js";
@@ -40,7 +40,7 @@ export class User extends Base {
         this.avatarDecorationData =
             UserTransformer.transformAvatarDecorationData(avatar_decoration_data);
         this.banner = banner ?? null;
-        this.bot = Boolean(bot);
+        this.bot = bot ?? false;
         this.collectibles = UserTransformer.transformCollectibles(collectibles);
         this.discriminator = discriminator;
         this.flags = new BitFieldResolver(flags);

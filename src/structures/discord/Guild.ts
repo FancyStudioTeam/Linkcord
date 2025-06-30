@@ -1,4 +1,4 @@
-import { GuildTransformer } from "#transformers/GuildTransformer.js";
+import { GuildTransformer } from "#structures/transformers/GuildTransformer.js";
 import type {
     APIGuild,
     DefaultMessageNotificationLevels,
