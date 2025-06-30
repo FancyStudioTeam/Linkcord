@@ -39,12 +39,13 @@ export class Entitlement extends Base {
         this.startsAt = starts_at ? new Date(starts_at) : null;
         this.type = type;
         this.userId = user_id ?? null;
+        this.patch(data);
     }
 
     /**
      * @internal
      */
-    protected patch(data: EntitlementData): void {
+    private patch(data: EntitlementData): void {
         const {
             application_id,
             consumed,

@@ -42,16 +42,95 @@ export class Role extends Base {
 
         this.color = color;
         this.colors = GuildTransformer.transformRoleColors(colors);
-        this.description = description ?? null;
+        this.description = description;
         this.flags = new BitFieldResolver(flags);
-        this.hoist = Boolean(hoist);
+        this.hoist = hoist;
         this.icon = icon ?? null;
-        this.managed = Boolean(managed);
-        this.mentionable = Boolean(mentionable);
+        this.managed = managed;
+        this.mentionable = mentionable;
         this.name = name;
         this.permissions = permissions;
         this.position = position;
         this.tags = GuildTransformer.transformRoleTags(tags);
         this.unicodeEmoji = unicode_emoji ?? null;
+        this.patch(data);
+    }
+
+    /**
+     * @internal
+     */
+    private patch(data: RoleData): void {
+        const {
+            color,
+            colors,
+            description,
+            flags,
+            hoist,
+            icon,
+            managed,
+            mentionable,
+            name,
+            permissions,
+            position,
+            tags,
+            unicode_emoji,
+        } = data;
+
+        if (color) {
+            this.color = color;
+        }
+
+        if (colors) {
+            this.colors = GuildTransformer.transformRoleColors(colors);
+        }
+
+        if (description) {
+            this.description = description;
+        }
+
+        if (flags) {
+            this.flags = new BitFieldResolver(flags);
+        }
+
+        if (hoist) {
+            this.hoist = hoist;
+        }
+
+        if (icon) {
+            this.icon = icon;
+        }
+
+        if (managed) {
+            this.managed = managed;
+        }
+
+        if (mentionable) {
+            this.mentionable = mentionable;
+        }
+
+        if (name) {
+            this.name = name;
+        }
+
+        if (permissions) {
+            this.permissions = permissions;
+        }
+
+        if (position) {
+            this.position = position;
+        }
+
+        if (tags) {
+            this.tags = GuildTransformer.transformRoleTags(tags);
+        }
+
+        if (unicode_emoji) {
+            this.unicodeEmoji = unicode_emoji;
+        }
     }
 }
+
+/**
+ * @internal
+ */
+type RoleData = Partial<APIRole>;

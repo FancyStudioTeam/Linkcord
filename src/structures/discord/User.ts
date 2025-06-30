@@ -46,12 +46,13 @@ export class User extends Base {
         this.flags = new BitFieldResolver(flags);
         this.primaryGuild = UserTransformer.transformPrimaryGuild(primary_guild);
         this.username = username;
+        this.patch(data);
     }
 
     /**
      * @internal
      */
-    protected patch(data: UserData): void {
+    private patch(data: UserData): void {
         const {
             accent_color,
             avatar,

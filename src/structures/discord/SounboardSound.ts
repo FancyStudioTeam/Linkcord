@@ -31,7 +31,10 @@ export class SoundboardSound extends Base {
         this.patch(data);
     }
 
-    protected patch(data: SoundboardSoundPatchData): void {
+    /**
+     * @internal
+     */
+    private patch(data: SoundboardSoundPatchData): void {
         const { available, emoji_id, emoji_name, guild_id, name, sound_id, user, volume } = data;
 
         if (available) {

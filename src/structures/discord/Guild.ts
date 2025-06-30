@@ -16,8 +16,6 @@ import type {
 } from "#types/index.js";
 import { BitFieldResolver } from "#utils/index.js";
 import { Base } from "./base/Base.js";
-import type { Role } from "./Role.js";
-import type { SoundboardSound } from "./SounboardSound.js";
 
 /**
  * @public
@@ -33,7 +31,7 @@ export class Guild extends Base {
     discoverySplash!: string | null;
     explicitContentFilter!: ExplicitContentFilterLevels;
     features: GuildFeatures[];
-    icon!: string | null;
+    icon: string | null;
     iconHash: string | null;
     incidentsData: IncidentsData | null;
     large: boolean;
@@ -51,10 +49,8 @@ export class Guild extends Base {
     premiumSubscriptionCount: number | null;
     premiumTier: PremiumTiers;
     publicUpdatesChannelId: Snowflake | null;
-    roles: Map<Snowflake, Role>;
     rulesChannelId: Snowflake | null;
     safetyAlertsChannelId: Snowflake | null;
-    soundboardSounds: Map<Snowflake, SoundboardSound>;
     splash: string | null;
     systemChannelFlags: BitFieldResolver;
     systemChannelId: Snowflake | null;
@@ -94,7 +90,6 @@ export class Guild extends Base {
             premium_subscription_count,
             premium_tier,
             public_updates_channel_id,
-            roles,
             rules_channel_id,
             safety_alerts_channel_id,
             splash,
@@ -135,10 +130,8 @@ export class Guild extends Base {
         this.premiumSubscriptionCount = premium_subscription_count ?? null;
         this.premiumTier = premium_tier;
         this.publicUpdatesChannelId = public_updates_channel_id;
-        this.roles = GuildTransformer.transformRoles(roles);
         this.rulesChannelId = rules_channel_id;
         this.safetyAlertsChannelId = safety_alerts_channel_id;
-        this.soundboardSounds = new Map();
         this.splash = splash;
         this.systemChannelFlags = new BitFieldResolver(system_channel_flags);
         this.systemChannelId = system_channel_id;
@@ -153,20 +146,18 @@ export class Guild extends Base {
     /**
      * @internal
      */
-    protected patch(data: GuildData): void {
+    private patch(data: GuildData): void {
         const {
             afk_channel_id,
             afk_timeout,
             approximate_member_count,
             approximate_presence_count,
             banner,
-            channels,
             default_message_notifications,
             description,
             discovery_splash,
             explicit_content_filter,
             features,
-            guild_scheduled_events,
             icon,
             icon_hash,
             incidents_data,
@@ -176,7 +167,6 @@ export class Guild extends Base {
             max_stage_video_channel_users,
             max_video_channel_users,
             member_count,
-            members,
             mfa_level,
             name,
             nsfw_level,
@@ -185,20 +175,14 @@ export class Guild extends Base {
             premium_progress_bar_enabled,
             premium_subscription_count,
             premium_tier,
-            presences,
             public_updates_channel_id,
-            roles,
             rules_channel_id,
             safety_alerts_channel_id,
-            soundboard_sounds,
             splash,
-            stage_instances,
             system_channel_flags,
             system_channel_id,
-            threads,
             vanity_url_code,
             verification_level,
-            voice_states,
             welcome_screen,
             widget_channel_id,
             widget_enabled,
@@ -316,20 +300,12 @@ export class Guild extends Base {
             this.publicUpdatesChannelId = public_updates_channel_id;
         }
 
-        if (roles) {
-            this.roles = GuildTransformer.transformRoles(roles);
-        }
-
         if (rules_channel_id) {
             this.rulesChannelId = rules_channel_id;
         }
 
         if (safety_alerts_channel_id) {
             this.safetyAlertsChannelId = safety_alerts_channel_id;
-        }
-
-        if (soundboard_sounds) {
-            this.soundboardSounds = GuildTransformer.transformSoundboardSounds(soundboard_sounds);
         }
 
         if (splash) {
