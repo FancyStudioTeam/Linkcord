@@ -60,12 +60,12 @@ importers:
       typescript:
         specifier: 5.8.3
         version: 5.8.3
+      vite-tsconfig-paths:
+        specifier: 5.1.4
+        version: 5.1.4(typescript@5.8.3)(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.0)(tsx@4.20.3)(yaml@2.8.0))
       vitest:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.0)(tsx@4.20.3)(yaml@2.8.0)
-      vitest-tsconfig-paths:
-        specifier: 3.4.1
-        version: 3.4.1
 
 packages:
 
@@ -198,9 +198,6 @@ packages:
   '@commitlint/types@19.8.1':
     resolution: {integrity: sha512-/yCrWGCoA1SVKOks25EGadP9Pnj0oAIHGpl2wH2M2Y46dPM2ueb8wyCVOD7O3WCTkaJ0IkKvzhl1JY7+uCT2Dw==}
     engines: {node: '>=v18'}
-
-  '@cush/relative@1.0.0':
-    resolution: {integrity: sha512-RpfLEtTlyIxeNPGKcokS+p3BZII/Q3bYxryFRglh5H3A3T8q9fsLYm72VYAMEOOIBLEa8o93kFLiBDUWKrwXZA==}
 
   '@esbuild/aix-ppc64@0.25.5':
     resolution: {integrity: sha512-9o3TMmpmftaCMepOdA5k/yDw8SfInyzWWTjYTFCX3kPSDJMROQTb8jg+h9Cnwnmm1vOzvxN7gIfB5V2ewpjtGA==}
@@ -583,9 +580,6 @@ packages:
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
-  '@types/json5@0.0.29':
-    resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
-
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
@@ -916,9 +910,6 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  glob-regex@0.3.2:
-    resolution: {integrity: sha512-m5blUd3/OqDTWwzBBtWBPrGlAzatRywHameHeekAZyZrskYouOGdNB8T/q6JucucvJXtOuyHIn0/Yia7iDasDw==}
-
   glob@10.4.5:
     resolution: {integrity: sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==}
     hasBin: true
@@ -1011,10 +1002,6 @@ packages:
 
   json-schema-traverse@1.0.0:
     resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
-
-  json5@1.0.2:
-    resolution: {integrity: sha512-g1MWMLBiz8FKi1e4w0UyVL3w+iJceWAFBAaBnnGKOpNa5f8TLktkbre1+s6oICydWAm+HRUGTmI+//xv2hvXYA==}
-    hasBin: true
 
   jsonparse@1.3.1:
     resolution: {integrity: sha512-POQXvpdL69+CluYsillJ7SUhKvytYjW9vG/GKpnf+xP8UWgYEM/RaMzHHofbALDiKbbP1W8UEYmgGl39WkPZsg==}
@@ -1303,9 +1290,6 @@ packages:
     resolution: {integrity: sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg==}
     engines: {node: '>= 14.18.0'}
 
-  recrawl-sync@2.2.3:
-    resolution: {integrity: sha512-vSaTR9t+cpxlskkdUFrsEpnf67kSmPk66yAGT1fZPrDudxQjoMzPgQhSMImQ0pAw5k0NPirefQfhopSjhdUtpQ==}
-
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
@@ -1361,10 +1345,6 @@ packages:
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
-
-  slash@3.0.0:
-    resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
-    engines: {node: '>=8'}
 
   slice-ansi@5.0.0:
     resolution: {integrity: sha512-FC+lgizVPfie0kkhqUScwRu1O/lF6NOgJmlCgK+/LYxDCTk8sGelYaHDhFcDN+Sn3Cv+3VSa4Byeo+IMCzpMgQ==}
@@ -1422,10 +1402,6 @@ packages:
   strip-ansi@7.1.0:
     resolution: {integrity: sha512-iq6eVVI64nQQTRYq2KtEg2d2uU7LElhTJwsH4YzIHZshxlgZms/wIc4VoDQTlG/IvVIrBKG06CrZnp0qv7hkcQ==}
     engines: {node: '>=12'}
-
-  strip-bom@3.0.0:
-    resolution: {integrity: sha512-vavAMRXOgBVNF6nyEEmL3DBK19iRpDcoIwW+swQ+CbGiu7lju6t+JklA1MHweoWtadgt4ISVUsXLyDq34ddcwA==}
-    engines: {node: '>=4'}
 
   strip-literal@3.0.0:
     resolution: {integrity: sha512-TcccoMhJOM3OebGhSBEmp3UZ2SfDMZUEBdRA/9ynfLi8yYajyWX3JiXArcJt4Umh4vISpspkQIY8ZZoCqjbviA==}
@@ -1493,11 +1469,15 @@ packages:
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  tsconfig-paths@3.15.0:
-    resolution: {integrity: sha512-2Ac2RgzDe/cn48GvOe3M+o82pEFewD3UPbyoUHHdKasHwJKjds4fLXWf/Ux5kATBKN20oaFGu+jbElp1pos0mg==}
-
-  tslib@1.14.1:
-    resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
+  tsconfck@3.1.6:
+    resolution: {integrity: sha512-ks6Vjr/jEw0P1gmOVwutM3B7fWxoWBL2KRDb1JfqGVawBmO5UsvmWOQFGHBPl5yxYz4eERr19E6L7NMv+Fej4w==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+    peerDependencies:
+      typescript: ^5.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   tsup@8.5.0:
     resolution: {integrity: sha512-VmBp77lWNQq6PfuMqCHD3xWl22vEoWsKajkF8t+yMBawlUS8JzEI+vOVMeuNZIuMML8qXRizFKi9oD5glKQVcQ==}
@@ -1543,6 +1523,14 @@ packages:
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
 
+  vite-tsconfig-paths@5.1.4:
+    resolution: {integrity: sha512-cYj0LRuLV2c2sMqhqhGpaO3LretdtMn/BVX4cPLanIZuwwrkVl+lK84E/miEXkCHWXuq65rhNN4rXsBcOB3S4w==}
+    peerDependencies:
+      vite: '*'
+    peerDependenciesMeta:
+      vite:
+        optional: true
+
   vite@7.0.0:
     resolution: {integrity: sha512-ixXJB1YRgDIw2OszKQS9WxGHKwLdCsbQNkpJN171udl6szi/rIySHL6/Os3s2+oE4P/FLD4dxg4mD7Wust+u5g==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -1582,9 +1570,6 @@ packages:
         optional: true
       yaml:
         optional: true
-
-  vitest-tsconfig-paths@3.4.1:
-    resolution: {integrity: sha512-CnRpA/jcqgZfnkk0yvwFW92UmIpf03wX/wLiQBNWAcOG7nv6Sdz3GsPESAMEqbVy8kHBoWB3XeNamu6PUrFZLA==}
 
   vitest@3.2.4:
     resolution: {integrity: sha512-LUCP5ev3GURDysTWiP47wRRUpLKMOfPh+yKTx3kVIEiu5KOMeqzpnYNsKyOoVrULivR8tLcks4+lga33Whn90A==}
@@ -1829,8 +1814,6 @@ snapshots:
     dependencies:
       '@types/conventional-commits-parser': 5.0.1
       chalk: 5.4.1
-
-  '@cush/relative@1.0.0': {}
 
   '@esbuild/aix-ppc64@0.25.5':
     optional: true
@@ -2078,8 +2061,6 @@ snapshots:
   '@types/deep-eql@4.0.2': {}
 
   '@types/estree@1.0.8': {}
-
-  '@types/json5@0.0.29': {}
 
   '@types/ms@2.1.0':
     optional: true
@@ -2408,8 +2389,6 @@ snapshots:
       meow: 12.1.1
       split2: 4.2.0
 
-  glob-regex@0.3.2: {}
-
   glob@10.4.5:
     dependencies:
       foreground-child: 3.3.1
@@ -2490,10 +2469,6 @@ snapshots:
   json-parse-even-better-errors@2.3.1: {}
 
   json-schema-traverse@1.0.0: {}
-
-  json5@1.0.2:
-    dependencies:
-      minimist: 1.2.8
 
   jsonparse@1.3.1: {}
 
@@ -2735,14 +2710,6 @@ snapshots:
 
   readdirp@4.1.2: {}
 
-  recrawl-sync@2.2.3:
-    dependencies:
-      '@cush/relative': 1.0.0
-      glob-regex: 0.3.2
-      slash: 3.0.0
-      sucrase: 3.35.0
-      tslib: 1.14.1
-
   require-directory@2.1.1: {}
 
   require-from-string@2.0.2: {}
@@ -2804,8 +2771,6 @@ snapshots:
 
   signal-exit@4.1.0: {}
 
-  slash@3.0.0: {}
-
   slice-ansi@5.0.0:
     dependencies:
       ansi-styles: 6.2.1
@@ -2864,8 +2829,6 @@ snapshots:
   strip-ansi@7.1.0:
     dependencies:
       ansi-regex: 6.1.0
-
-  strip-bom@3.0.0: {}
 
   strip-literal@3.0.0:
     dependencies:
@@ -2930,14 +2893,9 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  tsconfig-paths@3.15.0:
-    dependencies:
-      '@types/json5': 0.0.29
-      json5: 1.0.2
-      minimist: 1.2.8
-      strip-bom: 3.0.0
-
-  tslib@1.14.1: {}
+  tsconfck@3.1.6(typescript@5.8.3):
+    optionalDependencies:
+      typescript: 5.8.3
 
   tsup@8.5.0(@swc/core@1.12.6)(jiti@2.4.2)(postcss@8.5.6)(tsx@4.20.3)(typescript@5.8.3)(yaml@2.8.0):
     dependencies:
@@ -3005,6 +2963,17 @@ snapshots:
       - tsx
       - yaml
 
+  vite-tsconfig-paths@5.1.4(typescript@5.8.3)(vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.0)(tsx@4.20.3)(yaml@2.8.0)):
+    dependencies:
+      debug: 4.4.1
+      globrex: 0.1.2
+      tsconfck: 3.1.6(typescript@5.8.3)
+    optionalDependencies:
+      vite: 7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.0)(tsx@4.20.3)(yaml@2.8.0)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+
   vite@7.0.0(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.0)(tsx@4.20.3)(yaml@2.8.0):
     dependencies:
       esbuild: 0.25.5
@@ -3021,15 +2990,6 @@ snapshots:
       terser: 5.39.0
       tsx: 4.20.3
       yaml: 2.8.0
-
-  vitest-tsconfig-paths@3.4.1:
-    dependencies:
-      debug: 4.4.1
-      globrex: 0.1.2
-      recrawl-sync: 2.2.3
-      tsconfig-paths: 3.15.0
-    transitivePeerDependencies:
-      - supports-color
 
   vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.0)(tsx@4.20.3)(yaml@2.8.0):
     dependencies:
