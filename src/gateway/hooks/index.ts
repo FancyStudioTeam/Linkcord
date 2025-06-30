@@ -6,6 +6,7 @@ import { GUILD_DELETE } from "./GUILD_DELETE.js";
 import { GUILD_ROLE_CREATE } from "./GUILD_ROLE_CREATE.js";
 import { GUILD_ROLE_DELETE } from "./GUILD_ROLE_DELETE.js";
 import { GUILD_ROLE_UPDATE } from "./GUILD_ROLE_UPDATE.js";
+import { GUILD_UPDATE } from "./GUILD_UPDATE.js";
 import { READY } from "./READY.js";
 
 /**
@@ -18,6 +19,7 @@ export const DispatchHooks: Partial<DispatchHooksMap> = {
     GUILD_ROLE_CREATE,
     GUILD_ROLE_DELETE,
     GUILD_ROLE_UPDATE,
+    GUILD_UPDATE,
     READY,
 };
 /**

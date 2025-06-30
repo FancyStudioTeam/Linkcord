@@ -16,6 +16,7 @@ export * from "./GuildSoundboardSoundCreate.js";
 export * from "./GuildSoundboardSoundDelete.js";
 export * from "./GuildSoundboardSoundsUpdate.js";
 export * from "./GuildSoundboardSoundUpdate.js";
+export * from "./GuildUpdate.js";
 export * from "./InteractionCreate.js";
 export * from "./MessageDeleteBulk.js";
 export * from "./MessagePollVoteAdd.js";

@@ -14,6 +14,7 @@ export interface ClientEventsMap {
     guildRoleCreate: [role: Role, guildId: Snowflake];
     guildRoleDelete: [roleId: Snowflake, guildId: Snowflake];
     guildRoleUpdate: [newRole: Role, oldRole: Role | Uncached, guildId: Snowflake];
+    guildUpdate: [guild: Guild | Uncached];
     interactionCreate: [interaction: ChatInputCommandInteraction];
     ready: [client: Client];
     shardHello: [heartbeatInterval: number, shard: GatewayShard];

@@ -44,7 +44,7 @@ export class CacheManager<Key extends string, Value> {
     /**
      * @internal
      */
-    protected patch(key: Snowflake, value: Record<number | string, unknown>): void {
+    protected patch(key: Snowflake, value: unknown): void {
         const { cache } = this;
         const existing = cache.get(key);
 
