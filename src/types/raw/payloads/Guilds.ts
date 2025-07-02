@@ -76,7 +76,7 @@ export interface APIGuildMember {
     communication_disabled_until?: ISO8601Date | null;
     deaf: boolean;
     flags: GuildMemberFlags;
-    joined_at: ISO8601Date;
+    joined_at: ISO8601Date | null;
     mute: boolean;
     nick?: string | null;
     pending?: boolean;
@@ -366,6 +366,7 @@ export enum GuildFeatures {
     Discoverable = "DISCOVERABLE",
     EnhancedRoleColors = "ENHANCED_ROLE_COLORS",
     Featurable = "FEATURABLE",
+    GuestsEnabled = "GUESTS_ENABLED",
     InternalEmployeeOnly = "INTERNAL_EMPLOYEE_ONLY",
     InviteSplash = "INVITE_SPLASH",
     InvitesDisabled = "INVITES_DISABLED",
@@ -395,8 +396,8 @@ export enum GuildFeatures {
     VIPRegions = "VIP_REGIONS",
     VanityURL = "VANITY_URL",
     Verified = "VERIFIED",
-    VideoQuality108060FPS = "VIDEO_QUALITY_1080_60_FPS",
     VideoBitrateEnhanced = "VIDEO_BITRATE_ENHANCED",
+    VideoQuality108060FPS = "VIDEO_QUALITY_1080_60_FPS",
     VideoQuality72060FPS = "VIDEO_QUALITY_720_60_FPS",
     VoiceInThreads = "VOICE_IN_THREADS",
     WelcomeScreenEnabled = "WELCOME_SCREEN_ENABLED",

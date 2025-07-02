@@ -34,6 +34,8 @@ export interface APIContainerComponent extends APIComponentBase<ComponentTypes.C
  */
 export interface APIFileComponent extends APIComponentBase<ComponentTypes.File> {
     file: APIUnfurledMediaItem;
+    name?: string;
+    size?: number;
     spoiler?: boolean;
 }
 
@@ -170,6 +172,7 @@ export interface APIThumbnailComponent extends APIComponentBase<ComponentTypes.T
  * @see https://discord.com/developers/docs/components/reference#unfurled-media-item-structure
  */
 export interface APIUnfurledMediaItem {
+    attachment_id?: Snowflake;
     content_type?: string;
     height?: number | null;
     proxy_url?: string;

@@ -15,6 +15,7 @@ export interface APIInvite {
     channel: APIChannel | null;
     code: string;
     expires_at?: ISO8601Date | null;
+    flags?: number;
     guild?: APIInviteGuild;
     guild_scheduled_event?: APIGuildScheduledEvent;
     inviter?: APIUser;
@@ -55,6 +56,14 @@ export type APIInviteGuild = Pick<
     | "vanity_url_code"
     | "verification_level"
 >;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/invite#invite-object-guild-invite-flags
+ */
+export enum GuildInviteFlags {
+    IsGuestInvite = 1 << 0,
+}
 
 /**
  * @public

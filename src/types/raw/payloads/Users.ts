@@ -61,7 +61,8 @@ export interface APIPartialUser
 }
 
 /**
- * @undocumented
+ * @public
+ * @see https://discord.com/developers/docs/resources/user#user-object-user-primary-guild
  */
 export interface APIPrimaryGuild {
     badge: string | null;
@@ -89,15 +90,11 @@ export interface APIUser {
     locale?: Locales;
     mfa_enabled?: boolean;
     premium_type?: PremiumTypes;
+    primary_guild?: APIPrimaryGuild | null;
     public_flags?: number;
     system?: boolean;
     username: string;
     verified?: boolean;
-
-    /**
-     * @undocumented
-     */
-    primary_guild?: APIPrimaryGuild | null;
 }
 
 /**
