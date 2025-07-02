@@ -18,64 +18,64 @@ const LINKCORD_CONFIGURATION: LinkcordOptions = {};
  * @internal
  */
 export class LinkcordConfiguration {
-    /**
-     * @internal
-     */
-    static freeze(): void {
-        Object.freeze(LINKCORD_CONFIGURATION);
-    }
+	/**
+	 * @internal
+	 */
+	static freeze(): void {
+		Object.freeze(LINKCORD_CONFIGURATION);
+	}
 
-    /**
-     * @internal
-     */
-    static getOptions(): Readonly<LinkcordOptions> {
-        return LINKCORD_CONFIGURATION;
-    }
+	/**
+	 * @internal
+	 */
+	static getOptions(): Readonly<LinkcordOptions> {
+		return LINKCORD_CONFIGURATION;
+	}
 
-    /**
-     * @internal
-     */
-    static async loadConfigurationFile(
-        workingDirectory = process.cwd(),
-    ): Promise<Readonly<LinkcordOptions>> {
-        for (const extension of ALLOWED_FILE_EXTENSIONS) {
-            const configurationFilePath = join(workingDirectory, `linkcord.config.${extension}`);
+	/**
+	 * @internal
+	 */
+	static async loadConfigurationFile(
+		workingDirectory = process.cwd(),
+	): Promise<Readonly<LinkcordOptions>> {
+		for (const extension of ALLOWED_FILE_EXTENSIONS) {
+			const configurationFilePath = join(workingDirectory, `linkcord.config.${extension}`);
 
-            if (!existsSync(configurationFilePath)) {
-                continue;
-            }
+			if (!existsSync(configurationFilePath)) {
+				continue;
+			}
 
-            const importConfigurationFilePath = ImportUtils.resolvePath(configurationFilePath);
-            const importConfigurationFileData = (await import(
-                importConfigurationFilePath
-            )) as ImportConfigurationFileData;
-            const configurationFileName = basename(configurationFilePath);
-            const { default: defaultExport } = importConfigurationFileData;
+			const importConfigurationFilePath = ImportUtils.resolvePath(configurationFilePath);
+			const importConfigurationFileData = (await import(
+				importConfigurationFilePath
+			)) as ImportConfigurationFileData;
+			const configurationFileName = basename(configurationFilePath);
+			const { default: defaultExport } = importConfigurationFileData;
 
-            if (!("default" in importConfigurationFileData && defaultExport)) {
-                throw new Error(`File '${configurationFileName}' must include a default export.`);
-            }
+			if (!("default" in importConfigurationFileData && defaultExport)) {
+				throw new Error(`File '${configurationFileName}' must include a default export.`);
+			}
 
-            LinkcordConfiguration.setOptions(defaultExport);
-            LinkcordConfiguration.freeze();
+			LinkcordConfiguration.setOptions(defaultExport);
+			LinkcordConfiguration.freeze();
 
-            break;
-        }
+			break;
+		}
 
-        return LinkcordConfiguration.getOptions();
-    }
+		return LinkcordConfiguration.getOptions();
+	}
 
-    /**
-     * @internal
-     */
-    static setOptions(options: LinkcordOptions): LinkcordOptions {
-        return Object.assign(LINKCORD_CONFIGURATION, options);
-    }
+	/**
+	 * @internal
+	 */
+	static setOptions(options: LinkcordOptions): LinkcordOptions {
+		return Object.assign(LINKCORD_CONFIGURATION, options);
+	}
 }
 
 /**
  * @internal
  */
 interface ImportConfigurationFileData {
-    default?: LinkcordOptions;
+	default?: LinkcordOptions;
 }

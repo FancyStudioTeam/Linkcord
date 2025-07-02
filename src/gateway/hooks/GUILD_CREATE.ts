@@ -4,23 +4,23 @@ import { Guild } from "#structures/index.js";
 import type { GatewayDispatchGuildCreatePayload } from "#types/index.js";
 
 export const GUILD_CREATE = (
-    client: Client,
-    _shard: GatewayShard,
-    guildData: GatewayDispatchGuildCreatePayload,
+	client: Client,
+	_shard: GatewayShard,
+	guildData: GatewayDispatchGuildCreatePayload,
 ) => {
-    const { events, guilds } = client;
-    const { id: guildId, unavailable } = guildData;
+	const { events, guilds } = client;
+	const { id: guildId, unavailable } = guildData;
 
-    if (unavailable) {
-        return;
-    }
+	if (unavailable) {
+		return;
+	}
 
-    const guild = new Guild(guildId, guildData);
+	const guild = new Guild(guildId, guildData);
 
-    /**
-     * biome-ignore lint/complexity/useLiteralKeys: Accessing private members
-     * from the manager.
-     */
-    guilds["add"](guildId, guild);
-    events.emit("guildCreate", guild);
+	/**
+	 * biome-ignore lint/complexity/useLiteralKeys: Accessing private members
+	 * from the manager.
+	 */
+	guilds["add"](guildId, guild);
+	events.emit("guildCreate", guild);
 };

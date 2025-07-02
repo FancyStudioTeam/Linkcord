@@ -7,8 +7,8 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#webhooks-update-webhooks-update-event-fields
  */
 export interface GatewayDispatchWebhooksUpdatePayload {
-    channel_id: Snowflake;
-    guild_id: Snowflake;
+	channel_id: Snowflake;
+	guild_id: Snowflake;
 }
 
 /**
@@ -16,6 +16,6 @@ export interface GatewayDispatchWebhooksUpdatePayload {
  * @see https://discord.com/developers/docs/events/gateway-events#webhooks-update
  */
 export type GatewayDispatchWebhooksUpdate = GatewayDispatchEventBase<
-    GatewayDispatchEvents.WebhooksUpdate,
-    GatewayDispatchWebhooksUpdatePayload
+	GatewayDispatchEvents.WebhooksUpdate,
+	GatewayDispatchWebhooksUpdatePayload
 >;

@@ -5,7 +5,7 @@ import type { ComponentProperties } from "../runtime.js";
  * @public
  */
 export const EmbedJSX = (properties: EmbedJSXProperties): Embed => ({
-    ...properties,
+	...properties,
 });
 
 /**

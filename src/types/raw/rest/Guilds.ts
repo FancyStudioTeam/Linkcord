@@ -1,53 +1,53 @@
 import type { APIAuditLog, AuditLogEvents } from "../payloads/AuditLogs.js";
 import type {
-    APIAutoModerationAction,
-    APIAutoModerationRule,
-    APIAutoModerationTriggerMetadata,
-    AutoModerationEventTypes,
-    AutoModerationTriggerTypes,
+	APIAutoModerationAction,
+	APIAutoModerationRule,
+	APIAutoModerationTriggerMetadata,
+	AutoModerationEventTypes,
+	AutoModerationTriggerTypes,
 } from "../payloads/AutoModeration.js";
 import type {
-    APIDefaultReactionEmoji,
-    APIForumTag,
-    APIGuildChannel,
-    APIOverwrite,
-    APIThreadChannel,
-    APIThreadMember,
-    ChannelTypes,
-    ForumLayoutTypes,
-    SortOrderTypes,
-    VideoQualityModes,
+	APIDefaultReactionEmoji,
+	APIForumTag,
+	APIGuildChannel,
+	APIOverwrite,
+	APIThreadChannel,
+	APIThreadMember,
+	ChannelTypes,
+	ForumLayoutTypes,
+	SortOrderTypes,
+	VideoQualityModes,
 } from "../payloads/Channels.js";
 import type { APIEmoji } from "../payloads/Emojis.js";
 import type {
-    APIGuildScheduledEvent,
-    APIGuildScheduledEventEntityMetadata,
-    APIGuildScheduledEventRecurrenceRule,
-    APIGuildScheduledEventUser,
-    GuildScheduledEventEntityTypes,
-    GuildScheduledEventPrivacyLevel,
-    GuildScheduledEventStatus,
+	APIGuildScheduledEvent,
+	APIGuildScheduledEventEntityMetadata,
+	APIGuildScheduledEventRecurrenceRule,
+	APIGuildScheduledEventUser,
+	GuildScheduledEventEntityTypes,
+	GuildScheduledEventPrivacyLevel,
+	GuildScheduledEventStatus,
 } from "../payloads/GuildScheduledEvents.js";
 import type {
-    APIBan,
-    APIGuild,
-    APIGuildMember,
-    APIGuildOnboarding,
-    APIGuildOnboardingPrompt,
-    APIGuildPreview,
-    APIGuildWidget,
-    APIGuildWidgetSettings,
-    APIIncidentsData,
-    APIIntegration,
-    APIWelcomeScreen,
-    APIWelcomeScreenChannel,
-    DefaultMessageNotificationLevels,
-    ExplicitContentFilterLevels,
-    GuildFeatures,
-    GuildWidgetStyles,
-    MFALevels,
-    OnboardingModes,
-    VerificationLevels,
+	APIBan,
+	APIGuild,
+	APIGuildMember,
+	APIGuildOnboarding,
+	APIGuildOnboardingPrompt,
+	APIGuildPreview,
+	APIGuildWidget,
+	APIGuildWidgetSettings,
+	APIIncidentsData,
+	APIIntegration,
+	APIWelcomeScreen,
+	APIWelcomeScreenChannel,
+	DefaultMessageNotificationLevels,
+	ExplicitContentFilterLevels,
+	GuildFeatures,
+	GuildWidgetStyles,
+	MFALevels,
+	OnboardingModes,
+	VerificationLevels,
 } from "../payloads/Guilds.js";
 import type { APIGuildTemplate } from "../payloads/GuildTemplates.js";
 import type { APIInvite } from "../payloads/Invites.js";
@@ -56,11 +56,11 @@ import type { APIGuildSoundboardSound } from "../payloads/Soundboards.js";
 import type { APISticker } from "../payloads/Stickers.js";
 import type { APIVoiceRegion, APIVoiceState } from "../payloads/Voice.js";
 import type {
-    AudioDataUri,
-    ImageDataUri,
-    ISO8601Date,
-    Locales,
-    Snowflake,
+	AudioDataUri,
+	ImageDataUri,
+	ISO8601Date,
+	Locales,
+	Snowflake,
 } from "../shared/discord.js";
 
 /**
@@ -68,11 +68,11 @@ import type {
  * @see https://discord.com/developers/docs/resources/audit-log#get-guild-audit-log-query-string-params
  */
 export interface RESTGetGuildAuditLogStringParams {
-    action_type?: AuditLogEvents;
-    after?: Snowflake;
-    before?: Snowflake;
-    limit?: number;
-    user_id?: Snowflake;
+	action_type?: AuditLogEvents;
+	after?: Snowflake;
+	before?: Snowflake;
+	limit?: number;
+	user_id?: Snowflake;
 }
 
 /**
@@ -80,9 +80,9 @@ export interface RESTGetGuildAuditLogStringParams {
  * @see https://discord.com/developers/docs/resources/guild#get-guild-bans-query-string-params
  */
 export interface RESTGetGuildBansStringParams {
-    after?: Snowflake;
-    before?: Snowflake;
-    limit?: number;
+	after?: Snowflake;
+	before?: Snowflake;
+	limit?: number;
 }
 
 /**
@@ -90,8 +90,8 @@ export interface RESTGetGuildBansStringParams {
  * @see https://discord.com/developers/docs/resources/guild#search-guild-members-query-string-params
  */
 export interface RESTGetGuildMembersSearchStringParams {
-    limit?: number;
-    query: string;
+	limit?: number;
+	query: string;
 }
 
 /**
@@ -99,8 +99,8 @@ export interface RESTGetGuildMembersSearchStringParams {
  * @see https://discord.com/developers/docs/resources/guild#list-guild-members-query-string-params
  */
 export interface RESTGetGuildMembersStringParams {
-    after?: Snowflake;
-    limit?: number;
+	after?: Snowflake;
+	limit?: number;
 }
 
 /**
@@ -108,7 +108,7 @@ export interface RESTGetGuildMembersStringParams {
  * @see https://discord.com/developers/docs/resources/guild#get-guild-prune-count
  */
 export interface RESTGetGuildPruneCount {
-    pruned: number;
+	pruned: number;
 }
 
 /**
@@ -116,8 +116,8 @@ export interface RESTGetGuildPruneCount {
  * @see https://discord.com/developers/docs/resources/guild#get-guild-prune-count-query-string-params
  */
 export interface RESTGetGuildPruneCountStringParams {
-    days?: number;
-    include_roles?: string;
+	days?: number;
+	include_roles?: string;
 }
 
 /**
@@ -125,7 +125,7 @@ export interface RESTGetGuildPruneCountStringParams {
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#get-guild-scheduled-event-query-string-params
  */
 export interface RESTGetGuildScheduledEventQueryStringParams {
-    with_user_count?: boolean;
+	with_user_count?: boolean;
 }
 
 /**
@@ -133,10 +133,10 @@ export interface RESTGetGuildScheduledEventQueryStringParams {
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#get-guild-scheduled-event-users-query-string-params
  */
 export interface RESTGetGuildScheduledEventUsersQueryStringParams {
-    after?: Snowflake;
-    before?: Snowflake;
-    limit?: number;
-    with_member?: boolean;
+	after?: Snowflake;
+	before?: Snowflake;
+	limit?: number;
+	with_member?: boolean;
 }
 
 /**
@@ -144,7 +144,7 @@ export interface RESTGetGuildScheduledEventUsersQueryStringParams {
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#list-scheduled-events-for-guild-query-string-params
  */
 export interface RESTGetGuildScheduledEventsQueryStringParams {
-    with_user_count?: boolean;
+	with_user_count?: boolean;
 }
 
 /**
@@ -152,7 +152,7 @@ export interface RESTGetGuildScheduledEventsQueryStringParams {
  * @see https://discord.com/developers/docs/resources/soundboard#list-guild-soundboard-sounds
  */
 export interface RESTGetGuildSoundboardSounds {
-    items: APIGuildSoundboardSound[];
+	items: APIGuildSoundboardSound[];
 }
 
 /**
@@ -160,7 +160,7 @@ export interface RESTGetGuildSoundboardSounds {
  * @see https://discord.com/developers/docs/resources/guild#get-guild-query-string-params
  */
 export interface RESTGetGuildStringParams {
-    with_counts?: boolean;
+	with_counts?: boolean;
 }
 
 /**
@@ -168,8 +168,8 @@ export interface RESTGetGuildStringParams {
  * @see https://discord.com/developers/docs/resources/guild#list-active-guild-threads
  */
 export interface RESTGetGuildThreadsActive {
-    members: APIThreadMember[];
-    threads: APIThreadChannel[];
+	members: APIThreadMember[];
+	threads: APIThreadChannel[];
 }
 
 /**
@@ -177,8 +177,8 @@ export interface RESTGetGuildThreadsActive {
  * @see https://discord.com/developers/docs/resources/guild#get-guild-vanity-url
  */
 export interface RESTGetGuildVanityURL {
-    code: string | null;
-    uses: number;
+	code: string | null;
+	uses: number;
 }
 
 /**
@@ -186,7 +186,7 @@ export interface RESTGetGuildVanityURL {
  * @see https://discord.com/developers/docs/resources/guild#get-guild-widget-image-query-string-params
  */
 export interface RESTGetGuildWidgetImageStringParams {
-    style?: GuildWidgetStyles;
+	style?: GuildWidgetStyles;
 }
 
 /**
@@ -194,13 +194,13 @@ export interface RESTGetGuildWidgetImageStringParams {
  * @see https://discord.com/developers/docs/resources/auto-moderation#modify-auto-moderation-rule-json-params
  */
 export interface RESTPatchGuildAutoModerationRuleJSONParams {
-    actions?: APIAutoModerationAction[];
-    enabled?: boolean;
-    event_type?: AutoModerationEventTypes;
-    exempt_channels?: Snowflake[];
-    exempt_roles?: Snowflake[];
-    name?: string;
-    trigger_metadata?: APIAutoModerationTriggerMetadata;
+	actions?: APIAutoModerationAction[];
+	enabled?: boolean;
+	event_type?: AutoModerationEventTypes;
+	exempt_channels?: Snowflake[];
+	exempt_roles?: Snowflake[];
+	name?: string;
+	trigger_metadata?: APIAutoModerationTriggerMetadata;
 }
 
 /**
@@ -208,10 +208,10 @@ export interface RESTPatchGuildAutoModerationRuleJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-channel-positions-json-params
  */
 export interface RESTPatchGuildChannelPositionsJSONParams {
-    id: Snowflake;
-    lock_permissions?: boolean | null;
-    parent_id?: Snowflake | null;
-    position?: number | null;
+	id: Snowflake;
+	lock_permissions?: boolean | null;
+	parent_id?: Snowflake | null;
+	position?: number | null;
 }
 
 /**
@@ -219,8 +219,8 @@ export interface RESTPatchGuildChannelPositionsJSONParams {
  * @see https://discord.com/developers/docs/resources/emoji#modify-guild-emoji-json-params
  */
 export interface RESTPatchGuildEmojiJSONParams {
-    name?: string;
-    roles?: Snowflake[] | null;
+	name?: string;
+	roles?: Snowflake[] | null;
 }
 
 /**
@@ -228,27 +228,27 @@ export interface RESTPatchGuildEmojiJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-json-params
  */
 export interface RESTPatchGuildJSONParams {
-    afk_channel_id?: Snowflake | null;
-    afk_timeout?: number;
-    banner?: ImageDataUri | null;
-    default_message_notifications?: DefaultMessageNotificationLevels | null;
-    description?: string | null;
-    discovery_splash?: ImageDataUri | null;
-    explicit_content_filter?: ExplicitContentFilterLevels | null;
-    features?: GuildFeatures[];
-    icon?: ImageDataUri | null;
-    name?: string;
-    owner_id?: Snowflake;
-    preferred_locale?: Locales | null;
-    premium_progress_bar_enabled?: boolean;
-    public_updates_channel_id?: Snowflake | null;
-    region?: string | null;
-    rules_channel_id?: Snowflake | null;
-    safety_alerts_channel_id?: Snowflake | null;
-    splash?: ImageDataUri | null;
-    system_channel_flags?: number;
-    system_channel_id?: Snowflake | null;
-    verification_level?: VerificationLevels | null;
+	afk_channel_id?: Snowflake | null;
+	afk_timeout?: number;
+	banner?: ImageDataUri | null;
+	default_message_notifications?: DefaultMessageNotificationLevels | null;
+	description?: string | null;
+	discovery_splash?: ImageDataUri | null;
+	explicit_content_filter?: ExplicitContentFilterLevels | null;
+	features?: GuildFeatures[];
+	icon?: ImageDataUri | null;
+	name?: string;
+	owner_id?: Snowflake;
+	preferred_locale?: Locales | null;
+	premium_progress_bar_enabled?: boolean;
+	public_updates_channel_id?: Snowflake | null;
+	region?: string | null;
+	rules_channel_id?: Snowflake | null;
+	safety_alerts_channel_id?: Snowflake | null;
+	splash?: ImageDataUri | null;
+	system_channel_flags?: number;
+	system_channel_id?: Snowflake | null;
+	verification_level?: VerificationLevels | null;
 }
 
 /**
@@ -256,7 +256,7 @@ export interface RESTPatchGuildJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#modify-current-member-json-params
  */
 export interface RESTPatchGuildMemberCurrentJSONParams {
-    nick?: string | null;
+	nick?: string | null;
 }
 
 /**
@@ -264,13 +264,13 @@ export interface RESTPatchGuildMemberCurrentJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-member-json-params
  */
 export interface RESTPatchGuildMemberJSONParams {
-    channel_id?: Snowflake | null;
-    communication_disabled_until?: ISO8601Date | null;
-    deaf?: boolean | null;
-    flags?: number | null;
-    mute?: boolean | null;
-    nick?: string | null;
-    roles?: Snowflake[] | null;
+	channel_id?: Snowflake | null;
+	communication_disabled_until?: ISO8601Date | null;
+	deaf?: boolean | null;
+	flags?: number | null;
+	mute?: boolean | null;
+	nick?: string | null;
+	roles?: Snowflake[] | null;
 }
 
 /**
@@ -278,14 +278,14 @@ export interface RESTPatchGuildMemberJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-role-json-params
  */
 export interface RESTPatchGuildRoleJSONParams {
-    color?: number | null;
-    colors?: APIRoleColors | null;
-    hoist?: boolean | null;
-    icon?: ImageDataUri | null;
-    mentionable?: boolean | null;
-    name?: string | null;
-    permissions?: string | null;
-    unicode_emoji?: string | null;
+	color?: number | null;
+	colors?: APIRoleColors | null;
+	hoist?: boolean | null;
+	icon?: ImageDataUri | null;
+	mentionable?: boolean | null;
+	name?: string | null;
+	permissions?: string | null;
+	unicode_emoji?: string | null;
 }
 
 /**
@@ -293,8 +293,8 @@ export interface RESTPatchGuildRoleJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-role-positions-json-params
  */
 export interface RESTPatchGuildRolePositionsJSONParams {
-    id: Snowflake;
-    position?: number | null;
+	id: Snowflake;
+	position?: number | null;
 }
 
 /**
@@ -302,17 +302,17 @@ export interface RESTPatchGuildRolePositionsJSONParams {
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#modify-guild-scheduled-event-json-params
  */
 export interface RESTPatchGuildScheduledEventJSONParams {
-    channel_id?: Snowflake | null;
-    description?: string | null;
-    entity_metadata?: APIGuildScheduledEventEntityMetadata | null;
-    entity_type?: GuildScheduledEventEntityTypes;
-    image?: ImageDataUri;
-    name?: string;
-    privacy_level?: GuildScheduledEventPrivacyLevel;
-    recurrence_rule?: APIGuildScheduledEventRecurrenceRule | null;
-    scheduled_end_time?: ISO8601Date;
-    scheduled_start_time?: ISO8601Date;
-    status?: GuildScheduledEventStatus;
+	channel_id?: Snowflake | null;
+	description?: string | null;
+	entity_metadata?: APIGuildScheduledEventEntityMetadata | null;
+	entity_type?: GuildScheduledEventEntityTypes;
+	image?: ImageDataUri;
+	name?: string;
+	privacy_level?: GuildScheduledEventPrivacyLevel;
+	recurrence_rule?: APIGuildScheduledEventRecurrenceRule | null;
+	scheduled_end_time?: ISO8601Date;
+	scheduled_start_time?: ISO8601Date;
+	status?: GuildScheduledEventStatus;
 }
 
 /**
@@ -320,10 +320,10 @@ export interface RESTPatchGuildScheduledEventJSONParams {
  * @see https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound-json-params
  */
 export interface RESTPatchGuildSoundboardSoundJSONParams {
-    emoji_id?: Snowflake | null;
-    emoji_name?: string | null;
-    name?: string;
-    volume?: number | null;
+	emoji_id?: Snowflake | null;
+	emoji_name?: string | null;
+	name?: string;
+	volume?: number | null;
 }
 
 /**
@@ -331,9 +331,9 @@ export interface RESTPatchGuildSoundboardSoundJSONParams {
  * @see https://discord.com/developers/docs/resources/sticker#modify-guild-sticker-json-params
  */
 export interface RESTPatchGuildStickerJSONParams {
-    description?: string | null;
-    name?: string;
-    tags?: string;
+	description?: string | null;
+	name?: string;
+	tags?: string;
 }
 
 /**
@@ -341,8 +341,8 @@ export interface RESTPatchGuildStickerJSONParams {
  * @see https://discord.com/developers/docs/resources/guild-template#modify-guild-template-json-params
  */
 export interface RESTPatchGuildTemplateJSONParams {
-    description?: string | null;
-    name?: string;
+	description?: string | null;
+	name?: string;
 }
 
 /**
@@ -350,9 +350,9 @@ export interface RESTPatchGuildTemplateJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-welcome-screen-json-params
  */
 export interface RESTPatchGuildWelcomeScreenJSONParams {
-    description?: string | null;
-    enabled?: boolean | null;
-    welcome_channels?: APIWelcomeScreenChannel[] | null;
+	description?: string | null;
+	enabled?: boolean | null;
+	welcome_channels?: APIWelcomeScreenChannel[] | null;
 }
 
 /**
@@ -360,9 +360,9 @@ export interface RESTPatchGuildWelcomeScreenJSONParams {
  * @see https://discord.com/developers/docs/resources/voice#modify-current-user-voice-state-json-params
  */
 export interface RESTPatchGuildVoiceStateCurrentJSONParams {
-    channel_id?: string;
-    request_to_speak_timestamp?: ISO8601Date | null;
-    suppress?: boolean;
+	channel_id?: string;
+	request_to_speak_timestamp?: ISO8601Date | null;
+	suppress?: boolean;
 }
 
 /**
@@ -370,8 +370,8 @@ export interface RESTPatchGuildVoiceStateCurrentJSONParams {
  * @see https://discord.com/developers/docs/resources/voice#modify-user-voice-state-json-params
  */
 export interface RESTPatchGuildVoiceStateJSONParams {
-    channel_id: string;
-    suppress?: boolean;
+	channel_id: string;
+	suppress?: boolean;
 }
 
 /**
@@ -379,8 +379,8 @@ export interface RESTPatchGuildVoiceStateJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-widget-json-params
  */
 export interface RESTPatchGuildWidgetSettingsJSONParams {
-    channel_id?: Snowflake | null;
-    enabled?: boolean | null;
+	channel_id?: Snowflake | null;
+	enabled?: boolean | null;
 }
 
 /**
@@ -388,14 +388,14 @@ export interface RESTPatchGuildWidgetSettingsJSONParams {
  * @see https://discord.com/developers/docs/resources/auto-moderation#create-auto-moderation-rule-json-params
  */
 export interface RESTPostGuildAutoModerationRuleJSONParams {
-    actions: APIAutoModerationAction[];
-    enabled?: boolean;
-    event_type: AutoModerationEventTypes;
-    exempt_channels?: Snowflake[];
-    exempt_roles?: Snowflake[];
-    name: string;
-    trigger_metadata?: APIAutoModerationTriggerMetadata;
-    trigger_type: AutoModerationTriggerTypes;
+	actions: APIAutoModerationAction[];
+	enabled?: boolean;
+	event_type: AutoModerationEventTypes;
+	exempt_channels?: Snowflake[];
+	exempt_roles?: Snowflake[];
+	name: string;
+	trigger_metadata?: APIAutoModerationTriggerMetadata;
+	trigger_type: AutoModerationTriggerTypes;
 }
 
 /**
@@ -403,8 +403,8 @@ export interface RESTPostGuildAutoModerationRuleJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#bulk-guild-ban
  */
 export interface RESTPostGuildBanBulk {
-    banned_users: Snowflake[];
-    failed_users: Snowflake[];
+	banned_users: Snowflake[];
+	failed_users: Snowflake[];
 }
 
 /**
@@ -412,8 +412,8 @@ export interface RESTPostGuildBanBulk {
  * @see https://discord.com/developers/docs/resources/guild#bulk-guild-ban-json-params
  */
 export interface RESTPostGuildBanBulkJSONParams {
-    user_ids: Snowflake[];
-    delete_message_seconds?: number;
+	user_ids: Snowflake[];
+	delete_message_seconds?: number;
 }
 
 /**
@@ -421,24 +421,24 @@ export interface RESTPostGuildBanBulkJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#create-guild-channel-json-params
  */
 export interface RESTPostGuildChannelJSONParams {
-    available_tags?: APIForumTag[] | null;
-    bitrate?: number | null;
-    default_auto_archive_duration?: number | null;
-    default_forum_layout?: ForumLayoutTypes | null;
-    default_reaction_emoji?: APIDefaultReactionEmoji | null;
-    default_sort_order?: SortOrderTypes | null;
-    default_thread_rate_limit_per_user?: number | null;
-    name: string;
-    nsfw?: boolean | null;
-    parent_id?: Snowflake | null;
-    permission_overwrites?: APIOverwrite[] | null;
-    position?: number | null;
-    rate_limit_per_user?: number | null;
-    rtc_region?: string | null;
-    topic?: string | null;
-    type?: ChannelTypes | null;
-    user_limit?: number | null;
-    video_quality_mode?: VideoQualityModes | null;
+	available_tags?: APIForumTag[] | null;
+	bitrate?: number | null;
+	default_auto_archive_duration?: number | null;
+	default_forum_layout?: ForumLayoutTypes | null;
+	default_reaction_emoji?: APIDefaultReactionEmoji | null;
+	default_sort_order?: SortOrderTypes | null;
+	default_thread_rate_limit_per_user?: number | null;
+	name: string;
+	nsfw?: boolean | null;
+	parent_id?: Snowflake | null;
+	permission_overwrites?: APIOverwrite[] | null;
+	position?: number | null;
+	rate_limit_per_user?: number | null;
+	rtc_region?: string | null;
+	topic?: string | null;
+	type?: ChannelTypes | null;
+	user_limit?: number | null;
+	video_quality_mode?: VideoQualityModes | null;
 }
 
 /**
@@ -446,9 +446,9 @@ export interface RESTPostGuildChannelJSONParams {
  * @see https://discord.com/developers/docs/resources/emoji#create-guild-emoji-json-params
  */
 export interface RESTPostGuildEmojiJSONParams {
-    image: ImageDataUri;
-    name: string;
-    roles: Snowflake[];
+	image: ImageDataUri;
+	name: string;
+	roles: Snowflake[];
 }
 
 /**
@@ -456,8 +456,8 @@ export interface RESTPostGuildEmojiJSONParams {
  * @see https://discord.com/developers/docs/resources/guild-template#create-guild-from-guild-template-json-params
  */
 export interface RESTPostGuildFromTemplateJSONParams {
-    icon?: ImageDataUri;
-    name: string;
+	icon?: ImageDataUri;
+	name: string;
 }
 
 /**
@@ -465,7 +465,7 @@ export interface RESTPostGuildFromTemplateJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-mfa-level
  */
 export interface RESTPostGuildMFALevel {
-    level: MFALevels;
+	level: MFALevels;
 }
 
 /**
@@ -473,7 +473,7 @@ export interface RESTPostGuildMFALevel {
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-mfa-level-json-params
  */
 export interface RESTPostGuildMFALevelJSONParams {
-    level: MFALevels;
+	level: MFALevels;
 }
 
 /**
@@ -481,7 +481,7 @@ export interface RESTPostGuildMFALevelJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#begin-guild-prune
  */
 export interface RESTPostGuildPrune {
-    pruned: number;
+	pruned: number;
 }
 
 /**
@@ -489,9 +489,9 @@ export interface RESTPostGuildPrune {
  * @see https://discord.com/developers/docs/resources/guild#begin-guild-prune-json-params
  */
 export interface RESTPostGuildPruneJSONParams {
-    compute_prune_count: boolean;
-    days: number;
-    include_roles: Snowflake[];
+	compute_prune_count: boolean;
+	days: number;
+	include_roles: Snowflake[];
 }
 
 /**
@@ -499,14 +499,14 @@ export interface RESTPostGuildPruneJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#create-guild-role-json-params
  */
 export interface RESTPostGuildRoleJSONParams {
-    color?: number;
-    colors?: APIRoleColors;
-    hoist?: boolean;
-    icon?: ImageDataUri | null;
-    mentionable?: boolean;
-    name?: string;
-    permissions?: string;
-    unicode_emoji?: string | null;
+	color?: number;
+	colors?: APIRoleColors;
+	hoist?: boolean;
+	icon?: ImageDataUri | null;
+	mentionable?: boolean;
+	name?: string;
+	permissions?: string;
+	unicode_emoji?: string | null;
 }
 
 /**
@@ -514,16 +514,16 @@ export interface RESTPostGuildRoleJSONParams {
  * @see https://discord.com/developers/docs/resources/guild-scheduled-event#create-guild-scheduled-event-json-params
  */
 export interface RESTPostGuildScheduledEventJSONParams {
-    channel_id?: Snowflake;
-    description?: string;
-    entity_metadata?: APIGuildScheduledEventEntityMetadata;
-    entity_type: GuildScheduledEventEntityTypes;
-    image?: ImageDataUri;
-    name: string;
-    privacy_level: GuildScheduledEventPrivacyLevel;
-    recurrence_rule?: APIGuildScheduledEventRecurrenceRule;
-    scheduled_end_time?: ISO8601Date;
-    scheduled_start_time: ISO8601Date;
+	channel_id?: Snowflake;
+	description?: string;
+	entity_metadata?: APIGuildScheduledEventEntityMetadata;
+	entity_type: GuildScheduledEventEntityTypes;
+	image?: ImageDataUri;
+	name: string;
+	privacy_level: GuildScheduledEventPrivacyLevel;
+	recurrence_rule?: APIGuildScheduledEventRecurrenceRule;
+	scheduled_end_time?: ISO8601Date;
+	scheduled_start_time: ISO8601Date;
 }
 
 /**
@@ -531,11 +531,11 @@ export interface RESTPostGuildScheduledEventJSONParams {
  * @see https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound
  */
 export interface RESTPostGuildSoundboardSoundJSONParams {
-    emoji_id?: Snowflake | null;
-    emoji_name?: string | null;
-    name: string;
-    sound: AudioDataUri;
-    volume?: number | null;
+	emoji_id?: Snowflake | null;
+	emoji_name?: string | null;
+	name: string;
+	sound: AudioDataUri;
+	volume?: number | null;
 }
 
 /**
@@ -543,10 +543,10 @@ export interface RESTPostGuildSoundboardSoundJSONParams {
  * @see https://discord.com/developers/docs/resources/sticker#create-guild-sticker-form-params
  */
 export interface RESTPostGuildStickerFormParams {
-    description: string;
-    file: unknown;
-    name: string;
-    tags: string;
+	description: string;
+	file: unknown;
+	name: string;
+	tags: string;
 }
 
 /**
@@ -554,8 +554,8 @@ export interface RESTPostGuildStickerFormParams {
  * @see https://discord.com/developers/docs/resources/guild-template#create-guild-template-json-params
  */
 export interface RESTPostGuildTemplateJSONParams {
-    description?: string | null;
-    name: string;
+	description?: string | null;
+	name: string;
 }
 
 /**
@@ -563,7 +563,7 @@ export interface RESTPostGuildTemplateJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#create-guild-ban-json-params
  */
 export interface RESTPutGuildBanJSONParams {
-    delete_message_seconds?: number;
+	delete_message_seconds?: number;
 }
 
 /**
@@ -571,8 +571,8 @@ export interface RESTPutGuildBanJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-incident-actions-json-params
  */
 export interface RESTPutGuildIncidentActionsJSONParams {
-    dms_disabled_until?: ISO8601Date | null;
-    invites_disabled_until?: ISO8601Date | null;
+	dms_disabled_until?: ISO8601Date | null;
+	invites_disabled_until?: ISO8601Date | null;
 }
 
 /**
@@ -580,11 +580,11 @@ export interface RESTPutGuildIncidentActionsJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#add-guild-member-json-params
  */
 export interface RESTPutGuildMemberJSONParams {
-    access_token: string;
-    deaf?: boolean;
-    mute?: boolean;
-    nick?: string;
-    roles?: Snowflake[];
+	access_token: string;
+	deaf?: boolean;
+	mute?: boolean;
+	nick?: string;
+	roles?: Snowflake[];
 }
 
 /**
@@ -592,10 +592,10 @@ export interface RESTPutGuildMemberJSONParams {
  * @see https://discord.com/developers/docs/resources/guild#modify-guild-onboarding-json-params
  */
 export interface RESTPutGuildOnboardingJSONParams {
-    default_channel_ids: Snowflake[];
-    enabled: boolean;
-    mode: OnboardingModes;
-    prompts: APIGuildOnboardingPrompt[];
+	default_channel_ids: Snowflake[];
+	enabled: boolean;
+	mode: OnboardingModes;
+	prompts: APIGuildOnboardingPrompt[];
 }
 
 /**

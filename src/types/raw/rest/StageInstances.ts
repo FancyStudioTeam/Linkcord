@@ -6,8 +6,8 @@ import type { Snowflake } from "../shared/discord.js";
  * @see https://discord.com/developers/docs/resources/stage-instance#modify-stage-instance-json-params
  */
 export interface RESTPatchStageInstanceJSONParams {
-    channel_id?: Snowflake;
-    topic?: string;
+	channel_id?: Snowflake;
+	topic?: string;
 }
 
 /**
@@ -15,11 +15,11 @@ export interface RESTPatchStageInstanceJSONParams {
  * @see https://discord.com/developers/docs/resources/stage-instance#create-stage-instance-json-params
  */
 export interface RESTPostStageInstanceJSONParams {
-    channel_id: Snowflake;
-    guild_scheduled_event_id?: Snowflake;
-    privacy_level?: StageInstancePrivacyLevel;
-    send_start_notification?: boolean;
-    topic: string;
+	channel_id: Snowflake;
+	guild_scheduled_event_id?: Snowflake;
+	privacy_level?: StageInstancePrivacyLevel;
+	send_start_notification?: boolean;
+	topic: string;
 }
 
 /**

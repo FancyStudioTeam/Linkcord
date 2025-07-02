@@ -19,4 +19,4 @@ export const SAFE_CHARACTERS = new Set([":", "?", "@"]);
  * @public
  */
 export const USER_AGENT =
-    `Linkcord/${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord)` as const;
+	`Linkcord/${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord)` as const;

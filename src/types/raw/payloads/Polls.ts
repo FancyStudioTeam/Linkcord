@@ -6,11 +6,11 @@ import type { APIPartialEmoji } from "./Emojis.js";
  * @see https://discord.com/developers/docs/resources/poll#poll-create-request-object-poll-create-request-object-structure
  */
 export interface APIMessagePoll {
-    allow_multiselect?: boolean;
-    answers: APIPollAnswer[];
-    duration?: number;
-    layout_type?: PollLayoutTypes;
-    question: APIPollQuestion;
+	allow_multiselect?: boolean;
+	answers: APIPollAnswer[];
+	duration?: number;
+	layout_type?: PollLayoutTypes;
+	question: APIPollQuestion;
 }
 
 /**
@@ -18,12 +18,12 @@ export interface APIMessagePoll {
  * @see https://discord.com/developers/docs/resources/poll#poll-object-poll-object-structure
  */
 export interface APIPoll {
-    allow_multiselect: boolean;
-    answers: APIPollAnswer[];
-    expiry: ISO8601Date | null;
-    layout_type: PollLayoutTypes;
-    question: APIPollQuestion;
-    results?: APIPollResults;
+	allow_multiselect: boolean;
+	answers: APIPollAnswer[];
+	expiry: ISO8601Date | null;
+	layout_type: PollLayoutTypes;
+	question: APIPollQuestion;
+	results?: APIPollResults;
 }
 
 /**
@@ -31,8 +31,8 @@ export interface APIPoll {
  * @see https://discord.com/developers/docs/resources/poll#poll-answer-object-poll-answer-object-structure
  */
 export interface APIPollAnswer {
-    answer_id?: number;
-    poll_media: APIPollMedia;
+	answer_id?: number;
+	poll_media: APIPollMedia;
 }
 
 /**
@@ -40,9 +40,9 @@ export interface APIPollAnswer {
  * @see https://discord.com/developers/docs/resources/poll#poll-results-object-poll-answer-count-object-structure
  */
 export interface APIPollAnswerCount {
-    count: number;
-    id: number;
-    me_voted: boolean;
+	count: number;
+	id: number;
+	me_voted: boolean;
 }
 
 /**
@@ -50,8 +50,8 @@ export interface APIPollAnswerCount {
  * @see https://discord.com/developers/docs/resources/poll#poll-media-object-poll-media-object-structure
  */
 export interface APIPollMedia {
-    emoji?: APIPartialEmoji;
-    text?: string;
+	emoji?: APIPartialEmoji;
+	text?: string;
 }
 
 /**
@@ -59,8 +59,8 @@ export interface APIPollMedia {
  * @see https://discord.com/developers/docs/resources/poll#poll-results-object-poll-results-object-structure
  */
 export interface APIPollResults {
-    answer_counts: APIPollAnswerCount[];
-    is_finalized: boolean;
+	answer_counts: APIPollAnswerCount[];
+	is_finalized: boolean;
 }
 
 /**
@@ -74,5 +74,5 @@ export type APIPollQuestion = Pick<APIPollMedia, "text">;
  * @see https://discord.com/developers/docs/resources/poll#layout-type
  */
 export enum PollLayoutTypes {
-    Default = 1,
+	Default = 1,
 }

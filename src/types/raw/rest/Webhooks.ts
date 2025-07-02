@@ -1,9 +1,9 @@
 import type { APIMessageComponent } from "../payloads/Components.js";
 import type {
-    APIAllowedMentions,
-    APIEmbed,
-    APIMessage,
-    APIPartialAttachment,
+	APIAllowedMentions,
+	APIEmbed,
+	APIMessage,
+	APIPartialAttachment,
 } from "../payloads/Messages.js";
 import type { APIMessagePoll } from "../payloads/Polls.js";
 import type { APIWebhook } from "../payloads/Webhooks.js";
@@ -14,7 +14,7 @@ import type { ImageDataUri, Snowflake } from "../shared/discord.js";
  * @see https://discord.com/developers/docs/resources/webhook#delete-webhook-message-query-string-params
  */
 export interface RESTDeleteWebhookMessageQueryStringParams {
-    thread_id?: Snowflake;
+	thread_id?: Snowflake;
 }
 
 /**
@@ -22,7 +22,7 @@ export interface RESTDeleteWebhookMessageQueryStringParams {
  * @see https://discord.com/developers/docs/resources/webhook#get-webhook-message-query-string-params
  */
 export interface RESTGetWebhookMessageQueryStringParams {
-    thread_id?: Snowflake;
+	thread_id?: Snowflake;
 }
 
 /**
@@ -30,13 +30,13 @@ export interface RESTGetWebhookMessageQueryStringParams {
  * @see https://discord.com/developers/docs/resources/webhook#edit-webhook-message-jsonform-params
  */
 export interface RESTPatchWebhookMessageJSONParams {
-    allowed_mentions?: APIAllowedMentions | null;
-    attachments?: APIPartialAttachment[] | null;
-    components?: APIMessageComponent[] | null;
-    content?: string | null;
-    embeds?: APIEmbed[] | null;
-    flags?: number | null;
-    poll?: APIMessagePoll | null;
+	allowed_mentions?: APIAllowedMentions | null;
+	attachments?: APIPartialAttachment[] | null;
+	components?: APIMessageComponent[] | null;
+	content?: string | null;
+	embeds?: APIEmbed[] | null;
+	flags?: number | null;
+	poll?: APIMessagePoll | null;
 }
 
 /**
@@ -44,8 +44,8 @@ export interface RESTPatchWebhookMessageJSONParams {
  * @see https://discord.com/developers/docs/resources/webhook#edit-webhook-message-query-string-params
  */
 export interface RESTPatchWebhookMessageQueryStringParams {
-    thread_id?: Snowflake;
-    with_components?: boolean;
+	thread_id?: Snowflake;
+	with_components?: boolean;
 }
 
 /**
@@ -53,8 +53,8 @@ export interface RESTPatchWebhookMessageQueryStringParams {
  * @see https://discord.com/developers/docs/resources/webhook#execute-githubcompatible-webhook-query-string-params
  */
 export interface RESTPostWebhookGitHubQueryStringParams {
-    thread_id?: Snowflake;
-    wait?: boolean;
+	thread_id?: Snowflake;
+	wait?: boolean;
 }
 
 /**
@@ -62,8 +62,8 @@ export interface RESTPostWebhookGitHubQueryStringParams {
  * @see https://discord.com/developers/docs/resources/webhook#execute-slackcompatible-webhook-query-string-params
  */
 export interface RESTPostWebhookSlackQueryStringParams {
-    thread_id?: Snowflake;
-    wait?: boolean;
+	thread_id?: Snowflake;
+	wait?: boolean;
 }
 
 /**
@@ -71,18 +71,18 @@ export interface RESTPostWebhookSlackQueryStringParams {
  * @see https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params
  */
 export interface RESTPostWebhookJSONParams {
-    allowed_mentions?: APIAllowedMentions;
-    applied_tags?: Snowflake[];
-    attachments?: APIPartialAttachment[];
-    avatar_url?: string;
-    components?: APIMessageComponent[];
-    content?: string;
-    embeds?: APIEmbed[];
-    flags?: number;
-    poll?: APIMessagePoll;
-    thread_name?: string;
-    tts?: boolean;
-    username?: string;
+	allowed_mentions?: APIAllowedMentions;
+	applied_tags?: Snowflake[];
+	attachments?: APIPartialAttachment[];
+	avatar_url?: string;
+	components?: APIMessageComponent[];
+	content?: string;
+	embeds?: APIEmbed[];
+	flags?: number;
+	poll?: APIMessagePoll;
+	thread_name?: string;
+	tts?: boolean;
+	username?: string;
 }
 
 /**
@@ -90,9 +90,9 @@ export interface RESTPostWebhookJSONParams {
  * @see https://discord.com/developers/docs/resources/webhook#execute-webhook-query-string-params
  */
 export interface RESTPostWebhookQueryStringParams {
-    thread_id?: Snowflake;
-    wait?: boolean;
-    with_components?: boolean;
+	thread_id?: Snowflake;
+	wait?: boolean;
+	with_components?: boolean;
 }
 
 /**
@@ -100,9 +100,9 @@ export interface RESTPostWebhookQueryStringParams {
  * @see https://discord.com/developers/docs/resources/webhook#modify-webhook-json-params
  */
 export interface RESTPatchWebhookJSONParams {
-    avatar?: ImageDataUri | null;
-    channel_id?: Snowflake;
-    name?: string;
+	avatar?: ImageDataUri | null;
+	channel_id?: Snowflake;
+	name?: string;
 }
 
 /**
@@ -110,8 +110,8 @@ export interface RESTPatchWebhookJSONParams {
  * @see https://discord.com/developers/docs/resources/webhook#create-webhook-json-params
  */
 export interface RESTPostChannelWebhookJSONParams {
-    avatar?: ImageDataUri | null;
-    name: string;
+	avatar?: ImageDataUri | null;
+	name: string;
 }
 
 /**

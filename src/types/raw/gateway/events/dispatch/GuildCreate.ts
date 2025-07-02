@@ -14,18 +14,18 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#guild-create-guild-create-extra-fields
  */
 export interface GatewayDispatchGuildCreatePayload extends APIGuild {
-    channels: APIGuildChannel[];
-    guild_scheduled_events: APIGuildScheduledEvent[];
-    joined_at: ISO8601Date;
-    large: boolean;
-    member_count: number;
-    members: APIGuildMember[];
-    presences: GatewayPresence[];
-    soundboard_sounds: APIGuildSoundboardSound[];
-    stage_instances: APIStageInstance[];
-    threads: APIThreadChannel[];
-    unavailable?: boolean;
-    voice_states: GatewayGuildVoiceState[];
+	channels: APIGuildChannel[];
+	guild_scheduled_events: APIGuildScheduledEvent[];
+	joined_at: ISO8601Date;
+	large: boolean;
+	member_count: number;
+	members: APIGuildMember[];
+	presences: GatewayPresence[];
+	soundboard_sounds: APIGuildSoundboardSound[];
+	stage_instances: APIStageInstance[];
+	threads: APIThreadChannel[];
+	unavailable?: boolean;
+	voice_states: GatewayGuildVoiceState[];
 }
 
 /**
@@ -33,8 +33,8 @@ export interface GatewayDispatchGuildCreatePayload extends APIGuild {
  * @see https://discord.com/developers/docs/events/gateway-events#guilds
  */
 export type GatewayDispatchGuildCreate = GatewayDispatchEventBase<
-    GatewayDispatchEvents.GuildCreate,
-    GatewayDispatchGuildCreatePayload
+	GatewayDispatchEvents.GuildCreate,
+	GatewayDispatchGuildCreatePayload
 >;
 
 /**

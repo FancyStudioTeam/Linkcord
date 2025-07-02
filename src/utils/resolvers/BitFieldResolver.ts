@@ -2,29 +2,29 @@
  * @public
  */
 export class BitFieldResolver {
-    bitField: number;
+	bitField: number;
 
-    constructor(bitField?: number) {
-        this.bitField = bitField ?? 0;
-    }
+	constructor(bitField?: number) {
+		this.bitField = bitField ?? 0;
+	}
 
-    add(bit: number): number {
-        this.bitField |= bit;
+	add(bit: number): number {
+		this.bitField |= bit;
 
-        return this.bitField;
-    }
+		return this.bitField;
+	}
 
-    freeze(): Readonly<this> {
-        return Object.freeze(this);
-    }
+	freeze(): Readonly<this> {
+		return Object.freeze(this);
+	}
 
-    has(bit: number): boolean {
-        return (this.bitField & bit) === bit;
-    }
+	has(bit: number): boolean {
+		return (this.bitField & bit) === bit;
+	}
 
-    remove(bit: number): number {
-        this.bitField &= ~bit;
+	remove(bit: number): number {
+		this.bitField &= ~bit;
 
-        return this.bitField;
-    }
+		return this.bitField;
+	}
 }

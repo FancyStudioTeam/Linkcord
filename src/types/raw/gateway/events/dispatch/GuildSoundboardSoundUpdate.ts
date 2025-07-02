@@ -7,8 +7,8 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#guild-soundboard-sound-update
  */
 export type GatewayDispatchGuildSoundboardSoundUpdate = GatewayDispatchEventBase<
-    GatewayDispatchEvents.GuildSoundboardSoundUpdate,
-    GatewayDispatchGuildSoundboardSoundUpdatePayload
+	GatewayDispatchEvents.GuildSoundboardSoundUpdate,
+	GatewayDispatchGuildSoundboardSoundUpdatePayload
 >;
 
 /**

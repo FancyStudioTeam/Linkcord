@@ -7,8 +7,8 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#auto-moderation-rule-delete
  */
 export type GatewayDispatchAutoModerationRuleDelete = GatewayDispatchEventBase<
-    GatewayDispatchEvents.AutoModerationRuleDelete,
-    GatewayDispatchAutoModerationRuleDeletePayload
+	GatewayDispatchEvents.AutoModerationRuleDelete,
+	GatewayDispatchAutoModerationRuleDeletePayload
 >;
 
 /**

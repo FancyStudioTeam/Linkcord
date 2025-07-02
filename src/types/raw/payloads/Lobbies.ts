@@ -6,11 +6,11 @@ import type { APIChannel } from "./Channels.js";
  * @see https://discord.com/developers/docs/resources/lobby#lobby-object-lobby-structure
  */
 export interface APILobby {
-    application_id: Snowflake;
-    id: Snowflake;
-    linked_channel?: APIChannel;
-    members: APILobbyMember[];
-    metadata: Record<string, string> | null;
+	application_id: Snowflake;
+	id: Snowflake;
+	linked_channel?: APIChannel;
+	members: APILobbyMember[];
+	metadata: Record<string, string> | null;
 }
 
 /**
@@ -18,9 +18,9 @@ export interface APILobby {
  * @see https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-structure
  */
 export interface APILobbyMember {
-    flags?: LobbyMemberFlags;
-    id: Snowflake;
-    metadata?: Record<string, string> | null;
+	flags?: LobbyMemberFlags;
+	id: Snowflake;
+	metadata?: Record<string, string> | null;
 }
 
 /**
@@ -28,5 +28,5 @@ export interface APILobbyMember {
  * @see https://discord.com/developers/docs/resources/lobby#lobby-member-object-lobby-member-flags
  */
 export enum LobbyMemberFlags {
-    CanLinkLobby = 1 << 0,
+	CanLinkLobby = 1 << 0,
 }

@@ -6,7 +6,7 @@ import type { VoiceOpcodes } from "../event.js";
  * @see https://discord.com/developers/docs/topics/voice-connections#heartbeating-example-hello-payload
  */
 export interface VoiceHelloPayload {
-    heartbeat_interval: number;
+	heartbeat_interval: number;
 }
 
 /**

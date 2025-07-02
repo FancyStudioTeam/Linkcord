@@ -11,37 +11,37 @@ import { CacheManager } from "./managers/CacheManager.js";
  * @public
  */
 export class Client extends BaseClient {
-    readonly gateway: GatewayManager;
-    readonly guilds = new CacheManager<Snowflake, Guild>();
-    readonly rest: RESTManager;
-    readonly users = new CacheManager<Snowflake, User>();
+	readonly gateway: GatewayManager;
+	readonly guilds = new CacheManager<Snowflake, Guild>();
+	readonly rest: RESTManager;
+	readonly users = new CacheManager<Snowflake, User>();
 
-    constructor() {
-        super();
+	constructor() {
+		super();
 
-        this.gateway = new GatewayManager(this);
-        this.rest = new RESTManager(this);
-    }
+		this.gateway = new GatewayManager(this);
+		this.rest = new RESTManager(this);
+	}
 
-    get token(): Readonly<string> {
-        const { token } = LinkcordConfiguration.getOptions();
+	get token(): Readonly<string> {
+		const { token } = LinkcordConfiguration.getOptions();
 
-        return token;
-    }
+		return token;
+	}
 
-    get intents(): Readonly<number> {
-        const { intents } = LinkcordConfiguration.getOptions();
-        const resolvedIntents = resolveGatewayIntents(intents);
+	get intents(): Readonly<number> {
+		const { intents } = LinkcordConfiguration.getOptions();
+		const resolvedIntents = resolveGatewayIntents(intents);
 
-        return resolvedIntents;
-    }
+		return resolvedIntents;
+	}
 
-    async init(): Promise<void> {
-        await LinkcordConfiguration.loadConfigurationFile();
-        await super.init();
+	async init(): Promise<void> {
+		await LinkcordConfiguration.loadConfigurationFile();
+		await super.init();
 
-        const { gateway } = this;
+		const { gateway } = this;
 
-        await gateway.init();
-    }
+		await gateway.init();
+	}
 }

@@ -1,23 +1,23 @@
 import type {
-    APIApplicationCommand,
-    APIApplicationCommandOption,
-    APIApplicationCommandPermissions,
-    ApplicationCommandTypes,
+	APIApplicationCommand,
+	APIApplicationCommandOption,
+	APIApplicationCommandPermissions,
+	ApplicationCommandTypes,
 } from "../payloads/ApplicationCommands.js";
 import type { APIApplicationRoleConnectionMetadata } from "../payloads/ApplicationRoleConnectionMetadata.js";
 import type {
-    APIActivityInstance,
-    APIApplication,
-    APIApplicationInstallParams,
-    APIApplicationIntegrationTypesConfiguration,
-    ApplicationEventWebhookStatus,
-    ApplicationEventWebhookTypes,
+	APIActivityInstance,
+	APIApplication,
+	APIApplicationInstallParams,
+	APIApplicationIntegrationTypesConfiguration,
+	ApplicationEventWebhookStatus,
+	ApplicationEventWebhookTypes,
 } from "../payloads/Applications.js";
 import type { APIEmoji } from "../payloads/Emojis.js";
 import type {
-    APIEntitlement,
-    APIPartialEntitlement,
-    EntitlementOwnerTypes,
+	APIEntitlement,
+	APIPartialEntitlement,
+	EntitlementOwnerTypes,
 } from "../payloads/Entitlements.js";
 import type { IntegrationTypes } from "../payloads/Guilds.js";
 import type { InteractionContextTypes } from "../payloads/Interactions.js";
@@ -29,7 +29,7 @@ import type { ImageDataUri, Localizations, Snowflake } from "../shared/discord.j
  * @see https://discord.com/developers/docs/interactions/application-commands#get-global-application-commands-query-string-params
  */
 export interface RESTGetApplicationCommandsGlobalQueryStringParams {
-    with_localizations?: boolean;
+	with_localizations?: boolean;
 }
 
 /**
@@ -37,7 +37,7 @@ export interface RESTGetApplicationCommandsGlobalQueryStringParams {
  * @see https://discord.com/developers/docs/interactions/application-commands#get-guild-application-commands-query-string-params
  */
 export interface RESTGetApplicationCommandsGuildQueryStringParams {
-    with_localizations?: boolean;
+	with_localizations?: boolean;
 }
 
 /**
@@ -45,7 +45,7 @@ export interface RESTGetApplicationCommandsGuildQueryStringParams {
  * @see https://discord.com/developers/docs/resources/emoji#list-application-emojis
  */
 export interface RESTGetApplicationEmojis {
-    items: APIEmoji[];
+	items: APIEmoji[];
 }
 
 /**
@@ -53,14 +53,14 @@ export interface RESTGetApplicationEmojis {
  * @see https://discord.com/developers/docs/resources/entitlement#list-entitlements-query-string-params
  */
 export interface RESTGetApplicationEntitlementsQueryStringParams {
-    after?: Snowflake;
-    before?: Snowflake;
-    exclude_deleted?: boolean;
-    exclude_ended?: boolean;
-    guild_id?: Snowflake;
-    limit?: number;
-    sku_ids?: string;
-    user_id?: Snowflake;
+	after?: Snowflake;
+	before?: Snowflake;
+	exclude_deleted?: boolean;
+	exclude_ended?: boolean;
+	guild_id?: Snowflake;
+	limit?: number;
+	sku_ids?: string;
+	user_id?: Snowflake;
 }
 
 /**
@@ -68,15 +68,15 @@ export interface RESTGetApplicationEntitlementsQueryStringParams {
  * @see https://discord.com/developers/docs/interactions/application-commands#edit-global-application-command-json-params
  */
 export interface RESTPatchApplicationCommandGlobalJSONParams {
-    contexts?: InteractionContextTypes[];
-    default_member_permissions?: string | null;
-    description?: string;
-    description_localizations?: Localizations | null;
-    integration_types?: IntegrationTypes[];
-    name?: string;
-    name_localizations?: Localizations | null;
-    nsfw?: boolean;
-    options?: APIApplicationCommandOption[];
+	contexts?: InteractionContextTypes[];
+	default_member_permissions?: string | null;
+	description?: string;
+	description_localizations?: Localizations | null;
+	integration_types?: IntegrationTypes[];
+	name?: string;
+	name_localizations?: Localizations | null;
+	nsfw?: boolean;
+	options?: APIApplicationCommandOption[];
 }
 
 /**
@@ -84,13 +84,13 @@ export interface RESTPatchApplicationCommandGlobalJSONParams {
  * @see https://discord.com/developers/docs/interactions/application-commands#edit-guild-application-command-json-params
  */
 export interface RESTPatchApplicationCommandGuildJSONParams {
-    default_member_permissions?: string | null;
-    description?: string;
-    description_localizations?: Localizations | null;
-    name?: string;
-    name_localizations?: Localizations | null;
-    nsfw?: boolean;
-    options?: APIApplicationCommandOption[];
+	default_member_permissions?: string | null;
+	description?: string;
+	description_localizations?: Localizations | null;
+	name?: string;
+	name_localizations?: Localizations | null;
+	nsfw?: boolean;
+	options?: APIApplicationCommandOption[];
 }
 
 /**
@@ -98,19 +98,19 @@ export interface RESTPatchApplicationCommandGuildJSONParams {
  * @see https://discord.com/developers/docs/resources/application#edit-current-application-json-params
  */
 export interface RESTPatchApplicationCurrentJSONParams {
-    cover_image?: ImageDataUri | null;
-    custom_install_url?: string;
-    description?: string;
-    event_webhooks_status?: ApplicationEventWebhookStatus;
-    event_webhooks_types?: ApplicationEventWebhookTypes[];
-    event_webhooks_url?: string;
-    flags?: number;
-    icon?: ImageDataUri | null;
-    install_params?: APIApplicationInstallParams;
-    integration_types_config?: APIApplicationIntegrationTypesConfiguration;
-    interactions_endpoint_url?: string;
-    role_connections_verification_url?: string;
-    tags?: string[];
+	cover_image?: ImageDataUri | null;
+	custom_install_url?: string;
+	description?: string;
+	event_webhooks_status?: ApplicationEventWebhookStatus;
+	event_webhooks_types?: ApplicationEventWebhookTypes[];
+	event_webhooks_url?: string;
+	flags?: number;
+	icon?: ImageDataUri | null;
+	install_params?: APIApplicationInstallParams;
+	integration_types_config?: APIApplicationIntegrationTypesConfiguration;
+	interactions_endpoint_url?: string;
+	role_connections_verification_url?: string;
+	tags?: string[];
 }
 
 /**
@@ -118,7 +118,7 @@ export interface RESTPatchApplicationCurrentJSONParams {
  * @see https://discord.com/developers/docs/resources/emoji#modify-application-emoji-json-params
  */
 export interface RESTPatchApplicationEmojiJSONParams {
-    name: string;
+	name: string;
 }
 
 /**
@@ -126,16 +126,16 @@ export interface RESTPatchApplicationEmojiJSONParams {
  * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
  */
 export interface RESTPostApplicationCommandGlobalJSONParams {
-    contexts?: InteractionContextTypes[];
-    default_member_permissions?: string | null;
-    description?: string;
-    description_localizations?: Localizations | null;
-    integration_types?: IntegrationTypes[];
-    name: string;
-    name_localizations?: Localizations | null;
-    nsfw?: boolean;
-    options?: APIApplicationCommandOption[];
-    type?: ApplicationCommandTypes;
+	contexts?: InteractionContextTypes[];
+	default_member_permissions?: string | null;
+	description?: string;
+	description_localizations?: Localizations | null;
+	integration_types?: IntegrationTypes[];
+	name: string;
+	name_localizations?: Localizations | null;
+	nsfw?: boolean;
+	options?: APIApplicationCommandOption[];
+	type?: ApplicationCommandTypes;
 }
 
 /**
@@ -143,14 +143,14 @@ export interface RESTPostApplicationCommandGlobalJSONParams {
  * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command-json-params
  */
 export interface RESTPostApplicationCommandGuildJSONParams {
-    default_member_permissions?: string | null;
-    description?: string;
-    description_localizations?: Localizations | null;
-    name: string;
-    name_localizations?: Localizations | null;
-    nsfw?: boolean;
-    options?: APIApplicationCommandOption[];
-    type?: ApplicationCommandTypes;
+	default_member_permissions?: string | null;
+	description?: string;
+	description_localizations?: Localizations | null;
+	name: string;
+	name_localizations?: Localizations | null;
+	nsfw?: boolean;
+	options?: APIApplicationCommandOption[];
+	type?: ApplicationCommandTypes;
 }
 
 /**
@@ -158,8 +158,8 @@ export interface RESTPostApplicationCommandGuildJSONParams {
  * @see https://discord.com/developers/docs/resources/emoji#create-application-emoji-json-params
  */
 export interface RESTPostApplicationEmojiJSONParams {
-    image: ImageDataUri;
-    name: string;
+	image: ImageDataUri;
+	name: string;
 }
 
 /**
@@ -167,9 +167,9 @@ export interface RESTPostApplicationEmojiJSONParams {
  * @see https://discord.com/developers/docs/resources/entitlement#create-test-entitlement-json-params
  */
 export interface RESTPostApplicationEntitlementTestJSONParams {
-    owner_id: Snowflake;
-    owner_type: EntitlementOwnerTypes;
-    sku_id: Snowflake;
+	owner_id: Snowflake;
+	owner_type: EntitlementOwnerTypes;
+	sku_id: Snowflake;
 }
 
 /**
@@ -177,17 +177,17 @@ export interface RESTPostApplicationEntitlementTestJSONParams {
  * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-guild-application-commands-json-params
  */
 export interface RESTPutApplicationCommandsGuildJSONParams {
-    contexts: InteractionContextTypes[];
-    default_member_permissions?: string | null;
-    description?: string;
-    description_localizations?: Localizations | null;
-    id?: Snowflake;
-    integration_types: IntegrationTypes[];
-    name: string;
-    name_localizations?: Localizations | null;
-    nsfw?: boolean;
-    options?: APIApplicationCommandOption[];
-    type?: ApplicationCommandTypes;
+	contexts: InteractionContextTypes[];
+	default_member_permissions?: string | null;
+	description?: string;
+	description_localizations?: Localizations | null;
+	id?: Snowflake;
+	integration_types: IntegrationTypes[];
+	name: string;
+	name_localizations?: Localizations | null;
+	nsfw?: boolean;
+	options?: APIApplicationCommandOption[];
+	type?: ApplicationCommandTypes;
 }
 
 /**
@@ -195,7 +195,7 @@ export interface RESTPutApplicationCommandsGuildJSONParams {
  * @see https://discord.com/developers/docs/interactions/application-commands#edit-application-command-permissions-json-params
  */
 export interface RESTPutApplicationCommandPermissionsJSONParams {
-    permissions: APIApplicationCommandPermissions[];
+	permissions: APIApplicationCommandPermissions[];
 }
 
 /**

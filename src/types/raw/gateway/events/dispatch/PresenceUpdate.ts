@@ -10,11 +10,11 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#presence-update-presence-update-event-fields
  */
 export interface GatewayDispatchPresenceUpdatePayload {
-    activities: GatewayActivity[];
-    client_status: GatewayPresenceUpdateClientStatus;
-    guild_id: Snowflake;
-    status: StatusTypes;
-    user: GatewayPresenceUser;
+	activities: GatewayActivity[];
+	client_status: GatewayPresenceUpdateClientStatus;
+	guild_id: Snowflake;
+	status: StatusTypes;
+	user: GatewayPresenceUser;
 }
 
 /**
@@ -22,9 +22,9 @@ export interface GatewayDispatchPresenceUpdatePayload {
  * @see https://discord.com/developers/docs/events/gateway-events#client-status-object
  */
 export interface GatewayPresenceUpdateClientStatus {
-    desktop?: string;
-    mobile?: string;
-    web?: string;
+	desktop?: string;
+	mobile?: string;
+	web?: string;
 }
 
 /**
@@ -32,7 +32,7 @@ export interface GatewayPresenceUpdateClientStatus {
  * @see https://discord.com/developers/docs/events/gateway-events#presence-update
  */
 export interface GatewayPresenceUser extends Omit<Partial<APIUser>, "id"> {
-    id: Snowflake;
+	id: Snowflake;
 }
 
 /**
@@ -40,6 +40,6 @@ export interface GatewayPresenceUser extends Omit<Partial<APIUser>, "id"> {
  * @see https://discord.com/developers/docs/events/gateway-events#presence-update
  */
 export type GatewayDispatchPresenceUpdate = GatewayDispatchEventBase<
-    GatewayDispatchEvents.PresenceUpdate,
-    GatewayDispatchPresenceUpdatePayload
+	GatewayDispatchEvents.PresenceUpdate,
+	GatewayDispatchPresenceUpdatePayload
 >;

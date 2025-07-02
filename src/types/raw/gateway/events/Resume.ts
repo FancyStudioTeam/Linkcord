@@ -6,9 +6,9 @@ import type { GatewayOpcodes } from "../event.js";
  * @see https://discord.com/developers/docs/events/gateway-events#resume-resume-structure
  */
 export interface GatewayResumePayload {
-    seq: number;
-    session_id: string;
-    token: string;
+	seq: number;
+	session_id: string;
+	token: string;
 }
 
 /**

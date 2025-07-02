@@ -6,12 +6,12 @@ import type { APIUser } from "./Users.js";
  * @see https://discord.com/developers/docs/resources/soundboard#soundboard-sound-object-example-default-soundboard-sound
  */
 export interface APIDefaultSoundboardSound {
-    available: boolean;
-    emoji_id: Snowflake | null;
-    emoji_name: string | null;
-    name: string;
-    sound_id: string;
-    volume: number;
+	available: boolean;
+	emoji_id: Snowflake | null;
+	emoji_name: string | null;
+	name: string;
+	sound_id: string;
+	volume: number;
 }
 
 /**
@@ -19,9 +19,9 @@ export interface APIDefaultSoundboardSound {
  * @see https://discord.com/developers/docs/resources/soundboard#soundboard-sound-object-example-guild-soundboard-sound
  */
 export interface APIGuildSoundboardSound extends Omit<APIDefaultSoundboardSound, "sound_id"> {
-    guild_id: Snowflake;
-    sound_id: Snowflake;
-    user?: APIUser;
+	guild_id: Snowflake;
+	sound_id: Snowflake;
+	user?: APIUser;
 }
 
 /**

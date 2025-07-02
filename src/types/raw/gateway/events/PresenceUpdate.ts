@@ -7,8 +7,8 @@ import type { GatewayPresence } from "../presence.js";
  * @see https://discord.com/developers/docs/events/gateway-events#update-presence
  */
 export type GatewayPresenceUpdate = GatewayEventBase<
-    GatewayOpcodes.PresenceUpdate,
-    GatewayPresenceUpdatePayload
+	GatewayOpcodes.PresenceUpdate,
+	GatewayPresenceUpdatePayload
 >;
 
 /**

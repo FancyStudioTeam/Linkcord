@@ -10,13 +10,13 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#ready-ready-event-fields
  */
 export interface GatewayDispatchReadyPayload {
-    application: GatewayApplication;
-    guilds: APIUnavailableGuild[];
-    resume_gateway_url: string;
-    session_id: string;
-    shard?: [number, number];
-    user: APIUser;
-    v: APIVersion;
+	application: GatewayApplication;
+	guilds: APIUnavailableGuild[];
+	resume_gateway_url: string;
+	session_id: string;
+	shard?: [number, number];
+	user: APIUser;
+	v: APIVersion;
 }
 
 /**
@@ -24,6 +24,6 @@ export interface GatewayDispatchReadyPayload {
  * @see https://discord.com/developers/docs/events/gateway-events#ready
  */
 export type GatewayDispatchReady = GatewayDispatchEventBase<
-    GatewayDispatchEvents.Ready,
-    GatewayDispatchReadyPayload
+	GatewayDispatchEvents.Ready,
+	GatewayDispatchReadyPayload
 >;

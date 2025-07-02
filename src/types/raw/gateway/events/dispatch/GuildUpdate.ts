@@ -7,8 +7,8 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#guild-update
  */
 export type GatewayDispatchGuildUpdate = GatewayDispatchEventBase<
-    GatewayDispatchEvents.GuildUpdate,
-    GatewayDispatchGuildUpdatePayload
+	GatewayDispatchEvents.GuildUpdate,
+	GatewayDispatchGuildUpdatePayload
 >;
 
 /**

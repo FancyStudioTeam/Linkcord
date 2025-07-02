@@ -6,9 +6,9 @@ import type { VoiceOpcodes } from "../event.js";
  * @see https://discord.com/developers/docs/topics/voice-connections#speaking-example-speaking-payload
  */
 export interface VoiceSpeakingPayload {
-    delay: number;
-    speaking: number;
-    ssrc: number;
+	delay: number;
+	speaking: number;
+	ssrc: number;
 }
 
 /**
@@ -22,7 +22,7 @@ export type VoiceSpeaking = VoiceEventBase<VoiceOpcodes.Speaking, VoiceSpeakingP
  * @see https://discord.com/developers/docs/topics/voice-connections#speaking
  */
 export enum SpeakingFlags {
-    Microphone = 1 << 0,
-    Priority = 1 << 2,
-    Soundshare = 1 << 1,
+	Microphone = 1 << 0,
+	Priority = 1 << 2,
+	Soundshare = 1 << 1,
 }

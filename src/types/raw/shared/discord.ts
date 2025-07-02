@@ -15,9 +15,9 @@ export type AudioDataUri = `data:audio/mpeg;base64,${string}` | `data:audio/ogg;
  * @see https://discord.com/developers/docs/reference#image-data
  */
 export type ImageDataUri =
-    | `data:image/jpeg;base64,${string}`
-    | `data:image/png;base64,${string}`
-    | `data:image/gif;base64,${string}`;
+	| `data:image/jpeg;base64,${string}`
+	| `data:image/png;base64,${string}`
+	| `data:image/gif;base64,${string}`;
 
 /**
  * @public
@@ -30,7 +30,7 @@ export type ISO8601Date = string;
  * @see https://discord.com/developers/docs/reference#locales
  */
 export type LocalesMap = {
-    [Key in Locales]: string;
+	[Key in Locales]: string;
 };
 
 /**
@@ -56,36 +56,36 @@ export type VoiceVersion = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
  * @see https://discord.com/developers/docs/reference#locales
  */
 export enum Locales {
-    Bulgarian = "bg",
-    ChineseCN = "zh-CN",
-    ChineseTW = "zh-TW",
-    Croatian = "hr",
-    Czech = "cs",
-    Danish = "da",
-    Dutch = "nl",
-    EnglishUK = "en-GB",
-    EnglishUS = "en-US",
-    Finnish = "fi",
-    French = "fr",
-    German = "de",
-    Greek = "el",
-    Hindi = "hi",
-    Hungarian = "hu",
-    Indonesian = "id",
-    Italian = "it",
-    Japanese = "ja",
-    Korean = "ko",
-    Lithuanian = "lt",
-    Norwegian = "no",
-    Polish = "pl",
-    PortugueseBR = "pt-BR",
-    Romanian = "ro",
-    Russian = "ru",
-    SpanishES = "es-ES",
-    SpanishLATAM = "es-419",
-    Swedish = "sv-SE",
-    Thai = "th",
-    Turkish = "tr",
-    Ukrainian = "uk",
-    Vietnamese = "vi",
+	Bulgarian = "bg",
+	ChineseCN = "zh-CN",
+	ChineseTW = "zh-TW",
+	Croatian = "hr",
+	Czech = "cs",
+	Danish = "da",
+	Dutch = "nl",
+	EnglishUK = "en-GB",
+	EnglishUS = "en-US",
+	Finnish = "fi",
+	French = "fr",
+	German = "de",
+	Greek = "el",
+	Hindi = "hi",
+	Hungarian = "hu",
+	Indonesian = "id",
+	Italian = "it",
+	Japanese = "ja",
+	Korean = "ko",
+	Lithuanian = "lt",
+	Norwegian = "no",
+	Polish = "pl",
+	PortugueseBR = "pt-BR",
+	Romanian = "ro",
+	Russian = "ru",
+	SpanishES = "es-ES",
+	SpanishLATAM = "es-419",
+	Swedish = "sv-SE",
+	Thai = "th",
+	Turkish = "tr",
+	Ukrainian = "uk",
+	Vietnamese = "vi",
 }

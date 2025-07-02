@@ -8,26 +8,26 @@ import type { Client } from "./Client.js";
  * @public
  */
 export interface ClientEventsMap {
-    debug: [message: string];
-    guildCreate: [guild: Guild];
-    guildDelete: [guild: Guild | Uncached];
-    guildRoleCreate: [role: Role, guildId: Snowflake];
-    guildRoleDelete: [roleId: Snowflake, guildId: Snowflake];
-    guildRoleUpdate: [newRole: Role, oldRole: Role | Uncached, guildId: Snowflake];
-    guildUpdate: [newGuild: Guild, oldGuild: Guild | Uncached];
-    interactionCreate: [interaction: ChatInputCommandInteraction];
-    ready: [client: Client];
-    shardHello: [heartbeatInterval: number, shard: GatewayShard];
-    shardPacket: [packet: GatewayEvent, shard: GatewayShard];
-    shardReady: [user: User, shard: GatewayShard];
+	debug: [message: string];
+	guildCreate: [guild: Guild];
+	guildDelete: [guild: Guild | Uncached];
+	guildRoleCreate: [role: Role, guildId: Snowflake];
+	guildRoleDelete: [roleId: Snowflake, guildId: Snowflake];
+	guildRoleUpdate: [newRole: Role, oldRole: Role | Uncached, guildId: Snowflake];
+	guildUpdate: [newGuild: Guild, oldGuild: Guild | Uncached];
+	interactionCreate: [interaction: ChatInputCommandInteraction];
+	ready: [client: Client];
+	shardHello: [heartbeatInterval: number, shard: GatewayShard];
+	shardPacket: [packet: GatewayEvent, shard: GatewayShard];
+	shardReady: [user: User, shard: GatewayShard];
 }
 
 /**
  * @public
  */
 export interface Uncached {
-    id: Snowflake;
-    uncached: true;
+	id: Snowflake;
+	uncached: true;
 }
 
 /**

@@ -7,8 +7,8 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#guild-delete
  */
 export interface GatewayDispatchGuildDeletePayload
-    extends Omit<APIUnavailableGuild, "unavailable"> {
-    unavailable?: boolean;
+	extends Omit<APIUnavailableGuild, "unavailable"> {
+	unavailable?: boolean;
 }
 
 /**
@@ -16,6 +16,6 @@ export interface GatewayDispatchGuildDeletePayload
  * @see https://discord.com/developers/docs/events/gateway-events#guild-delete
  */
 export type GatewayDispatchGuildDelete = GatewayDispatchEventBase<
-    GatewayDispatchEvents.GuildDelete,
-    GatewayDispatchGuildDeletePayload
+	GatewayDispatchEvents.GuildDelete,
+	GatewayDispatchGuildDeletePayload
 >;

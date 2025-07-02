@@ -8,7 +8,7 @@ import type { ImageDataUri, Snowflake } from "../shared/discord.js";
  * @see https://discord.com/developers/docs/resources/user#create-dm-json-params
  */
 export interface RESTCreateDMJSONParams {
-    recipient_id: Snowflake;
+	recipient_id: Snowflake;
 }
 
 /**
@@ -16,8 +16,8 @@ export interface RESTCreateDMJSONParams {
  * @see https://discord.com/developers/docs/resources/user#create-group-dm-json-params
  */
 export interface RESTCreateGroupDMJSONParams {
-    access_tokens: string[];
-    nicks: Record<Snowflake, string>;
+	access_tokens: string[];
+	nicks: Record<Snowflake, string>;
 }
 
 /**
@@ -25,10 +25,10 @@ export interface RESTCreateGroupDMJSONParams {
  * @see https://discord.com/developers/docs/resources/user#get-current-user-guilds-query-string-params
  */
 export interface RESTGetCurrentUserGuildsStringParams {
-    after?: Snowflake;
-    before?: Snowflake;
-    limit?: number;
-    with_counts?: boolean;
+	after?: Snowflake;
+	before?: Snowflake;
+	limit?: number;
+	with_counts?: boolean;
 }
 
 /**
@@ -36,9 +36,9 @@ export interface RESTGetCurrentUserGuildsStringParams {
  * @see https://discord.com/developers/docs/resources/user#modify-current-user-json-params
  */
 export interface RESTModifyCurrentUserJSONParams {
-    avatar?: ImageDataUri | null;
-    banner?: ImageDataUri | null;
-    username?: string;
+	avatar?: ImageDataUri | null;
+	banner?: ImageDataUri | null;
+	username?: string;
 }
 
 /**
@@ -46,9 +46,9 @@ export interface RESTModifyCurrentUserJSONParams {
  * @see https://discord.com/developers/docs/resources/user#update-current-user-application-role-connection-json-params
  */
 export interface RESTUpdateCurrentUserApplicationRoleConnectionJSONParams {
-    metadata?: Record<string, string>;
-    platform_name?: string;
-    platform_username?: string;
+	metadata?: Record<string, string>;
+	platform_name?: string;
+	platform_username?: string;
 }
 
 /**

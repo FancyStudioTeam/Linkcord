@@ -7,8 +7,8 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#interaction-create
  */
 export type GatewayDispatchInteractionCreate = GatewayDispatchEventBase<
-    GatewayDispatchEvents.InteractionCreate,
-    GatewayDispatchInteractionCreatePayload
+	GatewayDispatchEvents.InteractionCreate,
+	GatewayDispatchInteractionCreatePayload
 >;
 
 /**

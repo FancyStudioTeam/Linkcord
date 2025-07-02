@@ -7,11 +7,11 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#message-poll-vote-add-message-poll-vote-add-fields
  */
 export interface GatewayDispatchMessagePollVoteAddPayload {
-    answer_id: number;
-    channel_id: Snowflake;
-    guild_id?: Snowflake;
-    message_id: Snowflake;
-    user_id: Snowflake;
+	answer_id: number;
+	channel_id: Snowflake;
+	guild_id?: Snowflake;
+	message_id: Snowflake;
+	user_id: Snowflake;
 }
 
 /**
@@ -19,6 +19,6 @@ export interface GatewayDispatchMessagePollVoteAddPayload {
  * @see https://discord.com/developers/docs/events/gateway-events#message-poll-vote-add
  */
 export type GatewayDispatchMessagePollVoteAdd = GatewayDispatchEventBase<
-    GatewayDispatchEvents.MessagePollVoteAdd,
-    GatewayDispatchMessagePollVoteAddPayload
+	GatewayDispatchEvents.MessagePollVoteAdd,
+	GatewayDispatchMessagePollVoteAddPayload
 >;

@@ -6,7 +6,7 @@ import type { GatewayOpcodes } from "../event.js";
  * @see https://discord.com/developers/docs/events/gateway-events#hello-hello-structure
  */
 export interface GatewayHelloPayload {
-    heartbeat_interval: number;
+	heartbeat_interval: number;
 }
 
 /**

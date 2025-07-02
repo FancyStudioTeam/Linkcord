@@ -6,9 +6,9 @@ import type { Snowflake } from "../shared/discord.js";
  * @see https://discord.com/developers/docs/resources/invite#get-invite-query-string-params
  */
 export interface RESTGetInviteStringParams {
-    guild_scheduled_event_id?: Snowflake;
-    with_counts?: boolean;
-    with_expiration?: boolean;
+	guild_scheduled_event_id?: Snowflake;
+	with_counts?: boolean;
+	with_expiration?: boolean;
 }
 
 /**

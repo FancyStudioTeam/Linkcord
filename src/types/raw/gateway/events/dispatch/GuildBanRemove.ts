@@ -8,8 +8,8 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#guild-ban-remove-guild-ban-remove-event-fields
  */
 export interface GatewayDispatchGuildBanRemovePayload {
-    guild_id: Snowflake;
-    user: APIUser;
+	guild_id: Snowflake;
+	user: APIUser;
 }
 
 /**
@@ -17,6 +17,6 @@ export interface GatewayDispatchGuildBanRemovePayload {
  * @see https://discord.com/developers/docs/events/gateway-events#guild-ban-remove
  */
 export type GatewayDispatchGuildBanRemove = GatewayDispatchEventBase<
-    GatewayDispatchEvents.GuildBanRemove,
-    GatewayDispatchGuildBanRemovePayload
+	GatewayDispatchEvents.GuildBanRemove,
+	GatewayDispatchGuildBanRemovePayload
 >;

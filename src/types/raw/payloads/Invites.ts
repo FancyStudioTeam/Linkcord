@@ -10,19 +10,19 @@ import type { APIUser } from "./Users.js";
  * @see https://discord.com/developers/docs/resources/invite#invite-object-invite-structure
  */
 export interface APIInvite {
-    approximate_member_count?: number;
-    approximate_presence_count?: number;
-    channel: APIChannel | null;
-    code: string;
-    expires_at?: ISO8601Date | null;
-    flags?: number;
-    guild?: APIInviteGuild;
-    guild_scheduled_event?: APIGuildScheduledEvent;
-    inviter?: APIUser;
-    target_application?: APIApplication;
-    target_type?: InviteTargetTypes;
-    target_user?: APIUser;
-    type: InviteTypes;
+	approximate_member_count?: number;
+	approximate_presence_count?: number;
+	channel: APIChannel | null;
+	code: string;
+	expires_at?: ISO8601Date | null;
+	flags?: number;
+	guild?: APIInviteGuild;
+	guild_scheduled_event?: APIGuildScheduledEvent;
+	inviter?: APIUser;
+	target_application?: APIApplication;
+	target_type?: InviteTargetTypes;
+	target_user?: APIUser;
+	type: InviteTypes;
 }
 
 /**
@@ -30,11 +30,11 @@ export interface APIInvite {
  * @see https://discord.com/developers/docs/resources/invite#invite-metadata-object-invite-metadata-structure
  */
 export interface APIInviteMetadata {
-    created_at: ISO8601Date;
-    max_age: number;
-    max_uses: number;
-    temporary: boolean;
-    uses: number;
+	created_at: ISO8601Date;
+	max_age: number;
+	max_uses: number;
+	temporary: boolean;
+	uses: number;
 }
 
 /**
@@ -42,19 +42,19 @@ export interface APIInviteMetadata {
  * @see https://discord.com/developers/docs/resources/invite#invite-object-example-invite-object
  */
 export type APIInviteGuild = Pick<
-    APIGuild,
-    | "banner"
-    | "description"
-    | "features"
-    | "icon"
-    | "id"
-    | "name"
-    | "nsfw_level"
-    | "premium_subscription_count"
-    | "premium_tier"
-    | "splash"
-    | "vanity_url_code"
-    | "verification_level"
+	APIGuild,
+	| "banner"
+	| "description"
+	| "features"
+	| "icon"
+	| "id"
+	| "name"
+	| "nsfw_level"
+	| "premium_subscription_count"
+	| "premium_tier"
+	| "splash"
+	| "vanity_url_code"
+	| "verification_level"
 >;
 
 /**
@@ -62,7 +62,7 @@ export type APIInviteGuild = Pick<
  * @see https://discord.com/developers/docs/resources/invite#invite-object-guild-invite-flags
  */
 export enum GuildInviteFlags {
-    IsGuestInvite = 1 << 0,
+	IsGuestInvite = 1 << 0,
 }
 
 /**
@@ -70,8 +70,8 @@ export enum GuildInviteFlags {
  * @see https://discord.com/developers/docs/resources/invite#invite-object-invite-target-types
  */
 export enum InviteTargetTypes {
-    EmbeddedApplication = 2,
-    Stream = 1,
+	EmbeddedApplication = 2,
+	Stream = 1,
 }
 
 /**
@@ -79,7 +79,7 @@ export enum InviteTargetTypes {
  * @see https://discord.com/developers/docs/resources/invite#invite-object-invite-types
  */
 export enum InviteTypes {
-    Friend = 2,
-    GroupDM = 1,
-    Guild = 0,
+	Friend = 2,
+	GroupDM = 1,
+	Guild = 0,
 }

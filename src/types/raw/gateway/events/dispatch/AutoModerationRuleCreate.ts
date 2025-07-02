@@ -7,8 +7,8 @@ import type { GatewayDispatchEvents } from "../Dispatch.js";
  * @see https://discord.com/developers/docs/events/gateway-events#auto-moderation-rule-create
  */
 export type GatewayDispatchAutoModerationRuleCreate = GatewayDispatchEventBase<
-    GatewayDispatchEvents.AutoModerationRuleCreate,
-    GatewayDispatchAutoModerationRuleCreatePayload
+	GatewayDispatchEvents.AutoModerationRuleCreate,
+	GatewayDispatchAutoModerationRuleCreatePayload
 >;
 
 /**

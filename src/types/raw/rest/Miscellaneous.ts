@@ -7,8 +7,8 @@ import type { APIVoiceRegion } from "../payloads/Voice.js";
  * @undocumented
  */
 export interface APIRefreshedAttachment {
-    original: string;
-    refreshed: string;
+	original: string;
+	refreshed: string;
 }
 
 /**
@@ -16,21 +16,21 @@ export interface APIRefreshedAttachment {
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response-query-string-params
  */
 export interface RESTPostInteractionQueryStringParams {
-    with_response?: boolean;
+	with_response?: boolean;
 }
 
 /**
  * @undocumented
  */
 export interface RESTPostRefreshAttachments {
-    refreshed_urls: APIRefreshedAttachment[];
+	refreshed_urls: APIRefreshedAttachment[];
 }
 
 /**
  * @undocumented
  */
 export interface RESTPostRefreshAttachmentsJSONParams {
-    attachment_urls: string[];
+	attachment_urls: string[];
 }
 
 /**
