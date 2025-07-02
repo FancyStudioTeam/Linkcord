@@ -1,33 +1,33 @@
 {
-    "$schema": "https://json.schemastore.org/tsconfig",
-    "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
-        "emitDecoratorMetadata": true,
-        "esModuleInterop": true,
-        "experimentalDecorators": true,
-        "forceConsistentCasingInFileNames": true,
-        "incremental": false,
-        "isolatedModules": true,
-        "jsx": "react",
-        "jsxFactory": "jsx",
-        "module": "NodeNext",
-        "moduleResolution": "nodenext",
-        "outDir": "dist",
-        "paths": {
-            "#client/*": ["./src/client/*"],
-            "#configuration/*": ["./src/configuration/*"],
-            "#gateway/*": ["./src/gateway/*"],
-            "#handlers/*": ["./src/handlers/*"],
-            "#rest/*": ["./src/rest/*"],
-            "#structures/*": ["./src/structures/*"],
-            "#types/*": ["./src/types/*"],
-            "#utils/*": ["./src/utils/*"]
-        },
-        "resolveJsonModule": true,
-        "skipDefaultLibCheck": true,
-        "skipLibCheck": true,
-        "strict": true,
-        "target": "ESNext"
-    },
-    "exclude": ["**/*.test.ts", "**/internal_testing"]
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
+		"emitDecoratorMetadata": true,
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"forceConsistentCasingInFileNames": true,
+		"incremental": false,
+		"isolatedModules": true,
+		"jsx": "react",
+		"jsxFactory": "jsx",
+		"module": "NodeNext",
+		"moduleResolution": "nodenext",
+		"outDir": "dist",
+		"paths": {
+			"#client/*": ["./src/client/*"],
+			"#configuration/*": ["./src/configuration/*"],
+			"#gateway/*": ["./src/gateway/*"],
+			"#handlers/*": ["./src/handlers/*"],
+			"#rest/*": ["./src/rest/*"],
+			"#structures/*": ["./src/structures/*"],
+			"#types/*": ["./src/types/*"],
+			"#utils/*": ["./src/utils/*"]
+		},
+		"resolveJsonModule": true,
+		"skipDefaultLibCheck": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "ESNext"
+	},
+	"exclude": ["**/*.test.ts", "**/internal_testing"]
 }

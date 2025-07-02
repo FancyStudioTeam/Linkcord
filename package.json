@@ -1,71 +1,71 @@
 {
-    "dependencies": {
-        "glob": "11.0.3",
-        "ws": "8.18.3"
-    },
-    "devDependencies": {
-        "@biomejs/biome": "2.0.6",
-        "@commitlint/cli": "19.8.1",
-        "@commitlint/config-conventional": "19.8.1",
-        "@commitlint/types": "19.8.1",
-        "@swc/core": "1.12.7",
-        "@types/node": "24.0.7",
-        "@types/semver": "7.7.0",
-        "@types/ws": "8.18.1",
-        "esbuild-plugin-version-injector": "1.2.1",
-        "husky": "9.1.7",
-        "lint-staged": "16.1.2",
-        "rimraf": "6.0.1",
-        "semver": "7.7.2",
-        "tsup": "8.5.0",
-        "typescript": "5.8.3",
-        "vite-tsconfig-paths": "5.1.4",
-        "vitest": "3.2.4"
-    },
-    "exports": {
-        ".": {
-            "import": "./dist/index.mjs",
-            "require": "./dist/index.js"
-        },
-        "./jsx-runtime": {
-            "import": "./dist/jsx-runtime/runtime.mjs",
-            "require": "./dist/jsx-runtime/runtime.js"
-        }
-    },
-    "files": [
-        "LICENSE",
-        "README.md",
-        "dist"
-    ],
-    "license": "MIT",
-    "lint-staged": {
-        "**/*.{js,jsx,ts,tsx,json}": [
-            "pnpm biome:write"
-        ]
-    },
-    "main": "dist/index.js",
-    "module": "dist/index.mjs",
-    "name": "@fancystudioteam/linkcord",
-    "packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184",
-    "publishConfig": {
-        "registry": "https://npm.pkg.github.com"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/FancyStudioTeam/Linkcord"
-    },
-    "scripts": {
-        "biome": "biome check --config-path biome.json",
-        "biome:ci": "biome ci --config-path biome.json",
-        "biome:write": "biome check --config-path biome.json --write",
-        "build": "pnpm rimraf && tsup",
-        "prepare": "husky",
-        "release": "pnpm publish --access public --no-git-checks",
-        "rimraf": "rimraf dist",
-        "tarball": "pnpm pack",
-        "vitest": "vitest -c vitest.config.ts",
-        "vitest:watch": "vitest -c vitest.config.ts --watch"
-    },
-    "types": "dist/index.d.ts",
-    "version": "0.0.0"
+	"dependencies": {
+		"glob": "11.0.3",
+		"ws": "8.18.3"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.0.6",
+		"@commitlint/cli": "19.8.1",
+		"@commitlint/config-conventional": "19.8.1",
+		"@commitlint/types": "19.8.1",
+		"@swc/core": "1.12.7",
+		"@types/node": "24.0.7",
+		"@types/semver": "7.7.0",
+		"@types/ws": "8.18.1",
+		"esbuild-plugin-version-injector": "1.2.1",
+		"husky": "9.1.7",
+		"lint-staged": "16.1.2",
+		"rimraf": "6.0.1",
+		"semver": "7.7.2",
+		"tsup": "8.5.0",
+		"typescript": "5.8.3",
+		"vite-tsconfig-paths": "5.1.4",
+		"vitest": "3.2.4"
+	},
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.js"
+		},
+		"./jsx-runtime": {
+			"import": "./dist/jsx-runtime/runtime.mjs",
+			"require": "./dist/jsx-runtime/runtime.js"
+		}
+	},
+	"files": [
+		"LICENSE",
+		"README.md",
+		"dist"
+	],
+	"license": "MIT",
+	"lint-staged": {
+		"**/*.{js,jsx,ts,tsx,json}": [
+			"pnpm biome:write"
+		]
+	},
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
+	"name": "@fancystudioteam/linkcord",
+	"packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184",
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/FancyStudioTeam/Linkcord"
+	},
+	"scripts": {
+		"biome": "biome check --config-path biome.json",
+		"biome:ci": "biome ci --config-path biome.json",
+		"biome:write": "biome check --config-path biome.json --write",
+		"build": "pnpm rimraf && tsup",
+		"prepare": "husky",
+		"release": "pnpm publish --access public --no-git-checks",
+		"rimraf": "rimraf dist",
+		"tarball": "pnpm pack",
+		"vitest": "vitest -c vitest.config.ts",
+		"vitest:watch": "vitest -c vitest.config.ts --watch"
+	},
+	"types": "dist/index.d.ts",
+	"version": "0.0.0"
 }

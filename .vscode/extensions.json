@@ -1,9 +1,9 @@
 {
-    "recommendations": [
-        "DavidAnson.vscode-markdownlint",
-        "YoavBls.pretty-ts-errors",
-        "biomejs.biome",
-        "esbenp.prettier-vscode",
-        "usernamehw.errorlens"
-    ]
+	"recommendations": [
+		"DavidAnson.vscode-markdownlint",
+		"YoavBls.pretty-ts-errors",
+		"biomejs.biome",
+		"esbenp.prettier-vscode",
+		"usernamehw.errorlens"
+	]
 }
