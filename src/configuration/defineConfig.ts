@@ -11,6 +11,7 @@ export const defineConfig = (options: LinkcordOptions): LinkcordOptions => optio
 export interface LinkcordCommandsCacheOptions {
 	cachePath?: string;
 	enabled: boolean;
+	useRootDirectory?: boolean;
 }
 
 /**
@@ -25,9 +26,9 @@ export interface LinkcordLocationsBase {
  * @public
  */
 export interface LinkcordLocationsOptions {
-	base: string;
 	commands?: string;
 	events?: string;
+	root: string;
 }
 
 /**

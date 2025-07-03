@@ -18,8 +18,8 @@ export class BaseClient {
 		}
 
 		if (locations) {
-			const { base, commands, events } = locations;
-			const createPath = (folder: string) => join(process.cwd(), base, folder);
+			const { commands, events, root } = locations;
+			const createPath = (folder: string) => join(process.cwd(), root, folder);
 			const locationPromises: Promise<unknown>[] = [
 				commands
 					? CommandsLoader.registerCommandsToClient(createPath(commands), this)
