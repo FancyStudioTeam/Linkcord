@@ -5,6 +5,7 @@ import type {
 	APIRole,
 	APIRoleColors,
 	APIRoleTags,
+	APIWelcomeScreen,
 	APIWelcomeScreenChannel,
 	IncidentsData,
 	RoleColors,
@@ -13,7 +14,6 @@ import type {
 	WelcomeScreen,
 	WelcomeScreenChannel,
 } from "#types/index.js";
-import type { APIWelcomeScreen } from "../../dist/index.mjs";
 
 /**
  * @internal

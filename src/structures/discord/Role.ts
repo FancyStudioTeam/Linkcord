@@ -7,6 +7,9 @@ import { Base } from "./base/Base.js";
  * @public
  */
 export class Role extends Base {
+	/**
+	 * @deprecated
+	 */
 	color: number;
 	colors: RoleColors;
 	description: string | null;

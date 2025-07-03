@@ -5,6 +5,9 @@ import type { Snowflake } from "../shared/discord.js";
  * @see https://discord.com/developers/docs/topics/permissions#role-object-role-structure
  */
 export interface APIRole {
+	/**
+	 * @deprecated
+	 */
 	color: number;
 	colors: APIRoleColors;
 	flags: RoleFlags;
