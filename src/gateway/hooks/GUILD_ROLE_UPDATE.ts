@@ -16,6 +16,10 @@ export const GUILD_ROLE_UPDATE = (
 	const { id: roleId } = roleData;
 	const role = new Role(roleId, roleData);
 
+	/**
+	 * These variables will be assigned later by their cached instance or an
+	 * `Uncached` instance.
+	 */
 	let guild: MaybeUncached<Guild>;
 	let oldRole: MaybeUncached<Role>;
 
@@ -28,11 +32,23 @@ export const GUILD_ROLE_UPDATE = (
 		const { cache: rolesCache } = roles;
 		const cachedRole = rolesCache.get(roleId);
 
-		if (cachedRole) {
-			oldRole = cachedRole;
+		if (!cachedRole) {
+			return;
 		}
+
+		oldRole = cachedRole;
+
+		/**
+		 * biome-ignore lint/complexity/useLiteralKeys: Accessing private
+		 * members from the manager.
+		 */
+		roles["patch"](roleId, roleData);
 	}
 
+	/**
+	 * Assign an `Uncached` instance value to variables that have not been
+	 * assigned yet.
+	 */
 	guild ??= new Uncached(guildId);
 	oldRole ??= new Uncached(roleId);
 

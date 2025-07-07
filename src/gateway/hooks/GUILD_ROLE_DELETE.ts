@@ -13,6 +13,10 @@ export const GUILD_ROLE_DELETE = (
 	const { events, guilds } = client;
 	const { cache: guildsCache } = guilds;
 
+	/**
+	 * These variables will be assigned later by their cached instance or an
+	 * `Uncached` instance.
+	 */
 	let guild: MaybeUncached<Guild>;
 	let role: MaybeUncached<Role>;
 
@@ -30,6 +34,10 @@ export const GUILD_ROLE_DELETE = (
 		}
 	}
 
+	/**
+	 * Assign an `Uncached` instance value to variables that have not been
+	 * assigned yet.
+	 */
 	guild ??= new Uncached(guildId);
 	role ??= new Uncached(roleId);
 
