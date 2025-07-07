@@ -1,4 +1,4 @@
-import type { APIAutoModerationRule } from "#types/raw/payloads/AutoModeration.js";
+import type { APIAutoModerationRule } from "#types/discord/payloads/AutoModeration.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../Dispatch.js";
 

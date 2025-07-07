@@ -1,4 +1,4 @@
-import type { APIInteraction } from "#types/raw/payloads/Interactions.js";
+import type { APIInteraction } from "#types/discord/payloads/Interactions.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../Dispatch.js";
 

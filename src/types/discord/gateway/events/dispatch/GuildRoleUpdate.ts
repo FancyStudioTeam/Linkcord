@@ -1,5 +1,5 @@
-import type { APIRole } from "#types/raw/payloads/Permissions.js";
-import type { Snowflake } from "#types/raw/shared/discord.js";
+import type { APIRole } from "#types/discord/payloads/Permissions.js";
+import type { Snowflake } from "#types/discord/shared/discord.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../Dispatch.js";
 

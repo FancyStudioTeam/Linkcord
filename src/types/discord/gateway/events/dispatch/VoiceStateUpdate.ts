@@ -1,4 +1,4 @@
-import type { APIVoiceState } from "#types/raw/payloads/Voice.js";
+import type { APIVoiceState } from "#types/discord/payloads/Voice.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../Dispatch.js";
 

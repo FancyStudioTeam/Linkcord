@@ -1,4 +1,4 @@
-import type { APIUser } from "#types/raw/payloads/Users.js";
+import type { APIUser } from "#types/discord/payloads/Users.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../Dispatch.js";
 

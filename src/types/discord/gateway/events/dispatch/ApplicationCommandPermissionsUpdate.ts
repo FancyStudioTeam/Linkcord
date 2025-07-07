@@ -1,4 +1,4 @@
-import type { APIGuildApplicationCommandPermissions } from "#types/raw/payloads/ApplicationCommands.js";
+import type { APIGuildApplicationCommandPermissions } from "#types/discord/payloads/ApplicationCommands.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../Dispatch.js";
 

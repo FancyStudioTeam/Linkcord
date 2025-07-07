@@ -1,10 +1,10 @@
-import type { APIGuildChannel, APIThreadChannel } from "#types/raw/payloads/Channels.js";
-import type { APIGuildScheduledEvent } from "#types/raw/payloads/GuildScheduledEvents.js";
-import type { APIGuild, APIGuildMember } from "#types/raw/payloads/Guilds.js";
-import type { APIGuildSoundboardSound } from "#types/raw/payloads/Soundboards.js";
-import type { APIStageInstance } from "#types/raw/payloads/StageInstances.js";
-import type { APIVoiceState } from "#types/raw/payloads/Voice.js";
-import type { ISO8601Date } from "#types/raw/shared/discord.js";
+import type { APIGuildChannel, APIThreadChannel } from "#types/discord/payloads/Channels.js";
+import type { APIGuildScheduledEvent } from "#types/discord/payloads/GuildScheduledEvents.js";
+import type { APIGuild, APIGuildMember } from "#types/discord/payloads/Guilds.js";
+import type { APIGuildSoundboardSound } from "#types/discord/payloads/Soundboards.js";
+import type { APIStageInstance } from "#types/discord/payloads/StageInstances.js";
+import type { APIVoiceState } from "#types/discord/payloads/Voice.js";
+import type { ISO8601Date } from "#types/discord/shared/discord.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayPresence } from "../../presence.js";
 import type { GatewayDispatchEvents } from "../Dispatch.js";

@@ -1,4 +1,4 @@
-import type { APIGuild } from "#types/raw/payloads/Guilds.js";
+import type { APIGuild } from "#types/discord/payloads/Guilds.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../Dispatch.js";
 

@@ -1,5 +1,5 @@
-import type { APIEmoji } from "#types/raw/payloads/Emojis.js";
-import type { Snowflake } from "#types/raw/shared/discord.js";
+import type { APIEmoji } from "#types/discord/payloads/Emojis.js";
+import type { Snowflake } from "#types/discord/shared/discord.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../Dispatch.js";
 

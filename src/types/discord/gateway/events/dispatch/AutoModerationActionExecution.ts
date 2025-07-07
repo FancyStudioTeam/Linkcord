@@ -1,8 +1,8 @@
 import type {
 	APIAutoModerationAction,
 	AutoModerationTriggerTypes,
-} from "#types/raw/payloads/AutoModeration.js";
-import type { Snowflake } from "#types/raw/shared/discord.js";
+} from "#types/discord/payloads/AutoModeration.js";
+import type { Snowflake } from "#types/discord/shared/discord.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../Dispatch.js";
 

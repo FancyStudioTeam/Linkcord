@@ -1,6 +1,6 @@
-import type { APIUnavailableGuild } from "#types/raw/payloads/Guilds.js";
-import type { APIUser } from "#types/raw/payloads/Users.js";
-import type { APIVersion } from "#types/raw/shared/discord.js";
+import type { APIUnavailableGuild } from "#types/discord/payloads/Guilds.js";
+import type { APIUser } from "#types/discord/payloads/Users.js";
+import type { APIVersion } from "#types/discord/shared/discord.js";
 import type { GatewayApplication } from "../../application.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../Dispatch.js";

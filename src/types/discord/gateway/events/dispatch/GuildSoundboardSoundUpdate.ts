@@ -1,4 +1,4 @@
-import type { APISoundboardSound } from "#types/raw/payloads/Soundboards.js";
+import type { APISoundboardSound } from "#types/discord/payloads/Soundboards.js";
 import type { GatewayDispatchEventBase } from "../../base/event.js";
 import type { GatewayDispatchEvents } from "../Dispatch.js";
 
