@@ -13,7 +13,7 @@ export const GUILD_UPDATE = (
 	const { cache: guildsCache } = guilds;
 
 	const { id: guildId } = guildData;
-	const newGuild = new Guild(guildId, guildData);
+	const guild = new Guild(guildId, guildData);
 	const oldGuild = guildsCache.get(guildId) ?? new Uncached(guildId);
 
 	/**
@@ -21,5 +21,5 @@ export const GUILD_UPDATE = (
 	 * from the manager.
 	 */
 	guilds["patch"](guildId, guildData);
-	events.emit("guildUpdate", newGuild, oldGuild);
+	events.emit("guildUpdate", guild, oldGuild);
 };
