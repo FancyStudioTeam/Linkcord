@@ -1,4 +1,4 @@
-import type { Snowflake } from "#types/raw/index.js";
+import type { Snowflake } from "#types/discord/index.js";
 
 /**
  * @public

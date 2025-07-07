@@ -1,4 +1,4 @@
-import type { NameplatePalettes, Snowflake } from "#types/raw/index.js";
+import type { NameplatePalettes, Snowflake } from "#types/discord/index.js";
 
 /**
  * @public
