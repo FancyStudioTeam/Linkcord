@@ -1,5 +1,5 @@
 import type { Client } from "#client/Client.js";
-import { GatewayShard } from "./GatewayShard.js";
+import { GatewayShard, GatewayShardStatus } from "./GatewayShard.js";
 
 /**
  * @public
@@ -33,9 +33,14 @@ export class GatewayManager {
 	 * @internal
 	 */
 	protected checkReady(): void {
-		const { shardCount, shards } = this;
+		const { ready, shardCount, shards } = this;
+		const shardsArray = [...shards.values()];
 
-		if (shards.size !== shardCount || this.ready) {
+		if (
+			shards.size !== shardCount ||
+			ready ||
+			shardsArray.some(({ status }) => status !== GatewayShardStatus.Ready)
+		) {
 			return;
 		}
 
@@ -53,10 +58,15 @@ export class GatewayManager {
 	 * @internal
 	 */
 	protected triggerReady(): void {
-		const { client } = this;
+		const { client, ready } = this;
 		const { events } = client;
 
 		this.ready = true;
+
+		if (ready) {
+			return;
+		}
+
 		events.emit("ready", client);
 	}
 

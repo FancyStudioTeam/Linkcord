@@ -26,6 +26,7 @@ export class GatewayShard {
 	readonly manager: GatewayManager;
 
 	sequence: number | null = null;
+	status = GatewayShardStatus.Disconnected;
 	ws: WebSocket | null = null;
 
 	constructor(id: number, manager: GatewayManager) {
@@ -169,10 +170,12 @@ export class GatewayShard {
 	 * @internal
 	 */
 	protected onOpen(): void {
+		this.status = GatewayShardStatus.Handshaking;
 		this.identify();
 	}
 
 	init(): void {
+		this.status = GatewayShardStatus.Connecting;
 		this.initializeWebSocket();
 	}
 
@@ -208,3 +211,13 @@ type SendPayload = {
  * @internal
  */
 type AnySendableOpcode = (typeof SENDABLE_OPCODES)[number];
+
+/**
+ * @public
+ */
+export enum GatewayShardStatus {
+	Connecting = "CONNECTING",
+	Disconnected = "DISCONNECTED",
+	Handshaking = "HANDSHAKING",
+	Ready = "READY",
+}
