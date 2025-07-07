@@ -1,4 +1,4 @@
-import type { Uncached } from "#client/ClientEvents.js";
+import type { Uncached } from "#structures/Uncached.js";
 
 /**
  * @public
