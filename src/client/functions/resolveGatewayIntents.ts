@@ -1,5 +1,5 @@
 import type { GatewayIntentsString } from "../../configuration/defineConfig.js";
-import { GatewayIntents } from "../../types/raw/index.js";
+import { GatewayIntents } from "../../types/discord/index.js";
 
 /**
  * @internal

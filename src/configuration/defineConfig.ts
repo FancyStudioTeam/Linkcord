@@ -1,4 +1,4 @@
-import type { GatewayIntents } from "../types/raw/index.js";
+import type { GatewayIntents } from "../types/discord/index.js";
 
 /**
  * @public
