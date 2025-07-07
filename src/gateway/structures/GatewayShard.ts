@@ -63,12 +63,9 @@ export class GatewayShard {
 	 * @internal
 	 */
 	protected identify(): void {
-		const { manager } = this;
-		const { intents, token } = manager;
+		const { id, manager } = this;
+		const { intents, shardCount, token } = manager;
 
-		/**
-		 * TODO: Implement `shard` for guild sharding.
-		 */
 		/**
 		 * TODO: Allow using custom values for `properties` and `presence`.
 		 */
@@ -79,6 +76,7 @@ export class GatewayShard {
 				device: "Linkcord",
 				os: "Linkcord",
 			},
+			shard: [id, shardCount],
 			token,
 		});
 	}
