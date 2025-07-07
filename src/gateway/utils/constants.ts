@@ -1,4 +1,4 @@
-import { GatewayOpcodes } from "#types/index.js";
+import { GatewayCloseEventCodes, GatewayOpcodes } from "#types/index.js";
 
 /**
  * @public
@@ -9,6 +9,20 @@ export const GATEWAY_URL_BASE = "wss://gateway.discord.gg";
  * @public
  */
 export const GATEWAY_VERSION = 10;
+
+/**
+ * @public
+ */
+export const RECONNECTABLE_CLOSE_CODES = [
+	GatewayCloseEventCodes.AlreadyAuthenticated,
+	GatewayCloseEventCodes.DecodeError,
+	GatewayCloseEventCodes.InvalidSequence,
+	GatewayCloseEventCodes.NotAuthenticated,
+	GatewayCloseEventCodes.RateLimited,
+	GatewayCloseEventCodes.SessionTimedOut,
+	GatewayCloseEventCodes.UnknownError,
+	GatewayCloseEventCodes.UnknownOpcode,
+] as const;
 
 /**
  * @public

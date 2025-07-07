@@ -2,7 +2,12 @@ import { type RawData, WebSocket } from "ws";
 import type { Client } from "#client/Client.js";
 import type { ClientEventsMap, ClientEventsString } from "#client/ClientEvents.js";
 import { DispatchHooks } from "#gateway/hooks/index.js";
-import { GATEWAY_URL_BASE, GATEWAY_VERSION, SENDABLE_OPCODES } from "#gateway/utils/constants.js";
+import {
+	GATEWAY_URL_BASE,
+	GATEWAY_VERSION,
+	RECONNECTABLE_CLOSE_CODES,
+	SENDABLE_OPCODES,
+} from "#gateway/utils/constants.js";
 import {
 	type GatewayDispatch,
 	type GatewayEvent,
@@ -113,6 +118,7 @@ export class GatewayShard {
 		 * TODO: Handle when a shard disconnects.
 		 */
 		this.ws = ws;
+		this.ws.on("close", this.onClose.bind(this));
 		this.ws.on("message", this.onMessage.bind(this));
 		this.ws.on("open", this.onOpen.bind(this));
 	}
@@ -120,9 +126,19 @@ export class GatewayShard {
 	/**
 	 * @internal
 	 */
-	protected async onMessage(data: RawData): Promise<void> {
-		const stringifiedData = data.toString();
-		const message = JSON.parse(stringifiedData) as GatewayEvent;
+	protected onClose(code: number, reasonBuffer: Buffer): void {
+		const reason = reasonBuffer.toString("utf-8");
+		const reconnectable = RECONNECTABLE_CLOSE_CODES.includes(code);
+
+		this.emit("shardDisconnected", reason, code, reconnectable, this);
+	}
+
+	/**
+	 * @internal
+	 */
+	protected async onMessage(bufferData: RawData): Promise<void> {
+		const data = bufferData.toString();
+		const message = JSON.parse(data) as GatewayEvent;
 
 		this.emit("shardPacket", message, this);
 
