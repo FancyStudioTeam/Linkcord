@@ -14,17 +14,18 @@ export class CacheManager<Key extends string, Value> {
 	/**
 	 * @internal
 	 */
-	protected add(key: Snowflake, value: Value): void {
+	protected add(key: Snowflake, value: Value): Value {
 		const { cache } = this;
-		const existing = cache.get(key);
-
-		if (existing) {
-			return;
-		}
 
 		cache.set(key, value);
 
-		return;
+		const existing = cache.get(key);
+
+		if (!existing) {
+			throw new Error(`Cache entry with key "${key}" does not exist.`);
+		}
+
+		return existing;
 	}
 
 	/**
