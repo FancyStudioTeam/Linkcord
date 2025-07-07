@@ -1,5 +1,5 @@
 import type { Client } from "#client/Client.js";
-import type { GatewayShard } from "#gateway/structures/GatewayShard.js";
+import { type GatewayShard, GatewayShardStatus } from "#gateway/structures/GatewayShard.js";
 import { User } from "#structures/index.js";
 import type { GatewayDispatchReadyPayload } from "#types/index.js";
 
@@ -8,8 +8,11 @@ export const READY = (
 	shard: GatewayShard,
 	{ user: userData }: GatewayDispatchReadyPayload,
 ) => {
+	shard.status = GatewayShardStatus.Ready;
+
 	const { events, users } = client;
 	const { manager } = shard;
+
 	const { id: userId } = userData;
 	const user = new User(userId, userData);
 

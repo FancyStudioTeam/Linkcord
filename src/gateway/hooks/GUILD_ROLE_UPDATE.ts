@@ -1,7 +1,7 @@
 import type { Client } from "#client/Client.js";
-import type { Uncached } from "#client/ClientEvents.js";
 import type { GatewayShard } from "#gateway/structures/GatewayShard.js";
 import { Role } from "#structures/index.js";
+import { Uncached } from "#structures/Uncached.js";
 import type { GatewayDispatchGuildRoleUpdatePayload } from "#types/index.js";
 
 export const GUILD_ROLE_UPDATE = (
@@ -9,13 +9,17 @@ export const GUILD_ROLE_UPDATE = (
 	_shard: GatewayShard,
 	{ guild_id: guildId, role: roleData }: GatewayDispatchGuildRoleUpdatePayload,
 ) => {
-	const { events } = client;
-	const { id: roleId } = roleData;
-	const role = new Role(roleId, roleData);
-	const uncachedRole: Uncached = {
-		id: roleId,
-		uncached: true,
-	};
+	const { events, guilds } = client;
+	const { cache: guildsCache } = guilds;
 
-	events.emit("guildRoleUpdate", role, uncachedRole, guildId);
+	const guild = guildsCache.get(guildId) ?? new Uncached(guildId);
+
+	const { id: roleId } = roleData;
+	const newRole = new Role(roleId, roleData);
+	/**
+	 * TODO: Get cached role from guild.
+	 */
+	const oldRole = new Uncached(roleId);
+
+	events.emit("guildRoleUpdate", newRole, oldRole, guild);
 };

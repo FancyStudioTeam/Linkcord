@@ -1,5 +1,7 @@
 import type { Client } from "#client/Client.js";
 import type { GatewayShard } from "#gateway/structures/GatewayShard.js";
+import { Guild } from "#structures/index.js";
+import { Uncached } from "#structures/Uncached.js";
 import type { GatewayDispatchGuildUpdatePayload } from "#types/index.js";
 
 export const GUILD_UPDATE = (
@@ -8,23 +10,16 @@ export const GUILD_UPDATE = (
 	guildData: GatewayDispatchGuildUpdatePayload,
 ) => {
 	const { events, guilds } = client;
-	const { cache } = guilds;
+	const { cache: guildsCache } = guilds;
+
 	const { id: guildId } = guildData;
+	const newGuild = new Guild(guildId, guildData);
+	const oldGuild = guildsCache.get(guildId) ?? new Uncached(guildId);
 
 	/**
 	 * biome-ignore lint/complexity/useLiteralKeys: Accessing private members
 	 * from the manager.
 	 */
 	guilds["patch"](guildId, guildData);
-
-	const guild = cache.get(guildId);
-
-	if (guild) {
-		return events.emit("guildUpdate", guild);
-	}
-
-	events.emit("guildUpdate", {
-		id: guildId,
-		uncached: true,
-	});
+	events.emit("guildUpdate", newGuild, oldGuild);
 };
