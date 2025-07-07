@@ -20,6 +20,9 @@ import { Base } from "./base/Base.js";
 /**
  * @public
  */
+/**
+ * TODO: Add `voiceAdapterCreator` to support `@discordjs/voice`.
+ */
 export class Guild extends Base {
 	afkChannelId: Snowflake | null;
 	afkTimeout: number;
