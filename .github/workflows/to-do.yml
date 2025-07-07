@@ -14,4 +14,4 @@ jobs:
               uses: actions/checkout@v4
 
             - name: 🔍 Check To-Do Comments
-              uses: alstr/todo-to-issue-action@v5.1.10
+              uses: alstr/todo-to-issue-action@v5.1.12
