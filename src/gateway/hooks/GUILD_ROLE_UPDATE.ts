@@ -1,8 +1,9 @@
 import type { Client } from "#client/Client.js";
 import type { GatewayShard } from "#gateway/structures/GatewayShard.js";
-import { Role } from "#structures/index.js";
+import { type Guild, Role } from "#structures/index.js";
 import { Uncached } from "#structures/Uncached.js";
 import type { GatewayDispatchGuildRoleUpdatePayload } from "#types/index.js";
+import type { MaybeUncached } from "#utils/types.js";
 
 export const GUILD_ROLE_UPDATE = (
 	client: Client,
@@ -12,14 +13,28 @@ export const GUILD_ROLE_UPDATE = (
 	const { events, guilds } = client;
 	const { cache: guildsCache } = guilds;
 
-	const guild = guildsCache.get(guildId) ?? new Uncached(guildId);
-
 	const { id: roleId } = roleData;
-	const newRole = new Role(roleId, roleData);
-	/**
-	 * TODO: Get cached role from guild.
-	 */
-	const oldRole = new Uncached(roleId);
+	const role = new Role(roleId, roleData);
 
-	events.emit("guildRoleUpdate", newRole, oldRole, guild);
+	let guild: MaybeUncached<Guild>;
+	let oldRole: MaybeUncached<Role>;
+
+	const cachedGuild = guildsCache.get(guildId);
+
+	if (cachedGuild) {
+		guild = cachedGuild;
+
+		const { roles } = cachedGuild;
+		const { cache: rolesCache } = roles;
+		const cachedRole = rolesCache.get(roleId);
+
+		if (cachedRole) {
+			oldRole = cachedRole;
+		}
+	}
+
+	guild ??= new Uncached(guildId);
+	oldRole ??= new Uncached(roleId);
+
+	events.emit("guildRoleUpdate", role, oldRole, guild);
 };

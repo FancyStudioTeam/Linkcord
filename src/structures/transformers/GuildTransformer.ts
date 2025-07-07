@@ -103,11 +103,11 @@ export class GuildTransformer {
 	/**
 	 * @internal
 	 */
-	static transformRoles(roles: APIRole[]): Map<Snowflake, Role> {
+	static transformRoles(roles: APIRole[]): readonly [Snowflake, Role][] {
 		const transformedRoles = roles.map((role) => new Role(role.id, role));
 		const rolesMap = transformedRoles.map<[Snowflake, Role]>((role) => [role.id, role]);
 
-		return new Map(rolesMap);
+		return rolesMap;
 	}
 
 	/**

@@ -1,3 +1,4 @@
+import { CacheManager } from "#client/managers/CacheManager.js";
 import { GuildTransformer } from "#structures/transformers/GuildTransformer.js";
 import type {
 	APIGuild,
@@ -16,6 +17,7 @@ import type {
 } from "#types/index.js";
 import { BitFieldResolver } from "#utils/index.js";
 import { Base } from "./base/Base.js";
+import type { Role } from "./Role.js";
 
 /**
  * @public
@@ -52,6 +54,7 @@ export class Guild extends Base {
 	premiumSubscriptionCount: number | null;
 	premiumTier: PremiumTiers;
 	publicUpdatesChannelId: Snowflake | null;
+	roles: CacheManager<Snowflake, Role>;
 	rulesChannelId: Snowflake | null;
 	safetyAlertsChannelId: Snowflake | null;
 	splash: string | null;
@@ -133,6 +136,7 @@ export class Guild extends Base {
 		this.premiumSubscriptionCount = premium_subscription_count ?? null;
 		this.premiumTier = premium_tier;
 		this.publicUpdatesChannelId = public_updates_channel_id;
+		this.roles = new CacheManager();
 		this.rulesChannelId = rules_channel_id;
 		this.safetyAlertsChannelId = safety_alerts_channel_id;
 		this.splash = splash;
@@ -179,6 +183,7 @@ export class Guild extends Base {
 			premium_subscription_count,
 			premium_tier,
 			public_updates_channel_id,
+			roles,
 			rules_channel_id,
 			safety_alerts_channel_id,
 			splash,
@@ -301,6 +306,19 @@ export class Guild extends Base {
 
 		if (public_updates_channel_id) {
 			this.publicUpdatesChannelId = public_updates_channel_id;
+		}
+
+		if (roles) {
+			const transformedRoles = GuildTransformer.transformRoles(roles);
+			const { roles: rolesManager } = this;
+
+			for (const [roleId, role] of transformedRoles) {
+				/**
+				 * biome-ignore lint/complexity/useLiteralKeys: Accessing
+				 * private members from the manager.
+				 */
+				rolesManager["add"](roleId, role);
+			}
 		}
 
 		if (rules_channel_id) {
