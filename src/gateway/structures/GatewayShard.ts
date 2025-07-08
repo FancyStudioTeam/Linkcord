@@ -210,12 +210,15 @@ export class GatewayShard {
 	}
 
 	setPresence(options: PresenceOptions): void {
-		const { activities, status } = options;
+		let { activities, afk, since, status } = options;
+
+		afk ??= false;
+		since ??= null;
 
 		this.send(GatewayOpcodes.PresenceUpdate, {
 			activities,
-			afk: false,
-			since: null,
+			afk,
+			since,
 			status,
 		});
 	}
@@ -236,6 +239,8 @@ export interface ActivityOptions {
  */
 export interface PresenceOptions {
 	activities: ActivityOptions[];
+	afk?: boolean;
+	since?: number | null;
 	status: StatusTypes;
 }
 
