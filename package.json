@@ -4,12 +4,12 @@
 		"ws": "8.18.3"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.0.6",
+		"@biomejs/biome": "2.1.1",
 		"@commitlint/cli": "19.8.1",
 		"@commitlint/config-conventional": "19.8.1",
 		"@commitlint/types": "19.8.1",
-		"@swc/core": "1.12.7",
-		"@types/node": "24.0.7",
+		"@swc/core": "1.12.11",
+		"@types/node": "24.0.11",
 		"@types/semver": "7.7.0",
 		"@types/ws": "8.18.1",
 		"esbuild-plugin-version-injector": "1.2.1",
@@ -58,9 +58,9 @@
 		"url": "https://github.com/FancyStudioTeam/Linkcord"
 	},
 	"scripts": {
-		"biome": "biome check --config-path biome.json",
-		"biome:ci": "biome ci --config-path biome.json",
-		"biome:write": "biome check --config-path biome.json --write",
+		"biome": "biome check",
+		"biome:ci": "biome ci",
+		"biome:write": "biome check --write",
 		"build": "pnpm rimraf && tsup",
 		"prepare": "husky",
 		"release": "pnpm publish --access public --no-git-checks",
