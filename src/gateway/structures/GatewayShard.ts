@@ -9,6 +9,7 @@ import {
 	SENDABLE_OPCODES,
 } from "#gateway/utils/constants.js";
 import {
+	type ActivityTypes,
 	type GatewayDispatch,
 	type GatewayEvent,
 	type GatewayHeartbeatPayload,
@@ -19,6 +20,7 @@ import {
 	type GatewayRequestGuildMembersPayload,
 	type GatewayResumePayload,
 	type GatewayVoiceStateUpdatePayload,
+	type StatusTypes,
 } from "#types/index.js";
 import type { GatewayManager } from "./GatewayManager.js";
 
@@ -45,7 +47,7 @@ export class GatewayShard {
 	/**
 	 * @internal
 	 */
-	protected getWebSocket(): WebSocket {
+	private getWebSocket(): WebSocket {
 		const { ws } = this;
 
 		if (!ws || ws.readyState !== ws.OPEN) {
@@ -58,7 +60,7 @@ export class GatewayShard {
 	/**
 	 * @internal
 	 */
-	protected heartbeat(): void {
+	private heartbeat(): void {
 		const { sequence } = this;
 
 		this.send(GatewayOpcodes.Heartbeat, sequence);
@@ -67,7 +69,7 @@ export class GatewayShard {
 	/**
 	 * @internal
 	 */
-	protected identify(): void {
+	private identify(): void {
 		const { id, manager } = this;
 		const { intents, shardCount, token } = manager;
 
@@ -89,7 +91,7 @@ export class GatewayShard {
 	/**
 	 * @internal
 	 */
-	protected emit<Event extends ClientEventsString>(
+	private emit<Event extends ClientEventsString>(
 		name: Event,
 		...data: ClientEventsMap[Event]
 	): void {
@@ -102,7 +104,7 @@ export class GatewayShard {
 	/**
 	 * @internal
 	 */
-	protected initializeWebSocket(gatewayURL: string = GATEWAY_URL_BASE): void {
+	private initializeWebSocket(gatewayURL: string = GATEWAY_URL_BASE): void {
 		const urlObject = new URL(gatewayURL);
 		const { searchParams } = urlObject;
 
@@ -126,7 +128,7 @@ export class GatewayShard {
 	/**
 	 * @internal
 	 */
-	protected onClose(code: number, reasonBuffer: Buffer): void {
+	private onClose(code: number, reasonBuffer: Buffer): void {
 		const reason = reasonBuffer.toString("utf-8");
 		const reconnectable = RECONNECTABLE_CLOSE_CODES.includes(code);
 
@@ -136,7 +138,7 @@ export class GatewayShard {
 	/**
 	 * @internal
 	 */
-	protected async onMessage(bufferData: RawData): Promise<void> {
+	private async onMessage(bufferData: RawData): Promise<void> {
 		const data = bufferData.toString();
 		const message = JSON.parse(data) as GatewayEvent;
 
@@ -162,7 +164,7 @@ export class GatewayShard {
 	/**
 	 * @internal
 	 */
-	protected async onMessageDispatch(dispatch: GatewayDispatch, client: Client): Promise<void> {
+	private async onMessageDispatch(dispatch: GatewayDispatch, client: Client): Promise<void> {
 		const { d, t } = dispatch;
 
 		await DispatchHooks[t]?.(client, this, d as never);
@@ -171,7 +173,7 @@ export class GatewayShard {
 	/**
 	 * @internal
 	 */
-	protected onMessageHello(hello: GatewayHello): void {
+	private onMessageHello(hello: GatewayHello): void {
 		const { d } = hello;
 		const { heartbeat_interval } = d;
 
@@ -183,7 +185,7 @@ export class GatewayShard {
 	/**
 	 * @internal
 	 */
-	protected onOpen(): void {
+	private onOpen(): void {
 		this.status = GatewayShardStatus.Handshaking;
 		this.identify();
 	}
@@ -206,6 +208,35 @@ export class GatewayShard {
 
 		ws.send(stringifiedPayload);
 	}
+
+	setPresence(options: PresenceOptions): void {
+		const { activities, status } = options;
+
+		this.send(GatewayOpcodes.PresenceUpdate, {
+			activities,
+			afk: false,
+			since: null,
+			status,
+		});
+	}
+}
+
+/**
+ * @public
+ */
+export interface ActivityOptions {
+	name: string;
+	state?: string;
+	type: ActivityTypes;
+	url?: string;
+}
+
+/**
+ * @public
+ */
+export interface PresenceOptions {
+	activities: ActivityOptions[];
+	status: StatusTypes;
 }
 
 /**
