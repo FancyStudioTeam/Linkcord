@@ -1,4 +1,4 @@
-import type { CreateUserContextApplicationCommandOptions } from "#types/parsed/Applications.js";
+import type { CreateUserContextApplicationCommandOptions } from "#types/parsed/ApplicationCommands.js";
 import type { UserContextCommandInstance } from "../commands/types.js";
 
 /**
@@ -12,12 +12,12 @@ export const Declare =
 		};
 
 /**
- * @public
+ * @internal
  */
 type DeclarableInstance = UserContextCommandInstance;
 
 /**
- * @public
+ * @internal
  */
 type DeclareOptions<Target extends DeclarableInstance> = Target extends UserContextCommandInstance
 	? UserContextCommandOptions
