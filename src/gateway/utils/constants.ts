@@ -38,6 +38,14 @@ export const SENDABLE_OPCODES = [
 ] as const;
 
 /**
+ * biome-ignore-start lint/nursery/noMagicNumbers: These values can be magic
+ * numbers.
+ */
+/**
  * @public
  */
 export const ZLIB_SUFFIX = Buffer.from([0x00, 0x00, 0xff, 0xff]);
+/**
+ * biome-ignore-end lint/nursery/noMagicNumbers: These values can be magic
+ * numbers.
+ */

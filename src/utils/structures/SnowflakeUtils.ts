@@ -1,11 +1,13 @@
 import type { Snowflake } from "../../types/index.js";
 
+const DISCORD_EPOCH_BIG_INT = 1420070400000n;
+
 /**
  * @public
  */
 export class SnowflakeUtils {
 	static get DISCORD_EPOCH(): bigint {
-		return 1420070400000n;
+		return DISCORD_EPOCH_BIG_INT;
 	}
 
 	static timestampFrom(snowflake: Snowflake | bigint | number): number {

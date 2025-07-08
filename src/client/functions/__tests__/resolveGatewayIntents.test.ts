@@ -1,3 +1,8 @@
+/**
+ * biome-ignore-all lint/nursery/noMagicNumbers: Expected number values can be
+ * magic numbers.
+ */
+
 import { describe, expect, it } from "vitest";
 import { GatewayIntents } from "../../../types/discord/index.js";
 import { resolveGatewayIntents } from "../resolveGatewayIntents.js";
