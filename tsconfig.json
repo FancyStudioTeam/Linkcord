@@ -14,6 +14,7 @@
 		"moduleResolution": "nodenext",
 		"outDir": "dist",
 		"paths": {
+			"#api/*": ["./src/api/*"],
 			"#builders/*": ["./src/builders/*"],
 			"#client/*": ["./src/client/*"],
 			"#configuration/*": ["./src/configuration/*"],
