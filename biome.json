@@ -47,7 +47,12 @@
 				"noMagicNumbers": "error",
 				"noUnassignedVariables": "error",
 				"noUnresolvedImports": "off",
-				"useReadonlyClassProperties": "error",
+				"useReadonlyClassProperties": {
+					"level": "error",
+					"options": {
+						"checkAllProperties": true
+					}
+				},
 				"useSortedClasses": "error",
 				"useUnifiedTypeSignature": "error"
 			},
