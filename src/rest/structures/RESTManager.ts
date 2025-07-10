@@ -1,3 +1,4 @@
+import { UsersAPI } from "#api/UsersAPI.js";
 import type { Client } from "#client/Client.js";
 import { REST_URL_BASE, USER_AGENT } from "#rest/utils/constants.js";
 
@@ -6,6 +7,7 @@ import { REST_URL_BASE, USER_AGENT } from "#rest/utils/constants.js";
  */
 export class RESTManager {
 	readonly client: Client;
+	readonly users = new UsersAPI(this);
 
 	constructor(client: Client) {
 		this.client = client;
@@ -21,19 +23,20 @@ export class RESTManager {
 	/**
 	 * @internal
 	 */
-	protected createRequestHeaders(options: CreateRequestHeadersOptions): Headers {
+	protected createRequestHeaders(options?: CreateRequestHeadersOptions): Headers {
 		const { token } = this;
-		const { contentType, reason, withAuthorization } = options;
 		const headers = new Headers();
 
+		let { contentType, reason, withAuthorization } = options ?? {};
+
+		contentType ??= RESTContentTypes.ApplicationJSON;
+		withAuthorization ??= true;
+
 		headers.set("User-Agent", USER_AGENT);
+		headers.set("Content-Type", contentType);
 
 		if (withAuthorization) {
 			headers.set("Authorization", `Bot ${token}`);
-		}
-
-		if (contentType) {
-			headers.set("Content-Type", contentType);
 		}
 
 		if (reason) {
@@ -48,7 +51,7 @@ export class RESTManager {
 	 */
 	protected createRequestInit(
 		method: RESTMethods,
-		options: CreateRequestInitOptions,
+		options?: CreateRequestInitOptions,
 	): RequestInit {
 		const headers = this.createRequestHeaders(options);
 		const data: RequestInit = {
@@ -62,27 +65,32 @@ export class RESTManager {
 	/**
 	 * @internal
 	 */
-	protected createRequestURL(endpoint: string, queryStringParams?: QueryStringParams): string {
+	protected createRequestURL<QueryStringParams>(
+		endpoint: string,
+		queryStringParams?: QueryStringParams,
+	): string {
 		const urlObject = new URL(endpoint, REST_URL_BASE);
 		const { searchParams } = urlObject;
 
-		if (typeof queryStringParams === "object") {
+		if (queryStringParams && typeof queryStringParams === "object") {
 			for (const [key, value] of Object.entries(queryStringParams)) {
-				searchParams.append(key, value.toString());
+				searchParams.append(key, String(value));
 			}
 		}
 
 		return urlObject.toString();
 	}
 
-	async makeRequest<Result>(
+	async makeRequest<Result, JSONParams = never, QueryStringParams = never>(
 		method: RESTMethods,
 		endpoint: string,
-		options: MakeRequestOptions,
+		options?: MakeRequestOptions<JSONParams, QueryStringParams>,
 	): Promise<Result> {
-		const { queryStringParams } = options;
+		const { queryString } = options ?? {};
+
 		const init = this.createRequestInit(method, options);
-		const url = this.createRequestURL(endpoint, queryStringParams);
+		const url = this.createRequestURL<QueryStringParams>(endpoint, queryString);
+
 		const request = await fetch(url, init);
 
 		return (await request.json()) as Promise<Result>;
@@ -92,9 +100,10 @@ export class RESTManager {
 /**
  * @public
  */
-export interface MakeRequestOptions {
-	contentType?: "application/json" | "application/x-www-form-urlencoded" | "multipart/form-data";
-	queryStringParams: QueryStringParams;
+export interface MakeRequestOptions<JSONParams = unknown, QueryStringParams = unknown> {
+	contentType?: RESTContentTypes;
+	json?: JSONParams;
+	queryString?: QueryStringParams;
 	reason?: string;
 	withAuthorization?: boolean;
 }
@@ -115,7 +124,11 @@ type CreateRequestHeadersOptions = Pick<
 /**
  * @public
  */
-export type QueryStringParams = Record<string, boolean | number | string>;
+export enum RESTContentTypes {
+	ApplicationJSON = "application/json",
+	ApplicationXWWWFormURLEncoded = "application/x-www-form-urlencoded",
+	MultipartFormData = "multipart/form-data",
+}
 
 /**
  * @public
