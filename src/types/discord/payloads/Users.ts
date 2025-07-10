@@ -103,7 +103,7 @@ export interface APIUser {
 	/**
 	 * @undocumented
 	 */
-	display_name_styles: APIUserDisplayNameStyles;
+	display_name_styles?: APIUserDisplayNameStyles;
 }
 
 /**
