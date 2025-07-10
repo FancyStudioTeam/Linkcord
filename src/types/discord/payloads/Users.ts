@@ -95,6 +95,15 @@ export interface APIUser {
 	system?: boolean;
 	username: string;
 	verified?: boolean;
+
+	/**
+	 * @undocumented
+	 */
+	banner_color: string | null;
+	/**
+	 * @undocumented
+	 */
+	display_name_styles: APIUserDisplayNameStyles;
 }
 
 /**
@@ -103,6 +112,15 @@ export interface APIUser {
  */
 export interface APIUserCollectibles {
 	nameplate?: APIUserNameplate;
+}
+
+/**
+ * @undocumented
+ */
+export interface APIUserDisplayNameStyles {
+	colors: number[];
+	effect_id: DisplayNameEffects;
+	font_id: DisplayNameFonts;
 }
 
 /**
@@ -146,6 +164,34 @@ export enum ConnectionServices {
 	Twitter = "twitter",
 	Xbox = "xbox",
 	YouTube = "youtube",
+}
+
+/**
+ * @undocumented
+ */
+export enum DisplayNameEffects {
+	Gradient = 2,
+	Neon = 3,
+	Pop = 5,
+	Solid = 1,
+	Toon = 4,
+}
+
+/**
+ * @undocumented
+ */
+export enum DisplayNameFonts {
+	Bangers = 1,
+	BioRhyme = 2,
+	CherryBomb = 3,
+	Chicle = 4,
+	Compagnon = 5,
+	Default = 11,
+	MuseoModerno = 6,
+	NeoCastel = 7,
+	Pixelify = 8,
+	Ribes = 9,
+	Siniestre = 10,
 }
 
 /**
