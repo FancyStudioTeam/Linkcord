@@ -309,7 +309,7 @@ export interface APIWelcomeScreenChannel {
  * @public
  * @see https://discord.com/developers/docs/resources/user#get-current-user-guilds-example-partial-guild
  */
-export type APICurrentUserGuild = Pick<
+export type APIUserGuild = Pick<
 	APIGuild,
 	| "approximate_member_count"
 	| "approximate_presence_count"
