@@ -191,7 +191,7 @@ export enum DisplayNameFonts {
 	NeoCastel = 7,
 	Pixelify = 8,
 	Ribes = 9,
-	Siniestre = 10,
+	Sinistre = 10,
 }
 
 /**
