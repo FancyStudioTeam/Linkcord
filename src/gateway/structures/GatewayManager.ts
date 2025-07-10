@@ -1,4 +1,5 @@
 import type { Client } from "#client/Client.js";
+import { fetchGatewayBot } from "#gateway/functions/fetchGatewayBot.js";
 import { GatewayShard, GatewayShardStatus } from "./GatewayShard.js";
 
 /**
@@ -50,7 +51,7 @@ export class GatewayManager {
 	/**
 	 * @internal
 	 */
-	protected setShardCount(shardCount: number): void {
+	private setShardCount(shardCount: number): void {
 		this.shardCount = shardCount;
 	}
 
@@ -71,13 +72,15 @@ export class GatewayManager {
 	}
 
 	async init(): Promise<void> {
-		/**
-		 * TODO: Fetch shards from gateway information and spawn them.
-		 */
-		const shard = new GatewayShard(0, this);
+		const { token } = this;
+		const { shards } = await fetchGatewayBot(token);
 
-		shard.init();
+		this.setShardCount(shards);
 
-		await Promise.resolve();
+		for (let shardId = 0; shardId < shards; shardId++) {
+			const shard = new GatewayShard(shardId, this);
+
+			shard.init();
+		}
 	}
 }
