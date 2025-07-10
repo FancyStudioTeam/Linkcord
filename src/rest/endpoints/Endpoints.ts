@@ -425,6 +425,10 @@ export class Endpoints {
 		return encode`users/${userId}/connections`;
 	}
 
+	static userGuild(userId: "@me", guildId: Snowflake): string {
+		return encode`users/${userId}/guilds/${guildId}`;
+	}
+
 	static userGuildMember(userId: "@me", guildId: Snowflake): string {
 		return encode`users/${userId}/guilds/${guildId}/member`;
 	}
