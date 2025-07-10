@@ -20,7 +20,7 @@ describe("Function: resolveGatewayIntents", () => {
 		// @ts-expect-error
 		expect(resolveGatewayIntents([GatewayIntents.Guilds, "MessageContent"])).toBe(32769));
 
-	it("Given an array of number and string intents including an invalid string intent, throws a 'TypeError'.", () =>
+	it("Throws a 'TypeError' when an invalid string intent is provided.", () =>
 		// @ts-expect-error
 		expect(() => resolveGatewayIntents(["Guilds", "MessageContent", "INVALID_INTENT"])).toThrow(
 			"Intent 'INVALID_INTENT' is not a valid string intent.",
