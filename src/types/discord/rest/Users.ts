@@ -1,30 +1,13 @@
 import type { APIDMChannel, APIGroupDMChannel } from "../payloads/Channels.js";
-import type { APICurrentUserGuild, APIGuildMember } from "../payloads/Guilds.js";
+import type { APIGuildMember, APIUserGuild } from "../payloads/Guilds.js";
 import type { APIApplicationRoleConnection, APIConnection, APIUser } from "../payloads/Users.js";
 import type { ImageDataUri, Snowflake } from "../shared/discord.js";
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/user#create-dm-json-params
- */
-export interface RESTCreateDMJSONParams {
-	recipient_id: Snowflake;
-}
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/user#create-group-dm-json-params
- */
-export interface RESTCreateGroupDMJSONParams {
-	access_tokens: string[];
-	nicks: Record<Snowflake, string>;
-}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/resources/user#get-current-user-guilds-query-string-params
  */
-export interface RESTGetCurrentUserGuildsStringParams {
+export interface RESTGetUserGuildsQueryStringParams {
 	after?: Snowflake;
 	before?: Snowflake;
 	limit?: number;
@@ -35,7 +18,7 @@ export interface RESTGetCurrentUserGuildsStringParams {
  * @public
  * @see https://discord.com/developers/docs/resources/user#modify-current-user-json-params
  */
-export interface RESTModifyCurrentUserJSONParams {
+export interface RESTPatchUserCurrentJSONParams {
 	avatar?: ImageDataUri | null;
 	banner?: ImageDataUri | null;
 	username?: string;
@@ -43,9 +26,26 @@ export interface RESTModifyCurrentUserJSONParams {
 
 /**
  * @public
+ * @see https://discord.com/developers/docs/resources/user#create-group-dm-json-params
+ */
+export interface RESTPostUserChannelDMJSONParams {
+	access_tokens: string[];
+	nicks: Record<Snowflake, string>;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/user#create-dm-json-params
+ */
+export interface RESTPostUserChannelJSONParams {
+	recipient_id: Snowflake;
+}
+
+/**
+ * @public
  * @see https://discord.com/developers/docs/resources/user#update-current-user-application-role-connection-json-params
  */
-export interface RESTUpdateCurrentUserApplicationRoleConnectionJSONParams {
+export interface RESTPutUserApplicationRoleConnectionJSONParams {
 	metadata?: Record<string, string>;
 	platform_name?: string;
 	platform_username?: string;
@@ -53,45 +53,9 @@ export interface RESTUpdateCurrentUserApplicationRoleConnectionJSONParams {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/user#create-dm
+ * @see https://discord.com/developers/docs/resources/user#leave-guild
  */
-export type RESTCreateDM = APIDMChannel;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/user#create-group-dm
- */
-export type RESTCreateGroupDM = APIGroupDMChannel;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/user#get-current-user
- */
-export type RESTGetCurrentUser = APIUser;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/user#get-current-user-application-role-connection
- */
-export type RESTGetCurrentUserApplicationRoleConnection = APIApplicationRoleConnection;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/user#get-current-user-connections
- */
-export type RESTGetCurrentUserConnections = APIConnection[];
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/user#get-current-user-guild-member
- */
-export type RESTGetCurrentUserGuildMember = APIGuildMember;
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/user#get-current-user-guilds
- */
-export type RESTGetCurrentUserGuilds = APICurrentUserGuild[];
+export type RESTDeleteUserGuild = undefined;
 
 /**
  * @public
@@ -101,18 +65,54 @@ export type RESTGetUser = APIUser;
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/user#leave-guild
+ * @see https://discord.com/developers/docs/resources/user#get-current-user-application-role-connection
  */
-export type RESTLeaveGuild = undefined;
+export type RESTGetUserApplicationRoleConnection = APIApplicationRoleConnection;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/user#get-current-user-connections
+ */
+export type RESTGetUserConnections = APIConnection[];
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/user#get-current-user
+ */
+export type RESTGetUserCurrent = APIUser;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/user#get-current-user-guild-member
+ */
+export type RESTGetUserGuildMember = APIGuildMember;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/user#get-current-user-guilds
+ */
+export type RESTGetUserGuilds = APIUserGuild[];
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/user#modify-current-user
  */
-export type RESTModifyCurrentUser = APIUser;
+export type RESTPatchUserCurrent = APIUser;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/user#create-dm
+ */
+export type RESTPostUserChannel = APIDMChannel;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/user#create-group-dm
+ */
+export type RESTPostUserChannelDM = APIGroupDMChannel;
 
 /**
  * @public
  * @see https://discord.com/developers/docs/resources/user#update-current-user-application-role-connection
  */
-export type RESTUpdateCurrentUserApplicationRoleConnection = APIApplicationRoleConnection;
+export type RESTPutUserApplicationRoleConnection = APIApplicationRoleConnection;
