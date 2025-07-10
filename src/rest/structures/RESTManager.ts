@@ -1,6 +1,8 @@
 import { UsersAPI } from "#api/UsersAPI.js";
 import type { Client } from "#client/Client.js";
+import { Endpoints } from "#rest/endpoints/Endpoints.js";
 import { REST_URL_BASE, USER_AGENT } from "#rest/utils/constants.js";
+import type { RESTGetGateway } from "#types/index.js";
 
 /**
  * @public
@@ -79,6 +81,22 @@ export class RESTManager {
 		}
 
 		return urlObject.toString();
+	}
+
+	/**
+	 * @see https://discord.com/developers/docs/events/gateway#get-gateway
+	 */
+	async getGateway<Result = RESTGetGateway>(): Promise<Result> {
+		return await this.makeRequest<Result>(RESTMethods.Get, Endpoints.gateway(), {
+			withAuthorization: false,
+		});
+	}
+
+	/**
+	 * @see https://discord.com/developers/docs/events/gateway#get-gateway-bot
+	 */
+	async getGatewayBot<Result = RESTGetGateway>(): Promise<Result> {
+		return await this.makeRequest<Result>(RESTMethods.Get, Endpoints.gatewayBot());
 	}
 
 	async makeRequest<Result, JSONParams = never, QueryStringParams = never>(
