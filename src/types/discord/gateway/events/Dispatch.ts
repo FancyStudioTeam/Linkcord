@@ -3,6 +3,9 @@ import type { GatewayDispatchAutoModerationActionExecution } from "./dispatch/Au
 import type { GatewayDispatchAutoModerationRuleCreate } from "./dispatch/AutoModerationRuleCreate.js";
 import type { GatewayDispatchAutoModerationRuleDelete } from "./dispatch/AutoModerationRuleDelete.js";
 import type { GatewayDispatchAutoModerationRuleUpdate } from "./dispatch/AutoModerationRuleUpdate.js";
+import type { GatewayDispatchChannelCreate } from "./dispatch/ChannelCreate.js";
+import type { GatewayDispatchChannelDelete } from "./dispatch/ChannelDelete.js";
+import type { GatewayDispatchChannelUpdate } from "./dispatch/ChannelUpdate.js";
 import type { GatewayDispatchGuildBanAdd } from "./dispatch/GuildBanAdd.js";
 import type { GatewayDispatchGuildBanRemove } from "./dispatch/GuildBanRemove.js";
 import type { GatewayDispatchGuildCreate } from "./dispatch/GuildCreate.js";
@@ -41,6 +44,9 @@ export type GatewayDispatch =
 	| GatewayDispatchAutoModerationRuleCreate
 	| GatewayDispatchAutoModerationRuleDelete
 	| GatewayDispatchAutoModerationRuleUpdate
+	| GatewayDispatchChannelCreate
+	| GatewayDispatchChannelDelete
+	| GatewayDispatchChannelUpdate
 	| GatewayDispatchGuildBanAdd
 	| GatewayDispatchGuildBanRemove
 	| GatewayDispatchGuildCreate
