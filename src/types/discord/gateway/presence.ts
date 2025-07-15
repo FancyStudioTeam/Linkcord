@@ -7,8 +7,19 @@ import type { GatewayActivity } from "./activity.js";
 export interface GatewayPresence {
 	activities: GatewayPresenceActivity[];
 	afk: boolean;
+	client_status: GatewayPresenceClientStatus;
 	since: number | null;
 	status: StatusTypes;
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#client-status-object
+ */
+export interface GatewayPresenceClientStatus {
+	desktop?: ClientStatusTypes;
+	mobile?: ClientStatusTypes;
+	web?: ClientStatusTypes;
 }
 
 /**
@@ -16,6 +27,16 @@ export interface GatewayPresence {
  * @see https://discord.com/developers/docs/events/gateway-events#update-presence-example-gateway-presence-update
  */
 export type GatewayPresenceActivity = Pick<GatewayActivity, "name" | "state" | "type" | "url">;
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#client-status-object
+ */
+export enum ClientStatusTypes {
+	DoNotDisturb = "dnd",
+	Idle = "idle",
+	Online = "online",
+}
 
 /**
  * @public
