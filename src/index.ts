@@ -11,3 +11,7 @@ export * from "./types/index.js";
 export * from "./utils/index.js";
 
 export const LINKCORD_VERSION: string = "[VI]{{inject}}[/VI]";
+
+/**
+ * TODO: Use `function` keyword for functions instead of arrow functions.
+ */
