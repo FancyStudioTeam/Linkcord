@@ -20,6 +20,11 @@ import type { GatewayDispatchGuildMembersChunk } from "./dispatch/GuildMembersCh
 import type { GatewayDispatchGuildRoleCreate } from "./dispatch/GuildRoleCreate.js";
 import type { GatewayDispatchGuildRoleDelete } from "./dispatch/GuildRoleDelete.js";
 import type { GatewayDispatchGuildRoleUpdate } from "./dispatch/GuildRoleUpdate.js";
+import type { GatewayDispatchGuildScheduledEventCreate } from "./dispatch/GuildScheduledEventCreate.js";
+import type { GatewayDispatchGuildScheduledEventDelete } from "./dispatch/GuildScheduledEventDelete.js";
+import type { GatewayDispatchGuildScheduledEventUpdate } from "./dispatch/GuildScheduledEventUpdate.js";
+import type { GatewayDispatchGuildScheduledEventUserAdd } from "./dispatch/GuildScheduledEventUserAdd.js";
+import type { GatewayDispatchGuildScheduledEventUserRemove } from "./dispatch/GuildScheduledEventUserRemove.js";
 import type { GatewayDispatchGuildSoundboardSoundCreate } from "./dispatch/GuildSoundboardSoundCreate.js";
 import type { GatewayDispatchGuildSoundboardSoundDelete } from "./dispatch/GuildSoundboardSoundDelete.js";
 import type { GatewayDispatchGuildSoundboardSoundsUpdate } from "./dispatch/GuildSoundboardSoundsUpdate.js";
@@ -66,6 +71,11 @@ export type GatewayDispatch =
 	| GatewayDispatchGuildRoleCreate
 	| GatewayDispatchGuildRoleDelete
 	| GatewayDispatchGuildRoleUpdate
+	| GatewayDispatchGuildScheduledEventCreate
+	| GatewayDispatchGuildScheduledEventDelete
+	| GatewayDispatchGuildScheduledEventUpdate
+	| GatewayDispatchGuildScheduledEventUserAdd
+	| GatewayDispatchGuildScheduledEventUserRemove
 	| GatewayDispatchGuildSoundboardSoundCreate
 	| GatewayDispatchGuildSoundboardSoundDelete
 	| GatewayDispatchGuildSoundboardSoundUpdate
