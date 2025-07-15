@@ -35,6 +35,8 @@ export * from "./IntegrationCreate.js";
 export * from "./IntegrationDelete.js";
 export * from "./IntegrationUpdate.js";
 export * from "./InteractionCreate.js";
+export * from "./InviteCreate.js";
+export * from "./InviteDelete.js";
 export * from "./MessageDeleteBulk.js";
 export * from "./MessagePollVoteAdd.js";
 export * from "./MessagePollVoteRemove.js";

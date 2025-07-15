@@ -35,6 +35,8 @@ import type { GatewayDispatchIntegrationCreate } from "./dispatch/IntegrationCre
 import type { GatewayDispatchIntegrationDelete } from "./dispatch/IntegrationDelete.js";
 import type { GatewayDispatchIntegrationUpdate } from "./dispatch/IntegrationUpdate.js";
 import type { GatewayDispatchInteractionCreate } from "./dispatch/InteractionCreate.js";
+import type { GatewayDispatchInviteCreate } from "./dispatch/InviteCreate.js";
+import type { GatewayDispatchInviteDelete } from "./dispatch/InviteDelete.js";
 import type { GatewayDispatchMessageDeleteBulk } from "./dispatch/MessageDeleteBulk.js";
 import type { GatewayDispatchMessagePollVoteAdd } from "./dispatch/MessagePollVoteAdd.js";
 import type { GatewayDispatchMessagePollVoteRemove } from "./dispatch/MessagePollVoteRemove.js";
@@ -90,6 +92,8 @@ export type GatewayDispatch =
 	| GatewayDispatchIntegrationDelete
 	| GatewayDispatchIntegrationUpdate
 	| GatewayDispatchInteractionCreate
+	| GatewayDispatchInviteCreate
+	| GatewayDispatchInviteDelete
 	| GatewayDispatchMessageDeleteBulk
 	| GatewayDispatchMessagePollVoteAdd
 	| GatewayDispatchMessagePollVoteRemove
