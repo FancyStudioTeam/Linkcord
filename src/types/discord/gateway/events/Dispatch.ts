@@ -29,6 +29,7 @@ import type { GatewayDispatchGuildSoundboardSoundCreate } from "./dispatch/Guild
 import type { GatewayDispatchGuildSoundboardSoundDelete } from "./dispatch/GuildSoundboardSoundDelete.js";
 import type { GatewayDispatchGuildSoundboardSoundsUpdate } from "./dispatch/GuildSoundboardSoundsUpdate.js";
 import type { GatewayDispatchGuildSoundboardSoundUpdate } from "./dispatch/GuildSoundboardSoundUpdate.js";
+import type { GatewayDispatchGuildStickersUpdate } from "./dispatch/GuildStickersUpdate.js";
 import type { GatewayDispatchGuildUpdate } from "./dispatch/GuildUpdate.js";
 import type { GatewayDispatchInteractionCreate } from "./dispatch/InteractionCreate.js";
 import type { GatewayDispatchMessageDeleteBulk } from "./dispatch/MessageDeleteBulk.js";
@@ -80,6 +81,7 @@ export type GatewayDispatch =
 	| GatewayDispatchGuildSoundboardSoundDelete
 	| GatewayDispatchGuildSoundboardSoundUpdate
 	| GatewayDispatchGuildSoundboardSoundsUpdate
+	| GatewayDispatchGuildStickersUpdate
 	| GatewayDispatchGuildUpdate
 	| GatewayDispatchInteractionCreate
 	| GatewayDispatchMessageDeleteBulk
