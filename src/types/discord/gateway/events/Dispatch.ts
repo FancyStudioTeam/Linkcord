@@ -12,8 +12,11 @@ import type { GatewayDispatchGuildBanAdd } from "./dispatch/GuildBanAdd.js";
 import type { GatewayDispatchGuildBanRemove } from "./dispatch/GuildBanRemove.js";
 import type { GatewayDispatchGuildCreate } from "./dispatch/GuildCreate.js";
 import type { GatewayDispatchGuildDelete } from "./dispatch/GuildDelete.js";
+import type { GatewayDispatchGuildEmojisUpdate } from "./dispatch/GuildEmojisUpdate.js";
+import type { GatewayDispatchGuildIntegrationsUpdate } from "./dispatch/GuildIntegrationsUpdate.js";
 import type { GatewayDispatchGuildMemberAdd } from "./dispatch/GuildMemberAdd.js";
 import type { GatewayDispatchGuildMemberRemove } from "./dispatch/GuildMemberRemove.js";
+import type { GatewayDispatchGuildMembersChunk } from "./dispatch/GuildMembersChunk.js";
 import type { GatewayDispatchGuildRoleCreate } from "./dispatch/GuildRoleCreate.js";
 import type { GatewayDispatchGuildRoleDelete } from "./dispatch/GuildRoleDelete.js";
 import type { GatewayDispatchGuildRoleUpdate } from "./dispatch/GuildRoleUpdate.js";
@@ -55,8 +58,11 @@ export type GatewayDispatch =
 	| GatewayDispatchGuildBanRemove
 	| GatewayDispatchGuildCreate
 	| GatewayDispatchGuildDelete
+	| GatewayDispatchGuildEmojisUpdate
+	| GatewayDispatchGuildIntegrationsUpdate
 	| GatewayDispatchGuildMemberAdd
 	| GatewayDispatchGuildMemberRemove
+	| GatewayDispatchGuildMembersChunk
 	| GatewayDispatchGuildRoleCreate
 	| GatewayDispatchGuildRoleDelete
 	| GatewayDispatchGuildRoleUpdate
