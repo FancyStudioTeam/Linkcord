@@ -31,11 +31,10 @@ export class VoiceRegion {
 	/**
 	 * Creates a new {@link VoiceRegion} instance from raw Discord API data.
 	 *
-	 * @param id - The ID for the voice region.
 	 * @param data - The raw Discord API voice region data.
 	 */
-	constructor(id: string, data: APIVoiceRegion) {
-		const { name, optimal, deprecated, custom } = data;
+	constructor(data: APIVoiceRegion) {
+		const { custom, deprecated, id, name, optimal } = data;
 
 		this.custom = custom;
 		this.deprecated = deprecated;
