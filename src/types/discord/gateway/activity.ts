@@ -10,6 +10,7 @@ export interface GatewayActivity {
 	buttons?: GatewayActivityButton[];
 	created_at: number;
 	details?: string | null;
+	details_url?: string | null;
 	emoji?: GatewayActivityEmoji | null;
 	flags?: ActivityFlags;
 	instance?: boolean;
@@ -17,7 +18,9 @@ export interface GatewayActivity {
 	party?: GatewayActivityParty;
 	secrets?: GatewayActivitySecrets;
 	state?: string | null;
-	timestamps: GatewayActivityTimestamps;
+	state_url?: string | null;
+	status_display_type?: StatusDisplayTypes;
+	timestamps?: GatewayActivityTimestamps;
 	type: ActivityTypes;
 	url?: string | null;
 }
@@ -29,8 +32,10 @@ export interface GatewayActivity {
 export interface GatewayActivityAssets {
 	large_image?: string;
 	large_text?: string;
+	large_url?: string;
 	small_image?: string;
 	small_text?: string;
+	small_url?: string;
 }
 
 /**
@@ -107,4 +112,14 @@ export enum ActivityTypes {
 	Playing = 0,
 	Streaming = 1,
 	Watching = 3,
+}
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/events/gateway-events#activity-object-status-display-types
+ */
+export enum StatusDisplayTypes {
+	Details = 2,
+	Name = 0,
+	State = 1,
 }
