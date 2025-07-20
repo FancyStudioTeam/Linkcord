@@ -36,7 +36,7 @@ export class Role extends Base {
 	/**
 	 * Whether the role is managed by an integration.
 	 */
-	managed: boolean;
+	readonly managed: boolean;
 	/**
 	 * Whether the role can be mentioned.
 	 */
@@ -100,7 +100,6 @@ export class Role extends Base {
 			flags,
 			hoist,
 			icon,
-			managed,
 			mentionable,
 			name,
 			permissions,
@@ -129,10 +128,6 @@ export class Role extends Base {
 			this.icon = icon;
 		} else {
 			this.icon ??= null;
-		}
-
-		if (managed) {
-			this.managed = managed;
 		}
 
 		if (mentionable) {
