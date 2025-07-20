@@ -11,13 +11,6 @@ import { Base } from "./base/Base.js";
  */
 export class Role extends Base {
 	/**
-	 * The color of the role.
-	 *
-	 * @deprecated Use
-	 * {@link RoleColors.primaryColor | `RoleColors.primaryColor`} instead.
-	 */
-	color: number;
-	/**
 	 * The colors of the role.
 	 */
 	colors: RoleColors;
@@ -71,10 +64,8 @@ export class Role extends Base {
 	constructor(client: Client, data: APIRole) {
 		super(client);
 
-		const { color, colors, flags, hoist, managed, mentionable, name, permissions, position } =
-			data;
+		const { colors, flags, hoist, managed, mentionable, name, permissions, position } = data;
 
-		this.color = color;
 		this.colors = GuildTransformer.transformRoleColors(colors);
 		this.flags = new BitFieldResolver(flags);
 		this.hoist = hoist;
@@ -87,6 +78,16 @@ export class Role extends Base {
 	}
 
 	/**
+	 * The color of the role.
+	 */
+	get color(): number {
+		const { colors } = this;
+		const { primaryColor } = colors;
+
+		return primaryColor;
+	}
+
+	/**
 	 * Patches the role properties with the given data.
 	 *
 	 * @param data - The data to use when patching the role properties.
@@ -95,7 +96,6 @@ export class Role extends Base {
 	 */
 	protected _patch(data: RoleData = {}): void {
 		const {
-			color,
 			colors,
 			flags,
 			hoist,
@@ -107,10 +107,6 @@ export class Role extends Base {
 			tags,
 			unicode_emoji,
 		} = data;
-
-		if (color) {
-			this.color = color;
-		}
 
 		if (colors) {
 			this.colors = GuildTransformer.transformRoleColors(colors);
