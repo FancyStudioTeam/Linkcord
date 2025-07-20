@@ -1,72 +1,102 @@
+import type { Client } from "#client/Client.js";
 import { GuildTransformer } from "#structures/transformers/GuildTransformer.js";
-import type { APIRole, RoleColors, RoleTags, Snowflake } from "#types/index.js";
+import type { APIRole, JSONRole, RoleColors, RoleTags } from "#types/index.js";
 import { BitFieldResolver } from "#utils/index.js";
 import { Base } from "./base/Base.js";
 
 /**
+ * Represents a Discord role.
+ *
  * @public
  */
 export class Role extends Base {
 	/**
-	 * @deprecated
+	 * The color of the role.
+	 *
+	 * @deprecated Use
+	 * {@link RoleColors.primaryColor | `RoleColors.primaryColor`} instead.
 	 */
 	color: number;
+	/**
+	 * The colors of the role.
+	 */
 	colors: RoleColors;
-	description: string | null;
+	/**
+	 * The flags of the role.
+	 */
 	flags: BitFieldResolver;
+	/**
+	 * Whether the role is hoisted.
+	 */
 	hoist: boolean;
-	icon: string | null;
+	/**
+	 * The icon of the role.
+	 */
+	icon!: string | null;
+	/**
+	 * Whether the role is managed by an integration.
+	 */
 	managed: boolean;
+	/**
+	 * Whether the role can be mentioned.
+	 */
 	mentionable: boolean;
+	/**
+	 * The name of the role.
+	 */
 	name: string;
+	/**
+	 * The permissions of the role.
+	 */
 	permissions: string;
+	/**
+	 * The position of the role.
+	 */
 	position: number;
-	tags: RoleTags | null;
-	unicodeEmoji: string | null;
+	/**
+	 * The tags of the role.
+	 */
+	tags!: RoleTags | null;
+	/**
+	 * The unicode emoji of the role.
+	 */
+	unicodeEmoji!: string | null;
 
-	constructor(id: Snowflake, data: APIRole) {
-		super(id);
+	/**
+	 * Creates a new {@link Role} instance from raw Discord API data.
+	 *
+	 * @param client - The client that instantiated the role.
+	 * @param data - The raw Discord API role data.
+	 */
+	constructor(client: Client, data: APIRole) {
+		super(client);
 
-		const {
-			color,
-			colors,
-			description,
-			flags,
-			hoist,
-			icon,
-			managed,
-			mentionable,
-			name,
-			permissions,
-			position,
-			tags,
-			unicode_emoji,
-		} = data;
+		const { color, colors, flags, hoist, managed, mentionable, name, permissions, position } =
+			data;
 
 		this.color = color;
 		this.colors = GuildTransformer.transformRoleColors(colors);
-		this.description = description;
 		this.flags = new BitFieldResolver(flags);
 		this.hoist = hoist;
-		this.icon = icon ?? null;
 		this.managed = managed;
 		this.mentionable = mentionable;
 		this.name = name;
 		this.permissions = permissions;
 		this.position = position;
-		this.tags = GuildTransformer.transformRoleTags(tags);
-		this.unicodeEmoji = unicode_emoji ?? null;
-		this.patch(data);
+		this._patch(data);
 	}
 
 	/**
+	 * Patches the role properties with the given data.
+	 *
+	 * @param data - The data to use when patching the role properties.
+	 *
 	 * @internal
 	 */
-	private patch(data: RoleData): void {
+	protected _patch(data: RoleData = {}): void {
 		const {
 			color,
 			colors,
-			description,
 			flags,
 			hoist,
 			icon,
@@ -87,10 +117,6 @@ export class Role extends Base {
 			this.colors = GuildTransformer.transformRoleColors(colors);
 		}
 
-		if (description) {
-			this.description = description;
-		}
-
 		if (flags) {
 			this.flags = new BitFieldResolver(flags);
 		}
@@ -101,6 +127,8 @@ export class Role extends Base {
 
 		if (icon) {
 			this.icon = icon;
+		} else {
+			this.icon ??= null;
 		}
 
 		if (managed) {
@@ -125,11 +153,52 @@ export class Role extends Base {
 
 		if (tags) {
 			this.tags = GuildTransformer.transformRoleTags(tags);
+		} else {
+			this.tags ??= null;
 		}
 
 		if (unicode_emoji) {
 			this.unicodeEmoji = unicode_emoji;
+		} else {
+			this.unicodeEmoji ??= null;
 		}
+	}
+
+	/**
+	 * Converts the {@link Role | `Role`} instance to a JSON object.
+	 *
+	 * @returns The JSON role data.
+	 */
+	toJSON(): JSONRole {
+		const {
+			color,
+			colors,
+			flags,
+			hoist,
+			icon,
+			managed,
+			mentionable,
+			name,
+			permissions,
+			position,
+			tags,
+			unicodeEmoji,
+		} = this;
+
+		return {
+			color,
+			colors,
+			flags,
+			hoist,
+			icon,
+			managed,
+			mentionable,
+			name,
+			permissions,
+			position,
+			tags,
+			unicodeEmoji,
+		};
 	}
 }
 
