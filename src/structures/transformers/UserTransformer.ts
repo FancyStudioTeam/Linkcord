@@ -1,3 +1,4 @@
+import { MISSING_REQUIRED_FIELDS_FROM_DATA } from "#errors/messages.js";
 import type {
 	APIAvatarDecorationData,
 	APIPrimaryGuild,
@@ -12,20 +13,25 @@ import type {
 } from "#types/parsed/Users.js";
 
 /**
+ * Transformer class for user-related data.
+ *
  * @internal
  */
 export class UserTransformer {
 	/**
-	 * @internal
+	 * Transforms a raw Discord API user avatar decoration data into an
+	 * {@link AvatarDecorationData | `AvatarDecorationData`} object.
+	 *
+	 * @param avatarDecorationData - The raw Discord API user avatar
+	 * decoration data.
+	 *
+	 * @returns The transformed
+	 * {@link AvatarDecorationData | `AvatarDecorationData`} object.
 	 */
 	static transformAvatarDecorationData(
-		avatarDecorationData?: APIAvatarDecorationData | null,
-	): AvatarDecorationData | null {
-		const { asset, sku_id } = avatarDecorationData ?? {};
-
-		if (!(asset && sku_id)) {
-			return null;
-		}
+		avatarDecorationData: APIAvatarDecorationData,
+	): AvatarDecorationData {
+		const { asset, sku_id } = avatarDecorationData;
 
 		return {
 			asset,
@@ -34,13 +40,17 @@ export class UserTransformer {
 	}
 
 	/**
-	 * @internal
+	 * Transforms a raw Discord API user collectibles into a
+	 * {@link UserCollectibles | `UserCollectibles`} object.
+	 *
+	 * @param collectibles - The raw Discord API user collectibles.
+	 *
+	 * @returns The transformed
+	 * {@link UserCollectibles | `UserCollectibles`} object.
 	 */
-	static transformCollectibles(collectibles?: APIUserCollectibles | null): UserCollectibles {
+	static transformCollectibles(collectibles: APIUserCollectibles): UserCollectibles {
 		const { nameplate } = collectibles ?? {};
-		const collectiblesData: UserCollectibles = {
-			nameplate: null,
-		};
+		const collectiblesData: UserCollectibles = {};
 
 		if (nameplate) {
 			collectiblesData.nameplate = UserTransformer.transformNameplate(nameplate);
@@ -50,7 +60,13 @@ export class UserTransformer {
 	}
 
 	/**
-	 * @internal
+	 * Transforms a raw Discord API user nameplate into a
+	 * {@link UserNameplate | `UserNameplate`} object.
+	 *
+	 * @param nameplate - The raw Discord API user nameplate.
+	 *
+	 * @returns The transformed
+	 * {@link UserNameplate | `UserNameplate`} object.
 	 */
 	static transformNameplate(nameplate: APIUserNameplate): UserNameplate {
 		const { asset, label, palette, sku_id } = nameplate;
@@ -64,24 +80,43 @@ export class UserTransformer {
 	}
 
 	/**
-	 * @internal
+	 * Transforms a raw Discord API user primary guild into a
+	 * {@link PrimaryGuild | `PrimaryGuild`} object.
+	 *
+	 * @param primaryGuild - The raw Discord API user primary guild.
+	 *
+	 * @returns The transformed
+	 * {@link PrimaryGuild | `PrimaryGuild`} object.
 	 */
-	static transformPrimaryGuild(primaryGuild?: APIPrimaryGuild | null): PrimaryGuild | null {
-		const { badge, identity_enabled, identity_guild_id, tag } = primaryGuild ?? {};
+	static transformPrimaryGuild(primaryGuild: APIPrimaryGuild): PrimaryGuild | null {
+		const { badge, identity_enabled, identity_guild_id, tag } = primaryGuild;
 
+		/**
+		 * If the identity is not enabled, return `null`.
+		 */
 		if (!identity_enabled) {
 			return null;
 		}
 
+		/**
+		 * All of these fields are present in the data when `identity_enabled`
+		 * is `true`.
+		 *
+		 * But since all of them are nullable, should throw a `TypeError` if
+		 * they are nullable but `identity_enabled` is `true`.
+		 */
 		if (!(badge && identity_guild_id && tag)) {
 			throw new TypeError(
-				"Fields 'badge', 'identity_guild_id' and 'tag' are missing from the primary guild data but should be always present when the identity is enabled.",
+				MISSING_REQUIRED_FIELDS_FROM_DATA(
+					["badge", "identity_guild_id", "tag"],
+					"primary guild",
+				),
 			);
 		}
 
 		return {
 			badge,
-			identityEnabled: Boolean(identity_enabled),
+			identityEnabled: identity_enabled,
 			identityGuildId: identity_guild_id,
 			tag,
 		};
