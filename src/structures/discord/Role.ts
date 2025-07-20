@@ -56,7 +56,7 @@ export class Role extends Base {
 	unicodeEmoji!: string | null;
 
 	/**
-	 * Creates a new {@link Role} instance from raw Discord API data.
+	 * Creates a new {@link Role | `Role`} instance from raw Discord API data.
 	 *
 	 * @param client - The client that instantiated the role.
 	 * @param data - The raw Discord API role data.

@@ -66,7 +66,7 @@ export class User extends Base {
 	username!: string;
 
 	/**
-	 * Creates a new {@link User} instance from raw Discord API data.
+	 * Creates a new {@link User | `User`} instance from raw Discord API data.
 	 *
 	 * @param client - The client that instantiated the user.
 	 * @param data - The raw Discord API user data.

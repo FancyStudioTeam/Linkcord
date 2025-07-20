@@ -29,7 +29,8 @@ export class VoiceRegion {
 	readonly optimal: boolean;
 
 	/**
-	 * Creates a new {@link VoiceRegion} instance from raw Discord API data.
+	 * Creates a new {@link VoiceRegion | `VoiceRegion`} instance from raw
+	 * Discord API data.
 	 *
 	 * @param data - The raw Discord API voice region data.
 	 */
