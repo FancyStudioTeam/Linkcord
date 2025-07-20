@@ -18,6 +18,7 @@
 			"#builders/*": ["./src/builders/*"],
 			"#client/*": ["./src/client/*"],
 			"#configuration/*": ["./src/configuration/*"],
+			"#errors/*": ["./src/errors/*"],
 			"#gateway/*": ["./src/gateway/*"],
 			"#handlers/*": ["./src/handlers/*"],
 			"#rest/*": ["./src/rest/*"],
