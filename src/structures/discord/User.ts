@@ -91,7 +91,7 @@ export class User extends Base {
 	 *
 	 * @internal
 	 */
-	private _patch(data: UserData = {}): void {
+	protected _patch(data: UserData = {}): void {
 		const {
 			accent_color,
 			avatar,
@@ -157,7 +157,7 @@ export class User extends Base {
 	}
 
 	/**
-	 * Converts the {@link User} instance to a JSON object.
+	 * Converts the {@link User | `User`} instance to a JSON object.
 	 *
 	 * @returns The JSON user data.
 	 */

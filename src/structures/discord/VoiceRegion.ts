@@ -44,7 +44,8 @@ export class VoiceRegion {
 	}
 
 	/**
-	 * Converts the {@link VoiceRegion} instance to a JSON object.
+	 * Converts the {@link VoiceRegion | `VoiceRegion`} instance to a JSON
+	 * object.
 	 *
 	 * @returns The JSON voice region data.
 	 */

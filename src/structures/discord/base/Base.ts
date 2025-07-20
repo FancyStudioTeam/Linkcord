@@ -24,7 +24,16 @@ export abstract class Base {
 	}
 
 	/**
-	 * Converts the base to a JSON object.
+	 * Patches the base properties with the given data.
+	 *
+	 * @param data - The data to use when patching the base properties.
+	 *
+	 * @internal
+	 */
+	protected abstract _patch(data: unknown): void;
+
+	/**
+	 * Converts the {@link Base | `Base`} instance to a JSON object.
 	 */
 	abstract toJSON(): unknown;
 }
