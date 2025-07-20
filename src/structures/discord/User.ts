@@ -17,7 +17,7 @@ import { Base } from "./base/Base.js";
  */
 export class User extends Base {
 	/**
-	 * The accent color of the user.
+	 * The accent color of the user, if any.
 	 */
 	accentColor!: number | null;
 	/**
@@ -47,7 +47,7 @@ export class User extends Base {
 	/**
 	 * The flags of the user.
 	 */
-	flags: BitFieldResolver | null;
+	flags!: BitFieldResolver | null;
 	/**
 	 * The ID of the user.
 	 */
@@ -78,7 +78,6 @@ export class User extends Base {
 
 		this.bot = bot ?? false;
 		this.discriminator = discriminator;
-		this.flags = null;
 		this.id = id;
 		this.system = system ?? false;
 		this.username = username;
@@ -142,6 +141,8 @@ export class User extends Base {
 
 		if (flags) {
 			this.flags = new BitFieldResolver(flags);
+		} else {
+			this.flags ??= null;
 		}
 
 		if (primary_guild) {
