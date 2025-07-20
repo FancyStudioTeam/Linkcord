@@ -1,7 +1,7 @@
 import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
 
-export default defineConfig({
+const configuration = defineConfig({
 	plugins: [
 		tsconfigPaths({
 			projects: ["tsconfig.json"],
@@ -11,3 +11,5 @@ export default defineConfig({
 		reporters: ["verbose"],
 	},
 });
+
+export default configuration;
