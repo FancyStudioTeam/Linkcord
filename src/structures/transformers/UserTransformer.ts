@@ -48,15 +48,15 @@ export class UserTransformer {
 	 * @returns The transformed
 	 * {@link UserCollectibles | `UserCollectibles`} object.
 	 */
-	static transformCollectibles(collectibles: APIUserCollectibles): UserCollectibles {
-		const { nameplate } = collectibles ?? {};
-		const collectiblesData: UserCollectibles = {};
+	static transformCollectibles(collectiblesData: APIUserCollectibles): UserCollectibles {
+		const { nameplate } = collectiblesData ?? {};
+		const collectibles: UserCollectibles = {};
 
 		if (nameplate) {
-			collectiblesData.nameplate = UserTransformer.transformNameplate(nameplate);
+			collectibles.nameplate = UserTransformer.transformNameplate(nameplate);
 		}
 
-		return collectiblesData;
+		return collectibles;
 	}
 
 	/**
@@ -68,8 +68,8 @@ export class UserTransformer {
 	 * @returns The transformed
 	 * {@link UserNameplate | `UserNameplate`} object.
 	 */
-	static transformNameplate(nameplate: APIUserNameplate): UserNameplate {
-		const { asset, label, palette, sku_id } = nameplate;
+	static transformNameplate(nameplateData: APIUserNameplate): UserNameplate {
+		const { asset, label, palette, sku_id } = nameplateData;
 
 		return {
 			asset,
@@ -88,8 +88,8 @@ export class UserTransformer {
 	 * @returns The transformed
 	 * {@link PrimaryGuild | `PrimaryGuild`} object.
 	 */
-	static transformPrimaryGuild(primaryGuild: APIPrimaryGuild): PrimaryGuild | null {
-		const { badge, identity_enabled, identity_guild_id, tag } = primaryGuild;
+	static transformPrimaryGuild(primaryGuildData: APIPrimaryGuild): PrimaryGuild | null {
+		const { badge, identity_enabled, identity_guild_id, tag } = primaryGuildData;
 
 		/**
 		 * If the identity is not enabled, return `null`.
