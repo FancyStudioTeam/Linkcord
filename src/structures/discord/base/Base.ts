@@ -1,25 +1,30 @@
-import type { Snowflake } from "#types/index.js";
-import { SnowflakeUtils } from "#utils/index.js";
+import type { Client } from "#client/Client.js";
+import type { RESTManager } from "#rest/index.js";
 
 /**
- * @internal
+ * Represents a base class for most of the structures.
+ *
+ * @public
  */
 export abstract class Base {
-	id: Snowflake;
+	/**
+	 * The client that instantiated the base.
+	 */
+	readonly client: Client;
+	/**
+	 *  The REST manager to perform requests within the extended classes.
+	 */
+	protected readonly rest: RESTManager;
 
-	constructor(id: Snowflake) {
-		this.id = id;
+	constructor(client: Client) {
+		const { rest } = client;
+
+		this.client = client;
+		this.rest = rest;
 	}
 
-	get createdAt(): Date {
-		const { createdTimestamp } = this;
-
-		return new Date(createdTimestamp);
-	}
-
-	get createdTimestamp(): number {
-		const { id } = this;
-
-		return SnowflakeUtils.timestampFrom(id);
-	}
+	/**
+	 * Converts the base to a JSON object.
+	 */
+	abstract toJSON(): unknown;
 }
