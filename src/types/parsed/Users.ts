@@ -1,4 +1,6 @@
+import type { User } from "#structures/index.js";
 import type { NameplatePalettes, Snowflake } from "#types/discord/index.js";
+import type { JSONProperties } from "#utils/types.js";
 
 /**
  * @public
@@ -22,7 +24,7 @@ export interface PrimaryGuild {
  * @public
  */
 export interface UserCollectibles {
-	nameplate: UserNameplate | null;
+	nameplate?: UserNameplate;
 }
 
 /**
@@ -34,3 +36,8 @@ export interface UserNameplate {
 	palette: NameplatePalettes;
 	skuId: Snowflake;
 }
+
+/**
+ * @public
+ */
+export type JSONUser = JSONProperties<typeof User>;
