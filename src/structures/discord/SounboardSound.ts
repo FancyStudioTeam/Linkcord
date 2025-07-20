@@ -156,7 +156,7 @@ export class SoundboardSound extends Base {
 	toJSON(): JSONSoundboardSound {
 		const { available, emojiId, emojiName, guildId, name, soundId, user, volume } = this;
 
-		return {
+		return Object.freeze({
 			available,
 			emojiId,
 			emojiName,
@@ -165,7 +165,7 @@ export class SoundboardSound extends Base {
 			soundId,
 			user,
 			volume,
-		};
+		});
 	}
 }
 

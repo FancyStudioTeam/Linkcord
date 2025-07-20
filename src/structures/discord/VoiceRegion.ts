@@ -53,12 +53,12 @@ export class VoiceRegion {
 	toJSON(): JSONVoiceRegion {
 		const { custom, deprecated, id, name, optimal } = this;
 
-		return {
+		return Object.freeze({
 			custom,
 			deprecated,
 			id,
 			name,
 			optimal,
-		};
+		});
 	}
 }

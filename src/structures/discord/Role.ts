@@ -176,7 +176,7 @@ export class Role extends Base {
 			unicodeEmoji,
 		} = this;
 
-		return {
+		return Object.freeze({
 			color,
 			colors,
 			flags,
@@ -189,7 +189,7 @@ export class Role extends Base {
 			position,
 			tags,
 			unicodeEmoji,
-		};
+		});
 	}
 }
 
