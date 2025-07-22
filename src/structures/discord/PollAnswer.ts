@@ -26,6 +26,14 @@ export class PollAnswer extends Base {
 	 */
 	readonly text: string;
 
+	/**
+	 * Creates a new {@link PollAnswer | `PollAnswer`} instance from raw
+	 * Discord API data.
+	 *
+	 * @param client - The client that instantiated the poll answer.
+	 * @param data - The raw Discord API poll answer data.
+	 * @param poll - The poll at which the answer belongs.
+	 */
 	constructor(client: Client, data: APIPollAnswer, poll: Poll) {
 		super(client);
 
