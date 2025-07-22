@@ -1,5 +1,7 @@
 import { ListFormatter } from "./utils/index.js";
 
+export const METHOD_NOT_IMPLEMENTED = () => "Method not implemented.";
+
 export const MISSING_REQUIRED_FIELD_FROM_DATA = (field: string, objectDescription: string) =>
 	`Field "${field}" is missing from the ${objectDescription} object but should be always present in the data.`;
 
