@@ -2,6 +2,7 @@
 	"dependencies": {
 		"glob": "11.0.3",
 		"reflect-metadata": "0.2.2",
+		"ts-mixer": "6.0.4",
 		"ws": "8.18.3"
 	},
 	"devDependencies": {
