@@ -88,6 +88,10 @@ export const BitwisePermissionFlags = {
 	ModerateMembers: 1n << 40n,
 	MoveMembers: 1n << 24n,
 	MuteMembers: 1n << 22n,
+	/**
+	 * @undocumented
+	 */
+	PinMessages: 1n << 51n,
 	PrioritySpeaker: 1n << 8n,
 	ReadMessageHistory: 1n << 16n,
 	RequestToSpeak: 1n << 32n,

@@ -375,6 +375,7 @@ export enum GuildFeatures {
 	MoreStickers = "MORE_STICKERS",
 	News = "NEWS",
 	Partnered = "PARTNERED",
+	PinPermissionMigrationComplete = "PIN_PERMISSION_MIGRATION_COMPLETE",
 	PreviewEnabled = "PREVIEW_ENABLED",
 	RaidAlertsDisabled = "RAID_ALERTS_DISABLED",
 	RoleIcons = "ROLE_ICONS",

@@ -136,4 +136,9 @@ export enum AuditLogEvents {
 	WebhookCreate = 50,
 	WebhookDelete = 52,
 	WebhookUpdate = 51,
+
+	/**
+	 * @undocumented
+	 */
+	GuildMigratePinPermission = 212,
 }
