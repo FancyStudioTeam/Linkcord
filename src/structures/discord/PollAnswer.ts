@@ -1,12 +1,12 @@
 import type { Client } from "#client/Client.js";
-import { METHOD_NOT_IMPLEMENTED, MISSING_REQUIRED_FIELDS_FROM_DATA } from "#errors/messages.js";
+import { METHOD_NOT_IMPLEMENTED, MISSING_REQUIRED_FIELD_FROM_DATA } from "#errors/messages.js";
 import type { APIPollAnswer, JSONPollAnswer } from "#types/index.js";
 import { Base } from "./base/Base.js";
 import type { Poll } from "./Poll.js";
 import type { User } from "./User.js";
 
 /**
- * TODO: Add `emoji` property and `fetchVoters` method.
+ * TODO: Add `emoji` property.
  */
 /**
  * Represents a Discord poll answer.
@@ -19,7 +19,7 @@ export class PollAnswer extends Base {
 	 */
 	readonly answerId: number;
 	/**
-	 * The poll at which the answer belongs.
+	 * The poll associated with the answer.
 	 */
 	readonly poll: Poll;
 	/**
@@ -33,7 +33,7 @@ export class PollAnswer extends Base {
 	 *
 	 * @param client - The client that instantiated the poll answer.
 	 * @param data - The raw Discord API poll answer data.
-	 * @param poll - The poll at which the answer belongs.
+	 * @param poll - The poll associated with the answer.
 	 */
 	constructor(client: Client, data: APIPollAnswer, poll: Poll) {
 		super(client);
@@ -41,10 +41,12 @@ export class PollAnswer extends Base {
 		const { answer_id, poll_media } = data;
 		const { text } = poll_media;
 
-		if (!(answer_id && text)) {
-			throw new TypeError(
-				MISSING_REQUIRED_FIELDS_FROM_DATA(["answer_id", "poll_media.text"], "poll answer"),
-			);
+		if (!answer_id) {
+			throw new TypeError(MISSING_REQUIRED_FIELD_FROM_DATA("answer_id", "APIPollAnswer"));
+		}
+
+		if (!text) {
+			throw new TypeError(MISSING_REQUIRED_FIELD_FROM_DATA("text", "APIPollMedia"));
 		}
 
 		this.answerId = answer_id;
@@ -58,7 +60,7 @@ export class PollAnswer extends Base {
 	 * @internal
 	 */
 	protected _patch(): void {
-		throw new Error(METHOD_NOT_IMPLEMENTED());
+		throw new Error(METHOD_NOT_IMPLEMENTED.bind(this)());
 	}
 
 	/**
@@ -68,8 +70,12 @@ export class PollAnswer extends Base {
 	 *
 	 * @returns The users that voted for the answer.
 	 */
-	fetchVoters(_limit: number): Promise<User[]> {
-		return Promise.resolve([]);
+	async fetchVoters(_limit: number): Promise<User[]> {
+		const { answerId, poll } = this;
+		const { message } = poll;
+		const { channelId, id: messageId } = message;
+
+		return await super._api.getChannelPollAnswerVoters(channelId, messageId, answerId);
 	}
 
 	/**
