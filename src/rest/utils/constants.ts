@@ -3,6 +3,14 @@ import { LINKCORD_VERSION } from "../../index.js";
 /**
  * @public
  */
+export const HTTP_STATUS_CODES = {
+	NO_CONTENT: 204,
+	TOO_MANY_REQUESTS: 429,
+};
+
+/**
+ * @public
+ */
 export const REST_URL_BASE = "https://discord.com/api/v10";
 
 /**

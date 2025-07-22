@@ -1,8 +1,10 @@
 import { UsersAPI } from "#api/UsersAPI.js";
 import type { Client } from "#client/Client.js";
 import { Endpoints } from "#rest/endpoints/Endpoints.js";
-import { REST_URL_BASE, USER_AGENT } from "#rest/utils/constants.js";
+import { HTTP_STATUS_CODES, REST_URL_BASE, USER_AGENT } from "#rest/utils/constants.js";
 import type { RESTGetGateway } from "#types/index.js";
+
+const ONE_SECOND_MILLISECONDS = 1_000;
 
 /**
  * @public
@@ -10,6 +12,8 @@ import type { RESTGetGateway } from "#types/index.js";
 export class RESTManager {
 	readonly client: Client;
 	readonly users = new UsersAPI(this);
+
+	globalRateLimit = false;
 
 	constructor(client: Client) {
 		this.client = client;
@@ -25,7 +29,7 @@ export class RESTManager {
 	/**
 	 * @internal
 	 */
-	protected createRequestHeaders(options?: CreateRequestHeadersOptions): Headers {
+	private _createRequestHeaders(options?: CreateRequestHeadersOptions): Headers {
 		const { token } = this;
 		const headers = new Headers();
 
@@ -51,11 +55,11 @@ export class RESTManager {
 	/**
 	 * @internal
 	 */
-	protected createRequestInit(
+	private _createRequestInit(
 		method: RESTMethods,
 		options?: CreateRequestInitOptions,
 	): RequestInit {
-		const headers = this.createRequestHeaders(options);
+		const headers = this._createRequestHeaders(options);
 		const data: RequestInit = {
 			headers,
 			method,
@@ -67,7 +71,7 @@ export class RESTManager {
 	/**
 	 * @internal
 	 */
-	protected createRequestURL<QueryStringParams>(
+	private _createRequestURL<QueryStringParams>(
 		endpoint: string,
 		queryStringParams?: QueryStringParams,
 	): string {
@@ -104,12 +108,44 @@ export class RESTManager {
 		endpoint: string,
 		options?: MakeRequestOptions<JSONParams, QueryStringParams>,
 	): Promise<Result> {
+		const { globalRateLimit } = this;
+
+		if (globalRateLimit) {
+			throw new Error("You are being rate limited.");
+		}
+
 		const { queryString } = options ?? {};
 
-		const init = this.createRequestInit(method, options);
-		const url = this.createRequestURL<QueryStringParams>(endpoint, queryString);
+		const init = this._createRequestInit(method, options);
+		const url = this._createRequestURL<QueryStringParams>(endpoint, queryString);
 
 		const request = await fetch(url, init);
+		const { headers, status } = request;
+
+		const isRateLimited = status === HTTP_STATUS_CODES.TOO_MANY_REQUESTS;
+		const isNoContent = status === HTTP_STATUS_CODES.NO_CONTENT;
+
+		if (isRateLimited) {
+			const isGlobalRateLimit = headers.has("X-RateLimit-Global");
+			const rateLimitResetAfter = headers.get("X-RateLimit-Reset-After");
+
+			if (isGlobalRateLimit) {
+				this.globalRateLimit = true;
+
+				setTimeout(() => {
+					this.globalRateLimit = false;
+				}, Number(rateLimitResetAfter) * ONE_SECOND_MILLISECONDS);
+			} else {
+				setTimeout(
+					async () => await this.makeRequest(method, endpoint, options),
+					Number(rateLimitResetAfter) * ONE_SECOND_MILLISECONDS,
+				);
+			}
+		}
+
+		if (isNoContent) {
+			return undefined as Result;
+		}
 
 		return (await request.json()) as Promise<Result>;
 	}
