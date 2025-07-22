@@ -409,7 +409,7 @@ export enum GuildFeatures {
  * @see https://discord.com/developers/docs/resources/guild#guild-member-object-guild-member-flags
  */
 export enum GuildMemberFlags {
-	AutomodQuarantinedServerTag = 1 << 10,
+	AutomodQuarantinedGuildTag = 1 << 10,
 	AutomodQuarantinedUsername = 1 << 7,
 	BypassesVerification = 1 << 2,
 	CompletedHomeActions = 1 << 6,
