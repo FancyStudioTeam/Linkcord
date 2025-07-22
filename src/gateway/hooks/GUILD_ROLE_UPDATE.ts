@@ -14,7 +14,7 @@ export const GUILD_ROLE_UPDATE = (
 	const { cache: guildsCache } = guilds;
 
 	const { id: roleId } = roleData;
-	const role = new Role(roleId, roleData);
+	const role = new Role(client, roleData);
 
 	/**
 	 * These variables will be assigned later by their cached instance or an
@@ -36,7 +36,7 @@ export const GUILD_ROLE_UPDATE = (
 			return;
 		}
 
-		oldRole = cachedRole;
+		oldRole = structuredClone(cachedRole);
 
 		/**
 		 * biome-ignore lint/complexity/useLiteralKeys: Accessing private

@@ -14,7 +14,7 @@ export const GUILD_ROLE_CREATE = (
 	const { cache: guildsCache } = guilds;
 
 	const { id: roleId } = roleData;
-	const role = new Role(roleId, roleData);
+	const role = new Role(client, roleData);
 
 	/**
 	 * These variables will be assigned later by their cached instance or an

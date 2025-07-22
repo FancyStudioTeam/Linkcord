@@ -29,17 +29,17 @@ export const GUILD_ROLE_DELETE = (
 		const { cache: rolesCache } = roles;
 		const cachedRole = rolesCache.get(roleId);
 
+		if (!cachedRole) {
+			return;
+		}
+
+		role = structuredClone(cachedRole);
+
 		/**
 		 * biome-ignore lint/complexity/useLiteralKeys: Accessing private
 		 * members from the manager.
 		 */
 		roles["remove"](roleId);
-
-		if (!cachedRole) {
-			return;
-		}
-
-		role = cachedRole;
 	}
 
 	/**
