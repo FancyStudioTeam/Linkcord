@@ -3,6 +3,7 @@ import { METHOD_NOT_IMPLEMENTED, MISSING_REQUIRED_FIELDS_FROM_DATA } from "#erro
 import type { APIPollAnswer, JSONPollAnswer } from "#types/index.js";
 import { Base } from "./base/Base.js";
 import type { Poll } from "./Poll.js";
+import type { User } from "./User.js";
 
 /**
  * TODO: Add `emoji` property and `fetchVoters` method.
@@ -58,6 +59,17 @@ export class PollAnswer extends Base {
 	 */
 	protected _patch(): void {
 		throw new Error(METHOD_NOT_IMPLEMENTED());
+	}
+
+	/**
+	 * Fetches the users that voted for the answer.
+	 *
+	 * @param limit - The maximum number of users to fetch.
+	 *
+	 * @returns The users that voted for the answer.
+	 */
+	fetchVoters(_limit: number): Promise<User[]> {
+		return Promise.resolve([]);
 	}
 
 	/**
