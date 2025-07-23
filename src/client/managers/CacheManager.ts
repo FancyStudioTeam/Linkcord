@@ -5,7 +5,7 @@ import type { Snowflake } from "#types/index.js";
  * @public
  */
 export class CacheManager<Key extends string, Value> {
-	cache: Map<Snowflake, Value>;
+	readonly cache: Map<Snowflake, Value>;
 
 	constructor(iterable?: Iterable<Key, Value>) {
 		this.cache = new Map(iterable ?? []);
@@ -49,13 +49,12 @@ export class CacheManager<Key extends string, Value> {
 		const { cache } = this;
 		const existing = cache.get(key);
 
-		if (
-			existing &&
-			existing instanceof Base &&
-			"patch" in existing &&
-			typeof existing.patch === "function"
-		) {
-			existing.patch(value);
+		if (existing && existing instanceof Base) {
+			/**
+			 * biome-ignore lint/complexity/useLiteralKeys: Accessing private
+			 * members from the {@link Base | `Base`} class.
+			 */
+			existing["_patch"](value);
 		}
 	}
 }
