@@ -43,7 +43,7 @@ export class UserTransformer {
 	 * Transforms a raw Discord API user collectibles into a
 	 * {@link UserCollectibles | `UserCollectibles`} object.
 	 *
-	 * @param collectibles - The raw Discord API user collectibles.
+	 * @param collectiblesData - The raw Discord API user collectibles.
 	 *
 	 * @returns The transformed
 	 * {@link UserCollectibles | `UserCollectibles`} object.
@@ -63,7 +63,7 @@ export class UserTransformer {
 	 * Transforms a raw Discord API user nameplate into a
 	 * {@link UserNameplate | `UserNameplate`} object.
 	 *
-	 * @param nameplate - The raw Discord API user nameplate.
+	 * @param nameplateData - The raw Discord API user nameplate.
 	 *
 	 * @returns The transformed
 	 * {@link UserNameplate | `UserNameplate`} object.
@@ -83,7 +83,7 @@ export class UserTransformer {
 	 * Transforms a raw Discord API user primary guild into a
 	 * {@link PrimaryGuild | `PrimaryGuild`} object.
 	 *
-	 * @param primaryGuild - The raw Discord API user primary guild.
+	 * @param primaryGuildData - The raw Discord API user primary guild.
 	 *
 	 * @returns The transformed
 	 * {@link PrimaryGuild | `PrimaryGuild`} object.
