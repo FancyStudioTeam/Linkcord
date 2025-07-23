@@ -2,6 +2,7 @@ export * from "./base/index.js";
 export * from "./ChatInputCommandInteraction.js";
 export * from "./Entitlement.js";
 export * from "./Guild.js";
+export * from "./Message.js";
 export * from "./Poll.js";
 export * from "./PollAnswer.js";
 export * from "./Role.js";
