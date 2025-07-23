@@ -1,4 +1,5 @@
 import { extname } from "node:path";
+import { isDeepStrictEqual } from "node:util";
 import { glob } from "glob";
 import type { BaseClient } from "#client/BaseClient.js";
 import { LinkcordConfiguration } from "#configuration/structures/LinkcordConfiguration.js";
@@ -6,6 +7,8 @@ import { ApplicationCommandTypes } from "#types/index.js";
 import { ImportUtils } from "#utils/structures/ImportUtils.js";
 import type { UserContextCommand } from "../structures/UserContextCommand.js";
 import type { UserContextCommandInstance } from "../types.js";
+
+const APPLICATION_COMMANDS = [];
 
 export class CommandsLoader {
 	static get CACHE_PATH(): string {
@@ -34,7 +37,7 @@ export class CommandsLoader {
 		const cachePath = CommandsLoader.CACHE_PATH;
 
 		return {
-			cacheEnabled: Boolean(enabled),
+			cacheEnabled: enabled ?? false,
 			cachePath,
 		};
 	}
@@ -43,14 +46,22 @@ export class CommandsLoader {
 		return "**/*.command.{js,cjs,mjs,ts,cts,mts,jsx,tsx}";
 	}
 
-	static handleUserContextCommand(command: UserContextCommand): void {}
+	static handleUserContextCommand(
+		command: UserContextCommand,
+		_cacheConfiguration: CacheConfiguration,
+	): void {
+		// const { cacheEnabled } = cacheConfiguration;
+		const resolvedApplicationCommand = command.toJSON();
+
+		APPLICATION_COMMANDS.push(resolvedApplicationCommand);
+	}
 
 	static async registerCommandsToClient(
 		commandsFolderPath: string,
 		client: BaseClient,
 	): Promise<void> {
 		const globPattern = CommandsLoader.GLOB_PATTERN;
-		// const { cacheEnabled, cachePath } = CommandsLoader.CACHE_CONFIGURATION;
+		const cacheConfiguration = CommandsLoader.CACHE_CONFIGURATION;
 		const commandFilePaths = await glob(globPattern, {
 			cwd: commandsFolderPath,
 			withFileTypes: true,
@@ -71,7 +82,7 @@ export class CommandsLoader {
 
 			switch (type) {
 				case ApplicationCommandTypes.User: {
-					CommandsLoader.handleUserContextCommand(commandInstance);
+					CommandsLoader.handleUserContextCommand(commandInstance, cacheConfiguration);
 
 					break;
 				}
@@ -80,13 +91,22 @@ export class CommandsLoader {
 	}
 }
 
+/**
+ * @internal
+ */
 interface CacheConfiguration {
 	cacheEnabled: boolean;
 	cachePath: string;
 }
 
+/**
+ * @internal
+ */
 interface ImportCommandData {
 	default?: CommandData;
 }
 
+/**
+ * @internal
+ */
 type CommandData = UserContextCommandInstance;
