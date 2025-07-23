@@ -1,8 +1,8 @@
-import { UsersAPI } from "#api/UsersAPI.js";
 import type { Client } from "#client/Client.js";
 import { Endpoints } from "#rest/endpoints/Endpoints.js";
 import { HTTP_STATUS_CODES, REST_URL_BASE, USER_AGENT } from "#rest/utils/constants.js";
 import type { RESTGetGateway } from "#types/index.js";
+import { APIManager } from "./APIManager.js";
 
 const ONE_SECOND_MILLISECONDS = 1_000;
 
@@ -10,8 +10,8 @@ const ONE_SECOND_MILLISECONDS = 1_000;
  * @public
  */
 export class RESTManager {
+	readonly api = new APIManager(this);
 	readonly client: Client;
-	readonly users = new UsersAPI(this);
 
 	globalRateLimit = false;
 
@@ -87,6 +87,28 @@ export class RESTManager {
 		return urlObject.toString();
 	}
 
+	async delete<Result, QueryStringParams = never>(
+		endpoint: string,
+		options?: RESTDeleteOptions<QueryStringParams>,
+	): Promise<Result> {
+		return await this.makeRequest<Result, never, QueryStringParams>(
+			RESTMethods.Delete,
+			endpoint,
+			options,
+		);
+	}
+
+	async get<Result, QueryStringParams = never>(
+		endpoint: string,
+		options?: RESTGetOptions<QueryStringParams>,
+	): Promise<Result> {
+		return await this.makeRequest<Result, never, QueryStringParams>(
+			RESTMethods.Get,
+			endpoint,
+			options,
+		);
+	}
+
 	/**
 	 * @see https://discord.com/developers/docs/events/gateway#get-gateway
 	 */
@@ -149,6 +171,39 @@ export class RESTManager {
 
 		return (await request.json()) as Promise<Result>;
 	}
+
+	async patch<Result, JSONParams = never, QueryStringParams = never>(
+		endpoint: string,
+		options?: RESTPatchOptions<JSONParams, QueryStringParams>,
+	): Promise<Result> {
+		return await this.makeRequest<Result, JSONParams, QueryStringParams>(
+			RESTMethods.Patch,
+			endpoint,
+			options,
+		);
+	}
+
+	async post<Result, JSONParams = never, QueryStringParams = never>(
+		endpoint: string,
+		options?: RESTPostOptions<JSONParams, QueryStringParams>,
+	): Promise<Result> {
+		return await this.makeRequest<Result, JSONParams, QueryStringParams>(
+			RESTMethods.Post,
+			endpoint,
+			options,
+		);
+	}
+
+	async put<Result, JSONParams = never, QueryStringParams = never>(
+		endpoint: string,
+		options?: RESTPutOptions<JSONParams, QueryStringParams>,
+	): Promise<Result> {
+		return await this.makeRequest<Result, JSONParams, QueryStringParams>(
+			RESTMethods.Put,
+			endpoint,
+			options,
+		);
+	}
 }
 
 /**
@@ -173,6 +228,46 @@ type CreateRequestInitOptions = MakeRequestOptions;
 type CreateRequestHeadersOptions = Pick<
 	MakeRequestOptions,
 	"contentType" | "reason" | "withAuthorization"
+>;
+
+/**
+ * @public
+ */
+export type RESTDeleteOptions<QueryStringParams = never> = MakeRequestOptions<
+	never,
+	QueryStringParams
+>;
+
+/**
+ * @public
+ */
+export type RESTGetOptions<QueryStringParams = never> = MakeRequestOptions<
+	never,
+	QueryStringParams
+>;
+
+/**
+ * @public
+ */
+export type RESTPatchOptions<JSONParams = unknown, QueryStringParams = never> = MakeRequestOptions<
+	JSONParams,
+	QueryStringParams
+>;
+
+/**
+ * @public
+ */
+export type RESTPostOptions<JSONParams = unknown, QueryStringParams = never> = MakeRequestOptions<
+	JSONParams,
+	QueryStringParams
+>;
+
+/**
+ * @public
+ */
+export type RESTPutOptions<JSONParams = unknown, QueryStringParams = never> = MakeRequestOptions<
+	JSONParams,
+	QueryStringParams
 >;
 
 /**
