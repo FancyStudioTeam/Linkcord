@@ -1,18 +1,27 @@
 /**
- * biome-ignore-all lint/style/useNamingConvention: Use screaming snake case
- * for these messages.
+ * biome-ignore-all lint/style/useNamingConvention: Use upper snake case
+ * convention for all error message functions.
  */
 
 import { ListFormatter } from "./utils/index.js";
 
+/**
+ * @internal
+ */
 export function METHOD_NOT_IMPLEMENTED(): string {
 	return "This method is not implemented yet";
 }
 
+/**
+ * @internal
+ */
 export function MISSING_REQUIRED_FIELD_FROM_DATA(field: string, objectDescription: string): string {
 	return `Field "${field}" is missing from the "${objectDescription}" object but should be always present in the data.`;
 }
 
+/**
+ * @internal
+ */
 export function MISSING_REQUIRED_FIELDS_FROM_DATA(fields: string[], objectDescription: string) {
 	return `Fields "${ListFormatter.conjunction(fields)}" are missing from the "${objectDescription}" object but should be always present in the data.`;
 }
