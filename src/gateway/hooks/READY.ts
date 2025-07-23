@@ -14,7 +14,7 @@ export const READY = (
 	const { manager } = shard;
 
 	const { id: userId } = userData;
-	const user = new User(userId, userData);
+	const user = new User(client, userData);
 
 	/**
 	 * biome-ignore lint/complexity/useLiteralKeys: Accessing private members
