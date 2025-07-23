@@ -3,7 +3,7 @@ import type { RESTManager } from "#rest/index.js";
 import type { APIManager } from "#rest/structures/APIManager.js";
 
 /**
- * Represents a base class for most of the structures.
+ * Represents a base class for most of Discord structures.
  *
  * @public
  */

@@ -1,5 +1,6 @@
 import type { Message } from "#structures/discord/Message.js";
 import type { PollAnswer } from "#structures/discord/PollAnswer.js";
+import type { Poll } from "#structures/index.js";
 import type { ISO8601Date, MessageActivityTypes, Snowflake } from "#types/discord/index.js";
 import type { JSONProperties } from "#utils/types.js";
 
@@ -92,11 +93,52 @@ export interface MessageCall {
 }
 
 /**
+ * Represents a Discord poll answer count.
+ *
+ * @public
+ */
+export interface PollAnswerCount {
+	/**
+	 * The number of votes for this answer.
+	 */
+	count: number;
+	/**
+	 * The ID of the answer.
+	 */
+	id: number;
+	/**
+	 * Whether the current user voted for this answer.
+	 */
+	meVoted: boolean;
+}
+
+/**
+ * Represents a Discord poll results.
+ *
+ * @public
+ */
+export interface PollResults {
+	/**
+	 * The counts for each answer.
+	 */
+	answerCounts: PollAnswerCount[];
+	/**
+	 * Whether the votes have been precisely counted.
+	 */
+	isFinalized: boolean;
+}
+
+/**
  * @public
  */
 export type JSONMessage<InGuild extends boolean = boolean> = JSONProperties<
 	typeof Message<InGuild>
 >;
+
+/**
+ * @public
+ */
+export type JSONPoll<HasEnded extends boolean = boolean> = JSONProperties<typeof Poll<HasEnded>>;
 
 /**
  * @public
