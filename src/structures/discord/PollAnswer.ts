@@ -60,7 +60,7 @@ export class PollAnswer extends Base {
 	 * @internal
 	 */
 	protected _patch(): void {
-		throw new Error(METHOD_NOT_IMPLEMENTED.bind(this)());
+		throw new Error(METHOD_NOT_IMPLEMENTED());
 	}
 
 	/**
