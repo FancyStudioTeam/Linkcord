@@ -1,6 +1,6 @@
 import type { Client } from "#client/Client.js";
 import { METHOD_NOT_IMPLEMENTED, MISSING_REQUIRED_FIELD_FROM_DATA } from "#errors/messages.js";
-import type { APIPollAnswer, JSONPollAnswer } from "#types/index.js";
+import type { APIPollAnswer, JSONPollAnswer, Snowflake } from "#types/index.js";
 import { Base } from "./base/Base.js";
 import type { Poll } from "./Poll.js";
 import type { User } from "./User.js";
@@ -64,13 +64,13 @@ export class PollAnswer extends Base {
 	}
 
 	/**
-	 * Fetches the users that voted for the answer.
+	 * Fetches the users that voted for the poll answer.
 	 *
 	 * @param limit - The maximum number of users to fetch.
 	 *
-	 * @returns The users that voted for the answer.
+	 * @returns The users that voted for the poll answer.
 	 */
-	async fetchVoters(_limit: number): Promise<User[]> {
+	async fetchVoters(_limit: number): Promise<Map<Snowflake, User>> {
 		const { answerId, poll } = this;
 		const { message } = poll;
 		const { channelId, id: messageId } = message;
