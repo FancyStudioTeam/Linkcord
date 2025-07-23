@@ -4,7 +4,7 @@ import type { Snowflake } from "#types/index.js";
 /**
  * @public
  */
-export class CacheManager<Key extends string, Value> {
+export class CacheManager<Key extends string, Value extends Base> {
 	readonly cache: Map<Snowflake, Value>;
 
 	constructor(iterable?: Iterable<Key, Value>) {
