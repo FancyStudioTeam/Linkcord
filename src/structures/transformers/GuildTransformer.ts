@@ -1,3 +1,4 @@
+import type { Client } from "#client/Client.js";
 import { Role, SoundboardSound } from "#structures/index.js";
 import type {
 	APIGuildSoundboardSound,
@@ -58,11 +59,7 @@ export class GuildTransformer {
 	/**
 	 * @internal
 	 */
-	static transformRoleTags(tagsData?: APIRoleTags): RoleTags | null {
-		if (!tagsData) {
-			return null;
-		}
-
+	static transformRoleTags(tagsData: APIRoleTags): RoleTags {
 		const tags: RoleTags = {};
 		const {
 			available_for_purchase,
@@ -103,8 +100,8 @@ export class GuildTransformer {
 	/**
 	 * @internal
 	 */
-	static transformRoles(roles: APIRole[]): readonly [Snowflake, Role][] {
-		const transformedRoles = roles.map((role) => new Role(role.id, role));
+	static transformRoles(roles: APIRole[], client: Client): readonly [Snowflake, Role][] {
+		const transformedRoles = roles.map((role) => new Role(client, role));
 		const rolesMap = transformedRoles.map<[Snowflake, Role]>((role) => [role.id, role]);
 
 		return rolesMap;
@@ -115,9 +112,10 @@ export class GuildTransformer {
 	 */
 	static transformSoundboardSounds(
 		soundboardSounds: APIGuildSoundboardSound[],
+		client: Client,
 	): Map<Snowflake, SoundboardSound> {
 		const transformedSoundboardSounds = soundboardSounds.map(
-			(soundboardSound) => new SoundboardSound(soundboardSound.sound_id, soundboardSound),
+			(soundboardSound) => new SoundboardSound(client, soundboardSound),
 		);
 		const soundboardSoundsMap = transformedSoundboardSounds.map<[Snowflake, SoundboardSound]>(
 			(soundboardSound) => [soundboardSound.soundId, soundboardSound],
