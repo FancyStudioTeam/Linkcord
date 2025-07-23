@@ -1,9 +1,10 @@
 import { Endpoints } from "#rest/endpoints/Endpoints.js";
-import { RESTMethods } from "#rest/structures/RESTManager.js";
+import { Message } from "#structures/discord/Message.js";
 import { User } from "#structures/index.js";
 import type {
 	RESTGetChannelPollAnswerVoters,
 	RESTGetChannelPollAnswerVotersQueryStringParams,
+	RESTPostChannelPollExpire,
 	Snowflake,
 } from "#types/index.js";
 import type { GetChannelPollAnswerVotersOptions } from "#types/parsed/rest/Channels.js";
@@ -38,6 +39,8 @@ export class ChannelsAPI extends BaseAPI {
 		options: GetChannelPollAnswerVotersOptions = {},
 	): Promise<Map<Snowflake, User>> {
 		const { client } = this;
+		const { users: usersCache } = client;
+
 		const { limit: _limit } = options;
 
 		let limit = _limit ?? DEFAULT_POLL_ANSWER_VOTERS_TO_FETCH;
@@ -49,7 +52,7 @@ export class ChannelsAPI extends BaseAPI {
 			const request = await super.get<
 				RESTGetChannelPollAnswerVoters,
 				RESTGetChannelPollAnswerVotersQueryStringParams
-			>(RESTMethods.Get, Endpoints.channelPollAnswer(channelId, messageId, answerId), {
+			>(Endpoints.channelPollAnswer(channelId, messageId, answerId), {
 				queryString: {
 					after,
 					limit,
@@ -59,10 +62,17 @@ export class ChannelsAPI extends BaseAPI {
 			const { users } = request;
 
 			const userStructures = users.map((user) => new User(client, user));
-			const usersIterableMap = userStructures.map<[Snowflake, User]>((user) => [
-				user.id,
-				user,
-			]);
+			const usersIterableMap = userStructures.map<[Snowflake, User]>((user) => {
+				const { id: userId } = user;
+
+				/**
+				 * biome-ignore lint/complexity/useLiteralKeys: Accessing
+				 * private members from the manager.
+				 */
+				usersCache["add"](userId, user);
+
+				return [userId, user];
+			});
 			const usersMap = new Map(usersIterableMap);
 
 			return usersMap;
@@ -121,5 +131,24 @@ export class ChannelsAPI extends BaseAPI {
 		}
 
 		return await request(options);
+	}
+
+	/**
+	 * Expires a poll in a channel.
+	 *
+	 * @param channelId - The ID of the channel at which the poll was created.
+	 * @param messageId - The ID of the message associated with the poll.
+	 *
+	 * @returns The {@link Message | `Message`} associated with the poll.
+	 */
+	async postChannelPollExpire(channelId: Snowflake, messageId: Snowflake): Promise<Message> {
+		const { client } = this;
+
+		const request = await super.post<RESTPostChannelPollExpire>(
+			Endpoints.channelPollExpire(channelId, messageId),
+		);
+		const message = new Message(client, request);
+
+		return message;
 	}
 }
