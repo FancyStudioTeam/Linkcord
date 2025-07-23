@@ -1,4 +1,3 @@
-export * from "./base/index.js";
 export * from "./ChatInputCommandInteraction.js";
 export * from "./Entitlement.js";
 export * from "./Guild.js";
