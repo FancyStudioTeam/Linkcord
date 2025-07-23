@@ -78,20 +78,6 @@ export class Role extends Base {
 	}
 
 	/**
-	 * The color of the role.
-	 */
-	get color(): number {
-		const { colors } = this;
-		const { primaryColor } = colors;
-
-		return primaryColor;
-	}
-
-	/**
-	 * Patches the role properties with the given data.
-	 *
-	 * @param data - The data to use when patching the role properties.
-	 *
 	 * @internal
 	 */
 	protected _patch(data: RoleData = {}): void {
@@ -153,6 +139,16 @@ export class Role extends Base {
 		} else {
 			this.unicodeEmoji ??= null;
 		}
+	}
+
+	/**
+	 * The color of the role.
+	 */
+	get color(): number {
+		const { colors } = this;
+		const { primaryColor } = colors;
+
+		return primaryColor;
 	}
 
 	/**

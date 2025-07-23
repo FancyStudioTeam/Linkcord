@@ -63,11 +63,6 @@ export class SoundboardSound extends Base {
 	}
 
 	/**
-	 * Patches the soundboard sound properties with the given data.
-	 *
-	 * @param data - The data to use when patching the soundboard sound
-	 * properties.
-	 *
 	 * @internal
 	 */
 	protected _patch(data: SoundboardSoundPatchData = {}): void {

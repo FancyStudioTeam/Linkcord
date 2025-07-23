@@ -55,8 +55,6 @@ export class PollAnswer extends Base {
 	}
 
 	/**
-	 * Patches the poll answer properties with the given data.
-	 *
 	 * @internal
 	 */
 	protected _patch(): void {
