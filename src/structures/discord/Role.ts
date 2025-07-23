@@ -1,6 +1,6 @@
 import type { Client } from "#client/Client.js";
 import { GuildTransformer } from "#structures/transformers/GuildTransformer.js";
-import type { APIRole, JSONRole, RoleColors, RoleTags } from "#types/index.js";
+import type { APIRole, JSONRole, RoleColors, RoleTags, Snowflake } from "#types/index.js";
 import { BitFieldResolver } from "#utils/index.js";
 import { Base } from "./base/Base.js";
 
@@ -26,6 +26,10 @@ export class Role extends Base {
 	 * The icon of the role.
 	 */
 	icon!: string | null;
+	/**
+	 * The ID of the role.
+	 */
+	readonly id: Snowflake;
 	/**
 	 * Whether the role is managed by an integration.
 	 */
@@ -64,11 +68,13 @@ export class Role extends Base {
 	constructor(client: Client, data: APIRole) {
 		super(client);
 
-		const { colors, flags, hoist, managed, mentionable, name, permissions, position } = data;
+		const { colors, flags, hoist, id, managed, mentionable, name, permissions, position } =
+			data;
 
 		this.colors = GuildTransformer.transformRoleColors(colors);
 		this.flags = new BitFieldResolver(flags);
 		this.hoist = hoist;
+		this.id = id;
 		this.managed = managed;
 		this.mentionable = mentionable;
 		this.name = name;
@@ -163,6 +169,7 @@ export class Role extends Base {
 			flags,
 			hoist,
 			icon,
+			id,
 			managed,
 			mentionable,
 			name,
@@ -178,6 +185,7 @@ export class Role extends Base {
 			flags,
 			hoist,
 			icon,
+			id,
 			managed,
 			mentionable,
 			name,
