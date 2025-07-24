@@ -17,7 +17,7 @@ import { Base } from "./Base.js";
  *
  * @internal
  */
-export class BaseInteraction<InteractionType extends InteractionTypes> extends Base {
+export class BaseInteraction extends Base {
 	/**
 	 * The ID of the application associated with the interaction.
 	 */
@@ -57,13 +57,13 @@ export class BaseInteraction<InteractionType extends InteractionTypes> extends B
 	/**
 	 * The type of the interaction.
 	 */
-	readonly type: InteractionType;
+	readonly type: InteractionTypes;
 	/**
 	 * The version of the interaction.
 	 */
 	readonly version: 1;
 
-	constructor(client: Client, data: APIInteraction, type: InteractionType) {
+	constructor(client: Client, data: APIInteraction) {
 		super(client);
 
 		const {
@@ -76,6 +76,7 @@ export class BaseInteraction<InteractionType extends InteractionTypes> extends B
 			guild_locale,
 			locale,
 			token,
+			type,
 			version,
 		} = data;
 
