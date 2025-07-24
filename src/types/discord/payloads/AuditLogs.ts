@@ -73,6 +73,7 @@ export enum AuditLogEvents {
 	ApplicationCommandPermissionsUpdate = 121,
 	AutoModerationBlockMessage = 143,
 	AutoModerationFlagToChannel = 144,
+	AutoModerationQuarantinedUser = 146,
 	AutoModerationRuleCreate = 140,
 	AutoModerationRuleDelete = 142,
 	AutoModerationRuleUpdate = 141,
