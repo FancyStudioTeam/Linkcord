@@ -12,7 +12,7 @@
 		"@commitlint/config-conventional": "19.8.1",
 		"@commitlint/types": "19.8.1",
 		"@swc/core": "1.12.11",
-		"@types/node": "24.0.11",
+		"@types/node": "24.1.0",
 		"@types/semver": "7.7.0",
 		"@types/ws": "8.18.1",
 		"esbuild-plugin-version-injector": "1.2.1",
