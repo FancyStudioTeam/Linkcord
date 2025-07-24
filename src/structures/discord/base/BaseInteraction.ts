@@ -1,5 +1,4 @@
 import type { Client } from "#client/Client.js";
-import { METHOD_NOT_IMPLEMENTED } from "#errors/messages.js";
 import { MonetizationTransformer } from "#structures/transformers/MonetizationTransformer.js";
 import type {
 	APIInteraction,
@@ -97,7 +96,7 @@ export class BaseInteraction extends Base {
 	 * @internal
 	 */
 	protected _patch(): void {
-		throw new Error(METHOD_NOT_IMPLEMENTED());
+		undefined;
 	}
 
 	/**

@@ -1,5 +1,5 @@
 import type { Client } from "#client/Client.js";
-import { METHOD_NOT_IMPLEMENTED, MISSING_REQUIRED_FIELD_FROM_DATA } from "#errors/messages.js";
+import { MISSING_REQUIRED_FIELD_FROM_DATA } from "#errors/messages.js";
 import type { APIPollAnswer, JSONPollAnswer, Snowflake } from "#types/index.js";
 import { Base } from "./base/Base.js";
 import type { Poll } from "./Poll.js";
@@ -58,7 +58,7 @@ export class PollAnswer extends Base {
 	 * @internal
 	 */
 	protected _patch(): void {
-		throw new Error(METHOD_NOT_IMPLEMENTED());
+		undefined;
 	}
 
 	/**
