@@ -18,6 +18,7 @@ import {
 	GatewayOpcodes,
 	type GatewayPresenceUpdatePayload,
 	type GatewayRequestGuildMembersPayload,
+	type GatewayRequestSoundboardSoundsPayload,
 	type GatewayResumePayload,
 	type GatewayVoiceStateUpdatePayload,
 	type StatusTypes,
@@ -28,11 +29,12 @@ import type { GatewayManager } from "./GatewayManager.js";
  * @public
  */
 export class GatewayShard {
+	private _sequence: number | null = null;
+
 	readonly client: Client;
 	readonly id: number;
 	readonly manager: GatewayManager;
 
-	sequence: number | null = null;
 	status = GatewayShardStatus.Disconnected;
 	ws: WebSocket | null = null;
 
@@ -141,10 +143,13 @@ export class GatewayShard {
 	private async onMessage(bufferData: RawData): Promise<void> {
 		const data = bufferData.toString();
 		const message = JSON.parse(data) as GatewayEvent;
+		const { s } = message;
 
 		this.emit("shardPacket", message, this);
 
 		const { client } = this;
+
+		this.sequence = s;
 
 		switch (message.op) {
 			case GatewayOpcodes.Dispatch: {
@@ -188,6 +193,20 @@ export class GatewayShard {
 	private onOpen(): void {
 		this.status = GatewayShardStatus.Handshaking;
 		this.identify();
+	}
+
+	set sequence(value: number) {
+		if (Number.isNaN(value)) {
+			throw new TypeError(`The sequence must be a number.`);
+		}
+
+		this._sequence = value;
+	}
+
+	get sequence(): number | null {
+		const { _sequence } = this;
+
+		return _sequence;
 	}
 
 	init(): void {
@@ -253,7 +272,7 @@ type SendPayload = {
 	[GatewayOpcodes.PresenceUpdate]: GatewayPresenceUpdatePayload;
 	[GatewayOpcodes.Resume]: GatewayResumePayload;
 	[GatewayOpcodes.RequestGuildMembers]: GatewayRequestGuildMembersPayload;
-	[GatewayOpcodes.RequestSoundboardSounds]: GatewayRequestGuildMembersPayload;
+	[GatewayOpcodes.RequestSoundboardSounds]: GatewayRequestSoundboardSoundsPayload;
 	[GatewayOpcodes.VoiceStateUpdate]: GatewayVoiceStateUpdatePayload;
 };
 

@@ -1,15 +1,17 @@
+import type { APIUser } from "../payloads/Users.js";
+import type { Snowflake } from "../shared/discord.js";
 import type { GatewayActivity } from "./activity.js";
 
 /**
  * @public
- * @see https://discord.com/developers/docs/events/gateway-events#update-presence-gateway-presence-update-structure
+ * @see https://discord.com/developers/docs/events/gateway-events#presence-update-presence-update-event-fields
  */
 export interface GatewayPresence {
-	activities: GatewayPresenceActivity[];
-	afk: boolean;
+	activities: GatewayActivity[];
 	client_status: GatewayPresenceClientStatus;
-	since: number | null;
+	guild_id: Snowflake;
 	status: StatusTypes;
+	user: APIUser;
 }
 
 /**
