@@ -353,6 +353,10 @@ export class Endpoints {
 		return "guilds";
 	}
 
+	static interactionCallback(interactionId: Snowflake, interactionToken: string): string {
+		return encode`interactions/${interactionId}/${interactionToken}/callback`;
+	}
+
 	static invite(inviteCode: string): string {
 		return encode`invites/${inviteCode}`;
 	}
