@@ -67,6 +67,13 @@ export class BaseInteraction extends Base {
 	 */
 	readonly version: 1;
 
+	/**
+	 * Creates a new {@link BaseInteraction | `BaseInteraction`} instance.
+	 *
+	 * @param client - The client that instantiated the interaction.
+	 * @param data - The raw Discord API interaction data.
+	 * @param type - The type of the interaction.
+	 */
 	constructor(client: Client, data: APIInteraction, type: InteractionTypes) {
 		super(client);
 

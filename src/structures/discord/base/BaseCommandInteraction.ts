@@ -47,10 +47,18 @@ export class BaseCommandInteraction<
 	 */
 	replied: boolean;
 
-	constructor(client: Client, __data: APIApplicationCommandInteraction, type: CommandType) {
-		super(client, __data, InteractionTypes.ApplicationCommand);
+	/**
+	 * Creates a new {@link BaseCommandInteraction | `BaseCommandInteraction`}
+	 * instance.
+	 *
+	 * @param client - The client that instantiated the interaction.
+	 * @param data - The raw Discord API application command interaction data.
+	 * @param type - The type of the application command interaction.
+	 */
+	constructor(client: Client, data: APIApplicationCommandInteraction, type: CommandType) {
+		super(client, data, InteractionTypes.ApplicationCommand);
 
-		const { data: _data } = __data;
+		const { data: _data } = data;
 
 		if (!_data) {
 			throw new TypeError(

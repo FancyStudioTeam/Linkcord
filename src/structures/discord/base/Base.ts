@@ -30,8 +30,6 @@ export abstract class Base {
 	}
 
 	/**
-	 * Gets the API manager of the extended class.
-	 *
 	 * @internal
 	 */
 	protected get _api(): APIManager {
@@ -42,16 +40,14 @@ export abstract class Base {
 	}
 
 	/**
-	 * Patches the base properties with the given data.
-	 *
-	 * @param data - The data to use when patching the base properties.
-	 *
 	 * @internal
 	 */
 	protected abstract _patch(data: unknown): void;
 
 	/**
 	 * Converts the {@link Base | `Base`} instance to a JSON object.
+	 *
+	 * @returns The JSON object.
 	 */
 	abstract toJSON(): unknown;
 }
