@@ -63,9 +63,9 @@ export class GatewayShard {
 	 * @internal
 	 */
 	private heartbeat(): void {
-		const { sequence } = this;
+		const { _sequence } = this;
 
-		this.send(GatewayOpcodes.Heartbeat, sequence);
+		this.send(GatewayOpcodes.Heartbeat, _sequence);
 	}
 
 	/**
@@ -145,11 +145,10 @@ export class GatewayShard {
 		const message = JSON.parse(data) as GatewayEvent;
 		const { s } = message;
 
+		this._sequence = s;
 		this.emit("shardPacket", message, this);
 
 		const { client } = this;
-
-		this.sequence = s;
 
 		switch (message.op) {
 			case GatewayOpcodes.Dispatch: {
@@ -193,20 +192,6 @@ export class GatewayShard {
 	private onOpen(): void {
 		this.status = GatewayShardStatus.Handshaking;
 		this.identify();
-	}
-
-	set sequence(value: number) {
-		if (Number.isNaN(value)) {
-			throw new TypeError(`The sequence must be a number.`);
-		}
-
-		this._sequence = value;
-	}
-
-	get sequence(): number | null {
-		const { _sequence } = this;
-
-		return _sequence;
 	}
 
 	init(): void {
