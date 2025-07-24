@@ -2,6 +2,7 @@ import type { Client } from "#client/Client.js";
 import { MonetizationTransformer } from "#structures/transformers/MonetizationTransformer.js";
 import type {
 	APIInteraction,
+	CreateInteractionResponseOptions,
 	InteractionContextTypes,
 	InteractionTypes,
 	JSONBaseInteraction,
@@ -12,7 +13,7 @@ import type { Entitlement } from "../Entitlement.js";
 import { Base } from "./Base.js";
 
 /**
- * Represents a base class for all interactions.
+ * Represents a base class for all interaction structures.
  *
  * @internal
  */
@@ -46,6 +47,10 @@ export class BaseInteraction extends Base {
 	 */
 	readonly guildLocale: Locales | null;
 	/**
+	 * The ID of the interaction.
+	 */
+	readonly id: Snowflake;
+	/**
 	 * The chosen locale of the user that triggered the interaction.
 	 */
 	readonly locale: Locales;
@@ -62,7 +67,7 @@ export class BaseInteraction extends Base {
 	 */
 	readonly version: 1;
 
-	constructor(client: Client, data: APIInteraction) {
+	constructor(client: Client, data: APIInteraction, type: InteractionTypes) {
 		super(client);
 
 		const {
@@ -73,9 +78,9 @@ export class BaseInteraction extends Base {
 			entitlements,
 			guild_id,
 			guild_locale,
+			id,
 			locale,
 			token,
-			type,
 			version,
 		} = data;
 
@@ -84,9 +89,10 @@ export class BaseInteraction extends Base {
 		this.channelId = channel_id ?? null;
 		this.context = context ?? null;
 		this.entitlements = MonetizationTransformer.transformEntitlementsMap(entitlements, client);
-		this.locale = locale;
 		this.guildId = guild_id ?? null;
 		this.guildLocale = guild_locale ?? null;
+		this.id = id;
+		this.locale = locale;
 		this.token = token;
 		this.type = type;
 		this.version = version;
@@ -97,6 +103,18 @@ export class BaseInteraction extends Base {
 	 */
 	protected _patch(): void {
 		undefined;
+	}
+
+	/**
+	 * Creates an interaction response.
+	 *
+	 * @param options - The options to use when creating the interaction
+	 * response.
+	 */
+	async createInteractionResponse(options: CreateInteractionResponseOptions): Promise<void> {
+		const { id, token } = this;
+
+		return void (await super._api.postInteractionResponse(id, token, options));
 	}
 
 	/**
@@ -114,6 +132,7 @@ export class BaseInteraction extends Base {
 			entitlements,
 			guildId,
 			guildLocale,
+			id,
 			locale,
 			token,
 			type,
@@ -128,6 +147,7 @@ export class BaseInteraction extends Base {
 			entitlements,
 			guildId,
 			guildLocale,
+			id,
 			locale,
 			token,
 			type,

@@ -30,7 +30,7 @@ export class InteractionsAPI extends BaseAPI {
 		interactionId: Snowflake,
 		interactionToken: string,
 		options: CreateInteractionResponseOptions,
-	): Promise<null> {
+	): Promise<void> {
 		const { data, type } = options;
 
 		let interactionResponse: APIInteractionResponse;
@@ -51,11 +51,11 @@ export class InteractionsAPI extends BaseAPI {
 				break;
 			}
 			default: {
-				throw new Error(`Unknown interaction response type '${type}'.`);
+				throw new Error(`Not implemented yet.`);
 			}
 		}
 
-		await super.post<
+		return void (await super.post<
 			RESTPostInteraction,
 			RESTPostInteractionJSONParams,
 			RESTPostInteractionQueryStringParams
@@ -64,8 +64,6 @@ export class InteractionsAPI extends BaseAPI {
 			queryString: {
 				with_response: true,
 			},
-		});
-
-		return null;
+		}));
 	}
 }
