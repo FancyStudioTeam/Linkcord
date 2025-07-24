@@ -1,0 +1,91 @@
+import type { Client } from "#client/Client.js";
+import {
+	INTERACTION_ALREADY_REPLIED_OR_DEFERRED,
+	MISSING_REQUIRED_FIELD_FROM_DATA,
+} from "#errors/messages.js";
+import {
+	type APIApplicationCommandInteraction,
+	type ApplicationCommandTypes,
+	type CreateModalOptions,
+	InteractionCallbackTypes,
+	InteractionTypes,
+	type Snowflake,
+} from "#types/index.js";
+import { BaseInteraction } from "./BaseInteraction.js";
+
+/**
+ * Represents a base class for all command interaction structures.
+ *
+ * @internal
+ */
+export class BaseCommandInteraction<
+	CommandType extends ApplicationCommandTypes = ApplicationCommandTypes,
+> extends BaseInteraction {
+	/**
+	 * The ID of the guild at which the application command was executed, if
+	 * any.
+	 */
+	readonly commandGuildId: Snowflake | null;
+	/**
+	 * The ID of the application command.
+	 */
+	readonly commandId: Snowflake;
+	/**
+	 * The name of the application command.
+	 */
+	readonly commandName: string;
+	/**
+	 * The type of the application command.
+	 */
+	readonly commandType: CommandType;
+	/**
+	 * Whether the interaction was deferred.
+	 */
+	readonly deferred: boolean;
+	/**
+	 * Whether the interaction was already replied.
+	 */
+	replied: boolean;
+
+	constructor(client: Client, __data: APIApplicationCommandInteraction, type: CommandType) {
+		super(client, __data, InteractionTypes.ApplicationCommand);
+
+		const { data: _data } = __data;
+
+		if (!_data) {
+			throw new TypeError(
+				MISSING_REQUIRED_FIELD_FROM_DATA("data", "APIApplicationCommandInteraction"),
+			);
+		}
+
+		const { guild_id, id, name } = _data;
+
+		this.commandGuildId = guild_id ?? null;
+		this.commandId = id;
+		this.commandName = name;
+		this.commandType = type;
+		this.deferred = false;
+		this.replied = false;
+	}
+
+	/**
+	 * Creates a modal interaction response.
+	 *
+	 * @param options - The options to use when creating the modal interaction
+	 * response.
+	 */
+	async createModal(options: CreateModalOptions): Promise<void> {
+		const { deferred, id, replied, token } = this;
+
+		if (deferred || replied) {
+			throw new Error(INTERACTION_ALREADY_REPLIED_OR_DEFERRED());
+		}
+
+		this.replied = true;
+
+		return void (await super._api.postInteractionResponse(id, token, {
+			data: options,
+			type: InteractionCallbackTypes.Modal,
+		}));
+	}
+}

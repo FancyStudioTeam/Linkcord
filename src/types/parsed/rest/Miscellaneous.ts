@@ -20,3 +20,8 @@ export interface CreateModalInteractionResponseOptions {
  * @public
  */
 export type CreateInteractionResponseOptions = CreateModalInteractionResponseOptions;
+
+/**
+ * @public
+ */
+export type CreateModalOptions = CreateModalInteractionResponseData;

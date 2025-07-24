@@ -8,6 +8,13 @@ import { ListFormatter } from "./utils/index.js";
 /**
  * @internal
  */
+export function INTERACTION_ALREADY_REPLIED_OR_DEFERRED(): string {
+	return "The interaction has already been replied or deferred.";
+}
+
+/**
+ * @internal
+ */
 export function MISSING_REQUIRED_FIELD_FROM_DATA(field: string, objectDescription: string): string {
 	return `Field "${field}" is missing from the "${objectDescription}" object but should be always present in the data.`;
 }
