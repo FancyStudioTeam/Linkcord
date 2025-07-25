@@ -367,6 +367,8 @@ export enum GuildFeatures {
 	EnhancedRoleColors = "ENHANCED_ROLE_COLORS",
 	Featurable = "FEATURABLE",
 	GuestsEnabled = "GUESTS_ENABLED",
+	GuildTagsBadgePackFlex = "GUILD_TAGS_BADGE_PACK_FLEX",
+	GuildTagsBadgePackPets = "GUILD_TAGS_BADGE_PACK_PETS",
 	InternalEmployeeOnly = "INTERNAL_EMPLOYEE_ONLY",
 	InviteSplash = "INVITE_SPLASH",
 	InvitesDisabled = "INVITES_DISABLED",
