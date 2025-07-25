@@ -23,11 +23,7 @@ export class GuildTransformer {
 	/**
 	 * @internal
 	 */
-	static transformIncidentsData(incidentsData: APIIncidentsData | null): IncidentsData | null {
-		if (!incidentsData) {
-			return null;
-		}
-
+	static transformIncidentsData(incidentsData: APIIncidentsData): IncidentsData {
 		const {
 			dm_spam_detected_at,
 			dms_disabled_until,
@@ -127,11 +123,7 @@ export class GuildTransformer {
 	/**
 	 * @internal
 	 */
-	static transformWelcomeScreen(welcomeScreen?: APIWelcomeScreen): WelcomeScreen | null {
-		if (!welcomeScreen) {
-			return null;
-		}
-
+	static transformWelcomeScreen(welcomeScreen: APIWelcomeScreen): WelcomeScreen {
 		const { description, welcome_channels } = welcomeScreen;
 		const welcomeChannels = welcome_channels.map((welcomeChannel) =>
 			GuildTransformer.transformWelcomeScreenChannel(welcomeChannel),

@@ -1,4 +1,4 @@
-import type { Role, SoundboardSound } from "#structures/index.js";
+import type { Guild, Role, SoundboardSound } from "#structures/index.js";
 import type { Snowflake } from "#types/discord/index.js";
 import type { JSONProperties } from "#utils/types.js";
 
@@ -50,6 +50,11 @@ export interface WelcomeScreenChannel {
 	emojiId: Snowflake | null;
 	emojiName: string | null;
 }
+
+/**
+ * @public
+ */
+export type JSONGuild = JSONProperties<typeof Guild>;
 
 /**
  * @public
