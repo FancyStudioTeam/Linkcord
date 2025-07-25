@@ -1,18 +1,25 @@
-import * as v from "valibot";
+import { array, enum_, minLength, object, optional, pipe, string } from "valibot";
 import { GatewayIntents } from "#types/index.js";
 
-const GatewayIntentsEnumSchema = v.enum_(GatewayIntents);
-const GatewayIntentsNumberSchema = v.number();
-const GatewayIntentsStringsSchema = v.string();
+const ConfigurationIntentsEnumSchema = enum_(GatewayIntents);
+const ConfigurationIntentsSchema = pipe(array(ConfigurationIntentsEnumSchema), minLength(1));
 
-const GatewayIntentsArraySchema = v.pipe(
-	v.array(v.union([GatewayIntentsEnumSchema, GatewayIntentsStringsSchema])),
-	v.minLength(1),
+const ConfigurationLocationsCommandsSchema = optional(string(), "commands");
+const ConfigurationLocationsEventsSchema = optional(string(), "events");
+const ConfigurationLocationsRootSchema = optional(string(), "src");
+
+const ConfigurationLocationsSchema = optional(
+	object({
+		commands: ConfigurationLocationsCommandsSchema,
+		events: ConfigurationLocationsEventsSchema,
+		root: ConfigurationLocationsRootSchema,
+	}),
 );
-const GatewayIntentsSchema = v.union([GatewayIntentsArraySchema, GatewayIntentsNumberSchema]);
 
-export const ConfigurationSchema = v.object({
-	compress: v.optional(v.boolean(), false),
-	intents: GatewayIntentsSchema,
-	token: v.string(),
+const ConfigurationTokenSchema = string();
+
+export const ConfigurationSchema = object({
+	intents: ConfigurationIntentsSchema,
+	locations: ConfigurationLocationsSchema,
+	token: ConfigurationTokenSchema,
 });
