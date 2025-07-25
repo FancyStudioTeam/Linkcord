@@ -20,9 +20,9 @@ export class Role extends Base {
 	 */
 	flags: BitFieldResolver;
 	/**
-	 * The guild associated with the role.
+	 * The ID of the guild associated with the role.
 	 */
-	readonly guild: Guild;
+	readonly guildId: Snowflake;
 	/**
 	 * Whether the role is hoisted.
 	 */
@@ -69,9 +69,9 @@ export class Role extends Base {
 	 *
 	 * @param client - The client that instantiated the role.
 	 * @param data - The raw Discord API role data.
-	 * @param guild - The guild associated with the role.
+	 * @param guildId - The ID of the guild associated with the role.
 	 */
-	constructor(client: Client, data: APIRole, guild: Guild) {
+	constructor(client: Client, data: APIRole, guildId: Snowflake) {
 		super(client);
 
 		const { colors, flags, hoist, id, managed, mentionable, name, permissions, position } =
@@ -79,7 +79,7 @@ export class Role extends Base {
 
 		this.colors = GuildTransformer.transformRoleColors(colors);
 		this.flags = new BitFieldResolver(flags);
-		this.guild = guild;
+		this.guildId = guildId;
 		this.hoist = hoist;
 		this.id = id;
 		this.managed = managed;
@@ -165,6 +165,38 @@ export class Role extends Base {
 	}
 
 	/**
+	 * Gets or fetches the guild associated with the role.
+	 *
+	 * @param force - Whether to skip the cache and fetch the guild directly
+	 * from the Discord API.
+	 *
+	 * @returns The guild associated with the role.
+	 */
+	async fetchGuild(force = false): Promise<Guild> {
+		const { client, guildId } = this;
+		const { guilds: guildsManager } = client;
+		const { cache: guildsCache } = guildsManager;
+
+		let guild: Guild;
+
+		if (!force) {
+			/**
+			 * Get the guild from the cache if it exists.
+			 *
+			 * Otherwise, fetch it from the API.
+			 */
+			guild = guildsCache.get(guildId) ?? (await super._api.getGuild(guildId));
+		} else {
+			/**
+			 * Directly fetch the guild from the API.
+			 */
+			guild = await super._api.getGuild(guildId);
+		}
+
+		return guild;
+	}
+
+	/**
 	 * Converts the {@link Role | `Role`} instance to a JSON object.
 	 *
 	 * @returns The JSON role data.
@@ -174,7 +206,7 @@ export class Role extends Base {
 			color,
 			colors,
 			flags,
-			guild,
+			guildId,
 			hoist,
 			icon,
 			id,
@@ -191,7 +223,7 @@ export class Role extends Base {
 			color,
 			colors,
 			flags,
-			guild,
+			guildId,
 			hoist,
 			icon,
 			id,
