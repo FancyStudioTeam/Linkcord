@@ -44,8 +44,7 @@ export class SoundboardSound extends Base {
 	volume: number;
 
 	/**
-	 * Creates a new {@link SoundboardSound | `SoundboardSound`} instance from
-	 * raw Discord API data.
+	 * Creates a new {@link SoundboardSound | `SoundboardSound`} instance.
 	 *
 	 * @param client - The client that instantiated the soundboard sound.
 	 * @param data - The raw Discord API soundboard sound data.

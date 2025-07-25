@@ -50,8 +50,7 @@ export class Entitlement extends Base {
 	readonly userId: Snowflake | null;
 
 	/**
-	 * Creates a new {@link Entitlement | `Entitlement`} instance from raw
-	 * Discord API data.
+	 * Creates a new {@link Entitlement | `Entitlement`} instance.
 	 *
 	 * @param client - The client that instantiated the entitlement.
 	 * @param data - The raw Discord API entitlement data.

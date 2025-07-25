@@ -157,7 +157,7 @@ export class Message<InGuild extends boolean = boolean> extends Base {
 	readonly webhookId: Snowflake | null;
 
 	/**
-	 * Creates a new {@link Message} instance from raw Discord API data.
+	 * Creates a new {@link Message} instance.
 	 *
 	 * @param client - The client that instantiated the message.
 	 * @param data - The raw Discord API message data.

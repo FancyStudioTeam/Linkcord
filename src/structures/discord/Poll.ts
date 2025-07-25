@@ -44,6 +44,13 @@ export class Poll<HasEnded extends boolean = boolean> extends Base {
 	 */
 	results!: PollResults | null;
 
+	/**
+	 * Creates a new {@link Poll | `Poll`} instance.
+	 *
+	 * @param client - The client that instantiated the poll.
+	 * @param data - The raw Discord API poll data.
+	 * @param message - The message associated with the poll.
+	 */
 	constructor(client: Client, data: APIPoll, message: Message) {
 		super(client);
 

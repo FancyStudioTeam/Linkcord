@@ -3,6 +3,7 @@ import { GuildTransformer } from "#structures/transformers/GuildTransformer.js";
 import type { APIRole, JSONRole, RoleColors, RoleTags, Snowflake } from "#types/index.js";
 import { BitFieldResolver } from "#utils/index.js";
 import { Base } from "./base/Base.js";
+import type { Guild } from "./Guild.js";
 
 /**
  * Represents a Discord role.
@@ -18,6 +19,10 @@ export class Role extends Base {
 	 * The flags of the role.
 	 */
 	flags: BitFieldResolver;
+	/**
+	 * The guild associated with the role.
+	 */
+	readonly guild: Guild;
 	/**
 	 * Whether the role is hoisted.
 	 */
@@ -60,12 +65,13 @@ export class Role extends Base {
 	unicodeEmoji!: string | null;
 
 	/**
-	 * Creates a new {@link Role | `Role`} instance from raw Discord API data.
+	 * Creates a new {@link Role | `Role`} instance.
 	 *
 	 * @param client - The client that instantiated the role.
 	 * @param data - The raw Discord API role data.
+	 * @param guild - The guild associated with the role.
 	 */
-	constructor(client: Client, data: APIRole) {
+	constructor(client: Client, data: APIRole, guild: Guild) {
 		super(client);
 
 		const { colors, flags, hoist, id, managed, mentionable, name, permissions, position } =
@@ -73,6 +79,7 @@ export class Role extends Base {
 
 		this.colors = GuildTransformer.transformRoleColors(colors);
 		this.flags = new BitFieldResolver(flags);
+		this.guild = guild;
 		this.hoist = hoist;
 		this.id = id;
 		this.managed = managed;
@@ -167,6 +174,7 @@ export class Role extends Base {
 			color,
 			colors,
 			flags,
+			guild,
 			hoist,
 			icon,
 			id,
@@ -183,6 +191,7 @@ export class Role extends Base {
 			color,
 			colors,
 			flags,
+			guild,
 			hoist,
 			icon,
 			id,

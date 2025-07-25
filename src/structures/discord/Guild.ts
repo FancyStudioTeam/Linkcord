@@ -411,7 +411,7 @@ export class Guild extends Base {
 			const { client } = this;
 
 			for (const role of roles) {
-				const roleStructure = new Role(client, role);
+				const roleStructure = new Role(client, role, this);
 
 				/**
 				 * biome-ignore lint/complexity/useLiteralKeys: Accessing
