@@ -14,3 +14,18 @@ export interface GetChannelPollAnswerVotersOptions {
 	 */
 	limit?: number;
 }
+
+/**
+ * @public
+ * @see https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound-json-params
+ */
+export interface SendSoundboardSoundOptions {
+	/**
+	 * The ID of the soundboard sound to send.
+	 */
+	soundId: Snowflake;
+	/**
+	 * The ID of the guild that the soundboard sound belongs to.
+	 */
+	sourceGuildId?: Snowflake;
+}

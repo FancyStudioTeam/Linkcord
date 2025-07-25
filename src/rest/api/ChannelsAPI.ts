@@ -5,9 +5,14 @@ import type {
 	RESTGetChannelPollAnswerVoters,
 	RESTGetChannelPollAnswerVotersQueryStringParams,
 	RESTPostChannelPollExpire,
+	RESTPostChannelSoundboardSound,
+	RESTPostChannelSoundboardSoundJSONParams,
 	Snowflake,
 } from "#types/index.js";
-import type { GetChannelPollAnswerVotersOptions } from "#types/parsed/rest/Channels.js";
+import type {
+	GetChannelPollAnswerVotersOptions,
+	SendSoundboardSoundOptions,
+} from "#types/parsed/rest/Channels.js";
 import { BaseAPI } from "./base/BaseAPI.js";
 
 const DEFAULT_POLL_ANSWER_VOTERS_TO_FETCH = 25;
@@ -152,5 +157,31 @@ export class ChannelsAPI extends BaseAPI {
 		const message = new Message(client, request);
 
 		return message;
+	}
+
+	/**
+	 * Plays a soundboard sound in a channel.
+	 *
+	 * @param channelId - The ID of the channel where the soundboard sound
+	 * will be played.
+	 * @param options - The options to use when playing the soundboard sound.
+	 *
+	 * @see https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound
+	 */
+	async postChannelSoundboardSound(
+		channelId: Snowflake,
+		options: SendSoundboardSoundOptions,
+	): Promise<void> {
+		const { soundId, sourceGuildId } = options;
+
+		return await super.post<
+			RESTPostChannelSoundboardSound,
+			RESTPostChannelSoundboardSoundJSONParams
+		>(Endpoints.channelSendSoundboardSound(channelId), {
+			json: {
+				sound_id: soundId,
+				source_guild_id: sourceGuildId,
+			},
+		});
 	}
 }

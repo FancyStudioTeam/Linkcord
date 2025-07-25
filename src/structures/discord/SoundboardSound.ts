@@ -128,17 +128,21 @@ export class SoundboardSound extends Base {
 		return Promise.resolve(this);
 	}
 
-	// TODO: Send the soundboard sound to the user voice channel.
 	/**
 	 * Sends the soundboard sound to the user voice channel.
 	 *
-	 * @param channelId - The ID of the voice channel at which to send the
-	 * soundboard sound.
+	 * @param channelId - The ID of the voice channel where the soundboard
+	 * sound will be played.
+	 *
+	 * @see https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound
 	 */
-	send(_channelId: Snowflake): Promise<void> {
-		// const { guildId, rest, soundId } = this;
+	async send(channelId: Snowflake): Promise<void> {
+		const { guildId, soundId } = this;
 
-		return Promise.resolve();
+		return await super._api.postChannelSoundboardSound(channelId, {
+			soundId,
+			sourceGuildId: guildId,
+		});
 	}
 
 	/**
