@@ -138,7 +138,7 @@ export type JSONMessage<InGuild extends boolean = boolean> = JSONProperties<
 /**
  * @public
  */
-export type JSONPoll<HasEnded extends boolean = boolean> = JSONProperties<typeof Poll<HasEnded>>;
+export type JSONPoll = JSONProperties<typeof Poll>;
 
 /**
  * @public

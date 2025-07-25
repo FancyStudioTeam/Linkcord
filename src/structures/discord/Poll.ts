@@ -14,7 +14,7 @@ import type { PollAnswer } from "./PollAnswer.js";
  *
  * @public
  */
-export class Poll<HasEnded extends boolean = boolean> extends Base {
+export class Poll extends Base {
 	/**
 	 * Whether the poll allows to select multiple options.
 	 */
@@ -106,20 +106,11 @@ export class Poll<HasEnded extends boolean = boolean> extends Base {
 	}
 
 	/**
-	 * Checks whether the poll has ended.
-	 */
-	hasEnded(): this is Poll<true> {
-		const { expiresTimestamp } = this;
-
-		return Date.now() > expiresTimestamp;
-	}
-
-	/**
 	 * Converts the {@link Poll | `Poll`} instance to a JSON object.
 	 *
 	 * @returns The JSON poll data.
 	 */
-	toJSON(): JSONPoll<HasEnded> {
+	toJSON(): JSONPoll {
 		const {
 			allowMultiselect,
 			answers,
