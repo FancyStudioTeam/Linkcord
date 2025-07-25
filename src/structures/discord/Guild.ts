@@ -1,5 +1,6 @@
 import type { Client } from "#client/Client.js";
 import { CacheManager } from "#client/managers/CacheManager.js";
+import { UNCACHED_EVERYONE_ROLE } from "#errors/messages.js";
 import { GuildTransformer } from "#structures/transformers/GuildTransformer.js";
 import type {
 	APIGuild,
@@ -482,13 +483,13 @@ export class Guild extends Base {
 	 * The `@everyone` role of the guild.
 	 */
 	get everyone(): Role {
-		const { id, roles } = this;
+		const { id: guildId, roles } = this;
 		const { cache: rolesCache } = roles;
 
-		const everyoneRole = rolesCache.get(id);
+		const everyoneRole = rolesCache.get(guildId);
 
 		if (!everyoneRole) {
-			throw new Error("The `@everyone` role is not cached.");
+			throw new Error(UNCACHED_EVERYONE_ROLE(guildId));
 		}
 
 		return everyoneRole;
