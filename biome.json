@@ -34,7 +34,6 @@
 		"enabled": true,
 		"rules": {
 			"complexity": {
-				"noStaticOnlyClass": "off",
 				"useSimplifiedLogicExpression": "error"
 			},
 			"correctness": {

@@ -17,8 +17,7 @@ import type {
  *
  * @param incidentsData - The raw Discord API incidents data.
  *
- * @returns The transformed {@link IncidentsData | `IncidentsData`}
- * object.
+ * @returns The transformed {@link IncidentsData | `IncidentsData`} object.
  */
 function transformIncidentsData(incidentsData: APIIncidentsData): Readonly<IncidentsData> {
 	const { dm_spam_detected_at, dms_disabled_until, invites_disabled_until, raid_detected_at } =
@@ -51,8 +50,8 @@ function transformRoleColors(colorsData: APIRoleColors): Readonly<RoleColors> {
 }
 
 /**
- * Transforms a raw Discord API role tags into a
- * {@link RoleTags | `RoleTags`} object.
+ * Transforms a raw Discord API role tags into a {@link RoleTags | `RoleTags`}
+ * object.
  *
  * @param tagsData - The raw Discord API role tags.
  *
@@ -102,8 +101,7 @@ function transformRoleTags(tagsData: APIRoleTags): Readonly<RoleTags> {
  *
  * @param welcomeScreen - The raw Discord API welcome screen.
  *
- * @returns The transformed {@link WelcomeScreen | `WelcomeScreen`}
- * object.
+ * @returns The transformed {@link WelcomeScreen | `WelcomeScreen`} object.
  */
 function transformWelcomeScreen(welcomeScreen: APIWelcomeScreen): Readonly<WelcomeScreen> {
 	const { description, welcome_channels } = welcomeScreen;
