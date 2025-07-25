@@ -479,6 +479,22 @@ export class Guild extends Base {
 	}
 
 	/**
+	 * The `@everyone` role of the guild.
+	 */
+	get everyone(): Role {
+		const { id, roles } = this;
+		const { cache: rolesCache } = roles;
+
+		const everyoneRole = rolesCache.get(id);
+
+		if (!everyoneRole) {
+			throw new Error("The `@everyone` role is not cached.");
+		}
+
+		return everyoneRole;
+	}
+
+	/**
 	 * Converts the {@link Guild | `Guild`} instance to a JSON object.
 	 *
 	 * @returns The JSON guild data.
@@ -493,6 +509,7 @@ export class Guild extends Base {
 			defaultMessageNotifications,
 			description,
 			discoverySplash,
+			everyone,
 			explicitContentFilter,
 			features,
 			icon,
@@ -535,6 +552,7 @@ export class Guild extends Base {
 			defaultMessageNotifications,
 			description,
 			discoverySplash,
+			everyone,
 			explicitContentFilter,
 			features,
 			icon,
