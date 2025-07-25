@@ -3,6 +3,7 @@
 		"glob": "11.0.3",
 		"reflect-metadata": "0.2.2",
 		"ts-mixer": "6.0.4",
+		"typedoc-material-theme": "1.4.0",
 		"valibot": "1.1.0",
 		"ws": "8.18.3"
 	},
@@ -65,14 +66,16 @@
 		"biome": "biome check",
 		"biome:ci": "biome ci",
 		"biome:write": "biome check --write",
-		"build": "pnpm rimraf && tsup",
+		"build": "tsup",
+		"prebuild": "pnpm rimraf dist",
 		"prepare": "husky",
+		"pretarball": "pnpm build",
 		"release": "pnpm publish --access public --no-git-checks",
 		"rimraf": "rimraf dist",
 		"tarball": "pnpm pack",
 		"typedoc": "typedoc",
-		"vitest": "vitest -c vitest.config.ts",
-		"vitest:watch": "vitest -c vitest.config.ts --watch"
+		"vitest": "vitest",
+		"vitest:watch": "vitest --watch"
 	},
 	"types": "dist/index.d.ts",
 	"version": "0.0.0"
