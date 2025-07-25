@@ -12,7 +12,13 @@
 		"enabled": true
 	},
 	"files": {
-		"includes": ["**", "!**/.turbo/**", "!**/dist/**"]
+		"includes": [
+			"**",
+			"!**/.VSCodeCounter/**",
+			"!**/.turbo/**",
+			"!**/.typedoc/**",
+			"!**/dist/**"
+		]
 	},
 	"formatter": {
 		"enabled": true,
