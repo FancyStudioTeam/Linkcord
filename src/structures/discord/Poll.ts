@@ -97,6 +97,8 @@ export class Poll extends Base {
 	 * Expires a poll in a channel.
 	 *
 	 * @returns The message associated with the poll.
+	 *
+	 * @see https://discord.com/developers/docs/resources/poll#end-poll
 	 */
 	async expire(): Promise<Message> {
 		const { message } = this;

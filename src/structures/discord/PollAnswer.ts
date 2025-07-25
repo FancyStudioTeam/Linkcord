@@ -71,6 +71,8 @@ export class PollAnswer extends Base {
 	 * @param options - The options to use when fetching the voters.
 	 *
 	 * @returns The users that voted for the poll answer.
+	 *
+	 * @see https://discord.com/developers/docs/resources/poll#get-answer-voters
 	 */
 	async fetchVoters(
 		options: GetChannelPollAnswerVotersOptions = {},

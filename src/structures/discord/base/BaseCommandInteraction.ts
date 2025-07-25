@@ -81,6 +81,8 @@ export class BaseCommandInteraction<
 	 *
 	 * @param options - The options to use when creating the modal interaction
 	 * response.
+	 *
+	 * @see https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
 	 */
 	async createModal(options: CreateModalOptions): Promise<void> {
 		const { deferred, id, replied, token } = this;

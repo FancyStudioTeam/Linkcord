@@ -117,6 +117,8 @@ export class BaseInteraction extends Base {
 	 *
 	 * @param options - The options to use when creating the interaction
 	 * response.
+	 *
+	 * @see https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
 	 */
 	async createInteractionResponse(options: CreateInteractionResponseOptions): Promise<void> {
 		const { id, token } = this;

@@ -140,6 +140,8 @@ export class ChannelsAPI extends BaseAPI {
 	 * @param messageId - The ID of the message associated with the poll.
 	 *
 	 * @returns The {@link Message | `Message`} associated with the poll.
+	 *
+	 * @see https://discord.com/developers/docs/resources/poll#end-poll
 	 */
 	async postChannelPollExpire(channelId: Snowflake, messageId: Snowflake): Promise<Message> {
 		const { client } = this;
