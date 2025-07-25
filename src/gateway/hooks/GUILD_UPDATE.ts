@@ -13,7 +13,8 @@ export const GUILD_UPDATE = (
 	const { cache: guildsCache } = guilds;
 
 	const { id: guildId } = guildData;
-	const guild = new Guild(guildId, guildData);
+
+	const guild = new Guild(client, guildData);
 	const oldGuild = guildsCache.get(guildId) ?? new Uncached(guildId);
 
 	/**

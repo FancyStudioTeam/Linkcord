@@ -15,7 +15,7 @@ export const GUILD_CREATE = (
 		return;
 	}
 
-	const guild = new Guild(guildId, guildData);
+	const guild = new Guild(client, guildData);
 
 	/**
 	 * biome-ignore lint/complexity/useLiteralKeys: Accessing private members
