@@ -1,6 +1,11 @@
 import type { Client } from "#client/Client.js";
 import { MISSING_REQUIRED_FIELD_FROM_DATA } from "#errors/messages.js";
-import type { APIPollAnswer, JSONPollAnswer, Snowflake } from "#types/index.js";
+import type {
+	APIPollAnswer,
+	GetChannelPollAnswerVotersOptions,
+	JSONPollAnswer,
+	Snowflake,
+} from "#types/index.js";
 import { Base } from "./base/Base.js";
 import type { Poll } from "./Poll.js";
 import type { User } from "./User.js";
@@ -63,16 +68,18 @@ export class PollAnswer extends Base {
 	/**
 	 * Fetches the users that voted for the poll answer.
 	 *
-	 * @param limit - The maximum number of users to fetch.
+	 * @param options - The options to use when fetching the voters.
 	 *
 	 * @returns The users that voted for the poll answer.
 	 */
-	async fetchVoters(_limit: number): Promise<Map<Snowflake, User>> {
+	async fetchVoters(
+		options: GetChannelPollAnswerVotersOptions = {},
+	): Promise<Map<Snowflake, User>> {
 		const { answerId, poll } = this;
 		const { message } = poll;
 		const { channelId, id: messageId } = message;
 
-		return await super._api.getChannelPollAnswerVoters(channelId, messageId, answerId);
+		return await super._api.getChannelPollAnswerVoters(channelId, messageId, answerId, options);
 	}
 
 	/**

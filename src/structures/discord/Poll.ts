@@ -61,7 +61,7 @@ export class Poll<HasEnded extends boolean = boolean> extends Base {
 		}
 
 		this.allowMultiselect = allow_multiselect;
-		this.answers = MessageTransformer.transformPollAnswers(answers, client, this);
+		this.answers = MessageTransformer.transformPollAnswersMap(answers, client, this);
 		this.expiresTimestamp = Date.parse(expiry);
 		this.layoutType = layout_type;
 		this.message = message;
