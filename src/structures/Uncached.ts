@@ -16,7 +16,7 @@ export class Uncached {
 	readonly uncached = true;
 
 	/**
-	 * Creates a new {@link Uncached} instance.
+	 * Creates a new {@link Uncached | `Uncached`} instance.
 	 *
 	 * @param id - The ID of the entity.
 	 */
