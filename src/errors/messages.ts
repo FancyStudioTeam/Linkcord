@@ -15,6 +15,13 @@ export function INTERACTION_ALREADY_REPLIED_OR_DEFERRED(): string {
 /**
  * @internal
  */
+export function INVALID_CONFIGURATION_INPUT(): string {
+	return "Invalid configuration input.";
+}
+
+/**
+ * @internal
+ */
 export function MISSING_REQUIRED_FIELD_FROM_DATA(field: string, objectDescription: string): string {
 	return `Field "${field}" is missing from the "${objectDescription}" object but should be always present in the data.`;
 }

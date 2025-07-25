@@ -74,8 +74,8 @@
 		"rimraf": "rimraf dist",
 		"tarball": "pnpm pack",
 		"typedoc": "typedoc",
-		"vitest": "vitest",
-		"vitest:watch": "vitest --watch"
+		"vitest": "vitest -c vitest.config.ts",
+		"vitest:watch": "vitest -c vitest.config.ts --watch"
 	},
 	"types": "dist/index.d.ts",
 	"version": "0.0.0"

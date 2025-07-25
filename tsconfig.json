@@ -32,5 +32,5 @@
 		"strict": true,
 		"target": "ESNext"
 	},
-	"exclude": ["**/*.test.ts", "**/internal_testing"]
+	"exclude": ["**/internal_testing"]
 }
