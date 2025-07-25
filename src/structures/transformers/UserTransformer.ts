@@ -1,16 +1,9 @@
-import { MISSING_REQUIRED_FIELDS_FROM_DATA } from "#errors/messages.js";
 import type {
 	APIAvatarDecorationData,
-	APIPrimaryGuild,
 	APIUserCollectibles,
 	APIUserNameplate,
 } from "#types/index.js";
-import type {
-	AvatarDecorationData,
-	PrimaryGuild,
-	UserCollectibles,
-	UserNameplate,
-} from "#types/parsed/Users.js";
+import type { AvatarDecorationData, UserCollectibles, UserNameplate } from "#types/parsed/Users.js";
 
 /**
  * Transforms a raw Discord API user avatar decoration data into an
@@ -73,48 +66,6 @@ function transformNameplate(nameplateData: APIUserNameplate): UserNameplate {
 }
 
 /**
- * Transforms a raw Discord API user primary guild into a
- * {@link PrimaryGuild | `PrimaryGuild`} object.
- *
- * @param primaryGuildData - The raw Discord API user primary guild.
- *
- * @returns The transformed {@link PrimaryGuild | `PrimaryGuild`} object.
- */
-function transformPrimaryGuild(primaryGuildData: APIPrimaryGuild): PrimaryGuild | null {
-	const { badge, identity_enabled, identity_guild_id, tag } = primaryGuildData;
-
-	/**
-	 * If the identity is not enabled, return `null`.
-	 */
-	if (!identity_enabled) {
-		return null;
-	}
-
-	/**
-	 * All of these fields are present in the data when `identity_enabled`
-	 * is `true`.
-	 *
-	 * But since all of them are nullable, should throw a `TypeError` if
-	 * they are nullable but `identity_enabled` is `true`.
-	 */
-	if (!(badge && identity_guild_id && tag)) {
-		throw new TypeError(
-			MISSING_REQUIRED_FIELDS_FROM_DATA(
-				["badge", "identity_guild_id", "tag"],
-				"APIPrimaryGuild",
-			),
-		);
-	}
-
-	return {
-		badge,
-		identityEnabled: identity_enabled,
-		identityGuildId: identity_guild_id,
-		tag,
-	};
-}
-
-/**
  * Transformers for user-related data.
  *
  * @internal
@@ -123,5 +74,4 @@ export const UserTransformer = Object.freeze({
 	transformAvatarDecorationData,
 	transformCollectibles,
 	transformNameplate,
-	transformPrimaryGuild,
 });

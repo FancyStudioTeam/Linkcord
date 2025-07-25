@@ -1,14 +1,10 @@
 import type { Client } from "#client/Client.js";
 import { UserTransformer } from "#structures/transformers/UserTransformer.js";
 import type { APIUser, Snowflake } from "#types/index.js";
-import type {
-	AvatarDecorationData,
-	JSONUser,
-	PrimaryGuild,
-	UserCollectibles,
-} from "#types/parsed/Users.js";
+import type { AvatarDecorationData, JSONUser, UserCollectibles } from "#types/parsed/Users.js";
 import { BitFieldResolver } from "#utils/index.js";
 import { Base } from "./base/Base.js";
+import { PrimaryGuild } from "./PrimaryGuild.js";
 
 /**
  * Represents a Discord user.
@@ -146,7 +142,9 @@ export class User extends Base {
 		}
 
 		if (primary_guild) {
-			this.primaryGuild = UserTransformer.transformPrimaryGuild(primary_guild);
+			const { client } = this;
+
+			this.primaryGuild = new PrimaryGuild(client, primary_guild);
 		} else {
 			this.primaryGuild ??= null;
 		}

@@ -1,4 +1,4 @@
-import type { User } from "#structures/index.js";
+import type { PrimaryGuild, User } from "#structures/index.js";
 import type { NameplatePalettes, Snowflake } from "#types/discord/index.js";
 import type { JSONProperties } from "#utils/types.js";
 
@@ -8,16 +8,6 @@ import type { JSONProperties } from "#utils/types.js";
 export interface AvatarDecorationData {
 	asset: string;
 	skuId: Snowflake;
-}
-
-/**
- * @public
- */
-export interface PrimaryGuild {
-	badge: string;
-	identityEnabled: boolean;
-	identityGuildId: Snowflake;
-	tag: string;
 }
 
 /**
@@ -36,6 +26,11 @@ export interface UserNameplate {
 	palette: NameplatePalettes;
 	skuId: Snowflake;
 }
+
+/**
+ * @public
+ */
+export type JSONPrimaryGuild = JSONProperties<typeof PrimaryGuild>;
 
 /**
  * @public
