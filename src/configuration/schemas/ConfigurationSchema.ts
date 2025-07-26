@@ -1,4 +1,4 @@
-import { array, enum_, minLength, object, optional, pipe, string } from "valibot";
+import { array, enum_, type InferInput, minLength, object, optional, pipe, string } from "valibot";
 import { GatewayIntents } from "#types/index.js";
 
 const ConfigurationIntentsEnumSchema = enum_(GatewayIntents);
@@ -23,3 +23,8 @@ export const ConfigurationSchema = object({
 	locations: ConfigurationLocationsSchema,
 	token: ConfigurationTokenSchema,
 });
+
+/**
+ * @public
+ */
+export type LinkcordConfiguration = InferInput<typeof ConfigurationSchema>;
