@@ -3,7 +3,12 @@
  */
 const configuration = {
 	entryPoints: ["./src/index.ts"],
-	out: "docs",
+	excludePrivate: true,
+	excludeProtected: true,
+	includeHierarchySummary: true,
+	includeVersion: true,
+	out: ".typedoc",
+	plugin: ["typedoc-material-theme"],
 };
 
 export default configuration;
