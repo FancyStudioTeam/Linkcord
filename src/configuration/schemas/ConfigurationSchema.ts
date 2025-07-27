@@ -1,8 +1,23 @@
-import { array, enum_, type InferInput, minLength, object, optional, pipe, string } from "valibot";
+import {
+	array,
+	enum_,
+	type InferOutput,
+	minLength,
+	object,
+	optional,
+	pipe,
+	string,
+	transform,
+} from "valibot";
+import { reduceGatewayIntents } from "#configuration/functions/reduceGatewayIntents.js";
 import { GatewayIntents } from "#types/index.js";
 
 const ConfigurationIntentsEnumSchema = enum_(GatewayIntents);
-const ConfigurationIntentsSchema = pipe(array(ConfigurationIntentsEnumSchema), minLength(1));
+const ConfigurationIntentsSchema = pipe(
+	array(ConfigurationIntentsEnumSchema),
+	minLength(1),
+	transform((value) => reduceGatewayIntents(value)),
+);
 
 const ConfigurationLocationsCommandsSchema = optional(string(), "commands");
 const ConfigurationLocationsEventsSchema = optional(string(), "events");
@@ -29,4 +44,4 @@ export const ConfigurationSchema = object({
  *
  * @internal
  */
-export type LinkcordOptions = InferInput<typeof ConfigurationSchema>;
+export type LinkcordOptions = InferOutput<typeof ConfigurationSchema>;
