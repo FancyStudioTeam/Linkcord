@@ -25,6 +25,8 @@ export const ConfigurationSchema = object({
 });
 
 /**
- * @public
+ * The options to use internally in the framework.
+ *
+ * @internal
  */
-export type LinkcordConfiguration = InferInput<typeof ConfigurationSchema>;
+export type LinkcordOptions = InferInput<typeof ConfigurationSchema>;
