@@ -1,7 +1,7 @@
 import { parse } from "valibot";
 import {
 	ConfigurationSchema,
-	type LinkcordConfiguration,
+	type LinkcordOptions,
 } from "#configuration/schemas/ConfigurationSchema.js";
 import { INVALID_CONFIGURATION_INPUT } from "#errors/messages.js";
 import type { GatewayIntents } from "#types/index.js";
@@ -11,7 +11,7 @@ import type { GatewayIntents } from "#types/index.js";
  *
  * @public
  */
-export function defineConfig(options: DefineConfigOptions): LinkcordConfiguration {
+export function defineConfig(options: DefineConfigOptions): LinkcordOptions {
 	try {
 		return parse(ConfigurationSchema, options);
 	} catch {
