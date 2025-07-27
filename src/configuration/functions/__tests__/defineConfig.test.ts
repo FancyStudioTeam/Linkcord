@@ -82,7 +82,11 @@ describe("Function: defineConfig", () => {
 			intents: [GatewayIntents.Guilds],
 			token: "DISCORD_TOKEN",
 		};
+		const ExpectedConfigurationOutput = {
+			intents: GatewayIntents.Guilds,
+			token: "DISCORD_TOKEN",
+		};
 
-		expect(defineConfig(ValidConfigurationInput)).toEqual(ValidConfigurationInput);
+		expect(defineConfig(ValidConfigurationInput)).toEqual(ExpectedConfigurationOutput);
 	});
 });
