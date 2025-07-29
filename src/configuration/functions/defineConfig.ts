@@ -9,6 +9,10 @@ import type { GatewayIntents } from "#types/index.js";
 /**
  * Defines the configuration to be used in the framework.
  *
+ * @param options - The options to use for the framework.
+ *
+ * @returns The validated options to use for the framework.
+ *
  * @public
  */
 export function defineConfig(options: DefineConfigOptions): LinkcordOptions {
