@@ -1,13 +1,7 @@
-<div align="center">
-
 # Linkcord
 
 [![MIT License][MITLicenseShieldsBadge]][MITLicenseURL]
 [![Support Server][SupportServerShieldsBadge]][SupportServerURL]
-
-</div>
-
----
 
 ## License
 
