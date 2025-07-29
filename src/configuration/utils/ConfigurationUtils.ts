@@ -19,11 +19,20 @@ const LINKCORD_CONFIGURATION: LinkcordOptions = {};
 
 /**
  * Freezes the configuration object.
- *
- * @internal
  */
 function freeze(): Readonly<LinkcordOptions> {
 	return Object.freeze(LINKCORD_CONFIGURATION);
+}
+
+/**
+ * Gets the defined intents from the configuration.
+ *
+ * @returns The intents from the configuration.
+ */
+function getIntents(): number {
+	const { intents } = getOptions();
+
+	return intents;
 }
 
 /**
@@ -36,14 +45,23 @@ function getOptions(): Readonly<LinkcordOptions> {
 }
 
 /**
+ * Gets the defined token from the configuration.
+ *
+ * @returns The token from the configuration.
+ */
+function getToken(): string {
+	const { token } = getOptions();
+
+	return token;
+}
+
+/**
  * Loads the configuration file and assigns the options to the configuration.
  *
  * @param workingDirectory - The directory root to search for the
  * configuration file.
  *
  * @returns The frozen assigned options.
- *
- * @internal
  */
 async function loadConfigurationFile(
 	workingDirectory = process.cwd(),
@@ -73,6 +91,10 @@ async function loadConfigurationFile(
 		break;
 	}
 
+	/**
+	 * TODO: Validate the configuration.
+	 */
+
 	return getOptions();
 }
 
@@ -94,7 +116,9 @@ function setOptions(options: LinkcordOptions): LinkcordOptions {
  */
 export const ConfigurationUtils = {
 	freeze,
+	getIntents,
 	getOptions,
+	getToken,
 	loadConfigurationFile,
 	setOptions,
 };
