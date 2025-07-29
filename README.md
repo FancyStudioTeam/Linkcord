@@ -9,7 +9,7 @@
 
 ## Support
 
-If you need help, you can join our [Support Server][SupportServerURL] and ask your questions there.
+If you need help, you can join our **[Support Server][SupportServerURL]** and ask your questions there.
 
 ## Contributors
 
