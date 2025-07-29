@@ -170,6 +170,7 @@ export enum ConnectionServices {
  * @undocumented
  */
 export enum DisplayNameEffects {
+	Glow = 6,
 	Gradient = 2,
 	Neon = 3,
 	Pop = 5,
