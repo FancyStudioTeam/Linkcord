@@ -123,7 +123,7 @@ export class BaseInteraction extends Base {
 	async createInteractionResponse(options: CreateInteractionResponseOptions): Promise<void> {
 		const { id, token } = this;
 
-		return void (await super._api.postInteractionResponse(id, token, options));
+		return await super._api.postInteractionResponse(id, token, options);
 	}
 
 	/**

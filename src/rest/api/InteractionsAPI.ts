@@ -36,6 +36,22 @@ export class InteractionsAPI extends BaseAPI {
 		let interactionResponse: APIInteractionResponse;
 
 		switch (type) {
+			case InteractionCallbackTypes.ChannelMessageWithSource:
+			case InteractionCallbackTypes.DeferredChannelMessageWithSource:
+			case InteractionCallbackTypes.DeferredUpdateMessage:
+			case InteractionCallbackTypes.UpdateMessage: {
+				const { content, flags } = data;
+
+				interactionResponse = {
+					data: {
+						content,
+						flags,
+					},
+					type,
+				};
+
+				break;
+			}
 			case InteractionCallbackTypes.Modal: {
 				const { customId, title } = data;
 

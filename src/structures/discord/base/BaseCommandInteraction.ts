@@ -41,7 +41,7 @@ export class BaseCommandInteraction<
 	/**
 	 * Whether the interaction was deferred.
 	 */
-	readonly deferred: boolean;
+	deferred: boolean;
 	/**
 	 * Whether the interaction was already replied.
 	 */
@@ -93,9 +93,33 @@ export class BaseCommandInteraction<
 
 		this.replied = true;
 
-		return void (await super._api.postInteractionResponse(id, token, {
+		return await super._api.postInteractionResponse(id, token, {
 			data: options,
 			type: InteractionCallbackTypes.Modal,
-		}));
+		});
+	}
+
+	/**
+	 * Defers the reply to the interaction.
+	 *
+	 * @param flags - The flags to use when deferring the reply.
+	 *
+	 * @see https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
+	 */
+	async deferReply(flags?: number): Promise<void> {
+		const { deferred, id, token } = this;
+
+		if (deferred) {
+			throw new Error(INTERACTION_ALREADY_REPLIED_OR_DEFERRED());
+		}
+
+		this.deferred = true;
+
+		return await super._api.postInteractionResponse(id, token, {
+			data: {
+				flags,
+			},
+			type: InteractionCallbackTypes.DeferredChannelMessageWithSource,
+		});
 	}
 }
