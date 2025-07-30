@@ -4,16 +4,7 @@ import type { LinkcordOptions } from "#configuration/schemas/ConfigurationSchema
 import { MISSING_DEFAULT_EXPORT_FROM_FILE_PATH } from "#errors/messages.js";
 import { ImportUtils } from "#utils/structures/ImportUtils.js";
 
-/**
- * An array of allowed file extensions for the configuration file.
- *
- * @internal
- */
 const ALLOWED_FILE_EXTENSIONS = ["js", "cjs", "mjs", "ts", "cts", "mts"] as const;
-
-/**
- * @internal
- */
 // @ts-expect-error
 const LINKCORD_CONFIGURATION: LinkcordOptions = {};
 
@@ -58,8 +49,8 @@ function getToken(): string {
 /**
  * Loads the configuration file and assigns the options to the configuration.
  *
- * @param workingDirectory - The directory root to search for the
- * configuration file.
+ * @param workingDirectory - The directory root where the configuration file
+ * is located.
  *
  * @returns The frozen assigned options.
  */
@@ -90,10 +81,6 @@ async function loadConfigurationFile(
 
 		break;
 	}
-
-	/**
-	 * TODO: Validate the configuration.
-	 */
 
 	return getOptions();
 }
