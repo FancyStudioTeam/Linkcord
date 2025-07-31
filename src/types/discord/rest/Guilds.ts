@@ -45,7 +45,6 @@ import type {
 	ExplicitContentFilterLevels,
 	GuildFeatures,
 	GuildWidgetStyles,
-	MFALevels,
 	OnboardingModes,
 	VerificationLevels,
 } from "../payloads/Guilds.js";
@@ -238,7 +237,6 @@ export interface RESTPatchGuildJSONParams {
 	features?: GuildFeatures[];
 	icon?: ImageDataUri | null;
 	name?: string;
-	owner_id?: Snowflake;
 	preferred_locale?: Locales | null;
 	premium_progress_bar_enabled?: boolean;
 	public_updates_channel_id?: Snowflake | null;
@@ -462,22 +460,6 @@ export interface RESTPostGuildFromTemplateJSONParams {
 
 /**
  * @public
- * @see https://discord.com/developers/docs/resources/guild#modify-guild-mfa-level
- */
-export interface RESTPostGuildMFALevel {
-	level: MFALevels;
-}
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/guild#modify-guild-mfa-level-json-params
- */
-export interface RESTPostGuildMFALevelJSONParams {
-	level: MFALevels;
-}
-
-/**
- * @public
  * @see https://discord.com/developers/docs/resources/guild#begin-guild-prune
  */
 export interface RESTPostGuildPrune {
@@ -597,12 +579,6 @@ export interface RESTPutGuildOnboardingJSONParams {
 	mode: OnboardingModes;
 	prompts: APIGuildOnboardingPrompt[];
 }
-
-/**
- * @public
- * @see https://discord.com/developers/docs/resources/guild#delete-guild
- */
-export type RESTDeleteGuild = undefined;
 
 /**
  * @public
