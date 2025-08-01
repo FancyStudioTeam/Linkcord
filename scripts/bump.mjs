@@ -1,5 +1,12 @@
 // @ts-check
 
+/**
+ * biome-ignore-all lint/correctness/noUnreachable: Project is not longer a
+ * monorepo.
+ */
+
+throw new Error("This project is not longer a monorepo and this script is no longer needed.");
+
 import { execSync } from "node:child_process";
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
