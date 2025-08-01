@@ -8,7 +8,7 @@ const CONJUNCTION_FORMATTER = new Intl.ListFormat("en", {
  *
  * @param items - The items of the list.
  *
- * @returns The formatted list using conjunctions.
+ * @returns The formatted list string using conjunctions.
  */
 function conjunction(...items: string[]): string {
 	const quotedItems = items.map((item) => `"${item}"`);
