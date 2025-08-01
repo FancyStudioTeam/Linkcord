@@ -1,4 +1,5 @@
 import type { Embed, EmbedAuthor, EmbedField, EmbedFooter } from "#types/index.js";
+import { EmbedFieldBuilder } from "./EmbedFieldBuilder.js";
 
 /**
  * Utility class for building embeds.
@@ -13,9 +14,14 @@ export class EmbedBuilder {
 	 *
 	 * @param fields - The fields of the embed to add.
 	 */
-	addFields(fields: EmbedField[]): this {
+	addFields(fields: AnyEmbedField[]): this {
 		this.data.fields ??= [];
-		this.data.fields.push(...fields);
+
+		const transformedEmbedFields = fields.map((field) =>
+			field instanceof EmbedFieldBuilder ? field.toJSON() : field,
+		);
+
+		this.data.fields.push(...transformedEmbedFields);
 
 		return this;
 	}
@@ -128,4 +134,20 @@ export class EmbedBuilder {
 
 		return this;
 	}
+
+	/**
+	 * Converts the {@link EmbedBuilder | `EmbedBuilder`} to a JSON object.
+	 *
+	 * @returns The {@link Embed | `Embed`} object.
+	 */
+	toJSON(): Embed {
+		const { data } = this;
+
+		return data;
+	}
 }
+
+/**
+ * @public
+ */
+export type AnyEmbedField = EmbedFieldBuilder | EmbedField;
