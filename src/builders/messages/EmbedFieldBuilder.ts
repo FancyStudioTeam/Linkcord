@@ -1,3 +1,4 @@
+import { MISSING_REQUIRED_FIELDS_FROM_DATA } from "#errors/messages.js";
 import type { EmbedField } from "#types/index.js";
 
 /**
@@ -52,7 +53,7 @@ export class EmbedFieldBuilder {
 		const { inline, name, value } = data;
 
 		if (!(name && value)) {
-			throw new Error("Embed field must have a name and value.");
+			throw new Error(MISSING_REQUIRED_FIELDS_FROM_DATA(["name", "value"], "EmbedField"));
 		}
 
 		return {
