@@ -54,10 +54,6 @@ export class BaseClient {
 
 		const eventsFolderPath = createFolderPath(root, events);
 
-		const locationPromises: Promise<unknown>[] = [
-			EventsLoader.registerEvents(eventsFolderPath, this),
-		];
-
-		await Promise.all(locationPromises);
+		await Promise.all([EventsLoader.registerEvents(eventsFolderPath, this)]);
 	}
 }
