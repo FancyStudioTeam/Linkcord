@@ -1,11 +1,11 @@
 import type { GatewayShard } from "#gateway/index.js";
-import type { ChatInputCommandInteraction } from "#structures/discord/ChatInputCommandInteraction.js";
-import type { Guild, Role, User } from "#structures/index.js";
+import type { ChatInputCommandInteraction, Guild, Role, User } from "#structures/index.js";
 import type { GatewayCloseEventCodes, GatewayEvent } from "#types/index.js";
 import type { MaybeUncached } from "#utils/types.js";
 import type { Client } from "./Client.js";
 
 /**
+ * Represents a map of client events.
  * @public
  */
 export interface ClientEventsMap {
@@ -30,6 +30,7 @@ export interface ClientEventsMap {
 }
 
 /**
+ * The client events as strings.
  * @public
  */
 export type ClientEventsString = keyof ClientEventsMap;

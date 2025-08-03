@@ -44,7 +44,7 @@ export class Client extends BaseClient {
 	}
 
 	/**
-	 * Initializes the client.
+	 * Initializes the client and its dependencies.
 	 */
 	async init(): Promise<void> {
 		await ConfigurationUtils.loadConfigurationFile();
