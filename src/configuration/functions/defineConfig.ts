@@ -1,8 +1,5 @@
-import { parse } from "valibot";
-import {
-	ConfigurationSchema,
-	type LinkcordOptions,
-} from "#configuration/schemas/ConfigurationSchema.js";
+import { type InferOutput, parse } from "valibot";
+import { ConfigurationSchema } from "#configuration/schemas/ConfigurationSchema.js";
 import { INVALID_CONFIGURATION_INPUT } from "#errors/messages.js";
 import type { GatewayIntents } from "#types/index.js";
 
@@ -60,3 +57,9 @@ export interface DefineConfigOptions {
 	 */
 	token: string;
 }
+
+/**
+ * The options validated by the framework.
+ * @public
+ */
+export type LinkcordOptions = InferOutput<typeof ConfigurationSchema>;

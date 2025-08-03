@@ -1,14 +1,4 @@
-import {
-	array,
-	enum_,
-	type InferOutput,
-	minLength,
-	object,
-	optional,
-	pipe,
-	string,
-	transform,
-} from "valibot";
+import { array, enum_, minLength, object, optional, pipe, string, transform } from "valibot";
 import { ConfigurationUtils } from "#configuration/utils/ConfigurationUtils.js";
 import { GatewayIntents } from "#types/index.js";
 
@@ -36,10 +26,3 @@ export const ConfigurationSchema = object({
 	locations: ConfigurationLocationsSchema,
 	token: ConfigurationTokenSchema,
 });
-
-/**
- * The options to use internally in the framework.
- *
- * @internal
- */
-export type LinkcordOptions = InferOutput<typeof ConfigurationSchema>;
