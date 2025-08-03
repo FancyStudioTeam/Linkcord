@@ -1,6 +1,9 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import type { LinkcordOptions } from "#configuration/functions/defineConfig.js";
+import type {
+	LinkcordOptions,
+	LinkcordOptionsLocations,
+} from "#configuration/functions/defineConfig.js";
 import { CONFIGURATION_FILE_NOT_FOUND } from "#errors/messages.js";
 import type { GatewayIntents } from "#types/index.js";
 import { ImportUtils } from "#utils/structures/ImportUtils.js";
@@ -23,8 +26,16 @@ function freeze(): Readonly<LinkcordOptions> {
  * Gets the intents from the configuration.
  * @returns The intents from the configuration.
  */
-function getIntents(): number {
+function getIntents(): Readonly<number> {
 	return getOptions().intents;
+}
+
+/**
+ * Gets the locations from the configuration.
+ * @returns The locations from the configuration.
+ */
+function getLocations(): Readonly<LinkcordOptionsLocations> {
+	return getOptions().locations;
 }
 
 /**
@@ -39,7 +50,7 @@ function getOptions(): Readonly<LinkcordOptions> {
  * Gets the	token from the configuration.
  * @returns The token from the configuration.
  */
-function getToken(): string {
+function getToken(): Readonly<string> {
 	return getOptions().token;
 }
 
@@ -109,6 +120,7 @@ function transformIntents(intents: GatewayIntents[]): number {
 export const ConfigurationUtils = {
 	freeze,
 	getIntents,
+	getLocations,
 	getOptions,
 	getToken,
 	loadConfigurationFile,
