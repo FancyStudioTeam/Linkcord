@@ -54,8 +54,8 @@ async function loadConfigurationFile(workingDirectory = process.cwd()): Promise<
 		const existsConfigurationFile = existsSync(configurationFilePath);
 
 		/**
-		 * If the configuration file with the given extension does not exist,
-		 * continue to the next extension.
+		 * If the configuration file with the current extension does not
+		 * exist, continue to the next extension.
 		 */
 		if (!existsConfigurationFile) continue;
 
@@ -121,5 +121,8 @@ export const ConfigurationUtils = {
  * @internal
  */
 interface ConfigurationFileData {
+	/**
+	 * The validated options of the framework.
+	 */
 	default: LinkcordOptions;
 }
