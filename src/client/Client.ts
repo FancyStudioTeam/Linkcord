@@ -1,21 +1,36 @@
-import { LinkcordConfiguration } from "#configuration/structures/LinkcordConfiguration.js";
+import { ConfigurationUtils } from "#configuration/utils/ConfigurationUtils.js";
 import { GatewayManager } from "#gateway/index.js";
 import { RESTManager } from "#rest/index.js";
 import type { Guild, User } from "#structures/index.js";
 import type { Snowflake } from "#types/index.js";
 import { BaseClient } from "./BaseClient.js";
-import { resolveGatewayIntents } from "./functions/resolveGatewayIntents.js";
 import { CacheManager } from "./managers/CacheManager.js";
 
 /**
+ * Represents the main client.
  * @public
  */
 export class Client extends BaseClient {
+	/**
+	 * The gateway manager of the client.
+	 */
 	readonly gateway: GatewayManager;
+	/**
+	 * The guilds cache manager of the client.
+	 */
 	readonly guilds = new CacheManager<Snowflake, Guild>();
+	/**
+	 * The REST manager of the client.
+	 */
 	readonly rest: RESTManager;
+	/**
+	 * The users cache manager of the client.
+	 */
 	readonly users = new CacheManager<Snowflake, User>();
 
+	/**
+	 * Creates a new {@link Client | `Client`} instance.
+	 */
 	constructor() {
 		super();
 
@@ -23,25 +38,18 @@ export class Client extends BaseClient {
 		this.rest = new RESTManager(this);
 	}
 
-	get token(): Readonly<string> {
-		const { token } = LinkcordConfiguration.getOptions();
-
-		return token;
-	}
-
-	get intents(): Readonly<number> {
-		const { intents } = LinkcordConfiguration.getOptions();
-		const resolvedIntents = resolveGatewayIntents(intents);
-
-		return resolvedIntents;
-	}
-
+	/**
+	 * Initializes the client.
+	 */
 	async init(): Promise<void> {
-		await LinkcordConfiguration.loadConfigurationFile();
+		await ConfigurationUtils.loadConfigurationFile();
 		await super.init();
 
 		const { gateway } = this;
 
+		/**
+		 * Spawn shards and connect them to the gateway.
+		 */
 		await gateway.init();
 	}
 }
