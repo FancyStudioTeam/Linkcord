@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { ConfigurationUtils } from "#configuration/utils/ConfigurationUtils.js";
 import { EventsLoader } from "../handlers/events/loaders/EventsLoader.js";
-import { EventsManager } from "./managers/EventsManager.js";
+import type { Client } from "./Client.js";
 
 /**
  * Creates a path to a folder.
@@ -20,11 +20,6 @@ function createFolderPath(root: string, folderName: string): string {
  */
 export class BaseClient {
 	/**
-	 * The events manager of the client.
-	 */
-	readonly events = new EventsManager();
-
-	/**
 	 * The intents of the client.
 	 */
 	get intents(): Readonly<number> {
@@ -40,20 +35,22 @@ export class BaseClient {
 
 	/**
 	 * Initializes the base client.
+	 * @param client - The main client to initialize the base client.
 	 */
-	async init(): Promise<void> {
-		await Promise.all([this.register()]);
+	async init(client: Client): Promise<void> {
+		await Promise.all([this.register(client)]);
 	}
 
 	/**
 	 * Registers the client commands and events.
+	 * @param client - The main client to initialize the base client.
 	 */
-	async register(): Promise<void> {
+	async register(client: Client): Promise<void> {
 		const locations = ConfigurationUtils.getLocations();
 		const { events, root } = locations;
 
 		const eventsFolderPath = createFolderPath(root, events);
 
-		await Promise.all([EventsLoader.registerEvents(eventsFolderPath, this)]);
+		await Promise.all([EventsLoader.registerEvents(eventsFolderPath, client)]);
 	}
 }

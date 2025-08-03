@@ -5,12 +5,17 @@ import type { Guild, User } from "#structures/index.js";
 import type { Snowflake } from "#types/index.js";
 import { BaseClient } from "./BaseClient.js";
 import { CacheManager } from "./managers/CacheManager.js";
+import { EventsManager } from "./managers/EventsManager.js";
 
 /**
  * Represents the main client.
  * @public
  */
 export class Client extends BaseClient {
+	/**
+	 * The events manager of the client.
+	 */
+	readonly events = new EventsManager();
 	/**
 	 * The gateway manager of the client.
 	 */
@@ -43,7 +48,7 @@ export class Client extends BaseClient {
 	 */
 	async init(): Promise<void> {
 		await ConfigurationUtils.loadConfigurationFile();
-		await super.init();
+		await super.init(this);
 
 		const { gateway } = this;
 

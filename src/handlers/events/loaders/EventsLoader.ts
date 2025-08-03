@@ -1,5 +1,5 @@
 import { glob, type Path } from "glob";
-import type { BaseClient } from "#client/BaseClient.js";
+import type { Client } from "#client/Client.js";
 import { DISABLED_EVENT } from "#errors/messages.js";
 import { ImportUtils } from "#utils/structures/ImportUtils.js";
 import type { EventData } from "../functions/createEvent.js";
@@ -28,9 +28,9 @@ async function loadEventFilePaths(eventsFolderPath: string): Promise<Path[]> {
  * Registers the events to the client.
  * @param eventsFolderPath - The path of the events folder where the event
  * files are located.
- * @param baseClient - The base of the client.
+ * @param client - The main client where the events will be registered.
  */
-async function registerEvents(eventsFolderPath: string, baseClient: BaseClient): Promise<void> {
+async function registerEvents(eventsFolderPath: string, client: Client): Promise<void> {
 	const eventFilePaths = await loadEventFilePaths(eventsFolderPath);
 
 	for (const eventPath of eventFilePaths) {
@@ -54,7 +54,7 @@ async function registerEvents(eventsFolderPath: string, baseClient: BaseClient):
 		}
 
 		const { name: eventName, run } = defaultExport;
-		const { events } = baseClient;
+		const { events } = client;
 
 		events.register(eventName, run);
 	}
