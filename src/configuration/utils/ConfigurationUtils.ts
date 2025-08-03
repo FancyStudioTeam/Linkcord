@@ -61,6 +61,10 @@ async function loadConfigurationFile(workingDirectory = process.cwd()): Promise<
 		const configurationFilePath = join(workingDirectory, `linkcord.config.${extension}`);
 		const existsConfigurationFile = existsSync(configurationFilePath);
 
+		/**
+		 * If the configuration file with the given extension does not exist,
+		 * continue to the next extension.
+		 */
 		if (!existsConfigurationFile) continue;
 
 		const importConfigurationFilePath = ImportUtils.resolvePath(configurationFilePath);
@@ -71,8 +75,8 @@ async function loadConfigurationFile(workingDirectory = process.cwd()): Promise<
 
 		const { default: defaultExport } = importConfigurationFileData;
 
-		setConfigurationFileLoaded();
 		setOptions(defaultExport);
+		setConfigurationFileLoaded();
 
 		break;
 	}
