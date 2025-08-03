@@ -12,6 +12,7 @@ const configuration: UserConfig = {
 				"ci",
 				"docs",
 				"feat",
+				"fix",
 				"gateway",
 				"refactor",
 				"rest",

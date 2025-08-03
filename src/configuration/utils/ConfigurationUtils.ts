@@ -1,6 +1,6 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import type { LinkcordOptions } from "#configuration/schemas/ConfigurationSchema.js";
+import type { LinkcordOptions } from "#configuration/functions/defineConfig.js";
 import { CONFIGURATION_FILE_NOT_FOUND } from "#errors/messages.js";
 import type { GatewayIntents } from "#types/index.js";
 import { ImportUtils } from "#utils/structures/ImportUtils.js";
