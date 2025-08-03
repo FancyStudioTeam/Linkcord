@@ -2,6 +2,7 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import type { LinkcordOptions } from "#configuration/schemas/ConfigurationSchema.js";
 import { CONFIGURATION_FILE_NOT_FOUND } from "#errors/messages.js";
+import type { GatewayIntents } from "#types/index.js";
 import { ImportUtils } from "#utils/structures/ImportUtils.js";
 
 const AVAILABLE_FILE_EXTENSIONS = ["js", "cjs", "mjs", "ts", "cts", "mts"] as const;
@@ -93,6 +94,15 @@ function setOptions(options: LinkcordOptions): void {
 }
 
 /**
+ * Reduces the intents to a number.
+ * @param intents - The intents to reduce.
+ * @returns The reduced intents as number.
+ */
+function transformIntents(intents: GatewayIntents[]): number {
+	return intents.reduce((accumulator, intent) => accumulator | intent, 0);
+}
+
+/**
  * Namespace for configuration utilities.
  * @internal
  */
@@ -103,6 +113,7 @@ export const ConfigurationUtils = {
 	getToken,
 	loadConfigurationFile,
 	setOptions,
+	transformIntents,
 };
 
 /**

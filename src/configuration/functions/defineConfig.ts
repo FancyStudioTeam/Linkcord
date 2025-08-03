@@ -7,12 +7,9 @@ import { INVALID_CONFIGURATION_INPUT } from "#errors/messages.js";
 import type { GatewayIntents } from "#types/index.js";
 
 /**
- * Defines the configuration to be used in the framework.
- *
- * @param options - The options to use for the framework.
- *
- * @returns The validated options to use for the framework.
- *
+ * Defines the configuration of the framework.
+ * @param options - The options to use in the framework.
+ * @returns The validated options of the framework.
  * @public
  */
 export function defineConfig(options: DefineConfigOptions): LinkcordOptions {
@@ -24,34 +21,29 @@ export function defineConfig(options: DefineConfigOptions): LinkcordOptions {
 }
 
 /**
- * Represents the `locations` option for the framework.
- *
+ * The `locations` options of the framework.
  * @public
  */
 export interface DefineConfigLocationsOptions {
 	/**
 	 * The name of the directory that contains the command handlers.
-	 *
 	 * @default commands
 	 */
 	commands?: string;
 	/**
 	 * The name of the directory that contains the event handlers.
-	 *
 	 * @default events
 	 */
 	events?: string;
 	/**
-	 * The name of the directory that contains the source code.
-	 *
+	 * The name of the directory of the source code.
 	 * @default src
 	 */
 	root?: string;
 }
 
 /**
- * Represents the options to use for the framework.
- *
+ * The options of the framework.
  * @public
  */
 export interface DefineConfigOptions {
@@ -62,7 +54,7 @@ export interface DefineConfigOptions {
 	/**
 	 * The locations of the modules.
 	 */
-	locations?: DefineConfigLocationsOptions;
+	locations: DefineConfigLocationsOptions;
 	/**
 	 * The token to use for all Discord API interactions.
 	 */
