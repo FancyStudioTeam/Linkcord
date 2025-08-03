@@ -1,13 +1,12 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import type { LinkcordOptions } from "#configuration/schemas/ConfigurationSchema.js";
-import { CONFIGURATION_FILE_NOT_FOUND, INVALID_CONFIGURATION_OBJECT } from "#errors/messages.js";
+import { CONFIGURATION_FILE_NOT_FOUND } from "#errors/messages.js";
 import { ImportUtils } from "#utils/structures/ImportUtils.js";
 
 const AVAILABLE_FILE_EXTENSIONS = ["js", "cjs", "mjs", "ts", "cts", "mts"] as const;
 // @ts-expect-error
 const LINKCORD_CONFIGURATION: LinkcordOptions = {};
-const LINKCORD_CONFIGURATION_IS_EMPTY = Object.keys(LINKCORD_CONFIGURATION).length === 0;
 
 let ConfigurationFileLoaded = false;
 
@@ -16,10 +15,6 @@ let ConfigurationFileLoaded = false;
  * @returns The frozen configuration object.
  */
 function freeze(): Readonly<LinkcordOptions> {
-	if (LINKCORD_CONFIGURATION_IS_EMPTY) {
-		throw new TypeError(INVALID_CONFIGURATION_OBJECT());
-	}
-
 	return Object.freeze(LINKCORD_CONFIGURATION);
 }
 
@@ -28,9 +23,7 @@ function freeze(): Readonly<LinkcordOptions> {
  * @returns The intents from the configuration.
  */
 function getIntents(): number {
-	const { intents } = getOptions();
-
-	return intents;
+	return getOptions().intents;
 }
 
 /**
@@ -46,9 +39,7 @@ function getOptions(): Readonly<LinkcordOptions> {
  * @returns The token from the configuration.
  */
 function getToken(): string {
-	const { token } = getOptions();
-
-	return token;
+	return getOptions().token;
 }
 
 /**
