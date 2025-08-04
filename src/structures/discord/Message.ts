@@ -1,4 +1,4 @@
-import type { Client } from "#client/Client.js";
+import type { Client } from "#client/index.js";
 import { MessageTransformer } from "#structures/transformers/MessageTransformer.js";
 import type {
 	APIMessage,
@@ -10,13 +10,19 @@ import type {
 	Snowflake,
 } from "#types/index.js";
 import { BitFieldResolver } from "#utils/index.js";
-import { Base } from "./base/Base.js";
+import { Base } from "./Base.js";
 import { Poll } from "./Poll.js";
 import { User } from "./User.js";
 
+/**
+ * Represents a Discord message.
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
+ * @public
+ */
 export class Message<InGuild extends boolean = boolean> extends Base {
 	/**
-	 * The activity associated with the message.
+	 * The {@link MessageActivity | `MessageActivity`} instance associated
+	 * with the message.
 	 */
 	activity!: MessageActivity | null;
 	/**
@@ -34,7 +40,8 @@ export class Message<InGuild extends boolean = boolean> extends Base {
 	 */
 	readonly author: User;
 	/**
-	 * The call associated with the message.
+	 * The {@link MessageCall | `MessageCall`} instance associated with the
+	 * message.
 	 */
 	call!: MessageCall | null;
 	/**
@@ -108,7 +115,7 @@ export class Message<InGuild extends boolean = boolean> extends Base {
 	 */
 	pinned: boolean;
 	/**
-	 * The poll associated with the message.
+	 * The {@link Poll | `Poll`} instance associated with the message.
 	 */
 	poll!: Poll | null;
 	/**
@@ -158,9 +165,8 @@ export class Message<InGuild extends boolean = boolean> extends Base {
 
 	/**
 	 * Creates a new {@link Message} instance.
-	 *
 	 * @param client - The client that instantiated the message.
-	 * @param data - The raw Discord API message data.
+	 * @param data - The {@link APIMessage | `APIMessage`} object.
 	 */
 	constructor(client: Client, data: APIMessage) {
 		super(client);
@@ -192,10 +198,8 @@ export class Message<InGuild extends boolean = boolean> extends Base {
 	}
 
 	/**
-	 * Patches the message properties with the given data.
-	 *
-	 * @param data - The data to use when patching the message properties.
-	 *
+	 * Patches the {@link Message | `Message`} instance with the given data.
+	 * @param data - The data to use when patching the message.
 	 * @internal
 	 */
 	protected _patch(data: MessageData = {}): void {
@@ -275,8 +279,7 @@ export class Message<InGuild extends boolean = boolean> extends Base {
 
 	/**
 	 * Converts the {@link Message} instance to a JSON object.
-	 *
-	 * @returns The JSON message data.
+	 * @returns The {@link JSONMessage | `JSONMessage`} object.
 	 */
 	toJSON(): JSONMessage<InGuild> {
 		const {
@@ -323,4 +326,8 @@ export class Message<InGuild extends boolean = boolean> extends Base {
 	}
 }
 
+/**
+ * The available data to patch from a {@link Message | `Message`} instance.
+ * @internal
+ */
 type MessageData = Partial<APIMessage>;

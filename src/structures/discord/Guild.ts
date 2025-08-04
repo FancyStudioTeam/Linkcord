@@ -1,6 +1,5 @@
-import type { Client } from "#client/Client.js";
-import { CacheManager } from "#client/managers/CacheManager.js";
-import { UNCACHED_EVERYONE_ROLE } from "#errors/messages.js";
+import type { Client } from "#client/index.js";
+import { CacheManager } from "#client/managers/client/CacheManager.js";
 import { GuildTransformer } from "#structures/transformers/GuildTransformer.js";
 import type {
 	APIGuild,
@@ -19,12 +18,12 @@ import type {
 	WelcomeScreen,
 } from "#types/index.js";
 import { BitFieldResolver } from "#utils/index.js";
-import { Base } from "./base/Base.js";
+import { Base } from "./Base.js";
 import { Role } from "./Role.js";
 
 /**
  * Represents a Discord guild.
- *
+ * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-structure
  * @public
  */
 export class Guild extends Base {
@@ -187,9 +186,8 @@ export class Guild extends Base {
 
 	/**
 	 * Creates a new {@link Guild | `Guild`} instance.
-	 *
 	 * @param client - The client that instantiated the guild.
-	 * @param data - The raw Discord API guild data.
+	 * @param data - The {@link APIGuild | `APIGuild`} object.
 	 */
 	constructor(client: Client, data: APIGuild) {
 		super(client);
@@ -223,6 +221,8 @@ export class Guild extends Base {
 	}
 
 	/**
+	 * Patches the {@link Guild | `Guild`} instance with the given data.
+	 * @param data - The data to use when patching the guild.
 	 * @internal
 	 */
 	protected _patch(data: GuildData = {}): void {
@@ -409,16 +409,17 @@ export class Guild extends Base {
 		}
 
 		if (roles) {
-			const { client } = this;
+			const { client, id: guildId, roles: rolesCache } = this;
 
 			for (const role of roles) {
-				const roleStructure = new Role(client, role, this);
+				const roleStructure = new Role(client, role, guildId);
+				const { id: roleId } = roleStructure;
 
 				/**
 				 * biome-ignore lint/complexity/useLiteralKeys: Accessing
 				 * private members from the manager.
 				 */
-				this.roles["add"](roleStructure.id, roleStructure);
+				rolesCache["_add"](roleId, roleStructure);
 			}
 		}
 
@@ -480,25 +481,33 @@ export class Guild extends Base {
 	}
 
 	/**
-	 * The `@everyone` role of the guild.
+	 * Gets or fetches the {@link Role | `Role`} instance associated with the
+	 * `@everyone` role.
+	 * @param force - Whether to skip the cache and fetch the role directly
+	 * from the Discord API.
+	 * @returns The {@link Role | `Role`} instance associated with the
+	 * `@everyone` role.
 	 */
-	get everyone(): Role {
+	async fetchEveryone(force = false): Promise<Role> {
 		const { id: guildId, roles } = this;
 		const { cache: rolesCache } = roles;
 
-		const everyoneRole = rolesCache.get(guildId);
+		let role: Role;
 
-		if (!everyoneRole) {
-			throw new Error(UNCACHED_EVERYONE_ROLE(guildId));
+		if (!force) {
+			// Get first the role from the cache if exists.
+			// Otherwise, fetch it from the Discord API.
+			role = rolesCache.get(guildId) ?? (await super._api.getGuildRole(guildId, guildId));
+		} else {
+			role = await super._api.getGuildRole(guildId, guildId);
 		}
 
-		return everyoneRole;
+		return role;
 	}
 
 	/**
 	 * Converts the {@link Guild | `Guild`} instance to a JSON object.
-	 *
-	 * @returns The JSON guild data.
+	 * @returns The {@link JSONGuild | `JSONGuild`} object.
 	 */
 	toJSON(): JSONGuild {
 		const {
@@ -510,7 +519,6 @@ export class Guild extends Base {
 			defaultMessageNotifications,
 			description,
 			discoverySplash,
-			everyone,
 			explicitContentFilter,
 			features,
 			icon,
@@ -553,7 +561,6 @@ export class Guild extends Base {
 			defaultMessageNotifications,
 			description,
 			discoverySplash,
-			everyone,
 			explicitContentFilter,
 			features,
 			icon,
@@ -590,6 +597,7 @@ export class Guild extends Base {
 }
 
 /**
+ * The available data to patch from a {@link Guild | `Guild`} instance.
  * @internal
  */
 type GuildData = Partial<APIGuild & GatewayDispatchGuildCreatePayload>;

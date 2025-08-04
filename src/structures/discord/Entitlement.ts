@@ -1,10 +1,9 @@
-import type { Client } from "#client/Client.js";
+import type { Client } from "#client/index.js";
 import type { APIEntitlement, EntitlementTypes, JSONEntitlement, Snowflake } from "#types/index.js";
-import { Base } from "./base/Base.js";
+import { Base } from "./Base.js";
 
 /**
  * Represents a Discord entitlement.
- *
  * @public
  */
 export class Entitlement extends Base {
@@ -51,9 +50,8 @@ export class Entitlement extends Base {
 
 	/**
 	 * Creates a new {@link Entitlement | `Entitlement`} instance.
-	 *
 	 * @param client - The client that instantiated the entitlement.
-	 * @param data - The raw Discord API entitlement data.
+	 * @param data - The {@link APIEntitlement | `APIEntitlement`} object.
 	 */
 	constructor(client: Client, data: APIEntitlement) {
 		super(client);
@@ -70,6 +68,27 @@ export class Entitlement extends Base {
 	}
 
 	/**
+	 * The date at which the entitlement is no longer valid.
+	 */
+	get endsAt(): Date | null {
+		const { endsTimestamp } = this;
+
+		return endsTimestamp ? new Date(endsTimestamp) : null;
+	}
+
+	/**
+	 * The date at which the entitlement is valid.
+	 */
+	get startsAt(): Date | null {
+		const { startsTimestamp } = this;
+
+		return startsTimestamp ? new Date(startsTimestamp) : null;
+	}
+
+	/**
+	 * Patches the {@link Entitlement | `Entitlement`} instance with the given
+	 * data.
+	 * @param data - The data to use when patching the entitlement.
 	 * @internal
 	 */
 	protected _patch(data: EntitlementData): void {
@@ -101,27 +120,8 @@ export class Entitlement extends Base {
 	}
 
 	/**
-	 * The date at which the entitlement is no longer valid.
-	 */
-	get endsAt(): Date | null {
-		const { endsTimestamp } = this;
-
-		return endsTimestamp ? new Date(endsTimestamp) : null;
-	}
-
-	/**
-	 * The date at which the entitlement is valid.
-	 */
-	get startsAt(): Date | null {
-		const { startsTimestamp } = this;
-
-		return startsTimestamp ? new Date(startsTimestamp) : null;
-	}
-
-	/**
 	 * Converts the {@link Entitlement | `Entitlement`} instance to a JSON object.
-	 *
-	 * @returns The JSON entitlement data.
+	 * @returns The {@link JSONEntitlement | `JSONEntitlement`} object.
 	 */
 	toJSON(): JSONEntitlement {
 		const {
@@ -157,6 +157,8 @@ export class Entitlement extends Base {
 }
 
 /**
+ * The available data to patch from an {@link Entitlement | `Entitlement`}
+ * instance.
  * @internal
  */
 type EntitlementData = Partial<APIEntitlement>;
