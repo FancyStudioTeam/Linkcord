@@ -1,5 +1,6 @@
 //  biome-ignore-all lint/style/useNamingConvention: Upper snake case is fine.
 
+import { basename } from "node:path";
 import { ListFormatter } from "./utils/ListFormatter.js";
 
 /**
@@ -9,7 +10,9 @@ import { ListFormatter } from "./utils/ListFormatter.js";
  * @internal
  */
 export function DISABLED_EVENT(eventFilePath: string): string {
-	return `Event file "${eventFilePath}" is not enabled.\nIf this is intentional, do not worry about this warning.`;
+	const eventFileName = basename(eventFilePath);
+
+	return `Event file name "${eventFileName}" is not enabled.\nIf this is intentional, do not worry about this warning.`;
 }
 
 /**
@@ -30,7 +33,9 @@ export function INTERACTION_ALREADY_REPLIED_OR_DEFERRED(): string {
  * @internal
  */
 export function MISSING_DEFAULT_EXPORT_FROM_FILE(filePath: string): string {
-	return `File path "${filePath}" must include a "default" export.`;
+	const fileName = basename(filePath);
+
+	return `File name "${fileName}" must include a "default" export.`;
 }
 
 /**
