@@ -1,4 +1,4 @@
-import type { Client } from "#client/Client.js";
+import type { Client } from "#client/index.js";
 import { Endpoints } from "#rest/endpoints/Endpoints.js";
 import { HTTP_STATUS_CODES, REST_URL_BASE, USER_AGENT } from "#rest/utils/constants.js";
 import type { RESTGetGateway } from "#types/index.js";

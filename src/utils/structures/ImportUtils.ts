@@ -1,6 +1,6 @@
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import { MISSING_DEFAULT_EXPORT_FROM_FILE_PATH } from "#errors/messages.js";
+import { MISSING_DEFAULT_EXPORT_FROM_FILE } from "#errors/messages.js";
 
 const IS_COMMON_JS = typeof require !== "undefined" && typeof module !== "undefined";
 
@@ -18,7 +18,7 @@ async function _import<ImportData>(
 	const data = await import(path);
 
 	if (requiredDefaultExport && !("default" in data)) {
-		throw new Error(MISSING_DEFAULT_EXPORT_FROM_FILE_PATH(path));
+		throw new Error(MISSING_DEFAULT_EXPORT_FROM_FILE(path));
 	}
 
 	return data;

@@ -1,4 +1,4 @@
-import type { BaseInteraction } from "#structures/discord/base/BaseInteraction.js";
+import type { BaseInteraction } from "#structures/index.js";
 import type { JSONProperties } from "#utils/types.js";
 
 /**

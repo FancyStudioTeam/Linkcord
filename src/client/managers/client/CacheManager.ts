@@ -1,4 +1,4 @@
-import type { Base } from "#structures/discord/base/Base.js";
+import type { Base } from "#structures/index.js";
 import type { Snowflake } from "#types/index.js";
 
 /**
@@ -47,7 +47,7 @@ export class CacheManager<Key extends string, Value extends Base> {
 	 * @param data - The data to use to patch the cached value.
 	 * @internal
 	 */
-	protected _patch(key: Snowflake, data: Record<PropertyKey, unknown>): void {
+	protected _patch(key: Snowflake, data: unknown): void {
 		const { cache } = this;
 		const existing = cache.get(key);
 
