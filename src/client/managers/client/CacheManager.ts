@@ -42,7 +42,7 @@ export class CacheManager<Key extends string, Value extends Base> {
 		const { cache } = this;
 		const existing = cache.get(key);
 
-		// biome-ignore lint/complexity/useLiteralKeys: Protected method.
+		// biome-ignore lint/complexity/useLiteralKeys: Private method.
 		existing?.["_patch"](data);
 	}
 
