@@ -9,10 +9,13 @@
 
 import type { Client } from "#client/index.js";
 import type { GatewayShard } from "#gateway/structures/GatewayShard.js";
-import { Guild, Uncached } from "#structures/index.js";
+import { Guild, Role, Uncached } from "#structures/index.js";
 import type {
 	GatewayDispatchGuildCreatePayload,
 	GatewayDispatchGuildDeletePayload,
+	GatewayDispatchGuildRoleCreatePayload,
+	GatewayDispatchGuildRoleDeletePayload,
+	GatewayDispatchGuildRoleUpdatePayload,
 	GatewayDispatchGuildUpdatePayload,
 } from "#types/index.js";
 
@@ -63,6 +66,99 @@ export function GUILD_DELETE(
 
 	guilds["_remove"](guildId);
 	events.emit("guildDelete", guild);
+}
+
+/**
+ * Handles the `GUILD_ROLE_CREATE` event received from a gateway shard.
+ * @param client - The main client instance to manage the event.
+ * @param _shard - The gateway shard that received the event.
+ * @param _roleData The received data from the `GUILD_ROLE_CREATE` event.
+ * @see https://discord.com/developers/docs/events/gateway-events#guild-role-create
+ * @internal
+ */
+export function GUILD_ROLE_CREATE(
+	client: Client,
+	_shard: GatewayShard,
+	_roleData: GatewayDispatchGuildRoleCreatePayload,
+): void {
+	const { events, guilds } = client;
+	const { cache: guildsCache } = guilds;
+	const { guild_id: guildId, role: roleData } = _roleData;
+
+	const guild = guildsCache.get(guildId);
+
+	if (!guild) return;
+
+	const role = new Role(client, roleData, guildId);
+
+	const { roles } = guild;
+	const { id: roleId } = role;
+
+	roles["_add"](roleId, role);
+	events.emit("guildRoleCreate", role, guild);
+}
+
+/**
+ * Handles the `GUILD_ROLE_DELETE` event received from a gateway shard.
+ * @param client - The main client instance to manage the event.
+ * @param _shard - The gateway shard that received the event.
+ * @param _roleData - The received data from the `GUILD_ROLE_DELETE` event.
+ * @see https://discord.com/developers/docs/events/gateway-events#guild-role-delete
+ * @internal
+ */
+export function GUILD_ROLE_DELETE(
+	client: Client,
+	_shard: GatewayShard,
+	_roleData: GatewayDispatchGuildRoleDeletePayload,
+): void {
+	const { events, guilds } = client;
+	const { cache: guildsCache } = guilds;
+	const { guild_id: guildId, role_id: roleId } = _roleData;
+
+	const guild = guildsCache.get(guildId);
+
+	if (!guild) return;
+
+	const { roles } = guild;
+	const { cache: rolesCache } = roles;
+
+	const role = rolesCache.get(roleId) ?? new Uncached(roleId);
+
+	roles["_remove"](roleId);
+	events.emit("guildRoleDelete", role, guild);
+}
+
+/**
+ * Handles the `GUILD_ROLE_UPDATE` event received from a gateway shard.
+ * @param client - The main client instance to manage the event.
+ * @param _shard - The gateway shard that received the event.
+ * @param _roleData - The received data from the `GUILD_ROLE_UPDATE` event.
+ * @see https://discord.com/developers/docs/events/gateway-events#guild-role-update
+ * @internal
+ */
+export function GUILD_ROLE_UPDATE(
+	client: Client,
+	_shard: GatewayShard,
+	_roleData: GatewayDispatchGuildRoleUpdatePayload,
+): void {
+	const { events, guilds } = client;
+	const { cache: guildsCache } = guilds;
+	const { guild_id: guildId, role: roleData } = _roleData;
+
+	const guild = guildsCache.get(guildId);
+
+	if (!guild) return;
+
+	const { roles } = guild;
+	const { cache: rolesCache } = roles;
+
+	const newRole = new Role(client, roleData, guildId);
+	const oldRole = rolesCache.get(newRole.id) ?? new Uncached(newRole.id);
+
+	const { id: roleId } = newRole;
+
+	roles["_patch"](roleId, roleData);
+	events.emit("guildRoleUpdate", newRole, oldRole, guild);
 }
 
 /**
