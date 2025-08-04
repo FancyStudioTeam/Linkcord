@@ -8,9 +8,7 @@ export const Fragment = ({ children }: FragmentProperties) =>
  * @public
  */
 export const jsx = (
-	/**
-	 * biome-ignore lint/complexity/noBannedTypes: (x)
-	 */
+	// biome-ignore lint/complexity/noBannedTypes: Allow any function.
 	componentFunction: Function,
 	properties: Record<string, unknown>,
 	...children: unknown[]

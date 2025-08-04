@@ -6,9 +6,7 @@ import type { Uncached } from "#structures/Uncached.js";
 export type JSONProperties<Instance extends Newable> = Readonly<
 	Omit<
 		{
-			/**
-			 * biome-ignore lint/complexity/noBannedTypes: Expect any function.
-			 */
+			// biome-ignore lint/complexity/noBannedTypes: Allow any function.
 			[Key in keyof InstanceType<Instance> as InstanceType<Instance>[Key] extends Function
 				? never
 				: Key]: InstanceType<Instance>[Key];
@@ -23,16 +21,7 @@ export type JSONProperties<Instance extends Newable> = Readonly<
 export type MaybeUncached<Type> = Type | Uncached;
 
 /**
- * biome-ignore-start lint/suspicious/noExplicitAny: Expect anything.
- *
- * @remarks
- * Use suppression ranges to prevent IntelliSense from inferring Biome
- * comments.
- */
-/**
  * @internal
  */
+// biome-ignore lint/suspicious/noExplicitAny: Expect anything.
 type Newable = new (...args: any[]) => any;
-/**
- * biome-ignore-end lint/suspicious/noExplicitAny: Expect anything.
- */
