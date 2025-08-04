@@ -1,19 +1,19 @@
 import { describe, expect, it, vi } from "vitest";
-import { EventsManager } from "../EventsManager.js";
+import { EventsManager as EventsManagerClass } from "../EventsManager.js";
 
 describe("Method: EventsManager.addListener", () =>
 	it("Should register two event listener.", () => {
-		const eventsManager = new EventsManager();
-		const debugListener = vi.fn();
+		const EventsManager = new EventsManagerClass();
+		const DebugListenerFunction = vi.fn();
 
-		eventsManager.addListener("debug", debugListener);
-		eventsManager.addListener("debug", debugListener);
+		EventsManager.addListener("debug", DebugListenerFunction);
+		EventsManager.addListener("debug", DebugListenerFunction);
 
-		const { listeners } = eventsManager;
+		const { listeners } = EventsManager;
 
-		const debugListeners = listeners.get("debug");
-		const debugListenersLength = debugListeners?.length ?? 0;
+		const DebugListeners = listeners.get("debug");
+		const DebugListenersLength = DebugListeners?.length ?? 0;
 
-		expect(debugListeners).toBeInstanceOf(Array);
-		expect(debugListenersLength).toBe(2);
+		expect(DebugListeners).toBeInstanceOf(Array);
+		expect(DebugListenersLength).toBe(2);
 	}));
