@@ -3,23 +3,23 @@
 /**
  * Shows a message indicating that the input value is an invalid type.
  * @param expectedInputDescription - The description of the expected input.
- * @param expectedType - The expected type of the expected input.
+ * @param expectedInputType - The expected type of the expected input.
  * @param input - The received input value.
  * @returns The message indicating that the input value is an invalid type.
  * @internal
  */
 export function INVALID_INPUT_VALUE_TYPE(
 	expectedInputDescription: string,
-	expectedType: ExpectedType,
+	expectedInputType: ExpectedType,
 	input: unknown,
 ): string {
-	let receivedInputType = String(typeof input);
+	let receivedInputType: ExpectedType = typeof input;
 
 	if (input === null) {
 		receivedInputType = "null";
 	}
 
-	return `Invalid input value type for "${expectedInputDescription}".\nExpected "${expectedType}" but received "${receivedInputType}".`;
+	return `Invalid input value type for "${expectedInputDescription}".\nExpected "${expectedInputType}" but received "${receivedInputType}".`;
 }
 
 /**
@@ -31,6 +31,7 @@ type ExpectedType =
 	| "bigint"
 	| "boolean"
 	| "function"
+	| "null"
 	| "number"
 	| "object"
 	| "string"
