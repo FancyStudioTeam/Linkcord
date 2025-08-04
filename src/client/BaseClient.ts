@@ -7,15 +7,14 @@ import type { Client } from "./Client.js";
  * Creates a path to a folder.
  * @param root - The directory root where the folder should be located.
  * @param folderName - The name of the folder.
- * @returns The path to the folder.
- * @internal
+ * @returns The created path of the folder.
  */
 function createFolderPath(root: string, folderName: string): string {
 	return join(process.cwd(), root, folderName);
 }
 
 /**
- * Represents a base client.
+ * Represents the base client for the main client.
  * @public
  */
 export class BaseClient {

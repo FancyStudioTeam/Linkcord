@@ -8,7 +8,7 @@ import { CacheManager } from "./managers/CacheManager.js";
 import { EventsManager } from "./managers/EventsManager.js";
 
 /**
- * Represents the main client.
+ * The main client class for Discord.
  * @public
  */
 export class Client extends BaseClient {

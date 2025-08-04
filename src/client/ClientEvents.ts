@@ -5,7 +5,7 @@ import type { MaybeUncached } from "#utils/types.js";
 import type { Client } from "./Client.js";
 
 /**
- * Represents a map of client events.
+ * Represents a map of the main client events.
  * @public
  */
 export interface ClientEventsMap {
@@ -30,7 +30,7 @@ export interface ClientEventsMap {
 }
 
 /**
- * The client events as strings.
+ * The main client events as strings.
  * @public
  */
 export type ClientEventsString = keyof ClientEventsMap;
