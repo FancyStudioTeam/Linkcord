@@ -4,7 +4,7 @@ import type {
 	LinkcordOptions,
 	LinkcordOptionsLocations,
 } from "#configuration/functions/defineConfig.js";
-import { CONFIGURATION_FILE_NOT_FOUND } from "#errors/messages.js";
+import { CONFIGURATION_FILE_NOT_FOUND } from "#errors/messages/Configuration.js";
 import type { GatewayIntents } from "#types/index.js";
 import { ImportUtils } from "#utils/structures/ImportUtils.js";
 

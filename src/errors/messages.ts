@@ -3,16 +3,6 @@
 import { ListFormatter } from "./utils/ListFormatter.js";
 
 /**
- * Shows a message indicating that the configuration file has not been found.
- * @returns The message indicating that the configuration file has not been
- * found.
- * @internal
- */
-export function CONFIGURATION_FILE_NOT_FOUND(): string {
-	return 'Configuration file "linkcord.config" has not been found.';
-}
-
-/**
  * Shows a message indicating that an event is disabled.
  * @param eventFilePath - The path of the event file that is disabled.
  * @returns The message indicating that an event is disabled.
