@@ -4,6 +4,7 @@ import type { APIManager } from "#rest/structures/APIManager.js";
 
 /**
  * The base class for most of Discord structures.
+ * @group Discord/Structures
  * @public
  */
 export abstract class Base {
@@ -39,7 +40,7 @@ export abstract class Base {
 	}
 
 	/**
-	 * Patches the data of the structure.
+	 * Patches the {@link Base | `Base`} instance with the given data.
 	 * @internal
 	 */
 	protected abstract _patch(data: unknown): void;
