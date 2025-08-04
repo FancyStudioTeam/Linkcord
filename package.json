@@ -19,7 +19,7 @@
 		"@types/ws": "8.18.1",
 		"esbuild-plugin-version-injector": "1.2.1",
 		"husky": "9.1.7",
-		"lint-staged": "16.1.2",
+		"lint-staged": "16.1.4",
 		"rimraf": "6.0.1",
 		"semver": "7.7.2",
 		"tsup": "8.5.0",
