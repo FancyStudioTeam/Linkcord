@@ -1,4 +1,4 @@
-import type { ClientEventsMap, ClientEventsString } from "../ClientEvents.js";
+import type { ClientEventsMap, ClientEventsString } from "#client/ClientEvents.js";
 
 /**
  * The events manager for the client.
