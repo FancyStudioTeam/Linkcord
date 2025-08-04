@@ -34,17 +34,6 @@ export function INTERACTION_ALREADY_REPLIED_OR_DEFERRED(): string {
 }
 
 /**
- * Shows a message indicating that the `defineConfig` function has received an
- * invalid input.
- * @returns The message indicating that the `defineConfig` function has
- * received an invalid input.
- * @internal
- */
-export function INVALID_DEFINE_CONFIG_INPUT(): string {
-	return "Invalid configuration input.";
-}
-
-/**
  * Shows a message indicating that a file is missing a default export.
  * @param filePath - The path of the file that is missing a default export.
  * @returns The message indicating that a file is missing a default export.

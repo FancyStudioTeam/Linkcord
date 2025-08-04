@@ -3,7 +3,7 @@ import {
 	type ConfigurationLocationsSchema,
 	ConfigurationSchema,
 } from "#configuration/schemas/ConfigurationSchema.js";
-import { INVALID_DEFINE_CONFIG_INPUT } from "#errors/messages.js";
+import { INVALID_DEFINE_CONFIG_INPUT } from "#errors/messages/configuration.js";
 import type { GatewayIntents } from "#types/index.js";
 
 /**
