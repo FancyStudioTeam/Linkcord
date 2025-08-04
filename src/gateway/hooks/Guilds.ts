@@ -1,4 +1,7 @@
-// biome-ignore-all lint/style/useNamingConvention: Upper snake case.
+/*
+ * biome-ignore-all lint/style/useNamingConvention: Function names must be the
+ * exact name as the corresponding dispatch event.
+ */
 /*
  * biome-ignore-all lint/complexity/useLiteralKeys: Allow to use bracket
  * notation when accessing private or protected members from some structures.
@@ -79,10 +82,12 @@ export function GUILD_UPDATE(
 	const { cache: guildsCache } = guilds;
 	const { id: guildId } = guildData;
 
+	const cachedGuild = guildsCache.get(guildId);
 	const newGuild = new Guild(client, guildData);
-	const oldGuild = structuredClone(guildsCache.get(guildId)) ?? new Uncached(guildId);
+	// Clone the cached guild to prevent mutating the original instance.
+	// If the guild is not cached, create a new `Uncached` instance.
+	const oldGuild = cachedGuild?.["_clone"]() ?? new Uncached(guildId);
 
 	guilds["_patch"](guildId, guildData);
-
 	events.emit("guildUpdate", newGuild, oldGuild);
 }
