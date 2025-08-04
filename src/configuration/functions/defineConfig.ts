@@ -1,4 +1,4 @@
-import { type InferOutput, parse } from "valibot";
+import { type InferOutput, parse, ValiError } from "valibot";
 import {
 	type ConfigurationLocationsSchema,
 	ConfigurationSchema,
@@ -15,7 +15,13 @@ import type { GatewayIntents } from "#types/index.js";
 export function defineConfig(options: DefineConfigOptions): LinkcordOptions {
 	try {
 		return parse(ConfigurationSchema, options);
-	} catch {
+	} catch (error) {
+		if (error instanceof ValiError) {
+			const { message } = error;
+
+			throw new TypeError(message);
+		}
+
 		throw new TypeError(INVALID_DEFINE_CONFIG_INPUT());
 	}
 }
