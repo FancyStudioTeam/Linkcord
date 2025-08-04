@@ -2,24 +2,13 @@
 
 import { describe, expect, it } from "vitest";
 import { CacheManager as CacheManagerClass } from "../CacheManager.js";
-
-/**
- * Represents a user class for testing purposes.
- * @internal
- */
-class UserClass {
-	/**
-	 * The name of the user.
-	 */
-	readonly name = "User";
-}
+import { UserClass } from "./__resources__/UserClass.js";
 
 describe("Method: CacheManager._add", () =>
 	it("Should add a value to the cache manager.", () => {
 		const CacheManager = new CacheManagerClass();
-		const User = new UserClass();
+		const User = new UserClass("User 1");
 
-		// @ts-expect-error
 		CacheManager["_add"]("user_1", User);
 
 		const { cache } = CacheManager;
