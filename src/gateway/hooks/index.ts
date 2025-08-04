@@ -9,7 +9,7 @@ import {
 	GUILD_ROLE_UPDATE,
 	GUILD_UPDATE,
 } from "./Guilds.js";
-import { READY } from "./READY.js";
+import { READY } from "./Shard.js";
 
 /*
  * biome-ignore-start lint/style/useNamingConvention: Keys must be the exact
