@@ -9,7 +9,10 @@ export class CacheManager<Key extends string, Value extends Base> {
 	/**
 	 * The maximum number of cached values in the cache manager.
 	 */
-	// biome-ignore lint/correctness/noUnusedPrivateClassMembers: Add limits.
+	/*
+	 * biome-ignore lint/correctness/noUnusedPrivateClassMembers: "_limit" is
+	 * being used in the "_add" method.
+	 */
 	private readonly _limit: number;
 
 	/**
@@ -36,7 +39,15 @@ export class CacheManager<Key extends string, Value extends Base> {
 	 * @internal
 	 */
 	protected _add(key: Snowflake, value: Value): void {
-		const { cache } = this;
+		const { _limit, cache } = this;
+		const { size: cacheSize } = cache;
+
+		if (cacheSize >= _limit) {
+			return void process.emitWarning(
+				`The entry "${key}" has not been added due to the cache limit. (${cacheSize}/${_limit} allowed entries)`,
+				"[CacheManager]",
+			);
+		}
 
 		cache.set(key, value);
 	}
