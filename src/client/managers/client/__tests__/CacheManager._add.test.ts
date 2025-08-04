@@ -3,7 +3,14 @@
 import { describe, expect, it } from "vitest";
 import { CacheManager as CacheManagerClass } from "../CacheManager.js";
 
+/**
+ * Represents a user class for testing purposes.
+ * @internal
+ */
 class UserClass {
+	/**
+	 * The name of the user.
+	 */
 	readonly name = "User";
 }
 
