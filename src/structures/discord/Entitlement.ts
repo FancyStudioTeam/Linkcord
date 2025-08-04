@@ -68,21 +68,12 @@ export class Entitlement extends Base {
 	}
 
 	/**
-	 * The date at which the entitlement is no longer valid.
+	 * Clones the current {@link Entitlement | `Entitlement`} instance.
+	 * @returns The cloned {@link Entitlement | `Entitlement`} instance.
+	 * @internal
 	 */
-	get endsAt(): Date | null {
-		const { endsTimestamp } = this;
-
-		return endsTimestamp ? new Date(endsTimestamp) : null;
-	}
-
-	/**
-	 * The date at which the entitlement is valid.
-	 */
-	get startsAt(): Date | null {
-		const { startsTimestamp } = this;
-
-		return startsTimestamp ? new Date(startsTimestamp) : null;
+	protected _clone(): this {
+		return super._cloneThis();
 	}
 
 	/**
@@ -117,6 +108,24 @@ export class Entitlement extends Base {
 		} else {
 			this.startsTimestamp ??= null;
 		}
+	}
+
+	/**
+	 * The date at which the entitlement is no longer valid.
+	 */
+	get endsAt(): Date | null {
+		const { endsTimestamp } = this;
+
+		return endsTimestamp ? new Date(endsTimestamp) : null;
+	}
+
+	/**
+	 * The date at which the entitlement is valid.
+	 */
+	get startsAt(): Date | null {
+		const { startsTimestamp } = this;
+
+		return startsTimestamp ? new Date(startsTimestamp) : null;
 	}
 
 	/**

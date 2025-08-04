@@ -67,6 +67,15 @@ export class Poll extends Base {
 	}
 
 	/**
+	 * Clones the current {@link Poll | `Poll`} instance.
+	 * @returns The cloned {@link Poll | `Poll`} instance.
+	 * @internal
+	 */
+	protected _clone(): this {
+		return super._cloneThis();
+	}
+
+	/**
 	 * Patches the {@link Poll | `Poll`} instance with the given data.
 	 * @param data - The data to use when patching the poll.
 	 * @internal

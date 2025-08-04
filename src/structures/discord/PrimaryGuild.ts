@@ -55,6 +55,15 @@ export class PrimaryGuild extends Base {
 	}
 
 	/**
+	 * Clones the current {@link PrimaryGuild | `PrimaryGuild`} instance.
+	 * @returns The cloned {@link PrimaryGuild | `PrimaryGuild`} instance.
+	 * @internal
+	 */
+	protected _clone(): this {
+		return super._cloneThis();
+	}
+
+	/**
 	 * Patches the {@link PrimaryGuild | `PrimaryGuild`} instance with the
 	 * given data.
 	 * @internal

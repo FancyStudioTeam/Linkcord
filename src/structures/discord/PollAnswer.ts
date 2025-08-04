@@ -70,6 +70,15 @@ export class PollAnswer extends Base {
 	}
 
 	/**
+	 * Clones the current {@link PollAnswer | `PollAnswer`} instance.
+	 * @returns The cloned {@link PollAnswer | `PollAnswer`} instance.
+	 * @internal
+	 */
+	protected _clone(): this {
+		return super._cloneThis();
+	}
+
+	/**
 	 * Patches the {@link PollAnswer | `PollAnswer`} instance with the given
 	 * data.
 	 * @internal

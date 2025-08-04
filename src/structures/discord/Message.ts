@@ -198,6 +198,15 @@ export class Message<InGuild extends boolean = boolean> extends Base {
 	}
 
 	/**
+	 * Clones the current {@link Message | `Message`} instance.
+	 * @returns The cloned {@link Message | `Message`} instance.
+	 * @internal
+	 */
+	protected _clone(): this {
+		return super._cloneThis();
+	}
+
+	/**
 	 * Patches the {@link Message | `Message`} instance with the given data.
 	 * @param data - The data to use when patching the message.
 	 * @internal

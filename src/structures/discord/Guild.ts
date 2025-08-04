@@ -221,6 +221,15 @@ export class Guild extends Base {
 	}
 
 	/**
+	 * Clones the current {@link Guild | `Guild`} instance.
+	 * @returns The cloned {@link Guild | `Guild`} instance.
+	 * @internal
+	 */
+	protected _clone(): this {
+		return super._cloneThis();
+	}
+
+	/**
 	 * Patches the {@link Guild | `Guild`} instance with the given data.
 	 * @param data - The data to use when patching the guild.
 	 * @internal

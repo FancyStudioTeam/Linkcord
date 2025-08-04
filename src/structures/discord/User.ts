@@ -82,6 +82,15 @@ export class User extends Base {
 	}
 
 	/**
+	 * Clones the current {@link User | `User`} instance.
+	 * @returns The cloned {@link User | `User`} instance.
+	 * @internal
+	 */
+	protected _clone(): this {
+		return super._cloneThis();
+	}
+
+	/**
 	 * Patches the {@link User | `User`} instance with the given data.
 	 * @param data - The data to patch the instance.
 	 * @internal

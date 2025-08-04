@@ -64,6 +64,17 @@ export class SoundboardSound extends Base {
 	}
 
 	/**
+	 * Clones the current {@link SoundboardSound | `SoundboardSound`}
+	 * instance.
+	 * @returns The cloned {@link SoundboardSound | `SoundboardSound`}
+	 * instance.
+	 * @internal
+	 */
+	protected _clone(): this {
+		return super._cloneThis();
+	}
+
+	/**
 	 * Patches the {@link SoundboardSound | `SoundboardSound`} instance with
 	 * the given data.
 	 * @param data - The data to patch the instance.
