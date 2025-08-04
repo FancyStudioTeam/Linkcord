@@ -16,10 +16,9 @@ describe("Method: CacheManager._add", () =>
 		CacheManager["_add"]("user_1", User);
 
 		const { cache } = CacheManager;
-		const { size } = cache;
+		const { size: CacheLength } = cache;
 
 		const CachedValue = cache.get("user_1");
-		const CacheLength = size;
 
 		expect(CachedValue).toBeInstanceOf(UserClass);
 		expect(CacheLength).toBe(1);
