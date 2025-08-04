@@ -16,16 +16,19 @@ export class UserClass extends Base {
 	 * @param name - The name of the user.
 	 */
 	constructor(name: string) {
+		// @ts-expect-error
 		super(null);
 
 		this.name = name;
 	}
 
 	/**
-	 * Patches the user with the given data.
+	 * Patches the {@link UserClass | `UserClass`} instance with the given
+	 * data.
 	 * @param data - The data to use when patching the user.
+	 * @internal
 	 */
-	_patch(data: Partial<UserClassData> = {}): void {
+	protected _patch(data: Partial<UserClassData> = {}): void {
 		const { name } = data;
 
 		if (name) {
@@ -35,7 +38,8 @@ export class UserClass extends Base {
 }
 
 /**
- * Represents the available data to patch from a user.
+ * The available data to patch from a {@link UserClass | `UserClass`}
+ * instance.
  * @internal
  */
 interface UserClassData {
