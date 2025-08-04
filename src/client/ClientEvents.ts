@@ -2,7 +2,7 @@ import type { GatewayShard } from "#gateway/index.js";
 import type { ChatInputCommandInteraction, Guild, Role, User } from "#structures/index.js";
 import type { GatewayCloseEventCodes, GatewayEvent } from "#types/index.js";
 import type { MaybeUncached } from "#utils/types.js";
-import type { Client } from "./Client.js";
+import type { Client } from "./structures/Client.js";
 
 /**
  * Represents a map of the main client events.
