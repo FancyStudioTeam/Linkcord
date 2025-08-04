@@ -4,7 +4,7 @@ import type { JSONVoiceRegion } from "#types/parsed/Voice.js";
 /**
  * Represents a Discord voice region.
  * @see https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure
- * @group Discord • Structures
+ * @group Discord/Structures
  * @public
  */
 export class VoiceRegion {

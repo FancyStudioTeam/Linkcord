@@ -9,7 +9,7 @@ import { PrimaryGuild } from "./PrimaryGuild.js";
 /**
  * Represents a Discord user.
  * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
- * @group Discord • Structures
+ * @group Discord/Structures
  * @public
  */
 export class User extends Base {

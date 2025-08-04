@@ -7,7 +7,7 @@ import { User } from "./User.js";
 /**
  * Represents a Discord guild soundboard sound.
  * @see https://discord.com/developers/docs/resources/soundboard#soundboard-sound-object-example-guild-soundboard-sound
- * @group Discord • Structures
+ * @group Discord/Structures
  * @public
  */
 export class SoundboardSound extends Base {
