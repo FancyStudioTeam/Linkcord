@@ -16,7 +16,7 @@ export class EventsManager {
 	 * @param name - The name of the event to register.
 	 * @param listener - The listener to register.
 	 */
-	addListener<Event extends keyof ClientEventsMap>(
+	addListener<Event extends ClientEventsString>(
 		name: Event,
 		listener: (...data: ClientEventsMap[Event]) => unknown,
 	): void {
