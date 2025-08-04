@@ -1,4 +1,6 @@
-export * from "./base/index.js";
+export * from "./Base.js";
+export * from "./BaseCommandInteraction.js";
+export * from "./BaseInteraction.js";
 export * from "./ChatInputCommandInteraction.js";
 export * from "./Entitlement.js";
 export * from "./Guild.js";
