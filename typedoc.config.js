@@ -10,6 +10,7 @@ const configuration = {
 	hideGenerator: true,
 	includeHierarchySummary: true,
 	includeVersion: true,
+	name: "Linkcord",
 	navigation: {
 		includeCategories: true,
 		includeFolders: true,
