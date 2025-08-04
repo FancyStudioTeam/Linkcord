@@ -24,7 +24,7 @@
 		"semver": "7.7.2",
 		"tsup": "8.5.0",
 		"tsx": "4.20.3",
-		"typedoc": "0.28.8",
+		"typedoc": "0.28.9",
 		"typedoc-material-theme": "1.4.0",
 		"typescript": "5.9.2",
 		"vite-tsconfig-paths": "5.1.4",
