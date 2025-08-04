@@ -1,4 +1,4 @@
-// biome-ignore-all lint/complexity/useLiteralKeys: Private method.
+// biome-ignore-all lint/complexity/useLiteralKeys: Private methods.
 
 import { describe, expect, it } from "vitest";
 import { CacheManager as CacheManagerClass } from "../CacheManager.js";
