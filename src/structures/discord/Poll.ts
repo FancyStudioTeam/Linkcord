@@ -1,17 +1,14 @@
-import type { Client } from "#client/Client.js";
+import type { Client } from "#client/index.js";
 import { MISSING_REQUIRED_FIELD_FROM_DATA } from "#errors/messages.js";
 import { MessageTransformer } from "#structures/transformers/MessageTransformer.js";
 import type { APIPoll, JSONPoll, PollLayoutTypes, PollResults } from "#types/index.js";
-import { Base } from "./base/Base.js";
+import { Base } from "./Base.js";
 import type { Message } from "./Message.js";
 import type { PollAnswer } from "./PollAnswer.js";
 
 /**
- * TODO: Add missing `results` property.
- */
-/**
  * Represents a Discord message poll.
- *
+ * @see https://discord.com/developers/docs/resources/poll#poll-object-poll-object-structure
  * @public
  */
 export class Poll extends Base {
@@ -32,7 +29,7 @@ export class Poll extends Base {
 	 */
 	readonly layoutType: PollLayoutTypes;
 	/**
-	 * The message associated with the poll.
+	 * The {@link Message | `Message`} instance associated with the poll.
 	 */
 	readonly message: Message;
 	/**
@@ -46,10 +43,10 @@ export class Poll extends Base {
 
 	/**
 	 * Creates a new {@link Poll | `Poll`} instance.
-	 *
 	 * @param client - The client that instantiated the poll.
-	 * @param data - The raw Discord API poll data.
-	 * @param message - The message associated with the poll.
+	 * @param data - The {@link APIPoll | `APIPoll`} object.
+	 * @param message - The {@link Message | `Message`} instance associated
+	 * with the poll.
 	 */
 	constructor(client: Client, data: APIPoll, message: Message) {
 		super(client);
@@ -70,8 +67,8 @@ export class Poll extends Base {
 	}
 
 	/**
-	 * Patches the poll properties with the given data.
-	 *
+	 * Patches the {@link Poll | `Poll`} instance with the given data.
+	 * @param data - The data to use when patching the poll.
 	 * @internal
 	 */
 	protected _patch(data: PollData = {}): void {
@@ -95,9 +92,8 @@ export class Poll extends Base {
 
 	/**
 	 * Expires a poll in a channel.
-	 *
-	 * @returns The message associated with the poll.
-	 *
+	 * @returns The {@link Message | `Message`} instance associated with the
+	 * poll.
 	 * @see https://discord.com/developers/docs/resources/poll#end-poll
 	 */
 	async expire(): Promise<Message> {
@@ -109,8 +105,7 @@ export class Poll extends Base {
 
 	/**
 	 * Converts the {@link Poll | `Poll`} instance to a JSON object.
-	 *
-	 * @returns The JSON poll data.
+	 * @returns The {@link JSONPoll | `JSONPoll`} object.
 	 */
 	toJSON(): JSONPoll {
 		const {
@@ -138,6 +133,7 @@ export class Poll extends Base {
 }
 
 /**
+ * The available data to patch from a {@link Poll | `Poll`} instance.
  * @internal
  */
 type PollData = Partial<APIPoll>;

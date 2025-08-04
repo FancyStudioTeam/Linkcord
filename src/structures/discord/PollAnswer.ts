@@ -1,4 +1,4 @@
-import type { Client } from "#client/Client.js";
+import type { Client } from "#client/index.js";
 import { MISSING_REQUIRED_FIELD_FROM_DATA } from "#errors/messages.js";
 import type {
 	APIPollAnswer,
@@ -6,16 +6,13 @@ import type {
 	JSONPollAnswer,
 	Snowflake,
 } from "#types/index.js";
-import { Base } from "./base/Base.js";
+import { Base } from "./Base.js";
 import type { Poll } from "./Poll.js";
 import type { User } from "./User.js";
 
 /**
- * TODO: Add `emoji` property.
- */
-/**
  * Represents a Discord poll answer.
- *
+ * @see https://discord.com/developers/docs/resources/poll#poll-answer-object-poll-answer-object-structure
  * @public
  */
 export class PollAnswer extends Base {
@@ -24,7 +21,7 @@ export class PollAnswer extends Base {
 	 */
 	readonly answerId: number;
 	/**
-	 * The poll associated with the answer.
+	 * The {@link Poll | `Poll`} instance associated with the answer.
 	 */
 	readonly poll: Poll;
 	/**
@@ -34,10 +31,10 @@ export class PollAnswer extends Base {
 
 	/**
 	 * Creates a new {@link PollAnswer | `PollAnswer`} instance.
-	 *
 	 * @param client - The client that instantiated the poll answer.
-	 * @param data - The raw Discord API poll answer data.
-	 * @param poll - The poll associated with the answer.
+	 * @param data - The {@link APIPollAnswer | `APIPollAnswer`} object.
+	 * @param poll - The {@link Poll | `Poll`} instance associated with the
+	 * answer.
 	 */
 	constructor(client: Client, data: APIPollAnswer, poll: Poll) {
 		super(client);
@@ -62,16 +59,13 @@ export class PollAnswer extends Base {
 	 * @internal
 	 */
 	protected _patch(): void {
-		undefined;
+		return;
 	}
 
 	/**
 	 * Fetches the users that voted for the poll answer.
-	 *
 	 * @param options - The options to use when fetching the voters.
-	 *
 	 * @returns The users that voted for the poll answer.
-	 *
 	 * @see https://discord.com/developers/docs/resources/poll#get-answer-voters
 	 */
 	async fetchVoters(
@@ -87,8 +81,7 @@ export class PollAnswer extends Base {
 	/**
 	 * Converts the {@link PollAnswer | `PollAnswer`} instance to a JSON
 	 * object.
-	 *
-	 * @returns The JSON poll answer data.
+	 * @returns The {@link JSONPollAnswer | `JSONPollAnswer`} object.
 	 */
 	toJSON(): JSONPollAnswer {
 		const { answerId, poll, text } = this;

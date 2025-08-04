@@ -1,14 +1,14 @@
-import type { Client } from "#client/Client.js";
+import type { Client } from "#client/index.js";
 import { UserTransformer } from "#structures/transformers/UserTransformer.js";
 import type { APIUser, Snowflake } from "#types/index.js";
 import type { AvatarDecorationData, JSONUser, UserCollectibles } from "#types/parsed/Users.js";
 import { BitFieldResolver } from "#utils/index.js";
-import { Base } from "./base/Base.js";
+import { Base } from "./Base.js";
 import { PrimaryGuild } from "./PrimaryGuild.js";
 
 /**
  * Represents a Discord user.
- *
+ * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
  * @public
  */
 export class User extends Base {
@@ -63,9 +63,8 @@ export class User extends Base {
 
 	/**
 	 * Creates a new {@link User | `User`} instance.
-	 *
 	 * @param client - The client that instantiated the user.
-	 * @param data - The raw Discord API user data.
+	 * @param data - The {@link APIUser | `APIUser`} object.
 	 */
 	constructor(client: Client, data: APIUser) {
 		super(client);
@@ -81,10 +80,8 @@ export class User extends Base {
 	}
 
 	/**
-	 * Patches the user properties with the given data.
-	 *
-	 * @param data - The data to use when patching the user properties.
-	 *
+	 * Patches the {@link User | `User`} instance with the given data.
+	 * @param data - The data to use when patching the user.
 	 * @internal
 	 */
 	protected _patch(data: UserData = {}): void {
@@ -156,8 +153,7 @@ export class User extends Base {
 
 	/**
 	 * Converts the {@link User | `User`} instance to a JSON object.
-	 *
-	 * @returns The JSON user data.
+	 * @returns The {@link JSONUser | `JSONUser`} object.
 	 */
 	toJSON(): JSONUser {
 		const {
@@ -193,6 +189,7 @@ export class User extends Base {
 }
 
 /**
+ * The available data to patch from a {@link User | `User`} instance.
  * @internal
  */
 type UserData = Partial<APIUser>;

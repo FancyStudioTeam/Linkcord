@@ -1,11 +1,11 @@
-import type { Client } from "#client/Client.js";
+import type { Client } from "#client/index.js";
 import { MISSING_REQUIRED_FIELDS_FROM_DATA } from "#errors/messages.js";
 import type { APIPrimaryGuild, JSONPrimaryGuild, Snowflake } from "#types/index.js";
-import { Base } from "./base/Base.js";
+import { Base } from "./Base.js";
 
 /**
  * Represents a Discord user primary guild.
- *
+ * @see https://discord.com/developers/docs/resources/user#user-object-user-primary-guild
  * @public
  */
 export class PrimaryGuild extends Base {
@@ -28,9 +28,8 @@ export class PrimaryGuild extends Base {
 
 	/**
 	 * Creates a new {@link PrimaryGuild | `PrimaryGuild`} instance.
-	 *
 	 * @param client - The client that instantiated the primary guild.
-	 * @param data - The raw Discord API primary guild data.
+	 * @param data - The {@link APIPrimaryGuild | `APIPrimaryGuild`} object.
 	 */
 	constructor(client: Client, data: APIPrimaryGuild) {
 		super(client);
@@ -53,17 +52,18 @@ export class PrimaryGuild extends Base {
 	}
 
 	/**
+	 * Patches the {@link PrimaryGuild | `PrimaryGuild`} instance with the
+	 * given data.
 	 * @internal
 	 */
 	protected _patch(): void {
-		undefined;
+		return;
 	}
 
 	/**
 	 * Converts the {@link PrimaryGuild | `PrimaryGuild`} instance to a JSON
 	 * object.
-	 *
-	 * @returns The JSON primary guild data.
+	 * @returns The {@link JSONPrimaryGuild | `JSONPrimaryGuild`} object.
 	 */
 	toJSON(): JSONPrimaryGuild {
 		const { badge, identityEnabled, identityGuildId, tag } = this;

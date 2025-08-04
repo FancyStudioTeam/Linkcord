@@ -3,7 +3,7 @@ import type { JSONVoiceRegion } from "#types/parsed/Voice.js";
 
 /**
  * Represents a Discord voice region.
- *
+ * @see https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure
  * @public
  */
 export class VoiceRegion {
@@ -30,8 +30,7 @@ export class VoiceRegion {
 
 	/**
 	 * Creates a new {@link VoiceRegion | `VoiceRegion`} instance.
-	 *
-	 * @param data - The raw Discord API voice region data.
+	 * @param data - The {@link APIVoiceRegion | `APIVoiceRegion`} object.
 	 */
 	constructor(data: APIVoiceRegion) {
 		const { custom, deprecated, id, name, optimal } = data;
@@ -46,8 +45,7 @@ export class VoiceRegion {
 	/**
 	 * Converts the {@link VoiceRegion | `VoiceRegion`} instance to a JSON
 	 * object.
-	 *
-	 * @returns The JSON voice region data.
+	 * @returns The {@link JSONVoiceRegion | `JSONVoiceRegion`} object.
 	 */
 	toJSON(): JSONVoiceRegion {
 		const { custom, deprecated, id, name, optimal } = this;

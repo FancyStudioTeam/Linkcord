@@ -1,12 +1,11 @@
-import type { Client } from "#client/Client.js";
+import type { Client } from "#client/index.js";
 import type { APIGuildSoundboardSound, JSONSoundboardSound, Snowflake } from "#types/index.js";
-import type { MaybeUncached } from "#utils/types.js";
-import { Base } from "./base/Base.js";
+import { Base } from "./Base.js";
 import { User } from "./User.js";
 
 /**
  * Represents a Discord guild soundboard sound.
- *
+ * @see https://discord.com/developers/docs/resources/soundboard#soundboard-sound-object-example-guild-soundboard-sound
  * @public
  */
 export class SoundboardSound extends Base {
@@ -45,9 +44,9 @@ export class SoundboardSound extends Base {
 
 	/**
 	 * Creates a new {@link SoundboardSound | `SoundboardSound`} instance.
-	 *
 	 * @param client - The client that instantiated the soundboard sound.
-	 * @param data - The raw Discord API soundboard sound data.
+	 * @param data - The
+	 * {@link APIGuildSoundboardSound | `APIGuildSoundboardSound`} object.
 	 */
 	constructor(client: Client, data: APIGuildSoundboardSound) {
 		super(client);
@@ -62,6 +61,9 @@ export class SoundboardSound extends Base {
 	}
 
 	/**
+	 * Patches the {@link SoundboardSound | `SoundboardSound`} instance with
+	 * the given data.
+	 * @param data - The data to use when patching the soundboard sound.
 	 * @internal
 	 */
 	protected _patch(data: SoundboardSoundPatchData = {}): void {
@@ -102,25 +104,18 @@ export class SoundboardSound extends Base {
 		}
 	}
 
-	// TODO: Delete the soundboard sound from the guild.
 	/**
 	 * Deletes the soundboard sound from the guild.
-	 *
 	 * @param reason - The reason for deleting the soundboard sound.
-	 *
-	 * @returns The deleted {@link SoundboardSound | `SoundboardSound`}, if
-	 * any.
+	 * @returns The deleted {@link SoundboardSound | `SoundboardSound`}.
 	 */
-	delete(_reason?: string): Promise<MaybeUncached<SoundboardSound>> {
+	delete(_reason?: string): Promise<SoundboardSound> {
 		return Promise.resolve(this);
 	}
 
-	// TODO: Update the soundboard sound.
 	/**
 	 * Updates the soundboard sound.
-	 *
 	 * @param options - The options to use when updating the soundboard sound.
-	 *
 	 * @returns The updated {@link SoundboardSound | `SoundboardSound`}
 	 * instance.
 	 */
@@ -130,10 +125,8 @@ export class SoundboardSound extends Base {
 
 	/**
 	 * Sends the soundboard sound to the user voice channel.
-	 *
 	 * @param channelId - The ID of the voice channel where the soundboard
 	 * sound will be played.
-	 *
 	 * @see https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound
 	 */
 	async send(channelId: Snowflake): Promise<void> {
@@ -148,8 +141,8 @@ export class SoundboardSound extends Base {
 	/**
 	 * Converts the {@link SoundboardSound | `SoundboardSound`} instance to a
 	 * JSON object.
-	 *
-	 * @returns The JSON soundboard sound data.
+	 * @returns The {@link JSONSoundboardSound | `JSONSoundboardSound`}
+	 * object.
 	 */
 	toJSON(): JSONSoundboardSound {
 		const { available, emojiId, emojiName, guildId, name, soundId, user, volume } = this;
@@ -168,6 +161,8 @@ export class SoundboardSound extends Base {
 }
 
 /**
+ * The available data to patch from a
+ * {@link SoundboardSound | `SoundboardSound`} instance.
  * @internal
  */
 type SoundboardSoundPatchData = Partial<APIGuildSoundboardSound>;

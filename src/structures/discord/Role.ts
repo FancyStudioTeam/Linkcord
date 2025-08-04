@@ -1,13 +1,13 @@
-import type { Client } from "#client/Client.js";
+import type { Client } from "#client/index.js";
 import { GuildTransformer } from "#structures/transformers/GuildTransformer.js";
 import type { APIRole, JSONRole, RoleColors, RoleTags, Snowflake } from "#types/index.js";
 import { BitFieldResolver } from "#utils/index.js";
-import { Base } from "./base/Base.js";
+import { Base } from "./Base.js";
 import type { Guild } from "./Guild.js";
 
 /**
  * Represents a Discord role.
- *
+ * @see https://discord.com/developers/docs/topics/permissions#role-object-role-structure
  * @public
  */
 export class Role extends Base {
@@ -66,9 +66,8 @@ export class Role extends Base {
 
 	/**
 	 * Creates a new {@link Role | `Role`} instance.
-	 *
 	 * @param client - The client that instantiated the role.
-	 * @param data - The raw Discord API role data.
+	 * @param data - The {@link APIRole | `APIRole`} object.
 	 * @param guildId - The ID of the guild associated with the role.
 	 */
 	constructor(client: Client, data: APIRole, guildId: Snowflake) {
@@ -91,6 +90,8 @@ export class Role extends Base {
 	}
 
 	/**
+	 * Patches the {@link Role | `Role`} instance with the given data.
+	 * @param data - The data to use when patching the role.
 	 * @internal
 	 */
 	protected _patch(data: RoleData = {}): void {
@@ -165,14 +166,13 @@ export class Role extends Base {
 	}
 
 	/**
-	 * Gets or fetches the guild associated with the role.
-	 *
+	 * Gets or fetches the {@link Guild | `Guild`} instance associated
+	 * with the role.
 	 * @param force - Whether to skip the cache and fetch the guild directly
 	 * from the Discord API.
-	 *
-	 * @returns The guild associated with the role.
+	 * @returns The {@link Guild | `Guild`} instance associated with the role.
 	 */
-	async fetchGuild(force = false): Promise<Guild> {
+	async guild(force = false): Promise<Guild> {
 		const { client, guildId } = this;
 		const { guilds: guildsManager } = client;
 		const { cache: guildsCache } = guildsManager;
@@ -180,16 +180,10 @@ export class Role extends Base {
 		let guild: Guild;
 
 		if (!force) {
-			/**
-			 * Get the guild from the cache if it exists.
-			 *
-			 * Otherwise, fetch it from the API.
-			 */
+			// Get first the guild from the cache if exists.
+			// Otherwise, fetch it from the Discord API.
 			guild = guildsCache.get(guildId) ?? (await super._api.getGuild(guildId));
 		} else {
-			/**
-			 * Directly fetch the guild from the API.
-			 */
 			guild = await super._api.getGuild(guildId);
 		}
 
@@ -198,8 +192,7 @@ export class Role extends Base {
 
 	/**
 	 * Converts the {@link Role | `Role`} instance to a JSON object.
-	 *
-	 * @returns The JSON role data.
+	 * @returns The {@link JSONRole | `JSONRole`} object.
 	 */
 	toJSON(): JSONRole {
 		const {
@@ -239,6 +232,7 @@ export class Role extends Base {
 }
 
 /**
+ * The available data to patch from a {@link Role | `Role`} instance.
  * @internal
  */
 type RoleData = Partial<APIRole>;
