@@ -7,17 +7,26 @@ import type { Snowflake } from "#types/index.js";
  */
 export class CacheManager<Key extends string, Value extends Base> {
 	/**
+	 * The maximum number of cached values in the cache manager.
+	 */
+	// biome-ignore lint/correctness/noUnusedPrivateClassMembers: Add limits.
+	private readonly _limit: number;
+
+	/**
 	 * The cached values of the cache manager.
 	 */
 	readonly cache: Map<Snowflake, Value>;
 
 	/**
 	 * Creates a new {@link CacheManager | `CacheManager`} instance.
+	 * @param limit - The maximum number of cached values in the cache
+	 * manager.
 	 * @param iterable - The initial iterable of key-value pairs for the
 	 * cache manager.
 	 */
-	constructor(iterable?: Iterable<Key, Value>) {
-		this.cache = new Map(iterable ?? []);
+	constructor(limit: number = Infinity, iterable: Iterable<Key, Value> = []) {
+		this._limit = limit;
+		this.cache = new Map(iterable);
 	}
 
 	/**
