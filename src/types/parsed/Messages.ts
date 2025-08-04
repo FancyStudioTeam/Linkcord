@@ -11,13 +11,13 @@ export interface Embed {
 	author?: EmbedAuthor;
 	color?: number;
 	description?: string;
-	fields?: EmbedField;
-	url?: string;
+	fields?: EmbedField[];
 	footer?: EmbedFooter;
 	image?: EmbedImage;
 	thumbnail?: EmbedThumbnail;
 	timestamp?: string;
 	title?: string;
+	url?: string;
 }
 
 /**
