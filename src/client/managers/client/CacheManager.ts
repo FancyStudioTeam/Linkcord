@@ -72,4 +72,4 @@ export class CacheManager<Key extends string, Value extends Base> {
  * Represents an iterable of key-value pairs for the cache manager.
  * @internal
  */
-type Iterable<Key, Value> = readonly [Key, Value][];
+type Iterable<Key extends string, Value extends Base> = readonly [Key, Value][];
