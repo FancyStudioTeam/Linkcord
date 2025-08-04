@@ -1,4 +1,7 @@
-// biome-ignore-all lint/complexity/useLiteralKeys: Private methods.
+/*
+ * biome-ignore-all lint/complexity/useLiteralKeys: Allow to use bracket
+ * notation when accessing private or protected members from some structures.
+ */
 
 import { describe, expect, it } from "vitest";
 import { CacheManager as CacheManagerClass } from "../CacheManager.js";
