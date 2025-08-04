@@ -7,6 +7,12 @@ describe("Method: ConfigurationUtils.transformToken", () => {
 		expect(ConfigurationUtils.transformToken(null)).toBe("");
 	});
 
+	it('Should return the original token if the "Bot" prefix is not found.', () => {
+		const BotToken = "ANY_BOT_DISCORD_TOKEN";
+
+		expect(ConfigurationUtils.transformToken(BotToken)).toBe(BotToken);
+	});
+
 	it('Should remove the "Bot" prefix from the token.', () => {
 		const BotToken = "ANY_BOT_DISCORD_TOKEN";
 
