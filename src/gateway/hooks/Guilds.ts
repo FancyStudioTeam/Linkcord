@@ -153,9 +153,10 @@ export function GUILD_ROLE_UPDATE(
 	const { cache: rolesCache } = roles;
 
 	const newRole = new Role(client, roleData, guildId);
-	const oldRole = rolesCache.get(newRole.id) ?? new Uncached(newRole.id);
-
 	const { id: roleId } = newRole;
+
+	const cachedRole = rolesCache.get(roleId);
+	const oldRole = cachedRole?.["_clone"]() ?? new Uncached(newRole.id);
 
 	roles["_patch"](roleId, roleData);
 	events.emit("guildRoleUpdate", newRole, oldRole, guild);
