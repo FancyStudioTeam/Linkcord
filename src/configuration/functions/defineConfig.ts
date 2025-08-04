@@ -3,7 +3,7 @@ import {
 	type ConfigurationLocationsSchema,
 	ConfigurationSchema,
 } from "#configuration/schemas/ConfigurationSchema.js";
-import { INVALID_CONFIGURATION_INPUT } from "#errors/messages.js";
+import { INVALID_DEFINE_CONFIG_INPUT } from "#errors/messages.js";
 import type { GatewayIntents } from "#types/index.js";
 
 /**
@@ -16,7 +16,7 @@ export function defineConfig(options: DefineConfigOptions): LinkcordOptions {
 	try {
 		return parse(ConfigurationSchema, options);
 	} catch {
-		throw new TypeError(INVALID_CONFIGURATION_INPUT());
+		throw new TypeError(INVALID_DEFINE_CONFIG_INPUT());
 	}
 }
 

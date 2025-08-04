@@ -1,11 +1,32 @@
-/**
- * biome-ignore-all lint/style/useNamingConvention: Use upper snake case
- * convention for all error message functions.
- */
+//  biome-ignore-all lint/style/useNamingConvention: Upper snake case is fine.
 
 import { ListFormatter } from "./utils/ListFormatter.js";
 
 /**
+ * Shows a message indicating that the configuration file has not been found.
+ * @returns The message indicating that the configuration file has not been
+ * found.
+ * @internal
+ */
+export function CONFIGURATION_FILE_NOT_FOUND(): string {
+	return 'Configuration file "linkcord.config" has not been found.';
+}
+
+/**
+ * Shows a message indicating that an event is disabled.
+ * @param eventFilePath - The path of the event file that is disabled.
+ * @returns The message indicating that an event is disabled.
+ * @internal
+ */
+export function DISABLED_EVENT(eventFilePath: string): string {
+	return `Event file "${eventFilePath}" is not enabled.\nIf this is intentional, do not worry about this warning.`;
+}
+
+/**
+ * Shows a message indicating that an interaction has already been replied or
+ * deferred.
+ * @returns The message indicating that an interaction has already been
+ * replied or deferred.
  * @internal
  */
 export function INTERACTION_ALREADY_REPLIED_OR_DEFERRED(): string {
@@ -13,27 +34,31 @@ export function INTERACTION_ALREADY_REPLIED_OR_DEFERRED(): string {
 }
 
 /**
+ * Shows a message indicating that the `defineConfig` function has received an
+ * invalid input.
+ * @returns The message indicating that the `defineConfig` function has
+ * received an invalid input.
  * @internal
  */
-export function INVALID_CONFIGURATION_INPUT(): string {
+export function INVALID_DEFINE_CONFIG_INPUT(): string {
 	return "Invalid configuration input.";
 }
 
 /**
+ * Shows a message indicating that a file is missing a default export.
+ * @param filePath - The path of the file that is missing a default export.
+ * @returns The message indicating that a file is missing a default export.
  * @internal
  */
-export function INVALID_GATEWAY_INTENT(intent: string): string {
-	return `Invalid gateway intent "${intent}".`;
-}
-
-/**
- * @internal
- */
-export function MISSING_DEFAULT_EXPORT_FROM_FILE_PATH(filePath: string): string {
+export function MISSING_DEFAULT_EXPORT_FROM_FILE(filePath: string): string {
 	return `File path "${filePath}" must include a "default" export.`;
 }
 
 /**
+ * Shows a message indicating that a field is missing from data.
+ * @param field - The name of the field that is missing.
+ * @param objectDescription - The description of the object.
+ * @returns The message indicating that a field is missing from data.
  * @internal
  */
 export function MISSING_REQUIRED_FIELD_FROM_DATA(field: string, objectDescription: string): string {
@@ -41,6 +66,10 @@ export function MISSING_REQUIRED_FIELD_FROM_DATA(field: string, objectDescriptio
 }
 
 /**
+ * Shows a message indicating that fields are missing from data.
+ * @param fields - The names of the fields that are missing.
+ * @param objectDescription - The description of the object.
+ * @returns The message indicating that fields are missing from data.
  * @internal
  */
 export function MISSING_REQUIRED_FIELDS_FROM_DATA(fields: string[], objectDescription: string) {
