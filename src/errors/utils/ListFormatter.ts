@@ -5,9 +5,7 @@ const CONJUNCTION_FORMATTER = new Intl.ListFormat("en", {
 
 /**
  * Formats a list of items using conjunctions.
- *
  * @param items - The items of the list.
- *
  * @returns The formatted list string using conjunctions.
  */
 function conjunction(...items: string[]): string {
@@ -18,8 +16,7 @@ function conjunction(...items: string[]): string {
 }
 
 /**
- * Namespace for formatting lists.
- *
+ * Namespace for list formatting utilities.
  * @internal
  */
 export const ListFormatter = {
