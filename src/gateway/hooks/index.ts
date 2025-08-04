@@ -4,13 +4,12 @@ import type { GatewayDispatch } from "#types/index.js";
 import { GUILD_ROLE_CREATE } from "./GUILD_ROLE_CREATE.js";
 import { GUILD_ROLE_DELETE } from "./GUILD_ROLE_DELETE.js";
 import { GUILD_ROLE_UPDATE } from "./GUILD_ROLE_UPDATE.js";
-import { GUILD_UPDATE } from "./GUILD_UPDATE.js";
-import { GUILD_CREATE, GUILD_DELETE } from "./Guilds.js";
+import { GUILD_CREATE, GUILD_DELETE, GUILD_UPDATE } from "./Guilds.js";
 import { READY } from "./READY.js";
 
-/**
- * biome-ignore-start lint/style/useNamingConvention: Keys must be exactly the
- * same as the dispatch event name.
+/*
+ * biome-ignore-start lint/style/useNamingConvention: Keys must be the exact
+ * name as the dispatch event names.
  */
 export const DispatchHooks: Partial<DispatchHooksMap> = {
 	GUILD_CREATE,
@@ -21,26 +20,29 @@ export const DispatchHooks: Partial<DispatchHooksMap> = {
 	GUILD_UPDATE,
 	READY,
 };
-/**
- * biome-ignore-end lint/style/useNamingConvention: Keys must be exactly the
- * same as the dispatch event name.
+/*
+ * biome-ignore-end lint/style/useNamingConvention: Keys must be the exact
+ * name as the dispatch event names.
  */
 
 /**
+ * Represents a function that can be synchronously or asynchronously executed.
  * @internal
  */
 type Awaitable<Return> = Promise<Return> | Return;
 
 /**
+ * Represents a function that handles a dispatch event.
  * @internal
  */
-type DispatchHookFunction<Dispatch extends GatewayDispatch> = (
+type DispatchHookFunction<Event extends GatewayDispatch> = (
 	client: Client,
 	shard: GatewayShard,
-	data: Dispatch["d"],
+	data: Event["d"],
 ) => Awaitable<void>;
 
 /**
+ * Represents a map of dispatch event hooks.
  * @internal
  */
 type DispatchHooksMap = {
