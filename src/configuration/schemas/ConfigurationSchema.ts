@@ -6,7 +6,7 @@ export const ConfigurationIntentsEnumSchema = enum_(GatewayIntents);
 export const ConfigurationIntentsSchema = pipe(
 	array(ConfigurationIntentsEnumSchema),
 	minLength(1),
-	transform((value) => ConfigurationUtils.transformIntents(value)),
+	transform(ConfigurationUtils.transformIntents),
 );
 
 export const ConfigurationLocationsCommandsSchema = optional(string(), "commands");
@@ -19,7 +19,10 @@ export const ConfigurationLocationsSchema = object({
 	root: ConfigurationLocationsRootSchema,
 });
 
-export const ConfigurationTokenSchema = string();
+export const ConfigurationTokenSchema = pipe(
+	string(),
+	transform(ConfigurationUtils.transformToken),
+);
 
 export const ConfigurationSchema = object({
 	intents: ConfigurationIntentsSchema,
