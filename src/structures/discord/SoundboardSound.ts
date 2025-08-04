@@ -1,11 +1,13 @@
 import type { Client } from "#client/index.js";
 import type { APIGuildSoundboardSound, JSONSoundboardSound, Snowflake } from "#types/index.js";
 import { Base } from "./Base.js";
+import type { Guild } from "./Guild.js";
 import { User } from "./User.js";
 
 /**
  * Represents a Discord guild soundboard sound.
  * @see https://discord.com/developers/docs/resources/soundboard#soundboard-sound-object-example-guild-soundboard-sound
+ * @group Discord • Structures
  * @public
  */
 export class SoundboardSound extends Base {
@@ -46,7 +48,8 @@ export class SoundboardSound extends Base {
 	 * Creates a new {@link SoundboardSound | `SoundboardSound`} instance.
 	 * @param client - The client that instantiated the soundboard sound.
 	 * @param data - The
-	 * {@link APIGuildSoundboardSound | `APIGuildSoundboardSound`} object.
+	 * {@link APIGuildSoundboardSound | `APIGuildSoundboardSound`} object from
+	 * the Discord API.
 	 */
 	constructor(client: Client, data: APIGuildSoundboardSound) {
 		super(client);
@@ -63,7 +66,7 @@ export class SoundboardSound extends Base {
 	/**
 	 * Patches the {@link SoundboardSound | `SoundboardSound`} instance with
 	 * the given data.
-	 * @param data - The data to use when patching the soundboard sound.
+	 * @param data - The data to patch the instance.
 	 * @internal
 	 */
 	protected _patch(data: SoundboardSoundPatchData = {}): void {
@@ -124,6 +127,30 @@ export class SoundboardSound extends Base {
 	}
 
 	/**
+	 * Gets (or fetches) the {@link Guild | `Guild`} instance associated with
+	 * the soundboard sound.
+	 * @param force - Whether to fetch the guild from the Discord API if the
+	 * guild is not cached.
+	 * @returns The {@link Guild | `Guild`} instance associated with the
+	 * soundboard sound.
+	 */
+	async guild(force: true): Promise<Guild>;
+	async guild(force?: false): Promise<Guild | null>;
+	async guild(force = false): Promise<Guild | null> {
+		const { client, guildId } = this;
+		const { guilds: guildsManager } = client;
+		const { cache: guildsCache } = guildsManager;
+
+		if (force) {
+			// Get the guild from cache if exists.
+			// Otherwise, fetch it from the Discord API.
+			return guildsCache.get(guildId) ?? (await super._api.getGuild(guildId));
+		}
+
+		return guildsCache.get(guildId) ?? null;
+	}
+
+	/**
 	 * Sends the soundboard sound to the user voice channel.
 	 * @param channelId - The ID of the voice channel where the soundboard
 	 * sound will be played.
@@ -140,7 +167,7 @@ export class SoundboardSound extends Base {
 
 	/**
 	 * Converts the {@link SoundboardSound | `SoundboardSound`} instance to a
-	 * JSON object.
+	 * {@link JSONSoundboardSound | `JSONSoundboardSound`} object.
 	 * @returns The {@link JSONSoundboardSound | `JSONSoundboardSound`}
 	 * object.
 	 */
@@ -161,7 +188,7 @@ export class SoundboardSound extends Base {
 }
 
 /**
- * The available data to patch from a
+ * The available data for patching a
  * {@link SoundboardSound | `SoundboardSound`} instance.
  * @internal
  */

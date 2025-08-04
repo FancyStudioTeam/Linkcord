@@ -9,6 +9,7 @@ import { PrimaryGuild } from "./PrimaryGuild.js";
 /**
  * Represents a Discord user.
  * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
+ * @group Discord • Structures
  * @public
  */
 export class User extends Base {
@@ -64,7 +65,8 @@ export class User extends Base {
 	/**
 	 * Creates a new {@link User | `User`} instance.
 	 * @param client - The client that instantiated the user.
-	 * @param data - The {@link APIUser | `APIUser`} object.
+	 * @param data - The {@link APIUser | `APIUser`} object from the Discord
+	 * API.
 	 */
 	constructor(client: Client, data: APIUser) {
 		super(client);
@@ -81,7 +83,7 @@ export class User extends Base {
 
 	/**
 	 * Patches the {@link User | `User`} instance with the given data.
-	 * @param data - The data to use when patching the user.
+	 * @param data - The data to patch the instance.
 	 * @internal
 	 */
 	protected _patch(data: UserData = {}): void {
@@ -152,7 +154,8 @@ export class User extends Base {
 	}
 
 	/**
-	 * Converts the {@link User | `User`} instance to a JSON object.
+	 * Converts the {@link User | `User`} instance to a
+	 * {@link JSONUser | `JSONUser`} object.
 	 * @returns The {@link JSONUser | `JSONUser`} object.
 	 */
 	toJSON(): JSONUser {
@@ -189,7 +192,7 @@ export class User extends Base {
 }
 
 /**
- * The available data to patch from a {@link User | `User`} instance.
+ * The available data for patching a {@link User | `User`} instance.
  * @internal
  */
 type UserData = Partial<APIUser>;
