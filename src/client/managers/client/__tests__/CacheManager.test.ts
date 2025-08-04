@@ -15,8 +15,8 @@ describe("Class: CacheManager", () =>
 		const User2 = new UserClass("User 2");
 
 		const CacheManagerIterable: readonly [string, UserClass][] = [
-			["user1", User1],
-			["user2", User2],
+			["user_1", User1],
+			["user_2", User2],
 		];
 		// @ts-expect-error
 		const CacheManager = new CacheManagerClass(Infinity, CacheManagerIterable);
@@ -24,8 +24,8 @@ describe("Class: CacheManager", () =>
 		const { cache } = CacheManager;
 		const { size } = cache;
 
-		const CachedValue1 = cache.get("user1");
-		const CachedValue2 = cache.get("user2");
+		const CachedValue1 = cache.get("user_1");
+		const CachedValue2 = cache.get("user_2");
 		const CacheLength = size;
 
 		expect(CachedValue1).toBeInstanceOf(UserClass);

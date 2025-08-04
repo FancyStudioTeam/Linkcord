@@ -13,12 +13,12 @@ describe("Method: CacheManager._add", () =>
 		const User = new UserClass();
 
 		// @ts-expect-error
-		CacheManager["_add"]("user", User);
+		CacheManager["_add"]("user_1", User);
 
 		const { cache } = CacheManager;
 		const { size } = cache;
 
-		const CachedValue = cache.get("user");
+		const CachedValue = cache.get("user_1");
 		const CacheLength = size;
 
 		expect(CachedValue).toBeInstanceOf(UserClass);

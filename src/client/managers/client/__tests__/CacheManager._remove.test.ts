@@ -11,7 +11,7 @@ describe("Method: CacheManager._remove", () => {
 	it('Should return "false" if the value does not exist.', () => {
 		const CacheManager = new CacheManagerClass();
 
-		expect(CacheManager["_remove"]("user")).toBe(false);
+		expect(CacheManager["_remove"]("user_1")).toBe(false);
 	});
 
 	it("Should remove the value from the cache manager.", () => {
@@ -19,16 +19,16 @@ describe("Method: CacheManager._remove", () => {
 		const User = new UserClass();
 
 		// @ts-expect-error
-		CacheManager["_add"]("user", User);
+		CacheManager["_add"]("user_1", User);
 
 		const { cache } = CacheManager;
 		const { size } = cache;
 
-		const CachedValue = cache.get("user");
+		const CachedValue = cache.get("user_1");
 		const CacheLength = size;
 
 		expect(CachedValue).toBeInstanceOf(UserClass);
 		expect(CacheLength).toBe(1);
-		expect(CacheManager["_remove"]("user")).toBe(true);
+		expect(CacheManager["_remove"]("user_1")).toBe(true);
 	});
 });
