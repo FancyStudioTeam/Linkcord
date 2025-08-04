@@ -8,6 +8,7 @@ import type { Guild } from "./Guild.js";
 /**
  * Represents a Discord role.
  * @see https://discord.com/developers/docs/topics/permissions#role-object-role-structure
+ * @group Discord/Structures
  * @public
  */
 export class Role extends Base {
@@ -67,7 +68,8 @@ export class Role extends Base {
 	/**
 	 * Creates a new {@link Role | `Role`} instance.
 	 * @param client - The client that instantiated the role.
-	 * @param data - The {@link APIRole | `APIRole`} object.
+	 * @param data - The {@link APIRole | `APIRole`} object from the Discord
+	 * API.
 	 * @param guildId - The ID of the guild associated with the role.
 	 */
 	constructor(client: Client, data: APIRole, guildId: Snowflake) {
@@ -91,7 +93,7 @@ export class Role extends Base {
 
 	/**
 	 * Patches the {@link Role | `Role`} instance with the given data.
-	 * @param data - The data to use when patching the role.
+	 * @param data - The data to patch the instance.
 	 * @internal
 	 */
 	protected _patch(data: RoleData = {}): void {
@@ -166,32 +168,31 @@ export class Role extends Base {
 	}
 
 	/**
-	 * Gets or fetches the {@link Guild | `Guild`} instance associated
+	 * Gets (or fetches) the {@link Guild | `Guild`} instance associated
 	 * with the role.
-	 * @param force - Whether to skip the cache and fetch the guild directly
-	 * from the Discord API.
+	 * @param force - Whether to fetch the guild from the Discord API if the
+	 * guild is not cached.
 	 * @returns The {@link Guild | `Guild`} instance associated with the role.
 	 */
-	async guild(force = false): Promise<Guild> {
+	async guild(force: true): Promise<Guild>;
+	async guild(force?: false): Promise<Guild | null>;
+	async guild(force = false): Promise<Guild | null> {
 		const { client, guildId } = this;
 		const { guilds: guildsManager } = client;
 		const { cache: guildsCache } = guildsManager;
 
-		let guild: Guild;
-
-		if (!force) {
-			// Get first the guild from the cache if exists.
+		if (force) {
+			// Get the guild from cache if exists.
 			// Otherwise, fetch it from the Discord API.
-			guild = guildsCache.get(guildId) ?? (await super._api.getGuild(guildId));
-		} else {
-			guild = await super._api.getGuild(guildId);
+			return guildsCache.get(guildId) ?? (await super._api.getGuild(guildId));
 		}
 
-		return guild;
+		return guildsCache.get(guildId) ?? null;
 	}
 
 	/**
-	 * Converts the {@link Role | `Role`} instance to a JSON object.
+	 * Converts the {@link Role | `Role`} instance to a
+	 * {@link JSONRole | `JSONRole`} object.
 	 * @returns The {@link JSONRole | `JSONRole`} object.
 	 */
 	toJSON(): JSONRole {
@@ -232,7 +233,7 @@ export class Role extends Base {
 }
 
 /**
- * The available data to patch from a {@link Role | `Role`} instance.
+ * The available data for patching a {@link Role | `Role`} instance.
  * @internal
  */
 type RoleData = Partial<APIRole>;

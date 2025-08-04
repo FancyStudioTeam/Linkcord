@@ -1,4 +1,5 @@
 import type { Client } from "#client/index.js";
+import { METHOD_NOT_IMPLEMENTED } from "#errors/messages/General.js";
 import { MISSING_REQUIRED_FIELDS_FROM_DATA } from "#errors/messages.js";
 import type { APIPrimaryGuild, JSONPrimaryGuild, Snowflake } from "#types/index.js";
 import { Base } from "./Base.js";
@@ -6,6 +7,7 @@ import { Base } from "./Base.js";
 /**
  * Represents a Discord user primary guild.
  * @see https://discord.com/developers/docs/resources/user#user-object-user-primary-guild
+ * @group Discord/Structures
  * @public
  */
 export class PrimaryGuild extends Base {
@@ -29,7 +31,8 @@ export class PrimaryGuild extends Base {
 	/**
 	 * Creates a new {@link PrimaryGuild | `PrimaryGuild`} instance.
 	 * @param client - The client that instantiated the primary guild.
-	 * @param data - The {@link APIPrimaryGuild | `APIPrimaryGuild`} object.
+	 * @param data - The {@link APIPrimaryGuild | `APIPrimaryGuild`} object
+	 * from the Discord API.
 	 */
 	constructor(client: Client, data: APIPrimaryGuild) {
 		super(client);
@@ -57,12 +60,14 @@ export class PrimaryGuild extends Base {
 	 * @internal
 	 */
 	protected _patch(): void {
-		return;
+		// Use `void` to avoid TypeScript complaining about the return type
+		// but still being able to execute the following code.
+		return void process.emitWarning(METHOD_NOT_IMPLEMENTED());
 	}
 
 	/**
-	 * Converts the {@link PrimaryGuild | `PrimaryGuild`} instance to a JSON
-	 * object.
+	 * Converts the {@link PrimaryGuild | `PrimaryGuild`} instance to a
+	 * {@link JSONPrimaryGuild | `JSONPrimaryGuild`} object.
 	 * @returns The {@link JSONPrimaryGuild | `JSONPrimaryGuild`} object.
 	 */
 	toJSON(): JSONPrimaryGuild {

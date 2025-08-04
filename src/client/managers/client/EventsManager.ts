@@ -28,7 +28,7 @@ export class EventsManager {
 		// Equivalent to `if (!existing || !Array.isArray(existing))`.
 		if (!(existing && Array.isArray(existing))) {
 			// Use `void` to avoid TypeScript complaining about the return
-			// type but still executing the following code.
+			// type but still being able to execute the following code.
 			return void listeners.set(name, [listener]);
 		}
 
