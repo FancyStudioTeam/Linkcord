@@ -2,7 +2,7 @@ import type { Snowflake } from "#types/index.js";
 
 /**
  * Represents an uncached entity.
- *
+ * @group Discord/Structures
  * @public
  */
 export class Uncached {
@@ -17,7 +17,6 @@ export class Uncached {
 
 	/**
 	 * Creates a new {@link Uncached | `Uncached`} instance.
-	 *
 	 * @param id - The ID of the entity.
 	 */
 	constructor(id: Snowflake) {
