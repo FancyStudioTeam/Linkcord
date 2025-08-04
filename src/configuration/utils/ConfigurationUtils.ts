@@ -9,6 +9,7 @@ import type { GatewayIntents } from "#types/index.js";
 import { ImportUtils } from "#utils/structures/ImportUtils.js";
 
 const AVAILABLE_FILE_EXTENSIONS = ["js", "cjs", "mjs", "ts", "cts", "mts"] as const;
+const BOT_PREFIX_REGEX = /^Bot\s*/i;
 // @ts-expect-error
 const LINKCORD_CONFIGURATION: LinkcordOptions = {};
 
@@ -110,7 +111,29 @@ function setOptions(options: LinkcordOptions): void {
  * @returns The reduced intents as number.
  */
 function transformIntents(intents: GatewayIntents[]): number {
-	return intents.reduce((accumulator, intent) => accumulator | intent, 0);
+	if (!Array.isArray(intents)) {
+		return 0;
+	}
+
+	const reducedIntents = intents.reduce((accumulator, intent) => accumulator | intent, 0);
+
+	return reducedIntents;
+}
+
+/**
+ * Removes the `Bot` prefix from the bot token, if exists.
+ * @param token - The token to transform.
+ * @returns The token without the `Bot` prefix.
+ */
+function transformToken(token: string): string {
+	if (typeof token !== "string") {
+		return "";
+	}
+
+	const trimmedToken = token.trim();
+	const replacedToken = trimmedToken.replace(BOT_PREFIX_REGEX, "");
+
+	return replacedToken;
 }
 
 /**
@@ -126,6 +149,7 @@ export const ConfigurationUtils = {
 	loadConfigurationFile,
 	setOptions,
 	transformIntents,
+	transformToken,
 };
 
 /**
