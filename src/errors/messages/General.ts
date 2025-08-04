@@ -1,4 +1,4 @@
-//  biome-ignore-all lint/style/useNamingConvention: Upper snake case is fine.
+//  biome-ignore-all lint/style/useNamingConvention: Upper snake case.
 
 /**
  * Shows a message indicating that the executed method is not available.

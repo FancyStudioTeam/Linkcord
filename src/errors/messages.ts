@@ -1,4 +1,4 @@
-//  biome-ignore-all lint/style/useNamingConvention: Upper snake case is fine.
+//  biome-ignore-all lint/style/useNamingConvention: Upper snake case.
 
 import { basename } from "node:path";
 import { ListFormatter } from "./utils/ListFormatter.js";
