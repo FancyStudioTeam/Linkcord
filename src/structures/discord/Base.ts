@@ -40,6 +40,24 @@ export abstract class Base {
 	}
 
 	/**
+	 * Clones the current {@link Base | `Base`} instance.
+	 * @returns The cloned {@link Base | `Base`} instance.
+	 * @internal
+	 */
+	// protected abstract _clone(): this;
+
+	/**
+	 * Clones the current {@link Base | `Base`} instance.
+	 * @returns The cloned {@link Base | `Base`} instance.
+	 * @internal
+	 */
+	protected _cloneThis(): this {
+		const createdObject = Object.create(this);
+
+		return Object.assign(createdObject, this);
+	}
+
+	/**
 	 * Patches the {@link Base | `Base`} instance with the given data.
 	 * @internal
 	 */
