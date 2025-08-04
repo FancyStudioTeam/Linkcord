@@ -1,0 +1,20 @@
+{
+	"$schema": "https://raw.githubusercontent.com/microsoft/json-schemas/refs/heads/main/api-extractor/v7/api-extractor.schema.json",
+	"apiReport": {
+		"enabled": false
+	},
+	"docModel": {
+		"enabled": false
+	},
+	"dtsRollup": {
+		"enabled": false
+	},
+	"mainEntryPointFilePath": "./dist/index.d.ts",
+	"messages": {
+		"extractorMessageReporting": {
+			"ae-missing-release-tag": {
+				"logLevel": "error"
+			}
+		}
+	}
+}
