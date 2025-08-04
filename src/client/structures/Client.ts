@@ -1,11 +1,11 @@
+import { CacheManager } from "#client/managers/client/CacheManager.js";
+import { EventsManager } from "#client/managers/client/EventsManager.js";
 import { ConfigurationUtils } from "#configuration/utils/ConfigurationUtils.js";
 import { GatewayManager } from "#gateway/index.js";
 import { RESTManager } from "#rest/index.js";
 import type { Guild, User } from "#structures/index.js";
 import type { Snowflake } from "#types/index.js";
 import { BaseClient } from "./BaseClient.js";
-import { CacheManager } from "./managers/CacheManager.js";
-import { EventsManager } from "./managers/EventsManager.js";
 
 /**
  * The main client class for Discord.

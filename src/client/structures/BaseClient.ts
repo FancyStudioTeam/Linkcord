@@ -1,6 +1,6 @@
 import { join } from "node:path";
 import { ConfigurationUtils } from "#configuration/utils/ConfigurationUtils.js";
-import { EventsLoader } from "../handlers/events/loaders/EventsLoader.js";
+import { EventsLoader } from "#handlers/events/loaders/EventsLoader.js";
 import type { Client } from "./Client.js";
 
 /**
@@ -14,7 +14,7 @@ function createFolderPath(root: string, folderName: string): string {
 }
 
 /**
- * Represents the base client for the main client.
+ * The base client for the main client.
  * @public
  */
 export class BaseClient {
