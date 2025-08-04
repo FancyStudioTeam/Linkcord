@@ -10,6 +10,7 @@ import {
 	GUILD_UPDATE,
 } from "./Guilds.js";
 import { READY } from "./Shard.js";
+import { USER_UPDATE } from "./Users.js";
 
 /*
  * biome-ignore-start lint/style/useNamingConvention: Keys must be the exact
@@ -23,6 +24,7 @@ export const DispatchHooks: Partial<DispatchHooksMap> = {
 	GUILD_ROLE_UPDATE,
 	GUILD_UPDATE,
 	READY,
+	USER_UPDATE,
 };
 /*
  * biome-ignore-end lint/style/useNamingConvention: Keys must be the exact
