@@ -34,23 +34,25 @@ export class BaseClient {
 	}
 
 	/**
-	 * Initializes the base client.
-	 * @param client - The main client to initialize the base client.
-	 */
-	async init(client: Client): Promise<void> {
-		await Promise.all([this.register(client)]);
-	}
-
-	/**
 	 * Registers the client commands and events.
 	 * @param client - The main client to initialize the base client.
+	 * @internal
 	 */
-	async register(client: Client): Promise<void> {
+	private async _register(client: Client): Promise<void> {
 		const locations = ConfigurationUtils.getLocations();
 		const { events, root } = locations;
 
 		const eventsFolderPath = createFolderPath(root, events);
 
 		await Promise.all([EventsLoader.registerEvents(eventsFolderPath, client)]);
+	}
+
+	/**
+	 * Initializes the base client.
+	 * @param client - The main client to initialize the base client.
+	 * @internal
+	 */
+	protected async _init(client: Client): Promise<void> {
+		await Promise.all([this._register(client)]);
 	}
 }
