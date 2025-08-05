@@ -15,6 +15,7 @@ function createFolderPath(root: string, folderName: string): string {
 
 /**
  * The base client for the main client.
+ * @group Client/Structures
  * @public
  */
 export class BaseClient {
