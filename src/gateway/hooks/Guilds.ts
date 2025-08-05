@@ -156,6 +156,8 @@ export function GUILD_ROLE_UPDATE(
 	const { id: roleId } = newRole;
 
 	const cachedRole = rolesCache.get(roleId);
+	// Clone the cached role to prevent mutating the original instance.
+	// If the role is not cached, create a new `Uncached` instance.
 	const oldRole = cachedRole?.["_clone"]() ?? new Uncached(newRole.id);
 
 	roles["__patch__"](roleId, roleData);

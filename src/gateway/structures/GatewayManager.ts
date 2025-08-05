@@ -1,86 +1,123 @@
-import type { Client } from "#client/Client.js";
-import { fetchGatewayBot } from "#gateway/functions/fetchGatewayBot.js";
+/*
+ * biome-ignore-all lint/correctness/noUnusedPrivateClassMembers: Biome uses
+ * "this" to check if these private members are being used, but we are
+ * destructuring them from "this".
+ */
+
+import type { Client } from "#client/index.js";
+import { ConfigurationUtils } from "#configuration/utils/ConfigurationUtils.js";
+import type { APIManager } from "#rest/structures/APIManager.js";
 import { GatewayShard, GatewayShardStatus } from "./GatewayShard.js";
 
 /**
+ * The gateway manager for the client.
+ * @group Gateway/Structures
  * @public
  */
 export class GatewayManager {
+	/**
+	 * Whether all shards from the manager are ready.
+	 */
+	private __ready__ = false;
+	/**
+	 * The number of shards to spawn.
+	 */
+	private __shardsToSpawn__ = 0;
+
+	/**
+	 * The client of the gateway manager.
+	 */
 	readonly client: Client;
+	/**
+	 * The shards stored in the gateway manager.
+	 */
 	readonly shards = new Map<number, GatewayShard>();
 
-	ready = false;
-	shardCount = 0;
-
+	/**
+	 * Creates a new {@link GatewayManager | `GatewayManager`} instance.
+	 * @param client - The client that instantiated the gateway manager.
+	 */
 	constructor(client: Client) {
 		this.client = client;
 	}
 
-	get intents(): Readonly<number> {
-		const { client } = this;
-		const { intents } = client;
-
-		return intents;
-	}
-
-	get token(): Readonly<string> {
-		const { client } = this;
-		const { token } = client;
-
-		return token;
-	}
-
 	/**
+	 * Checks whether the gateway manager should trigger the `ready` event.
+	 * @returns Whether the gateway manager should trigger the `ready` event.
 	 * @internal
 	 */
-	protected checkReady(): void {
-		const { ready, shardCount, shards } = this;
+	protected __shouldTriggerReady__(): boolean {
+		const { __ready__, __shardsToSpawn__, shards } = this;
+		const { size: shardsSize } = shards;
 		const shardsArray = [...shards.values()];
 
-		if (
-			shards.size !== shardCount ||
-			ready ||
-			shardsArray.some(({ status }) => status !== GatewayShardStatus.Ready)
-		) {
-			return;
-		}
+		const shardCountIsCorrect = shardsSize === __shardsToSpawn__;
+		const allShardsAreReady = shardsArray.every(
+			({ status }) => status === GatewayShardStatus.Ready,
+		);
+		// Ensure that the manager has not been marked as ready yet.
+		const isNotReadyYet = !__ready__;
 
-		this.triggerReady();
+		return shardCountIsCorrect && allShardsAreReady && isNotReadyYet;
 	}
 
 	/**
+	 * Triggers the `ready` event from the main client.
 	 * @internal
 	 */
-	private setShardCount(shardCount: number): void {
-		this.shardCount = shardCount;
-	}
+	protected __triggerReady__(): void {
+		const shouldTriggerReady = this.__shouldTriggerReady__();
 
-	/**
-	 * @internal
-	 */
-	protected triggerReady(): void {
-		const { client, ready } = this;
+		if (!shouldTriggerReady) return;
+
+		const { client } = this;
 		const { events } = client;
 
-		this.ready = true;
+		this.__ready__ = true;
 
-		if (ready) {
-			return;
-		}
-
-		events.emit("ready", client);
+		events.emit("ready");
 	}
 
+	/**
+	 * Gets the API manager of the REST manager.
+	 * @internal
+	 */
+	private get __api__(): APIManager {
+		const { client } = this;
+		const { rest } = client;
+		const { api } = rest;
+
+		return api;
+	}
+
+	/**
+	 * The intents of the client.
+	 */
+	get intents(): Readonly<number> {
+		return ConfigurationUtils.getIntents();
+	}
+
+	/**
+	 * The token of the client.
+	 */
+	get token(): Readonly<string> {
+		return ConfigurationUtils.getToken();
+	}
+
+	/**
+	 * Initializes the gateway manager.
+	 */
 	async init(): Promise<void> {
-		const { token } = this;
-		const { shards } = await fetchGatewayBot(token);
+		const { __api__, shards } = this;
+		const { shards: shardCount } = await __api__.getGatewayBot();
 
-		this.setShardCount(shards);
+		this.__shardsToSpawn__ = shardCount;
 
-		for (let shardId = 0; shardId < shards; shardId++) {
+		for (let shardId = 0; shardId < shardCount; shardId++) {
 			const shard = new GatewayShard(shardId, this);
 
 			shard.init();
+			shards.set(shardId, shard);
 		}
 	}
 }

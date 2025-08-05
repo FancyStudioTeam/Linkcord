@@ -31,6 +31,7 @@ export function READY(
 	const { id: userId } = user;
 
 	users["__add__"](userId, user);
+	// Try to trigger the `ready` event from the manager.
 	manager["__triggerReady__"]();
 	events.emit("shardReady", user, shard);
 }
