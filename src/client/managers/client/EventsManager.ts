@@ -2,6 +2,7 @@ import type { ClientEventsMap, ClientEventsString } from "#client/ClientEvents.j
 
 /**
  * The events manager for the client.
+ * @group Client/Managers
  * @public
  */
 export class EventsManager {

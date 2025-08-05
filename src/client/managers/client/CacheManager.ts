@@ -3,6 +3,7 @@ import type { Snowflake } from "#types/index.js";
 
 /**
  * The cache manager for the client.
+ * @group Client/Managers
  * @public
  */
 export class CacheManager<Key extends string, Value extends Base> {

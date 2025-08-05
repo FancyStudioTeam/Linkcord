@@ -1,5 +1,4 @@
-import { CacheManager } from "#client/managers/client/CacheManager.js";
-import { EventsManager } from "#client/managers/client/EventsManager.js";
+import { CacheManager, EventsManager } from "#client/managers/index.js";
 import { ConfigurationUtils } from "#configuration/utils/ConfigurationUtils.js";
 import { GatewayManager } from "#gateway/index.js";
 import { RESTManager } from "#rest/index.js";
