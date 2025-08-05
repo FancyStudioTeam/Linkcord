@@ -35,10 +35,10 @@ export class BaseClient {
 
 	/**
 	 * Registers the client commands and events.
-	 * @param client - The main client to initialize the base client.
+	 * @param client - The main client to register its dependencies.
 	 * @internal
 	 */
-	private async _register(client: Client): Promise<void> {
+	private async __register__(client: Client): Promise<void> {
 		const locations = ConfigurationUtils.getLocations();
 		const { events, root } = locations;
 
@@ -52,7 +52,7 @@ export class BaseClient {
 	 * @param client - The main client to initialize the base client.
 	 * @internal
 	 */
-	protected async _init(client: Client): Promise<void> {
-		await Promise.all([this._register(client)]);
+	protected async __init__(client: Client): Promise<void> {
+		await Promise.all([this.__register__(client)]);
 	}
 }

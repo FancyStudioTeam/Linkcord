@@ -53,7 +53,7 @@ export class Client<IsReady extends boolean = boolean> extends BaseClient {
 	 */
 	async init(): Promise<void> {
 		await ConfigurationUtils.loadConfigurationFile();
-		await super._init(this);
+		await super.__init__(this);
 
 		const { gateway } = this;
 

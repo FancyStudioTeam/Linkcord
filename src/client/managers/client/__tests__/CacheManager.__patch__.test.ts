@@ -14,7 +14,7 @@ describe("Method: CacheManager._patch", () =>
 		const CacheManagerIterable: readonly [string, UserClass][] = [["user_1", User]];
 		const CacheManager = new CacheManagerClass(Infinity, CacheManagerIterable);
 
-		CacheManager["_patch"]("user_1", {
+		CacheManager["__patch__"]("user_1", {
 			name: "User 1 (Patched)",
 		});
 

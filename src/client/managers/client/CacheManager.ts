@@ -1,3 +1,9 @@
+/*
+ * biome-ignore-all lint/correctness/noUnusedPrivateClassMembers: Biome uses
+ * "this" to check if these private members are being used, but we are
+ * destructuring them from "this".
+ */
+
 import type { Base } from "#structures/index.js";
 import type { Snowflake } from "#types/index.js";
 
@@ -10,11 +16,7 @@ export class CacheManager<Key extends string, Value extends Base> {
 	/**
 	 * The maximum number of cached values in the cache manager.
 	 */
-	/*
-	 * biome-ignore lint/correctness/noUnusedPrivateClassMembers: "_limit" is
-	 * being used in the "_add" method.
-	 */
-	private readonly _limit: number;
+	private readonly __limit__: number;
 
 	/**
 	 * The cached values of the cache manager.
@@ -29,7 +31,7 @@ export class CacheManager<Key extends string, Value extends Base> {
 	 * cache manager.
 	 */
 	constructor(limit: number = Infinity, iterable: Iterable<Key, Value> = []) {
-		this._limit = limit;
+		this.__limit__ = limit;
 		this.cache = new Map(iterable);
 	}
 
@@ -39,13 +41,13 @@ export class CacheManager<Key extends string, Value extends Base> {
 	 * @param value - The value to add.
 	 * @internal
 	 */
-	protected _add(key: Snowflake, value: Value): void {
-		const { _limit, cache } = this;
+	protected __add__(key: Snowflake, value: Value): void {
+		const { __limit__, cache } = this;
 		const { size: cacheSize } = cache;
 
-		if (cacheSize >= _limit) {
+		if (cacheSize >= __limit__) {
 			return void process.emitWarning(
-				`The entry "${key}" has not been added due to the cache limit. (${cacheSize}/${_limit} allowed entries)`,
+				`The entry "${key}" has not been added due to the cache limit. (${cacheSize}/${__limit__} allowed entries)`,
 				"[CacheManager]",
 			);
 		}
@@ -59,7 +61,7 @@ export class CacheManager<Key extends string, Value extends Base> {
 	 * @param data - The data to use to patch the cached value.
 	 * @internal
 	 */
-	protected _patch(key: Snowflake, data: unknown): void {
+	protected __patch__(key: Snowflake, data: unknown): void {
 		const { cache } = this;
 		const existing = cache.get(key);
 
@@ -73,7 +75,7 @@ export class CacheManager<Key extends string, Value extends Base> {
 	 * @returns Whether the value was removed.
 	 * @internal
 	 */
-	protected _remove(key: Snowflake): boolean {
+	protected __remove__(key: Snowflake): boolean {
 		const { cache } = this;
 
 		return cache.delete(key);

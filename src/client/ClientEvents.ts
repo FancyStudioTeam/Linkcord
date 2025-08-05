@@ -2,7 +2,6 @@ import type { GatewayShard } from "#gateway/index.js";
 import type { ChatInputCommandInteraction, Guild, Role, User } from "#structures/index.js";
 import type { GatewayCloseEventCodes, GatewayEvent } from "#types/index.js";
 import type { MaybeUncached } from "#utils/types.js";
-import type { Client } from "./structures/Client.js";
 
 /**
  * Represents a map of the main client events.
@@ -56,9 +55,8 @@ export interface ClientEventsMap {
 	interactionCreate: [interaction: ChatInputCommandInteraction];
 	/**
 	 * Emitted when the client is fully ready.
-	 * @param client - The main client instance.
 	 */
-	ready: [client: Client];
+	ready: [];
 	/**
 	 * Emitted when a gateway shard disconnects.
 	 * @param reason - The reason for disconnecting.
