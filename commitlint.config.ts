@@ -10,6 +10,7 @@ const configuration: UserConfig = {
 				"api-docs",
 				"chore",
 				"ci",
+				"client",
 				"docs",
 				"feat",
 				"fix",
