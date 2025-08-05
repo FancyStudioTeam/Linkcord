@@ -35,6 +35,6 @@ export function USER_UPDATE(
 	// If the user is not cached, create a new `Uncached` instance.
 	const oldUser = cachedUser?.["_clone"]() ?? new Uncached(userId);
 
-	users["_patch"](userId, userData);
+	users["__patch__"](userId, userData);
 	events.emit("userUpdate", newUser, oldUser);
 }

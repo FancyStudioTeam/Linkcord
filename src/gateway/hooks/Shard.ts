@@ -30,7 +30,7 @@ export function READY(
 	const user = new User(client, userData);
 	const { id: userId } = user;
 
-	users["_add"](userId, user);
-	manager["checkReady"]();
+	users["__add__"](userId, user);
+	manager["__triggerReady__"]();
 	events.emit("shardReady", user, shard);
 }

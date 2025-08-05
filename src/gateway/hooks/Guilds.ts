@@ -39,7 +39,7 @@ export function GUILD_CREATE(
 
 	const guild = new Guild(client, guildData);
 
-	guilds["_add"](guildId, guild);
+	guilds["__add__"](guildId, guild);
 	events.emit("guildCreate", guild);
 }
 
@@ -64,7 +64,7 @@ export function GUILD_DELETE(
 
 	const guild = guildsCache.get(guildId) ?? new Uncached(guildId);
 
-	guilds["_remove"](guildId);
+	guilds["__remove__"](guildId);
 	events.emit("guildDelete", guild);
 }
 
@@ -94,7 +94,7 @@ export function GUILD_ROLE_CREATE(
 	const { roles } = guild;
 	const { id: roleId } = role;
 
-	roles["_add"](roleId, role);
+	roles["__add__"](roleId, role);
 	events.emit("guildRoleCreate", role, guild);
 }
 
@@ -124,7 +124,7 @@ export function GUILD_ROLE_DELETE(
 
 	const role = rolesCache.get(roleId) ?? new Uncached(roleId);
 
-	roles["_remove"](roleId);
+	roles["__remove__"](roleId);
 	events.emit("guildRoleDelete", role, guild);
 }
 
@@ -158,7 +158,7 @@ export function GUILD_ROLE_UPDATE(
 	const cachedRole = rolesCache.get(roleId);
 	const oldRole = cachedRole?.["_clone"]() ?? new Uncached(newRole.id);
 
-	roles["_patch"](roleId, roleData);
+	roles["__patch__"](roleId, roleData);
 	events.emit("guildRoleUpdate", newRole, oldRole, guild);
 }
 
@@ -185,6 +185,6 @@ export function GUILD_UPDATE(
 	// If the guild is not cached, create a new `Uncached` instance.
 	const oldGuild = cachedGuild?.["_clone"]() ?? new Uncached(guildId);
 
-	guilds["_patch"](guildId, guildData);
+	guilds["__patch__"](guildId, guildData);
 	events.emit("guildUpdate", newGuild, oldGuild);
 }
