@@ -59,10 +59,3 @@ export function MISSING_REQUIRED_FIELD_FROM_DATA(field: string, objectDescriptio
 export function MISSING_REQUIRED_FIELDS_FROM_DATA(fields: string[], objectDescription: string) {
 	return `Fields "${ListFormatter.conjunction(...fields)}" are missing from the "${objectDescription}" object but should be always present in the data.`;
 }
-
-/**
- * @internal
- */
-export function UNCACHED_EVERYONE_ROLE(guildId: string): string {
-	return `The "@everyone" role is not cached in the guild "${guildId}".`;
-}
