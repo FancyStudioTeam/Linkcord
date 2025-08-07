@@ -1,3 +1,8 @@
+/*
+ * biome-ignore-all lint/complexity/useLiteralKeys: Allow to use bracket
+ * notation when accessing private or protected members from some structures.
+ */
+
 import { Endpoints } from "#rest/endpoints/Endpoints.js";
 import {
 	type APIInteractionResponse,
@@ -11,19 +16,17 @@ import {
 import { BaseAPI } from "./base/BaseAPI.js";
 
 /**
- * Class that handles all API requests related to interactions.
- *
+ * API class that handles all API requests related to interactions.
+ * @group REST/API
  * @public
  */
 export class InteractionsAPI extends BaseAPI {
 	/**
 	 * Creates an interaction response.
-	 *
 	 * @param interactionId - The ID of the interaction.
 	 * @param interactionToken - The token of the interaction.
 	 * @param options - The options to use when creating the interaction
-	 * response.
-	 *
+	 * 	response.
 	 * @see https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
 	 */
 	async postInteractionResponse(
@@ -36,6 +39,18 @@ export class InteractionsAPI extends BaseAPI {
 		let interactionResponse: APIInteractionResponse;
 
 		switch (type) {
+			case InteractionCallbackTypes.ApplicationCommandAutocompleteResult: {
+				const { choices } = data;
+
+				interactionResponse = {
+					data: {
+						choices,
+					},
+					type,
+				};
+
+				break;
+			}
 			case InteractionCallbackTypes.ChannelMessageWithSource:
 			case InteractionCallbackTypes.DeferredChannelMessageWithSource:
 			case InteractionCallbackTypes.DeferredUpdateMessage:
@@ -66,12 +81,10 @@ export class InteractionsAPI extends BaseAPI {
 
 				break;
 			}
-			default: {
-				throw new Error(`Not implemented yet.`);
-			}
+			default:
 		}
 
-		return void (await super.post<
+		return void (await super["__post__"]<
 			RESTPostInteraction,
 			RESTPostInteractionJSONParams,
 			RESTPostInteractionQueryStringParams
