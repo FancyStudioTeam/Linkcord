@@ -39,7 +39,7 @@ export class InteractionsAPI extends BaseAPI {
 		let interactionResponse: APIInteractionResponse;
 
 		switch (type) {
-			case InteractionCallbackTypes.ApplicationCommandAutocompleteResult: {
+			/*case InteractionCallbackTypes.ApplicationCommandAutocompleteResult: {
 				const { choices } = data;
 
 				interactionResponse = {
@@ -50,7 +50,7 @@ export class InteractionsAPI extends BaseAPI {
 				};
 
 				break;
-			}
+			}*/
 			case InteractionCallbackTypes.ChannelMessageWithSource:
 			case InteractionCallbackTypes.DeferredChannelMessageWithSource:
 			case InteractionCallbackTypes.DeferredUpdateMessage:
