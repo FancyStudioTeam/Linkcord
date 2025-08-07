@@ -64,7 +64,6 @@ async function loadConfigurationFile(workingDirectory = process.cwd()): Promise<
 	for (const extension of AVAILABLE_FILE_EXTENSIONS) {
 		const configurationFilePath = join(workingDirectory, `linkcord.config.${extension}`);
 		const existsConfigurationFile = existsSync(configurationFilePath);
-
 		// If the configuration file path with the current extension does not
 		// exist, continue to the next extension.
 		if (!existsConfigurationFile) continue;
