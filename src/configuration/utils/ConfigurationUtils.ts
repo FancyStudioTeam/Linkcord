@@ -58,7 +58,7 @@ function getToken(): Readonly<string> {
 /**
  * Loads the configuration file and assigns the options to the configuration.
  * @param workingDirectory - The directory root where the configuration file
- * is located.
+ * 		is located.
  */
 async function loadConfigurationFile(workingDirectory = process.cwd()): Promise<void> {
 	for (const extension of AVAILABLE_FILE_EXTENSIONS) {
@@ -140,7 +140,7 @@ function transformToken(token: string): string {
  * Namespace for configuration utilities.
  * @internal
  */
-export const ConfigurationUtils = {
+export const ConfigurationUtils = Object.freeze({
 	freeze,
 	getIntents,
 	getLocations,
@@ -150,7 +150,7 @@ export const ConfigurationUtils = {
 	setOptions,
 	transformIntents,
 	transformToken,
-};
+});
 
 /**
  * The expected structure of the imported configuration file data.

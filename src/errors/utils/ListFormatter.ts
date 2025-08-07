@@ -19,6 +19,6 @@ function conjunction(...items: string[]): string {
  * Namespace for list formatting utilities.
  * @internal
  */
-export const ListFormatter = {
+export const ListFormatter = Object.freeze({
 	conjunction,
-};
+});

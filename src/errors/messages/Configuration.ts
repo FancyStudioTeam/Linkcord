@@ -3,7 +3,7 @@
 /**
  * Shows a message indicating that the configuration file has not been found.
  * @returns The message indicating that the configuration file has not been
- * found.
+ * 		found.
  * @internal
  */
 export function CONFIGURATION_FILE_NOT_FOUND(): string {
@@ -14,7 +14,7 @@ export function CONFIGURATION_FILE_NOT_FOUND(): string {
  * Shows a message indicating that the `defineConfig` function has received an
  * invalid input.
  * @returns The message indicating that the `defineConfig` function has
- * received an invalid input.
+ * 		received an invalid input.
  * @internal
  */
 export function INVALID_DEFINE_CONFIG_INPUT(): string {

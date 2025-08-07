@@ -26,9 +26,9 @@ export class CacheManager<Key extends string, Value extends Base> {
 	/**
 	 * Creates a new {@link CacheManager | `CacheManager`} instance.
 	 * @param limit - The maximum number of cached values in the cache
-	 * manager.
+	 * 		manager.
 	 * @param iterable - The initial iterable of key-value pairs for the
-	 * cache manager.
+	 * 		cache manager.
 	 */
 	constructor(limit: number = Infinity, iterable: Iterable<Key, Value> = []) {
 		this.__limit__ = limit;
