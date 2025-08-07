@@ -20,7 +20,7 @@ import type {
 } from "#types/index.js";
 
 /**
- * Handles the `GUILD_CREATE` event received from a gateway shard.
+ * Handles the `GUILD_CREATE` event received from the gateway shard.
  * @param client - The main client instance to manage the event.
  * @param _shard - The gateway shard that received the event.
  * @param guildData - The received data from the `GUILD_CREATE` event.
@@ -44,7 +44,7 @@ export function GUILD_CREATE(
 }
 
 /**
- * Handles the `GUILD_DELETE` event received from a gateway shard.
+ * Handles the `GUILD_DELETE` event received from the gateway shard.
  * @param client - The main client instance to manage the event.
  * @param _shard - The gateway shard that received the event.
  * @param guildData - The received data from the `GUILD_DELETE` event.
@@ -69,7 +69,7 @@ export function GUILD_DELETE(
 }
 
 /**
- * Handles the `GUILD_ROLE_CREATE` event received from a gateway shard.
+ * Handles the `GUILD_ROLE_CREATE` event received from the gateway shard.
  * @param client - The main client instance to manage the event.
  * @param _shard - The gateway shard that received the event.
  * @param _roleData The received data from the `GUILD_ROLE_CREATE` event.
@@ -99,7 +99,7 @@ export function GUILD_ROLE_CREATE(
 }
 
 /**
- * Handles the `GUILD_ROLE_DELETE` event received from a gateway shard.
+ * Handles the `GUILD_ROLE_DELETE` event received from the gateway shard.
  * @param client - The main client instance to manage the event.
  * @param _shard - The gateway shard that received the event.
  * @param _roleData - The received data from the `GUILD_ROLE_DELETE` event.
@@ -129,7 +129,7 @@ export function GUILD_ROLE_DELETE(
 }
 
 /**
- * Handles the `GUILD_ROLE_UPDATE` event received from a gateway shard.
+ * Handles the `GUILD_ROLE_UPDATE` event received from the gateway shard.
  * @param client - The main client instance to manage the event.
  * @param _shard - The gateway shard that received the event.
  * @param _roleData - The received data from the `GUILD_ROLE_UPDATE` event.
@@ -165,7 +165,7 @@ export function GUILD_ROLE_UPDATE(
 }
 
 /**
- * Handles the `GUILD_UPDATE` event received from a gateway shard.
+ * Handles the `GUILD_UPDATE` event received from the gateway shard.
  * @param client - The main client instance to manage the event.
  * @param _shard - The gateway shard that received the event.
  * @param guildData - The received data from the `GUILD_UPDATE` event.

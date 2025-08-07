@@ -13,7 +13,7 @@ import { Uncached, User } from "#structures/index.js";
 import type { GatewayDispatchUserUpdatePayload } from "#types/index.js";
 
 /**
- * Handles the `USER_UPDATE` event received from a gateway shard.
+ * Handles the `USER_UPDATE` event received from the gateway shard.
  * @param client - The main client instance to manage the event.
  * @param _shard - The gateway shard that received the event.
  * @param userData - The received data from the `USER_UPDATE` event.

@@ -9,7 +9,7 @@ import { User } from "#structures/index.js";
 import type { GatewayDispatchReadyPayload } from "#types/index.js";
 
 /**
- * Handles the `READY` event received from a gateway shard.
+ * Handles the `READY` event received from the gateway shard.
  * @param client - The main client instance to manage the event.
  * @param shard - The gateway shard that received the event.
  * @param readyData - The received data from the `READY` event.
@@ -21,17 +21,18 @@ export function READY(
 	shard: GatewayShard,
 	readyData: GatewayDispatchReadyPayload,
 ): void {
-	shard.status = GatewayShardStatus.Ready;
-
 	const { events, users } = client;
 	const { manager } = shard;
-	const { user: userData } = readyData;
+	const { resume_gateway_url, session_id, user: userData } = readyData;
+
+	shard.status = GatewayShardStatus.Ready;
+	shard["__resumeGatewayURL__"] = resume_gateway_url;
+	shard["__sessionId__"] = session_id;
 
 	const user = new User(client, userData);
 	const { id: userId } = user;
 
 	users["__add__"](userId, user);
-	// Try to trigger the `ready` event from the manager.
 	manager["__triggerReady__"]();
 	events.emit("shardReady", user, shard);
 }
