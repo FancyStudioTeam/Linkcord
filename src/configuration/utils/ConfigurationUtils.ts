@@ -58,17 +58,15 @@ function getToken(): Readonly<string> {
 /**
  * Loads the configuration file and assigns the options to the configuration.
  * @param workingDirectory - The directory root where the configuration file
- * 		is located.
+ * 	is located.
  */
 async function loadConfigurationFile(workingDirectory = process.cwd()): Promise<void> {
 	for (const extension of AVAILABLE_FILE_EXTENSIONS) {
 		const configurationFilePath = join(workingDirectory, `linkcord.config.${extension}`);
 		const existsConfigurationFile = existsSync(configurationFilePath);
 
-		/**
-		 * If the configuration file with the current extension does not
-		 * exist, continue to the next extension.
-		 */
+		// If the configuration file path with the current extension does not
+		// exist, continue to the next extension.
 		if (!existsConfigurationFile) continue;
 
 		const importConfigurationFilePath = ImportUtils.resolvePath(configurationFilePath);
