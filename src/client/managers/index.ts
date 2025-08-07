@@ -1,1 +1,2 @@
-export * from "./client/index.js";
+export * from "./CacheManager.js";
+export * from "./EventsManager.js";
