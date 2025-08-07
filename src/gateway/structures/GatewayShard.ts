@@ -50,12 +50,12 @@ export class GatewayShard {
 	 */
 	private __resumeAttempts__ = 0;
 	/**
-	 * The URL of the Discord gateway to resume the session if the shard is
-	 * disconnected.
+	 * The URL of the Discord gateway used to resume the session if the shard
+	 * is disconnected.
 	 */
 	private __resumeGatewayURL__: string | null = null;
 	/**
-	 * The number of the sequence received from the gateway.
+	 * The number of the sequence received from the `DISPATCH` event.
 	 */
 	private __sequence__: number | null = null;
 	/**
@@ -134,8 +134,12 @@ export class GatewayShard {
 	 * @internal
 	 */
 	private __heartbeat__(): void {
-		const { __sequence__ } = this;
+		const { __sequence__, id } = this;
 
+		this.__emit__(
+			"debug",
+			`Sending a "HEARTBEAT" packet from "Shard ${id}" to the Discord gateway...`,
+		);
 		this.send(GatewayOpcodes.Heartbeat, __sequence__);
 	}
 
@@ -149,6 +153,10 @@ export class GatewayShard {
 
 		const shardCount = manager["__shardsToSpawn__"];
 
+		this.__emit__(
+			"debug",
+			`Sending an "IDENTIFY" packet from "Shard ${id}" to the Discord gateway...`,
+		);
 		this.send(GatewayOpcodes.Identify, {
 			intents,
 			properties: {
@@ -165,8 +173,8 @@ export class GatewayShard {
 	 * Initializes the `WebSocket` instance to interact with the Discord
 	 * gateway.
 	 * @param gatewayURL - The URL of the Discord gateway.
-	 * @param shouldResume - Whether the gateway shard connection should
-	 * be resumed.
+	 * @param shouldResume - Whether the gateway shard session should be
+	 * 	resumed.
 	 * @internal
 	 */
 	private __initializeWebSocket__(
@@ -203,11 +211,17 @@ export class GatewayShard {
 
 		this.__emit__("shardDisconnected", reason, code, reconnectable, this);
 
-		const { __resumeGatewayURL__ } = this;
+		const { __resumeGatewayURL__, id } = this;
 
 		if (reconnectable && __resumeGatewayURL__) {
+			this.__emit__(
+				`Current session from "Shard ${id}" can be resumed, attempting to resume...`,
+			);
 			this.__initializeWebSocket__(__resumeGatewayURL__, true);
 		} else {
+			this.__emit__(
+				`Current session from "Shard ${id}" cannot be resumed, attempting to identify...`,
+			);
 			this.__initializeWebSocket__();
 		}
 	}
@@ -267,6 +281,7 @@ export class GatewayShard {
 	/**
 	 * Handles when the gateway shard receives an `INVALID_SESSION` packet.
 	 * @param invalidSession - The `INVALID_SESSION` packet.
+	 * @internal
 	 */
 	private __onMessageInvalidSession__(invalidSession: GatewayInvalidSession): void {
 		const { d } = invalidSession;
@@ -293,6 +308,7 @@ export class GatewayShard {
 
 	/**
 	 * Handles when the gateway shard receives a `RECONNECT` packet.
+	 * @internal
 	 */
 	private __onMessageReconnect__(): void {
 		this.__resume__();
