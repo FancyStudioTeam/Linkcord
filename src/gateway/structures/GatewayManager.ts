@@ -42,6 +42,16 @@ export class GatewayManager {
 	}
 
 	/**
+	 * The base URL of the Discord gateway.
+	 */
+	static GATEWAY_URL_BASE = "wss://gateway.discord.gg";
+
+	/**
+	 * The version of the Discord gateway.
+	 */
+	static GATEWAY_VERSION = 10;
+
+	/**
 	 * Checks whether the gateway manager should trigger the `ready` event.
 	 * @returns Whether the gateway manager should trigger the `ready` event.
 	 * @internal

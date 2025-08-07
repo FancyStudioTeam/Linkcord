@@ -1,19 +1,10 @@
 import { GatewayCloseEventCodes, GatewayOpcodes } from "#types/index.js";
 
 /**
+ * The close codes that indicate that the gateway shard can resume.
  * @public
  */
-export const GATEWAY_URL_BASE = "wss://gateway.discord.gg";
-
-/**
- * @public
- */
-export const GATEWAY_VERSION = 10;
-
-/**
- * @public
- */
-export const RECONNECTABLE_CLOSE_CODES = [
+export const RESUMABLE_CLOSE_CODES = [
 	GatewayCloseEventCodes.AlreadyAuthenticated,
 	GatewayCloseEventCodes.DecodeError,
 	GatewayCloseEventCodes.InvalidSequence,
@@ -25,6 +16,7 @@ export const RECONNECTABLE_CLOSE_CODES = [
 ] as const;
 
 /**
+ * The opcodes that can be sent to the Discord gateway.
  * @public
  */
 export const SENDABLE_OPCODES = [
@@ -38,14 +30,11 @@ export const SENDABLE_OPCODES = [
 ] as const;
 
 /**
- * biome-ignore-start lint/nursery/noMagicNumbers: These values can be magic
- * numbers.
- */
-/**
+ * The suffix of the zlib-compressed payload.
  * @public
  */
-export const ZLIB_SUFFIX = Buffer.from([0x00, 0x00, 0xff, 0xff]);
-/**
- * biome-ignore-end lint/nursery/noMagicNumbers: These values can be magic
+/*
+ * biome-ignore lint/nursery/noMagicNumbers: These values can be magic
  * numbers.
  */
+export const ZLIB_SUFFIX = Buffer.from([0x00, 0x00, 0xff, 0xff]);
