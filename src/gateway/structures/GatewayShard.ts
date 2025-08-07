@@ -194,7 +194,7 @@ export class GatewayShard {
 		this.ws = ws;
 		this.ws.on("close", this.__onClose__.bind(this));
 		this.ws.on("message", this.__onMessage__.bind(this));
-		this.ws.on("open", this.__onOpen__.bind(this)(shouldResume));
+		this.ws.on("open", this.__onOpen__.bind(this, shouldResume));
 	}
 
 	/**
@@ -215,11 +215,13 @@ export class GatewayShard {
 
 		if (reconnectable && __resumeGatewayURL__) {
 			this.__emit__(
+				"debug",
 				`Current session from "Shard ${id}" can be resumed, attempting to resume...`,
 			);
 			this.__initializeWebSocket__(__resumeGatewayURL__, true);
 		} else {
 			this.__emit__(
+				"debug",
 				`Current session from "Shard ${id}" cannot be resumed, attempting to identify...`,
 			);
 			this.__initializeWebSocket__();
@@ -329,12 +331,16 @@ export class GatewayShard {
 	 * @internal
 	 */
 	private __resume__(): void {
-		const { __sequence__, __sessionId__, manager } = this;
+		const { __sequence__, __sessionId__, id, manager } = this;
 		const { token } = manager;
 
 		if (!(__sequence__ && __sessionId__)) return;
 
-		this.send(GatewayOpcodes.Heartbeat, {
+		this.__emit__(
+			"debug",
+			`Sending a "RESUME" packet from "Shard ${id}" to the Discord gateway...`,
+		);
+		this.send(GatewayOpcodes.Resume, {
 			seq: __sequence__,
 			session_id: __sessionId__,
 			token,
