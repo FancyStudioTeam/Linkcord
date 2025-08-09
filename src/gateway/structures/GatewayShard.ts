@@ -204,7 +204,10 @@ export class GatewayShard {
 	 * @internal
 	 */
 	private __onClose__(code: number, reasonBuffer: Buffer): void {
+		// This should never happen.
 		if (!Buffer.isBuffer(reasonBuffer)) return;
+
+		this.status = GatewayShardStatus.Disconnected;
 
 		const reason = reasonBuffer.toString("utf-8");
 		const reconnectable = RESUMABLE_CLOSE_CODES.includes(code);
@@ -234,6 +237,7 @@ export class GatewayShard {
 	 * @internal
 	 */
 	private async __onMessage__(bufferData: Buffer): Promise<void> {
+		// This should never happen.
 		if (!Buffer.isBuffer(bufferData)) return;
 
 		const data = bufferData.toString();
