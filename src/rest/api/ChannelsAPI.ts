@@ -1,3 +1,8 @@
+/*
+ * biome-ignore-all lint/complexity/useLiteralKeys: Allow to use bracket
+ * notation when accessing private or protected members from some structures.
+ */
+
 import { Endpoints } from "#rest/endpoints/Endpoints.js";
 import { Message } from "#structures/discord/Message.js";
 import { User } from "#structures/index.js";
@@ -13,28 +18,24 @@ import type {
 	GetChannelPollAnswerVotersOptions,
 	SendSoundboardSoundOptions,
 } from "#types/parsed/rest/Channels.js";
-import { BaseAPI } from "./base/BaseAPI.js";
+import { BaseAPI } from "./BaseAPI.js";
 
 const DEFAULT_POLL_ANSWER_VOTERS_TO_FETCH = 25;
-
 const MAXIMUM_POLL_ANSWER_VOTERS_TO_FETCH = 100;
 
 /**
- * Class that handles all API requests related to channels.
- *
+ * API class that handles all API requests related to channels.
+ * @group REST/API
  * @public
  */
 export class ChannelsAPI extends BaseAPI {
 	/**
 	 * Gets the users that voted for the poll answer.
-	 *
 	 * @param channelId - The ID of the channel at which the poll was created.
 	 * @param messageId - The ID of the message that contains the poll.
 	 * @param answerId - The ID of the answer to check its voters.
 	 * @param options - The options to use when fetching the voters.
-	 *
 	 * @returns The users that voted for the poll answer.
-	 *
 	 * @see https://discord.com/developers/docs/resources/poll#get-answer-voters
 	 */
 	async getChannelPollAnswerVoters(
@@ -54,7 +55,7 @@ export class ChannelsAPI extends BaseAPI {
 			after,
 			limit,
 		}: GetChannelPollAnswerVotersOptions = {}): Promise<Map<Snowflake, User>> => {
-			const request = await super.get<
+			const request = await super.__get__<
 				RESTGetChannelPollAnswerVoters,
 				RESTGetChannelPollAnswerVotersQueryStringParams
 			>(Endpoints.channelPollAnswer(channelId, messageId, answerId), {
@@ -70,11 +71,7 @@ export class ChannelsAPI extends BaseAPI {
 			const usersIterableMap = userStructures.map<[Snowflake, User]>((user) => {
 				const { id: userId } = user;
 
-				/**
-				 * biome-ignore lint/complexity/useLiteralKeys: Accessing
-				 * private members from the manager.
-				 */
-				usersCache["add"](userId, user);
+				usersCache["__add__"](userId, user);
 
 				return [userId, user];
 			});
@@ -83,11 +80,8 @@ export class ChannelsAPI extends BaseAPI {
 			return usersMap;
 		};
 
-		/**
-		 *
-		 * Check whether the limit is greater than the maximum amount of
-		 * voters to fetch.
-		 */
+		// Check whether the limit is greater than the maximum amount of
+		// voters to fetch.
 		if (limit > MAXIMUM_POLL_ANSWER_VOTERS_TO_FETCH) {
 			const users: User[] = [];
 			let continueAfterUserId: Snowflake;
@@ -140,32 +134,27 @@ export class ChannelsAPI extends BaseAPI {
 
 	/**
 	 * Expires a poll in a channel.
-	 *
 	 * @param channelId - The ID of the channel at which the poll was created.
 	 * @param messageId - The ID of the message associated with the poll.
-	 *
 	 * @returns The {@link Message | `Message`} associated with the poll.
-	 *
 	 * @see https://discord.com/developers/docs/resources/poll#end-poll
 	 */
 	async postChannelPollExpire(channelId: Snowflake, messageId: Snowflake): Promise<Message> {
 		const { client } = this;
 
-		const request = await super.post<RESTPostChannelPollExpire>(
+		const messageData = await super.__post__<RESTPostChannelPollExpire>(
 			Endpoints.channelPollExpire(channelId, messageId),
 		);
-		const message = new Message(client, request);
+		const message = new Message(client, messageData);
 
 		return message;
 	}
 
 	/**
 	 * Plays a soundboard sound in a channel.
-	 *
 	 * @param channelId - The ID of the channel where the soundboard sound
 	 * will be played.
 	 * @param options - The options to use when playing the soundboard sound.
-	 *
 	 * @see https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound
 	 */
 	async postChannelSoundboardSound(
@@ -174,7 +163,7 @@ export class ChannelsAPI extends BaseAPI {
 	): Promise<void> {
 		const { soundId, sourceGuildId } = options;
 
-		return await super.post<
+		const soundboardSoundData = await super.__post__<
 			RESTPostChannelSoundboardSound,
 			RESTPostChannelSoundboardSoundJSONParams
 		>(Endpoints.channelSendSoundboardSound(channelId), {
@@ -183,5 +172,7 @@ export class ChannelsAPI extends BaseAPI {
 				source_guild_id: sourceGuildId,
 			},
 		});
+
+		return soundboardSoundData;
 	}
 }

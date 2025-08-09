@@ -13,7 +13,7 @@ import {
 	type RESTPostInteractionQueryStringParams,
 	type Snowflake,
 } from "#types/index.js";
-import { BaseAPI } from "./base/BaseAPI.js";
+import { BaseAPI } from "./BaseAPI.js";
 
 /**
  * API class that handles all API requests related to interactions.
@@ -39,18 +39,17 @@ export class InteractionsAPI extends BaseAPI {
 		let interactionResponse: APIInteractionResponse;
 
 		switch (type) {
-			/*case InteractionCallbackTypes.ApplicationCommandAutocompleteResult: {
-				const { choices } = data;
-
+			// @ts-expect-error
+			case InteractionCallbackTypes.ApplicationCommandAutocompleteResult: {
 				interactionResponse = {
 					data: {
-						choices,
+						choices: [],
 					},
 					type,
 				};
 
 				break;
-			}*/
+			}
 			case InteractionCallbackTypes.ChannelMessageWithSource:
 			case InteractionCallbackTypes.DeferredChannelMessageWithSource:
 			case InteractionCallbackTypes.DeferredUpdateMessage:
@@ -81,10 +80,12 @@ export class InteractionsAPI extends BaseAPI {
 
 				break;
 			}
-			default:
+			default: {
+				throw new Error("Not suported.");
+			}
 		}
 
-		return void (await super["__post__"]<
+		const interactionResponseData = await super.__post__<
 			RESTPostInteraction,
 			RESTPostInteractionJSONParams,
 			RESTPostInteractionQueryStringParams
@@ -93,6 +94,8 @@ export class InteractionsAPI extends BaseAPI {
 			queryString: {
 				with_response: true,
 			},
-		}));
+		});
+
+		return void interactionResponseData;
 	}
 }
