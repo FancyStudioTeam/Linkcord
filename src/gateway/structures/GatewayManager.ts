@@ -16,10 +16,6 @@ import { GatewayShard, GatewayShardStatus } from "./GatewayShard.js";
  */
 export class GatewayManager {
 	/**
-	 * Whether all shards from the manager are ready.
-	 */
-	private __ready__ = false;
-	/**
 	 * The number of shards to spawn.
 	 */
 	private __shardsToSpawn__ = 0;
@@ -57,7 +53,7 @@ export class GatewayManager {
 	 * @internal
 	 */
 	protected __shouldTriggerReady__(): boolean {
-		const { __ready__, __shardsToSpawn__, shards } = this;
+		const { __shardsToSpawn__, shards } = this;
 		const { size: shardsSize } = shards;
 		const shardsArray = [...shards.values()];
 
@@ -65,10 +61,8 @@ export class GatewayManager {
 		const allShardsAreReady = shardsArray.every(
 			({ status }) => status === GatewayShardStatus.Ready,
 		);
-		// Ensure that the manager has not been marked as ready yet.
-		const isNotReadyYet = !__ready__;
 
-		return shardCountIsCorrect && allShardsAreReady && isNotReadyYet;
+		return shardCountIsCorrect && allShardsAreReady;
 	}
 
 	/**
@@ -82,8 +76,6 @@ export class GatewayManager {
 
 		const { client } = this;
 		const { events } = client;
-
-		this.__ready__ = true;
 
 		events.emit("ready");
 	}
