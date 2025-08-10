@@ -4,7 +4,7 @@
  * destructuring them from "this".
  */
 
-import type { Client } from "#client/index.js";
+import type { Client, ClientEventsMap, ClientEventsString } from "#client/index.js";
 import { ConfigurationUtils } from "#configuration/utils/ConfigurationUtils.js";
 import type { APIManager } from "#rest/structures/APIManager.js";
 import { GatewayShard, GatewayShardStatus } from "./GatewayShard.js";
@@ -48,11 +48,36 @@ export class GatewayManager {
 	static GATEWAY_VERSION = 10;
 
 	/**
+	 * Emits an event with the given event name and data.
+	 * @param name - The name of the event to emit.
+	 * @param data - The data to emit with the event.
+	 * @internal
+	 */
+	private __emit__<Event extends ClientEventsString>(
+		name: Event,
+		...data: ClientEventsMap[Event]
+	): void {
+		const { client } = this;
+		const { events } = client;
+
+		events.emit(name, ...data);
+	}
+
+	/**
+	 * Sends a debug message to the client.
+	 * @param message - The message to send.
+	 * @internal
+	 */
+	private __debug__(message: string): void {
+		this.__emit__("debug", message);
+	}
+
+	/**
 	 * Checks whether the gateway manager should trigger the `ready` event.
 	 * @returns Whether the gateway manager should trigger the `ready` event.
 	 * @internal
 	 */
-	protected __shouldTriggerReady__(): boolean {
+	private __shouldTriggerReady__(): boolean {
 		const { __shardsToSpawn__, shards } = this;
 		const { size: shardsSize } = shards;
 		const shardsArray = [...shards.values()];
@@ -69,7 +94,7 @@ export class GatewayManager {
 	 * Triggers the `ready` event from the main client.
 	 * @internal
 	 */
-	protected __triggerReady__(): void {
+	private __triggerReady__(): void {
 		const shouldTriggerReady = this.__shouldTriggerReady__();
 
 		if (!shouldTriggerReady) return;
@@ -111,9 +136,14 @@ export class GatewayManager {
 	 */
 	async init(): Promise<void> {
 		const { __api__, shards } = this;
-		const { shards: shardCount } = await __api__.getGatewayBot();
+		const { sessionStartLimit, shards: shardCount } = await __api__.getGatewayBot();
+		const { remaining, total } = sessionStartLimit;
 
 		this.__shardsToSpawn__ = shardCount;
+		this.__debug__(`[GatewayManager] Fetched Discord gateway information.
+			Shards:   ${shardCount}
+			Sessions: ${remaining}/${total}
+		`);
 
 		for (let shardId = 0; shardId < shardCount; shardId++) {
 			const shard = new GatewayShard(shardId, this);
