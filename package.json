@@ -6,7 +6,7 @@
 		"valibot": "1.1.0",
 		"ws": "8.18.3"
 	},
-	"description": "An opinionated framework for building Discord bots.",
+	"description": "An opinionated framework made in TypeScript for building Discord bots.",
 	"devDependencies": {
 		"@biomejs/biome": "2.1.3",
 		"@commitlint/cli": "19.8.1",
