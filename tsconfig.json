@@ -21,6 +21,7 @@
 			"#errors/*": ["./src/errors/*"],
 			"#gateway/*": ["./src/gateway/*"],
 			"#handlers/*": ["./src/handlers/*"],
+			"#index": ["./src/index.js"],
 			"#rest/*": ["./src/rest/*"],
 			"#structures/*": ["./src/structures/*"],
 			"#transformers/*": ["./src/transformers/*"],
