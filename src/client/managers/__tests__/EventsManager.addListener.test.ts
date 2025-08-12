@@ -1,19 +1,21 @@
 import { describe, expect, it, vi } from "vitest";
+import { ClientEvents } from "#client/ClientEvents.js";
 import { EventsManager as EventsManagerClass } from "../EventsManager.js";
 
-describe("Method: EventsManager.addListener", () =>
+describe("Method: EventsManager.addListener", () => {
 	it("Should register two event listener.", () => {
 		const EventsManager = new EventsManagerClass();
 		const DebugListenerFunction = vi.fn();
 
-		EventsManager.addListener("debug", DebugListenerFunction);
-		EventsManager.addListener("debug", DebugListenerFunction);
+		expect(EventsManager.addListener(ClientEvents.Debug, DebugListenerFunction)).toBe(true);
+		expect(EventsManager.addListener(ClientEvents.Debug, DebugListenerFunction)).toBe(true);
 
 		const { listeners } = EventsManager;
 
-		const DebugListeners = listeners.get("debug");
-		const DebugListenersLength = DebugListeners?.length ?? 0;
+		const DebugListeners = listeners.get(ClientEvents.Debug);
+		const { length: DebugListenersLength } = DebugListeners ?? [];
 
 		expect(DebugListeners).toBeInstanceOf(Array);
 		expect(DebugListenersLength).toBe(2);
-	}));
+	});
+});
