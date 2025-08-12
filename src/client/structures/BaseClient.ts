@@ -1,3 +1,9 @@
+/*
+ * biome-ignore-all lint/correctness/noUnusedPrivateClassMembers: Biome uses
+ * "this" to check if these private members are being used, but we are
+ * destructuring them from "this".
+ */
+
 import { join } from "node:path";
 import { ConfigurationUtils } from "#configuration/utils/ConfigurationUtils.js";
 import { EventsLoader } from "#handlers/events/loaders/EventsLoader.js";
@@ -19,24 +25,19 @@ function createFolderPath(root: string, folderName: string): string {
  * @public
  */
 export class BaseClient {
-	/**
-	 * The intents of the client.
-	 */
+	/** The intents of the client. */
 	get intents(): Readonly<number> {
 		return ConfigurationUtils.getIntents();
 	}
 
-	/**
-	 * The token of the client.
-	 */
+	/** The token of the client. */
 	get token(): Readonly<string> {
 		return ConfigurationUtils.getToken();
 	}
 
 	/**
-	 * Registers the client commands and events.
-	 * @param client - The main client to register its dependencies.
-	 * @internal
+	 * Registers the modules of the client.
+	 * @param client - The client used to register its modules.
 	 */
 	private async __register__(client: Client): Promise<void> {
 		const locations = ConfigurationUtils.getLocations();
@@ -49,10 +50,11 @@ export class BaseClient {
 
 	/**
 	 * Initializes the base client.
-	 * @param client - The main client to initialize the base client.
-	 * @internal
+	 * @param client - The client used to register its modules.
 	 */
 	protected async __init__(client: Client): Promise<void> {
-		await Promise.all([this.__register__(client)]);
+		const register = this.__register__;
+
+		await Promise.all([register(client)]);
 	}
 }

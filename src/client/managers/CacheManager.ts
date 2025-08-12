@@ -16,6 +16,7 @@ import type { Snowflake } from "#types/index.js";
 export class CacheManager<Key extends string, Value extends Base> {
 	/** The maximum number of cached values allowed in the cache manager. */
 	private readonly __limit__: number;
+
 	/** The map where the cached values are stored. */
 	readonly cache: Map<Snowflake, Value>;
 

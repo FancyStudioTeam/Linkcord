@@ -11,36 +11,19 @@ import { BaseClient } from "./BaseClient.js";
  * @group Client/Structures
  * @public
  */
-export class Client<IsReady extends boolean = boolean> extends BaseClient {
-	/**
-	 * The events manager of the client.
-	 */
+export class Client extends BaseClient {
+	/** The events manager of the client. */
 	readonly events = new EventsManager();
-	/**
-	 * The gateway manager of the client.
-	 */
+	/** The gateway manager of the client. */
 	readonly gateway: GatewayManager;
-	/**
-	 * The guilds cache manager of the client.
-	 */
+	/** The cache manager for guilds of the client. */
 	readonly guilds = new CacheManager<Snowflake, Guild>();
-	/**
-	 * Whether the client is fully ready.
-	 */
-	// biome-ignore lint/nursery/useReadonlyClassProperties: TODO.
-	ready: IsReady = false as IsReady;
-	/**
-	 * The REST manager of the client.
-	 */
+	/** The REST manager of the client. */
 	readonly rest: RESTManager;
-	/**
-	 * The users cache manager of the client.
-	 */
+	/** The cache manager for users of the client. */
 	readonly users = new CacheManager<Snowflake, User>();
 
-	/**
-	 * Creates a new {@link Client | `Client`} instance.
-	 */
+	/** Creates a new {@link Client | `Client`} instance. */
 	constructor() {
 		super();
 
@@ -48,28 +31,13 @@ export class Client<IsReady extends boolean = boolean> extends BaseClient {
 		this.rest = new RESTManager(this);
 	}
 
-	/**
-	 * Initializes the client and its dependencies.
-	 */
+	/** Initializes the client and its dependencies. */
 	async init(): Promise<void> {
 		await ConfigurationUtils.loadConfigurationFile();
 		await super.__init__(this);
 
 		const { gateway } = this;
 
-		/**
-		 * Spawn shards and connect them to the gateway.
-		 */
 		await gateway.init();
-	}
-
-	/**
-	 * Checks whether the client is fully ready.
-	 * @returns Whether the client is fully ready.
-	 */
-	isReady(): this is Client<true> {
-		const { ready } = this;
-
-		return ready;
 	}
 }

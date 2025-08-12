@@ -18,6 +18,7 @@ export class EventsManager {
 	 * manager.
 	 */
 	private __limit__: number;
+
 	/** The map where the listeners are stored. */
 	readonly listeners = new Map<ClientEvents, EventListener[]>();
 
