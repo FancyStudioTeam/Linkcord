@@ -14,10 +14,17 @@ import {
 	EmbedURLSchema,
 } from "#builders/schemas/messages/EmbedSchema.js";
 import type { RestOrArray } from "#builders/types/Common.js";
-import type { Embed, EmbedAuthor, EmbedField, EmbedFooter } from "#types/index.js";
-import type { EmbedAuthorBuilder } from "./EmbedAuthorBuilder.js";
-import type { EmbedFieldBuilder } from "./EmbedFieldBuilder.js";
-import type { EmbedFooterBuilder } from "./EmbedFooterBuilder.js";
+import type {
+	AllowedEmbedAuthor,
+	AllowedEmbedColor,
+	AllowedEmbedField,
+	AllowedEmbedFooter,
+	AllowedEmbedImageURL,
+	AllowedEmbedThumbnailURL,
+	AllowedEmbedTimestamp,
+	AllowedEmbedURL,
+} from "#builders/types/index.js";
+import type { Embed } from "#types/index.js";
 
 /**
  * An utility class for building embeds.
@@ -144,51 +151,3 @@ export class EmbedBuilder {
 		return validatedData;
 	}
 }
-
-/**
- * Represents an author that can be set to an embed builder.
- * @public
- */
-export type AllowedEmbedAuthor = EmbedAuthorBuilder | EmbedAuthor;
-
-/**
- * Represents a color that can be set to an embed builder.
- * @public
- */
-export type AllowedEmbedColor = number | string;
-
-/**
- * Represents a field that can be added or set to an embed builder.
- * @public
- */
-export type AllowedEmbedField = EmbedFieldBuilder | EmbedField;
-
-/**
- * Represents a footer that can be set to an embed builder.
- * @public
- */
-export type AllowedEmbedFooter = EmbedFooterBuilder | EmbedFooter;
-
-/**
- * Represents an image URL that can be set to an embed builder.
- * @public
- */
-export type AllowedEmbedImageURL = URL | string;
-
-/**
- * Represents a thumbnail URL that can be set to an embed builder.
- * @public
- */
-export type AllowedEmbedThumbnailURL = URL | string;
-
-/**
- * Represents a timestamp that can be set to an embed builder.
- * @public
- */
-export type AllowedEmbedTimestamp = Date | string;
-
-/**
- * Represents a URL that can be set to an embed builder.
- * @public
- */
-export type AllowedEmbedURL = URL | string;

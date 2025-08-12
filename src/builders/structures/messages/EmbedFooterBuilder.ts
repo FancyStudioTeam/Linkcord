@@ -4,6 +4,7 @@ import {
 	EmbedFooterSchema,
 	EmbedFooterTextSchema,
 } from "#builders/schemas/messages/EmbedFooterSchema.js";
+import type { AllowedEmbedFooterIconURL } from "#builders/types/index.js";
 import type { EmbedFooter } from "#types/index.js";
 
 /**
@@ -46,9 +47,3 @@ export class EmbedFooterBuilder {
 		return validatedData;
 	}
 }
-
-/**
- * Represents an icon URL that can be set to an embed footer builder.
- * @public
- */
-export type AllowedEmbedFooterIconURL = URL | string;

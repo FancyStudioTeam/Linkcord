@@ -5,6 +5,7 @@ import {
 	EmbedAuthorSchema,
 	EmbedAuthorURLSchema,
 } from "#builders/schemas/messages/EmbedAuthorSchema.js";
+import type { AllowedEmbedAuthorIconURL, AllowedEmbedAuthorURL } from "#builders/types/index.js";
 import type { EmbedAuthor } from "#types/index.js";
 
 /**
@@ -58,15 +59,3 @@ export class EmbedAuthorBuilder {
 		return validatedData;
 	}
 }
-
-/**
- * Represents an icon URL that can be set to an embed author builder.
- * @public
- */
-export type AllowedEmbedAuthorIconURL = URL | string;
-
-/**
- * Represents a URL that can be set to an embed author builder.
- * @public
- */
-export type AllowedEmbedAuthorURL = URL | string;

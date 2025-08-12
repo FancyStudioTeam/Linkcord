@@ -1,2 +1,2 @@
-export * from "./messages/index.js";
+export * from "./structures/index.js";
 export * from "./types/index.js";
