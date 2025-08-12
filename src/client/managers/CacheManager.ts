@@ -14,19 +14,19 @@ import type { Snowflake } from "#types/index.js";
  * @public
  */
 export class CacheManager<Key extends string, Value extends Base> {
-	/** The maximum number of cached values in the cache manager. */
+	/** The maximum number of cached values allowed in the cache manager. */
 	private readonly __limit__: number;
 	/** The map where the cached values are stored. */
 	readonly cache: Map<Snowflake, Value>;
 
 	/**
 	 * Creates a new {@link CacheManager | `CacheManager`} instance.
-	 * @param limit - The maximum number of cached values in the cache
+	 * @param limit - The maximum number of cached values allowed in the cache
 	 * 	manager.
 	 * @param initialCachedValues - The initial values to cache when
 	 * 	instantiating the cache manager.
 	 */
-	constructor(limit: number = Infinity, initialCachedValues: Iterable<Key, Value> = []) {
+	constructor(limit = Infinity, initialCachedValues: Iterable<Key, Value> = []) {
 		this.__limit__ = limit;
 		this.cache = new Map(initialCachedValues);
 	}
@@ -72,7 +72,7 @@ export class CacheManager<Key extends string, Value extends Base> {
 	/**
 	 * Removes a value from the cache, if exists.
 	 * @param key - The key of the value to remove.
-	 * @returns Whether the value was removed.
+	 * @returns Whether the value has been removed.
 	 */
 	private __remove__(key: Snowflake): boolean {
 		const { cache } = this;
