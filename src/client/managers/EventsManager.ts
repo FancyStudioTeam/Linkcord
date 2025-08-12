@@ -4,7 +4,7 @@
  * destructuring them from "this".
  */
 
-import type { ClientEvents, ClientEventsMap } from "#client/ClientEvents.js";
+import type { ClientEvents, ClientEventsMap } from "#client/types/ClientEvents.js";
 import type { EventListener, EventListenerCallback } from "#client/types/index.js";
 
 /**

@@ -1,4 +1,4 @@
-import type { ClientEvents, ClientEventsMap } from "#client/ClientEvents.js";
+import type { ClientEvents, ClientEventsMap } from "../ClientEvents.js";
 
 /**
  * Represents a listener data object for an event.

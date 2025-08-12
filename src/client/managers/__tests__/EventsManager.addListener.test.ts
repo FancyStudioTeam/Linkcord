@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { ClientEvents } from "#client/ClientEvents.js";
+import { ClientEvents } from "#client/types/ClientEvents.js";
 import { EventsManager as EventsManagerClass } from "../EventsManager.js";
 
 describe("Method: EventsManager.addListener", () => {
