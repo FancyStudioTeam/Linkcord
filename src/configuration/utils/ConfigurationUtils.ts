@@ -1,10 +1,6 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import type {
-	LinkcordOptions,
-	LinkcordOptionsLocations,
-} from "#configuration/functions/defineConfig.js";
-import { CONFIGURATION_FILE_NOT_FOUND } from "#errors/messages/Configuration.js";
+import type { LinkcordOptions, LinkcordOptionsLocations } from "#configuration/types/index.js";
 import type { GatewayIntents } from "#types/index.js";
 import { ImportUtils } from "#utils/structures/ImportUtils.js";
 
@@ -84,13 +80,11 @@ async function loadConfigurationFile(workingDirectory = process.cwd()): Promise<
 	}
 
 	if (!ConfigurationFileLoaded) {
-		throw new Error(CONFIGURATION_FILE_NOT_FOUND());
+		throw new Error('Configuration file "linkcord.config" has not been found.');
 	}
 }
 
-/**
- * Marks the configuration file as loaded.
- */
+/** Marks the configuration file as loaded. */
 function setConfigurationFileLoaded(): void {
 	ConfigurationFileLoaded = true;
 }
@@ -134,10 +128,6 @@ function transformToken(token: string): string {
 	return replacedToken;
 }
 
-/**
- * Namespace for configuration utilities.
- * @internal
- */
 export const ConfigurationUtils = Object.freeze({
 	freeze,
 	getIntents,
@@ -150,13 +140,8 @@ export const ConfigurationUtils = Object.freeze({
 	transformToken,
 });
 
-/**
- * The expected structure of the imported configuration file data.
- * @internal
- */
+/** The expected structure of the imported file. */
 interface ConfigurationFileData {
-	/**
-	 * The validated options of the framework.
-	 */
+	/** The validated options of the framework. */
 	default: LinkcordOptions;
 }
