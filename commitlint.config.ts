@@ -8,6 +8,7 @@ const configuration: UserConfig = {
 			"always",
 			[
 				"api-docs",
+				"builders",
 				"chore",
 				"ci",
 				"client",
