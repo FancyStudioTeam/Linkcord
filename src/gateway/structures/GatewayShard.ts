@@ -72,6 +72,14 @@ export class GatewayShard {
 	readonly manager: GatewayManager;
 
 	/**
+	 * The timestamp of the last heartbeat received from the gateway.
+	 */
+	lastHeartbeatReceivedAt = 0;
+	/**
+	 * The timestamp of the last heartbeat sent to the gateway.
+	 */
+	lastHeartbeatSentAt = 0;
+	/**
 	 * The current status of the gateway shard.
 	 */
 	status = GatewayShardStatus.Disconnected;
@@ -166,6 +174,7 @@ export class GatewayShard {
 			`[GatewayShard] Sending a "HEARTBEAT" packet from "${__name__}" to the Discord gateway...`,
 		);
 
+		this.lastHeartbeatSentAt = Date.now();
 		this.send(GatewayOpcodes.Heartbeat, __sequence__);
 	}
 
@@ -276,6 +285,11 @@ export class GatewayShard {
 
 				break;
 			}
+			case GatewayOpcodes.HeartbeatAck: {
+				this.__onMessageHeartbeatAck__();
+
+				break;
+			}
 			case GatewayOpcodes.Hello: {
 				this.__onMessageHello__(message);
 
@@ -309,6 +323,14 @@ export class GatewayShard {
 		if (hook) {
 			await hook(client, this, d as never);
 		}
+	}
+
+	/**
+	 * Handles when the gateway shard receives a `HEARTBEAT_ACK` packet.
+	 * @internal
+	 */
+	private __onMessageHeartbeatAck__(): void {
+		this.lastHeartbeatReceivedAt = Date.now();
 	}
 
 	/**
@@ -397,6 +419,15 @@ export class GatewayShard {
 		const { id } = this;
 
 		return `Shard ${id}`;
+	}
+
+	/**
+	 * Gets the latency of the gateway shard.
+	 */
+	get latency(): number {
+		const { lastHeartbeatReceivedAt, lastHeartbeatSentAt } = this;
+
+		return lastHeartbeatReceivedAt - lastHeartbeatSentAt;
 	}
 
 	/**
