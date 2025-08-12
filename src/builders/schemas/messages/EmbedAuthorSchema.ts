@@ -15,7 +15,7 @@ const MAXIMUM_EMBED_AUTHOR_NAME_LENGTH = 256;
 
 export const EmbedAuthorIconURLInstanceSchema = pipe(
 	instance(URL),
-	transform((value) => value.toString()),
+	transform((url) => url.toString()),
 );
 export const EmbedAuthorIconURLStringSchema = pipe(string(), url());
 export const EmbedAuthorIconURLSchema = union([
@@ -31,7 +31,7 @@ export const EmbedAuthorNameSchema = pipe(
 
 export const EmbedAuthorURLInstanceSchema = pipe(
 	instance(URL),
-	transform((value) => value.toString()),
+	transform((url) => url.toString()),
 );
 export const EmbedAuthorURLStringSchema = pipe(string(), url());
 export const EmbedAuthorURLSchema = union([

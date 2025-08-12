@@ -14,14 +14,14 @@ import type { EmbedAuthor } from "#types/index.js";
  */
 export class EmbedAuthorBuilder {
 	/** The object containing the data of the embed author. */
-	readonly data: Partial<EmbedAuthor> = {};
+	private readonly __data__: Partial<EmbedAuthor> = {};
 
 	/**
 	 * Sets the icon URL of the embed author.
 	 * @param iconURL - The icon URL of the embed author.
 	 */
 	setIconURL(iconURL: AllowedEmbedAuthorIconURL): this {
-		this.data.iconURL = parse(EmbedAuthorIconURLSchema, iconURL);
+		this.__data__.iconURL = parse(EmbedAuthorIconURLSchema, iconURL);
 
 		return this;
 	}
@@ -31,7 +31,7 @@ export class EmbedAuthorBuilder {
 	 * @param name - The name of the embed author.
 	 */
 	setName(name: string): this {
-		this.data.name = parse(EmbedAuthorNameSchema, name);
+		this.__data__.name = parse(EmbedAuthorNameSchema, name);
 
 		return this;
 	}
@@ -41,7 +41,7 @@ export class EmbedAuthorBuilder {
 	 * @param url - The URL of the embed author.
 	 */
 	setURL(url: AllowedEmbedAuthorURL): this {
-		this.data.url = parse(EmbedAuthorURLSchema, url);
+		this.__data__.url = parse(EmbedAuthorURLSchema, url);
 
 		return this;
 	}
@@ -52,7 +52,7 @@ export class EmbedAuthorBuilder {
 	 * @returns The {@link EmbedAuthor | `EmbedAuthor`} object.
 	 */
 	toJSON(): EmbedAuthor {
-		const { data } = this;
+		const { __data__: data } = this;
 		const validatedData = parse(EmbedAuthorSchema, data);
 
 		return validatedData;

@@ -1,0 +1,54 @@
+import { parse } from "valibot";
+import {
+	EmbedFooterIconURLSchema,
+	EmbedFooterSchema,
+	EmbedFooterTextSchema,
+} from "#builders/schemas/messages/EmbedFooterSchema.js";
+import type { EmbedFooter } from "#types/index.js";
+
+/**
+ * An utility class for building embed footers.
+ * @group Builders/Messages
+ * @public
+ */
+export class EmbedFooterBuilder {
+	private readonly __data__: Partial<EmbedFooter> = {};
+
+	/**
+	 * Sets the text of the embed footer.
+	 * @param text - The text of the embed footer.
+	 */
+	setText(text: string): this {
+		this.__data__.text = parse(EmbedFooterTextSchema, text);
+
+		return this;
+	}
+
+	/**
+	 * Sets the icon URL of the embed footer.
+	 * @param iconURL - The icon URL of the embed footer.
+	 */
+	setIconURL(iconURL: AllowedEmbedFooterIconURL): this {
+		this.__data__.iconURL = parse(EmbedFooterIconURLSchema, iconURL);
+
+		return this;
+	}
+
+	/**
+	 * Converts the {@link EmbedFooterBuilder | `EmbedFooterBuilder`} instance
+	 * into an {@link EmbedFooter | `EmbedFooter`} object.
+	 * @returns The {@link EmbedFooter | `EmbedFooter`} object.
+	 */
+	toJSON(): EmbedFooter {
+		const { __data__: data } = this;
+		const validatedData = parse(EmbedFooterSchema, data);
+
+		return validatedData;
+	}
+}
+
+/**
+ * Represents an icon URL that can be set to an embed footer builder.
+ * @public
+ */
+export type AllowedEmbedFooterIconURL = URL | string;
