@@ -12,6 +12,7 @@ export * from "./types/index.js";
 export * from "./utils/index.js";
 
 /**
- * Gets the current version of Linkcord.
+ * The current version of Linkcord.
+ * @public
  */
 export const LINKCORD_VERSION: string = "[VI]{{inject}}[/VI]";
