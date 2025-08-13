@@ -1,11 +1,14 @@
 /*
+ * biome-ignore-all lint/complexity/useLiteralKeys: Allow to use bracket
+ * notation when accessing private or protected members from some structures.
+ */
+/*
  * biome-ignore-all lint/correctness/noUnusedPrivateClassMembers: Biome uses
  * "this" to check if these private members are being used, but we are
  * destructuring them from "this".
  */
 
-import type { Client, ClientEventsMap, ClientEventsString } from "#client/index.js";
-import { ConfigurationUtils } from "#configuration/utils/ConfigurationUtils.js";
+import { type Client, ClientEvents } from "#client/index.js";
 import type { APIManager } from "#rest/structures/APIManager.js";
 import { GatewayShard, GatewayShardStatus } from "./GatewayShard.js";
 
@@ -15,18 +18,12 @@ import { GatewayShard, GatewayShardStatus } from "./GatewayShard.js";
  * @public
  */
 export class GatewayManager {
-	/**
-	 * The number of shards to spawn.
-	 */
+	/** The number of shards to spawn. */
 	private __shardsToSpawn__ = 0;
 
-	/**
-	 * The client of the gateway manager.
-	 */
+	/** The client of the gateway manager. */
 	readonly client: Client;
-	/**
-	 * The shards stored in the gateway manager.
-	 */
+	/** The shards stored in the gateway manager. */
 	readonly shards = new Map<number, GatewayShard>();
 
 	/**
@@ -37,78 +34,13 @@ export class GatewayManager {
 		this.client = client;
 	}
 
-	/**
-	 * The base URL of the Discord gateway.
-	 */
+	/** The base URL of the Discord gateway. */
 	static GATEWAY_URL_BASE = "wss://gateway.discord.gg";
 
-	/**
-	 * The version of the Discord gateway.
-	 */
+	/** The version of the Discord gateway. */
 	static GATEWAY_VERSION = 10;
 
-	/**
-	 * Emits an event with the given event name and data.
-	 * @param name - The name of the event to emit.
-	 * @param data - The data to emit with the event.
-	 * @internal
-	 */
-	private __emit__<Event extends ClientEventsString>(
-		name: Event,
-		...data: ClientEventsMap[Event]
-	): void {
-		const { client } = this;
-		const { events } = client;
-
-		events.emit(name, ...data);
-	}
-
-	/**
-	 * Sends a debug message to the client.
-	 * @param message - The message to send.
-	 * @internal
-	 */
-	private __debug__(message: string): void {
-		this.__emit__("debug", message);
-	}
-
-	/**
-	 * Checks whether the gateway manager should trigger the `ready` event.
-	 * @returns Whether the gateway manager should trigger the `ready` event.
-	 * @internal
-	 */
-	private __shouldTriggerReady__(): boolean {
-		const { __shardsToSpawn__, shards } = this;
-		const { size: shardsSize } = shards;
-		const shardsArray = [...shards.values()];
-
-		const shardCountIsCorrect = shardsSize === __shardsToSpawn__;
-		const allShardsAreReady = shardsArray.every(
-			({ status }) => status === GatewayShardStatus.Ready,
-		);
-
-		return shardCountIsCorrect && allShardsAreReady;
-	}
-
-	/**
-	 * Triggers the `ready` event from the main client.
-	 * @internal
-	 */
-	private __triggerReady__(): void {
-		const shouldTriggerReady = this.__shouldTriggerReady__();
-
-		if (!shouldTriggerReady) return;
-
-		const { client } = this;
-		const { events } = client;
-
-		events.emit("ready");
-	}
-
-	/**
-	 * Gets the API manager of the REST manager.
-	 * @internal
-	 */
+	/** Gets the API manager from the REST manager. */
 	private get __api__(): APIManager {
 		const { client } = this;
 		const { rest } = client;
@@ -118,32 +50,46 @@ export class GatewayManager {
 	}
 
 	/**
-	 * The intents of the client.
+	 * Checks whether the gateway manager should trigger the `Ready` event.
+	 * @returns Whether the gateway manager should trigger the `Ready` event.
 	 */
-	get intents(): Readonly<number> {
-		return ConfigurationUtils.getIntents();
+	private __shouldTriggerReady__(): boolean {
+		const { __shardsToSpawn__: shardsToSpawn, shards } = this;
+		const { size: shardsSize } = shards;
+		const shardsArray = [...shards.values()];
+
+		const shardCountIsCorrect = shardsSize === shardsToSpawn;
+		const allShardsAreReady = shardsArray.every(
+			({ status }) => status === GatewayShardStatus.Ready,
+		);
+
+		return shardCountIsCorrect && allShardsAreReady;
 	}
 
-	/**
-	 * The token of the client.
-	 */
-	get token(): Readonly<string> {
-		return ConfigurationUtils.getToken();
+	/** Triggers the `Ready` event from the client. */
+	private __triggerReady__(): void {
+		const shouldTriggerReady = this.__shouldTriggerReady__();
+
+		if (!shouldTriggerReady) return;
+
+		const { client } = this;
+		const { events } = client;
+
+		events.emit(ClientEvents.Ready);
 	}
 
-	/**
-	 * Initializes the gateway manager.
-	 */
+	/** Spawns the shards of the gateway manager. */
 	async init(): Promise<void> {
-		const { __api__, shards } = this;
+		const { __api__, client, shards } = this;
 		const { sessionStartLimit, shards: shardCount } = await __api__.getGatewayBot();
 		const { remaining, total } = sessionStartLimit;
 
 		this.__shardsToSpawn__ = shardCount;
-		this.__debug__(`[GatewayManager] Fetched Discord gateway information.
-			Shards:   ${shardCount}
-			Sessions: ${remaining}/${total}
-		`);
+
+		client["__debug__"](
+			"[GatewayManager]",
+			`Fetched Discord gateway information:\n\tShards:   ${shardCount}\n\tSessions: ${remaining}/${total}`,
+		);
 
 		for (let shardId = 0; shardId < shardCount; shardId++) {
 			const shard = new GatewayShard(shardId, this);
