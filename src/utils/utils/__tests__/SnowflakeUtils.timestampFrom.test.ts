@@ -16,7 +16,7 @@ describe("Method: SnowflakeUtils.timestampFrom", () => {
 		expect(SnowflakeUtils.timestampFrom(UserIDBigInt)).toBe(ExpectedResult);
 	});
 
-	it("Should throw an error when the snowflake is not valid number or string.", () => {
+	it("Should throw an error if the snowflake is not a valid number or string.", () => {
 		// @ts-expect-error
 		expect(() => SnowflakeUtils.timestampFrom(null)).toThrowError(TypeError);
 		expect(() => SnowflakeUtils.timestampFrom("NOT_A_VALID_SNOWFLAKE_STRING")).toThrowError(
