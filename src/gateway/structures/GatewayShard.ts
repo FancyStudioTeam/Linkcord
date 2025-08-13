@@ -17,22 +17,19 @@ import { type CloseEvent, type Data, type MessageEvent, WebSocket } from "ws";
 import { type Client, ClientEvents } from "#client/index.js";
 import { GatewayShardError } from "#gateway/errors/GatewayShardError.js";
 import { DispatchHooks } from "#gateway/hooks/index.js";
+import {
+	GatewayShardStatus,
+	type PresenceOptions,
+	type SendableOpcodes,
+	type SendableOpcodesPayloadMap,
+} from "#gateway/types/index.js";
 import { RESUMABLE_CLOSE_CODES, SENDABLE_OPCODES } from "#gateway/utils/Constants.js";
 import {
-	type ActivityTypes,
 	type GatewayDispatch,
 	type GatewayEvent,
-	type GatewayHeartbeatPayload,
 	type GatewayHello,
-	type GatewayIdentifyPayload,
 	type GatewayInvalidSession,
 	GatewayOpcodes,
-	type GatewayPresenceUpdatePayload,
-	type GatewayRequestGuildMembersPayload,
-	type GatewayRequestSoundboardSoundsPayload,
-	type GatewayResumePayload,
-	type GatewayVoiceStateUpdatePayload,
-	type StatusTypes,
 } from "#types/index.js";
 import { LINKCORD_VERSION } from "../../index.js";
 import { GatewayManager } from "./GatewayManager.js";
@@ -425,84 +422,4 @@ export class GatewayShard {
 			status,
 		});
 	}
-}
-
-/**
- * The activity options to include in the presence.
- * @public
- */
-export interface ActivityOptions {
-	/**
-	 * The name of the activity.
-	 */
-	name: string;
-	/**
-	 * The state of the activity.
-	 */
-	state?: string;
-	/**
-	 * The type of the activity.
-	 */
-	type: ActivityTypes;
-	/**
-	 * The stream URL associated with the activity.
-	 */
-	url?: string;
-}
-
-/**
- * The presence options to send to the Discord gateway.
- * @public
- */
-export interface PresenceOptions {
-	/**
-	 * The activities to display in the presence.
-	 */
-	activities: ActivityOptions[];
-	/**
-	 * Whether the client is afk.
-	 */
-	afk?: boolean;
-	/**
-	 * The timestamp at which the client went afk.
-	 */
-	since?: number | null;
-	/**
-	 * The status of the presence.
-	 */
-	status: StatusTypes;
-}
-
-/**
- * Represents the opcodes that can be sent to the Discord gateway.
- * @public
- */
-export type SendableOpcodes = (typeof SENDABLE_OPCODES)[number];
-
-/**
- * Represents a map of opcodes that can be sent to the Discord gateway with
- * their respective payloads.
- * @internal
- */
-export type SendableOpcodesPayloadMap = {
-	[GatewayOpcodes.Heartbeat]: GatewayHeartbeatPayload;
-	[GatewayOpcodes.Identify]: GatewayIdentifyPayload;
-	[GatewayOpcodes.PresenceUpdate]: GatewayPresenceUpdatePayload;
-	[GatewayOpcodes.Resume]: GatewayResumePayload;
-	[GatewayOpcodes.RequestGuildMembers]: GatewayRequestGuildMembersPayload;
-	[GatewayOpcodes.RequestSoundboardSounds]: GatewayRequestSoundboardSoundsPayload;
-	[GatewayOpcodes.VoiceStateUpdate]: GatewayVoiceStateUpdatePayload;
-};
-
-/**
- * The status of the gateway shard.
- * @public
- */
-export enum GatewayShardStatus {
-	Connecting = "CONNECTING",
-	Disconnected = "DISCONNECTED",
-	Handshaking = "HANDSHAKING",
-	Identifying = "IDENTIFYING",
-	Ready = "READY",
-	Resuming = "RESUMING",
 }
