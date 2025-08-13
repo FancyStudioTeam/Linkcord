@@ -13,7 +13,6 @@
  */
 
 import { emitWarning, platform } from "node:process";
-import { type CloseEvent, type Data, type MessageEvent, WebSocket } from "ws";
 import { type Client, ClientEvents } from "#client/index.js";
 import { GatewayShardError } from "#gateway/errors/GatewayShardError.js";
 import { DispatchHooks } from "#gateway/hooks/index.js";
@@ -36,7 +35,6 @@ import { GatewayManager } from "./GatewayManager.js";
 
 const GOING_AWAY_CLOSE_CODE = 1001;
 
-// TODO: Migrate to native `WebSocket` class.
 /**
  * Represents a shard of the Discord gateway.
  * @group Gateway/Structures
@@ -111,11 +109,11 @@ export class GatewayShard {
 	}
 
 	/**
-	 * Converts the received `Data` from the `WebSocket` into a `Buffer`.
-	 * @param data - The received `Data` to convert.
+	 * Converts the received data from the `WebSocket` into a `Buffer`.
+	 * @param data - The received data to convert.
 	 * @returns The converted `Buffer`.
 	 */
-	private __convertMessageDataToBuffer__(data: Data): Buffer {
+	/*private __convertMessageDataToBuffer__(data: string): Buffer {
 		if (typeof data === "string") {
 			return Buffer.from(data);
 		}
@@ -131,7 +129,7 @@ export class GatewayShard {
 		}
 
 		return data;
-	}
+	}*/
 
 	/** Gets the initialized `WebSocket` instance. */
 	private __getWebSocket__(): WebSocket {
@@ -239,10 +237,11 @@ export class GatewayShard {
 	private async __onMessage__(messageEvent: MessageEvent): Promise<void> {
 		const { data } = messageEvent;
 
-		const convertedBufferData = this.__convertMessageDataToBuffer__(data);
-		const bufferString = convertedBufferData.toString();
+		// const convertedBufferData = this.__convertMessageDataToBuffer__(data);
+		// const bufferString = convertedBufferData.toString();
 
-		const message = JSON.parse(bufferString) as GatewayEvent;
+		const dataString = data.toString();
+		const message = JSON.parse(dataString) as GatewayEvent;
 
 		const { op, s: sequence } = message;
 		const { client, id } = this;

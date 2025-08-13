@@ -20,9 +20,6 @@ importers:
       valibot:
         specifier: 1.1.0
         version: 1.1.0(typescript@5.9.2)
-      ws:
-        specifier: 8.18.3
-        version: 8.18.3
     devDependencies:
       '@biomejs/biome':
         specifier: 2.1.4
@@ -48,9 +45,6 @@ importers:
       '@types/semver':
         specifier: 7.7.0
         version: 7.7.0
-      '@types/ws':
-        specifier: 8.18.1
-        version: 8.18.1
       esbuild-plugin-version-injector:
         specifier: 1.2.1
         version: 1.2.1
@@ -2468,6 +2462,7 @@ snapshots:
   '@types/ws@8.18.1':
     dependencies:
       '@types/node': 24.2.1
+    optional: true
 
   '@vitest/expect@3.2.4':
     dependencies:
@@ -3604,7 +3599,8 @@ snapshots:
       string-width: 7.2.0
       strip-ansi: 7.1.0
 
-  ws@8.18.3: {}
+  ws@8.18.3:
+    optional: true
 
   y18n@5.0.8: {}
 

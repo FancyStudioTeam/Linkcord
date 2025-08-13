@@ -3,8 +3,7 @@
 		"glob": "11.0.3",
 		"semver": "7.7.2",
 		"ts-mixer": "6.0.4",
-		"valibot": "1.1.0",
-		"ws": "8.18.3"
+		"valibot": "1.1.0"
 	},
 	"description": "An opinionated framework made in TypeScript for building Discord bots.",
 	"devDependencies": {
@@ -16,7 +15,6 @@
 		"@swc/core": "1.13.3",
 		"@types/node": "24.2.1",
 		"@types/semver": "7.7.0",
-		"@types/ws": "8.18.1",
 		"esbuild-plugin-version-injector": "1.2.1",
 		"husky": "9.1.7",
 		"lint-staged": "16.1.5",
