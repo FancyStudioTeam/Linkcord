@@ -41,9 +41,9 @@ async function registerEvents(eventsFolderPath: string, client: Client): Promise
 		const { default: defaultExport, disabled, once } = importEventFileData;
 
 		if (disabled) {
-			const eventFileName = basename(importEventFilePath);
-
-			emitWarning(`Event "${eventFileName}" is disabled and will not be registered.`);
+			emitWarning(
+				`Event "${basename(importEventFilePath)}" is disabled and will not be registered.`,
+			);
 
 			continue;
 		}
