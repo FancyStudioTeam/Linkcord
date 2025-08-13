@@ -1,28 +1,18 @@
-import type { ClientEventsMap, ClientEventsString } from "#client/ClientEvents.js";
+import { parse } from "valibot";
+import type { ClientEvents } from "#client/index.js";
+import { EventSchema } from "#handlers/schemas/events/EventSchema.js";
+import type { CreateEventOptions } from "#handlers/types/index.js";
 
 /**
- * Creates an event listener.
- * @param options - The options of the event.
- * @returns The event data.
- */
-export function createEvent<Event extends ClientEventsString>(options: CreateEventOptions<Event>) {
-	return options;
-}
-
-/**
- * The options of the event.
+ * Creates a listener for an event.
+ * @param options - The options to use in the event listener.
+ * @returns The validated options of the event listener.
  * @public
  */
-export interface CreateEventOptions<Event extends ClientEventsString> {
-	name: Event;
-	/**
-	 * biome-ignore lint/suspicious/noExplicitAny: (x)
-	 */
-	run: (...data: ClientEventsMap[Event]) => any;
+export function createEvent<Event extends ClientEvents>(options: CreateEventOptions<Event>) {
+	try {
+		return parse(EventSchema, options);
+	} catch {
+		throw new TypeError("The first parameter (options) contains an invalid data object input.");
+	}
 }
-
-/**
- * The event data.
- * @public
- */
-export type EventData = ReturnType<typeof createEvent>;
