@@ -12,12 +12,12 @@
  * fields are being assigned in the "READY" hook.
  */
 
-import { platform } from "node:process";
+import { emitWarning, platform } from "node:process";
 import { type CloseEvent, type Data, type MessageEvent, WebSocket } from "ws";
-import type { Client } from "#client/index.js";
+import { type Client, ClientEvents } from "#client/index.js";
+import { GatewayShardError } from "#gateway/errors/GatewayShardError.js";
 import { DispatchHooks } from "#gateway/hooks/index.js";
 import { RESUMABLE_CLOSE_CODES, SENDABLE_OPCODES } from "#gateway/utils/Constants.js";
-import { LINKCORD_VERSION } from "#index";
 import {
 	type ActivityTypes,
 	type GatewayDispatch,
@@ -34,10 +34,12 @@ import {
 	type GatewayVoiceStateUpdatePayload,
 	type StatusTypes,
 } from "#types/index.js";
+import { LINKCORD_VERSION } from "../../index.js";
 import { GatewayManager } from "./GatewayManager.js";
 
 const GOING_AWAY_CLOSE_CODE = 1001;
 
+// TODO: Migrate to native `WebSocket` class.
 /**
  * Represents a shard of the Discord gateway.
  * @group Gateway/Structures
@@ -46,46 +48,31 @@ const GOING_AWAY_CLOSE_CODE = 1001;
 export class GatewayShard {
 	/**
 	 * The URL of the Discord gateway used to resume the session if the shard
-	 * is disconnected.
+	 * has been disconnected.
 	 */
 	private __resumeGatewayURL__: string | null = null;
-	/**
-	 * The number of the sequence received from the `DISPATCH` event.
-	 */
+	/** The number of the sequence received from the `DISPATCH` event. */
 	private __sequence__: number | null = null;
 	/**
-	 * The ID of the session of the gateway shard.
+	 * The ID of the current session of the gateway shard used to resume the
+	 * session if the shard has been disconnected.
 	 */
 	private __sessionId__: string | null = null;
 
-	/**
-	 * The client of the gateway shard.
-	 */
+	/** The client of the gateway shard. */
 	readonly client: Client;
-	/**
-	 * The ID of the gateway shard.
-	 */
+	/** The ID of the gateway shard. */
 	readonly id: number;
-	/**
-	 * The gateway manager of the gateway shard.
-	 */
+	/** The gateway manager of the gateway shard. */
 	readonly manager: GatewayManager;
 
-	/**
-	 * The timestamp of the last heartbeat received from the gateway.
-	 */
+	/** The timestamp of the last heartbeat received from the gateway. */
 	lastHeartbeatReceivedAt = 0;
-	/**
-	 * The timestamp of the last heartbeat sent to the gateway.
-	 */
+	/** The timestamp of the last heartbeat sent to the gateway. */
 	lastHeartbeatSentAt = 0;
-	/**
-	 * The current status of the gateway shard.
-	 */
+	/** The current status of the gateway shard. */
 	status = GatewayShardStatus.Disconnected;
-	/**
-	 * The `WebSocket` instance used to interact with the gateway.
-	 */
+	/** The `WebSocket` instance used to interact with the Discord gateway. */
 	ws: WebSocket | null = null;
 
 	/**
@@ -102,41 +89,42 @@ export class GatewayShard {
 		this.manager = manager;
 	}
 
-	/**
-	 * Gets the default browser to use when identifying the shard.
-	 * @internal
-	 */
-	private static get DEFAULT_BROWSER(): string {
-		return "Discord Client" as const;
+	/** The default browser to use when identifying the shard. */
+	static DEFAULT_BROWSER = "Discord Client";
+
+	/** The default device to use when identifying the shard. */
+	static DEFAULT_DEVICE =
+		`Linkcord v${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord)`;
+
+	/** The default operating system when identifying the shard. */
+	static DEFAULT_OPERATING_SYSTEM = platform;
+
+	/** The shard label to use in the debug messages. */
+	private get __label__(): `[Shard ${number}]` {
+		const { id } = this;
+
+		return `[Shard ${id}]`;
+	}
+
+	/** The latency of the gateway shard. */
+	get latency(): number {
+		const { lastHeartbeatReceivedAt, lastHeartbeatSentAt } = this;
+
+		return lastHeartbeatReceivedAt - lastHeartbeatSentAt;
 	}
 
 	/**
-	 * Gets the default device to use when identifying the shard.
-	 * @internal
-	 */
-	private static get DEFAULT_DEVICE(): string {
-		return `Linkcord v${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord)` as const;
-	}
-
-	/**
-	 * Gets the default operating system when identifying the shard.
-	 * @internal
-	 */
-	private static get DEFAULT_OPERATING_SYSTEM(): string {
-		return platform;
-	}
-
-	/**
-	 * Converts the given `Data` object to a `Buffer`.
-	 * @param data - The `Data` object to convert.
+	 * Converts the received `Data` from the `WebSocket` into a `Buffer`.
+	 * @param data - The received `Data` to convert.
 	 * @returns The converted `Buffer`.
-	 * @internal
 	 */
 	private __convertMessageDataToBuffer__(data: Data): Buffer {
 		if (typeof data === "string") {
 			return Buffer.from(data);
 		}
 
+		// Cannot merge the following if statement with the previous one, due
+		// to TypeScript issues.
 		if (data instanceof ArrayBuffer) {
 			return Buffer.from(data);
 		}
@@ -148,51 +136,37 @@ export class GatewayShard {
 		return data;
 	}
 
-	/**
-	 * Gets the initialized `WebSocket` instance.
-	 * @internal
-	 */
+	/** Gets the initialized `WebSocket` instance. */
 	private __getWebSocket__(): WebSocket {
-		const { ws } = this;
+		const { id, ws } = this;
 		const { OPEN } = WebSocket;
 
 		if (!ws || ws.readyState !== OPEN) {
-			throw new Error("WebSocket has not been opened or initialized yet.");
+			throw new GatewayShardError("WebSocket has not been opened or initialized yet.", id);
 		}
 
 		return ws;
 	}
 
-	/**
-	 * Sends a `HEARTBEAT` packet to the gateway.
-	 * @internal
-	 */
+	/** Sends a `HEARTBEAT` packet to the Discord gateway. */
 	private __heartbeat__(): void {
-		const { __name__, __sequence__, manager } = this;
+		const { __label__: label, __sequence__: sequence, client } = this;
 
-		manager["__debug__"](
-			`[GatewayShard] Sending a "HEARTBEAT" packet from "${__name__}" to the Discord gateway...`,
-		);
+		client["__debug__"](label, `Sending a "HEARTBEAT" packet to the Discord gateway...`);
 
 		this.lastHeartbeatSentAt = Date.now();
-		this.send(GatewayOpcodes.Heartbeat, __sequence__);
+		this.send(GatewayOpcodes.Heartbeat, sequence);
 	}
 
-	/**
-	 * Sends an `IDENTIFY` packet to the gateway.
-	 * @internal
-	 */
+	/** Sends an `IDENTIFY` packet to the Discord gateway. */
 	private __identify__(): void {
-		const { __name__, id, manager } = this;
-		const { intents, token } = manager;
+		const { __label__: label, id, client, manager } = this;
+		const { DEFAULT_BROWSER, DEFAULT_DEVICE, DEFAULT_OPERATING_SYSTEM } = GatewayShard;
+		const { intents, token } = client;
 
 		const shardCount = manager["__shardsToSpawn__"];
 
-		manager["__debug__"](
-			`[GatewayShard] Sending an "IDENTIFY" packet from "${__name__}" to the Discord gateway...`,
-		);
-
-		const { DEFAULT_BROWSER, DEFAULT_DEVICE, DEFAULT_OPERATING_SYSTEM } = GatewayShard;
+		client["__debug__"](label, `Sending an "IDENTIFY" packet to the Discord gateway...`);
 
 		this.send(GatewayOpcodes.Identify, {
 			intents,
@@ -210,13 +184,12 @@ export class GatewayShard {
 	 * Initializes the `WebSocket` instance to interact with the Discord
 	 * gateway.
 	 * @param gatewayURL - The URL of the Discord gateway.
-	 * @internal
 	 */
 	private __initializeWebSocket__(gatewayURL = GatewayManager.GATEWAY_URL_BASE): void {
 		const urlObject = new URL(gatewayURL);
 
 		const { searchParams } = urlObject;
-		const { __name__, manager } = this;
+		const { __label__: label, client } = this;
 
 		const gatewayVersionString = String(GatewayManager.GATEWAY_VERSION);
 
@@ -225,8 +198,9 @@ export class GatewayShard {
 
 		const gatewayURLString = urlObject.toString();
 
-		manager["__debug__"](
-			`[GatewayShard] Handshaking "${__name__}" with the Discord gateway using URL "${gatewayURLString}".`,
+		client["__debug__"](
+			label,
+			`Handshaking with the Discord gateway using URL "${gatewayURLString}".`,
 		);
 
 		this.ws = new WebSocket(gatewayURLString);
@@ -236,83 +210,75 @@ export class GatewayShard {
 	}
 
 	/**
-	 * Handles when the gateway shard disconnects.
-	 * @param code - The close code of the disconnection.
-	 * @param reason - The reason of the disconnection.
-	 * @internal
+	 * Handles when the gateway shard connection has been closed.
+	 * @param closeEvent - The received `CloseEvent` from the `WebSocket`.
 	 */
-	private __onClose__({ code, reason }: CloseEvent): void {
+	private __onClose__(closeEvent: CloseEvent): void {
+		const { code, reason } = closeEvent;
+
 		this.status = GatewayShardStatus.Disconnected;
 
 		const isReconnectable =
 			RESUMABLE_CLOSE_CODES.includes(code) || code === GOING_AWAY_CLOSE_CODE;
 
-		const { __name__, __resumeGatewayURL__, manager } = this;
+		const { __label__: label, __resumeGatewayURL__: resumeGatewayURL, client } = this;
 
 		const debugMessage = isReconnectable
-			? `[GatewayShard] Session from "${__name__}" has been closed. Session can be resumed, attempting to resume...`
-			: `[GatewayShard] Session from "${__name__}" has been closed. Session cannot be resumed, attempting to identify...`;
+			? `Session has been closed. Session can be resumed, attempting to resume...`
+			: `Session has been closed. Session cannot be resumed, attempting to identify...`;
 
-		manager["__emit__"]("shardDisconnected", reason, code, isReconnectable, this);
-		manager["__debug__"](debugMessage);
+		client["__emit__"](ClientEvents.ShardDisconnected, reason, code, isReconnectable, this);
+		client["__debug__"](label, debugMessage);
 
 		this.__initializeWebSocket__(
-			isReconnectable && __resumeGatewayURL__ ? __resumeGatewayURL__ : undefined,
+			isReconnectable && resumeGatewayURL ? resumeGatewayURL : undefined,
 		);
 	}
 
 	/**
 	 * Handles when a message is received from the gateway.
-	 * @param data - The received data from the `WebSocket`.
-	 * @internal
+	 * @param messageEvent - The received `MessageEvent` from the `WebSocket`.
 	 */
-	private async __onMessage__({ data }: MessageEvent): Promise<void> {
+	private async __onMessage__(messageEvent: MessageEvent): Promise<void> {
+		const { data } = messageEvent;
+
 		const convertedBufferData = this.__convertMessageDataToBuffer__(data);
 		const bufferString = convertedBufferData.toString();
 
 		const message = JSON.parse(bufferString) as GatewayEvent;
 
-		const { s: sequence } = message;
-		const { manager } = this;
+		const { op, s: sequence } = message;
+		const { client, id } = this;
 
-		manager["__emit__"]("shardPacket", message, this);
-
+		client["__emit__"](ClientEvents.ShardPacket, message, this);
 		this.__sequence__ = sequence;
 
-		switch (message.op) {
-			case GatewayOpcodes.Dispatch: {
+		switch (op) {
+			case GatewayOpcodes.Dispatch:
 				await this.__onMessageDispatch__(message);
-
 				break;
-			}
-			case GatewayOpcodes.HeartbeatAck: {
+			case GatewayOpcodes.HeartbeatAck:
 				this.__onMessageHeartbeatAck__();
-
 				break;
-			}
-			case GatewayOpcodes.Hello: {
+			case GatewayOpcodes.Hello:
 				this.__onMessageHello__(message);
-
 				break;
-			}
-			case GatewayOpcodes.InvalidSession: {
+			case GatewayOpcodes.InvalidSession:
 				this.__onMessageInvalidSession__(message);
-
 				break;
-			}
-			case GatewayOpcodes.Reconnect: {
+			case GatewayOpcodes.Reconnect:
 				this.__onMessageReconnect__();
-
 				break;
-			}
 			default:
+				emitWarning(`Unhandled opcode "${op}" from "Shard ${id}".`);
+				break;
 		}
 	}
 
 	/**
 	 * Handles when the gateway shard receives a `DISPATCH` packet.
-	 * @param dispatch - The `DISPATCH` packet.
-	 * @internal
+	 * @param dispatch - The received `DISPATCH` packet from the Discord
+	 * 	gateway.
 	 */
 	private async __onMessageDispatch__(dispatch: GatewayDispatch): Promise<void> {
 		const { client } = this;
@@ -325,27 +291,23 @@ export class GatewayShard {
 		}
 	}
 
-	/**
-	 * Handles when the gateway shard receives a `HEARTBEAT_ACK` packet.
-	 * @internal
-	 */
+	/** Handles when the gateway shard receives a `HEARTBEAT_ACK` packet. */
 	private __onMessageHeartbeatAck__(): void {
 		this.lastHeartbeatReceivedAt = Date.now();
 	}
 
 	/**
 	 * Handles when the gateway shard receives a `HELLO` packet.
-	 * @param hello - The `HELLO` packet.
-	 * @internal
+	 * @param hello - The received `HELLO` packet from the Discord gateway.
 	 */
 	private __onMessageHello__(hello: GatewayHello): void {
 		const { d } = hello;
 		const { heartbeat_interval } = d;
-		const { __sessionId__, manager } = this;
+		const { __sessionId__: sessionId, client } = this;
 
-		manager["__emit__"]("shardHello", heartbeat_interval, this);
+		client["__emit__"](ClientEvents.ShardHello, heartbeat_interval, this);
 
-		if (__sessionId__) {
+		if (sessionId) {
 			this.__resume__();
 		} else {
 			this.__identify__();
@@ -357,82 +319,63 @@ export class GatewayShard {
 
 	/**
 	 * Handles when the gateway shard receives an `INVALID_SESSION` packet.
-	 * @param invalidSession - The `INVALID_SESSION` packet.
-	 * @internal
+	 * @param invalidSession - The received `INVALID_SESSION` packet from the
+	 * 	Discord gateway.
 	 */
 	private __onMessageInvalidSession__(invalidSession: GatewayInvalidSession): void {
 		const { d: isResumable } = invalidSession;
-		const { __name__, manager } = this;
+		const { __label__: label, client } = this;
 
 		const debugMessage = isResumable
-			? `[GatewayShard] Session from "${__name__}" has been invalidated. Session can be resumed, attempting to resume...`
-			: `[GatewayShard] Session from "${__name__}" has been invalidated. Session cannot be resumed, attempting to identify... `;
+			? `Session has been invalidated. Session can be resumed, attempting to resume...`
+			: `Session has been invalidated. Session cannot be resumed, attempting to identify... `;
 		const resumeOrIdentify = isResumable ? this.__resume__ : this.__identify__;
 
-		manager["__debug__"](debugMessage);
+		client["__debug__"](label, debugMessage);
 		resumeOrIdentify();
 	}
 
-	/**
-	 * Handles when the gateway shard receives a `RECONNECT` packet.
-	 * @internal
-	 */
+	/** Handles when the gateway shard receives a `RECONNECT` packet. */
 	private __onMessageReconnect__(): void {
+		const { __label__: label, client } = this;
+
+		client["__debug__"](label, `Discord is requesting a reconnection...`);
 		this.__resume__();
 	}
 
-	/**
-	 * Handles when the gateway connection is opened.
-	 * @internal
-	 */
+	/** Handles when the gateway connection has been opened. */
 	private __onOpen__(): void {
 		this.status = GatewayShardStatus.Handshaking;
 	}
 
-	/**
-	 * Sends a `RESUME` packet to the gateway.
-	 * @internal
-	 */
+	/** Sends a `RESUME` packet to the Discord gateway. */
 	private __resume__(): void {
-		const { __name__, __sequence__, __sessionId__, manager } = this;
-		const { token } = manager;
+		const {
+			__label__: label,
+			__sequence__: sequence,
+			__sessionId__: sessionId,
+			client,
+			id,
+		} = this;
+		const { token } = client;
 
-		if (!(__sequence__ && __sessionId__)) {
-			throw new Error("Cannot resume a shard without a sequence number or session ID.");
+		if (!(sequence && sessionId)) {
+			throw new GatewayShardError(
+				"Cannot resume the shard without a sequence number or session ID.",
+				id,
+			);
 		}
 
-		manager["__debug__"](
-			`[GatewayShard] Sending a "RESUME" packet from "${__name__}" to the Discord gateway...`,
-		);
+		client["__debug__"](label, `Sending a "RESUME" packet to the Discord gateway...`);
 
 		this.send(GatewayOpcodes.Resume, {
-			seq: __sequence__,
-			session_id: __sessionId__,
+			seq: sequence,
+			session_id: sessionId,
 			token,
 		});
 	}
 
-	/**
-	 * Gets the shard name.
-	 */
-	private get __name__(): string {
-		const { id } = this;
-
-		return `Shard ${id}`;
-	}
-
-	/**
-	 * Gets the latency of the gateway shard.
-	 */
-	get latency(): number {
-		const { lastHeartbeatReceivedAt, lastHeartbeatSentAt } = this;
-
-		return lastHeartbeatReceivedAt - lastHeartbeatSentAt;
-	}
-
-	/**
-	 * Initializes the gateway shard by connecting to the Discord gateway.
-	 */
+	/** Initializes the gateway shard by connecting it to the Discord gateway. */
 	init(): void {
 		this.status = GatewayShardStatus.Connecting;
 		this.__initializeWebSocket__();
@@ -447,8 +390,13 @@ export class GatewayShard {
 		opcode: Opcode,
 		payload: SendableOpcodesPayloadMap[Opcode],
 	): void {
+		const { id } = this;
+
 		if (!SENDABLE_OPCODES.includes(opcode)) {
-			throw new Error(`Cannot send a non-sendable opcode '${opcode}'.`);
+			throw new GatewayShardError(
+				`Cannot send a non-sendable opcode "${opcode}" to the Discord gateway.`,
+				id,
+			);
 		}
 
 		const ws = this.__getWebSocket__();
