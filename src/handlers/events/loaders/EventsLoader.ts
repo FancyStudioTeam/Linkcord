@@ -1,19 +1,19 @@
+import { basename } from "node:path";
+import { emitWarning } from "node:process";
 import { glob, type Path } from "glob";
 import type { Client } from "#client/index.js";
-import { DISABLED_EVENT } from "#errors/messages.js";
+import type { EventData } from "#handlers/types/index.js";
 import { ImportUtils } from "#utils/structures/ImportUtils.js";
-import type { EventData } from "../functions/createEvent.js";
 
-const EVENTS_GLOB_PATTERN = "**/*.event.{js,mjs,cjs,jsx,ts,mts,cts,tsx}";
+const EVENTS_GLOB_PATTERNS = ["**/*.event.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"];
 
 /**
- * Loads the event file paths from the working directory.
- * @param eventsFolderPath - The path of the events folder where the event
- * files are located.
- * @returns The loaded event file paths.
+ * Loads the file paths from the events folder.
+ * @param eventsFolderPath - The path of the events folder.
+ * @returns The loaded `Path` objects.
  */
 async function loadEventFilePaths(eventsFolderPath: string): Promise<Path[]> {
-	const eventFilePaths = await glob(EVENTS_GLOB_PATTERN, {
+	const eventFilePaths = await glob(EVENTS_GLOB_PATTERNS, {
 		cwd: eventsFolderPath,
 		withFileTypes: true,
 	});
@@ -22,10 +22,9 @@ async function loadEventFilePaths(eventsFolderPath: string): Promise<Path[]> {
 }
 
 /**
- * Registers the events to the client.
- * @param eventsFolderPath - The path of the events folder where the event
- * files are located.
- * @param client - The main client where the events will be registered.
+ * Register the listeners to the client.
+ * @param eventsFolderPath - The path of the events folder.
+ * @param client - The client where the events will be registered.
  */
 async function registerEvents(eventsFolderPath: string, client: Client): Promise<void> {
 	const eventFilePaths = await loadEventFilePaths(eventsFolderPath);
@@ -39,46 +38,34 @@ async function registerEvents(eventsFolderPath: string, client: Client): Promise
 			true,
 		);
 
-		const { default: defaultExport, disabled } = importEventFileData;
+		const { default: defaultExport, disabled, once } = importEventFileData;
 
-		// If the event is disabled, emit a warning and continue to the next
-		// event file.
 		if (disabled) {
-			process.emitWarning(DISABLED_EVENT(importEventFilePath));
+			const eventFileName = basename(importEventFilePath);
+
+			emitWarning(`Event "${eventFileName}" is disabled and will not be registered.`);
+
 			continue;
 		}
 
-		const { name: eventName, run } = defaultExport;
+		const { name, run } = defaultExport;
 		const { events } = client;
 
-		events.addListener(eventName, run);
+		events.addListener(name, once ?? false, run);
 	}
 }
 
-/**
- * Namespace for event loaders utilities.
- * @internal
- */
 export const EventsLoader = {
 	loadEventFilePaths,
 	registerEvents,
 };
 
-/**
- * The expected structure of the imported event file data.
- * @internal
- */
+/** The expected structure of the imported file. */
 interface EventFileData {
-	/**
-	 * The validated options of the event.
-	 */
+	/** The validated options of the event. */
 	default: EventData;
-	/**
-	 * Whether the event is disabled and should not be registered.
-	 */
+	/** Whether the listener is disabled and should not be registered. */
 	disabled?: boolean;
-	/**
-	 * Whether the event should be executed only once.
-	 */
+	/** Whether the listener should be executed once. */
 	once?: boolean;
 }
