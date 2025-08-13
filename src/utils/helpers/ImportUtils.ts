@@ -41,7 +41,10 @@ function resolvePath(...fragments: string[]): string {
 	return href;
 }
 
-/** Utilities for importing files. */
+/**
+ * Utilities for importing files.
+ * @internal
+ */
 export const ImportUtils = Object.freeze({
 	import: _import,
 	resolvePath,
