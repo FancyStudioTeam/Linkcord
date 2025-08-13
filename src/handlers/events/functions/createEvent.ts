@@ -1,7 +1,7 @@
 import { parse } from "valibot";
 import type { ClientEvents } from "#client/index.js";
 import { EventSchema } from "#handlers/schemas/events/EventSchema.js";
-import type { CreateEventOptions } from "#handlers/types/index.js";
+import type { CreateEventOptions, EventData } from "#handlers/types/index.js";
 
 /**
  * Creates a listener for an event.
@@ -9,7 +9,9 @@ import type { CreateEventOptions } from "#handlers/types/index.js";
  * @returns The validated options of the event listener.
  * @public
  */
-export function createEvent<Event extends ClientEvents>(options: CreateEventOptions<Event>) {
+export function createEvent<Event extends ClientEvents>(
+	options: CreateEventOptions<Event>,
+): EventData {
 	try {
 		return parse(EventSchema, options);
 	} catch {
