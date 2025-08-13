@@ -1,7 +1,8 @@
 import { GatewayCloseEventCodes, GatewayOpcodes } from "#types/index.js";
 
 /**
- * The close codes that indicate that the gateway shard can resume.
+ * The close codes that indicate that the gateway shard session can be
+ * resumed.
  * @public
  */
 export const RESUMABLE_CLOSE_CODES = [
@@ -30,7 +31,7 @@ export const SENDABLE_OPCODES = [
 ] as const;
 
 /**
- * The suffix of the zlib-compressed payload.
+ * The suffix of the zlib-compressed packet.
  * @public
  */
 /*
