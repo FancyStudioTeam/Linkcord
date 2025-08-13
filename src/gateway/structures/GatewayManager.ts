@@ -9,8 +9,9 @@
  */
 
 import { type Client, ClientEvents } from "#client/index.js";
+import { GatewayShardStatus } from "#gateway/types/index.js";
 import type { APIManager } from "#rest/structures/APIManager.js";
-import { GatewayShard, GatewayShardStatus } from "./GatewayShard.js";
+import { GatewayShard } from "./GatewayShard.js";
 
 /**
  * The gateway manager for the client.
