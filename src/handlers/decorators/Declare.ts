@@ -1,29 +1,23 @@
-import type { CreateUserContextApplicationCommandOptions } from "#types/parsed/ApplicationCommands.js";
-import type { UserContextCommandInstance } from "../commands/types.js";
+import type { DeclarableInstance, DeclareOptions } from "#handlers/types/index.js";
 
 /**
+ * Declares the options for a command or component.
+ * @param declareOptions - The options to declare.
+ * @returns The decorated class.
  * @public
  */
-export const Declare =
-	<Target extends DeclarableInstance>(declareOptions: DeclareOptions<Target>) =>
-	(target: DeclarableInstance) =>
+export function Declare<Target extends DeclarableInstance>(declareOptions: DeclareOptions<Target>) {
+	return (target: DeclarableInstance) =>
 		class extends target {
-			readonly declareOptions = declareOptions;
+			constructor(...args: unknown[]) {
+				super(...args);
+
+				Object.defineProperty(this, "__declare__", {
+					configurable: false,
+					enumerable: false,
+					value: declareOptions,
+					writable: false,
+				});
+			}
 		};
-
-/**
- * @internal
- */
-type DeclarableInstance = UserContextCommandInstance;
-
-/**
- * @internal
- */
-type DeclareOptions<Target extends DeclarableInstance> = Target extends UserContextCommandInstance
-	? UserContextCommandOptions
-	: never;
-
-/**
- * @public
- */
-export type UserContextCommandOptions = Omit<CreateUserContextApplicationCommandOptions, "type">;
+}
