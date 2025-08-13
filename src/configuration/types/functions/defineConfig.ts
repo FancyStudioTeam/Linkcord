@@ -41,7 +41,7 @@ export interface DefineConfigOptions {
 }
 
 /**
- * The options validated by the framework.
+ * The validated options of the framework.
  * @public
  */
 export type LinkcordOptions = InferOutput<typeof ConfigurationSchema>;
