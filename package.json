@@ -1,7 +1,7 @@
 {
 	"dependencies": {
 		"glob": "11.0.3",
-		"reflect-metadata": "0.2.2",
+		"semver": "7.7.2",
 		"ts-mixer": "6.0.4",
 		"valibot": "1.1.0",
 		"ws": "8.18.3"
@@ -21,7 +21,6 @@
 		"husky": "9.1.7",
 		"lint-staged": "16.1.5",
 		"rimraf": "6.0.1",
-		"semver": "7.7.2",
 		"tsup": "8.5.0",
 		"tsx": "4.20.3",
 		"typedoc": "0.28.10",
@@ -60,7 +59,7 @@
 	"optionalDependencies": {
 		"@discordjs/voice": "0.18.0"
 	},
-	"packageManager": "pnpm@10.14.0",
+	"packageManager": "pnpm@10.0.0",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/FancyStudioTeam/Linkcord"
