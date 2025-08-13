@@ -35,7 +35,7 @@ export interface ClientEventsMap {
 	 * @param guild - The {@link Guild | `Guild`} where the role has been
 	 * 	created.
 	 */
-	[ClientEvents.GuildRoleCreate]: [role: Role];
+	[ClientEvents.GuildRoleCreate]: [role: Role, guild: Guild];
 	/**
 	 * Emitted when a role in a guild has been deleted.
 	 * @param role - The deleted {@link Role | `Role`} instance, if cached.

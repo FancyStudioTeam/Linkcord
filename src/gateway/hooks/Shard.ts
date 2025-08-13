@@ -3,18 +3,18 @@
  * notation when accessing private or protected members from some structures.
  */
 
-import type { Client } from "#client/index.js";
-import { type GatewayShard, GatewayShardStatus } from "#gateway/structures/GatewayShard.js";
+import { type Client, ClientEvents } from "#client/index.js";
+import type { GatewayShard } from "#gateway/structures/GatewayShard.js";
+import { GatewayShardStatus } from "#gateway/types/index.js";
 import { User } from "#structures/index.js";
 import type { GatewayDispatchReadyPayload } from "#types/index.js";
 
 /**
- * Handles the `READY` event received from the gateway shard.
+ * Handles the received `READY` event from the gateway shard.
  * @param client - The main client instance to manage the event.
  * @param shard - The gateway shard that received the event.
  * @param readyData - The received data from the `READY` event.
  * @see https://discord.com/developers/docs/events/gateway-events#ready
- * @internal
  */
 export function READY(
 	client: Client,
@@ -34,5 +34,6 @@ export function READY(
 
 	users["__add__"](userId, user);
 	manager["__triggerReady__"]();
-	events.emit("shardReady", user, shard);
+
+	events.emit(ClientEvents.ShardReady, shard);
 }
