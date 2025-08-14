@@ -1,5 +1,5 @@
 import { array, enum_, minLength, object, optional, pipe, string, transform } from "valibot";
-import { ConfigurationUtils } from "#configuration/utils/ConfigurationUtils.js";
+import { ConfigurationUtils } from "#configuration/helpers/ConfigurationUtils.js";
 import { GatewayIntents } from "#types/index.js";
 
 export const ConfigurationIntentsEnumSchema = enum_(GatewayIntents);

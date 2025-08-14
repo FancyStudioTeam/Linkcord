@@ -2,7 +2,7 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import type { LinkcordOptions, LinkcordOptionsLocations } from "#configuration/types/index.js";
 import type { GatewayIntents } from "#types/index.js";
-import { ImportUtils } from "#utils/structures/ImportUtils.js";
+import { ImportUtils } from "#utils/helpers/ImportUtils.js";
 
 const AVAILABLE_FILE_EXTENSIONS = ["js", "cjs", "mjs", "ts", "cts", "mts"] as const;
 const BOT_PREFIX_REGEX = /^Bot\s*/i;
