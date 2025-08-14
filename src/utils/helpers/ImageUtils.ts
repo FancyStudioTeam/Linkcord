@@ -52,15 +52,6 @@ function createImageURL(
 }
 
 /**
- * Checks whether the hash is available as an animated asset.
- * @param assetHash - The hash of the asset to check.
- * @returns Whether the hash is available as an animated asset.
- */
-function isAvailableAsAnimated(assetHash: string): boolean {
-	return typeof assetHash === "string" && assetHash.startsWith("a_");
-}
-
-/**
  * Gets the dynamic extension of an image with the given options.
  * @param assetHash - The hash of the asset.
  * @param options - The options to use when getting the dynamic extension.
@@ -84,9 +75,20 @@ function getDynamicExtension(
 }
 
 /**
+ * Checks whether the hash is available as an animated asset.
+ * @param assetHash - The hash of the asset to check.
+ * @returns Whether the hash is available as an animated asset.
+ */
+function isAvailableAsAnimated(assetHash: string): boolean {
+	return typeof assetHash === "string" && assetHash.startsWith("a_");
+}
+
+/**
  * Utilities for working with images.
  * @public
  */
 export const ImageUtils = Object.freeze({
 	createImageURL,
+	getDynamicExtension,
+	isAvailableAsAnimated,
 });
