@@ -42,6 +42,7 @@ import type { GatewayDispatchMessageDeleteBulk } from "./dispatch/MessageDeleteB
 import type { GatewayDispatchMessagePollVoteAdd } from "./dispatch/MessagePollVoteAdd.js";
 import type { GatewayDispatchMessagePollVoteRemove } from "./dispatch/MessagePollVoteRemove.js";
 import type { GatewayDispatchPresenceUpdate } from "./dispatch/PresenceUpdate.js";
+import type { GatewayDispatchRateLimited } from "./dispatch/RateLimited.js";
 import type { GatewayDispatchReady } from "./dispatch/Ready.js";
 import type { GatewayDispatchSoundboardSounds } from "./dispatch/SoundboardSounds.js";
 import type { GatewayDispatchTypingStart } from "./dispatch/TypingStart.js";
@@ -100,6 +101,7 @@ export type GatewayDispatch =
 	| GatewayDispatchMessagePollVoteAdd
 	| GatewayDispatchMessagePollVoteRemove
 	| GatewayDispatchPresenceUpdate
+	| GatewayDispatchRateLimited
 	| GatewayDispatchReady
 	| GatewayDispatchSoundboardSounds
 	| GatewayDispatchTypingStart
@@ -168,6 +170,7 @@ export enum GatewayDispatchEvents {
 	MessageReactionRemoveEmoji = "MESSAGE_REACTION_REMOVE_EMOJI",
 	MessageUpdate = "MESSAGE_UPDATE",
 	PresenceUpdate = "PRESENCE_UPDATE",
+	RateLimited = "RATE_LIMITED",
 	Ready = "READY",
 	SoundboardSounds = "SOUNDBOARD_SOUNDS",
 	StageInstanceCreate = "STAGE_INSTANCE_CREATE",
