@@ -1,7 +1,7 @@
 import type { APIGateway, APIGatewayBot } from "../structures/raw.js";
 
 /**
- * Represents the response of the
+ * Represents the response of the {@link APIGateway | `GET /gateway`} endpoint.
  * @see https://discord.com/developers/docs/events/gateway#get-gateway
  */
 export type RESTGetGateway = APIGateway;
