@@ -7,7 +7,6 @@ export * from "./Channels.js";
 export * from "./Components.js";
 export * from "./Emojis.js";
 export * from "./Entitlements.js";
-export * from "./Gateway.js";
 export * from "./GuildScheduledEvents.js";
 export * from "./Guilds.js";
 export * from "./GuildTemplates.js";
