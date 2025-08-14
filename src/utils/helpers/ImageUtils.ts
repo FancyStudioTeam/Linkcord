@@ -85,6 +85,7 @@ function isAvailableAsAnimated(assetHash: string): boolean {
 
 /**
  * Utilities for working with images.
+ * @group Utils/Helpers
  * @public
  */
 export const ImageUtils = Object.freeze({

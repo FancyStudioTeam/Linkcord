@@ -21,6 +21,7 @@ function timestampFrom(snowflake: Snowflake | bigint | number): number {
 
 /**
  * Utilities for working with snowflakes.
+ * @group Utils/Helpers
  * @public
  */
 export const SnowflakeUtils = Object.freeze({
