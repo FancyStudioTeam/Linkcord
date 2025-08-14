@@ -1,1 +1,1 @@
-export * from "./EmbedJSX.js";
+export * from "./messages/index.js";
