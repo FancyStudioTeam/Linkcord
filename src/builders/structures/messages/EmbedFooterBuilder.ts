@@ -8,7 +8,7 @@ import type { AllowedEmbedFooterIconURL } from "#builders/types/index.js";
 import type { EmbedFooter } from "#types/index.js";
 
 /**
- * An utility class for building embed footers.
+ * Utility class for building {@link EmbedFooter | `EmbedFooter`} objects.
  * @group Builders/Messages
  * @public
  */

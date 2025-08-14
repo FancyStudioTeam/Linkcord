@@ -9,7 +9,7 @@ import type { AllowedEmbedAuthorIconURL, AllowedEmbedAuthorURL } from "#builders
 import type { EmbedAuthor } from "#types/index.js";
 
 /**
- * An utility class for building embed authors.
+ * Utility class for building {@link EmbedAuthor | `EmbedAuthor`} objects.
  * @group Builders/Messages
  * @public
  */

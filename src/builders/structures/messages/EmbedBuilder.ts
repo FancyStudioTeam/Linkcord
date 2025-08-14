@@ -27,7 +27,7 @@ import type {
 import type { Embed } from "#types/index.js";
 
 /**
- * An utility class for building embeds.
+ * Utility class for building {@link Embed | `Embed`} objects.
  * @group Builders/Messages
  * @public
  */

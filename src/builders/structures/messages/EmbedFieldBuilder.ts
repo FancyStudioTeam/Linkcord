@@ -8,7 +8,7 @@ import {
 import type { EmbedField } from "#types/index.js";
 
 /**
- * An utility class for building embed fields.
+ * Utility class for building {@link EmbedField | `EmbedField`} objects.
  * @group Builders/Messages
  * @public
  */
