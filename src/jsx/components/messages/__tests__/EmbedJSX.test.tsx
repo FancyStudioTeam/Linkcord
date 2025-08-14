@@ -36,7 +36,6 @@ describe("JSX: EmbedJSX", () => {
 			title: EmbedTitle,
 		};
 
-		console.log(EmbedComponent.toJSON());
 		expect(EmbedComponent).toBeInstanceOf(EmbedBuilder);
 		expect(EmbedComponent.toJSON()).toStrictEqual(ExpectedResult);
 	});
