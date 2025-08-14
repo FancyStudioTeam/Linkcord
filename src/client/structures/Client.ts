@@ -1,6 +1,6 @@
 import { CacheManager, EventsManager } from "#client/managers/index.js";
 import { ClientEvents, type ClientEventsMap } from "#client/types/ClientEvents.js";
-import { ConfigurationUtils } from "#configuration/utils/ConfigurationUtils.js";
+import { ConfigurationUtils } from "#configuration/helpers/ConfigurationUtils.js";
 import { GatewayManager } from "#gateway/index.js";
 import { RESTManager } from "#rest/index.js";
 import type { Guild, User } from "#structures/index.js";

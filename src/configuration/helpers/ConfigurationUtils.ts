@@ -128,6 +128,10 @@ function transformToken(token: string): string {
 	return replacedToken;
 }
 
+/**
+ * Utilities for the configuration.
+ * @internal
+ */
 export const ConfigurationUtils = Object.freeze({
 	freeze,
 	getIntents,

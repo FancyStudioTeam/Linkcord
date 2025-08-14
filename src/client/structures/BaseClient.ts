@@ -5,7 +5,7 @@
  */
 
 import { join } from "node:path";
-import { ConfigurationUtils } from "#configuration/utils/ConfigurationUtils.js";
+import { ConfigurationUtils } from "#configuration/helpers/ConfigurationUtils.js";
 import { EventsLoader } from "#handlers/events/loaders/EventsLoader.js";
 import type { Client } from "./Client.js";
 
