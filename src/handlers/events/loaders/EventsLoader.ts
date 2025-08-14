@@ -3,7 +3,7 @@ import { emitWarning } from "node:process";
 import { glob, type Path } from "glob";
 import type { Client } from "#client/index.js";
 import type { EventData } from "#handlers/types/index.js";
-import { ImportUtils } from "#utils/structures/ImportUtils.js";
+import { ImportUtils } from "#utils/helpers/ImportUtils.js";
 
 const EVENTS_GLOB_PATTERNS = ["**/*.event.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"];
 

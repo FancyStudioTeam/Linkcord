@@ -1,5 +1,5 @@
 import type { Client } from "#client/index.js";
-import { CacheManager } from "#client/managers/client/CacheManager.js";
+import { CacheManager } from "#client/index.js";
 import { GuildTransformer } from "#structures/transformers/GuildTransformer.js";
 import type {
 	APIGuild,
@@ -424,11 +424,11 @@ export class Guild extends Base {
 				const roleStructure = new Role(client, role, guildId);
 				const { id: roleId } = roleStructure;
 
-				/**
+				/*
 				 * biome-ignore lint/complexity/useLiteralKeys: Accessing
 				 * private members from the manager.
 				 */
-				rolesCache["_add"](roleId, roleStructure);
+				rolesCache["__add__"](roleId, roleStructure);
 			}
 		}
 
