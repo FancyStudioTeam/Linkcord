@@ -7,6 +7,7 @@ import type { EmbedFieldJSXProperties } from "#jsx/types/index.js";
  * @param properties - The properties of the component.
  * @returns The created {@link EmbedFieldBuilder | `EmbedFieldBuilder`}
  * instance.
+ * @group JSX/Messages
  * @public
  */
 export function EmbedFieldJSX(properties: EmbedFieldJSXProperties): EmbedFieldBuilder {

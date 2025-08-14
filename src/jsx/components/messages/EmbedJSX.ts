@@ -6,6 +6,7 @@ import type { EmbedJSXProperties } from "#jsx/types/index.js";
  * JSX components.
  * @param properties - The properties of the component.
  * @returns The created {@link EmbedBuilder | `EmbedBuilder`} instance.
+ * @group JSX/Messages
  * @public
  */
 export function EmbedJSX(properties: EmbedJSXProperties): EmbedBuilder {

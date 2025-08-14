@@ -1,9 +1,10 @@
 import { EmbedFieldJSX } from "#jsx/components/index.js";
-import type { ComponentProperties } from "#jsx/jsx-runtime";
+import type { ComponentProperties } from "#jsx/types/jsx-runtime.js";
 
 /**
  * Represents the properties of the {@link EmbedFieldJSX | `EmbedFieldJSX`}
  * component.
+ * @group JSX/Messages
  * @public
  */
 export type EmbedFieldJSXProperties = ComponentProperties<
@@ -21,6 +22,7 @@ export type EmbedFieldJSXProperties = ComponentProperties<
 /**
  * Represents the children of the {@link EmbedFieldJSX | `EmbedFieldJSX`}
  * component.
+ * @group JSX/Messages
  * @public
  */
 export type EmbedFieldJSXChildren = string;
