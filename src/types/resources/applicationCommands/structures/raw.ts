@@ -127,8 +127,6 @@ export interface APIBaseApplicationCommand<Type extends ApplicationCommandTypes>
 	description: string;
 	/** The localized description of the application command. */
 	description_localizations?: Localizations;
-	/** The ID of the guild where the application command is registered. */
-	guild_id?: Snowflake;
 	/** The handler of the application command. */
 	handler?: EntryPointCommandHandlerTypes;
 	/** The ID of the application command. */
@@ -164,6 +162,43 @@ export interface APIBaseApplicationCommandOption<Type extends ApplicationCommand
 	required?: boolean;
 	/** The type of the application command option. */
 	type: Type;
+}
+
+/**
+ * Represents an application command for chat inputs for guilds.
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ */
+export interface APIGuildApplicationCommandChatInput extends APIApplicationCommandChatInput {
+	/** The ID of the guild where the application command is registered. */
+	guild_id?: Snowflake;
+}
+
+/**
+ * Represents an application command for message contexts for guilds.
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ */
+export interface APIGuildApplicationCommandMessage extends APIApplicationCommandMessage {
+	/** The ID of the guild where the application command is registered. */
+	guild_id?: Snowflake;
+}
+
+/**
+ * Represents an application command for primary entry points for guilds.
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ */
+export interface APIGuildApplicationCommandPrimaryEntryPoint
+	extends APIApplicationCommandPrimaryEntryPoint {
+	/** The ID of the guild where the application command is registered. */
+	guild_id?: Snowflake;
+}
+
+/**
+ * Represents an application command for user contexts for guilds.
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ */
+export interface APIGuildApplicationCommandUser extends APIApplicationCommandUser {
+	/** The ID of the guild where the application command is registered. */
+	guild_id?: Snowflake;
 }
 
 /**
@@ -259,3 +294,13 @@ export type APIApplicationCommandUser = APIBaseApplicationCommand<ApplicationCom
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
  */
 export type APIAutocompleteChoice = APIApplicationCommandOptionChoice;
+
+/**
+ * Represents an application command for guilds.
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ */
+export type APIGuildApplicationCommand =
+	| APIGuildApplicationCommandChatInput
+	| APIGuildApplicationCommandMessage
+	| APIGuildApplicationCommandPrimaryEntryPoint
+	| APIGuildApplicationCommandUser;
