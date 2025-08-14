@@ -15,7 +15,7 @@ export type AllowedEmbedAuthor = EmbedAuthorBuilder | EmbedAuthor;
  * Represents a color that can be set to an embed builder.
  * @public
  */
-export type AllowedEmbedColor = number | string;
+export type AllowedEmbedColor = `#${string}` | number;
 
 /**
  * Represents a field that can be added or set to an embed builder.
