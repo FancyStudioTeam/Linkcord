@@ -1,4 +1,3 @@
-export * from "./ApplicationCommands.js";
 export * from "./ApplicationRoleConnectionMetadata.js";
 export * from "./Applications.js";
 export * from "./AuditLogs.js";
