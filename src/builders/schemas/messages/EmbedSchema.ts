@@ -14,11 +14,9 @@ import {
 	union,
 	url,
 } from "valibot";
-import {
-	EmbedAuthorBuilder,
-	EmbedFieldBuilder,
-	EmbedFooterBuilder,
-} from "#builders/structures/index.js";
+import { EmbedAuthorBuilder } from "#builders/structures/messages/EmbedAuthorBuilder.js";
+import { EmbedFieldBuilder } from "#builders/structures/messages/EmbedFieldBuilder.js";
+import { EmbedFooterBuilder } from "#builders/structures/messages/EmbedFooterBuilder.js";
 import { EmbedAuthorSchema as _EmbedAuthorSchema } from "./EmbedAuthorSchema.js";
 import { EmbedFieldSchema as _EmbedFieldSchema } from "./EmbedFieldSchema.js";
 import { EmbedFooterSchema as _EmbedFooterSchema } from "./EmbedFooterSchema.js";
