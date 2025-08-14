@@ -2,12 +2,9 @@ import { EmbedBuilder, EmbedFieldBuilder } from "#builders/index.js";
 import type { EmbedJSXProperties } from "#jsx/types/index.js";
 
 /**
- * Creates an {@link EmbedBuilder | `EmbedBuilder`} instance using
- * JSX components.
- * @param properties - The properties of the component.
+ * Creates an {@link EmbedBuilder | `EmbedBuilder`} instance using JSX.
+ * @param properties - The properties of the {@link EmbedJSX | `EmbedJSX`} component.
  * @returns The created {@link EmbedBuilder | `EmbedBuilder`} instance.
- * @group JSX/Messages
- * @public
  */
 export function EmbedJSX(properties: EmbedJSXProperties): EmbedBuilder {
 	const embed = new EmbedBuilder();

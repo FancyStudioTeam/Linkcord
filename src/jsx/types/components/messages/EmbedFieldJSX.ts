@@ -1,12 +1,7 @@
 import { EmbedFieldJSX } from "#jsx/components/index.js";
 import type { ComponentProperties } from "#jsx/types/jsx-runtime.js";
 
-/**
- * Represents the properties of the {@link EmbedFieldJSX | `EmbedFieldJSX`}
- * component.
- * @group JSX/Messages
- * @public
- */
+/** Represents the properties of the {@link EmbedFieldJSX | `EmbedFieldJSX`} component. */
 export type EmbedFieldJSXProperties = ComponentProperties<
 	{
 		/** Whether the field should be inline. */
@@ -19,10 +14,5 @@ export type EmbedFieldJSXProperties = ComponentProperties<
 	EmbedFieldJSXChildren
 >;
 
-/**
- * Represents the children of the {@link EmbedFieldJSX | `EmbedFieldJSX`}
- * component.
- * @group JSX/Messages
- * @public
- */
+/** Represents the children of the {@link EmbedFieldJSX | `EmbedFieldJSX`} component. */
 export type EmbedFieldJSXChildren = string;

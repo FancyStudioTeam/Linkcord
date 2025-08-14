@@ -12,11 +12,7 @@ import type {
 import { EmbedJSX } from "#jsx/components/index.js";
 import type { ComponentProperties } from "#jsx/types/jsx-runtime.js";
 
-/**
- * Represents the properties of the {@link EmbedJSX | `EmbedJSX`} component.
- * @group JSX/Messages
- * @public
- */
+/** Represents the properties of the {@link EmbedJSX | `EmbedJSX`} component. */
 export type EmbedJSXProperties = ComponentProperties<
 	{
 		/** The author of the embed. */
@@ -43,9 +39,5 @@ export type EmbedJSXProperties = ComponentProperties<
 	EmbedJSXChildren
 >;
 
-/**
- * Represents the children of the {@link EmbedJSX | `EmbedJSX`} component.
- * @group JSX/Messages
- * @public
- */
+/** Represents the children of the {@link EmbedJSX | `EmbedJSX`} component. */
 export type EmbedJSXChildren = string | (string | EmbedFieldBuilder)[];
