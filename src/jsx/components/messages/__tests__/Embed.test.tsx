@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { EmbedBuilder } from "#builders/index.js";
-import type { Embed } from "#types/index.js";
-import { EmbedFieldJSX } from "../EmbedFieldJSX.js";
-import { EmbedJSX } from "../EmbedJSX.js";
+import type { Embed as EmbedInterface } from "#types/index.js";
+import { Embed } from "../Embed.js";
+import { EmbedField } from "../EmbedField.js";
 
-describe("JSX: EmbedJSX", () => {
+describe("JSX: Embed", () => {
 	it('Should return an "EmbedBuilder" instance.', () => {
 		const EmbedTitle = "Lorem ipsum dolor sit amet";
 		const EmbedDescription =
@@ -14,14 +14,14 @@ describe("JSX: EmbedJSX", () => {
 		const EmbedFieldValue = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 
 		const EmbedComponent = (
-			<EmbedJSX title={EmbedTitle}>
+			<Embed title={EmbedTitle}>
 				{EmbedDescription}
-				<EmbedFieldJSX name={`${EmbedFieldName} (1)`}>{EmbedFieldValue}</EmbedFieldJSX>
-				<EmbedFieldJSX name={`${EmbedFieldName} (2)`}>{EmbedFieldValue}</EmbedFieldJSX>
-			</EmbedJSX>
+				<EmbedField name={`${EmbedFieldName} (1)`}>{EmbedFieldValue}</EmbedField>
+				<EmbedField name={`${EmbedFieldName} (2)`}>{EmbedFieldValue}</EmbedField>
+			</Embed>
 		);
 
-		const ExpectedResult: Embed = {
+		const ExpectedResult: EmbedInterface = {
 			description: EmbedDescription,
 			fields: [
 				{

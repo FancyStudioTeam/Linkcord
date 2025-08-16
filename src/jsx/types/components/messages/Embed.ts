@@ -9,11 +9,11 @@ import type {
 	AllowedEmbedURL,
 	EmbedFieldBuilder,
 } from "#builders/index.js";
-import { EmbedJSX } from "#jsx/components/index.js";
+import { Embed } from "#jsx/components/index.js";
 import type { ComponentProperties } from "#jsx/types/jsx-runtime.js";
 
-/** Represents the properties of the {@link EmbedJSX | `EmbedJSX`} component. */
-export type EmbedJSXProperties = ComponentProperties<
+/** Represents the properties of the {@link Embed | `Embed`} component. */
+export type EmbedProperties = ComponentProperties<
 	{
 		/** The author of the embed. */
 		author?: AllowedEmbedAuthor;
@@ -36,8 +36,8 @@ export type EmbedJSXProperties = ComponentProperties<
 		/** The URL of the embed. */
 		url?: AllowedEmbedURL;
 	},
-	EmbedJSXChildren
+	EmbedChildren
 >;
 
-/** Represents the children of the {@link EmbedJSX | `EmbedJSX`} component. */
-export type EmbedJSXChildren = string | (string | EmbedFieldBuilder)[];
+/** Represents the children of the {@link Embed | `Embed`} component. */
+export type EmbedChildren = string | (string | EmbedFieldBuilder)[];

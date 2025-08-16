@@ -1,12 +1,12 @@
 import { EmbedFieldBuilder } from "#builders/index.js";
-import type { EmbedFieldJSXProperties } from "#jsx/types/index.js";
+import type { EmbedFieldProperties } from "#jsx/types/index.js";
 
 /**
  * Creates an {@link EmbedFieldBuilder | `EmbedFieldBuilder`} instance using JSX.
- * @param properties - The properties of the {@link EmbedFieldJSX | `EmbedFieldJSX`} component.
+ * @param properties - The properties of the {@link EmbedField | `EmbedField`} component.
  * @returns The created {@link EmbedFieldBuilder | `EmbedFieldBuilder`} instance.
  */
-export function EmbedFieldJSX(properties: EmbedFieldJSXProperties): EmbedFieldBuilder {
+export function EmbedField(properties: EmbedFieldProperties): EmbedFieldBuilder {
 	const embedField = new EmbedFieldBuilder();
 	const { children, inline, name, value } = properties;
 

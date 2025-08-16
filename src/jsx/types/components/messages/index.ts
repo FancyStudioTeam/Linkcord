@@ -1,2 +1,2 @@
-export * from "./EmbedFieldJSX.js";
-export * from "./EmbedJSX.js";
+export * from "./Embed.js";
+export * from "./EmbedField.js";
