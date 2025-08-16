@@ -1,13 +1,6 @@
 import type { Snowflake } from "#types/miscellaneous/discord.js";
-import type { Locales } from "#types/miscellaneous/enums.js";
 import type { GuildFeatures } from "#types/resources/guilds/enums.js";
-import type {
-	ConnectionServices,
-	ConnectionVisibilityTypes,
-	NameplatePalette,
-	UserFlags,
-	UserPremiumTypes,
-} from "../enums.js";
+import type { ConnectionServices, ConnectionVisibilityTypes, NameplatePalette } from "../enums.js";
 
 /**
  * Represents a Discord application role connection object.
@@ -17,79 +10,64 @@ export interface APIApplicationRoleConnection {
 	/** The metadata of the platform. */
 	metadata: Record<string, string>;
 	/** The name of the platform. */
-	platform_name: string;
+	platformName: string;
 	/** The username of the platform. */
-	platform_username: string;
+	platformUsername: string;
 }
 
 /**
  * Represents a Discord avatar decoration data object.
  * @see https://discord.com/developers/docs/resources/user#avatar-decoration-data-object-avatar-decoration-data-structure
  */
-export interface APIAvatarDecorationData {
+export interface AvatarDecorationData {
 	/** The asset of the avatar decoration data. */
 	asset: string;
 	/** The ID of the sku of the avatar decoration. */
-	sku_id: Snowflake;
+	skuId: Snowflake;
 }
 
 /**
  * Represents a Discord collectibles object.
  * @see https://discord.com/developers/docs/resources/user#collectibles-collectible-structure
  */
-export interface APICollectibles {
+export interface Collectibles {
 	/** The nameplate of the user. */
-	nameplate?: APINameplate;
+	nameplate: Nameplate | null;
 }
 
 /**
  * Represents a Discord connection object.
  * @see https://discord.com/developers/docs/resources/user#connection-object-connection-structure
  */
-export interface APIConnection {
+export interface Connection {
 	/** Whether the friend sync is enabled. */
-	friend_sync: boolean;
+	friendSync: boolean;
 	/** The ID of the connection. */
 	id: string;
 	/** The integrations of the connection. */
-	// TODO: Add "integrations" to "APIConnection".
+	// TODO: Add "integrations" to "Connection".
 	// integrations?: APIPartialIntegration[];
 	/** The username of the connection. */
 	name: string;
 	/** Whether the connection is revoked. */
-	revoked?: boolean;
+	revoked: boolean;
 	/** Whether the activities related to the connection are shown in the presence. */
-	show_activity: boolean;
+	showActivity: boolean;
 	/** The type of the connection. */
 	type: ConnectionServices;
 	/** Whether the connection has third party OAuth2 token. */
-	two_way_link: boolean;
+	twoWayLink: boolean;
 	/** Whether the connection is verified. */
-	verified?: boolean;
+	verified: boolean;
 	/** The visibility of the connection. */
 	visibility: ConnectionVisibilityTypes;
-}
-
-/**
- * Represents a Discord primary guild object.
- * @see https://discord.com/developers/docs/resources/user#user-object-user-primary-guild
- */
-export interface APIPrimaryGuild {
-	/** The badge of the guild. */
-	badge: string | null;
-	/** The ID of the guild. */
-	identity_guild_id: Snowflake | null;
-	/** Whether the user is displaying the guild tag. */
-	identity_enabled: boolean | null;
-	/** The tag of the guild. */
-	tag: string | null;
 }
 
 /**
  * Represents a Discord nameplate object.
  * @see https://discord.com/developers/docs/resources/user#nameplate-nameplate-structure
  */
-export interface APINameplate {
+export interface Nameplate {
 	/** The asset of the nameplate. */
 	asset: string;
 	/** The label of the nameplate. */
@@ -97,63 +75,18 @@ export interface APINameplate {
 	/** The palette of the nameplate. */
 	palette: NameplatePalette;
 	/** The ID of the sku of the nameplate. */
-	sku_id: Snowflake;
-}
-
-/**
- * Represents a Discord user object.
- * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
- */
-export interface APIUser {
-	/** The accent color of the user. */
-	accent_color?: number | null;
-	/** The decoration of the avatar of the user. */
-	avatar_decoration_data?: APIAvatarDecorationData | null;
-	/** The avatar of the user. */
-	avatar: string | null;
-	/** The banner of the user. */
-	banner?: string | null;
-	/** Whether the user is a bot. */
-	bot?: boolean;
-	/** The collectibles of the user. */
-	collectibles?: APICollectibles | null;
-	/** The discriminator of the user. */
-	discriminator: string;
-	/** The email of the user. */
-	email?: string | null;
-	/** The flags of the user. */
-	flags?: UserFlags;
-	/** The global name of the user. */
-	global_name: string | null;
-	/** The ID of the user. */
-	id: Snowflake;
-	/** The locale of the user. */
-	locale?: Locales;
-	/** Whether the user has two factor enabled. */
-	mfa_enabled?: boolean;
-	/** The type of the subscription of the user. */
-	premium_type?: UserPremiumTypes;
-	/** The primary guild of the user. */
-	primary_guild?: APIPrimaryGuild | null;
-	/** The public flags of the user. */
-	public_flags?: UserFlags;
-	/** Whether the user is from the Discord system. */
-	system?: boolean;
-	/** The username of the user. */
-	username: string;
-	/** Whether the user has verified their email. */
-	verified?: boolean;
+	skuId: Snowflake;
 }
 
 /**
  * Represents a Discord user guild object.
  * @see https://discord.com/developers/docs/resources/user#get-current-user-guilds-example-partial-guild
  */
-export interface APIUserGuild {
+export interface UserGuild {
 	/** The approximate number of members in the guild. */
-	approximate_member_count: number;
+	approximateMemberCount: number;
 	/** The approximate number of online members in the guild. */
-	approximate_presence_count: number;
+	approximatePresenceCount: number;
 	/** The banner of the guild. */
 	banner: string | null;
 	/** The features of the guild. */
