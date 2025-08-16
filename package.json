@@ -36,8 +36,8 @@
 			"require": "./dist/index.js"
 		},
 		"./jsx-runtime": {
-			"import": "./dist/jsx-runtime/runtime.mjs",
-			"require": "./dist/jsx-runtime/runtime.js"
+			"import": "./dist/jsx-runtime/jsx-runtime.mjs",
+			"require": "./dist/jsx-runtime/jsx-runtime.js"
 		}
 	},
 	"files": [
