@@ -14,7 +14,7 @@ const buildConfiguration = defineConfig({
 const jsxRuntimeConfiguration = defineConfig({
 	clean: true,
 	dts: true,
-	entry: ["src/jsx/runtime.ts"],
+	entry: ["src/jsx/jsx-runtime.ts"],
 	format: ["esm", "cjs"],
 	outDir: "dist/jsx-runtime",
 	sourcemap: true,
