@@ -1,6 +1,6 @@
-import type { Localizations } from "#types/miscellaneous/discord.js";
+import type { Localizations, Snowflake } from "#types/miscellaneous/discord.js";
 import type { ChannelTypes } from "#types/resources/channels/enums.js";
-import type { ApplicationCommandOptionTypes } from "../enums.js";
+import type { ApplicationCommandOptionTypes, ApplicationCommandPermissionTypes } from "../enums.js";
 
 /**
  * Represents an application command option choice.
@@ -71,6 +71,19 @@ export interface ApplicationCommandOptionSubCommand
 }
 
 /**
+ * Represents an application command permission.
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-application-command-permissions-structure
+ */
+export interface ApplicationCommandPermissions {
+	/** The ID of the entity that is restricted. */
+	id: Snowflake;
+	/** Whether the application command is allowed to be used by the specified entity. */
+	permission: boolean;
+	/** The type of the permission. */
+	type: ApplicationCommandPermissionTypes;
+}
+
+/**
  * Represents the base structure of an application command option.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
@@ -87,6 +100,21 @@ export interface BaseApplicationCommandOption<Type extends ApplicationCommandOpt
 	required?: boolean;
 	/** The type of the application command option. */
 	type: Type;
+}
+
+/**
+ * Represents an application command permission for guilds.
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure
+ */
+export interface GuildApplicationCommandPermissions {
+	/** The ID of the application where the application command is registered. */
+	applicationId: Snowflake;
+	/** The ID of the guild to restrict the application command. */
+	guildId: Snowflake;
+	/** The ID of the entity that is restricted. */
+	id: Snowflake;
+	/** The permissions of the application command. */
+	permissions: ApplicationCommandPermissions[];
 }
 
 /**
