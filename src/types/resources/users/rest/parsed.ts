@@ -25,7 +25,7 @@ export interface GetUserGuildsOptions {
 }
 
 /**
- * The options to use when editing the user application role connection.
+ * The options to use when editing a user application role connection.
  * @see @see https://discord.com/developers/docs/resources/user#update-current-user-application-role-connection-json-params
  */
 export interface EditUserApplicationRoleConnectionOptions {
@@ -38,7 +38,7 @@ export interface EditUserApplicationRoleConnectionOptions {
 }
 
 /**
- * The options to use when editing the user.
+ * The options to use when editing a user.
  * @see https://discord.com/developers/docs/resources/user#modify-current-user-json-params
  */
 export interface EditUserOptions {

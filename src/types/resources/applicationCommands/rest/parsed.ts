@@ -133,13 +133,13 @@ export interface GetGuildApplicationCommandsOptions {
 }
 
 /**
- * The options to use when bulk editing application commands.
+ * The options to use when bulk editing the application commands.
  * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands-json-params
  */
 export type EditApplicationCommandBulkOptions = CreateApplicationCommandOptions[];
 
 /**
- * The options to use when bulk editing guild application commands.
+ * The options to use when bulk editing the guild application commands.
  * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-guild-application-commands-json-params
  */
 export type EditGuildApplicationCommandBulkOptions = CreateGuildApplicationCommandOptions[];
