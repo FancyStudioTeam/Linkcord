@@ -1,5 +1,6 @@
 export * from "./applicationCommands/index.js";
 export * from "./applications/index.js";
+export * from "./autoModeration/index.js";
 export * from "./channels/index.js";
 export * from "./gateway/index.js";
 export * from "./guilds/index.js";
