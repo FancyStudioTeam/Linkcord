@@ -1,5 +1,5 @@
 /**
- * Represents the Discord gateway object.
+ * Represents a Discord gateway object.
  * @see https://discord.com/developers/docs/topics/gateway#get-gateway
  */
 export interface APIGateway {
@@ -8,7 +8,7 @@ export interface APIGateway {
 }
 
 /**
- * Represents the Discord gateway bot object.
+ * Represents a Discord gateway bot object.
  * @see https://discord.com/developers/docs/events/gateway#get-gateway-bot-example-response
  */
 export interface APIGatewayBot {
@@ -21,7 +21,7 @@ export interface APIGatewayBot {
 }
 
 /**
- * @public
+ * Represents a Discord gateway bot session start limit object.
  * @see https://discord.com/developers/docs/events/gateway#session-start-limit-object-session-start-limit-structure
  */
 export interface APIGatewayBotSessionStartLimit {
