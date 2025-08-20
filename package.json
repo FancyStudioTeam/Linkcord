@@ -11,7 +11,7 @@
 		"@commitlint/cli": "19.8.1",
 		"@commitlint/config-conventional": "19.8.1",
 		"@commitlint/types": "19.8.1",
-		"@microsoft/api-extractor": "7.52.10",
+		"@microsoft/api-extractor": "7.52.11",
 		"@swc/core": "1.13.3",
 		"@types/node": "24.2.1",
 		"@types/semver": "7.7.0",
