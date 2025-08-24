@@ -7,11 +7,7 @@ import {
 import type { AllowedEmbedFooterIconURL } from "#builders/types/index.js";
 import type { EmbedFooter } from "#types/index.js";
 
-/**
- * Utility class for building {@link EmbedFooter | `EmbedFooter`} objects.
- * @group Builders/Messages
- * @public
- */
+/** Utility class for building {@link EmbedFooter | `EmbedFooter`} objects. */
 export class EmbedFooterBuilder {
 	private readonly __data__: Partial<EmbedFooter> = {};
 
@@ -36,8 +32,7 @@ export class EmbedFooterBuilder {
 	}
 
 	/**
-	 * Converts the {@link EmbedFooterBuilder | `EmbedFooterBuilder`} instance
-	 * into an {@link EmbedFooter | `EmbedFooter`} object.
+	 * Converts the {@link EmbedFooterBuilder | `EmbedFooterBuilder`} instance into an {@link EmbedFooter | `EmbedFooter`} object.
 	 * @returns The {@link EmbedFooter | `EmbedFooter`} object.
 	 */
 	toJSON(): EmbedFooter {

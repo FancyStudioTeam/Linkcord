@@ -7,11 +7,7 @@ import {
 } from "#builders/schemas/messages/EmbedFieldSchema.js";
 import type { EmbedField } from "#types/index.js";
 
-/**
- * Utility class for building {@link EmbedField | `EmbedField`} objects.
- * @group Builders/Messages
- * @public
- */
+/** Utility class for building {@link EmbedField | `EmbedField`} objects. */
 export class EmbedFieldBuilder {
 	/** The object containing the data of the embed field. */
 	private readonly __data__: Partial<EmbedField> = {};
@@ -47,8 +43,7 @@ export class EmbedFieldBuilder {
 	}
 
 	/**
-	 * Converts the {@link EmbedFieldBuilder | `EmbedFieldBuilder`} instance
-	 * into an {@link EmbedField | `EmbedField`} object.
+	 * Converts the {@link EmbedFieldBuilder | `EmbedFieldBuilder`} instance into an {@link EmbedField | `EmbedField`} object.
 	 * @returns The {@link EmbedField | `EmbedField`} object.
 	 */
 	toJSON(): EmbedField {

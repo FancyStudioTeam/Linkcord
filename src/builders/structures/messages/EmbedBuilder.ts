@@ -26,11 +26,7 @@ import type {
 } from "#builders/types/index.js";
 import type { Embed } from "#types/index.js";
 
-/**
- * Utility class for building {@link Embed | `Embed`} objects.
- * @group Builders/Messages
- * @public
- */
+/** Utility class for building {@link Embed | `Embed`} objects. */
 export class EmbedBuilder {
 	/** The object containing the data of the embed. */
 	private readonly __data__: Partial<Embed> = {};
@@ -140,8 +136,7 @@ export class EmbedBuilder {
 	}
 
 	/**
-	 * Converts the {@link EmbedBuilder | `EmbedBuilder`} instance into a
-	 * {@link Embed | `Embed`} object.
+	 * Converts the {@link EmbedBuilder | `EmbedBuilder`} instance into a {@link Embed | `Embed`} object.
 	 * @returns The {@link Embed | `Embed`} object.
 	 */
 	toJSON(): Embed {

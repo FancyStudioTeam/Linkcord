@@ -8,11 +8,7 @@ import {
 import type { AllowedEmbedAuthorIconURL, AllowedEmbedAuthorURL } from "#builders/types/index.js";
 import type { EmbedAuthor } from "#types/index.js";
 
-/**
- * Utility class for building {@link EmbedAuthor | `EmbedAuthor`} objects.
- * @group Builders/Messages
- * @public
- */
+/** Utility class for building {@link EmbedAuthor | `EmbedAuthor`} objects. */
 export class EmbedAuthorBuilder {
 	/** The object containing the data of the embed author. */
 	private readonly __data__: Partial<EmbedAuthor> = {};
@@ -48,8 +44,7 @@ export class EmbedAuthorBuilder {
 	}
 
 	/**
-	 * Converts the {@link EmbedAuthorBuilder | `EmbedAuthorBuilder`} instance
-	 * into an {@link EmbedAuthor | `EmbedAuthor`} object.
+	 * Converts the {@link EmbedAuthorBuilder | `EmbedAuthorBuilder`} instance into an {@link EmbedAuthor | `EmbedAuthor`} object.
 	 * @returns The {@link EmbedAuthor | `EmbedAuthor`} object.
 	 */
 	toJSON(): EmbedAuthor {
