@@ -20,6 +20,7 @@ const configuration: UserConfig = {
 				"rest",
 				"style",
 				"test",
+				"transformers",
 				"types",
 			],
 		],
