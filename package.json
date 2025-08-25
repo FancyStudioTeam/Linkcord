@@ -7,7 +7,7 @@
 	},
 	"description": "An opinionated framework made in TypeScript for building Discord bots.",
 	"devDependencies": {
-		"@biomejs/biome": "2.1.4",
+		"@biomejs/biome": "2.2.2",
 		"@commitlint/cli": "19.8.1",
 		"@commitlint/config-conventional": "19.8.1",
 		"@commitlint/types": "19.8.1",
