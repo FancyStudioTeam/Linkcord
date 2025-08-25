@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.1.4/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
 	"assist": {
 		"actions": {
 			"recommended": true,
@@ -12,13 +12,7 @@
 		"enabled": true
 	},
 	"files": {
-		"includes": [
-			"**",
-			"!**/.VSCodeCounter/**",
-			"!**/.turbo/**",
-			"!**/.typedoc/**",
-			"!**/dist/**"
-		]
+		"includes": ["**", "!**/.VSCodeCounter", "!**/.turbo", "!**/.typedoc", "!**/dist"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -40,6 +34,7 @@
 		"enabled": true,
 		"rules": {
 			"complexity": {
+				"noImplicitCoercions": "error",
 				"useSimplifiedLogicExpression": "error"
 			},
 			"correctness": {
@@ -48,18 +43,8 @@
 				"useImportExtensions": "error"
 			},
 			"nursery": {
-				"noImplicitCoercion": "error",
-				"noMagicNumbers": "error",
-				"noUnassignedVariables": "error",
 				"noUnresolvedImports": "off",
-				"useReadonlyClassProperties": {
-					"level": "error",
-					"options": {
-						"checkAllProperties": true
-					}
-				},
-				"useSortedClasses": "error",
-				"useUnifiedTypeSignature": "error"
+				"useSortedClasses": "error"
 			},
 			"performance": {
 				"noBarrelFile": "off",
@@ -68,6 +53,7 @@
 			"recommended": true,
 			"style": {
 				"noDefaultExport": "off",
+				"noMagicNumbers": "error",
 				"useImportType": "error",
 				"useNamingConvention": {
 					"level": "warn",
@@ -89,10 +75,18 @@
 						"strictCase": false
 					}
 				},
-				"useNodejsImportProtocol": "error"
+				"useNodejsImportProtocol": "error",
+				"useReadonlyClassProperties": {
+					"level": "error",
+					"options": {
+						"checkAllProperties": true
+					}
+				},
+				"useUnifiedTypeSignatures": "error"
 			},
 			"suspicious": {
 				"noReactSpecificProps": "off",
+				"noUnassignedVariables": "error",
 				"useAwait": "error"
 			}
 		}
