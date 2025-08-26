@@ -46,26 +46,16 @@ export abstract class Base {
 	 */
 	// protected abstract _clone(): this;
 
-	/**
-	 * Clones the current {@link Base | `Base`} instance.
-	 * @returns The cloned {@link Base | `Base`} instance.
-	 * @internal
-	 */
-	protected _cloneThis(): this {
+	/** Clones the current {@link Base | `Base`} instance. */
+	protected __cloneThis__(): this {
 		const createdObject = Object.create(this);
 
 		return Object.assign(createdObject, this);
 	}
 
-	/**
-	 * Patches the {@link Base | `Base`} instance with the given data.
-	 * @internal
-	 */
-	protected abstract _patch(data: unknown): void;
+	/** Patches the {@link Base | `Base`} instance with the given data. */
+	protected abstract __patch__(data: unknown): void;
 
-	/**
-	 * Converts the {@link Base | `Base`} instance to a JSON object.
-	 * @returns The JSON object.
-	 */
+	/** Converts the {@link Base | `Base`} instance to a JSON object. */
 	abstract toJSON(): unknown;
 }
