@@ -16,13 +16,7 @@ function cast(input: bigint | number | string): Snowflake {
 	if (typeof input === "string") {
 		const match = input.match(DISCORD_SNOWFLAKE_REGEX);
 
-		if (!match) {
-			throw new TypeError(
-				"The first parameter (input) does not match the Discord snowflake format.",
-			);
-		}
-
-		const { groups } = match;
+		const { groups } = match ?? {};
 		const { id } = groups ?? {};
 
 		if (!id) {
