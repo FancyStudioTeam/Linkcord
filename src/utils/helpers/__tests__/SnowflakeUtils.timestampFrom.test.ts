@@ -1,7 +1,4 @@
-/*
- * biome-ignore-all lint/nursery/noMagicNumbers: Magic numbers are not
- * important in testing files.
- */
+// biome-ignore-all lint/style/noMagicNumbers: Magic numbers are not important in testing files.
 
 import { describe, expect, it } from "vitest";
 import { SnowflakeUtils } from "../SnowflakeUtils.js";

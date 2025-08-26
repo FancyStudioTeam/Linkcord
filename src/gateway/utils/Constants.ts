@@ -1,10 +1,6 @@
 import { GatewayCloseEventCodes, GatewayOpcodes } from "#types/index.js";
 
-/**
- * The close codes that indicate that the gateway shard session can be
- * resumed.
- * @public
- */
+/** The close event codes that indicate that the gateway shard session can be resumed. */
 export const RESUMABLE_CLOSE_CODES = [
 	GatewayCloseEventCodes.AlreadyAuthenticated,
 	GatewayCloseEventCodes.DecodeError,
@@ -16,10 +12,7 @@ export const RESUMABLE_CLOSE_CODES = [
 	GatewayCloseEventCodes.UnknownOpcode,
 ] as const;
 
-/**
- * The opcodes that can be sent to the Discord gateway.
- * @public
- */
+/** The opcodes that can be sent to the Discord gateway. */
 export const SENDABLE_OPCODES = [
 	GatewayOpcodes.Heartbeat,
 	GatewayOpcodes.Identify,
@@ -30,12 +23,6 @@ export const SENDABLE_OPCODES = [
 	GatewayOpcodes.VoiceStateUpdate,
 ] as const;
 
-/**
- * The suffix of the zlib-compressed packet.
- * @public
- */
-/*
- * biome-ignore lint/nursery/noMagicNumbers: These values can be magic
- * numbers.
- */
+/** The suffix of the zlib-compressed packet. */
+// biome-ignore lint/style/noMagicNumbers: These values can be magic numbers.
 export const ZLIB_SUFFIX = Buffer.from([0x00, 0x00, 0xff, 0xff]);
