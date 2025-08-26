@@ -1,5 +1,3 @@
-/* biome-ignore-all lint/complexity/useLiteralKeys: Allow to use bracket notation when accessing private or protected members from some structures. */
-/* biome-ignore-all lint/correctness/noUnusedPrivateClassMembers: Biome uses "this" to check if these private members are being used, but we are destructuring them from "this". */
 /* biome-ignore-all lint/style/useReadonlyClassProperties: Some private fields are being assigned in the "READY" hook. */
 
 import { platform } from "node:process";
@@ -17,6 +15,7 @@ import { type GatewayDispatchEvent, type GatewayEvent, GatewayOpcodes } from "#t
 import { LINKCORD_VERSION } from "../../index.js";
 import { GatewayManager } from "./GatewayManager.js";
 
+const GRACEFUL_CLOSE_CODE = 1000;
 const GOING_AWAY_CLOSE_CODE = 1001;
 
 /** Represents a shard of the Discord gateway. */
@@ -158,31 +157,36 @@ export class GatewayShard {
 	}
 
 	/**
+	 * Checks whether the close code is resumable.
+	 * @param code - The received close code.
+	 */
+	#isCloseCodeResumable(code: number): boolean {
+		return RESUMABLE_CLOSE_CODES.includes(code) || code === GOING_AWAY_CLOSE_CODE;
+	}
+
+	/**
 	 * Handles when the gateway shard connection has been closed.
 	 * @param closeEvent - The received `CloseEvent` from the `WebSocket`.
 	 */
 	#onClose(closeEvent: CloseEvent): void {
 		const { code, reason } = closeEvent;
+		const isReconnectable = this.#isCloseCodeResumable(code);
 
 		this.status = GatewayShardStatus.Disconnected;
-
-		const isReconnectable =
-			RESUMABLE_CLOSE_CODES.includes(code) || code === GOING_AWAY_CLOSE_CODE;
 
 		const { resumeGatewayURL, client } = this;
 		const label = this.#label;
 
-		const debugMessage = isReconnectable
-			? `Session has been closed. Session can be resumed, attempting to resume...`
-			: `Session has been closed. Session cannot be resumed, attempting to identify...`;
+		const baseMessage = `Session has been closed with code ${code} (${reason || "N/A"}).`;
+		const message = `${baseMessage} ${isReconnectable ? "Attempting to resume..." : "Attempting to re-identify..."}`;
 
 		client.emit(ClientEvents.ShardDisconnected, reason, code, isReconnectable, this);
-		client.debug(label, debugMessage);
+		client.debug(label, message);
 
-		this.#initializeWebSocket(
-			// Using "undefined" will use the default gateway URL from the "initializeWebSocket" method.
-			isReconnectable && resumeGatewayURL ? resumeGatewayURL : undefined,
-		);
+		// Using "undefined" will use the default gateway URL from the "initializeWebSocket" method.
+		const gatewayURL = isReconnectable && resumeGatewayURL ? resumeGatewayURL : undefined;
+
+		this.#initializeWebSocket(gatewayURL);
 	}
 
 	/**
@@ -361,6 +365,17 @@ export class GatewayShard {
 		}
 
 		this.sequence = sequence;
+	}
+
+	/** Disconnects the gateway shard from the Discord gateway. */
+	disconnect(): void {
+		const { client } = this;
+
+		const ws = this.#getWebSocket();
+		const label = this.#label;
+
+		ws.close(GRACEFUL_CLOSE_CODE, "User requested a disconnect.");
+		client.debug(label, "Disconnecting the shard from the Discord gateway...");
 	}
 
 	/** Initializes the gateway shard by connecting it to the Discord gateway. */
