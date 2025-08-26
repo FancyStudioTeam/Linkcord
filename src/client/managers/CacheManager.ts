@@ -71,6 +71,14 @@ export class CacheManager<Key extends string, Value extends Base> {
 		return cache.delete(key);
 	}
 
+	/** Gets the number of cached values in the cache manager. */
+	get size(): number {
+		const cache = this.#cache;
+		const { size: cacheSize } = cache;
+
+		return cacheSize;
+	}
+
 	/**
 	 * Gets a value from the cache.
 	 * @param key - The key of the cached value to get.

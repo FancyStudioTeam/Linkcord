@@ -1,22 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { CacheManager as CacheManagerClass } from "../CacheManager.js";
-
-class UserClass {
-	readonly name: string;
-
-	constructor(name: string) {
-		this.name = name;
-	}
-}
+import { UserClass } from "./__resources__/UserClass.js";
 
 describe("Class: CacheManager", () => {
 	it('Should create a new "CacheManager".', () => {
 		const CacheManager = new CacheManagerClass();
+		const ExpectedCacheManagerSizeResult = 0;
 
-		const { cache } = CacheManager;
-		const { size: CacheLength } = cache;
-
-		expect(CacheLength).toBe(0);
+		expect(CacheManager.size).toBe(ExpectedCacheManagerSizeResult);
 	});
 
 	it('Should create a new "CacheManager" instance with an initial iterable.', () => {
@@ -30,14 +21,13 @@ describe("Class: CacheManager", () => {
 		// @ts-expect-error
 		const CacheManager = new CacheManagerClass(Infinity, CacheManagerIterable);
 
-		const { cache } = CacheManager;
-		const { size: CacheLength } = cache;
+		const CachedValue1 = CacheManager.get("user_1");
+		const CachedValue2 = CacheManager.get("user_2");
 
-		const CachedValue1 = cache.get("user_1");
-		const CachedValue2 = cache.get("user_2");
+		const ExpectedCacheManagerSizeResult = 2;
 
 		expect(CachedValue1).toBeInstanceOf(UserClass);
 		expect(CachedValue2).toBeInstanceOf(UserClass);
-		expect(CacheLength).toBe(2);
+		expect(CacheManager.size).toBe(ExpectedCacheManagerSizeResult);
 	});
 });

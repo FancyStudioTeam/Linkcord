@@ -6,16 +6,10 @@ describe("Method: EventsManager.addListener", () => {
 	it("Should register two event listeners.", () => {
 		const EventsManager = new EventsManagerClass();
 		const DebugListenerFunction = vi.fn();
+		const ExpectedDebugListenersResult = 2;
 
 		expect(EventsManager.addListener(ClientEvents.Debug, DebugListenerFunction)).toBe(true);
 		expect(EventsManager.addListener(ClientEvents.Debug, DebugListenerFunction)).toBe(true);
-
-		const { listeners } = EventsManager;
-
-		const DebugListeners = listeners.get(ClientEvents.Debug);
-		const { length: DebugListenersLength } = DebugListeners ?? [];
-
-		expect(DebugListeners).toBeInstanceOf(Array);
-		expect(DebugListenersLength).toBe(2);
+		expect(EventsManager.listenerCount(ClientEvents.Debug)).toBe(ExpectedDebugListenersResult);
 	});
 });
