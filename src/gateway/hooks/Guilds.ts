@@ -1,23 +1,14 @@
-/*
- * biome-ignore-all lint/style/useNamingConvention: Function names must be the
- * exact name as the corresponding dispatch event.
- */
-/*
- * biome-ignore-all lint/complexity/useLiteralKeys: Allow to use bracket
- * notation when accessing private or protected members from some structures.
- */
+/* biome-ignore-all lint/style/useNamingConvention: Function names must be the exact name as the corresponding dispatch event. */
+/* biome-ignore-all lint/complexity/useLiteralKeys: Allow to use bracket notation when accessing private or protected members from some structures. */
 
-import { type Client, ClientEvents } from "#client/index.js";
+/*import { type Client, ClientEvents } from "#client/index.js";
 import type { GatewayShard } from "#gateway/structures/GatewayShard.js";
-import { Guild, Role, Uncached } from "#structures/index.js";
+import { Guild, Uncached } from "#structures/index.js";
 import type {
 	GatewayDispatchGuildCreatePayload,
 	GatewayDispatchGuildDeletePayload,
-	GatewayDispatchGuildRoleCreatePayload,
-	GatewayDispatchGuildRoleDeletePayload,
-	GatewayDispatchGuildRoleUpdatePayload,
 	GatewayDispatchGuildUpdatePayload,
-} from "#types/index.js";
+} from "#types/index.js";*/
 
 /**
  * Handles the received `GUILD_CREATE` event from the gateway shard.
@@ -26,7 +17,7 @@ import type {
  * @param guildData - The received data from the `GUILD_CREATE` event.
  * @see https://discord.com/developers/docs/events/gateway-events#guild-create
  */
-export function GUILD_CREATE(
+/*export function GUILD_CREATE(
 	client: Client,
 	_shard: GatewayShard,
 	guildData: GatewayDispatchGuildCreatePayload,
@@ -40,7 +31,7 @@ export function GUILD_CREATE(
 
 	guilds["__add__"](guildId, guild);
 	events.emit(ClientEvents.GuildCreate, guild);
-}
+}*/
 
 /**
  * Handles the `GUILD_DELETE` event received from the gateway shard.
@@ -49,22 +40,21 @@ export function GUILD_CREATE(
  * @param guildData - The received data from the `GUILD_DELETE` event.
  * @see https://discord.com/developers/docs/events/gateway-events#guild-delete
  */
-export function GUILD_DELETE(
+/*export async function GUILD_DELETE(
 	client: Client,
 	_shard: GatewayShard,
 	guildData: GatewayDispatchGuildDeletePayload,
-): void {
+): Promise<void> {
 	const { events, guilds } = client;
-	const { cache: guildsCache } = guilds;
 	const { id: guildId, unavailable } = guildData;
 
 	if (unavailable) return;
 
-	const guild = guildsCache.get(guildId) ?? new Uncached(guildId);
+	const guild = (await guilds.get(guildId)) ?? new Uncached(guildId);
 
 	guilds["__remove__"](guildId);
 	events.emit(ClientEvents.GuildDelete, guild);
-}
+}*/
 
 /**
  * Handles the `GUILD_ROLE_CREATE` event received from the gateway shard.
@@ -73,7 +63,7 @@ export function GUILD_DELETE(
  * @param _roleData The received data from the `GUILD_ROLE_CREATE` event.
  * @see https://discord.com/developers/docs/events/gateway-events#guild-role-create
  */
-export function GUILD_ROLE_CREATE(
+/*export function GUILD_ROLE_CREATE(
 	client: Client,
 	_shard: GatewayShard,
 	_roleData: GatewayDispatchGuildRoleCreatePayload,
@@ -93,7 +83,7 @@ export function GUILD_ROLE_CREATE(
 
 	roles["__add__"](roleId, role);
 	events.emit(ClientEvents.GuildRoleCreate, role, guild);
-}
+}*/
 
 /**
  * Handles the received `GUILD_ROLE_DELETE` event from the gateway shard.
@@ -102,7 +92,7 @@ export function GUILD_ROLE_CREATE(
  * @param _roleData - The received data from the `GUILD_ROLE_DELETE` event.
  * @see https://discord.com/developers/docs/events/gateway-events#guild-role-delete
  */
-export function GUILD_ROLE_DELETE(
+/*export function GUILD_ROLE_DELETE(
 	client: Client,
 	_shard: GatewayShard,
 	_roleData: GatewayDispatchGuildRoleDeletePayload,
@@ -122,7 +112,7 @@ export function GUILD_ROLE_DELETE(
 
 	roles["__remove__"](roleId);
 	events.emit(ClientEvents.GuildRoleDelete, role, guild);
-}
+}*/
 
 /**
  * Handles the received `GUILD_ROLE_UPDATE` event from the gateway shard.
@@ -131,7 +121,7 @@ export function GUILD_ROLE_DELETE(
  * @param _roleData - The received data from the `GUILD_ROLE_UPDATE` event.
  * @see https://discord.com/developers/docs/events/gateway-events#guild-role-update
  */
-export function GUILD_ROLE_UPDATE(
+/*export function GUILD_ROLE_UPDATE(
 	client: Client,
 	_shard: GatewayShard,
 	_roleData: GatewayDispatchGuildRoleUpdatePayload,
@@ -157,7 +147,7 @@ export function GUILD_ROLE_UPDATE(
 
 	roles["__patch__"](roleId, roleData);
 	events.emit(ClientEvents.GuildRoleUpdate, newRole, oldRole, guild);
-}
+}*/
 
 /**
  * Handles the received `GUILD_UPDATE` event from the gateway shard.
@@ -166,7 +156,7 @@ export function GUILD_ROLE_UPDATE(
  * @param guildData - The received data from the `GUILD_UPDATE` event.
  * @see https://discord.com/developers/docs/events/gateway-events#guild-update
  */
-export function GUILD_UPDATE(
+/*export function GUILD_UPDATE(
 	client: Client,
 	_shard: GatewayShard,
 	guildData: GatewayDispatchGuildUpdatePayload,
@@ -183,4 +173,4 @@ export function GUILD_UPDATE(
 
 	guilds["__patch__"](guildId, guildData);
 	events.emit(ClientEvents.GuildUpdate, newGuild, oldGuild);
-}
+}*/
