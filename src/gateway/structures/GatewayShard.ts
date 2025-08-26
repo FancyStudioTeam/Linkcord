@@ -1,16 +1,6 @@
-/*
- * biome-ignore-all lint/complexity/useLiteralKeys: Allow to use bracket
- * notation when accessing private or protected members from some structures.
- */
-/*
- * biome-ignore-all lint/correctness/noUnusedPrivateClassMembers: Biome uses
- * "this" to check if these private members are being used, but we are
- * destructuring them from "this".
- */
-/*
- * biome-ignore-all lint/nursery/useReadonlyClassProperties: Some private
- * fields are being assigned in the "READY" hook.
- */
+// biome-ignore-all lint/complexity/useLiteralKeys: Allow to use bracket notation when accessing private or protected members from some structures.
+// biome-ignore-all lint/correctness/noUnusedPrivateClassMembers: Biome uses "this" to check if these private members are being used, but we are destructuring them from "this".
+// biome-ignore-all lint/style/useReadonlyClassProperties: Some private fields are being assigned in the "READY" hook.
 
 import { emitWarning, platform } from "node:process";
 import { type Client, ClientEvents } from "#client/index.js";

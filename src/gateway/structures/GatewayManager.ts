@@ -1,12 +1,5 @@
-/*
- * biome-ignore-all lint/complexity/useLiteralKeys: Allow to use bracket
- * notation when accessing private or protected members from some structures.
- */
-/*
- * biome-ignore-all lint/correctness/noUnusedPrivateClassMembers: Biome uses
- * "this" to check if these private members are being used, but we are
- * destructuring them from "this".
- */
+// biome-ignore-all lint/complexity/useLiteralKeys: Allow to use bracket notation when accessing private or protected members from some structures.
+// biome-ignore-all lint/correctness/noUnusedPrivateClassMembers: Biome uses "this" to check if these private members are being used, but we are destructuring them from "this".
 
 import { type Client, ClientEvents } from "#client/index.js";
 import { GatewayShardStatus } from "#gateway/types/index.js";
