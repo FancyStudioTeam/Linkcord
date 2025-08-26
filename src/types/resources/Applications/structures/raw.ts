@@ -1,5 +1,5 @@
 import type { Snowflake } from "#types/miscellaneous/discord.js";
-import type { ActivityLocationKind } from "../enums.js";
+import type { ActivityLocationKind, ApplicationFlags } from "../enums.js";
 
 /**
  * Represents an activity instance of an application.
@@ -31,4 +31,15 @@ export interface APIActivityLocation {
 	kind: ActivityLocationKind;
 	/** The ID of the guild of the location. */
 	guild_id?: Snowflake;
+}
+
+/**
+ * Represents a gateway application.
+ * @see https://discord.com/developers/docs/events/gateway-events#ready-ready-event-fields
+ */
+export interface APIGatewayApplication {
+	/** The flags of the application. */
+	flags: ApplicationFlags;
+	/** The ID of the application. */
+	id: Snowflake;
 }
