@@ -1,6 +1,6 @@
 import type { Snowflake } from "#types/miscellaneous/discord.js";
 import type { ChannelTypes } from "#types/resources/channels/enums.js";
-import type { APIPartialEmoji } from "#types/resources/Emojis/index.js";
+import type { PartialEmoji } from "#types/resources/Emojis/index.js";
 import type {
 	ButtonStyles,
 	ComponentTypes,
@@ -13,17 +13,17 @@ import type {
  * Represents an action row component.
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-structure
  */
-export interface APIActionRowComponent extends APIBaseComponent<ComponentTypes.ActionRow> {
+export interface ActionRowComponent extends BaseComponent<ComponentTypes.ActionRow> {
 	/** The components of the action row. */
-	components: APIActionRowComponents[];
+	components: ActionRowComponents[];
 }
 
 /**
  * Represents the base structure of a button component.
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export interface APIBaseButtonComponent<Style extends ButtonStyles>
-	extends APIBaseComponent<ComponentTypes.Button> {
+export interface BaseButtonComponent<Style extends ButtonStyles>
+	extends BaseComponent<ComponentTypes.Button> {
 	/** Whether the button is disabled. */
 	disabled?: boolean;
 	/** The style of the button. */
@@ -34,7 +34,7 @@ export interface APIBaseButtonComponent<Style extends ButtonStyles>
  * Represents the base structure of a component.
  * @see https://discord.com/developers/docs/components/reference#anatomy-of-a-component
  */
-export interface APIBaseComponent<Type extends ComponentTypes> {
+export interface BaseComponent<Type extends ComponentTypes> {
 	/** The ID of the component. */
 	id?: number;
 	/** The type of the component. */
@@ -45,19 +45,17 @@ export interface APIBaseComponent<Type extends ComponentTypes> {
  * Represents the base structure of a resolved select menu component.
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export interface APIBaseResolvedSelectMenuComponent<
-	Type extends APIResolvedSelectMenuComponentTypes,
-> extends APIBaseSelectMenuComponent<Type> {
+export interface BaseResolvedSelectMenuComponent<Type extends ResolvedSelectMenuComponentTypes>
+	extends BaseSelectMenuComponent<Type> {
 	/** The default values of the select menu. */
-	default_values?: APISelectMenuDefaultValue[];
+	defaultValues?: SelectMenuDefaultValue[];
 }
 
 /**
  * Represents the base structure of a select menu component.
  * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
  */
-export interface APIBaseSelectMenuComponent<Type extends APISelectMenuTypes>
-	extends APIBaseComponent<Type> {
+export interface BaseSelectMenuComponent<Type extends SelectMenuTypes> extends BaseComponent<Type> {
 	/** The custom ID of the select menu. */
 	custom_id: string;
 	/** Whether the select menu is disabled. */
@@ -65,29 +63,29 @@ export interface APIBaseSelectMenuComponent<Type extends APISelectMenuTypes>
 	/** The placeholder of the select menu. */
 	placeholder?: string;
 	/** The maximum values of the select menu. */
-	max_values?: number;
+	maxValues?: number;
 	/** The minimum values of the select menu. */
-	min_values?: number;
+	minValues?: number;
 }
 
 /**
  * Represents a button component for buttons with a custom ID.
  * @see https://discord.com/developers/docs/components/button#link-button-structure
  */
-export interface APIBaseTextButtonComponent<Type extends APITextableButtonComponentStyles>
-	extends APIBaseTextableButtonComponent<Type> {
+export interface BaseTextButtonComponent<Type extends TextableButtonComponentStyles>
+	extends BaseTextableButtonComponent<Type> {
 	/** The custom ID of the button. */
-	custom_id: string;
+	customId: string;
 }
 
 /**
  * Represents the base structure of a textable button component.
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export interface APIBaseTextableButtonComponent<Style extends APITextableButtonComponentStyles>
-	extends APIBaseButtonComponent<Style> {
+export interface BaseTextableButtonComponent<Style extends TextableButtonComponentStyles>
+	extends BaseButtonComponent<Style> {
 	/** The emoji of the button. */
-	emoji?: APIPartialEmoji;
+	emoji?: PartialEmoji;
 	/** The label of the button. */
 	label: string;
 }
@@ -96,21 +94,21 @@ export interface APIBaseTextableButtonComponent<Style extends APITextableButtonC
  * Represents a channel select menu component.
  * @see https://discord.com/developers/docs/components/reference#channel-select-channel-select-structure
  */
-export interface APIChannelSelectMenuComponent
-	extends APIBaseResolvedSelectMenuComponent<ComponentTypes.ChannelSelect> {
+export interface ChannelSelectMenuComponent
+	extends BaseResolvedSelectMenuComponent<ComponentTypes.ChannelSelect> {
 	/** The channels of the select menu. */
-	channel_types?: ChannelTypes[];
+	channelTypes?: ChannelTypes[];
 }
 
 /**
  * Represents a container component.
  * @see https://discord.com/developers/docs/components/reference#container-container-structure
  */
-export interface APIContainerComponent extends APIBaseComponent<ComponentTypes.Container> {
+export interface ContainerComponent extends BaseComponent<ComponentTypes.Container> {
 	/** The accent color of the container. */
-	accent_color?: number;
+	accentColor?: number;
 	/** The components of the container. */
-	components: APIContainerComponents[];
+	components: ContainerComponents[];
 	/** Whether the container is a spoiler. */
 	spoiler?: boolean;
 }
@@ -119,9 +117,9 @@ export interface APIContainerComponent extends APIBaseComponent<ComponentTypes.C
  * Represents a file component.
  * @see https://discord.com/developers/docs/components/reference#file-file-structure
  */
-export interface APIFileComponent extends APIBaseComponent<ComponentTypes.File> {
+export interface FileComponent extends BaseComponent<ComponentTypes.File> {
 	/** The file of the component. */
-	file: APIUnfurledMediaItem;
+	file: UnfurledMediaItem;
 	/** The name of the file. */
 	name: string;
 	/** The size of the file. */
@@ -134,9 +132,9 @@ export interface APIFileComponent extends APIBaseComponent<ComponentTypes.File> 
  * Represents a label component.
  * @see https://discord.com/developers/docs/components/reference#label-label-structure
  */
-export interface APILabelComponent extends APIBaseComponent<ComponentTypes.Label> {
+export interface LabelComponent extends BaseComponent<ComponentTypes.Label> {
 	/** The component of the label. */
-	component: APILabelComponents;
+	component: LabelComponents;
 	/** The description of the label. */
 	description?: string;
 	/** The text of the label. */
@@ -147,7 +145,7 @@ export interface APILabelComponent extends APIBaseComponent<ComponentTypes.Label
  * Represents a button component for buttons with a URL.
  * @see https://discord.com/developers/docs/components/button#link-button-structure
  */
-export interface APILinkButtonComponent extends APIBaseTextableButtonComponent<ButtonStyles.Link> {
+export interface LinkButtonComponent extends BaseTextableButtonComponent<ButtonStyles.Link> {
 	/** The URL of the button. */
 	url: string;
 }
@@ -156,20 +154,20 @@ export interface APILinkButtonComponent extends APIBaseTextableButtonComponent<B
  * Represents a media gallery component.
  * @see https://discord.com/developers/docs/components/reference#media-gallery-media-gallery-structure
  */
-export interface APIMediaGalleryComponent extends APIBaseComponent<ComponentTypes.MediaGallery> {
+export interface MediaGalleryComponent extends BaseComponent<ComponentTypes.MediaGallery> {
 	/** The items of the media gallery. */
-	items: APIMediaGalleryItem[];
+	items: MediaGalleryItem[];
 }
 
 /**
  * Represents a media gallery item.
  * @see https://discord.com/developers/docs/components/reference#media-gallery-media-gallery-item-structure
  */
-export interface APIMediaGalleryItem {
+export interface MediaGalleryItem {
 	/** The description of the media item. */
 	description?: string;
 	/** The media of the media item. */
-	media: APIUnfurledMediaItem;
+	media: UnfurledMediaItem;
 	/** Whether the media item is a spoiler. */
 	spoiler?: boolean;
 }
@@ -178,27 +176,27 @@ export interface APIMediaGalleryItem {
  * Represents a button component for buttons with a sku ID.
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export interface APIPremiumButtonComponent extends APIBaseButtonComponent<ButtonStyles.Premium> {
+export interface PremiumButtonComponent extends BaseButtonComponent<ButtonStyles.Premium> {
 	/** The ID of the sku of the button. */
-	sku_id: Snowflake;
+	skuId: Snowflake;
 }
 
 /**
  * Represents a section component.
  * @see https://discord.com/developers/docs/components/reference#section-section-structure
  */
-export interface APISectionComponent extends APIBaseComponent<ComponentTypes.Section> {
+export interface SectionComponent extends BaseComponent<ComponentTypes.Section> {
 	/** The accessory of the section. */
-	accessory: APISectionAccessory;
+	accessory: SectionAccessory;
 	/** The components of the section. */
-	components: APISectionComponents[];
+	components: SectionComponents[];
 }
 
 /**
  * Represents the default value of a select menu component.
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
-export interface APISelectMenuDefaultValue {
+export interface SelectMenuDefaultValue {
 	/** The type of the default value. */
 	type: SelectMenuDefaultValueTypes;
 	/** The ID of the default value. */
@@ -209,13 +207,13 @@ export interface APISelectMenuDefaultValue {
  * Represents a select menu option.
  * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
  */
-export interface APISelectMenuOption {
+export interface SelectMenuOption {
 	/** Whether the option is default. */
 	default?: boolean;
 	/** The description of the select menu option. */
 	description?: string;
 	/** The emoji of the select menu option. */
-	emoji?: APIPartialEmoji;
+	emoji?: PartialEmoji;
 	/** The label of the select menu option. */
 	label: string;
 	/** The value of the select menu option. */
@@ -226,7 +224,7 @@ export interface APISelectMenuOption {
  * Represents a separator component.
  * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
  */
-export interface APISeparatorComponent extends APIBaseComponent<ComponentTypes.Separator> {
+export interface SeparatorComponent extends BaseComponent<ComponentTypes.Separator> {
 	/** Whether to display a divider between the components. */
 	divider?: boolean;
 	/** The size of the spacing of the separator. */
@@ -237,10 +235,10 @@ export interface APISeparatorComponent extends APIBaseComponent<ComponentTypes.S
  * Represents a select menu for string values.
  * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
  */
-export interface APIStringSelectMenuComponent
-	extends APIBaseSelectMenuComponent<ComponentTypes.StringSelect> {
+export interface StringSelectMenuComponent
+	extends BaseSelectMenuComponent<ComponentTypes.StringSelect> {
 	/** The options of the select menu. */
-	options: APISelectMenuOption[];
+	options: SelectMenuOption[];
 	/** Whether the select menu is required for the modal. */
 	required?: boolean;
 }
@@ -249,7 +247,7 @@ export interface APIStringSelectMenuComponent
  * Represents a text display component.
  * @see https://discord.com/developers/docs/components/reference#text-display-text-display-structure
  */
-export interface APITextDisplayComponent extends APIBaseComponent<ComponentTypes.TextDisplay> {
+export interface TextDisplayComponent extends BaseComponent<ComponentTypes.TextDisplay> {
 	/** The content of the text display. */
 	content: string;
 }
@@ -258,13 +256,13 @@ export interface APITextDisplayComponent extends APIBaseComponent<ComponentTypes
  * Represents a text input component.
  * @see https://discord.com/developers/docs/components/reference#text-input-text-input-structure
  */
-export interface APITextInputComponent extends APIBaseComponent<ComponentTypes.TextInput> {
+export interface TextInputComponent extends BaseComponent<ComponentTypes.TextInput> {
 	/** The custom ID of the text input. */
-	custom_id: string;
+	customId: string;
 	/** The maximum length of the text input. */
-	max_length?: number;
+	maxLength?: number;
 	/** The minimum length of the text input. */
-	min_length?: number;
+	minLength?: number;
 	/** The placeholder of the text input. */
 	placeholder?: string;
 	/** Whether the text input is required for the modal. */
@@ -279,11 +277,11 @@ export interface APITextInputComponent extends APIBaseComponent<ComponentTypes.T
  * Represents a thumbnail component.
  * @see https://discord.com/developers/docs/components/reference#thumbnail-thumbnail-structure
  */
-export interface APIThumbnailComponent extends APIBaseComponent<ComponentTypes.Thumbnail> {
+export interface ThumbnailComponent extends BaseComponent<ComponentTypes.Thumbnail> {
 	/** The description of the thumbnail. */
 	description?: string;
 	/** The media of the thumbnail. */
-	media: APIUnfurledMediaItem;
+	media: UnfurledMediaItem;
 	/** Whether the thumbnail is a spoiler. */
 	spoiler?: boolean;
 }
@@ -292,15 +290,15 @@ export interface APIThumbnailComponent extends APIBaseComponent<ComponentTypes.T
  * Represents an unfurled media item.
  * @see https://discord.com/developers/docs/components/reference#unfurled-media-item-structure
  */
-export interface APIUnfurledMediaItem {
+export interface UnfurledMediaItem {
 	/** The ID of the attachment of the media item. */
-	attachment_id?: string;
+	attachmentId?: string;
 	/** The content type of the media item. */
-	content_type?: string;
+	contentType?: string;
 	/** The height of the media item. */
 	height?: number;
 	/** The proxy URL of the media item. */
-	proxy_url?: string;
+	proxyUrl?: string;
 	/** The URL of the media item. */
 	url: string;
 	/** The width of the media item. */
@@ -309,92 +307,89 @@ export interface APIUnfurledMediaItem {
 
 /**
  * Represents a component for action row components.
- * @see https://discord.com/developers/docs/components/reference#action-row-action-row-child-components
+ * @see https://discord.com/developers/docs/components/reference#action-row-action-row-structure
  */
-export type APIActionRowComponents = APIButtonComponent | APISelectMenuComponent;
+export type ActionRowComponents = ButtonComponent | SelectMenuComponent;
 
 /**
  * Represents a button component.
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APIButtonComponent =
-	| APILinkButtonComponent
-	| APIPremiumButtonComponent
-	| APITextButtonComponent;
+export type ButtonComponent = LinkButtonComponent | PremiumButtonComponent | TextButtonComponent;
 
 /**
  * Represents a component.
  * @see https://discord.com/developers/docs/components/component-object#component-object-component-types
  */
-export type APIComponent =
-	| APIButtonComponent
-	| APISelectMenuComponent
-	| APISeparatorComponent
-	| APITextDisplayComponent
-	| APITextInputComponent;
+export type Component =
+	| ButtonComponent
+	| SelectMenuComponent
+	| SeparatorComponent
+	| TextDisplayComponent
+	| TextInputComponent;
 
 /**
  * Represents a component for container components.
  * @see https://discord.com/developers/docs/components/reference#container-container-child-components
  */
-export type APIContainerComponents =
-	| APIActionRowComponent
-	| APIFileComponent
-	| APIMediaGalleryComponent
-	| APISectionComponent
-	| APISeparatorComponent
-	| APITextDisplayComponent;
+export type ContainerComponents =
+	| ActionRowComponent
+	| FileComponent
+	| MediaGalleryComponent
+	| SectionComponent
+	| SeparatorComponent
+	| TextDisplayComponent;
 
 /**
  * Represents a danger button component.
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APIDangerButtonComponent = APIBaseTextButtonComponent<ButtonStyles.Danger>;
+export type DangerButtonComponent = BaseTextButtonComponent<ButtonStyles.Danger>;
 
 /**
  * Represents a component for label components.
  * @see https://discord.com/developers/docs/components/reference#label-label-child-components
  */
-export type APILabelComponents = APISelectMenuComponent | APITextInputComponent;
+export type LabelComponents = SelectMenuComponent | TextInputComponent;
 
 /**
  * Represents a mentionable select menu component.
  * @see https://discord.com/developers/docs/components/reference#mentionable-select-mentionable-select-structure
  */
-export type APIMentionableSelectMenuComponent =
-	APIBaseResolvedSelectMenuComponent<ComponentTypes.MentionableSelect>;
+export type MentionableSelectMenuComponent =
+	BaseResolvedSelectMenuComponent<ComponentTypes.MentionableSelect>;
 
 /**
  * Represents a component for messages.
  * @see https://discord.com/developers/docs/components/component-object#component-object-component-types
  */
-export type APIMessageComponent =
-	| APIActionRowComponent
-	| APIContainerComponent
-	| APIFileComponent
-	| APIMediaGalleryComponent
-	| APISectionComponent
-	| APISeparatorComponent
-	| APITextDisplayComponent;
+export type MessageComponent =
+	| ActionRowComponent
+	| ContainerComponent
+	| FileComponent
+	| MediaGalleryComponent
+	| SectionComponent
+	| SeparatorComponent
+	| TextDisplayComponent;
 
 /**
  * Represents a component for modals.
  * @see https://discord.com/developers/docs/components/component-object#component-object-component-types
  */
-export type APIModalComponent = APILabelComponent | APITextInputComponent;
+export type ModalComponent = LabelComponent | TextInputComponent;
 
 /**
  * Represents a primary button component.
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APIPrimaryButtonComponent = APIBaseTextButtonComponent<ButtonStyles.Primary>;
+export type PrimaryButtonComponent = BaseTextButtonComponent<ButtonStyles.Primary>;
 
 /**
  * Represents a resolveable select menu component type.
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export type APIResolvedSelectMenuComponentTypes = Exclude<
-	APISelectMenuTypes,
+export type ResolvedSelectMenuComponentTypes = Exclude<
+	SelectMenuTypes,
 	ComponentTypes.StringSelect
 >;
 
@@ -402,38 +397,37 @@ export type APIResolvedSelectMenuComponentTypes = Exclude<
  * Represents a role select menu component.
  * @see https://discord.com/developers/docs/components/reference#role-select-role-select-structure
  */
-export type APIRoleSelectMenuComponent =
-	APIBaseResolvedSelectMenuComponent<ComponentTypes.RoleSelect>;
+export type RoleSelectMenuComponent = BaseResolvedSelectMenuComponent<ComponentTypes.RoleSelect>;
 
 /**
  * Represents a secondary button component.
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APISecondaryButtonComponent = APIBaseTextButtonComponent<ButtonStyles.Secondary>;
+export type SecondaryButtonComponent = BaseTextButtonComponent<ButtonStyles.Secondary>;
 
 /**
  * Represents an accessory of a section component.
  * @see https://discord.com/developers/docs/components/reference#section-section-accessory-components
  */
-export type APISectionAccessory = APIButtonComponent | APIThumbnailComponent;
+export type SectionAccessory = ButtonComponent | ThumbnailComponent;
 
 /**
  * Represents a component for section components.
  * @see https://discord.com/developers/docs/components/reference#section-section-child-components
  */
-export type APISectionComponents = APITextDisplayComponent;
+export type SectionComponents = TextDisplayComponent;
 
 /**
  * Represents a select menu component.
  * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
  */
-export type APISelectMenuComponent = APIResolvedSelectMenuComponent | APIStringSelectMenuComponent;
+export type SelectMenuComponent = ResolvedSelectMenuComponent | StringSelectMenuComponent;
 
 /**
  * Represents a select menu component type.
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export type APISelectMenuTypes =
+export type SelectMenuTypes =
 	| ComponentTypes.ChannelSelect
 	| ComponentTypes.MentionableSelect
 	| ComponentTypes.RoleSelect
@@ -444,33 +438,33 @@ export type APISelectMenuTypes =
  * Represents a success button component.
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APISuccessButtonComponent = APIBaseTextButtonComponent<ButtonStyles.Success>;
+export type SuccessButtonComponent = BaseTextButtonComponent<ButtonStyles.Success>;
 
 /**
  * Represents a resolveable select menu component.
  * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
  */
-export type APIResolvedSelectMenuComponent =
-	| APIChannelSelectMenuComponent
-	| APIMentionableSelectMenuComponent
-	| APIRoleSelectMenuComponent
-	| APIUserSelectMenuComponent;
+export type ResolvedSelectMenuComponent =
+	| ChannelSelectMenuComponent
+	| MentionableSelectMenuComponent
+	| RoleSelectMenuComponent
+	| UserSelectMenuComponent;
 
 /**
  * Represents a text button component.
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APITextButtonComponent =
-	| APIDangerButtonComponent
-	| APIPrimaryButtonComponent
-	| APISecondaryButtonComponent
-	| APISuccessButtonComponent;
+export type TextButtonComponent =
+	| DangerButtonComponent
+	| PrimaryButtonComponent
+	| SecondaryButtonComponent
+	| SuccessButtonComponent;
 
 /**
  * Represents a textable button component style.
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APITextableButtonComponentStyles =
+export type TextableButtonComponentStyles =
 	| ButtonStyles.Danger
 	| ButtonStyles.Link
 	| ButtonStyles.Primary
@@ -481,5 +475,4 @@ export type APITextableButtonComponentStyles =
  * Represents a user select menu component.
  * @see https://discord.com/developers/docs/components/reference#user-select-user-select-structure
  */
-export type APIUserSelectMenuComponent =
-	APIBaseResolvedSelectMenuComponent<ComponentTypes.UserSelect>;
+export type UserSelectMenuComponent = BaseResolvedSelectMenuComponent<ComponentTypes.UserSelect>;
