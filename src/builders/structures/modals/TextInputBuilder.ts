@@ -13,8 +13,9 @@ export class TextInputBuilder {
 	 * Sets the custom ID of the text input component.
 	 * @param customID - The custom ID of the text input component.
 	 **/
-	setCustomID(customID: string): this {
-		this.__data__.customId = customID;
+	setCustomID(customId: string): this {
+		this.__data__.customId = customId;
+
 		return this;
 	}
 
@@ -24,6 +25,7 @@ export class TextInputBuilder {
 	 **/
 	setMaxLength(maxLength: number): this {
 		this.__data__.maxLength = maxLength;
+
 		return this;
 	}
 
@@ -33,6 +35,7 @@ export class TextInputBuilder {
 	 **/
 	setMinLength(minLength: number): this {
 		this.__data__.minLength = minLength;
+
 		return this;
 	}
 
@@ -42,6 +45,7 @@ export class TextInputBuilder {
 	 **/
 	setPlaceholder(placeholder: string): this {
 		this.__data__.placeholder = placeholder;
+
 		return this;
 	}
 
@@ -51,6 +55,7 @@ export class TextInputBuilder {
 	 **/
 	setRequired(required: boolean): this {
 		this.__data__.required = required;
+
 		return this;
 	}
 
@@ -60,6 +65,7 @@ export class TextInputBuilder {
 	 **/
 	setStyle(style: TextInputStyles): this {
 		this.__data__.style = style;
+
 		return this;
 	}
 
@@ -69,6 +75,7 @@ export class TextInputBuilder {
 	 **/
 	setValue(value: string): this {
 		this.__data__.value = value;
+
 		return this;
 	}
 
