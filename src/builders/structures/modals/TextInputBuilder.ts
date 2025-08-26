@@ -1,20 +1,27 @@
+import { parse } from "valibot";
+import {
+	TextInputCustomIDSchema,
+	TextInputMaxValueLengthSchema,
+	TextInputMinValueSchema,
+	TextInputPlaceholderSchema,
+	TextInputRequiredSchema,
+	TextInputSchema,
+	TextInputStyleSchema,
+	TextInputValueSchema,
+} from "#builders/schemas/modals/TextInputSchema.js";
 import type { TextInputComponent, TextInputStyles } from "#types/index.js";
 
-/*
-	TODO: Add validation
- */
-
-/** Utility class for building {@link TextInputComponent | `TextInputComponent`} objects. **/
+/** Utility class for building {@link TextInputComponent | `TextInputComponent`} objects. */
 export class TextInputBuilder {
-	/** The object containing the data of the text input component. **/
+	/** The object containing the data of the text input component. */
 	private readonly __data__: Partial<TextInputComponent> = {};
 
 	/**
 	 * Sets the custom ID of the text input component.
 	 * @param customID - The custom ID of the text input component.
-	 **/
-	setCustomID(customId: string): this {
-		this.__data__.customId = customId;
+	 */
+	setCustomId(customId: string): this {
+		this.__data__.customId = parse(TextInputCustomIDSchema, customId);
 
 		return this;
 	}
@@ -22,9 +29,9 @@ export class TextInputBuilder {
 	/**
 	 * Sets the max length of the text input component.
 	 * @param maxLength - The max length of the text input component.
-	 **/
+	 */
 	setMaxLength(maxLength: number): this {
-		this.__data__.maxLength = maxLength;
+		this.__data__.maxLength = parse(TextInputMaxValueLengthSchema, maxLength);
 
 		return this;
 	}
@@ -32,9 +39,9 @@ export class TextInputBuilder {
 	/**
 	 * Sets the min length of the text input component.
 	 * @param minLength - The min length of the text input component.
-	 **/
+	 */
 	setMinLength(minLength: number): this {
-		this.__data__.minLength = minLength;
+		this.__data__.minLength = parse(TextInputMinValueSchema, minLength);
 
 		return this;
 	}
@@ -42,9 +49,9 @@ export class TextInputBuilder {
 	/**
 	 * Sets the placeholder of the text input component.
 	 * @param placeholder - The placeholder of the text input component.
-	 **/
+	 */
 	setPlaceholder(placeholder: string): this {
-		this.__data__.placeholder = placeholder;
+		this.__data__.placeholder = parse(TextInputPlaceholderSchema, placeholder);
 
 		return this;
 	}
@@ -52,9 +59,9 @@ export class TextInputBuilder {
 	/**
 	 * Sets whether the text input is required for the modal.
 	 * @param required - Whether the text input is required for the modal.
-	 **/
+	 */
 	setRequired(required: boolean): this {
-		this.__data__.required = required;
+		this.__data__.required = parse(TextInputRequiredSchema, required);
 
 		return this;
 	}
@@ -62,9 +69,9 @@ export class TextInputBuilder {
 	/**
 	 * Sets the style of the text input component.
 	 * @param style - The style of the text input component.
-	 **/
+	 */
 	setStyle(style: TextInputStyles): this {
-		this.__data__.style = style;
+		this.__data__.style = parse(TextInputStyleSchema, style);
 
 		return this;
 	}
@@ -72,9 +79,9 @@ export class TextInputBuilder {
 	/**
 	 * Sets the default value of the text input component.
 	 * @param value - The default value of the text input component.
-	 **/
+	 */
 	setValue(value: string): this {
-		this.__data__.value = value;
+		this.__data__.value = parse(TextInputValueSchema, value);
 
 		return this;
 	}
@@ -84,6 +91,9 @@ export class TextInputBuilder {
 	 * @returns The {@link TextInputComponent | `TextInputComponent`} object.
 	 */
 	toJSON(): TextInputComponent {
-		return this.__data__ as TextInputComponent;
+		const { __data__: data } = this;
+		const validatedData = parse(TextInputSchema, data);
+
+		return validatedData;
 	}
 }
