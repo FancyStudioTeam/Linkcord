@@ -89,7 +89,7 @@ export interface APIBaseTextableButtonComponent<Style extends APITextableButtonC
 	/** The emoji of the button. */
 	emoji?: APIPartialEmoji;
 	/** The label of the button. */
-	label: string;
+	label?: string;
 }
 
 /**

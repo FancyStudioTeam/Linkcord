@@ -57,7 +57,7 @@ export interface BaseResolvedSelectMenuComponent<Type extends ResolvedSelectMenu
  */
 export interface BaseSelectMenuComponent<Type extends SelectMenuTypes> extends BaseComponent<Type> {
 	/** The custom ID of the select menu. */
-	custom_id: string;
+	customId: string;
 	/** Whether the select menu is disabled. */
 	disabled?: boolean;
 	/** The placeholder of the select menu. */
@@ -87,7 +87,7 @@ export interface BaseTextableButtonComponent<Style extends TextableButtonCompone
 	/** The emoji of the button. */
 	emoji?: PartialEmoji;
 	/** The label of the button. */
-	label: string;
+	label?: string;
 }
 
 /**
