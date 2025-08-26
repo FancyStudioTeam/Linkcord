@@ -3,20 +3,17 @@ import { GatewayTransformer } from "#transformers/GatewayTransformer.js";
 import type { Gateway, GatewayBot, RESTGetGateway, RESTGetGatewayBot } from "#types/index.js";
 import { BaseAPI } from "./BaseAPI.js";
 
-/**
- * API class that handles all API requests related to the gateway.
- * @group REST/API
- * @public
- */
+/** API class that handles all request related to `/gateway` endpoints. */
 export class GatewayAPI extends BaseAPI {
 	/**
 	 * Gets the gateway object.
 	 * @returns The {@link Gateway | `Gateway`} object.
 	 */
 	async getGateway(): Promise<Gateway> {
-		const gatewayData = await super.__get__<RESTGetGateway>(Endpoints.gateway(), {
+		const gatewayResponseData = await super.get<RESTGetGateway>(Endpoints.gateway(), {
 			withAuthorization: false,
 		});
+		const gatewayData = GatewayTransformer.transformGatewayToParsed(gatewayResponseData);
 
 		return gatewayData;
 	}
@@ -26,9 +23,10 @@ export class GatewayAPI extends BaseAPI {
 	 * @returns The {@link GatewayBot | `GatewayBot`} object.
 	 */
 	async getGatewayBot(): Promise<GatewayBot> {
-		const gatewayBotData = await super.__get__<RESTGetGatewayBot>(Endpoints.gatewayBot());
-		const transformedGatewayBot = GatewayTransformer.transformGatewayBot(gatewayBotData);
+		const gatewayBotResponseData = await super.get<RESTGetGatewayBot>(Endpoints.gatewayBot());
+		const gatewayBotData =
+			GatewayTransformer.transformGatewayBotToParsed(gatewayBotResponseData);
 
-		return transformedGatewayBot;
+		return gatewayBotData;
 	}
 }

@@ -8,15 +8,9 @@ import type {
 	RESTPutOptions,
 } from "#rest/structures/RESTManager.js";
 
-/**
- * Represents a base class for all API classes.
- * @group REST/API
- * @public
- */
+/** Represents a base class for all API classes. */
 export class BaseAPI {
-	/**
-	 * The REST manager to perform requests within the API classes.
-	 */
+	/** The REST manager to perform requests within the API. */
 	protected readonly rest: RESTManager;
 
 	/**
@@ -31,9 +25,8 @@ export class BaseAPI {
 	 * Performs a `DELETE` request to the Discord API.
 	 * @param endpoint - The endpoint where the request will be made.
 	 * @param options - The options to use when performing the request.
-	 * @internal
 	 */
-	protected __delete__<Result, QueryStringParams = never>(
+	protected delete<Result, QueryStringParams = never>(
 		endpoint: string,
 		options?: RESTDeleteOptions<QueryStringParams>,
 	): Promise<Result> {
@@ -46,9 +39,8 @@ export class BaseAPI {
 	 * Performs a `GET` request to the Discord API.
 	 * @param endpoint - The endpoint where the request will be made.
 	 * @param options - The options to use when performing the request.
-	 * @internal
 	 */
-	protected async __get__<Result, QueryStringParams = never>(
+	protected async get<Result, QueryStringParams = never>(
 		endpoint: string,
 		options?: RESTGetOptions<QueryStringParams>,
 	): Promise<Result> {
@@ -61,9 +53,8 @@ export class BaseAPI {
 	 * Performs a `PATCH` request to the Discord API.
 	 * @param endpoint - The endpoint where the request will be made.
 	 * @param options - The options to use when performing the request.
-	 * @internal
 	 */
-	protected async __patch__<Result, JSONParams = never, QueryStringParams = never>(
+	protected async patch<Result, JSONParams = never, QueryStringParams = never>(
 		endpoint: string,
 		options?: RESTPatchOptions<JSONParams, QueryStringParams>,
 	): Promise<Result> {
@@ -76,9 +67,8 @@ export class BaseAPI {
 	 * Performs a `POST` request to the Discord API.
 	 * @param endpoint - The endpoint where the request will be made.
 	 * @param options - The options to use when performing the request.
-	 * @internal
 	 */
-	protected async __post__<Result, JSONParams = never, QueryStringParams = never>(
+	protected async post<Result, JSONParams = never, QueryStringParams = never>(
 		endpoint: string,
 		options?: RESTPostOptions<JSONParams, QueryStringParams>,
 	): Promise<Result> {
@@ -91,9 +81,8 @@ export class BaseAPI {
 	 * Performs a `PUT` request to the Discord API.
 	 * @param endpoint - The endpoint where the request will be made.
 	 * @param options - The options to use when performing the request.
-	 * @internal
 	 */
-	protected async __put__<Result, JSONParams = never, QueryStringParams = never>(
+	protected async put<Result, JSONParams = never, QueryStringParams = never>(
 		endpoint: string,
 		options?: RESTPutOptions<JSONParams, QueryStringParams>,
 	): Promise<Result> {
@@ -102,9 +91,7 @@ export class BaseAPI {
 		return await rest.put<Result, JSONParams, QueryStringParams>(endpoint, options);
 	}
 
-	/**
-	 * The client to instantiate the returned data into Discord structures.
-	 */
+	/** The client to instantiate the returned data into Discord structures. */
 	get client(): Client {
 		const { rest } = this;
 		const { client } = rest;
