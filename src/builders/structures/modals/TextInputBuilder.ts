@@ -1,4 +1,4 @@
-import type { TextInputComponent, TextInputStyles } from "#types/resources";
+import type { TextInputComponent, TextInputStyles } from "#types/index.js";
 
 /*
 	TODO: Add validation
@@ -46,8 +46,8 @@ export class TextInputBuilder {
 	}
 
 	/**
-	 * Sets the required state of the text input component.
-	 * @param required - Whether the text input component is required.
+	 * Sets whether the text input is required for the modal.
+	 * @param required - Whether the text input is required for the modal.
 	 **/
 	setRequired(required: boolean): this {
 		this.__data__.required = required;
