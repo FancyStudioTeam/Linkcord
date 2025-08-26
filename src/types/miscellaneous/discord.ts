@@ -1,3 +1,4 @@
+import type { Brand } from "#utils/index.js";
 import type { Locales } from "./enums.js";
 
 /**
@@ -45,7 +46,7 @@ export type Localizations = Partial<LocalesMap>;
  * Represents a Discord snowflake.
  * @see https://discord.com/developers/docs/reference#snowflakes
  */
-export type Snowflake = string;
+export type Snowflake = Brand<string, "Snowflake">;
 
 /**
  * Represents the available versions of the Discord voice API.
