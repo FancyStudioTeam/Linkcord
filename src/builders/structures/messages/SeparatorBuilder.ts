@@ -36,7 +36,7 @@ export class SeparatorBuilder {
 	}
 
 	/**
-	 * Converts the {@link SeparatorBuilder | `SeparatorBuilder`} instance into an {@link SeparatorComponent | `SeparatorComponent`} object.
+	 * Converts the {@link SeparatorBuilder | `SeparatorBuilder`} instance into a {@link SeparatorComponent | `SeparatorComponent`} object.
 	 * @returns The {@link SeparatorComponent | `SeparatorComponent`} object.
 	 */
 	toJSON(): SeparatorComponent {
