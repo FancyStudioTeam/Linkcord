@@ -55,8 +55,8 @@ function transformGatewayToParsed(gateway: APIGateway): Gateway {
 }
 
 /** Transformers for gateway objects. */
-export const GatewayTransformer = {
+export const GatewayTransformer = Object.freeze({
 	transformGatewayBotSessionStartLimitToParsed,
 	transformGatewayBotToParsed,
 	transformGatewayToParsed,
-};
+});

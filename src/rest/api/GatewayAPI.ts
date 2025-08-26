@@ -1,6 +1,6 @@
 import { Endpoints } from "#rest/endpoints/Endpoints.js";
 import { GatewayTransformer } from "#transformers/GatewayTransformer.js";
-import type { Gateway, GatewayBot, RESTGetGateway, RESTGetGatewayBot } from "#types/index.js";
+import type { Gateway, GatewayBot, RESTGetAPIGateway, RESTGetAPIGatewayBot } from "#types/index.js";
 import { BaseAPI } from "./BaseAPI.js";
 
 /** API class that handles all request related to `/gateway` endpoints. */
@@ -11,7 +11,7 @@ export class GatewayAPI extends BaseAPI {
 	 * @see https://discord.com/developers/docs/events/gateway#get-gateway
 	 */
 	async getGateway(): Promise<Gateway> {
-		const gatewayResponseData = await super.get<RESTGetGateway>(Endpoints.gateway(), {
+		const gatewayResponseData = await super.get<RESTGetAPIGateway>(Endpoints.gateway(), {
 			withAuthorization: false,
 		});
 		const gatewayData = GatewayTransformer.transformGatewayToParsed(gatewayResponseData);
@@ -25,7 +25,9 @@ export class GatewayAPI extends BaseAPI {
 	 * @see https://discord.com/developers/docs/events/gateway#get-gateway-bot
 	 */
 	async getGatewayBot(): Promise<GatewayBot> {
-		const gatewayBotResponseData = await super.get<RESTGetGatewayBot>(Endpoints.gatewayBot());
+		const gatewayBotResponseData = await super.get<RESTGetAPIGatewayBot>(
+			Endpoints.gatewayBot(),
+		);
 		const gatewayBotData =
 			GatewayTransformer.transformGatewayBotToParsed(gatewayBotResponseData);
 
