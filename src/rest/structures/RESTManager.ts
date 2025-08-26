@@ -6,9 +6,7 @@ import { APIManager } from "./APIManager.js";
 
 const ONE_SECOND_MILLISECONDS = 1_000;
 
-/**
- * @public
- */
+/** The REST manager for the client. */
 export class RESTManager {
 	readonly api = new APIManager(this);
 	readonly client: Client;

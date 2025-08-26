@@ -6,8 +6,9 @@ import { BaseAPI } from "./BaseAPI.js";
 /** API class that handles all request related to `/gateway` endpoints. */
 export class GatewayAPI extends BaseAPI {
 	/**
-	 * Gets the gateway object.
+	 * Performs a {@link RESTGetGateway | `GET /gateway`} request to the Discord API.
 	 * @returns The {@link Gateway | `Gateway`} object.
+	 * @see https://discord.com/developers/docs/events/gateway#get-gateway
 	 */
 	async getGateway(): Promise<Gateway> {
 		const gatewayResponseData = await super.get<RESTGetGateway>(Endpoints.gateway(), {
@@ -19,8 +20,9 @@ export class GatewayAPI extends BaseAPI {
 	}
 
 	/**
-	 * Gets the gateway bot object.
+	 * Performs a {@link RESTGetGatewayBot | `GET /gateway/bot`} request to the Discord API.
 	 * @returns The {@link GatewayBot | `GatewayBot`} object.
+	 * @see https://discord.com/developers/docs/events/gateway#get-gateway-bot
 	 */
 	async getGatewayBot(): Promise<GatewayBot> {
 		const gatewayBotResponseData = await super.get<RESTGetGatewayBot>(Endpoints.gatewayBot());

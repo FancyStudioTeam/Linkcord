@@ -22,7 +22,7 @@ export class BaseAPI {
 	}
 
 	/** The client to instantiate the returned data into Discord structures. */
-	get client(): Client {
+	protected get client(): Client {
 		const { rest } = this;
 		const { client } = rest;
 
