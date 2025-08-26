@@ -1,2 +1,2 @@
-export * from "./discord/index.js";
 export * from "./Uncached.js";
+export * from "./VoiceRegion.js";

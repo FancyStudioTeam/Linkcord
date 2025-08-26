@@ -11,4 +11,3 @@ export * from "./PrimaryGuild.js";
 export * from "./Role.js";
 export * from "./SoundboardSound.js";
 export * from "./User.js";
-export * from "./VoiceRegion.js";
