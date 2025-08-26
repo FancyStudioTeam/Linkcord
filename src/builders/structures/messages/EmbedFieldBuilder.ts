@@ -10,14 +10,14 @@ import type { EmbedField } from "#types/index.js";
 /** Utility class for building {@link EmbedField | `EmbedField`} objects. */
 export class EmbedFieldBuilder {
 	/** The object containing the data of the embed field. */
-	private readonly __data__: Partial<EmbedField> = {};
+	readonly #data: Partial<EmbedField> = {};
 
 	/**
 	 * Sets whether the field should be inline.
 	 * @param inline - Whether the field should be inline.
 	 */
 	setInline(inline: boolean): this {
-		this.__data__.inline = parse(EmbedFieldInlineSchema, inline);
+		this.#data.inline = parse(EmbedFieldInlineSchema, inline);
 
 		return this;
 	}
@@ -27,7 +27,7 @@ export class EmbedFieldBuilder {
 	 * @param name - The name of the field.
 	 */
 	setName(name: string): this {
-		this.__data__.name = parse(EmbedFieldNameSchema, name);
+		this.#data.name = parse(EmbedFieldNameSchema, name);
 
 		return this;
 	}
@@ -37,7 +37,7 @@ export class EmbedFieldBuilder {
 	 * @param value - The value of the field.
 	 */
 	setValue(value: string): this {
-		this.__data__.value = parse(EmbedFieldValueSchema, value);
+		this.#data.value = parse(EmbedFieldValueSchema, value);
 
 		return this;
 	}
@@ -47,7 +47,7 @@ export class EmbedFieldBuilder {
 	 * @returns The {@link EmbedField | `EmbedField`} object.
 	 */
 	toJSON(): EmbedField {
-		const { __data__: data } = this;
+		const data = this.#data;
 		const validatedData = parse(EmbedFieldSchema, data);
 
 		return validatedData;

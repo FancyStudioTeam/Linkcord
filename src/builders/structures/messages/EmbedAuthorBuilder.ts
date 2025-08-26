@@ -11,14 +11,14 @@ import type { EmbedAuthor } from "#types/index.js";
 /** Utility class for building {@link EmbedAuthor | `EmbedAuthor`} objects. */
 export class EmbedAuthorBuilder {
 	/** The object containing the data of the embed author. */
-	private readonly __data__: Partial<EmbedAuthor> = {};
+	readonly #data: Partial<EmbedAuthor> = {};
 
 	/**
 	 * Sets the icon URL of the embed author.
 	 * @param iconURL - The icon URL of the embed author.
 	 */
 	setIconURL(iconURL: AllowedEmbedAuthorIconURL): this {
-		this.__data__.iconURL = parse(EmbedAuthorIconURLSchema, iconURL);
+		this.#data.iconURL = parse(EmbedAuthorIconURLSchema, iconURL);
 
 		return this;
 	}
@@ -28,7 +28,7 @@ export class EmbedAuthorBuilder {
 	 * @param name - The name of the embed author.
 	 */
 	setName(name: string): this {
-		this.__data__.name = parse(EmbedAuthorNameSchema, name);
+		this.#data.name = parse(EmbedAuthorNameSchema, name);
 
 		return this;
 	}
@@ -38,7 +38,7 @@ export class EmbedAuthorBuilder {
 	 * @param url - The URL of the embed author.
 	 */
 	setURL(url: AllowedEmbedAuthorURL): this {
-		this.__data__.url = parse(EmbedAuthorURLSchema, url);
+		this.#data.url = parse(EmbedAuthorURLSchema, url);
 
 		return this;
 	}
@@ -48,7 +48,7 @@ export class EmbedAuthorBuilder {
 	 * @returns The {@link EmbedAuthor | `EmbedAuthor`} object.
 	 */
 	toJSON(): EmbedAuthor {
-		const { __data__: data } = this;
+		const data = this.#data;
 		const validatedData = parse(EmbedAuthorSchema, data);
 
 		return validatedData;

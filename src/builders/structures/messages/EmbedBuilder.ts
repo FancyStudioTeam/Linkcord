@@ -29,7 +29,7 @@ import type { Embed } from "#types/index.js";
 /** Utility class for building {@link Embed | `Embed`} objects. */
 export class EmbedBuilder {
 	/** The object containing the data of the embed. */
-	private readonly __data__: Partial<Embed> = {};
+	readonly #data: Partial<Embed> = {};
 
 	/**
 	 * Adds fields to the embed.
@@ -39,8 +39,8 @@ export class EmbedBuilder {
 		const normalizedFields = normalizeArray(...fields);
 		const validatedFields = parse(EmbedFieldsSchema, normalizedFields) ?? [];
 
-		this.__data__.fields ??= [];
-		this.__data__.fields.push(...validatedFields);
+		this.#data.fields ??= [];
+		this.#data.fields.push(...validatedFields);
 
 		return this;
 	}
@@ -50,7 +50,7 @@ export class EmbedBuilder {
 	 * @param author - The author of the embed.
 	 */
 	setAuthor(author: AllowedEmbedAuthor): this {
-		this.__data__.author = parse(EmbedAuthorSchema, author);
+		this.#data.author = parse(EmbedAuthorSchema, author);
 
 		return this;
 	}
@@ -60,7 +60,7 @@ export class EmbedBuilder {
 	 * @param color - The color of the embed.
 	 */
 	setColor(color: AllowedEmbedColor): this {
-		this.__data__.color = parse(EmbedColorSchema, color);
+		this.#data.color = parse(EmbedColorSchema, color);
 
 		return this;
 	}
@@ -70,7 +70,7 @@ export class EmbedBuilder {
 	 * @param description - The description of the embed.
 	 */
 	setDescription(description: string): this {
-		this.__data__.description = parse(EmbedDescriptionSchema, description);
+		this.#data.description = parse(EmbedDescriptionSchema, description);
 
 		return this;
 	}
@@ -80,7 +80,7 @@ export class EmbedBuilder {
 	 * @param footer - The footer of the embed.
 	 */
 	setFooter(footer: AllowedEmbedFooter): this {
-		this.__data__.footer = parse(EmbedFooterSchema, footer);
+		this.#data.footer = parse(EmbedFooterSchema, footer);
 
 		return this;
 	}
@@ -90,7 +90,7 @@ export class EmbedBuilder {
 	 * @param imageURL - The URL of the image of the embed.
 	 */
 	setImage(imageURL: AllowedEmbedImageURL): this {
-		this.__data__.image = parse(EmbedImageSchema, imageURL);
+		this.#data.image = parse(EmbedImageSchema, imageURL);
 
 		return this;
 	}
@@ -100,7 +100,7 @@ export class EmbedBuilder {
 	 * @param thumbnailURL - The URL of the thumbnail of the embed.
 	 */
 	setThumbnail(thumbnailURL: AllowedEmbedThumbnailURL): this {
-		this.__data__.thumbnail = parse(EmbedThumbnailSchema, thumbnailURL);
+		this.#data.thumbnail = parse(EmbedThumbnailSchema, thumbnailURL);
 
 		return this;
 	}
@@ -110,7 +110,7 @@ export class EmbedBuilder {
 	 * @param timestamp - The timestamp of the embed.
 	 */
 	setTimestamp(timestamp: AllowedEmbedTimestamp = new Date().toISOString()): this {
-		this.__data__.timestamp = parse(EmbedTimestampSchema, timestamp);
+		this.#data.timestamp = parse(EmbedTimestampSchema, timestamp);
 
 		return this;
 	}
@@ -120,7 +120,7 @@ export class EmbedBuilder {
 	 * @param title - The title of the embed.
 	 */
 	setTitle(title: string): this {
-		this.__data__.title = parse(EmbedTitleSchema, title);
+		this.#data.title = parse(EmbedTitleSchema, title);
 
 		return this;
 	}
@@ -130,7 +130,7 @@ export class EmbedBuilder {
 	 * @param url - The URL of the embed.
 	 */
 	setURL(url: AllowedEmbedURL): this {
-		this.__data__.url = parse(EmbedURLSchema, url);
+		this.#data.url = parse(EmbedURLSchema, url);
 
 		return this;
 	}
@@ -140,7 +140,7 @@ export class EmbedBuilder {
 	 * @returns The {@link Embed | `Embed`} object.
 	 */
 	toJSON(): Embed {
-		const { __data__: data } = this;
+		const data = this.#data;
 		const validatedData = parse(EmbedSchema, data);
 
 		return validatedData;

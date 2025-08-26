@@ -9,14 +9,14 @@ import type { EmbedFooter } from "#types/index.js";
 
 /** Utility class for building {@link EmbedFooter | `EmbedFooter`} objects. */
 export class EmbedFooterBuilder {
-	private readonly __data__: Partial<EmbedFooter> = {};
+	readonly #data: Partial<EmbedFooter> = {};
 
 	/**
 	 * Sets the text of the embed footer.
 	 * @param text - The text of the embed footer.
 	 */
 	setText(text: string): this {
-		this.__data__.text = parse(EmbedFooterTextSchema, text);
+		this.#data.text = parse(EmbedFooterTextSchema, text);
 
 		return this;
 	}
@@ -26,7 +26,7 @@ export class EmbedFooterBuilder {
 	 * @param iconURL - The icon URL of the embed footer.
 	 */
 	setIconURL(iconURL: AllowedEmbedFooterIconURL): this {
-		this.__data__.iconURL = parse(EmbedFooterIconURLSchema, iconURL);
+		this.#data.iconURL = parse(EmbedFooterIconURLSchema, iconURL);
 
 		return this;
 	}
@@ -36,7 +36,7 @@ export class EmbedFooterBuilder {
 	 * @returns The {@link EmbedFooter | `EmbedFooter`} object.
 	 */
 	toJSON(): EmbedFooter {
-		const { __data__: data } = this;
+		const data = this.#data;
 		const validatedData = parse(EmbedFooterSchema, data);
 
 		return validatedData;

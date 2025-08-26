@@ -13,14 +13,14 @@ import {
 /** Utility class for building {@link SeparatorComponent | `SeparatorComponent`} objects. */
 export class SeparatorBuilder {
 	/** The object containing the data of the separator component. */
-	private readonly __data__: Partial<SeparatorComponent> = {};
+	readonly #data: Partial<SeparatorComponent> = {};
 
 	/**
 	 * Sets whether to display a divider between the components.
 	 * @param divider - Whether to display a divider between the components.
 	 */
 	setDivider(divider: boolean): this {
-		this.__data__.divider = parse(SeparatorDividerSchema, divider);
+		this.#data.divider = parse(SeparatorDividerSchema, divider);
 
 		return this;
 	}
@@ -30,7 +30,7 @@ export class SeparatorBuilder {
 	 * @param spacing - The size of the spacing of the separator.
 	 */
 	setSpacing(spacing: SeparatorSpacingSizes): this {
-		this.__data__.spacing = parse(SeparatorSpacingSchema, spacing);
+		this.#data.spacing = parse(SeparatorSpacingSchema, spacing);
 
 		return this;
 	}
@@ -40,7 +40,7 @@ export class SeparatorBuilder {
 	 * @returns The {@link SeparatorComponent | `SeparatorComponent`} object.
 	 */
 	toJSON(): SeparatorComponent {
-		const { __data__: data } = this;
+		const data = this.#data;
 		const validatedData = parse(SeparatorSchema, {
 			...data,
 			type: ComponentTypes.Separator,
