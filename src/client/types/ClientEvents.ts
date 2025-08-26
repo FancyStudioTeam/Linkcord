@@ -8,12 +8,10 @@ import type {
 } from "#structures/index.js";
 import type { GatewayEvent } from "#types/index.js";
 
-/**
- * Represents a map of the events that can be emitted by the client with their
- * respective parameters.
- * @public
- */
+/** Represents a map of the events that can be emitted by the client with their respective parameters. */
 export interface ClientEventsMap {
+	/** Emitted when all shards have been spawned and are ready. */
+	[ClientEvents.ClientReady]: [];
 	/**
 	 * Emitted when a message is received internally by the client.
 	 * @param message - The message that has been received.
@@ -64,8 +62,6 @@ export interface ClientEventsMap {
 	 * 	instance.
 	 */
 	[ClientEvents.InteractionCreate]: [interaction: ChatInputCommandInteraction];
-	/** Emitted when all shards have been spawned and are ready. */
-	[ClientEvents.Ready]: [];
 	/**
 	 * Emitted when a shard has been disconnected.
 	 * @param reason - The reason of the disconnection.
@@ -105,31 +101,25 @@ export interface ClientEventsMap {
 	 * @param oldUser - The old {@link User | `User`} instance, if cached.
 	 */
 	[ClientEvents.UserUpdate]: [newUser: User, oldUser: UserOrUncached];
+	/**
+	 * Emitted when a warning is received from the client.
+	 * @param warning - The warning that has been received.
+	 */
+	[ClientEvents.Warn]: [warning: string];
 }
 
-/**
- * Represents a guild that is either cached or uncached.
- * @public
- */
+/** Represents a guild that is either cached or uncached. */
 export type GuildOrUncached = Guild | Uncached;
 
-/**
- * Represents a role that is either cached or uncached.
- * @public
- */
+/** Represents a role that is either cached or uncached. */
 export type RoleOrUncached = Role | Uncached;
 
-/**
- * Represents a user that is either cached or uncached.
- * @public
- */
+/** Represents a user that is either cached or uncached. */
 export type UserOrUncached = User | Uncached;
 
-/**
- * The events that can be emitted by the client.
- * @public
- */
+/** The events that can be emitted by the client. */
 export enum ClientEvents {
+	ClientReady = "clientReady",
 	Debug = "debug",
 	GuildCreate = "guildCreate",
 	GuildDelete = "guildDelete",
@@ -138,10 +128,10 @@ export enum ClientEvents {
 	GuildRoleUpdate = "guildRoleUpdate",
 	GuildUpdate = "guildUpdate",
 	InteractionCreate = "interactionCreate",
-	Ready = "ready",
 	ShardDisconnected = "shardDisconnected",
 	ShardHello = "shardHello",
 	ShardPacket = "shardPacket",
 	ShardReady = "shardReady",
 	UserUpdate = "userUpdate",
+	Warn = "warn",
 }
