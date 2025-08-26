@@ -35,9 +35,9 @@ for (const _package of packages) {
 	const currentVersion = parsedJsonContent.version;
 	let version = currentVersion;
 
-	// @ts-ignore
+	// @ts-expect-error
 	if (RELEASE_TYPES.includes(semverOrVersion.toLowerCase())) {
-		// @ts-ignore
+		// @ts-expect-error
 		version = inc(currentVersion, semverOrVersion.toLowerCase());
 	} else {
 		const isValidVersion = valid(semverOrVersion);
