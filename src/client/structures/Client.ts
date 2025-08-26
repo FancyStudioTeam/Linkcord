@@ -73,8 +73,9 @@ export class Client extends BaseClient {
 	async init(): Promise<void> {
 		this.debug("Initializing the client and its dependencies...");
 
+		// Load the configuration before initializing the base client, as it depends on the configuration.
 		await ConfigurationUtils.loadConfigurationFile();
-		await super.__init__(this);
+		await super.init(this);
 
 		const { gateway } = this;
 
