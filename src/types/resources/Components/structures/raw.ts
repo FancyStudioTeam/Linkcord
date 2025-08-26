@@ -62,12 +62,14 @@ export interface APIBaseSelectMenuComponent<Type extends APISelectMenuTypes>
 	custom_id: string;
 	/** Whether the select menu is disabled. */
 	disabled?: boolean;
-	/** The placeholder of the select menu. */
-	placeholder?: string;
 	/** The maximum values of the select menu. */
 	max_values?: number;
 	/** The minimum values of the select menu. */
 	min_values?: number;
+	/** The placeholder of the select menu. */
+	placeholder?: string;
+	/** Whether the select menu is required for the modal. */
+	required?: boolean;
 }
 
 /**
@@ -206,23 +208,6 @@ export interface APISelectMenuDefaultValue {
 }
 
 /**
- * Represents a select menu option.
- * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
- */
-export interface APISelectMenuOption {
-	/** Whether the option is default. */
-	default?: boolean;
-	/** The description of the select menu option. */
-	description?: string;
-	/** The emoji of the select menu option. */
-	emoji?: APIPartialEmoji;
-	/** The label of the select menu option. */
-	label: string;
-	/** The value of the select menu option. */
-	value: string;
-}
-
-/**
  * Represents a separator component.
  * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
  */
@@ -239,10 +224,25 @@ export interface APISeparatorComponent extends APIBaseComponent<ComponentTypes.S
  */
 export interface APIStringSelectMenuComponent
 	extends APIBaseSelectMenuComponent<ComponentTypes.StringSelect> {
-	/** The options of the select menu. */
-	options: APISelectMenuOption[];
-	/** Whether the select menu is required for the modal. */
-	required?: boolean;
+	/** The string options of the select menu. */
+	options: APIStringSelectMenuOption[];
+}
+
+/**
+ * Represents a select menu option.
+ * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
+ */
+export interface APIStringSelectMenuOption {
+	/** Whether the option is default. */
+	default?: boolean;
+	/** The description of the select menu option. */
+	description?: string;
+	/** The emoji of the select menu option. */
+	emoji?: APIPartialEmoji;
+	/** The label of the select menu option. */
+	label: string;
+	/** The value of the select menu option. */
+	value: string;
 }
 
 /**

@@ -60,12 +60,14 @@ export interface BaseSelectMenuComponent<Type extends SelectMenuTypes> extends B
 	customId: string;
 	/** Whether the select menu is disabled. */
 	disabled?: boolean;
-	/** The placeholder of the select menu. */
-	placeholder?: string;
 	/** The maximum values of the select menu. */
 	maxValues?: number;
 	/** The minimum values of the select menu. */
 	minValues?: number;
+	/** The placeholder of the select menu. */
+	placeholder?: string;
+	/** Whether the select menu is required for the modal. */
+	required?: boolean;
 }
 
 /**
@@ -204,23 +206,6 @@ export interface SelectMenuDefaultValue {
 }
 
 /**
- * Represents a select menu option.
- * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
- */
-export interface SelectMenuOption {
-	/** Whether the option is default. */
-	default?: boolean;
-	/** The description of the select menu option. */
-	description?: string;
-	/** The emoji of the select menu option. */
-	emoji?: PartialEmoji;
-	/** The label of the select menu option. */
-	label: string;
-	/** The value of the select menu option. */
-	value: string;
-}
-
-/**
  * Represents a separator component.
  * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
  */
@@ -237,10 +222,25 @@ export interface SeparatorComponent extends BaseComponent<ComponentTypes.Separat
  */
 export interface StringSelectMenuComponent
 	extends BaseSelectMenuComponent<ComponentTypes.StringSelect> {
-	/** The options of the select menu. */
-	options: SelectMenuOption[];
-	/** Whether the select menu is required for the modal. */
-	required?: boolean;
+	/** The string options of the select menu. */
+	options: StringSelectMenuOption[];
+}
+
+/**
+ * Represents a select menu option.
+ * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
+ */
+export interface StringSelectMenuOption {
+	/** Whether the option is default. */
+	default?: boolean;
+	/** The description of the select menu option. */
+	description?: string;
+	/** The emoji of the select menu option. */
+	emoji?: PartialEmoji;
+	/** The label of the select menu option. */
+	label: string;
+	/** The value of the select menu option. */
+	value: string;
 }
 
 /**
