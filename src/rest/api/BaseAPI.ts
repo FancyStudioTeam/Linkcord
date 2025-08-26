@@ -21,6 +21,14 @@ export class BaseAPI {
 		this.rest = rest;
 	}
 
+	/** The client to instantiate the returned data into Discord structures. */
+	get client(): Client {
+		const { rest } = this;
+		const { client } = rest;
+
+		return client;
+	}
+
 	/**
 	 * Performs a `DELETE` request to the Discord API.
 	 * @param endpoint - The endpoint where the request will be made.
@@ -89,13 +97,5 @@ export class BaseAPI {
 		const { rest } = this;
 
 		return await rest.put<Result, JSONParams, QueryStringParams>(endpoint, options);
-	}
-
-	/** The client to instantiate the returned data into Discord structures. */
-	get client(): Client {
-		const { rest } = this;
-		const { client } = rest;
-
-		return client;
 	}
 }

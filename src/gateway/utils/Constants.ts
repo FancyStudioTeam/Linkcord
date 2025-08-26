@@ -1,5 +1,21 @@
 import { GatewayCloseEventCodes, GatewayOpcodes } from "#types/index.js";
 
+/** Represents the names of the opcodes. */
+export const OPCODE_NAMES: Record<GatewayOpcodes, string> = {
+	[GatewayOpcodes.Dispatch]: "Dispatch",
+	[GatewayOpcodes.Heartbeat]: "Heartbeat",
+	[GatewayOpcodes.HeartbeatAck]: "Heartbeat Ack",
+	[GatewayOpcodes.Hello]: "Hello",
+	[GatewayOpcodes.Identify]: "Identify",
+	[GatewayOpcodes.InvalidSession]: "Invalid Session",
+	[GatewayOpcodes.PresenceUpdate]: "Presence Update",
+	[GatewayOpcodes.Reconnect]: "Reconnect",
+	[GatewayOpcodes.RequestGuildMembers]: "Request Guild Members",
+	[GatewayOpcodes.RequestSoundboardSounds]: "Request Soundboard Sounds",
+	[GatewayOpcodes.Resume]: "Resume",
+	[GatewayOpcodes.VoiceStateUpdate]: "Voice State Update",
+};
+
 /** The close event codes that indicate that the gateway shard session can be resumed. */
 export const RESUMABLE_CLOSE_CODES = [
 	GatewayCloseEventCodes.AlreadyAuthenticated,
