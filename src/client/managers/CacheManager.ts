@@ -1,31 +1,20 @@
-/*
- * biome-ignore-all lint/correctness/noUnusedPrivateClassMembers: Biome uses
- * "this" to check if these private members are being used, but we are
- * destructuring them from "this".
- */
+// biome-ignore-all lint/correctness/noUnusedPrivateClassMembers: Biome uses "this" to check if these private members are being used, but we are destructuring them from "this".
 
 import type { Iterable } from "#client/types/index.js";
 import type { Base } from "#structures/index.js";
-import type { Snowflake } from "#types/index.js";
 
-/**
- * The cache manager for the client.
- * @group Client/Managers
- * @public
- */
+/** The cache manager for the client. */
 export class CacheManager<Key extends string, Value extends Base> {
 	/** The maximum number of cached values allowed in the cache manager. */
 	private readonly __limit__: number;
 
 	/** The map where the cached values are stored. */
-	readonly cache: Map<Snowflake, Value>;
+	readonly cache: Map<Key, Value>;
 
 	/**
 	 * Creates a new {@link CacheManager | `CacheManager`} instance.
-	 * @param limit - The maximum number of cached values allowed in the cache
-	 * 	manager.
-	 * @param initialCachedValues - The initial values to cache when
-	 * 	instantiating the cache manager.
+	 * @param limit - The maximum number of cached values allowed in the cache manager.
+	 * @param initialCachedValues - The initial values to cache when instantiating the cache manager.
 	 */
 	constructor(limit = Infinity, initialCachedValues: Iterable<Key, Value> = []) {
 		this.__limit__ = limit;
@@ -37,7 +26,7 @@ export class CacheManager<Key extends string, Value extends Base> {
 	 * @param key - The key of the value to add.
 	 * @param value - The value to add.
 	 */
-	private __add__(key: Snowflake, value: Value): void {
+	private __add__(key: Key, value: Value): void {
 		const { __limit__: limit, cache } = this;
 		const { size: cacheSize } = cache;
 
@@ -60,7 +49,7 @@ export class CacheManager<Key extends string, Value extends Base> {
 	 * @param key - The key of the cached value to patch.
 	 * @param data - The data to use to patch the cached value.
 	 */
-	private __patch__(key: Snowflake, data: unknown): void {
+	private __patch__(key: Key, data: unknown): void {
 		const { cache } = this;
 		const existing = cache.get(key);
 
@@ -75,7 +64,7 @@ export class CacheManager<Key extends string, Value extends Base> {
 	 * @param key - The key of the value to remove.
 	 * @returns Whether the value has been removed.
 	 */
-	private __remove__(key: Snowflake): boolean {
+	private __remove__(key: Key): boolean {
 		const { cache } = this;
 
 		return cache.delete(key);

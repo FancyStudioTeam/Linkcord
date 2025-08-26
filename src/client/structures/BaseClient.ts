@@ -1,8 +1,4 @@
-/*
- * biome-ignore-all lint/correctness/noUnusedPrivateClassMembers: Biome uses
- * "this" to check if these private members are being used, but we are
- * destructuring them from "this".
- */
+// biome-ignore-all lint/correctness/noUnusedPrivateClassMembers: Biome uses "this" to check if these private members are being used, but we are destructuring them from "this".
 
 import { join } from "node:path";
 import { ConfigurationUtils } from "#configuration/helpers/ConfigurationUtils.js";
@@ -19,11 +15,7 @@ function createFolderPath(root: string, folderName: string): string {
 	return join(process.cwd(), root, folderName);
 }
 
-/**
- * The base client for the main client.
- * @group Client/Structures
- * @public
- */
+/** The base client for the main client. */
 export class BaseClient {
 	/** The intents of the client. */
 	get intents(): Readonly<number> {

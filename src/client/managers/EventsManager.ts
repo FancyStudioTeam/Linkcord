@@ -1,22 +1,11 @@
-/*
- * biome-ignore-all lint/correctness/noUnusedPrivateClassMembers: Biome uses
- * "this" to check if these private members are being used, but we are
- * destructuring them from "this".
- */
+// biome-ignore-all lint/correctness/noUnusedPrivateClassMembers: Biome uses "this" to check if these private members are being used, but we are destructuring them from "this".
 
 import type { ClientEvents, ClientEventsMap } from "#client/types/ClientEvents.js";
 import type { EventListener, EventListenerCallback } from "#client/types/index.js";
 
-/**
- * The events manager for the client.
- * @group Client/Managers
- * @public
- */
+/** The events manager for the client. */
 export class EventsManager {
-	/**
-	 * The maximum number of listeners allowed for an event in the events
-	 * manager.
-	 */
+	/** The maximum number of listeners allowed for an event in the events manager. */
 	private __limit__: number;
 
 	/** The map where the listeners are stored. */
@@ -24,8 +13,7 @@ export class EventsManager {
 
 	/**
 	 * Creates a new {@link EventsManager | `EventsManager`} instance.
-	 * @param limit - The maximum number of listeners allowed for an event in
-	 * 	the events manager.
+	 * @param limit - The maximum number of listeners allowed for an event in the events manager.
 	 */
 	constructor(limit = Infinity) {
 		this.__limit__ = limit;
@@ -40,7 +28,8 @@ export class EventsManager {
 	addListener<Event extends ClientEvents>(
 		event: Event,
 		listener: (...data: ClientEventsMap[Event]) => unknown,
-	): void;
+	): boolean;
+
 	/**
 	 * Registers a listener for an event.
 	 * @param event - The name of the event to register.
@@ -52,12 +41,12 @@ export class EventsManager {
 		event: Event,
 		once: boolean,
 		listener: (...data: ClientEventsMap[Event]) => unknown,
-	): void;
+	): boolean;
+
 	/**
 	 * Registers a listener for an event.
 	 * @param event - The name of the event to register.
-	 * @param onceOrListener - The listener to register or whether the
-	 * 	listener should be called once.
+	 * @param onceOrListener - The listener to register or whether the listener should be called once.
 	 * @param possibleListener - The listener to register, if any.
 	 * @returns Whether the event listener has been added.
 	 */
@@ -87,8 +76,7 @@ export class EventsManager {
 				once,
 			};
 
-			// Check if there is no existing listeners for the event or if the
-			// existing listeners are not an array.
+			// Check if there is no existing listeners for the event or if the existing listeners are not an array.
 			if (!(existingListeners && Array.isArray(existingListeners))) {
 				listeners.set(event, [eventListener]);
 			} else {
@@ -123,31 +111,38 @@ export class EventsManager {
 	 * Emits an event with the given data.
 	 * @param event - The name of the event to emit.
 	 * @param data - The data to emit with the event.
+	 * @returns The number of listeners that have been executed.
 	 */
-	emit<Event extends ClientEvents>(event: Event, ...data: ClientEventsMap[Event]): void {
+	emit<Event extends ClientEvents>(event: Event, ...data: ClientEventsMap[Event]): number {
 		const { listeners } = this;
 		const existingListeners = listeners.get(event) ?? [];
+
+		let executedListeners = 0;
 
 		for (const eventListener of existingListeners) {
 			const { callback, once } = eventListener;
 
 			// Execute the listener with the given data.
 			callback(...data);
+			// Increment the number of executed listeners.
+			++executedListeners;
 
-			// Check if the listener is once and remove it from the listeners
-			// after it has been executed.
+			// Check if the listener is once and remove it from the listeners after it has been executed.
 			if (once) {
 				const eventListenerIndex = existingListeners.indexOf(eventListener);
 
+				// Remove the listener from the listeners.
 				existingListeners.splice(eventListenerIndex, 1);
 			}
 		}
+
+		return executedListeners;
 	}
 
 	/**
 	 * Removes all the listeners for a given event.
 	 * @param event - The event to remove its listeners.
-	 * @returns Whether the event listeners were removed.
+	 * @returns Whether the event listeners have been removed.
 	 */
 	removeListeners(event: ClientEvents): boolean {
 		const { listeners } = this;
@@ -156,8 +151,7 @@ export class EventsManager {
 	}
 
 	/**
-	 * Sets the maximum number of listeners allowed for an event in the events
-	 * manager.
+	 * Sets the maximum number of listeners allowed for an event in the events manager.
 	 * @param limit - The maximum number of listeners allowed.
 	 */
 	setMaxListeners(limit: number): void {

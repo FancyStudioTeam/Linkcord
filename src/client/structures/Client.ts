@@ -7,11 +7,7 @@ import type { Guild, User } from "#structures/index.js";
 import type { Snowflake } from "#types/index.js";
 import { BaseClient } from "./BaseClient.js";
 
-/**
- * The main client class for Discord.
- * @group Client/Structures
- * @public
- */
+/** The main client class for Discord. */
 export class Client extends BaseClient {
 	/** The events manager of the client. */
 	readonly events = new EventsManager();
@@ -36,26 +32,30 @@ export class Client extends BaseClient {
 	 * Sends a debug message to the client.
 	 * @param message - The message to send.
 	 */
-	private __debug__(message: string): void;
+	debug(message: string): void;
+
 	/**
 	 * Sends a debug message to the client.
 	 * @param label - The label to use in the debug message.
 	 * @param message - The message to send.
 	 */
-	private __debug__(label: `[${string}]`, message: string): void;
+	debug(label: `[${string}]`, message: string): void;
+
 	/**
 	 * Sends a debug message to the client.
-	 * @param labelOrMessage - The label to use in the debug message or the
-	 * 	message to send.
+	 * @param labelOrMessage - The label to use in the debug message or the message to send.
 	 * @param possibleMessage - The message to send, if any.
 	 */
-	private __debug__(labelOrMessage: string | `[${string}]`, possibleMessage?: string): void {
-		this.__emit__(
-			ClientEvents.Debug,
-			labelOrMessage && possibleMessage
-				? `${labelOrMessage} ${possibleMessage}`
-				: `[Client] ${labelOrMessage}`,
-		);
+	debug(labelOrMessage: string | `[${string}]`, possibleMessage?: string): void {
+		let message: string;
+
+		if (labelOrMessage && possibleMessage) {
+			message = `${labelOrMessage} ${possibleMessage}`;
+		} else {
+			message = `[Client] ${labelOrMessage}`;
+		}
+
+		this.emit(ClientEvents.Debug, message);
 	}
 
 	/**
@@ -63,10 +63,7 @@ export class Client extends BaseClient {
 	 * @param event - The name of the event to emit.
 	 * @param data - The data to emit with the event.
 	 */
-	private __emit__<Event extends ClientEvents>(
-		event: Event,
-		...data: ClientEventsMap[Event]
-	): void {
+	emit<Event extends ClientEvents>(event: Event, ...data: ClientEventsMap[Event]): void {
 		const { events } = this;
 
 		events.emit(event, ...data);
@@ -74,7 +71,7 @@ export class Client extends BaseClient {
 
 	/** Initializes the client and its dependencies. */
 	async init(): Promise<void> {
-		this.__debug__("Initializing the client and its dependencies...");
+		this.debug("Initializing the client and its dependencies...");
 
 		await ConfigurationUtils.loadConfigurationFile();
 		await super.__init__(this);
