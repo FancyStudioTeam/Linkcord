@@ -1,26 +1,14 @@
 import { esbuildPluginVersionInjector } from "esbuild-plugin-version-injector";
 import { defineConfig } from "tsup";
 
-const buildConfiguration = defineConfig({
+const configuration = defineConfig({
 	clean: true,
 	dts: true,
-	entry: ["src/index.ts"],
+	entry: ["src/index.ts", "src/jsx/jsx-runtime.ts"],
 	esbuildPlugins: [esbuildPluginVersionInjector()],
 	format: ["esm", "cjs"],
 	sourcemap: true,
 	splitting: false,
 });
-
-const jsxRuntimeConfiguration = defineConfig({
-	clean: true,
-	dts: true,
-	entry: ["src/jsx/jsx-runtime.ts"],
-	format: ["esm", "cjs"],
-	outDir: "dist/jsx-runtime",
-	sourcemap: true,
-	splitting: false,
-});
-
-const configuration = [buildConfiguration, jsxRuntimeConfiguration];
 
 export default configuration;
