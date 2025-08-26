@@ -1,5 +1,5 @@
 import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
-import type { APIGuildMember } from "#types/resources/guilds/index.js";
+// import type { APIGuildMember } from "#types/resources/guilds/index.js";
 
 /**
  * Represents a voice region.
@@ -30,7 +30,8 @@ export interface APIVoiceState {
 	/** The ID of the guild where the user is connected. */
 	guild_id?: Snowflake;
 	/** The member of the guild. */
-	member?: APIGuildMember;
+	// TODO: Add "member" to "APIVoiceState".
+	// member?: APIGuildMember;
 	/** Whether the user is server muted. */
 	mute: boolean;
 	/** The timestamp at which the user requested to speak. */
