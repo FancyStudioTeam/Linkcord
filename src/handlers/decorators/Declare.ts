@@ -4,7 +4,6 @@ import type { DeclarableInstance, DeclareOptions } from "#handlers/types/index.j
  * Declares the options for a command or component.
  * @param declareOptions - The options to declare.
  * @returns The decorated class.
- * @public
  */
 export function Declare<Target extends DeclarableInstance>(declareOptions: DeclareOptions<Target>) {
 	return (target: DeclarableInstance) =>

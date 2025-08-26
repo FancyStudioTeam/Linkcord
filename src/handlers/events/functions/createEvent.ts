@@ -7,7 +7,6 @@ import type { CreateEventOptions, EventData } from "#handlers/types/index.js";
  * Creates a listener for an event.
  * @param options - The options to use in the event listener.
  * @returns The validated options of the event listener.
- * @public
  */
 export function createEvent<Event extends ClientEvents>(
 	options: CreateEventOptions<Event>,

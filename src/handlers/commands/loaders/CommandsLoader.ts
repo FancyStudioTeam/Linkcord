@@ -1,4 +1,79 @@
-import { extname } from "node:path";
+import { basename } from "node:path";
+import { emitWarning } from "node:process";
+import { glob, type Path } from "glob";
+import type { Client } from "#client/index.js";
+import type { UserContextCommandInstance } from "#handlers/types/index.js";
+import { ApplicationCommandTypes, type CreateApplicationCommandOptions } from "#types/index.js";
+import { ImportUtils } from "#utils/helpers/ImportUtils.js";
+import { UserContextCommand } from "../structures/UserContextCommand.js";
+
+const APPLICATION_COMMANDS: CreateApplicationCommandOptions[] = [];
+const COMMANDS_GLOB_PATTERNS = ["**/*.command.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"];
+
+/**
+ * Loads the file paths from the commands folder.
+ * @param commandsFolderPath - The path of the commands folder.
+ * @returns The loaded `Path` objects.
+ */
+async function loadCommandFilePaths(commandsFolderPath: string): Promise<Path[]> {
+	const commandFilePaths = await glob(COMMANDS_GLOB_PATTERNS, {
+		cwd: commandsFolderPath,
+		withFileTypes: true,
+	});
+
+	return commandFilePaths;
+}
+
+async function registerCommands(commandsFolderPath: string, client: Client): Promise<void> {
+	const commandFilePaths = await loadCommandFilePaths(commandsFolderPath);
+
+	for (const commandPath of commandFilePaths) {
+		const { name: fileName, parentPath: fileParentPath } = commandPath;
+
+		const importCommandFilePath = ImportUtils.resolvePath(fileParentPath, fileName);
+		const importCommandFileData = await ImportUtils.import<CommandFileData>(
+			importCommandFilePath,
+			true,
+		);
+
+		const { default: defaultExport, disabled } = importCommandFileData;
+
+		if (disabled) {
+			emitWarning(
+				`Command "${basename(importCommandFilePath)}" is disabled and will not be registered.`,
+			);
+
+			continue;
+		}
+
+		const Command = new defaultExport();
+		const type = Command["__type__"];
+
+		switch (type) {
+			case ApplicationCommandTypes.User:
+				break;
+		}
+
+		defaultExport;
+	}
+}
+
+export const CommandsLoader = {
+	loadCommandFilePaths,
+	registerCommands,
+};
+
+/** The expected structure of the imported file. */
+interface CommandFileData {
+	/** The command instance to handle and register. */
+	default: CommandData;
+	/** Whether the command is disabled and should not be registered. */
+	disabled?: boolean;
+}
+
+type CommandData = UserContextCommandInstance;
+
+/*import { extname } from "node:path";
 import { isDeepStrictEqual } from "node:util";
 import { glob } from "glob";
 import type { BaseClient } from "#client/BaseClient.js";
@@ -43,7 +118,7 @@ export class CommandsLoader {
 	}
 
 	static get GLOB_PATTERN(): string {
-		return "**/*.command.{js,cjs,mjs,ts,cts,mts,jsx,tsx}";
+
 	}
 
 	static handleUserContextCommand(
@@ -89,24 +164,4 @@ export class CommandsLoader {
 			}
 		}
 	}
-}
-
-/**
- * @internal
- */
-interface CacheConfiguration {
-	cacheEnabled: boolean;
-	cachePath: string;
-}
-
-/**
- * @internal
- */
-interface ImportCommandData {
-	default?: CommandData;
-}
-
-/**
- * @internal
- */
-type CommandData = UserContextCommandInstance;
+}*/
