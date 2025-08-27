@@ -11,9 +11,9 @@ export function EmbedField(properties: EmbedFieldProperties): EmbedFieldBuilder 
 	const { children, inline, name, value } = properties;
 
 	embedField.setName(name);
-	embedField.setValue(value);
 
 	inline && embedField.setInline(inline);
+	value && embedField.setValue(value);
 
 	if (typeof children === "string") {
 		embedField.setValue(children);

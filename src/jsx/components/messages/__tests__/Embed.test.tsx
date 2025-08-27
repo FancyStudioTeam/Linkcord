@@ -21,7 +21,7 @@ describe("JSX: Embed", () => {
 			</Embed>
 		);
 
-		const ExpectedResult: EmbedInterface = {
+		const ExpectedEmbedResult: EmbedInterface = {
 			description: EmbedDescription,
 			fields: [
 				{
@@ -37,6 +37,6 @@ describe("JSX: Embed", () => {
 		};
 
 		expect(EmbedComponent).toBeInstanceOf(EmbedBuilder);
-		expect(EmbedComponent.toJSON()).toStrictEqual(ExpectedResult);
+		expect(EmbedComponent.toJSON()).toStrictEqual(ExpectedEmbedResult);
 	});
 });

@@ -9,19 +9,25 @@ describe("JSX: EmbedField", () => {
 		const EmbedFieldValue =
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at turpis venenatis, tempor nulla ac, dictum tortor.";
 
-		const EmbedFieldComponent = (
-			<EmbedField inline={true} name={EmbedFieldName}>
-				{EmbedFieldValue}
-			</EmbedField>
-		);
-
-		const ExpectedResult: EmbedFieldInterface = {
+		const ExpectedEmbedFieldResult: EmbedFieldInterface = {
 			inline: true,
 			name: EmbedFieldName,
 			value: EmbedFieldValue,
 		};
 
-		expect(EmbedFieldComponent).toBeInstanceOf(EmbedFieldBuilder);
-		expect(EmbedFieldComponent.toJSON()).toStrictEqual(ExpectedResult);
+		const EmbedFieldComponent1 = (
+			<EmbedField inline={true} name={EmbedFieldName}>
+				{EmbedFieldValue}
+			</EmbedField>
+		);
+		const EmbedFieldComponent2 = (
+			<EmbedField inline={true} name={EmbedFieldName} value={EmbedFieldValue} />
+		);
+
+		expect(EmbedFieldComponent1).toBeInstanceOf(EmbedFieldBuilder);
+		expect(EmbedFieldComponent1.toJSON()).toStrictEqual(ExpectedEmbedFieldResult);
+
+		expect(EmbedFieldComponent2).toBeInstanceOf(EmbedFieldBuilder);
+		expect(EmbedFieldComponent2.toJSON()).toStrictEqual(ExpectedEmbedFieldResult);
 	});
 });

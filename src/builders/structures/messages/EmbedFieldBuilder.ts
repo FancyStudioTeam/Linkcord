@@ -13,8 +13,8 @@ export class EmbedFieldBuilder {
 	readonly #data: Partial<EmbedField> = {};
 
 	/**
-	 * Sets whether the field should be inline.
-	 * @param inline - Whether the field should be inline.
+	 * Sets whether the field should be displayed inline.
+	 * @param inline - Whether the field should be displayed inline.
 	 */
 	setInline(inline: boolean): this {
 		this.#data.inline = parse(EmbedFieldInlineSchema, inline);

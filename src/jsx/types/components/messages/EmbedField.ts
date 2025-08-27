@@ -4,12 +4,12 @@ import type { ComponentProperties } from "#jsx/types/jsx-runtime.js";
 /** Represents the properties of the {@link EmbedField | `EmbedField`} component. */
 export type EmbedFieldProperties = ComponentProperties<
 	{
-		/** Whether the field should be inline. */
+		/** Whether the field should be displayed inline. */
 		inline?: boolean;
 		/** The name of the field. */
 		name: string;
 		/** The value of the field. */
-		value: string;
+		value?: string;
 	},
 	EmbedFieldChildren
 >;
