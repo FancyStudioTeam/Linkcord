@@ -40,7 +40,7 @@ export interface Embed {
  */
 export interface EmbedAuthor {
 	/** The URL of the icon of the author. */
-	iconUrl?: string;
+	iconURL?: string;
 	/** The name of the author. */
 	name: string;
 	/** The URL of the author. */
@@ -66,7 +66,7 @@ export interface EmbedField {
  */
 export interface EmbedFooter {
 	/** The URL of the icon of the footer. */
-	iconUrl?: string;
+	iconURL?: string;
 	/** The text of the footer. */
 	text: string;
 }
