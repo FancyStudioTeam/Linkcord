@@ -4,6 +4,7 @@ export * from "./AutoModeration/index.js";
 export * from "./Channels/index.js";
 export * from "./Components/index.js";
 export * from "./Emojis/index.js";
+export * from "./Entitlements/index.js";
 export * from "./Gateway/index.js";
 export * from "./Guilds/index.js";
 export * from "./Interactions/index.js";
