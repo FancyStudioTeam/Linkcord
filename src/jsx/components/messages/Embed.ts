@@ -22,45 +22,16 @@ export function Embed(properties: EmbedProperties): EmbedBuilder {
 		url,
 	} = properties;
 
-	if (author) {
-		embed.setAuthor(author);
-	}
-
-	if (color) {
-		embed.setColor(color);
-	}
-
-	if (description) {
-		embed.setDescription(description);
-	}
-
-	if (fields) {
-		embed.addFields(fields);
-	}
-
-	if (footer) {
-		embed.setFooter(footer);
-	}
-
-	if (image) {
-		embed.setImage(image);
-	}
-
-	if (thumbnail) {
-		embed.setThumbnail(thumbnail);
-	}
-
-	if (timestamp) {
-		embed.setTimestamp(timestamp);
-	}
-
-	if (title) {
-		embed.setTitle(title);
-	}
-
-	if (url) {
-		embed.setURL(url);
-	}
+	author && embed.setAuthor(author);
+	color && embed.setColor(color);
+	description && embed.setDescription(description);
+	fields && embed.addFields(fields);
+	footer && embed.setFooter(footer);
+	image && embed.setImage(image);
+	thumbnail && embed.setThumbnail(thumbnail);
+	timestamp && embed.setTimestamp(timestamp);
+	title && embed.setTitle(title);
+	url && embed.setURL(url);
 
 	if (children) {
 		if (typeof children === "string") {

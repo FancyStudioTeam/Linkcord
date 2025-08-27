@@ -9,7 +9,7 @@ export type EmbedFieldProperties = ComponentProperties<
 		/** The name of the field. */
 		name: string;
 		/** The value of the field. */
-		value?: string;
+		value: string;
 	},
 	EmbedFieldChildren
 >;

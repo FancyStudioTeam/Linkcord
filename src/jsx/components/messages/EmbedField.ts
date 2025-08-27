@@ -10,19 +10,12 @@ export function EmbedField(properties: EmbedFieldProperties): EmbedFieldBuilder 
 	const embedField = new EmbedFieldBuilder();
 	const { children, inline, name, value } = properties;
 
-	if (inline) {
-		embedField.setInline(inline);
-	}
+	embedField.setName(name);
+	embedField.setValue(value);
 
-	if (name) {
-		embedField.setName(name);
-	}
+	inline && embedField.setInline(inline);
 
-	if (value) {
-		embedField.setValue(value);
-	}
-
-	if (children && typeof children === "string") {
+	if (typeof children === "string") {
 		embedField.setValue(children);
 	}
 
