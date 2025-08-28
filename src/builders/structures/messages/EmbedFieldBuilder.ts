@@ -5,12 +5,23 @@ import {
 	EmbedFieldSchema,
 	EmbedFieldValueSchema,
 } from "#builders/schemas/messages/EmbedFieldSchema.js";
+import { EmbedFieldSchema as AllowedEmbedFieldSchema } from "#builders/schemas/messages/EmbedSchema.js";
 import type { EmbedField } from "#types/index.js";
 
 /** Utility class for building {@link EmbedField | `EmbedField`} objects. */
 export class EmbedFieldBuilder {
 	/** The object containing the data of the embed field. */
-	readonly #data: Partial<EmbedField> = {};
+	#data: Partial<EmbedField> = {};
+
+	/**
+	 * Loads the data from an {@link EmbedField | `EmbedField`} object or an {@link EmbedFieldBuilder | `EmbedFieldBuilder`} instance.
+	 * @param embedField - The {@link EmbedField | `EmbedField`} object or an {@link EmbedFieldBuilder | `EmbedFieldBuilder`} instance.
+	 */
+	from(embedField: EmbedField): this {
+		this.#data = parse(AllowedEmbedFieldSchema, embedField);
+
+		return this;
+	}
 
 	/**
 	 * Sets whether the field should be displayed inline.

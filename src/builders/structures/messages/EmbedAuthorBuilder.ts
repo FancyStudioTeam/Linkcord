@@ -5,13 +5,28 @@ import {
 	EmbedAuthorSchema,
 	EmbedAuthorURLSchema,
 } from "#builders/schemas/messages/EmbedAuthorSchema.js";
-import type { AllowedEmbedAuthorIconURL, AllowedEmbedAuthorURL } from "#builders/types/index.js";
+import { EmbedAuthorSchema as AllowedEmbedAuthorSchema } from "#builders/schemas/messages/EmbedSchema.js";
+import type {
+	AllowedEmbedAuthor,
+	AllowedEmbedAuthorIconURL,
+	AllowedEmbedAuthorURL,
+} from "#builders/types/index.js";
 import type { EmbedAuthor } from "#types/index.js";
 
 /** Utility class for building {@link EmbedAuthor | `EmbedAuthor`} objects. */
 export class EmbedAuthorBuilder {
 	/** The object containing the data of the embed author. */
-	readonly #data: Partial<EmbedAuthor> = {};
+	#data: Partial<EmbedAuthor> = {};
+
+	/**
+	 * Loads the data from an {@link EmbedAuthor | `EmbedAuthor`} object or an {@link EmbedAuthorBuilder | `EmbedAuthorBuilder`} instance.
+	 * @param embedAuthor - The {@link EmbedAuthor | `EmbedAuthor`} object or an {@link EmbedAuthorBuilder | `EmbedAuthorBuilder`} instance.
+	 */
+	from(embedAuthor: AllowedEmbedAuthor): this {
+		this.#data = parse(AllowedEmbedAuthorSchema, embedAuthor);
+
+		return this;
+	}
 
 	/**
 	 * Sets the icon URL of the embed author.

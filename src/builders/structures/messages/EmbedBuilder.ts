@@ -29,7 +29,7 @@ import type { Embed } from "#types/index.js";
 /** Utility class for building {@link Embed | `Embed`} objects. */
 export class EmbedBuilder {
 	/** The object containing the data of the embed. */
-	readonly #data: Partial<Embed> = {};
+	#data: Partial<Embed> = {};
 
 	/**
 	 * Adds fields to the embed.
@@ -41,6 +41,16 @@ export class EmbedBuilder {
 
 		this.#data.fields ??= [];
 		this.#data.fields.push(...validatedFields);
+
+		return this;
+	}
+
+	/**
+	 * Loads the data from an {@link Embed | `Embed`} object or an {@link EmbedBuilder | `EmbedBuilder`} instance.
+	 * @param embed - The {@link Embed | `Embed`} object or an {@link EmbedBuilder | `EmbedBuilder`} instance.
+	 */
+	from(embed: Embed): this {
+		this.#data = parse(EmbedSchema, embed);
 
 		return this;
 	}

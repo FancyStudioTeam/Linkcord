@@ -4,12 +4,23 @@ import {
 	EmbedFooterSchema,
 	EmbedFooterTextSchema,
 } from "#builders/schemas/messages/EmbedFooterSchema.js";
-import type { AllowedEmbedFooterIconURL } from "#builders/types/index.js";
+import { EmbedFooterSchema as AllowedEmbedFooterSchema } from "#builders/schemas/messages/EmbedSchema.js";
+import type { AllowedEmbedFooter, AllowedEmbedFooterIconURL } from "#builders/types/index.js";
 import type { EmbedFooter } from "#types/index.js";
 
 /** Utility class for building {@link EmbedFooter | `EmbedFooter`} objects. */
 export class EmbedFooterBuilder {
-	readonly #data: Partial<EmbedFooter> = {};
+	#data: Partial<EmbedFooter> = {};
+
+	/**
+	 * Loads the data from an {@link EmbedFooter | `EmbedFooter`} object or an {@link EmbedFooterBuilder | `EmbedFooterBuilder`} instance.
+	 * @param embedFooter - The {@link EmbedFooter | `EmbedFooter`} object or an {@link EmbedFooterBuilder | `EmbedFooterBuilder`} instance.
+	 */
+	from(embedFooter: AllowedEmbedFooter): this {
+		this.#data = parse(AllowedEmbedFooterSchema, embedFooter);
+
+		return this;
+	}
 
 	/**
 	 * Sets the text of the embed footer.
