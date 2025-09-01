@@ -39,5 +39,5 @@ export abstract class Base {
 	}
 
 	/** Patches the current {@link Base | `Base`} instance with the given data. */
-	abstract patch(data: unknown): void;
+	protected abstract patch(data: unknown): void;
 }
