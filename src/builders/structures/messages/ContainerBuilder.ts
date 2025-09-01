@@ -2,6 +2,7 @@ import { parse } from "valibot";
 import { normalizeArray } from "#builders/functions/normalizeArray.js";
 import {
 	ContainerAccentColorSchema,
+	ContainerComponentSchema,
 	ContainerComponentsSchema,
 	ContainerSchema,
 	ContainerSpoilerSchema,
@@ -17,15 +18,28 @@ import { BaseBuilder } from "../base/BaseBuilder.js";
 /** Utility class for building {@link ContainerComponent | `ContainerComponent`} objects. */
 export class ContainerBuilder extends BaseBuilder<ContainerComponent> {
 	/**
-	 * Adds components to the container.
-	 * @param components - The components to add to the container.
+	 * Adds a component to the container.
+	 * @param component - The component of the container to add.
 	 */
-	addComponents(...components: RestOrArray<AllowedContainerComponent>): this {
-		const normalizedComponents = normalizeArray(components);
-		const validatedComponents = parse(ContainerComponentsSchema, normalizedComponents);
+	addComponent(component: AllowedContainerComponent): this {
+		const validatedComponent = parse(ContainerComponentSchema, component);
 
 		this.data.components ??= [];
-		this.data.components.push(...validatedComponents);
+		this.data.components.push(validatedComponent);
+
+		return this;
+	}
+
+	/**
+	 * Adds components to the container.
+	 * @param components - The components of the container to add.
+	 */
+	addComponents(...components: RestOrArray<AllowedContainerComponent>): this {
+		const normalizedComponents = normalizeArray(...components);
+
+		for (const component of normalizedComponents) {
+			this.addComponent(component);
+		}
 
 		return this;
 	}
