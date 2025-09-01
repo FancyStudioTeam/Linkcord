@@ -32,7 +32,7 @@ export class EmbedFooterBuilder extends BaseBuilder<EmbedFooter> {
 
 	/**
 	 * Converts the {@link EmbedFooterBuilder | `EmbedFooterBuilder`} instance into an {@link EmbedFooter | `EmbedFooter`} object.
-	 * @returns The {@link EmbedFooter | `EmbedFooter`} object.
+	 * @returns The converted {@link EmbedFooter | `EmbedFooter`} object.
 	 */
 	toJSON(): EmbedFooter {
 		const { data } = this;

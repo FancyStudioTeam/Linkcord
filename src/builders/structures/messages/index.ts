@@ -4,3 +4,4 @@ export * from "./EmbedBuilder.js";
 export * from "./EmbedFieldBuilder.js";
 export * from "./EmbedFooterBuilder.js";
 export * from "./SeparatorBuilder.js";
+export * from "./TextDisplayBuilder.js";

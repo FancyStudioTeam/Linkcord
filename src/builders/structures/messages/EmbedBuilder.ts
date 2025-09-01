@@ -162,7 +162,7 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 
 	/**
 	 * Converts the {@link EmbedBuilder | `EmbedBuilder`} instance into a {@link Embed | `Embed`} object.
-	 * @returns The {@link Embed | `Embed`} object.
+	 * @returns The converted {@link Embed | `Embed`} object.
 	 */
 	toJSON(): Embed {
 		const { data } = this;

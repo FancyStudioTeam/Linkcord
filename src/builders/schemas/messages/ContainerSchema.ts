@@ -15,8 +15,10 @@ import {
 	union,
 } from "valibot";
 import { SeparatorBuilder } from "#builders/structures/messages/SeparatorBuilder.js";
+import { TextDisplayBuilder } from "#builders/structures/messages/TextDisplayBuilder.js";
 import { ComponentTypes } from "#types/index.js";
 import { SeparatorSchema } from "./SeparatorSchema.js";
+import { TextDisplaySchema } from "./TextDisplaySchema.js";
 
 export const ContainerSeparatorComponentInstanceSchema = pipe(
 	instance(SeparatorBuilder),
@@ -26,6 +28,16 @@ export const ContainerSeparatorComponentObjectSchema = SeparatorSchema;
 export const ContainerSeparatorComponentSchema = union([
 	ContainerSeparatorComponentInstanceSchema,
 	ContainerSeparatorComponentObjectSchema,
+]);
+
+export const ContainerTextDisplayComponentInstanceSchema = pipe(
+	instance(TextDisplayBuilder),
+	transform((builder) => builder.toJSON()),
+);
+export const ContainerTextDisplayComponentObjectSchema = TextDisplaySchema;
+export const ContainerTextDisplayComponentSchema = union([
+	ContainerTextDisplayComponentInstanceSchema,
+	ContainerTextDisplayComponentObjectSchema,
 ]);
 
 export const ContainerAccentColorNumberSchema = pipe(number());
@@ -39,7 +51,10 @@ export const ContainerAccentColorSchema = union([
 	ContainerAccentColorStringSchema,
 ]);
 
-export const ContainerComponentSchema = union([ContainerSeparatorComponentSchema]);
+export const ContainerComponentSchema = union([
+	ContainerSeparatorComponentSchema,
+	ContainerTextDisplayComponentSchema,
+]);
 export const ContainerComponentsSchema = pipe(array(ContainerComponentSchema), minLength(1));
 
 export const ContainerIDSchema = pipe(number(), minValue(0));

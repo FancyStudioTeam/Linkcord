@@ -24,8 +24,8 @@ export class SeparatorBuilder extends BaseBuilder<SeparatorComponent> {
 	}
 
 	/**
-	 * Sets the size of the spacing of the separator.
-	 * @param spacing - The size of the spacing of the separator.
+	 * Sets the size of the spacing of the separator component.
+	 * @param spacing - The size of the spacing of the separator component.
 	 */
 	setSpacing(spacing: SeparatorSpacingSizes): this {
 		this.data.spacing = parse(SeparatorSpacingSchema, spacing);
@@ -35,7 +35,7 @@ export class SeparatorBuilder extends BaseBuilder<SeparatorComponent> {
 
 	/**
 	 * Converts the {@link SeparatorBuilder | `SeparatorBuilder`} instance into a {@link SeparatorComponent | `SeparatorComponent`} object.
-	 * @returns The {@link SeparatorComponent | `SeparatorComponent`} object.
+	 * @returns The converted {@link SeparatorComponent | `SeparatorComponent`} object.
 	 */
 	toJSON(): SeparatorComponent {
 		const { data } = this;

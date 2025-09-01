@@ -35,7 +35,7 @@ export class SelectMenuDefaultValueBuilder extends BaseBuilder<SelectMenuDefault
 
 	/**
 	 * Converts the {@link SelectMenuDefaultValueBuilder | `SelectMenuDefaultValueBuilder`} instance into a {@link SelectMenuDefaultValue | `SelectMenuDefaultValue`} object.
-	 * @returns The {@link SelectMenuDefaultValue | `SelectMenuDefaultValue`} object.
+	 * @returns The converted {@link SelectMenuDefaultValue | `SelectMenuDefaultValue`} object.
 	 */
 	toJSON(): SelectMenuDefaultValue {
 		const { data } = this;

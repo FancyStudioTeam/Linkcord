@@ -42,7 +42,7 @@ export class EmbedFieldBuilder extends BaseBuilder<EmbedField> {
 
 	/**
 	 * Converts the {@link EmbedFieldBuilder | `EmbedFieldBuilder`} instance into an {@link EmbedField | `EmbedField`} object.
-	 * @returns The {@link EmbedField | `EmbedField`} object.
+	 * @returns The converted {@link EmbedField | `EmbedField`} object.
 	 */
 	toJSON(): EmbedField {
 		const { data } = this;

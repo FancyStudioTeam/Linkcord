@@ -79,7 +79,7 @@ export class ContainerBuilder extends BaseBuilder<ContainerComponent> {
 
 	/**
 	 * Converts the {@link ContainerBuilder | `ContainerBuilder`} instance into a {@link ContainerComponent | `ContainerComponent`} object.
-	 * @returns The {@link ContainerComponent | `ContainerComponent`} object.
+	 * @returns The converted {@link ContainerComponent | `ContainerComponent`} object.
 	 */
 	toJSON(): ContainerComponent {
 		const { data } = this;

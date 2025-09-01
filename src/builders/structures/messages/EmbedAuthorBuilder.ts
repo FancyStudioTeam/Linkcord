@@ -43,7 +43,7 @@ export class EmbedAuthorBuilder extends BaseBuilder<EmbedAuthor> {
 
 	/**
 	 * Converts the {@link EmbedAuthorBuilder | `EmbedAuthorBuilder`} instance into an {@link EmbedAuthor | `EmbedAuthor`} object.
-	 * @returns The {@link EmbedAuthor | `EmbedAuthor`} object.
+	 * @returns The converted {@link EmbedAuthor | `EmbedAuthor`} object.
 	 */
 	toJSON(): EmbedAuthor {
 		const { data } = this;
