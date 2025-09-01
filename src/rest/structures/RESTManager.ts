@@ -1,7 +1,5 @@
 import type { Client } from "#client/index.js";
-import { Endpoints } from "#rest/endpoints/Endpoints.js";
 import { HTTP_STATUS_CODES, REST_URL_BASE, USER_AGENT } from "#rest/utils/constants.js";
-import type { RESTGetGateway } from "#types/index.js";
 import { APIManager } from "./APIManager.js";
 
 const ONE_SECOND_MILLISECONDS = 1_000;
@@ -105,22 +103,6 @@ export class RESTManager {
 			endpoint,
 			options,
 		);
-	}
-
-	/**
-	 * @see https://discord.com/developers/docs/events/gateway#get-gateway
-	 */
-	async getGateway<Result = RESTGetGateway>(): Promise<Result> {
-		return await this.makeRequest<Result>(RESTMethods.Get, Endpoints.gateway(), {
-			withAuthorization: false,
-		});
-	}
-
-	/**
-	 * @see https://discord.com/developers/docs/events/gateway#get-gateway-bot
-	 */
-	async getGatewayBot<Result = RESTGetGateway>(): Promise<Result> {
-		return await this.makeRequest<Result>(RESTMethods.Get, Endpoints.gatewayBot());
 	}
 
 	async makeRequest<Result, JSONParams = never, QueryStringParams = never>(
