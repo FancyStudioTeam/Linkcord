@@ -1,5 +1,6 @@
 import { parse } from "valibot";
 import { normalizeArray } from "#builders/functions/normalizeArray.js";
+import { EmbedFieldSchema } from "#builders/schemas/messages/EmbedFieldSchema.js";
 import {
 	EmbedAuthorSchema,
 	EmbedColorSchema,
@@ -30,6 +31,19 @@ import { BaseBuilder } from "../base/BaseBuilder.js";
 /** Utility class for building {@link Embed | `Embed`} objects. */
 export class EmbedBuilder extends BaseBuilder<Embed> {
 	/**
+	 * Adds a field to the embed.
+	 * @param field - The field of the embed to add.
+	 */
+	addField(field: AllowedEmbedField): this {
+		const validatedField = parse(EmbedFieldSchema, field);
+
+		this.data.fields ??= [];
+		this.data.fields.push(validatedField);
+
+		return this;
+	}
+
+	/**
 	 * Adds fields to the embed.
 	 * @param fields - The fields of the embed to add.
 	 */
@@ -37,8 +51,9 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 		const normalizedFields = normalizeArray(...fields);
 		const validatedFields = parse(EmbedFieldsSchema, normalizedFields);
 
-		this.data.fields ??= [];
-		this.data.fields.push(...validatedFields);
+		for (const field of validatedFields) {
+			this.addField(field);
+		}
 
 		return this;
 	}
