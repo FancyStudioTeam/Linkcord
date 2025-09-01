@@ -86,6 +86,19 @@ export class EmbedBuilder {
 	}
 
 	/**
+	 * Sets the fields of the embed.
+	 * @param fields - The fields of the embed.
+	 */
+	setFields(...fields: RestOrArray<AllowedEmbedField>): this {
+		const normalizedFields = normalizeArray(...fields);
+		const validatedFields = parse(EmbedFieldsSchema, normalizedFields) ?? [];
+
+		this.#data.fields = validatedFields;
+
+		return this;
+	}
+
+	/**
 	 * Sets the footer of the embed.
 	 * @param footer - The footer of the embed.
 	 */
