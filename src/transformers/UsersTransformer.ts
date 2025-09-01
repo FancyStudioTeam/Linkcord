@@ -33,8 +33,8 @@ function transformAvatarDecorationToParsed(
  * @param collectibles - The {@link APICollectibles | `APICollectibles`} object to transform.
  * @returns The transformed {@link Collectibles | `Collectibles`} object.
  */
-function transformCollectiblesToParsed(collectibles: APICollectibles | null): Collectibles | null {
-	if (!collectibles) return null;
+function transformCollectiblesToParsed(collectibles: APICollectibles | null): Collectibles {
+	if (!collectibles) return {};
 
 	const collectiblesData: Collectibles = {};
 	const { nameplate } = collectibles;

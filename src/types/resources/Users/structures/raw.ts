@@ -107,10 +107,10 @@ export interface APINameplate {
 export interface APIUser {
 	/** The accent color of the user. */
 	accent_color?: number | null;
-	/** The decoration of the avatar of the user. */
-	avatar_decoration_data?: APIAvatarDecorationData | null;
 	/** The avatar of the user. */
 	avatar: string | null;
+	/** The decoration of the avatar of the user. */
+	avatar_decoration_data?: APIAvatarDecorationData | null;
 	/** The banner of the user. */
 	banner?: string | null;
 	/** Whether the user is a bot. */

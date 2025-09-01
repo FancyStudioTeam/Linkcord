@@ -32,7 +32,7 @@ export interface AvatarDecorationData {
  */
 export interface Collectibles {
 	/** The nameplate of the user. */
-	nameplate: Nameplate | null;
+	nameplate?: Nameplate;
 }
 
 /**
