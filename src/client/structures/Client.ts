@@ -3,7 +3,7 @@ import { ClientEvents, type ClientEventsMap } from "#client/types/ClientEvents.j
 import { ConfigurationUtils } from "#configuration/helpers/ConfigurationUtils.js";
 import { GatewayManager } from "#gateway/index.js";
 import { RESTManager } from "#rest/index.js";
-import type { Guild, User } from "#structures/index.js";
+import type { User } from "#structures/index.js";
 import type { Snowflake } from "#types/index.js";
 import { BaseClient } from "./BaseClient.js";
 
@@ -14,7 +14,8 @@ export class Client extends BaseClient {
 	/** The gateway manager of the client. */
 	readonly gateway: GatewayManager;
 	/** The cache manager for guilds of the client. */
-	readonly guilds = new CacheManager<Snowflake, Guild>();
+	// TODO: Add "guilds" to "Client".
+	// readonly guilds = new CacheManager<Snowflake, Guild>();
 	/** The REST manager of the client. */
 	readonly rest: RESTManager;
 	/** The cache manager for users of the client. */
