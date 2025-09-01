@@ -1,15 +1,8 @@
 import type { SENDABLE_OPCODES } from "#gateway/utils/Constants.js";
 import {
-	type ActivityTypes,
-	type GatewayHeartbeatPayload,
-	type GatewayIdentifyPayload,
+	type GatewayHeartbeatEventPayload,
+	type GatewayIdentifyEventPayload,
 	GatewayOpcodes,
-	type GatewayPresenceUpdatePayload,
-	type GatewayRequestGuildMembersPayload,
-	type GatewayRequestSoundboardSoundsPayload,
-	type GatewayResumePayload,
-	type GatewayVoiceStateUpdatePayload,
-	type StatusTypes,
 } from "#types/index.js";
 
 /**
@@ -22,7 +15,7 @@ export interface ActivityOptions {
 	/** The state of the activity. */
 	state?: string;
 	/** The type of the activity. */
-	type: ActivityTypes;
+	// type: ActivityTypes;
 	/** The URL of the stream associated with the activity. */
 	url?: string;
 }
@@ -39,7 +32,7 @@ export interface PresenceOptions {
 	/** The timestamp at which the client went afk. */
 	since?: number | null;
 	/** The status of the presence. */
-	status: StatusTypes;
+	// status: StatusTypes;
 }
 
 /**
@@ -54,13 +47,13 @@ export type SendableOpcodes = (typeof SENDABLE_OPCODES)[number];
  * @internal
  */
 export type SendableOpcodesPayloadMap = {
-	[GatewayOpcodes.Heartbeat]: GatewayHeartbeatPayload;
-	[GatewayOpcodes.Identify]: GatewayIdentifyPayload;
-	[GatewayOpcodes.PresenceUpdate]: GatewayPresenceUpdatePayload;
-	[GatewayOpcodes.Resume]: GatewayResumePayload;
-	[GatewayOpcodes.RequestGuildMembers]: GatewayRequestGuildMembersPayload;
-	[GatewayOpcodes.RequestSoundboardSounds]: GatewayRequestSoundboardSoundsPayload;
-	[GatewayOpcodes.VoiceStateUpdate]: GatewayVoiceStateUpdatePayload;
+	[GatewayOpcodes.Heartbeat]: GatewayHeartbeatEventPayload;
+	[GatewayOpcodes.Identify]: GatewayIdentifyEventPayload;
+	[GatewayOpcodes.PresenceUpdate]: never;
+	[GatewayOpcodes.Resume]: never;
+	[GatewayOpcodes.RequestGuildMembers]: never;
+	[GatewayOpcodes.RequestSoundboardSounds]: never;
+	[GatewayOpcodes.VoiceStateUpdate]: never;
 };
 
 /**
