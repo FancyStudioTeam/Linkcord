@@ -1,11 +1,5 @@
 import type { GatewayShard } from "#gateway/index.js";
-import type {
-	ChatInputCommandInteraction,
-	Guild,
-	Role,
-	Uncached,
-	User,
-} from "#structures/index.js";
+import type { Uncached, User } from "#structures/index.js";
 import type { GatewayEvent } from "#types/index.js";
 
 /** Represents a map of the events that can be emitted by the client with their respective parameters. */
@@ -21,26 +15,26 @@ export interface ClientEventsMap {
 	 * Emitted when a guild has been created.
 	 * @param guild - The created {@link Guild | `Guild`} instance.
 	 */
-	[ClientEvents.GuildCreate]: [guild: Guild];
+	// [ClientEvents.GuildCreate]: [guild: Guild];
 	/**
 	 * Emitted when a guild has been deleted.
 	 * @param guild - The deleted {@link Guild | `Guild`} instance, if cached.
 	 */
-	[ClientEvents.GuildDelete]: [guild: GuildOrUncached];
+	// [ClientEvents.GuildDelete]: [guild: GuildOrUncached];
 	/**
 	 * Emitted when a role in a guild has been created.
 	 * @param role - The created {@link Role | `Role`} instance.
 	 * @param guild - The {@link Guild | `Guild`} where the role has been
 	 * 	created.
 	 */
-	[ClientEvents.GuildRoleCreate]: [role: Role, guild: Guild];
+	// [ClientEvents.GuildRoleCreate]: [role: Role, guild: Guild];
 	/**
 	 * Emitted when a role in a guild has been deleted.
 	 * @param role - The deleted {@link Role | `Role`} instance, if cached.
 	 * @param guild - The {@link Guild | `Guild`} where the role has been
 	 * 	deleted.
 	 */
-	[ClientEvents.GuildRoleDelete]: [role: RoleOrUncached, guild: Guild];
+	// [ClientEvents.GuildRoleDelete]: [role: RoleOrUncached, guild: Guild];
 	/**
 	 * Emitted when a role in a guild has been updated.
 	 * @param newRole - The updated {@link Role | `Role`} instance.
@@ -48,20 +42,20 @@ export interface ClientEventsMap {
 	 * @param guild - The {@link Guild | `Guild`} where the role has been
 	 * 	updated.
 	 */
-	[ClientEvents.GuildRoleUpdate]: [newRole: Role, oldRole: RoleOrUncached, guild: Guild];
+	// [ClientEvents.GuildRoleUpdate]: [newRole: Role, oldRole: RoleOrUncached, guild: Guild];
 	/**
 	 * Emitted when a guild has been updated.
 	 * @param newGuild - The updated {@link Guild | `Guild`} instance.
 	 * @param oldGuild - The old {@link Guild | `Guild`} instance, if cached.
 	 */
-	[ClientEvents.GuildUpdate]: [newGuild: Guild, oldGuild: GuildOrUncached];
+	// [ClientEvents.GuildUpdate]: [newGuild: Guild, oldGuild: GuildOrUncached];
 	/**
 	 * Emitted when an interaction has been created.
 	 * @param interaction - The created
 	 * 	{@link ChatInputCommandInteraction | `ChatInputCommandInteraction`}
 	 * 	instance.
 	 */
-	[ClientEvents.InteractionCreate]: [interaction: ChatInputCommandInteraction];
+	// [ClientEvents.InteractionCreate]: [interaction: ChatInputCommandInteraction];
 	/**
 	 * Emitted when a shard has been disconnected.
 	 * @param reason - The reason of the disconnection.
@@ -109,10 +103,10 @@ export interface ClientEventsMap {
 }
 
 /** Represents a guild that is either cached or uncached. */
-export type GuildOrUncached = Guild | Uncached;
+// export type GuildOrUncached = Guild | Uncached;
 
 /** Represents a role that is either cached or uncached. */
-export type RoleOrUncached = Role | Uncached;
+// export type RoleOrUncached = Role | Uncached;
 
 /** Represents a user that is either cached or uncached. */
 export type UserOrUncached = User | Uncached;
