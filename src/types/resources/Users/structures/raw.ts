@@ -1,6 +1,6 @@
 import type { Snowflake } from "#types/miscellaneous/discord.js";
 import type { Locales } from "#types/miscellaneous/enums.js";
-import type { GuildFeatures } from "#types/resources/guilds/enums.js";
+import type { GuildFeatures } from "#types/resources/Guilds/enums.js";
 import type {
 	ConnectionServices,
 	ConnectionVisibilityTypes,
@@ -77,10 +77,10 @@ export interface APIConnection {
 export interface APIPrimaryGuild {
 	/** The badge of the guild. */
 	badge: string | null;
-	/** The ID of the guild. */
-	identity_guild_id: Snowflake | null;
 	/** Whether the user is displaying the guild tag. */
 	identity_enabled: boolean | null;
+	/** The ID of the guild. */
+	identity_guild_id: Snowflake | null;
 	/** The tag of the guild. */
 	tag: string | null;
 }

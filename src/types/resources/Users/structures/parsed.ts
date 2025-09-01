@@ -1,12 +1,12 @@
 import type { Snowflake } from "#types/miscellaneous/discord.js";
-import type { GuildFeatures } from "#types/resources/guilds/enums.js";
+import type { GuildFeatures } from "#types/resources/Guilds/enums.js";
 import type { ConnectionServices, ConnectionVisibilityTypes, NameplatePalette } from "../enums.js";
 
 /**
  * Represents a Discord application role connection object.
  * @see https://discord.com/developers/docs/resources/user#application-role-connection-object-application-role-connection-structure
  */
-export interface APIApplicationRoleConnection {
+export interface ApplicationRoleConnection {
 	/** The metadata of the platform. */
 	metadata: Record<string, string>;
 	/** The name of the platform. */
@@ -76,6 +76,21 @@ export interface Nameplate {
 	palette: NameplatePalette;
 	/** The ID of the sku of the nameplate. */
 	skuId: Snowflake;
+}
+
+/**
+ * Represents a Discord primary guild object.
+ * @see https://discord.com/developers/docs/resources/user#user-object-user-primary-guild
+ */
+export interface PrimaryGuild {
+	/** The badge of the guild. */
+	badge: string | null;
+	/** Whether the user is displaying the guild tag. */
+	identityEnabled: boolean | null;
+	/** The ID of the guild. */
+	identityGuildId: Snowflake | null;
+	/** The tag of the guild. */
+	tag: string | null;
 }
 
 /**
