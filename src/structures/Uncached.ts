@@ -1,18 +1,10 @@
 import type { Snowflake } from "#types/index.js";
 
-/**
- * Represents an uncached entity.
- * @group Discord/Structures
- * @public
- */
+/** Represents an uncached entity. */
 export class Uncached {
-	/**
-	 * The ID of the entity.
-	 */
+	/** The ID of the entity. */
 	readonly id: Snowflake;
-	/**
-	 * Whether the entity is uncached.
-	 */
+	/** Whether the entity is uncached. */
 	readonly uncached = true;
 
 	/**
