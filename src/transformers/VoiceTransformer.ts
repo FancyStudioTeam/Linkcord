@@ -7,14 +7,15 @@ import type { APIVoiceRegion, VoiceRegion } from "#types/index.js";
  */
 function transformVoiceRegionToParsed(voiceRegion: APIVoiceRegion): VoiceRegion {
 	const { custom, deprecated, id, name, optimal } = voiceRegion;
-
-	return {
+	const voiceRegionData: VoiceRegion = {
 		custom,
 		deprecated,
 		id,
 		name,
 		optimal,
 	};
+
+	return voiceRegionData;
 }
 
 /** Transformers for voice objects. */

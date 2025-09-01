@@ -16,13 +16,14 @@ function transformGatewayBotSessionStartLimitToParsed(
 	sessionStartLimit: APIGatewayBotSessionStartLimit,
 ): GatewayBotSessionStartLimit {
 	const { max_concurrency, remaining, reset_after, total } = sessionStartLimit;
-
-	return {
+	const sessionStartLimitData: GatewayBotSessionStartLimit = {
 		maxConcurrency: max_concurrency,
 		remaining,
 		resetAfter: reset_after,
 		total,
 	};
+
+	return sessionStartLimitData;
 }
 
 /**
@@ -33,12 +34,13 @@ function transformGatewayBotSessionStartLimitToParsed(
 function transformGatewayBotToParsed(gatewayBot: APIGatewayBot): GatewayBot {
 	const { session_start_limit, shards, url } = gatewayBot;
 	const sessionStartLimit = transformGatewayBotSessionStartLimitToParsed(session_start_limit);
-
-	return {
+	const gatewayBotData: GatewayBot = {
 		sessionStartLimit,
 		shards,
 		url,
 	};
+
+	return gatewayBotData;
 }
 
 /**
@@ -48,10 +50,11 @@ function transformGatewayBotToParsed(gatewayBot: APIGatewayBot): GatewayBot {
  */
 function transformGatewayToParsed(gateway: APIGateway): Gateway {
 	const { url } = gateway;
-
-	return {
+	const gatewayData: Gateway = {
 		url,
 	};
+
+	return gatewayData;
 }
 
 /** Transformers for gateway objects. */
