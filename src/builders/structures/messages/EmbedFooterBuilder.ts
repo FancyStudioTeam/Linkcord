@@ -4,30 +4,18 @@ import {
 	EmbedFooterSchema,
 	EmbedFooterTextSchema,
 } from "#builders/schemas/messages/EmbedFooterSchema.js";
-import { EmbedFooterSchema as AllowedEmbedFooterSchema } from "#builders/schemas/messages/EmbedSchema.js";
-import type { AllowedEmbedFooter, AllowedEmbedFooterIconURL } from "#builders/types/index.js";
+import type { AllowedEmbedFooterIconURL } from "#builders/types/index.js";
 import type { EmbedFooter } from "#types/index.js";
+import { BaseBuilder } from "../base/BaseBuilder.js";
 
 /** Utility class for building {@link EmbedFooter | `EmbedFooter`} objects. */
-export class EmbedFooterBuilder {
-	#data: Partial<EmbedFooter> = {};
-
-	/**
-	 * Loads the data from an {@link EmbedFooter | `EmbedFooter`} object or an {@link EmbedFooterBuilder | `EmbedFooterBuilder`} instance.
-	 * @param embedFooter - The {@link EmbedFooter | `EmbedFooter`} object or an {@link EmbedFooterBuilder | `EmbedFooterBuilder`} instance.
-	 */
-	from(embedFooter: AllowedEmbedFooter): this {
-		this.#data = parse(AllowedEmbedFooterSchema, embedFooter);
-
-		return this;
-	}
-
+export class EmbedFooterBuilder extends BaseBuilder<EmbedFooter> {
 	/**
 	 * Sets the text of the embed footer.
 	 * @param text - The text of the embed footer.
 	 */
 	setText(text: string): this {
-		this.#data.text = parse(EmbedFooterTextSchema, text);
+		this.data.text = parse(EmbedFooterTextSchema, text);
 
 		return this;
 	}
@@ -37,7 +25,7 @@ export class EmbedFooterBuilder {
 	 * @param iconURL - The icon URL of the embed footer.
 	 */
 	setIconURL(iconURL: AllowedEmbedFooterIconURL): this {
-		this.#data.iconURL = parse(EmbedFooterIconURLSchema, iconURL);
+		this.data.iconURL = parse(EmbedFooterIconURLSchema, iconURL);
 
 		return this;
 	}
@@ -47,7 +35,7 @@ export class EmbedFooterBuilder {
 	 * @returns The {@link EmbedFooter | `EmbedFooter`} object.
 	 */
 	toJSON(): EmbedFooter {
-		const data = this.#data;
+		const { data } = this;
 		const validatedData = parse(EmbedFooterSchema, data);
 
 		return validatedData;

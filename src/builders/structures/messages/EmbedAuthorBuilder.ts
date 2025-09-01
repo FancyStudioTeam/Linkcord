@@ -5,35 +5,18 @@ import {
 	EmbedAuthorSchema,
 	EmbedAuthorURLSchema,
 } from "#builders/schemas/messages/EmbedAuthorSchema.js";
-import { EmbedAuthorSchema as AllowedEmbedAuthorSchema } from "#builders/schemas/messages/EmbedSchema.js";
-import type {
-	AllowedEmbedAuthor,
-	AllowedEmbedAuthorIconURL,
-	AllowedEmbedAuthorURL,
-} from "#builders/types/index.js";
+import type { AllowedEmbedAuthorIconURL, AllowedEmbedAuthorURL } from "#builders/types/index.js";
 import type { EmbedAuthor } from "#types/index.js";
+import { BaseBuilder } from "../base/BaseBuilder.js";
 
 /** Utility class for building {@link EmbedAuthor | `EmbedAuthor`} objects. */
-export class EmbedAuthorBuilder {
-	/** The object containing the data of the embed author. */
-	#data: Partial<EmbedAuthor> = {};
-
-	/**
-	 * Loads the data from an {@link EmbedAuthor | `EmbedAuthor`} object or an {@link EmbedAuthorBuilder | `EmbedAuthorBuilder`} instance.
-	 * @param embedAuthor - The {@link EmbedAuthor | `EmbedAuthor`} object or an {@link EmbedAuthorBuilder | `EmbedAuthorBuilder`} instance.
-	 */
-	from(embedAuthor: AllowedEmbedAuthor): this {
-		this.#data = parse(AllowedEmbedAuthorSchema, embedAuthor);
-
-		return this;
-	}
-
+export class EmbedAuthorBuilder extends BaseBuilder<EmbedAuthor> {
 	/**
 	 * Sets the icon URL of the embed author.
 	 * @param iconURL - The icon URL of the embed author.
 	 */
 	setIconURL(iconURL: AllowedEmbedAuthorIconURL): this {
-		this.#data.iconURL = parse(EmbedAuthorIconURLSchema, iconURL);
+		this.data.iconURL = parse(EmbedAuthorIconURLSchema, iconURL);
 
 		return this;
 	}
@@ -43,7 +26,7 @@ export class EmbedAuthorBuilder {
 	 * @param name - The name of the embed author.
 	 */
 	setName(name: string): this {
-		this.#data.name = parse(EmbedAuthorNameSchema, name);
+		this.data.name = parse(EmbedAuthorNameSchema, name);
 
 		return this;
 	}
@@ -53,7 +36,7 @@ export class EmbedAuthorBuilder {
 	 * @param url - The URL of the embed author.
 	 */
 	setURL(url: AllowedEmbedAuthorURL): this {
-		this.#data.url = parse(EmbedAuthorURLSchema, url);
+		this.data.url = parse(EmbedAuthorURLSchema, url);
 
 		return this;
 	}
@@ -63,7 +46,7 @@ export class EmbedAuthorBuilder {
 	 * @returns The {@link EmbedAuthor | `EmbedAuthor`} object.
 	 */
 	toJSON(): EmbedAuthor {
-		const data = this.#data;
+		const { data } = this;
 		const validatedData = parse(EmbedAuthorSchema, data);
 
 		return validatedData;

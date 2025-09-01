@@ -9,18 +9,16 @@ import type {
 	SelectMenuDefaultValueTypes,
 	Snowflake,
 } from "#types/index.js";
+import { BaseBuilder } from "../base/BaseBuilder.js";
 
 /** Utility class for building {@link SelectMenuDefaultValue | `SelectMenuDefaultValue`} objects. */
-export class SelectMenuDefaultValueBuilder {
-	/** The object containing the data of the select menu default value. */
-	readonly #data: Partial<SelectMenuDefaultValue> = {};
-
+export class SelectMenuDefaultValueBuilder extends BaseBuilder<SelectMenuDefaultValue> {
 	/**
 	 * Sets the ID of the default value.
 	 * @param id - The ID of the default value.
 	 */
-	setId(id: Snowflake): this {
-		this.#data.id = parse(SelectMenuDefaultValueIDSchema, id);
+	setID(id: Snowflake): this {
+		this.data.id = parse(SelectMenuDefaultValueIDSchema, id);
 
 		return this;
 	}
@@ -30,7 +28,7 @@ export class SelectMenuDefaultValueBuilder {
 	 * @param type - The type of the default value.
 	 */
 	setType(type: SelectMenuDefaultValueTypes): this {
-		this.#data.type = parse(SelectMenuDefaultValueTypeSchema, type);
+		this.data.type = parse(SelectMenuDefaultValueTypeSchema, type);
 
 		return this;
 	}
@@ -40,7 +38,7 @@ export class SelectMenuDefaultValueBuilder {
 	 * @returns The {@link SelectMenuDefaultValue | `SelectMenuDefaultValue`} object.
 	 */
 	toJSON(): SelectMenuDefaultValue {
-		const data = this.#data;
+		const { data } = this;
 		const validatedData = parse(SelectMenuDefaultValueSchema, data);
 
 		return validatedData;
