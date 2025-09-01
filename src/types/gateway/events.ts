@@ -2,6 +2,23 @@ import type { GatewayDispatchReadyEvent } from "./dispatch.js";
 import type { GatewayDispatchEvents, GatewayOpcodes } from "./enums.js";
 
 /**
+ * Represents the {@link GatewayOpcodes.Dispatch | `DISPATCH`} event from the Discord gateway.
+ * @see https://discord.com/developers/docs/events/gateway-events#receive-events
+ */
+export type GatewayDispatchEvent = GatewayDispatchReadyEvent;
+
+/**
+ * Represents the events from the Discord gateway.
+ * @see https://discord.com/developers/docs/events/gateway-events
+ */
+export type GatewayEvent =
+	| GatewayDispatchEvent
+	| GatewayHeartbeatAckEvent
+	| GatewayHelloEvent
+	| GatewayInvalidSessionEvent
+	| GatewayReconnectEvent;
+
+/**
  * Represents the base structure of a Discord gateway event.
  * @see https://discord.com/developers/docs/events/gateway-events#payload-structure
  */
@@ -25,32 +42,6 @@ export interface GatewayEventDispatchBase<Event extends GatewayDispatchEvents, D
 }
 
 /**
- * Represents the payload of the {@link GatewayOpcodes.Hello | `HELLO`} event from the Discord gateway.
- * @see https://discord.com/developers/docs/events/gateway-events#hello-hello-structure
- */
-export interface GatewayHelloEventPayload {
-	/** The interval at which heartbeats should be sent. */
-	heartbeat_interval: number;
-}
-
-/**
- * Represents the {@link GatewayOpcodes.Dispatch | `DISPATCH`} event from the Discord gateway.
- * @see https://discord.com/developers/docs/events/gateway-events#receive-events
- */
-export type GatewayDispatchEvent = GatewayDispatchReadyEvent;
-
-/**
- * Represents the events from the Discord gateway.
- * @see https://discord.com/developers/docs/events/gateway-events
- */
-export type GatewayEvent =
-	| GatewayDispatchEvent
-	| GatewayHeartbeatAckEvent
-	| GatewayHelloEvent
-	| GatewayInvalidSessionEvent
-	| GatewayReconnectEvent;
-
-/**
  * Represents the {@link GatewayOpcodes.HeartbeatAck | `HEARTBEAT_ACK`} event from the Discord gateway.
  * @see https://discord.com/developers/docs/events/gateway#heartbeat-interval-example-heartbeat-ack
  */
@@ -70,6 +61,15 @@ export type GatewayHeartbeatAckEventPayload = never;
  * @see https://discord.com/developers/docs/events/gateway-events#hello
  */
 export type GatewayHelloEvent = GatewayEventBase<GatewayOpcodes.Hello, GatewayHelloEventPayload>;
+
+/**
+ * Represents the payload of the {@link GatewayOpcodes.Hello | `HELLO`} event from the Discord gateway.
+ * @see https://discord.com/developers/docs/events/gateway-events#hello-hello-structure
+ */
+export interface GatewayHelloEventPayload {
+	/** The interval at which heartbeats should be sent. */
+	heartbeat_interval: number;
+}
 
 /**
  * Represents the {@link GatewayOpcodes.InvalidSession | `INVALID_SESSION`} event from the Discord gateway.
