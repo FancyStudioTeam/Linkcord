@@ -69,6 +69,19 @@ export interface GatewayIdentifyEventPayloadProperties {
 }
 
 /**
+ * Represents the payload of the {@link GatewayOpcodes.Resume | `RESUME`} event from the Discord gateway.
+ * @see https://discord.com/developers/docs/events/gateway-events#resume-resume-structure
+ */
+export interface GatewayResumeEventPayload {
+	/** The sequence of the session of the client. */
+	seq: number;
+	/** The ID of the session of the client. */
+	session_id: string;
+	/** The token of the client. */
+	token: string;
+}
+
+/**
  * Represents the {@link GatewayOpcodes.Dispatch | `DISPATCH`} event from the Discord gateway.
  * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
@@ -167,7 +180,13 @@ export type GatewayReconnectEvent = GatewayEventBase<
 export type GatewayReconnectEventPayload = null;
 
 /**
+ * Represents the {@link GatewayOpcodes.Resume | `RESUME`} event from the Discord gateway.
+ * @see https://discord.com/developers/docs/events/gateway-events#resume
+ */
+export type GatewayResumeEvent = GatewayEventBase<GatewayOpcodes.Resume, GatewayResumeEventPayload>;
+
+/**
  * Represents the events that can be sent to the Discord gateway.
  * @see https://discord.com/developers/docs/events/gateway-events#send-events
  */
-export type GatewaySendEvent = GatewayHeartbeatEvent | GatewayIdentifyEvent;
+export type GatewaySendEvent = GatewayHeartbeatEvent | GatewayIdentifyEvent | GatewayResumeEvent;

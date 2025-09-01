@@ -3,6 +3,7 @@ import {
 	type GatewayHeartbeatEventPayload,
 	type GatewayIdentifyEventPayload,
 	GatewayOpcodes,
+	type GatewayResumeEventPayload,
 } from "#types/index.js";
 
 /**
@@ -50,7 +51,7 @@ export type SendableOpcodesPayloadMap = {
 	[GatewayOpcodes.Heartbeat]: GatewayHeartbeatEventPayload;
 	[GatewayOpcodes.Identify]: GatewayIdentifyEventPayload;
 	[GatewayOpcodes.PresenceUpdate]: never;
-	[GatewayOpcodes.Resume]: never;
+	[GatewayOpcodes.Resume]: GatewayResumeEventPayload;
 	[GatewayOpcodes.RequestGuildMembers]: never;
 	[GatewayOpcodes.RequestSoundboardSounds]: never;
 	[GatewayOpcodes.VoiceStateUpdate]: never;

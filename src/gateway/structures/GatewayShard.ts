@@ -6,7 +6,6 @@ import { GatewayShardError } from "#gateway/errors/GatewayShardError.js";
 import { DispatchHooks } from "#gateway/hooks/index.js";
 import {
 	GatewayShardStatus,
-	type PresenceOptions,
 	type SendableOpcodes,
 	type SendableOpcodesPayloadMap,
 } from "#gateway/types/index.js";
@@ -417,7 +416,8 @@ export class GatewayShard {
 	 * Sets the presence of the gateway shard.
 	 * @param options - The options to use when setting the presence.
 	 */
-	setPresence(options: PresenceOptions): void {
+	// TODO: Add "setPresence" to "GatewayShard".
+	/*setPresence(options: PresenceOptions): void {
 		let { activities, afk, since, status } = options;
 
 		afk ??= false;
@@ -429,5 +429,5 @@ export class GatewayShard {
 			since,
 			status,
 		});
-	}
+	}*/
 }

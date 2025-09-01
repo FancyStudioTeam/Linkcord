@@ -7,6 +7,7 @@ import type { DeclarableInstance, DeclareOptions } from "#handlers/types/index.j
  */
 export function Declare<Target extends DeclarableInstance>(declareOptions: DeclareOptions<Target>) {
 	return (target: DeclarableInstance) =>
+		// @ts-expect-error
 		class extends target {
 			constructor(...args: unknown[]) {
 				super(...args);
