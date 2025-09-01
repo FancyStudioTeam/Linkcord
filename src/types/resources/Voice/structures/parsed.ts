@@ -1,5 +1,5 @@
 /**
- * Represents a voice region.
+ * Represents a Discord voice region object.
  * @see https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure
  */
 export interface VoiceRegion {

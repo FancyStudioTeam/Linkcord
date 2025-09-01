@@ -11,7 +11,7 @@ import { BitFieldResolver } from "#utils/index.js";
 import { Base } from "./Base.js";
 
 /**
- * Represents a Discord user.
+ * Represents a Discord user object.
  * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
  */
 export class User extends Base {

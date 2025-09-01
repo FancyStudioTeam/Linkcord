@@ -2,7 +2,7 @@ import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
 // import type { APIGuildMember } from "#types/resources/guilds/index.js";
 
 /**
- * Represents a voice region.
+ * Represents a Discord voice region object.
  * @see https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure
  */
 export interface APIVoiceRegion {
@@ -19,7 +19,7 @@ export interface APIVoiceRegion {
 }
 
 /**
- * Represents a voice state.
+ * Represents a Discord voice state object.
  * @see https://discord.com/developers/docs/resources/voice#voice-state-object-voice-state-structure
  */
 export interface APIVoiceState {
