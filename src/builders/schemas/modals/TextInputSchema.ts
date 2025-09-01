@@ -25,7 +25,7 @@ export const TextInputCustomIDSchema = pipe(
 	maxLength(MAXIMUM_TEXT_INPUT_CUSTOM_ID_LENGTH),
 );
 
-export const TextInputIDSchema = number();
+export const TextInputIDSchema = pipe(number(), minValue(0));
 
 export const TextInputMaxValueLengthSchema = pipe(
 	number(),
