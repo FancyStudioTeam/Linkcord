@@ -49,9 +49,8 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 	 */
 	addFields(...fields: RestOrArray<AllowedEmbedField>): this {
 		const normalizedFields = normalizeArray(...fields);
-		const validatedFields = parse(EmbedFieldsSchema, normalizedFields);
 
-		for (const field of validatedFields) {
+		for (const field of normalizedFields) {
 			this.addField(field);
 		}
 
