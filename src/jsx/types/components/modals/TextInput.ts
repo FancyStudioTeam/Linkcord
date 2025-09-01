@@ -2,7 +2,7 @@ import { TextInput } from "#jsx/components/index.js";
 import type { ComponentProperties } from "#jsx/types/jsx-runtime.js";
 import type { TextInputStyles } from "#types/index.js";
 
-/** Represents the properties of the {@link TextInput | `TextInput`} component. */
+/** Represents the properties of the {@link TextInput | `TextInput`} JSX component. */
 export type TextInputProperties = ComponentProperties<
 	{
 		/** The custom ID of the text input. */
@@ -23,5 +23,5 @@ export type TextInputProperties = ComponentProperties<
 	TextInputChildren
 >;
 
-/** Represents the children of a {@link TextInput | `TextInput`} component. */
+/** Represents the children of a {@link TextInput | `TextInput`} JSX component. */
 export type TextInputChildren = string;

@@ -1,8 +1,8 @@
 import type { FragmentProperties } from "./types/jsx-runtime.js";
 
 /**
- * Creates a `Fragment` component.
- * @param properties - The properties of the `Fragment` component.
+ * Creates a `Fragment` JSX component.
+ * @param properties - The properties of the `Fragment` JSX component.
  */
 export function Fragment(properties: FragmentProperties): unknown {
 	const { children } = properties;
@@ -13,8 +13,8 @@ export function Fragment(properties: FragmentProperties): unknown {
 /**
  * Creates a JSX component with one child.
  * @param componentFunction - The function to execute when creating the JSX component.
- * @param properties - The properties of the component.
- * @param children - The children of the component.
+ * @param properties - The properties of the JSX component.
+ * @param children - The children of the JSX component.
  */
 export function jsx(
 	// biome-ignore lint/complexity/noBannedTypes: Allow any function.

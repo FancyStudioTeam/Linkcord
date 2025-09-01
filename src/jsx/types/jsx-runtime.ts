@@ -1,4 +1,4 @@
-/** Represents the properties of a `Fragment` component. */
+/** Represents the properties of a `Fragment` JSX component. */
 export interface FragmentProperties {
 	children: unknown[];
 }

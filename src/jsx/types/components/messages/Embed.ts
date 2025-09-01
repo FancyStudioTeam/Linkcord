@@ -12,7 +12,7 @@ import type {
 import { Embed } from "#jsx/components/index.js";
 import type { ComponentProperties } from "#jsx/types/jsx-runtime.js";
 
-/** Represents the properties of the {@link Embed | `Embed`} component. */
+/** Represents the properties of the {@link Embed | `Embed`} JSX component. */
 export type EmbedProperties = ComponentProperties<
 	{
 		/** The author of the embed. */
@@ -39,5 +39,5 @@ export type EmbedProperties = ComponentProperties<
 	EmbedChildren
 >;
 
-/** Represents the children of the {@link Embed | `Embed`} component. */
-export type EmbedChildren = string | (string | EmbedFieldBuilder)[];
+/** Represents the children of the {@link Embed | `Embed`} JSX component. */
+export type EmbedChildren = string | EmbedFieldBuilder | EmbedChildren[];

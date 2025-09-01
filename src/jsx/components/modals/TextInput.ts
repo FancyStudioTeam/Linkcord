@@ -2,8 +2,8 @@ import { TextInputBuilder } from "#builders/index.js";
 import type { TextInputProperties } from "#jsx/types/index.js";
 
 /**
- * Creates a {@link TextInputBuilder | `TextInputBuilder`} instance using JSX.
- * @param properties - The properties of the {@link TextInput | `TextInput`} component.
+ * Creates a {@link TextInputBuilder | `TextInputBuilder`} instance using a JSX component.
+ * @param properties - The properties of the {@link TextInput | `TextInput`} JSX component.
  * @returns The created {@link TextInputBuilder | `TextInputBuilder`} instance.
  */
 export function TextInput(properties: TextInputProperties): TextInputBuilder {

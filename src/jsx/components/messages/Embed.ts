@@ -2,8 +2,8 @@ import { EmbedBuilder, EmbedFieldBuilder } from "#builders/index.js";
 import type { EmbedProperties } from "#jsx/types/index.js";
 
 /**
- * Creates an {@link EmbedBuilder | `EmbedBuilder`} instance using JSX.
- * @param properties - The properties of the {@link Embed | `Embed`} component.
+ * Creates an {@link EmbedBuilder | `EmbedBuilder`} instance using a JSX component.
+ * @param properties - The properties of the {@link Embed | `Embed`} JSX component.
  * @returns The created {@link EmbedBuilder | `EmbedBuilder`} instance.
  */
 export function Embed(properties: EmbedProperties): EmbedBuilder {
