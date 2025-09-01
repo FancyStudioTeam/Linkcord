@@ -15,7 +15,6 @@ describe("Method: CacheManager._remove", () => {
 		const User = new UserClass("User 1");
 
 		const CacheManagerIterable: readonly [string, UserClass][] = [["user_1", User]];
-		// @ts-expect-error
 		const CacheManager = new CacheManagerClass(Infinity, CacheManagerIterable);
 		const CachedValue = CacheManager.get("user_1");
 

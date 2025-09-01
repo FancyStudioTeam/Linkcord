@@ -1,9 +1,9 @@
 import type { Snowflake } from "#types/miscellaneous/discord.js";
-import type { APIUser } from "#types/resources/users/index.js";
+import type { APIUser } from "#types/resources/Users/index.js";
 import type { TeamMemberRoleTypes, TeamMembershipStates } from "../enums.js";
 
 /**
- * Represents a team.
+ * Represents a Discord team object.
  * @see https://discord.com/developers/docs/topics/teams#data-models-team-object
  */
 export interface APITeam {
@@ -20,7 +20,7 @@ export interface APITeam {
 }
 
 /**
- * Represents a team member.
+ * Represents a Discord team member object.
  * @see https://discord.com/developers/docs/topics/teams#data-models-team-member-object
  */
 export interface APITeamMember {

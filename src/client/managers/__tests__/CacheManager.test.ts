@@ -18,7 +18,6 @@ describe("Class: CacheManager", () => {
 			["user_1", User1],
 			["user_2", User2],
 		];
-		// @ts-expect-error
 		const CacheManager = new CacheManagerClass(Infinity, CacheManagerIterable);
 
 		const CachedValue1 = CacheManager.get("user_1");

@@ -9,7 +9,6 @@ describe("Method: CacheManager._add", () => {
 		const CacheManager = new CacheManagerClass();
 		const User = new UserClass("User 1");
 
-		// @ts-expect-error
 		CacheManager["__add__"]("user_1", User);
 
 		const { size: CacheLength } = CacheManager;
