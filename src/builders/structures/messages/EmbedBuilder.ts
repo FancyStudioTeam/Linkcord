@@ -37,7 +37,7 @@ export class EmbedBuilder {
 	 */
 	addFields(...fields: RestOrArray<AllowedEmbedField>): this {
 		const normalizedFields = normalizeArray(...fields);
-		const validatedFields = parse(EmbedFieldsSchema, normalizedFields) ?? [];
+		const validatedFields = parse(EmbedFieldsSchema, normalizedFields);
 
 		this.#data.fields ??= [];
 		this.#data.fields.push(...validatedFields);
@@ -91,7 +91,7 @@ export class EmbedBuilder {
 	 */
 	setFields(...fields: RestOrArray<AllowedEmbedField>): this {
 		const normalizedFields = normalizeArray(...fields);
-		const validatedFields = parse(EmbedFieldsSchema, normalizedFields) ?? [];
+		const validatedFields = parse(EmbedFieldsSchema, normalizedFields);
 
 		this.#data.fields = validatedFields;
 
