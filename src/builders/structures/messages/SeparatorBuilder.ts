@@ -13,7 +13,9 @@ import {
 /** Utility class for building {@link SeparatorComponent | `SeparatorComponent`} objects. */
 export class SeparatorBuilder {
 	/** The object containing the data of the separator component. */
-	readonly #data: Partial<SeparatorComponent> = {};
+	readonly #data: Partial<SeparatorComponent> = {
+		type: ComponentTypes.Separator,
+	};
 
 	/**
 	 * Sets whether to display a divider between the components.
@@ -41,10 +43,7 @@ export class SeparatorBuilder {
 	 */
 	toJSON(): SeparatorComponent {
 		const data = this.#data;
-		const validatedData = parse(SeparatorSchema, {
-			...data,
-			type: ComponentTypes.Separator,
-		});
+		const validatedData = parse(SeparatorSchema, data);
 
 		return validatedData;
 	}
