@@ -1,5 +1,5 @@
 import type { Snowflake } from "#types/miscellaneous/discord.js";
-import type { ChannelTypes } from "#types/resources/channels/enums.js";
+import type { ChannelTypes } from "#types/resources/Channels/enums.js";
 import type { APIPartialEmoji } from "#types/resources/Emojis/index.js";
 import type {
 	ButtonStyles,
