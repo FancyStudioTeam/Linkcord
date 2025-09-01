@@ -16,7 +16,7 @@ import { BaseBuilder } from "../base/BaseBuilder.js";
 export class TextInputBuilder extends BaseBuilder<TextInputComponent> {
 	/**
 	 * Sets the custom ID of the text input component.
-	 * @param customID - The custom ID of the text input component.
+	 * @param customId - The custom ID of the text input component.
 	 */
 	setCustomId(customId: string): this {
 		this.data.customId = parse(TextInputCustomIDSchema, customId);
