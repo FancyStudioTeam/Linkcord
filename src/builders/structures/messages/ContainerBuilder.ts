@@ -12,14 +12,10 @@ import type {
 	RestOrArray,
 } from "#builders/types/index.js";
 import { ComponentTypes, type ContainerComponent } from "#types/index.js";
+import { BaseBuilder } from "../base/BaseBuilder.js";
 
 /** Utility class for building {@link ContainerComponent | `ContainerComponent`} objects. */
-export class ContainerBuilder {
-	/** The object containing the data of the container component. */
-	readonly #data: Partial<ContainerComponent> = {
-		type: ComponentTypes.Container,
-	};
-
+export class ContainerBuilder extends BaseBuilder<ContainerComponent> {
 	/**
 	 * Adds components to the container.
 	 * @param components - The components to add to the container.
@@ -28,8 +24,8 @@ export class ContainerBuilder {
 		const normalizedComponents = normalizeArray(components);
 		const validatedComponents = parse(ContainerComponentsSchema, normalizedComponents);
 
-		this.#data.components ??= [];
-		this.#data.components.push(...validatedComponents);
+		this.data.components ??= [];
+		this.data.components.push(...validatedComponents);
 
 		return this;
 	}
@@ -39,7 +35,7 @@ export class ContainerBuilder {
 	 * @param accentColor - The accent color of the container.
 	 */
 	setAccentColor(accentColor: AllowedContainerAccentColor): this {
-		this.#data.accentColor = parse(ContainerAccentColorSchema, accentColor);
+		this.data.accentColor = parse(ContainerAccentColorSchema, accentColor);
 
 		return this;
 	}
@@ -52,7 +48,7 @@ export class ContainerBuilder {
 		const normalizedComponents = normalizeArray(components);
 		const validatedComponents = parse(ContainerComponentsSchema, normalizedComponents);
 
-		this.#data.components = validatedComponents;
+		this.data.components = validatedComponents;
 
 		return this;
 	}
@@ -62,7 +58,7 @@ export class ContainerBuilder {
 	 * @param spoiler - Whether the container is a spoiler.
 	 */
 	setSpoiler(spoiler: boolean): this {
-		this.#data.spoiler = parse(ContainerSpoilerSchema, spoiler);
+		this.data.spoiler = parse(ContainerSpoilerSchema, spoiler);
 
 		return this;
 	}
@@ -72,8 +68,11 @@ export class ContainerBuilder {
 	 * @returns The {@link ContainerComponent | `ContainerComponent`} object.
 	 */
 	toJSON(): ContainerComponent {
-		const data = this.#data;
-		const validatedData = parse(ContainerSchema, data);
+		const { data } = this;
+		const validatedData = parse(ContainerSchema, {
+			...data,
+			type: ComponentTypes.Container,
+		});
 
 		return validatedData;
 	}
