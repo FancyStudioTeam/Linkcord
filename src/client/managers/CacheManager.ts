@@ -1,10 +1,10 @@
 /** biome-ignore-all lint/suspicious/useAwait: Caching methods are kept asynchronous for future compatibility. */
 
 import type { Iterable } from "#client/types/index.js";
-import type { Base } from "#structures/index.js";
+import { Base } from "#structures/Base.js";
 
 /** The cache manager for the client. */
-export class CacheManager<Key extends string, Value extends Base> {
+export class CacheManager<Key extends string, Value> {
 	/** The map where the cached values are stored. */
 	readonly #cache: Map<Key, Value>;
 	/** The maximum number of cached values allowed in the cache manager. */
@@ -54,9 +54,9 @@ export class CacheManager<Key extends string, Value extends Base> {
 		const cache = this.#cache;
 		const existing = cache.get(key);
 
-		if (existing) {
+		if (existing && existing instanceof Base) {
 			// biome-ignore lint/complexity/useLiteralKeys: Private method.
-			existing["__patch__"](data);
+			existing["patch"](data);
 		}
 	}
 
