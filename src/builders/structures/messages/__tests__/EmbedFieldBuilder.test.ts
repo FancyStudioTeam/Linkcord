@@ -4,27 +4,27 @@ import type { EmbedField } from "#types/index.js";
 import { EmbedFieldBuilder as EmbedFieldBuilderClass } from "../EmbedFieldBuilder.js";
 
 describe("Class: EmbedFieldBuilder", () => {
-	it("Should create an embed field.", () => {
+	it('Should return an "EmbedField" object.', () => {
 		const EmbedFieldBuilder = new EmbedFieldBuilderClass();
 		const ExpectedEmbedFieldResult: EmbedField = {
-			name: "Field Name",
-			value: "Field Value",
+			name: "Lorem ipsum dolor sit amet",
+			value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 		};
 
-		EmbedFieldBuilder.setName("Field Name");
-		EmbedFieldBuilder.setValue("Field Value");
+		EmbedFieldBuilder.setName("Lorem ipsum dolor sit amet");
+		EmbedFieldBuilder.setValue("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
 
 		expect(EmbedFieldBuilder.toJSON()).toEqual(ExpectedEmbedFieldResult);
 	});
 
-	it("Should throw an error if the name or value were not set.", () => {
+	it("Should throw an error if some of the required properties are missing.", () => {
 		const EmbedFieldBuilder1 = new EmbedFieldBuilderClass();
 		const EmbedFieldBuilder2 = new EmbedFieldBuilderClass();
 
-		EmbedFieldBuilder1.setName("Field Name");
-		EmbedFieldBuilder2.setValue("Field Value");
+		EmbedFieldBuilder1.setName("Lorem ipsum dolor sit amet");
+		EmbedFieldBuilder2.setValue("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
 
-		expect(() => EmbedFieldBuilder1.toJSON()).toThrowError(ValiError);
-		expect(() => EmbedFieldBuilder2.toJSON()).toThrowError(ValiError);
+		expect(() => EmbedFieldBuilder1.toJSON()).toThrow(ValiError);
+		expect(() => EmbedFieldBuilder2.toJSON()).toThrow(ValiError);
 	});
 });

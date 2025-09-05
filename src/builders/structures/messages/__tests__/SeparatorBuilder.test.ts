@@ -3,7 +3,7 @@ import { ComponentTypes, type SeparatorComponent, SeparatorSpacingSizes } from "
 import { SeparatorBuilder as SeparatorBuilderClass } from "../SeparatorBuilder.js";
 
 describe("Class: SeparatorBuilder", () => {
-	it("Should create a separator component.", () => {
+	it('Should return a "SeparatorComponent" object.', () => {
 		const SeparatorBuilder = new SeparatorBuilderClass();
 		const ExpectedSeparatorResult: SeparatorComponent = {
 			divider: true,
