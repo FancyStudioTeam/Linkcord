@@ -1,18 +1,17 @@
 /** biome-ignore-all lint/suspicious/useAwait: Caching methods are kept asynchronous for future compatibility. */
 
 import type { Iterable } from "#client/types/index.js";
-import { Base } from "#structures/Base.js";
 
 /** The cache manager for the client. */
 export class CacheManager<Key extends string, Value> {
 	/** The map where the cached values are stored. */
 	readonly #cache: Map<Key, Value>;
-	/** The maximum number of cached values allowed in the cache manager. */
+	/** The maximum number of cached values allowed. */
 	readonly #limit: number;
 
 	/**
 	 * Creates a new {@link CacheManager | `CacheManager`} instance.
-	 * @param limit - The maximum number of cached values allowed in the cache manager.
+	 * @param limit - The maximum number of cached values allowed.
 	 * @param initialCachedValues - The initial values to cache when instantiating the cache manager.
 	 */
 	constructor(limit = Infinity, initialCachedValues: Iterable<Key, Value> = []) {
@@ -20,19 +19,26 @@ export class CacheManager<Key extends string, Value> {
 		this.#limit = limit;
 	}
 
+	/** The number of cached values. */
+	get size(): number {
+		const cache = this.#cache;
+		const { size } = cache;
+
+		return size;
+	}
+
 	/**
 	 * Adds a value to the cache.
 	 * @param key - The key of the value to add.
 	 * @param value - The value to add.
 	 */
-	protected __add__(key: Key, value: Value): void {
+	async add(key: Key, value: Value): Promise<void> {
 		const cache = this.#cache;
 		const limit = this.#limit;
 
 		const { size: cacheSize } = cache;
 
-		// If the cache is full, remove the oldest value and add the new one.
-		// TODO: Test if oldest values are removed when the cache is full.
+		// If the cache is full, remove the oldest value.
 		if (cacheSize >= limit) {
 			const entries = cache.entries();
 			const [firstCachedValueKey] = entries.next().value ?? [];
@@ -46,37 +52,14 @@ export class CacheManager<Key extends string, Value> {
 	}
 
 	/**
-	 * Patches the data of a cached value with the given data, if exists.
-	 * @param key - The key of the cached value to patch.
-	 * @param data - The data to use to patch the cached value.
-	 */
-	protected __patch__(key: Key, data: unknown): void {
-		const cache = this.#cache;
-		const existing = cache.get(key);
-
-		if (existing && existing instanceof Base) {
-			// biome-ignore lint/complexity/useLiteralKeys: Private method.
-			existing["patch"](data);
-		}
-	}
-
-	/**
-	 * Removes a value from the cache, if exists.
+	 * Deletes a value from the cache.
 	 * @param key - The key of the value to remove.
-	 * @returns Whether the value has been removed.
+	 * @returns Whether the cached value was deleted.
 	 */
-	protected __remove__(key: Key): boolean {
+	async delete(key: Key): Promise<boolean> {
 		const cache = this.#cache;
 
 		return cache.delete(key);
-	}
-
-	/** Gets the number of cached values in the cache manager. */
-	get size(): number {
-		const cache = this.#cache;
-		const { size: cacheSize } = cache;
-
-		return cacheSize;
 	}
 
 	/**
