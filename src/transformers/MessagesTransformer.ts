@@ -9,9 +9,7 @@ function transformEmbedsToParsed(embeds: APIEmbed[]): Embed[] {
 	const embedsData: Embed[] = [];
 
 	for (const embed of embeds) {
-		const embedData = transformEmbedToParsed(embed);
-
-		embedsData.push(embedData);
+		embedsData.push(transformEmbedToParsed(embed));
 	}
 
 	return embedsData;
@@ -38,21 +36,59 @@ function transformEmbedToParsed(embed: APIEmbed): Embed {
 		url,
 		video,
 	} = embed;
-	const embedData: Embed = {
-		author,
-		color,
-		description,
-		fields,
-		footer,
-		image,
-		provider,
-		thumbnail,
-		timestamp,
-		title,
-		type,
-		url,
-		video,
-	};
+	const embedData: Embed = {};
+
+	if (author) {
+		embedData.author = author;
+	}
+
+	if (color) {
+		embedData.color = color;
+	}
+
+	if (description) {
+		embedData.description = description;
+	}
+
+	if (fields) {
+		embedData.fields = fields;
+	}
+
+	if (footer) {
+		embedData.footer = footer;
+	}
+
+	if (image) {
+		embedData.image = image;
+	}
+
+	if (provider) {
+		embedData.provider = provider;
+	}
+
+	if (thumbnail) {
+		embedData.thumbnail = thumbnail;
+	}
+
+	if (timestamp) {
+		embedData.timestamp = timestamp;
+	}
+
+	if (title) {
+		embedData.title = title;
+	}
+
+	if (type) {
+		embedData.type = type;
+	}
+
+	if (url) {
+		embedData.url = url;
+	}
+
+	if (video) {
+		embedData.video = video;
+	}
 
 	return embedData;
 }
