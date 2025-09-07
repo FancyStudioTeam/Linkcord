@@ -1,4 +1,5 @@
 import type { ISO8601Date } from "#types/miscellaneous/discord.js";
+import type { APIUser } from "#types/resources/Users/index.js";
 import type { EmbedTypes } from "../enums.js";
 
 /**
@@ -136,6 +137,10 @@ export interface APIEmbedVideo {
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
  */
 export interface APIMessage {
+	/** The author of the message. */
+	author: APIUser;
 	/** The content of the message. */
 	content: string;
+	/** The embeds of the message. */
+	embeds: APIEmbed[];
 }

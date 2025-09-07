@@ -1,21 +1,29 @@
 import type { Client } from "#client/index.js";
-import type { APIMessage } from "#types/index.js";
+import { MessagesTransformer } from "#transformers/MessagesTransformer.js";
+import type { APIMessage, Embed } from "#types/index.js";
 import { Base } from "./Base.js";
+import { User } from "./User.js";
 
 /**
  * Represents a Discord message object.
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
  */
 export class Message extends Base {
+	/** The author of the message. */
+	readonly author: User;
 	/** The content of the message. */
 	content: string;
+	/** The embeds of the message. */
+	readonly embeds: Embed[];
 
 	constructor(client: Client, data: APIMessage) {
 		super(client);
 
-		const { content } = data;
+		const { author, content, embeds } = data;
 
+		this.author = new User(client, author);
 		this.content = content;
+		this.embeds = MessagesTransformer.transformEmbedsToParsed(embeds);
 	}
 
 	/**
