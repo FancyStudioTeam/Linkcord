@@ -1,4 +1,4 @@
-import type { GatewayDispatchReadyEvent } from "./dispatch.js";
+import type { GatewayDispatchMessageCreateEvent, GatewayDispatchReadyEvent } from "./dispatch.js";
 import type { GatewayDispatchEvents, GatewayOpcodes } from "./enums.js";
 
 /**
@@ -85,7 +85,7 @@ export interface GatewayResumeEventPayload {
  * Represents the {@link GatewayOpcodes.Dispatch | `DISPATCH`} event from the Discord gateway.
  * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
-export type GatewayDispatchEvent = GatewayDispatchReadyEvent;
+export type GatewayDispatchEvent = GatewayDispatchMessageCreateEvent | GatewayDispatchReadyEvent;
 
 /**
  * Represents the events from the Discord gateway.

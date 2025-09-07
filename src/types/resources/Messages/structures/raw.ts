@@ -130,3 +130,12 @@ export interface APIEmbedVideo {
 	/** The width of the video. */
 	width?: number;
 }
+
+/**
+ * Represents a Discord message object.
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
+ */
+export interface APIMessage {
+	/** The content of the message. */
+	content: string;
+}

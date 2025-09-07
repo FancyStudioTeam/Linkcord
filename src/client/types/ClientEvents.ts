@@ -1,5 +1,5 @@
 import type { GatewayShard } from "#gateway/index.js";
-import type { Uncached, User } from "#structures/index.js";
+import type { Message, Uncached, User } from "#structures/index.js";
 import type { GatewayEvent } from "#types/index.js";
 
 /** Represents a map of the events that can be emitted by the client with their respective parameters. */
@@ -56,6 +56,11 @@ export interface ClientEventsMap {
 	 * 	instance.
 	 */
 	// [ClientEvents.InteractionCreate]: [interaction: ChatInputCommandInteraction];
+	/**
+	 * Emitted when a message has been created.
+	 * @param message - The created {@link Message | `Message`} instance.
+	 */
+	[ClientEvents.MessageCreate]: [message: Message];
 	/**
 	 * Emitted when a shard has been disconnected.
 	 * @param reason - The reason of the disconnection.
@@ -122,6 +127,7 @@ export enum ClientEvents {
 	// GuildRoleUpdate = "guildRoleUpdate",
 	// GuildUpdate = "guildUpdate",
 	// InteractionCreate = "interactionCreate",
+	MessageCreate = "messageCreate",
 	ShardDisconnected = "shardDisconnected",
 	ShardHello = "shardHello",
 	ShardPacket = "shardPacket",
