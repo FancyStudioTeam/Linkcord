@@ -10,13 +10,14 @@ import {
 	GUILD_ROLE_UPDATE,
 	GUILD_UPDATE,
 } from "./Guilds.js";
-import { READY } from "./Shard.js";
 import { USER_UPDATE } from "./Users.js";*/
 import { MESSAGE_CREATE } from "./Messages.js";
+import { READY } from "./Shard.js";
 
 // biome-ignore-start lint/style/useNamingConvention: Keys must be the exact name as the dispatch event names.
 export const DispatchHooks: Partial<DispatchHooksMap> = {
 	MESSAGE_CREATE,
+	READY,
 };
 // biome-ignore-end lint/style/useNamingConvention: Keys must be the exact name as the dispatch event names.
 
