@@ -7,7 +7,7 @@ export interface ClientEventsMap {
 	/** Emitted when all shards have been spawned and are ready. */
 	[ClientEvents.ClientReady]: [];
 	/**
-	 * Emitted when a message is received internally by the client.
+	 * Emitted when a debug message is received internally by the client.
 	 * @param message - The message that has been received.
 	 */
 	[ClientEvents.Debug]: [message: string];
@@ -57,7 +57,7 @@ export interface ClientEventsMap {
 	 */
 	// [ClientEvents.InteractionCreate]: [interaction: ChatInputCommandInteraction];
 	/**
-	 * Emitted when a message was created.
+	 * Emitted when a message is created.
 	 * @param message - The created {@link Message | `Message`} instance.
 	 */
 	[ClientEvents.MessageCreate]: [message: Message];
@@ -95,13 +95,13 @@ export interface ClientEventsMap {
 	 */
 	[ClientEvents.ShardReady]: [gatewayShard: GatewayShard];
 	/**
-	 * Emitted when a user has been updated.
+	 * Emitted when a user is updated.
 	 * @param newUser - The updated {@link User | `User`} instance.
 	 * @param oldUser - The old {@link User | `User`} instance, if cached.
 	 */
 	[ClientEvents.UserUpdate]: [newUser: User, oldUser: UserOrUncached];
 	/**
-	 * Emitted when a warning is received from the client.
+	 * Emitted when a warning message is received internally by the client.
 	 * @param warning - The warning that has been received.
 	 */
 	[ClientEvents.Warn]: [warning: string];
