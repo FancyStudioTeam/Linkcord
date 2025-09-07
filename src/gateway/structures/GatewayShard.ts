@@ -329,11 +329,12 @@ export class GatewayShard {
 
 		const { token } = client;
 
-		if (!(sequence && sessionId)) {
-			throw new GatewayShardError(
-				"Cannot resume the shard without a sequence number or session ID.",
-				id,
-			);
+		if (!sessionId) {
+			throw new GatewayShardError("Cannot resume the shard witout a session ID.", id);
+		}
+
+		if (!sequence) {
+			throw new GatewayShardError("Cannot resume the shard witout a sequence number.", id);
 		}
 
 		client.debug(label, `Sending a "RESUME" packet to the Discord gateway...`);
