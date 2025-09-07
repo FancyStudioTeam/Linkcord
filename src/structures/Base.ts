@@ -1,13 +1,14 @@
 import type { Client } from "#client/index.js";
 import type { RESTManager } from "#rest/index.js";
 import type { APIManager } from "#rest/structures/APIManager.js";
+import { defineInternalProperty } from "#utils/functions/defineInternalProperty.js";
 
 /** Represents a base class for some Discord structures. */
 export abstract class Base {
 	/** The client that instantiated the base. */
-	protected readonly client: Client;
+	protected declare readonly client: Client;
 	/** The REST manager to perform requests within the API. */
-	protected readonly rest: RESTManager;
+	protected declare readonly rest: RESTManager;
 
 	/**
 	 * Creates a new {@link Base | `Base`} instance.
@@ -16,8 +17,8 @@ export abstract class Base {
 	constructor(client: Client) {
 		const { rest } = client;
 
-		this.client = client;
-		this.rest = rest;
+		defineInternalProperty(this, "client", client);
+		defineInternalProperty(this, "rest", rest);
 	}
 
 	/** The API manager to perform requests within the API. */
