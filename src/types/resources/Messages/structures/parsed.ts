@@ -2,7 +2,7 @@ import type { ISO8601Date } from "#types/miscellaneous/discord.js";
 import type { EmbedTypes } from "../enums.js";
 
 /**
- * Represents an embed.
+ * Represents a Discord embed object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-structure
  */
 export interface Embed {
@@ -35,7 +35,7 @@ export interface Embed {
 }
 
 /**
- * Represents an embed author.
+ * Represents a Discord embed author object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-author-structure
  */
 export interface EmbedAuthor {
@@ -48,7 +48,7 @@ export interface EmbedAuthor {
 }
 
 /**
- * Represents an embed field.
+ * Represents a Discord embed field object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-field-structure
  */
 export interface EmbedField {
@@ -61,7 +61,7 @@ export interface EmbedField {
 }
 
 /**
- * Represents an embed footer.
+ * Represents a Discord embed footer object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-footer-structure
  */
 export interface EmbedFooter {
@@ -72,7 +72,7 @@ export interface EmbedFooter {
 }
 
 /**
- * Represents an embed image.
+ * Represents a Discord embed image object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-image-structure
  */
 export interface EmbedImage {
@@ -81,7 +81,7 @@ export interface EmbedImage {
 }
 
 /**
- * Represents an embed provider.
+ * Represents a Discord embed provider object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-provider-structure
  */
 export interface EmbedProvider {
@@ -92,7 +92,7 @@ export interface EmbedProvider {
 }
 
 /**
- * Represents an embed thumbnail.
+ * Represents a Discord embed thumbnail object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-thumbnail-structure
  */
 export interface EmbedThumbnail {
@@ -101,7 +101,7 @@ export interface EmbedThumbnail {
 }
 
 /**
- * Represents an embed video.
+ * Represents a Discord embed video object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-video-structure
  */
 export interface EmbedVideo {

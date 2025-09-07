@@ -2,7 +2,7 @@ import type { ISO8601Date } from "#types/miscellaneous/discord.js";
 import type { EmbedTypes } from "../enums.js";
 
 /**
- * Represents an embed.
+ * Represents a Discord embed object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-structure
  */
 export interface APIEmbed {
@@ -35,7 +35,7 @@ export interface APIEmbed {
 }
 
 /**
- * Represents an embed author.
+ * Represents a Discord embed author object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-author-structure
  */
 export interface APIEmbedAuthor {
@@ -50,7 +50,7 @@ export interface APIEmbedAuthor {
 }
 
 /**
- * Represents an embed field.
+ * Represents a Discord embed field object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-field-structure
  */
 export interface APIEmbedField {
@@ -63,7 +63,7 @@ export interface APIEmbedField {
 }
 
 /**
- * Represents an embed footer.
+ * Represents a Discord embed footer object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-footer-structure
  */
 export interface APIEmbedFooter {
@@ -76,7 +76,7 @@ export interface APIEmbedFooter {
 }
 
 /**
- * Represents an embed image.
+ * Represents a Discord embed image object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-image-structure
  */
 export interface APIEmbedImage {
@@ -91,7 +91,7 @@ export interface APIEmbedImage {
 }
 
 /**
- * Represents an embed provider.
+ * Represents a Discord embed provider object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-provider-structure
  */
 export interface APIEmbedProvider {
@@ -102,7 +102,7 @@ export interface APIEmbedProvider {
 }
 
 /**
- * Represents an embed thumbnail.
+ * Represents a Discord embed thumbnail object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-thumbnail-structure
  */
 export interface APIEmbedThumbnail {
@@ -117,7 +117,7 @@ export interface APIEmbedThumbnail {
 }
 
 /**
- * Represents an embed video.
+ * Represents a Discord embed video object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-video-structure
  */
 export interface APIEmbedVideo {
