@@ -29,7 +29,7 @@ export function READY(
 	const user = new User(client, userData);
 	const { id: userId } = user;
 
-	users["__add__"](userId, user);
+	users.add(userId, user);
 	manager["triggerReady"]();
 
 	events.emit(ClientEvents.ShardReady, shard);
