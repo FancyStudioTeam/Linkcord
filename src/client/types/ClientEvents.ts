@@ -57,7 +57,7 @@ export interface ClientEventsMap {
 	 */
 	// [ClientEvents.InteractionCreate]: [interaction: ChatInputCommandInteraction];
 	/**
-	 * Emitted when a message has been created.
+	 * Emitted when a message was created.
 	 * @param message - The created {@link Message | `Message`} instance.
 	 */
 	[ClientEvents.MessageCreate]: [message: Message];
