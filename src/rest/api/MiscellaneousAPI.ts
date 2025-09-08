@@ -7,7 +7,7 @@ import { BaseAPI } from "./BaseAPI.js";
 export class MiscellaneousAPI extends BaseAPI {
 	/**
 	 * Performs a {@link RESTGetAPIVoiceRegions | `GET /voice/regions`} request to the Discord API.
-	 * @returns The {@link VoiceRegion | `VoiceRegion`} objects.
+	 * @returns The parsed list of {@link VoiceRegion | `VoiceRegion`} objects.
 	 * @see https://discord.com/developers/docs/resources/voice#list-voice-regions
 	 */
 	async getVoiceRegions(): Promise<VoiceRegion[]> {

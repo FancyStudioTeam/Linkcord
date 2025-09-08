@@ -7,7 +7,7 @@ import { BaseAPI } from "./BaseAPI.js";
 export class GatewayAPI extends BaseAPI {
 	/**
 	 * Performs a {@link RESTGetAPIGateway | `GET /gateway`} request to the Discord API.
-	 * @returns The {@link Gateway | `Gateway`} object.
+	 * @returns The parsed {@link Gateway | `Gateway`} object.
 	 * @see https://discord.com/developers/docs/events/gateway#get-gateway
 	 */
 	async getGateway(): Promise<Gateway> {
@@ -20,7 +20,7 @@ export class GatewayAPI extends BaseAPI {
 
 	/**
 	 * Performs a {@link RESTGetAPIGatewayBot | `GET /gateway/bot`} request to the Discord API.
-	 * @returns The {@link GatewayBot | `GatewayBot`} object.
+	 * @returns The parsed {@link GatewayBot | `GatewayBot`} object.
 	 * @see https://discord.com/developers/docs/events/gateway#get-gateway-bot
 	 */
 	async getGatewayBot(): Promise<GatewayBot> {
