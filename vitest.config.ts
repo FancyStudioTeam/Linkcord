@@ -8,7 +8,7 @@ const configuration = defineConfig({
 		}),
 	],
 	test: {
-		reporters: ["verbose"],
+		reporters: "verbose",
 	},
 });
 
