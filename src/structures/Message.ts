@@ -1,6 +1,6 @@
 import type { Client } from "#client/index.js";
 import { parseEmbeds } from "#transformers/Messages.js";
-import type { APIMessage, Embed } from "#types/index.js";
+import type { APIMessage, Embed, Snowflake } from "#types/index.js";
 import { Base } from "./Base.js";
 import { User } from "./User.js";
 
@@ -11,6 +11,8 @@ import { User } from "./User.js";
 export class Message extends Base {
 	/** The author of the message. */
 	readonly author: User;
+	/** The ID of the channel where the message was created. */
+	readonly channelId: Snowflake;
 	/** The content of the message. */
 	content: string;
 	/** The embeds of the message. */
@@ -19,9 +21,10 @@ export class Message extends Base {
 	constructor(client: Client, data: APIMessage) {
 		super(client);
 
-		const { author, content, embeds } = data;
+		const { author, channel_id: channelId, content, embeds } = data;
 
 		this.author = new User(client, author);
+		this.channelId = channelId;
 		this.content = content;
 		this.embeds = parseEmbeds(embeds);
 	}

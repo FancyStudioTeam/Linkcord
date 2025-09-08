@@ -1,4 +1,4 @@
-import type { ISO8601Date } from "#types/miscellaneous/discord.js";
+import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
 import type { APIUser } from "#types/resources/Users/index.js";
 import type { EmbedTypes } from "../enums.js";
 
@@ -139,6 +139,8 @@ export interface APIEmbedVideo {
 export interface APIMessage {
 	/** The author of the message. */
 	author: APIUser;
+	/** The ID of the channel where the message was created. */
+	channel_id: Snowflake;
 	/** The content of the message. */
 	content: string;
 	/** The embeds of the message. */
