@@ -8,19 +8,8 @@ import type { EmbedProperties } from "#jsx/types/index.js";
  */
 export function Embed(properties: EmbedProperties): EmbedBuilder {
 	const embed = new EmbedBuilder();
-	const {
-		author,
-		children,
-		color,
-		description,
-		fields,
-		footer,
-		image,
-		thumbnail,
-		timestamp,
-		title,
-		url,
-	} = properties;
+	const { author, children, color, description, fields, footer, image, thumbnail, timestamp, title, url } =
+		properties;
 
 	author && embed.setAuthor(author);
 	color && embed.setColor(color);

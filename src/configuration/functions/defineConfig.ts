@@ -11,8 +11,6 @@ export function defineConfig(options: DefineConfigOptions): LinkcordOptions {
 	try {
 		return parse(ConfigurationSchema, options);
 	} catch {
-		throw new TypeError(
-			"The first parameter (options) contains an invalid configuration object input.",
-		);
+		throw new TypeError("The first parameter (options) contains an invalid configuration object input.");
 	}
 }

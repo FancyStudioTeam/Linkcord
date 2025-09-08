@@ -1,16 +1,6 @@
 import type { Client } from "#client/index.js";
-import {
-	parseAvatarDecoration,
-	parseCollectibles,
-	parsePrimaryGuild,
-} from "#transformers/Users.js";
-import type {
-	APIUser,
-	AvatarDecorationData,
-	Collectibles,
-	PrimaryGuild,
-	Snowflake,
-} from "#types/index.js";
+import { parseAvatarDecoration, parseCollectibles, parsePrimaryGuild } from "#transformers/Users.js";
+import type { APIUser, AvatarDecorationData, Collectibles, PrimaryGuild, Snowflake } from "#types/index.js";
 import { BitFieldResolver } from "#utils/index.js";
 import { Base } from "./Base.js";
 
@@ -83,8 +73,7 @@ export class User extends Base {
 
 		if (accentColor !== undefined) this.accentColor = accentColor;
 		if (avatar !== undefined) this.avatar = avatar;
-		if (avatarDecorationData !== undefined)
-			this.avatarDecorationData = parseAvatarDecoration(avatarDecorationData);
+		if (avatarDecorationData !== undefined) this.avatarDecorationData = parseAvatarDecoration(avatarDecorationData);
 		if (banner !== undefined) this.banner = banner;
 		if (collectibles !== undefined) this.collectibles = parseCollectibles(collectibles);
 		if (flags !== undefined) this.flags = new BitFieldResolver(flags);

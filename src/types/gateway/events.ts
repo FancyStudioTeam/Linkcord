@@ -112,10 +112,7 @@ export type GatewayHeartbeatAckEventPayload = never;
  * Represents the {@link GatewayOpcodes.Heartbeat | `HEARTBEAT`} event from the Discord gateway.
  * @see https://discord.com/developers/docs/events/gateway-events#heartbeat
  */
-export type GatewayHeartbeatEvent = GatewayEventBase<
-	GatewayOpcodes.Heartbeat,
-	GatewayHeartbeatEventPayload
->;
+export type GatewayHeartbeatEvent = GatewayEventBase<GatewayOpcodes.Heartbeat, GatewayHeartbeatEventPayload>;
 
 /**
  * Represents the payload of the {@link GatewayOpcodes.Heartbeat | `HEARTBEAT`} event from the Discord gateway.
@@ -133,10 +130,7 @@ export type GatewayHelloEvent = GatewayEventBase<GatewayOpcodes.Hello, GatewayHe
  * Represents the {@link GatewayOpcodes.Identify | `IDENTIFY`} event from the Discord gateway.
  * @see https://discord.com/developers/docs/events/gateway-events#identify
  */
-export type GatewayIdentifyEvent = GatewayEventBase<
-	GatewayOpcodes.Identify,
-	GatewayIdentifyEventPayload
->;
+export type GatewayIdentifyEvent = GatewayEventBase<GatewayOpcodes.Identify, GatewayIdentifyEventPayload>;
 
 /**
  * Represents the {@link GatewayOpcodes.InvalidSession | `INVALID_SESSION`} event from the Discord gateway.
@@ -168,10 +162,7 @@ export type GatewayReceiveEvent =
  * Represents the {@link GatewayOpcodes.Reconnect | `RECONNECT`} event from the Discord gateway.
  * @see https://discord.com/developers/docs/events/gateway-events#reconnect
  */
-export type GatewayReconnectEvent = GatewayEventBase<
-	GatewayOpcodes.Reconnect,
-	GatewayReconnectEventPayload
->;
+export type GatewayReconnectEvent = GatewayEventBase<GatewayOpcodes.Reconnect, GatewayReconnectEventPayload>;
 
 /**
  * Represents the payload of the {@link GatewayOpcodes.Reconnect | `RECONNECT`} event from the Discord gateway.

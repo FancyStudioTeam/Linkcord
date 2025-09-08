@@ -1,8 +1,5 @@
 import type { Localizations } from "#types/miscellaneous/discord.js";
-import type {
-	ApplicationIntegrationTypes,
-	InteractionContextTypes,
-} from "#types/resources/Applications/enums.js";
+import type { ApplicationIntegrationTypes, InteractionContextTypes } from "#types/resources/Applications/enums.js";
 import type { ApplicationCommandTypes } from "../enums.js";
 import type {
 	APIApplicationCommand,

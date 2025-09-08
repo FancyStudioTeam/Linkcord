@@ -29,9 +29,7 @@ export interface ApplicationCommandOptionChannel
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
 export interface ApplicationCommandOptionNumber
-	extends BaseApplicationCommandOption<
-		ApplicationCommandOptionTypes.Integer | ApplicationCommandOptionTypes.Number
-	> {
+	extends BaseApplicationCommandOption<ApplicationCommandOptionTypes.Integer | ApplicationCommandOptionTypes.Number> {
 	/** Whether to autocomplete the choices of the application command option. */
 	autocomplete?: boolean;
 	/** The choices of the application command option. */
@@ -121,15 +119,13 @@ export interface GuildApplicationCommandPermissions {
  * Represents an application command option for attachments.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type ApplicationCommandOptionAttachment =
-	BaseApplicationCommandOption<ApplicationCommandOptionTypes.Attachment>;
+export type ApplicationCommandOptionAttachment = BaseApplicationCommandOption<ApplicationCommandOptionTypes.Attachment>;
 
 /**
  * Represents an application command option for booleans.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type ApplicationCommandOptionBoolean =
-	BaseApplicationCommandOption<ApplicationCommandOptionTypes.Boolean>;
+export type ApplicationCommandOptionBoolean = BaseApplicationCommandOption<ApplicationCommandOptionTypes.Boolean>;
 
 /**
  * Represents an application command option for mentionables.
@@ -142,15 +138,13 @@ export type ApplicationCommandOptionMentionable =
  * Represents an application command option for roles.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type ApplicationCommandOptionRole =
-	BaseApplicationCommandOption<ApplicationCommandOptionTypes.Role>;
+export type ApplicationCommandOptionRole = BaseApplicationCommandOption<ApplicationCommandOptionTypes.Role>;
 
 /**
  * Represents an application command option for users.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type ApplicationCommandOptionUser =
-	BaseApplicationCommandOption<ApplicationCommandOptionTypes.User>;
+export type ApplicationCommandOptionUser = BaseApplicationCommandOption<ApplicationCommandOptionTypes.User>;
 
 /**
  * Represents an application command option.

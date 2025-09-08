@@ -4,11 +4,7 @@ import {
 	SelectMenuDefaultValueSchema,
 	SelectMenuDefaultValueTypeSchema,
 } from "#builders/schemas/selects/SelectMenuDefaultValueSchema.js";
-import type {
-	SelectMenuDefaultValue,
-	SelectMenuDefaultValueTypes,
-	Snowflake,
-} from "#types/index.js";
+import type { SelectMenuDefaultValue, SelectMenuDefaultValueTypes, Snowflake } from "#types/index.js";
 import { BaseBuilder } from "../base/BaseBuilder.js";
 
 /** Utility class for building {@link SelectMenuDefaultValue | `SelectMenuDefaultValue`} objects. */

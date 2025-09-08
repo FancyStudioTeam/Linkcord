@@ -61,11 +61,7 @@ function emoji(emojiId: Snowflake): string {
 	return encode`emojis/${emojiId}`;
 }
 
-function guildScheduledEvent(
-	guildId: Snowflake,
-	scheduledEventId: Snowflake,
-	scheduledEventCover: string,
-): string {
+function guildScheduledEvent(guildId: Snowflake, scheduledEventId: Snowflake, scheduledEventCover: string): string {
 	return encode`guilds/${guildId}/scheduled-events/${scheduledEventId}/${scheduledEventCover}`;
 }
 

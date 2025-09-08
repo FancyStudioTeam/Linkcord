@@ -40,11 +40,7 @@ export const EmbedColorStringSchema = pipe(
 );
 export const EmbedColorSchema = union([EmbedColorNumberSchema, EmbedColorStringSchema]);
 
-export const EmbedDescriptionSchema = pipe(
-	string(),
-	minLength(1),
-	maxLength(MAXIMUM_EMBED_DESCRIPTION_LENGTH),
-);
+export const EmbedDescriptionSchema = pipe(string(), minLength(1), maxLength(MAXIMUM_EMBED_DESCRIPTION_LENGTH));
 
 export const EmbedFieldInstanceSchema = pipe(
 	instance(EmbedFieldBuilder),
@@ -52,10 +48,7 @@ export const EmbedFieldInstanceSchema = pipe(
 );
 export const EmbedFieldObjectSchema = _EmbedFieldSchema;
 export const EmbedFieldSchema = union([EmbedFieldInstanceSchema, EmbedFieldObjectSchema]);
-export const EmbedFieldsSchema = pipe(
-	array(EmbedFieldSchema),
-	maxLength(MAXIMUM_EMBED_FIELDS_LENGTH),
-);
+export const EmbedFieldsSchema = pipe(array(EmbedFieldSchema), maxLength(MAXIMUM_EMBED_FIELDS_LENGTH));
 
 export const EmbedFooterInstanceSchema = pipe(
 	instance(EmbedFooterBuilder),
@@ -93,10 +86,7 @@ export const EmbedTimestampInstanceSchema = pipe(
 	transform((date) => date.toISOString()),
 );
 export const EmbedTimestampISOTimestampSchema = pipe(string(), isoTimestamp());
-export const EmbedTimestampSchema = union([
-	EmbedTimestampInstanceSchema,
-	EmbedTimestampISOTimestampSchema,
-]);
+export const EmbedTimestampSchema = union([EmbedTimestampInstanceSchema, EmbedTimestampISOTimestampSchema]);
 
 export const EmbedTitleSchema = pipe(string(), minLength(1), maxLength(MAXIMUM_EMBED_TITLE_LENGTH));
 

@@ -33,17 +33,12 @@ async function registerEvents(eventsFolderPath: string, client: Client): Promise
 		const { name: fileName, parentPath: fileParentPath } = eventPath;
 
 		const importEventFilePath = ImportUtils.resolvePath(fileParentPath, fileName);
-		const importEventFileData = await ImportUtils.import<EventFileData>(
-			importEventFilePath,
-			true,
-		);
+		const importEventFileData = await ImportUtils.import<EventFileData>(importEventFilePath, true);
 
 		const { default: defaultExport, disabled, once } = importEventFileData;
 
 		if (disabled) {
-			emitWarning(
-				`Event "${basename(importEventFilePath)}" is disabled and will not be registered.`,
-			);
+			emitWarning(`Event "${basename(importEventFilePath)}" is disabled and will not be registered.`);
 
 			continue;
 		}

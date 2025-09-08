@@ -19,7 +19,7 @@
 		"indentStyle": "tab",
 		"indentWidth": 4,
 		"lineEnding": "lf",
-		"lineWidth": 100
+		"lineWidth": 120
 	},
 	"javascript": {
 		"parser": {

@@ -8,8 +8,7 @@ import type { TextInputProperties } from "#jsx/types/index.js";
  */
 export function TextInput(properties: TextInputProperties): TextInputBuilder {
 	const textInput = new TextInputBuilder();
-	const { children, customId, maxLength, minLength, placeholder, required, style, value } =
-		properties;
+	const { children, customId, maxLength, minLength, placeholder, required, style, value } = properties;
 
 	textInput.setCustomId(customId);
 	textInput.setStyle(style);

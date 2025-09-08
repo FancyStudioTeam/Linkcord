@@ -1,8 +1,5 @@
 import type { InferOutput } from "valibot";
-import type {
-	ConfigurationLocationsSchema,
-	ConfigurationSchema,
-} from "#configuration/schemas/ConfigurationSchema.js";
+import type { ConfigurationLocationsSchema, ConfigurationSchema } from "#configuration/schemas/ConfigurationSchema.js";
 import type { GatewayIntents } from "#types/index.js";
 
 /**

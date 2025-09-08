@@ -25,11 +25,8 @@ export class GatewayAPI extends BaseAPI {
 	 * @see https://discord.com/developers/docs/events/gateway#get-gateway-bot
 	 */
 	async getGatewayBot(): Promise<GatewayBot> {
-		const gatewayBotResponseData = await super.get<RESTGetAPIGatewayBot>(
-			Endpoints.gatewayBot(),
-		);
-		const gatewayBotData =
-			GatewayTransformer.transformGatewayBotToParsed(gatewayBotResponseData);
+		const gatewayBotResponseData = await super.get<RESTGetAPIGatewayBot>(Endpoints.gatewayBot());
+		const gatewayBotData = GatewayTransformer.transformGatewayBotToParsed(gatewayBotResponseData);
 
 		return gatewayBotData;
 	}

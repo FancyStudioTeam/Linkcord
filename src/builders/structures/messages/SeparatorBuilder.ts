@@ -4,11 +4,7 @@ import {
 	SeparatorSchema,
 	SeparatorSpacingSchema,
 } from "#builders/schemas/messages/SeparatorSchema.js";
-import {
-	ComponentTypes,
-	type SeparatorComponent,
-	type SeparatorSpacingSizes,
-} from "#types/index.js";
+import { ComponentTypes, type SeparatorComponent, type SeparatorSpacingSizes } from "#types/index.js";
 import { BaseBuilder } from "../base/BaseBuilder.js";
 
 /** Utility class for building {@link SeparatorComponent | `SeparatorComponent`} objects. */

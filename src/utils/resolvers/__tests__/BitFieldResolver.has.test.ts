@@ -4,9 +4,7 @@ import { BitFieldResolver as BitFieldResolverClass } from "../BitFieldResolver.j
 
 describe("Method: BitFieldResolver.freeze", () => {
 	it("Should check whether a bit is present in the bitfield.", () => {
-		const BitFieldResolver = new BitFieldResolverClass(
-			UserFlags.ActiveDeveloper | UserFlags.Staff,
-		);
+		const BitFieldResolver = new BitFieldResolverClass(UserFlags.ActiveDeveloper | UserFlags.Staff);
 
 		expect(BitFieldResolver.has(UserFlags.ActiveDeveloper)).toBe(true);
 		expect(BitFieldResolver.has(UserFlags.Staff)).toBe(true);

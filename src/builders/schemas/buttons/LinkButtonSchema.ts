@@ -20,11 +20,7 @@ const MAXIMUM_BUTTON_LABEL_LENGTH = 80;
 export const LinkButtonDisabledSchema = boolean();
 export const LinkButtonIDSchema = number();
 
-export const LinkButtonLabelSchema = pipe(
-	string(),
-	minLength(1),
-	maxLength(MAXIMUM_BUTTON_LABEL_LENGTH),
-);
+export const LinkButtonLabelSchema = pipe(string(), minLength(1), maxLength(MAXIMUM_BUTTON_LABEL_LENGTH));
 
 export const LinkButtonStyleSchema = literal(ButtonStyles.Link);
 export const LinkButtonTypeSchema = literal(ComponentTypes.Button);

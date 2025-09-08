@@ -5,17 +5,9 @@ const MAXIMUM_EMBED_FIELD_VALUE_LENGTH = 1024;
 
 export const EmbedFieldInlineSchema = boolean();
 
-export const EmbedFieldNameSchema = pipe(
-	string(),
-	minLength(1),
-	maxLength(MAXIMUM_EMBED_FIELD_NAME_LENGTH),
-);
+export const EmbedFieldNameSchema = pipe(string(), minLength(1), maxLength(MAXIMUM_EMBED_FIELD_NAME_LENGTH));
 
-export const EmbedFieldValueSchema = pipe(
-	string(),
-	minLength(1),
-	maxLength(MAXIMUM_EMBED_FIELD_VALUE_LENGTH),
-);
+export const EmbedFieldValueSchema = pipe(string(), minLength(1), maxLength(MAXIMUM_EMBED_FIELD_VALUE_LENGTH));
 
 export const EmbedFieldSchema = object({
 	inline: optional(EmbedFieldInlineSchema),

@@ -69,11 +69,7 @@ function channelMessagePins(channelId: Snowflake): string {
 	return encode`channels/${channelId}/messages/pins`;
 }
 
-function channelMessageReaction(
-	channelId: Snowflake,
-	messageId: Snowflake,
-	emojiId: Snowflake,
-): string {
+function channelMessageReaction(channelId: Snowflake, messageId: Snowflake, emojiId: Snowflake): string {
 	return encode`channels/${channelId}/messages/${messageId}/reactions/${emojiId}`;
 }
 
@@ -435,9 +431,7 @@ function voiceRegions(): string {
 }
 
 function webhook(webhookId: Snowflake, webhookToken?: string): string {
-	return webhookToken
-		? encode`webhooks/${webhookId}/${webhookToken}`
-		: encode`webhooks/${webhookId}`;
+	return webhookToken ? encode`webhooks/${webhookId}/${webhookToken}` : encode`webhooks/${webhookId}`;
 }
 
 function webhookGitHub(webhookId: Snowflake, webhookToken: string): string {

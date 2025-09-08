@@ -22,8 +22,7 @@ export interface ActionRowComponent extends BaseComponent<ComponentTypes.ActionR
  * Represents the base structure of a button component.
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export interface BaseButtonComponent<Style extends ButtonStyles>
-	extends BaseComponent<ComponentTypes.Button> {
+export interface BaseButtonComponent<Style extends ButtonStyles> extends BaseComponent<ComponentTypes.Button> {
 	/** Whether the button is disabled. */
 	disabled?: boolean;
 	/** The style of the button. */
@@ -96,8 +95,7 @@ export interface BaseTextableButtonComponent<Style extends TextableButtonCompone
  * Represents a channel select menu component.
  * @see https://discord.com/developers/docs/components/reference#channel-select-channel-select-structure
  */
-export interface ChannelSelectMenuComponent
-	extends BaseResolvedSelectMenuComponent<ComponentTypes.ChannelSelect> {
+export interface ChannelSelectMenuComponent extends BaseResolvedSelectMenuComponent<ComponentTypes.ChannelSelect> {
 	/** The channels of the select menu. */
 	channelTypes?: ChannelTypes[];
 }
@@ -220,8 +218,7 @@ export interface SeparatorComponent extends BaseComponent<ComponentTypes.Separat
  * Represents a select menu for string values.
  * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
  */
-export interface StringSelectMenuComponent
-	extends BaseSelectMenuComponent<ComponentTypes.StringSelect> {
+export interface StringSelectMenuComponent extends BaseSelectMenuComponent<ComponentTypes.StringSelect> {
 	/** The string options of the select menu. */
 	options: StringSelectMenuOption[];
 }
@@ -356,8 +353,7 @@ export type LabelComponents = SelectMenuComponent | TextInputComponent;
  * Represents a mentionable select menu component.
  * @see https://discord.com/developers/docs/components/reference#mentionable-select-mentionable-select-structure
  */
-export type MentionableSelectMenuComponent =
-	BaseResolvedSelectMenuComponent<ComponentTypes.MentionableSelect>;
+export type MentionableSelectMenuComponent = BaseResolvedSelectMenuComponent<ComponentTypes.MentionableSelect>;
 
 /**
  * Represents a component for messages.
@@ -388,10 +384,7 @@ export type PrimaryButtonComponent = BaseTextButtonComponent<ButtonStyles.Primar
  * Represents a resolveable select menu component type.
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export type ResolvedSelectMenuComponentTypes = Exclude<
-	SelectMenuTypes,
-	ComponentTypes.StringSelect
->;
+export type ResolvedSelectMenuComponentTypes = Exclude<SelectMenuTypes, ComponentTypes.StringSelect>;
 
 /**
  * Represents a role select menu component.

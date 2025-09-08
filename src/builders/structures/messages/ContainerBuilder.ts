@@ -7,11 +7,7 @@ import {
 	ContainerSchema,
 	ContainerSpoilerSchema,
 } from "#builders/schemas/messages/ContainerSchema.js";
-import type {
-	AllowedContainerAccentColor,
-	AllowedContainerComponent,
-	RestOrArray,
-} from "#builders/types/index.js";
+import type { AllowedContainerAccentColor, AllowedContainerComponent, RestOrArray } from "#builders/types/index.js";
 import { ComponentTypes, type ContainerComponent } from "#types/index.js";
 import { BaseBuilder } from "../base/BaseBuilder.js";
 

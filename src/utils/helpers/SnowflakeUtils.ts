@@ -20,9 +20,7 @@ function cast(input: bigint | number | string): Snowflake {
 		const { id } = groups ?? {};
 
 		if (!id) {
-			throw new TypeError(
-				"The first parameter (input) does not match the Discord snowflake format.",
-			);
+			throw new TypeError("The first parameter (input) does not match the Discord snowflake format.");
 		}
 
 		return id as Snowflake;

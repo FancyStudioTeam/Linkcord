@@ -1,8 +1,5 @@
 import { parse } from "valibot";
-import {
-	TextDisplayContentSchema,
-	TextDisplaySchema,
-} from "#builders/schemas/messages/TextDisplaySchema.js";
+import { TextDisplayContentSchema, TextDisplaySchema } from "#builders/schemas/messages/TextDisplaySchema.js";
 import type { TextDisplayComponent } from "#types/index.js";
 import { BaseBuilder } from "../base/BaseBuilder.js";
 

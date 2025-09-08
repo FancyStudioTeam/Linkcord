@@ -1,8 +1,4 @@
-import type {
-	EmbedAuthorBuilder,
-	EmbedFieldBuilder,
-	EmbedFooterBuilder,
-} from "#builders/structures/index.js";
+import type { EmbedAuthorBuilder, EmbedFieldBuilder, EmbedFooterBuilder } from "#builders/structures/index.js";
 import type { EmbedAuthor, EmbedField, EmbedFooter } from "#types/index.js";
 
 /** Represents an author that can be set to an embed builder. */

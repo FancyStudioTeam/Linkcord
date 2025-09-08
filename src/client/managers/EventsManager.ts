@@ -64,10 +64,7 @@ export class EventsManager {
 		let once: boolean;
 		let listener: EventListenerCallback<Event>;
 
-		const checkListenersAndPush = (
-			callback: EventListenerCallback<Event>,
-			once: boolean,
-		): boolean => {
+		const checkListenersAndPush = (callback: EventListenerCallback<Event>, once: boolean): boolean => {
 			const eventListener: EventListener = {
 				callback,
 				once,
@@ -87,9 +84,7 @@ export class EventsManager {
 
 		if (typeof onceOrListener === "boolean") {
 			if (!possibleListener || typeof possibleListener !== "function") {
-				throw new TypeError(
-					"The third parameter (listener) must be present and be a function.",
-				);
+				throw new TypeError("The third parameter (listener) must be present and be a function.");
 			}
 
 			once = onceOrListener;

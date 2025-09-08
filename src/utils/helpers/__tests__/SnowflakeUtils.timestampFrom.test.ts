@@ -13,17 +13,11 @@ describe("Method: SnowflakeUtils.timestampFrom", () => {
 	it('Should throw a "TypeError" if the snowflake is not a valid snowflake.', () => {
 		const InvalidSnowflakeInput1 = null;
 		const InvalidSnowflakeInput2 = "NOT_A_VALID_SNOWFLAKE_STRING";
-		const ExpectedErrorResult = new TypeError(
-			"The first parameter (snowflake) must be a valid snowflake.",
-		);
+		const ExpectedErrorResult = new TypeError("The first parameter (snowflake) must be a valid snowflake.");
 
 		// @ts-expect-error
-		expect(() => SnowflakeUtils.timestampFrom(InvalidSnowflakeInput1)).toThrow(
-			ExpectedErrorResult,
-		);
+		expect(() => SnowflakeUtils.timestampFrom(InvalidSnowflakeInput1)).toThrow(ExpectedErrorResult);
 		// @ts-expect-error
-		expect(() => SnowflakeUtils.timestampFrom(InvalidSnowflakeInput2)).toThrow(
-			ExpectedErrorResult,
-		);
+		expect(() => SnowflakeUtils.timestampFrom(InvalidSnowflakeInput2)).toThrow(ExpectedErrorResult);
 	});
 });

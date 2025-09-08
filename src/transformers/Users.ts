@@ -14,9 +14,7 @@ import type {
  * @param avatarDecoration - The {@link APIAvatarDecorationData | `APIAvatarDecorationData`} object to parse.
  * @returns The parsed {@link AvatarDecorationData | `AvatarDecorationData`} object.
  */
-export function parseAvatarDecoration(
-	avatarDecoration: APIAvatarDecorationData | null,
-): AvatarDecorationData | null {
+export function parseAvatarDecoration(avatarDecoration: APIAvatarDecorationData | null): AvatarDecorationData | null {
 	if (!avatarDecoration) return null;
 
 	const { asset, sku_id: skuId } = avatarDecoration;
@@ -69,12 +67,7 @@ export function parseNameplate(nameplate: APINameplate): Nameplate {
 export function parsePrimaryGuild(primaryGuild: APIPrimaryGuild | null): PrimaryGuild | null {
 	if (!primaryGuild) return null;
 
-	const {
-		badge,
-		identity_enabled: identityEnabled,
-		identity_guild_id: identityGuildId,
-		tag,
-	} = primaryGuild;
+	const { badge, identity_enabled: identityEnabled, identity_guild_id: identityGuildId, tag } = primaryGuild;
 	const primaryGuildData: PrimaryGuild = {
 		badge,
 		identityEnabled,

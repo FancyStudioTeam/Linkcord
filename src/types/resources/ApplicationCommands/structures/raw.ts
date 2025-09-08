@@ -1,8 +1,5 @@
 import type { Localizations, Snowflake } from "#types/miscellaneous/discord.js";
-import type {
-	ApplicationIntegrationTypes,
-	InteractionContextTypes,
-} from "#types/resources/Applications/enums.js";
+import type { ApplicationIntegrationTypes, InteractionContextTypes } from "#types/resources/Applications/enums.js";
 import type { ChannelTypes } from "#types/resources/Channels/enums.js";
 import type {
 	ApplicationCommandOptionTypes,
@@ -15,8 +12,7 @@ import type {
  * Represents an application command for chat inputs.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
  */
-export interface APIApplicationCommandChatInput
-	extends APIBaseApplicationCommand<ApplicationCommandTypes.ChatInput> {
+export interface APIApplicationCommandChatInput extends APIBaseApplicationCommand<ApplicationCommandTypes.ChatInput> {
 	/** The options of the application command. */
 	options?: APIApplicationCommandOption[];
 }
@@ -186,8 +182,7 @@ export interface APIGuildApplicationCommandMessage extends APIApplicationCommand
  * Represents an application command for primary entry points for guilds.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
  */
-export interface APIGuildApplicationCommandPrimaryEntryPoint
-	extends APIApplicationCommandPrimaryEntryPoint {
+export interface APIGuildApplicationCommandPrimaryEntryPoint extends APIApplicationCommandPrimaryEntryPoint {
 	/** The ID of the guild where the application command is registered. */
 	guild_id?: Snowflake;
 }
@@ -237,8 +232,7 @@ export type APIApplicationCommandOptionAttachment =
  * Represents an application command option for booleans.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type APIApplicationCommandOptionBoolean =
-	APIBaseApplicationCommandOption<ApplicationCommandOptionTypes.Boolean>;
+export type APIApplicationCommandOptionBoolean = APIBaseApplicationCommandOption<ApplicationCommandOptionTypes.Boolean>;
 
 /**
  * Represents an application command option for mentionables.
@@ -251,15 +245,13 @@ export type APIApplicationCommandOptionMentionable =
  * Represents an application command option for roles.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type APIApplicationCommandOptionRole =
-	APIBaseApplicationCommandOption<ApplicationCommandOptionTypes.Role>;
+export type APIApplicationCommandOptionRole = APIBaseApplicationCommandOption<ApplicationCommandOptionTypes.Role>;
 
 /**
  * Represents an application command option for users.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type APIApplicationCommandOptionUser =
-	APIBaseApplicationCommandOption<ApplicationCommandOptionTypes.User>;
+export type APIApplicationCommandOptionUser = APIBaseApplicationCommandOption<ApplicationCommandOptionTypes.User>;
 
 /**
  * Represents an application command option.
@@ -280,8 +272,7 @@ export type APIApplicationCommandOption =
  * Represents an application command for message contexts.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
  */
-export type APIApplicationCommandMessage =
-	APIBaseApplicationCommand<ApplicationCommandTypes.Message>;
+export type APIApplicationCommandMessage = APIBaseApplicationCommand<ApplicationCommandTypes.Message>;
 
 /**
  * Represents an application command for user contexts.

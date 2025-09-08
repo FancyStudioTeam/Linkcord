@@ -19,10 +19,7 @@ export const ConfigurationLocationsSchema = object({
 	root: ConfigurationLocationsRootSchema,
 });
 
-export const ConfigurationTokenSchema = pipe(
-	string(),
-	transform(ConfigurationUtils.transformToken),
-);
+export const ConfigurationTokenSchema = pipe(string(), transform(ConfigurationUtils.transformToken));
 
 export const ConfigurationSchema = object({
 	intents: ConfigurationIntentsSchema,

@@ -51,10 +51,7 @@ export class RESTManager {
 	/**
 	 * @internal
 	 */
-	private _createRequestInit(
-		method: RESTMethods,
-		options?: CreateRequestInitOptions,
-	): RequestInit {
+	private _createRequestInit(method: RESTMethods, options?: CreateRequestInitOptions): RequestInit {
 		const headers = this._createRequestHeaders(options);
 		const data: RequestInit = {
 			headers,
@@ -67,10 +64,7 @@ export class RESTManager {
 	/**
 	 * @internal
 	 */
-	private _createRequestURL<QueryStringParams>(
-		endpoint: string,
-		queryStringParams?: QueryStringParams,
-	): string {
+	private _createRequestURL<QueryStringParams>(endpoint: string, queryStringParams?: QueryStringParams): string {
 		const urlObject = new URL(endpoint, REST_URL_BASE);
 		const { searchParams } = urlObject;
 
@@ -87,22 +81,14 @@ export class RESTManager {
 		endpoint: string,
 		options?: RESTDeleteOptions<QueryStringParams>,
 	): Promise<Result> {
-		return await this.makeRequest<Result, never, QueryStringParams>(
-			RESTMethods.Delete,
-			endpoint,
-			options,
-		);
+		return await this.makeRequest<Result, never, QueryStringParams>(RESTMethods.Delete, endpoint, options);
 	}
 
 	async get<Result, QueryStringParams = never>(
 		endpoint: string,
 		options?: RESTGetOptions<QueryStringParams>,
 	): Promise<Result> {
-		return await this.makeRequest<Result, never, QueryStringParams>(
-			RESTMethods.Get,
-			endpoint,
-			options,
-		);
+		return await this.makeRequest<Result, never, QueryStringParams>(RESTMethods.Get, endpoint, options);
 	}
 
 	async makeRequest<Result, JSONParams = never, QueryStringParams = never>(
@@ -156,33 +142,21 @@ export class RESTManager {
 		endpoint: string,
 		options?: RESTPatchOptions<JSONParams, QueryStringParams>,
 	): Promise<Result> {
-		return await this.makeRequest<Result, JSONParams, QueryStringParams>(
-			RESTMethods.Patch,
-			endpoint,
-			options,
-		);
+		return await this.makeRequest<Result, JSONParams, QueryStringParams>(RESTMethods.Patch, endpoint, options);
 	}
 
 	async post<Result, JSONParams = never, QueryStringParams = never>(
 		endpoint: string,
 		options?: RESTPostOptions<JSONParams, QueryStringParams>,
 	): Promise<Result> {
-		return await this.makeRequest<Result, JSONParams, QueryStringParams>(
-			RESTMethods.Post,
-			endpoint,
-			options,
-		);
+		return await this.makeRequest<Result, JSONParams, QueryStringParams>(RESTMethods.Post, endpoint, options);
 	}
 
 	async put<Result, JSONParams = never, QueryStringParams = never>(
 		endpoint: string,
 		options?: RESTPutOptions<JSONParams, QueryStringParams>,
 	): Promise<Result> {
-		return await this.makeRequest<Result, JSONParams, QueryStringParams>(
-			RESTMethods.Put,
-			endpoint,
-			options,
-		);
+		return await this.makeRequest<Result, JSONParams, QueryStringParams>(RESTMethods.Put, endpoint, options);
 	}
 }
 
@@ -205,26 +179,17 @@ type CreateRequestInitOptions = MakeRequestOptions;
 /**
  * @internal
  */
-type CreateRequestHeadersOptions = Pick<
-	MakeRequestOptions,
-	"contentType" | "reason" | "withAuthorization"
->;
+type CreateRequestHeadersOptions = Pick<MakeRequestOptions, "contentType" | "reason" | "withAuthorization">;
 
 /**
  * @public
  */
-export type RESTDeleteOptions<QueryStringParams = never> = MakeRequestOptions<
-	never,
-	QueryStringParams
->;
+export type RESTDeleteOptions<QueryStringParams = never> = MakeRequestOptions<never, QueryStringParams>;
 
 /**
  * @public
  */
-export type RESTGetOptions<QueryStringParams = never> = MakeRequestOptions<
-	never,
-	QueryStringParams
->;
+export type RESTGetOptions<QueryStringParams = never> = MakeRequestOptions<never, QueryStringParams>;
 
 /**
  * @public

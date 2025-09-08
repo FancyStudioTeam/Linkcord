@@ -11,9 +11,7 @@ export class MiscellaneousAPI extends BaseAPI {
 	 * @see https://discord.com/developers/docs/resources/voice#list-voice-regions
 	 */
 	async getVoiceRegions(): Promise<VoiceRegion[]> {
-		const voiceRegionsResponseData = await super.get<RESTGetAPIVoiceRegions>(
-			Endpoints.voiceRegions(),
-		);
+		const voiceRegionsResponseData = await super.get<RESTGetAPIVoiceRegions>(Endpoints.voiceRegions());
 		const voiceRegionsData = voiceRegionsResponseData.map((voiceRegion) =>
 			VoiceTransformer.transformVoiceRegionToParsed(voiceRegion),
 		);

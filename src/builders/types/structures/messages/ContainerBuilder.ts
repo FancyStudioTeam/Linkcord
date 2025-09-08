@@ -5,9 +5,7 @@ import type { SeparatorComponent, TextDisplayComponent } from "#types/index.js";
 export type AllowedContainerAccentColor = `#${string}` | number;
 
 /** Represents a component that can be added or set to a container builder. */
-export type AllowedContainerComponent =
-	| AllowedContainerSeparatorComponent
-	| AllowedContainerTextDisplayComponent;
+export type AllowedContainerComponent = AllowedContainerSeparatorComponent | AllowedContainerTextDisplayComponent;
 
 /** Represents a separator component that can be added or set to a container builder. */
 export type AllowedContainerSeparatorComponent = SeparatorBuilder | SeparatorComponent;

@@ -19,11 +19,7 @@ const MAXIMUM_TEXT_INPUT_CUSTOM_ID_LENGTH = 100;
 const MAXIMUM_TEXT_INPUT_PLACEHOLDER_LENGTH = 100;
 const MAXIMUM_TEXT_INPUT_VALUE_LENGTH = 4000;
 
-export const TextInputCustomIDSchema = pipe(
-	string(),
-	minLength(1),
-	maxLength(MAXIMUM_TEXT_INPUT_CUSTOM_ID_LENGTH),
-);
+export const TextInputCustomIDSchema = pipe(string(), minLength(1), maxLength(MAXIMUM_TEXT_INPUT_CUSTOM_ID_LENGTH));
 
 export const TextInputIDSchema = pipe(number(), minValue(0));
 
@@ -49,18 +45,11 @@ export const TextInputPlaceholderSchema = pipe(
 
 export const TextInputRequiredSchema = boolean();
 
-export const TextInputStyleSchema = union([
-	literal(TextInputStyles.Paragraph),
-	literal(TextInputStyles.Short),
-]);
+export const TextInputStyleSchema = union([literal(TextInputStyles.Paragraph), literal(TextInputStyles.Short)]);
 
 export const TextInputTypeSchema = literal(ComponentTypes.TextInput);
 
-export const TextInputValueSchema = pipe(
-	string(),
-	minLength(1),
-	maxLength(MAXIMUM_TEXT_INPUT_VALUE_LENGTH),
-);
+export const TextInputValueSchema = pipe(string(), minLength(1), maxLength(MAXIMUM_TEXT_INPUT_VALUE_LENGTH));
 
 export const TextInputSchema = object({
 	customId: TextInputCustomIDSchema,

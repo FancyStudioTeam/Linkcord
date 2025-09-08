@@ -46,15 +46,9 @@ export const ContainerAccentColorStringSchema = pipe(
 	hexColor(),
 	transform((hex) => Number(`0x${hex.replace("#", "").toLowerCase()}`)),
 );
-export const ContainerAccentColorSchema = union([
-	ContainerAccentColorNumberSchema,
-	ContainerAccentColorStringSchema,
-]);
+export const ContainerAccentColorSchema = union([ContainerAccentColorNumberSchema, ContainerAccentColorStringSchema]);
 
-export const ContainerComponentSchema = union([
-	ContainerSeparatorComponentSchema,
-	ContainerTextDisplayComponentSchema,
-]);
+export const ContainerComponentSchema = union([ContainerSeparatorComponentSchema, ContainerTextDisplayComponentSchema]);
 export const ContainerComponentsSchema = pipe(array(ContainerComponentSchema), minLength(1));
 
 export const ContainerIDSchema = pipe(number(), minValue(0));

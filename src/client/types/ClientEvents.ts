@@ -68,12 +68,7 @@ export interface ClientEventsMap {
 	 * @param resumable - Whether the session can be resumed.
 	 * @param gatewayShard - The shard that has been disconnected.
 	 */
-	[ClientEvents.ShardDisconnected]: [
-		reason: string,
-		code: number,
-		resumable: boolean,
-		gatewayShard: GatewayShard,
-	];
+	[ClientEvents.ShardDisconnected]: [reason: string, code: number, resumable: boolean, gatewayShard: GatewayShard];
 	/**
 	 * Emitted when a shard receives a `HELLO` packet from the Discord
 	 * gateway.

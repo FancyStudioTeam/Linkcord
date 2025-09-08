@@ -20,9 +20,7 @@ describe("JSX: EmbedField", () => {
 				{EmbedFieldValue}
 			</EmbedField>
 		);
-		const EmbedFieldComponent2 = (
-			<EmbedField inline={true} name={EmbedFieldName} value={EmbedFieldValue} />
-		);
+		const EmbedFieldComponent2 = <EmbedField inline={true} name={EmbedFieldName} value={EmbedFieldValue} />;
 
 		expect(EmbedFieldComponent1).toBeInstanceOf(EmbedFieldBuilder);
 		expect(EmbedFieldComponent1.toJSON()).toStrictEqual(ExpectedEmbedFieldResult);

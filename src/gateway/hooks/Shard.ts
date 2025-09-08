@@ -13,11 +13,7 @@ import type { GatewayDispatchReadyEventPayload } from "#types/index.js";
  * @param readyPayload - The received payload from the {@link GatewayDispatchEvent | `READY`} event.
  * @see https://discord.com/developers/docs/events/gateway-events#ready
  */
-export function READY(
-	client: Client,
-	shard: GatewayShard,
-	readyPayload: GatewayDispatchReadyEventPayload,
-): void {
+export function READY(client: Client, shard: GatewayShard, readyPayload: GatewayDispatchReadyEventPayload): void {
 	const { events, users } = client;
 	const { manager } = shard;
 	const { resume_gateway_url, session_id, user: userData } = readyPayload;

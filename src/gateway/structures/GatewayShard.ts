@@ -4,11 +4,7 @@ import { platform } from "node:process";
 import { type Client, ClientEvents } from "#client/index.js";
 import { GatewayShardError } from "#gateway/errors/GatewayShardError.js";
 import { DispatchHooks } from "#gateway/hooks/index.js";
-import {
-	GatewayShardStatus,
-	type SendableOpcodes,
-	type SendableOpcodesPayloadMap,
-} from "#gateway/types/index.js";
+import { GatewayShardStatus, type SendableOpcodes, type SendableOpcodesPayloadMap } from "#gateway/types/index.js";
 import { OPCODE_NAMES, RESUMABLE_CLOSE_CODES, SENDABLE_OPCODES } from "#gateway/utils/Constants.js";
 import { type GatewayDispatchEvent, type GatewayEvent, GatewayOpcodes } from "#types/index.js";
 import { LINKCORD_VERSION } from "../../index.js";
@@ -59,8 +55,7 @@ export class GatewayShard {
 	static DEFAULT_BROWSER = "Discord Client";
 
 	/** The default device to use when identifying the shard. */
-	static DEFAULT_DEVICE =
-		`Linkcord v${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord)`;
+	static DEFAULT_DEVICE = `Linkcord v${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord)`;
 
 	/** The default operating system when identifying the shard. */
 	static DEFAULT_OPERATING_SYSTEM = platform;
@@ -144,10 +139,7 @@ export class GatewayShard {
 
 		const gatewayURLString = urlObject.toString();
 
-		client.debug(
-			label,
-			`Handshaking with the Discord gateway using URL "${gatewayURLString}".`,
-		);
+		client.debug(label, `Handshaking with the Discord gateway using URL "${gatewayURLString}".`);
 
 		this.ws = new WebSocket(gatewayURLString);
 		this.ws.onclose = this.#onClose.bind(this);
@@ -398,10 +390,7 @@ export class GatewayShard {
 	 * @param opcode - The opcode of the payload.
 	 * @param payload - The data related to the opcode.
 	 */
-	send<Opcode extends SendableOpcodes>(
-		opcode: Opcode,
-		payload: SendableOpcodesPayloadMap[Opcode],
-	): void {
+	send<Opcode extends SendableOpcodes>(opcode: Opcode, payload: SendableOpcodesPayloadMap[Opcode]): void {
 		const { id } = this;
 
 		if (!SENDABLE_OPCODES.includes(opcode)) {

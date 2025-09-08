@@ -10,10 +10,7 @@ const IS_COMMON_JS = typeof require !== "undefined" && typeof module !== "undefi
  * 	export.
  * @returns The imported data.
  */
-async function _import<ImportData>(
-	path: string,
-	requiredDefaultExport?: boolean,
-): Promise<ImportData> {
+async function _import<ImportData>(path: string, requiredDefaultExport?: boolean): Promise<ImportData> {
 	const data = await import(path);
 
 	if (requiredDefaultExport && !("default" in data)) {

@@ -10,6 +10,4 @@ export interface EventListener {
 }
 
 /** Represents a listener callback for an event. */
-export type EventListenerCallback<Event extends ClientEvents> = (
-	...data: ClientEventsMap[Event]
-) => unknown;
+export type EventListenerCallback<Event extends ClientEvents> = (...data: ClientEventsMap[Event]) => unknown;

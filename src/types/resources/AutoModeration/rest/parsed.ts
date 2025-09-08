@@ -1,9 +1,6 @@
 import type { Snowflake } from "#types/miscellaneous/discord.js";
 import type { AutoModerationEventTypes, AutoModerationTriggerTypes } from "../enums.js";
-import type {
-	AutoModerationRuleAction,
-	AutoModerationRuleActionTriggerMetadata,
-} from "../structures/parsed.js";
+import type { AutoModerationRuleAction, AutoModerationRuleActionTriggerMetadata } from "../structures/parsed.js";
 
 /**
  * The options to use when creating an auto moderation rule.

@@ -16,5 +16,4 @@ export type RESTPutAPIApplicationRoleConnectionMetadata = APIApplicationRoleConn
  * Represents the JSON parameters of the {@link RESTPutAPIApplicationRoleConnectionMetadata | `PUT /applications/(application.id)/role-connections/metadata`} endpoint.
  * @see https://discord.com/developers/docs/resources/application-role-connection-metadata#update-application-role-connection-metadata-records
  */
-export type RESTPutAPIApplicationRoleConnectionMetadataJSONParams =
-	APIApplicationRoleConnectionMetadata[];
+export type RESTPutAPIApplicationRoleConnectionMetadataJSONParams = APIApplicationRoleConnectionMetadata[];

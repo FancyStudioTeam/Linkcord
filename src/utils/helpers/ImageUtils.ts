@@ -1,8 +1,4 @@
-import type {
-	GetDynamicExtensionOptions,
-	ImageExtension,
-	ImageURLOptions,
-} from "#utils/types/index.js";
+import type { GetDynamicExtensionOptions, ImageExtension, ImageURLOptions } from "#utils/types/index.js";
 import { IMAGE_EXTENSIONS, IMAGE_SIZES } from "#utils/utils/Constants.js";
 
 const DISCORD_CDN_URL = "https://cdn.discordapp.com";

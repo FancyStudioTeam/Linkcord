@@ -8,8 +8,6 @@ describe("Method: BitFieldResolver.add", () => {
 
 		expect(BitFieldResolver.add(0)).toBe(0);
 		expect(BitFieldResolver.add(UserFlags.Staff)).toBe(UserFlags.Staff);
-		expect(BitFieldResolver.add(UserFlags.ActiveDeveloper)).toBe(
-			UserFlags.ActiveDeveloper | UserFlags.Staff,
-		);
+		expect(BitFieldResolver.add(UserFlags.ActiveDeveloper)).toBe(UserFlags.ActiveDeveloper | UserFlags.Staff);
 	});
 });

@@ -22,8 +22,7 @@ export interface APIActionRowComponent extends APIBaseComponent<ComponentTypes.A
  * Represents the base structure of a button component.
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export interface APIBaseButtonComponent<Style extends ButtonStyles>
-	extends APIBaseComponent<ComponentTypes.Button> {
+export interface APIBaseButtonComponent<Style extends ButtonStyles> extends APIBaseComponent<ComponentTypes.Button> {
 	/** Whether the button is disabled. */
 	disabled?: boolean;
 	/** The style of the button. */
@@ -45,9 +44,8 @@ export interface APIBaseComponent<Type extends ComponentTypes> {
  * Represents the base structure of a resolved select menu component.
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export interface APIBaseResolvedSelectMenuComponent<
-	Type extends APIResolvedSelectMenuComponentTypes,
-> extends APIBaseSelectMenuComponent<Type> {
+export interface APIBaseResolvedSelectMenuComponent<Type extends APIResolvedSelectMenuComponentTypes>
+	extends APIBaseSelectMenuComponent<Type> {
 	/** The default values of the select menu. */
 	default_values?: APISelectMenuDefaultValue[];
 }
@@ -56,8 +54,7 @@ export interface APIBaseResolvedSelectMenuComponent<
  * Represents the base structure of a select menu component.
  * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
  */
-export interface APIBaseSelectMenuComponent<Type extends APISelectMenuTypes>
-	extends APIBaseComponent<Type> {
+export interface APIBaseSelectMenuComponent<Type extends APISelectMenuTypes> extends APIBaseComponent<Type> {
 	/** The custom ID of the select menu. */
 	custom_id: string;
 	/** Whether the select menu is disabled. */
@@ -222,8 +219,7 @@ export interface APISeparatorComponent extends APIBaseComponent<ComponentTypes.S
  * Represents a select menu for string values.
  * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
  */
-export interface APIStringSelectMenuComponent
-	extends APIBaseSelectMenuComponent<ComponentTypes.StringSelect> {
+export interface APIStringSelectMenuComponent extends APIBaseSelectMenuComponent<ComponentTypes.StringSelect> {
 	/** The string options of the select menu. */
 	options: APIStringSelectMenuOption[];
 }
@@ -317,10 +313,7 @@ export type APIActionRowComponents = APIButtonComponent | APISelectMenuComponent
  * Represents a button component.
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APIButtonComponent =
-	| APILinkButtonComponent
-	| APIPremiumButtonComponent
-	| APITextButtonComponent;
+export type APIButtonComponent = APILinkButtonComponent | APIPremiumButtonComponent | APITextButtonComponent;
 
 /**
  * Represents a component.
@@ -361,8 +354,7 @@ export type APILabelComponents = APISelectMenuComponent | APITextInputComponent;
  * Represents a mentionable select menu component.
  * @see https://discord.com/developers/docs/components/reference#mentionable-select-mentionable-select-structure
  */
-export type APIMentionableSelectMenuComponent =
-	APIBaseResolvedSelectMenuComponent<ComponentTypes.MentionableSelect>;
+export type APIMentionableSelectMenuComponent = APIBaseResolvedSelectMenuComponent<ComponentTypes.MentionableSelect>;
 
 /**
  * Represents a component for messages.
@@ -393,17 +385,13 @@ export type APIPrimaryButtonComponent = APIBaseTextButtonComponent<ButtonStyles.
  * Represents a resolveable select menu component type.
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export type APIResolvedSelectMenuComponentTypes = Exclude<
-	APISelectMenuTypes,
-	ComponentTypes.StringSelect
->;
+export type APIResolvedSelectMenuComponentTypes = Exclude<APISelectMenuTypes, ComponentTypes.StringSelect>;
 
 /**
  * Represents a role select menu component.
  * @see https://discord.com/developers/docs/components/reference#role-select-role-select-structure
  */
-export type APIRoleSelectMenuComponent =
-	APIBaseResolvedSelectMenuComponent<ComponentTypes.RoleSelect>;
+export type APIRoleSelectMenuComponent = APIBaseResolvedSelectMenuComponent<ComponentTypes.RoleSelect>;
 
 /**
  * Represents a secondary button component.
@@ -481,5 +469,4 @@ export type APITextableButtonComponentStyles =
  * Represents a user select menu component.
  * @see https://discord.com/developers/docs/components/reference#user-select-user-select-structure
  */
-export type APIUserSelectMenuComponent =
-	APIBaseResolvedSelectMenuComponent<ComponentTypes.UserSelect>;
+export type APIUserSelectMenuComponent = APIBaseResolvedSelectMenuComponent<ComponentTypes.UserSelect>;

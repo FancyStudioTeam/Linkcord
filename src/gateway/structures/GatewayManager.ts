@@ -58,9 +58,7 @@ export class GatewayManager {
 		const shardsArray = [...shards.values()];
 
 		const shardCountIsCorrect = shardsSize === shardsToSpawn;
-		const allShardsAreReady = shardsArray.every(
-			({ status }) => status === GatewayShardStatus.Ready,
-		);
+		const allShardsAreReady = shardsArray.every(({ status }) => status === GatewayShardStatus.Ready);
 
 		return shardCountIsCorrect && allShardsAreReady;
 	}

@@ -11,11 +11,8 @@ describe("Method: ConfigurationUtils.transformIntents", () => {
 	it("Should return the reduced intents as number.", () => {
 		const ExpectedResult = GatewayIntents.Guilds | GatewayIntents.GuildMessages;
 
-		expect(
-			ConfigurationUtils.transformIntents([
-				GatewayIntents.Guilds,
-				GatewayIntents.GuildMessages,
-			]),
-		).toBe(ExpectedResult);
+		expect(ConfigurationUtils.transformIntents([GatewayIntents.Guilds, GatewayIntents.GuildMessages])).toBe(
+			ExpectedResult,
+		);
 	});
 });
