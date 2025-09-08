@@ -5,8 +5,7 @@ import type { DefineConfigOptions, LinkcordOptions } from "#configuration/types/
 /**
  * Defines the configuration of the framework.
  * @param options - The options to use in the framework.
- * @returns The validated options of the framework.
- * @public
+ * @returns The validated {@link LinkcordOptions | `LinkcordOptions`} object.
  */
 export function defineConfig(options: DefineConfigOptions): LinkcordOptions {
 	try {

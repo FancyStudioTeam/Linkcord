@@ -171,6 +171,11 @@ export class GatewayShard {
 		const { code, reason } = closeEvent;
 		const isReconnectable = this.#isCloseCodeResumable(code);
 
+		if (!isReconnectable) {
+			this.resumeGatewayURL = null;
+			this.sessionId = null;
+		}
+
 		this.status = GatewayShardStatus.Disconnected;
 
 		const { resumeGatewayURL, client } = this;
@@ -298,11 +303,15 @@ export class GatewayShard {
 		const { client } = this;
 		const label = this.#label;
 
-		const debugMessage = isResumable
-			? `Session has been invalidated. Session can be resumed, attempting to resume...`
-			: `Session has been invalidated. Session cannot be resumed, attempting to identify... `;
+		if (!isResumable) {
+			this.resumeGatewayURL = null;
+			this.sessionId = null;
+		}
 
-		client.debug(label, debugMessage);
+		const baseMessage = "Session has been invalidated.";
+		const message = `${baseMessage} ${isResumable ? "Attempting to resume..." : "Attempting to identify..."}`;
+
+		client.debug(label, message);
 
 		isResumable ? this.#resume() : this.#identify();
 	}
