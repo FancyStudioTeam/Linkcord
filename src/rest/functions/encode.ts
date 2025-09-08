@@ -1,4 +1,4 @@
-import { SAFE_CHARACTERS } from "../utils/constants.js";
+import { SAFE_CHARACTERS } from "#rest/utils/Constants.js";
 
 /**
  * @internal
