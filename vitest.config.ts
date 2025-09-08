@@ -1,6 +1,9 @@
 import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
 
+const { env } = process;
+const { GITHUB_ACTIONS } = env;
+
 const configuration = defineConfig({
 	plugins: [
 		tsconfigPaths({
@@ -8,7 +11,7 @@ const configuration = defineConfig({
 		}),
 	],
 	test: {
-		reporters: "verbose",
+		reporters: GITHUB_ACTIONS ? ["verbose", "github-actions"] : ["verbose"],
 	},
 });
 
