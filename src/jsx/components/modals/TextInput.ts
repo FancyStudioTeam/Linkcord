@@ -13,11 +13,11 @@ export function TextInput(properties: TextInputProperties): TextInputBuilder {
 	textInput.setCustomId(customId);
 	textInput.setStyle(style);
 
-	maxLength && textInput.setMaxLength(maxLength);
-	minLength && textInput.setMinLength(minLength);
-	placeholder && textInput.setPlaceholder(placeholder);
-	required && textInput.setRequired(required);
-	value && textInput.setValue(value);
+	if (maxLength) textInput.setMaxLength(maxLength);
+	if (minLength) textInput.setMinLength(minLength);
+	if (placeholder) textInput.setPlaceholder(placeholder);
+	if (required) textInput.setRequired(required);
+	if (value) textInput.setValue(value);
 
 	if (typeof children === "string") {
 		textInput.setValue(children);

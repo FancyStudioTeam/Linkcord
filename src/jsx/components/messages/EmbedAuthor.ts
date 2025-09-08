@@ -10,9 +10,9 @@ export function EmbedAuthor(properties: EmbedAuthorProperties): EmbedAuthorBuild
 	const embedAuthor = new EmbedAuthorBuilder();
 	const { children, iconURL, name, url } = properties;
 
-	iconURL && embedAuthor.setIconURL(iconURL);
-	name && embedAuthor.setName(name);
-	url && embedAuthor.setURL(url);
+	if (iconURL) embedAuthor.setIconURL(iconURL);
+	if (name) embedAuthor.setName(name);
+	if (url) embedAuthor.setURL(url);
 
 	if (typeof children === "string") {
 		embedAuthor.setName(children);

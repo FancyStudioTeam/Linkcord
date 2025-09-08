@@ -10,8 +10,8 @@ export function EmbedFooter(properties: EmbedFooterProperties): EmbedFooterBuild
 	const embedFooter = new EmbedFooterBuilder();
 	const { children, iconURL, text } = properties;
 
-	iconURL && embedFooter.setIconURL(iconURL);
-	text && embedFooter.setText(text);
+	if (iconURL) embedFooter.setIconURL(iconURL);
+	if (text) embedFooter.setText(text);
 
 	if (typeof children === "string") {
 		embedFooter.setText(children);

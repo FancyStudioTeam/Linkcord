@@ -10,8 +10,8 @@ export function Separator(properties: SeparatorProperties): SeparatorBuilder {
 	const separatorBuilder = new SeparatorBuilder();
 	const { divider, spacing } = properties;
 
-	divider && separatorBuilder.setDivider(divider);
-	spacing && separatorBuilder.setSpacing(spacing);
+	if (divider) separatorBuilder.setDivider(divider);
+	if (spacing) separatorBuilder.setSpacing(spacing);
 
 	return separatorBuilder;
 }

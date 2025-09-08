@@ -12,8 +12,8 @@ export function EmbedField(properties: EmbedFieldProperties): EmbedFieldBuilder 
 
 	embedField.setName(name);
 
-	inline && embedField.setInline(inline);
-	value && embedField.setValue(value);
+	if (inline) embedField.setInline(inline);
+	if (value) embedField.setValue(value);
 
 	if (typeof children === "string") {
 		embedField.setValue(children);
