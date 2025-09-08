@@ -1,5 +1,5 @@
 import { Endpoints } from "#rest/endpoints/Endpoints.js";
-import { VoiceTransformer } from "#transformers/VoiceTransformer.js";
+import { parseVoiceRegions } from "#transformers/Voice.js";
 import type { RESTGetAPIVoiceRegions, VoiceRegion } from "#types/index.js";
 import { BaseAPI } from "./BaseAPI.js";
 
@@ -12,9 +12,7 @@ export class MiscellaneousAPI extends BaseAPI {
 	 */
 	async getVoiceRegions(): Promise<VoiceRegion[]> {
 		const voiceRegionsResponseData = await super.get<RESTGetAPIVoiceRegions>(Endpoints.voiceRegions());
-		const voiceRegionsData = voiceRegionsResponseData.map((voiceRegion) =>
-			VoiceTransformer.transformVoiceRegionToParsed(voiceRegion),
-		);
+		const voiceRegionsData = parseVoiceRegions(voiceRegionsResponseData);
 
 		return voiceRegionsData;
 	}
