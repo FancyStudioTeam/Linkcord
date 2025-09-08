@@ -1,5 +1,5 @@
 import type { Client } from "#client/index.js";
-import { MessagesTransformer } from "#transformers/MessagesTransformer.js";
+import { parseEmbeds } from "#transformers/Messages.js";
 import type { APIMessage, Embed } from "#types/index.js";
 import { Base } from "./Base.js";
 import { User } from "./User.js";
@@ -23,7 +23,7 @@ export class Message extends Base {
 
 		this.author = new User(client, author);
 		this.content = content;
-		this.embeds = MessagesTransformer.transformEmbedsToParsed(embeds);
+		this.embeds = parseEmbeds(embeds);
 	}
 
 	/**
@@ -33,8 +33,6 @@ export class Message extends Base {
 	protected patch(data: Partial<APIMessage> = {}): void {
 		const { content } = data;
 
-		if (content !== undefined) {
-			this.content = content;
-		}
+		if (content !== undefined) this.content = content;
 	}
 }

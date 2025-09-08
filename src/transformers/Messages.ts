@@ -14,7 +14,7 @@ import type {
  * @param embed - The embed to normalize.
  * @returns The normalized {@link Embed | `Embed`} object.
  */
-function normalizeEmbed(embed: CreateMessageEmbedOptions): Embed {
+export function normalizeEmbed(embed: CreateMessageEmbedOptions): Embed {
 	return embed instanceof EmbedBuilder ? embed.toJSON() : embed;
 }
 
@@ -23,7 +23,7 @@ function normalizeEmbed(embed: CreateMessageEmbedOptions): Embed {
  * @param embeds - The list of embeds to normalize.
  * @returns The normalized list of {@link Embed | `Embed`} objects.
  */
-function normalizeEmbeds(embeds: CreateMessageEmbedOptions[]): Embed[] {
+export function normalizeEmbeds(embeds: CreateMessageEmbedOptions[]): Embed[] {
 	return embeds.map(normalizeEmbed);
 }
 
@@ -32,7 +32,7 @@ function normalizeEmbeds(embeds: CreateMessageEmbedOptions[]): Embed[] {
  * @param embed - The {@link APIEmbed | `APIEmbed`} object to parse.
  * @returns The parsed {@link Embed | `Embed`} object.
  */
-function parseEmbed(embed: APIEmbed): Embed {
+export function parseEmbed(embed: APIEmbed): Embed {
 	const {
 		author,
 		color,
@@ -72,7 +72,7 @@ function parseEmbed(embed: APIEmbed): Embed {
  * @param embedAuthor - The {@link APIEmbedAuthor | `APIEmbedAuthor`} object to parse.
  * @returns The parsed {@link EmbedAuthor | `EmbedAuthor`} object.
  */
-function parseEmbedAuthor(embedAuthor: APIEmbedAuthor): EmbedAuthor {
+export function parseEmbedAuthor(embedAuthor: APIEmbedAuthor): EmbedAuthor {
 	const { icon_url: iconURL, name, url } = embedAuthor;
 	const embedAuthorData: EmbedAuthor = {
 		name,
@@ -89,7 +89,7 @@ function parseEmbedAuthor(embedAuthor: APIEmbedAuthor): EmbedAuthor {
  * @param embedFooter - The {@link APIEmbedFooter | `APIEmbedFooter`} object to parse.
  * @returns The parsed {@link EmbedFooter | `EmbedFooter`} object.
  */
-function parseEmbedFooter(embedFooter: APIEmbedFooter): EmbedFooter {
+export function parseEmbedFooter(embedFooter: APIEmbedFooter): EmbedFooter {
 	const { icon_url: iconURL, text } = embedFooter;
 	const embedFooterData: EmbedFooter = {
 		text,
@@ -105,7 +105,7 @@ function parseEmbedFooter(embedFooter: APIEmbedFooter): EmbedFooter {
  * @param embeds - The list of {@link APIEmbed | `APIEmbed`} objects to parse.
  * @returns The parsed list of {@link Embed | `Embed`} objects.
  */
-function parseEmbeds(embeds: APIEmbed[]): Embed[] {
+export function parseEmbeds(embeds: APIEmbed[]): Embed[] {
 	return embeds.map(parseEmbed);
 }
 
@@ -114,7 +114,7 @@ function parseEmbeds(embeds: APIEmbed[]): Embed[] {
  * @param embed - The {@link Embed | `Embed`} object to serialize.
  * @returns The serialized {@link APIEmbed | `APIEmbed`} object.
  */
-function serializeEmbed(embed: Embed): APIEmbed {
+export function serializeEmbed(embed: Embed): APIEmbed {
 	const {
 		author,
 		color,
@@ -154,7 +154,7 @@ function serializeEmbed(embed: Embed): APIEmbed {
  * @param embedAuthor - The {@link EmbedAuthor | `EmbedAuthor`} object to serialize.
  * @returns The serialized {@link APIEmbedAuthor | `APIEmbedAuthor`} object.
  */
-function serializeEmbedAuthor(embedAuthor: EmbedAuthor): APIEmbedAuthor {
+export function serializeEmbedAuthor(embedAuthor: EmbedAuthor): APIEmbedAuthor {
 	const { iconURL, name, url } = embedAuthor;
 	const embedAuthorData: APIEmbedAuthor = {
 		name,
@@ -171,7 +171,7 @@ function serializeEmbedAuthor(embedAuthor: EmbedAuthor): APIEmbedAuthor {
  * @param embedFooter - The {@link EmbedFooter | `EmbedFooter`} object to serialize.
  * @returns The serialized {@link APIEmbedFooter | `APIEmbedFooter`} object.
  */
-function serializeEmbedFooter(embedFooter: EmbedFooter): APIEmbedFooter {
+export function serializeEmbedFooter(embedFooter: EmbedFooter): APIEmbedFooter {
 	const { iconURL, text } = embedFooter;
 	const embedFooterData: APIEmbedFooter = {
 		text,
@@ -187,20 +187,6 @@ function serializeEmbedFooter(embedFooter: EmbedFooter): APIEmbedFooter {
  * @param embeds - The list of {@link Embed | `Embed`} objects to serialize.
  * @returns The serialized list of {@link APIEmbed | `APIEmbed`} objects.
  */
-function serializeEmbeds(embeds: Embed[]): APIEmbed[] {
+export function serializeEmbeds(embeds: Embed[]): APIEmbed[] {
 	return embeds.map(serializeEmbed);
 }
-
-/** Transformers for message objects. */
-export const MessagesTransformer = Object.freeze({
-	normalizeEmbed,
-	normalizeEmbeds,
-	parseEmbed,
-	parseEmbedAuthor,
-	parseEmbedFooter,
-	parseEmbeds,
-	serializeEmbed,
-	serializeEmbedAuthor,
-	serializeEmbedFooter,
-	serializeEmbeds,
-});
