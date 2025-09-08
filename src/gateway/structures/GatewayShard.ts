@@ -10,8 +10,8 @@ import { type GatewayDispatchEvent, type GatewayEvent, GatewayOpcodes } from "#t
 import { LINKCORD_VERSION } from "../../index.js";
 import { GatewayManager } from "./GatewayManager.js";
 
-const GRACEFUL_CLOSE_CODE = 1000;
 const GOING_AWAY_CLOSE_CODE = 1001;
+const GRACEFUL_CLOSE_CODE = 1000;
 
 /** Represents a shard of the Discord gateway. */
 export class GatewayShard {
@@ -55,7 +55,8 @@ export class GatewayShard {
 	static DEFAULT_BROWSER = "Discord Client";
 
 	/** The default device to use when identifying the shard. */
-	static DEFAULT_DEVICE = `Linkcord v${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord)`;
+	static DEFAULT_DEVICE =
+		`Linkcord/${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord, v${LINKCORD_VERSION})`;
 
 	/** The default operating system when identifying the shard. */
 	static DEFAULT_OPERATING_SYSTEM = platform;

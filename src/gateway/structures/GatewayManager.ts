@@ -4,6 +4,7 @@
 import { type Client, ClientEvents } from "#client/index.js";
 import { GatewayShardStatus } from "#gateway/types/index.js";
 import type { APIManager } from "#rest/structures/APIManager.js";
+import { defineInternalProperty } from "#utils/functions/defineInternalProperty.js";
 import { GatewayShard } from "./GatewayShard.js";
 
 /** The gateway manager for the client. */
@@ -12,16 +13,17 @@ export class GatewayManager {
 	#shardsToSpawn = 0;
 
 	/** The client of the gateway manager. */
-	readonly client: Client;
+	declare readonly client: Client;
 	/** The shards stored in the gateway manager. */
-	readonly shards = new Map<number, GatewayShard>();
+	declare readonly shards: Map<number, GatewayShard>;
 
 	/**
 	 * Creates a new {@link GatewayManager | `GatewayManager`} instance.
 	 * @param client - The client that instantiated the gateway manager.
 	 */
 	constructor(client: Client) {
-		this.client = client;
+		defineInternalProperty(this, "client", client);
+		defineInternalProperty(this, "shards", new Map());
 	}
 
 	/** The base URL of the Discord gateway. */
@@ -30,7 +32,7 @@ export class GatewayManager {
 	/** The version of the Discord gateway. */
 	static GATEWAY_VERSION = 10;
 
-	/** Gets the API manager from the REST manager. */
+	/** The API manager from the REST manager. */
 	get #api(): APIManager {
 		const { client } = this;
 		const { rest } = client;
@@ -46,10 +48,7 @@ export class GatewayManager {
 		return shardsToSpawn;
 	}
 
-	/**
-	 * Checks whether the gateway manager should trigger the {@link ClientEvents.ClientReady | `ClientEvents.ClientReady`} event.
-	 * @returns Whether the gateway manager should trigger the {@link ClientEvents.ClientReady | `ClientEvents.ClientReady`} event.
-	 */
+	/** Checks whether the gateway manager should trigger the {@link ClientEvents.ClientReady | `ClientEvents.ClientReady`} event. */
 	#shouldTriggerReady(): boolean {
 		const shardsToSpawn = this.#shardsToSpawn;
 

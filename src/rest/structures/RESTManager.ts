@@ -1,40 +1,60 @@
 import type { Client } from "#client/index.js";
-import { HTTP_STATUS_CODES, REST_URL_BASE, USER_AGENT } from "#rest/utils/constants.js";
+import { defineInternalProperty } from "#utils/functions/defineInternalProperty.js";
+import { LINKCORD_VERSION } from "../../index.js";
 import { APIManager } from "./APIManager.js";
 
-const ONE_SECOND_MILLISECONDS = 1_000;
+const NO_CONTENT_STATUS_CODE = 204;
+const ONE_SECOND_MILLISECONDS = 1000;
+const TOO_MANY_REQUESTS_STATUS_CODE = 429;
 
 /** The REST manager for the client. */
 export class RESTManager {
-	readonly api = new APIManager(this);
-	readonly client: Client;
+	/** Whether the client is rate limited globally. */
+	#globalRateLimit = false;
 
-	globalRateLimit = false;
-
-	constructor(client: Client) {
-		this.client = client;
-	}
-
-	get token(): Readonly<string> {
-		const { client } = this;
-		const { token } = client;
-
-		return token;
-	}
+	/** The API manager to perform requests within the REST manager. */
+	declare readonly api: APIManager;
+	/** The client of the REST manager. */
+	declare readonly client: Client;
 
 	/**
-	 * @internal
+	 * Creates a new {@link RESTManager | `RESTManager`} instance.
+	 * @param client - The client that instantiated the REST manager.
 	 */
-	private _createRequestHeaders(options?: CreateRequestHeadersOptions): Headers {
-		const { token } = this;
+	constructor(client: Client) {
+		defineInternalProperty(this, "api", new APIManager(this));
+		defineInternalProperty(this, "client", client);
+	}
+
+	/** The default user agent to use when making requests. */
+	static DEFAULT_USER_AGENT =
+		`Linkcord/${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord, v${LINKCORD_VERSION})`;
+
+	/** The base URL of the Discord REST API. */
+	static REST_URL_BASE = "https://discord.com/api";
+
+	/** The version of the Discord REST API. */
+	static REST_VERSION = 9;
+
+	/**
+	 * Creates the {@link Headers | `Headers`} object for the request.
+	 * @param options - The options to use when creating the headers.
+	 * @returns The created {@link Headers | `Headers`} object.
+	 */
+	#createRequestHeaders(options?: CreateRequestHeadersOptions): Headers {
+		const { client } = this;
+		const { token } = client;
+		const { DEFAULT_USER_AGENT } = RESTManager;
+
 		const headers = new Headers();
 
 		let { contentType, reason, withAuthorization } = options ?? {};
 
+		// Set the content type to "application/json" by default.
 		contentType ??= RESTContentTypes.ApplicationJSON;
 		withAuthorization ??= true;
 
-		headers.set("User-Agent", USER_AGENT);
+		headers.set("User-Agent", DEFAULT_USER_AGENT);
 		headers.set("Content-Type", contentType);
 
 		if (withAuthorization) {
@@ -49,10 +69,13 @@ export class RESTManager {
 	}
 
 	/**
-	 * @internal
+	 * Creates the {@link RequestInit | `RequestInit`} object for the request.
+	 * @param method - The HTTP method to use when making the request.
+	 * @param options - The options to use when creating the request.
+	 * @returns The created {@link RequestInit | `RequestInit`} object.
 	 */
-	private _createRequestInit(method: RESTMethods, options?: CreateRequestInitOptions): RequestInit {
-		const headers = this._createRequestHeaders(options);
+	#createRequestInit(method: RESTMethods, options?: CreateRequestInitOptions): RequestInit {
+		const headers = this.#createRequestHeaders(options);
 		const data: RequestInit = {
 			headers,
 			method,
@@ -64,8 +87,10 @@ export class RESTManager {
 	/**
 	 * @internal
 	 */
-	private _createRequestURL<QueryStringParams>(endpoint: string, queryStringParams?: QueryStringParams): string {
-		const urlObject = new URL(endpoint, REST_URL_BASE);
+	#createRequestURL<QueryStringParams>(endpoint: string, queryStringParams?: QueryStringParams): string {
+		const { REST_URL_BASE, REST_VERSION } = RESTManager;
+
+		const urlObject = new URL(endpoint, `${REST_URL_BASE}/v${REST_VERSION}`);
 		const { searchParams } = urlObject;
 
 		if (queryStringParams && typeof queryStringParams === "object") {
@@ -77,6 +102,11 @@ export class RESTManager {
 		return urlObject.toString();
 	}
 
+	/**
+	 * Performs a `DELETE` request to the Discord API.
+	 * @param endpoint - The endpoint where the request will be made.
+	 * @param options - The options to use when performing the request.
+	 */
 	async delete<Result, QueryStringParams = never>(
 		endpoint: string,
 		options?: RESTDeleteOptions<QueryStringParams>,
@@ -84,6 +114,11 @@ export class RESTManager {
 		return await this.makeRequest<Result, never, QueryStringParams>(RESTMethods.Delete, endpoint, options);
 	}
 
+	/**
+	 * Performs a `GET` request to the Discord API.
+	 * @param endpoint - The endpoint where the request will be made.
+	 * @param options - The options to use when performing the request.
+	 */
 	async get<Result, QueryStringParams = never>(
 		endpoint: string,
 		options?: RESTGetOptions<QueryStringParams>,
@@ -96,7 +131,7 @@ export class RESTManager {
 		endpoint: string,
 		options?: MakeRequestOptions<JSONParams, QueryStringParams>,
 	): Promise<Result> {
-		const { globalRateLimit } = this;
+		const globalRateLimit = this.#globalRateLimit;
 
 		if (globalRateLimit) {
 			throw new Error("You are being rate limited.");
@@ -104,24 +139,24 @@ export class RESTManager {
 
 		const { queryString } = options ?? {};
 
-		const init = this._createRequestInit(method, options);
-		const url = this._createRequestURL<QueryStringParams>(endpoint, queryString);
+		const init = this.#createRequestInit(method, options);
+		const url = this.#createRequestURL<QueryStringParams>(endpoint, queryString);
 
 		const request = await fetch(url, init);
 		const { headers, status } = request;
 
-		const isRateLimited = status === HTTP_STATUS_CODES.TOO_MANY_REQUESTS;
-		const isNoContent = status === HTTP_STATUS_CODES.NO_CONTENT;
+		const isRateLimited = status === TOO_MANY_REQUESTS_STATUS_CODE;
+		const isNoContent = status === NO_CONTENT_STATUS_CODE;
 
 		if (isRateLimited) {
 			const isGlobalRateLimit = headers.has("X-RateLimit-Global");
 			const rateLimitResetAfter = headers.get("X-RateLimit-Reset-After");
 
 			if (isGlobalRateLimit) {
-				this.globalRateLimit = true;
+				this.#globalRateLimit = true;
 
 				setTimeout(() => {
-					this.globalRateLimit = false;
+					this.#globalRateLimit = false;
 				}, Number(rateLimitResetAfter) * ONE_SECOND_MILLISECONDS);
 			} else {
 				setTimeout(
@@ -138,6 +173,11 @@ export class RESTManager {
 		return (await request.json()) as Promise<Result>;
 	}
 
+	/**
+	 * Performs a `PATCH` request to the Discord API.
+	 * @param endpoint - The endpoint where the request will be made.
+	 * @param options - The options to use when performing the request.
+	 */
 	async patch<Result, JSONParams = never, QueryStringParams = never>(
 		endpoint: string,
 		options?: RESTPatchOptions<JSONParams, QueryStringParams>,
@@ -145,6 +185,11 @@ export class RESTManager {
 		return await this.makeRequest<Result, JSONParams, QueryStringParams>(RESTMethods.Patch, endpoint, options);
 	}
 
+	/**
+	 * Performs a `POST` request to the Discord API.
+	 * @param endpoint - The endpoint where the request will be made.
+	 * @param options - The options to use when performing the request.
+	 */
 	async post<Result, JSONParams = never, QueryStringParams = never>(
 		endpoint: string,
 		options?: RESTPostOptions<JSONParams, QueryStringParams>,
@@ -152,6 +197,11 @@ export class RESTManager {
 		return await this.makeRequest<Result, JSONParams, QueryStringParams>(RESTMethods.Post, endpoint, options);
 	}
 
+	/**
+	 * Performs a `PUT` request to the Discord API.
+	 * @param endpoint - The endpoint where the request will be made.
+	 * @param options - The options to use when performing the request.
+	 */
 	async put<Result, JSONParams = never, QueryStringParams = never>(
 		endpoint: string,
 		options?: RESTPutOptions<JSONParams, QueryStringParams>,
