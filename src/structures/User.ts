@@ -1,5 +1,9 @@
 import type { Client } from "#client/index.js";
-import { UsersTransformer } from "#transformers/UsersTransformer.js";
+import {
+	parseAvatarDecoration,
+	parseCollectibles,
+	parsePrimaryGuild,
+} from "#transformers/Users.js";
 import type {
 	APIUser,
 	AvatarDecorationData,
@@ -66,52 +70,26 @@ export class User extends Base {
 	 */
 	protected patch(data: Partial<APIUser> = {}): void {
 		const {
-			accent_color,
+			accent_color: accentColor,
 			avatar,
-			avatar_decoration_data,
+			avatar_decoration_data: avatarDecorationData,
 			banner,
 			collectibles,
 			flags,
-			global_name,
-			primary_guild,
+			global_name: globalName,
+			primary_guild: primaryGuild,
 			username,
 		} = data;
 
-		if (accent_color !== undefined) {
-			this.accentColor = accent_color;
-		}
-
-		if (avatar !== undefined) {
-			this.avatar = avatar;
-		}
-
-		if (avatar_decoration_data !== undefined) {
-			this.avatarDecorationData =
-				UsersTransformer.transformAvatarDecorationToParsed(avatar_decoration_data);
-		}
-
-		if (banner !== undefined) {
-			this.banner = banner;
-		}
-
-		if (collectibles !== undefined) {
-			this.collectibles = UsersTransformer.transformCollectiblesToParsed(collectibles);
-		}
-
-		if (flags !== undefined) {
-			this.flags = new BitFieldResolver(flags);
-		}
-
-		if (global_name !== undefined) {
-			this.globalName = global_name;
-		}
-
-		if (primary_guild !== undefined) {
-			this.primaryGuild = UsersTransformer.transformPrimaryGuildToParsed(primary_guild);
-		}
-
-		if (username !== undefined) {
-			this.username = username;
-		}
+		if (accentColor !== undefined) this.accentColor = accentColor;
+		if (avatar !== undefined) this.avatar = avatar;
+		if (avatarDecorationData !== undefined)
+			this.avatarDecorationData = parseAvatarDecoration(avatarDecorationData);
+		if (banner !== undefined) this.banner = banner;
+		if (collectibles !== undefined) this.collectibles = parseCollectibles(collectibles);
+		if (flags !== undefined) this.flags = new BitFieldResolver(flags);
+		if (globalName !== undefined) this.globalName = globalName;
+		if (primaryGuild !== undefined) this.primaryGuild = parsePrimaryGuild(primaryGuild);
+		if (username !== undefined) this.username = username;
 	}
 }
