@@ -5,8 +5,10 @@ import { Separator } from "../Separator.js";
 
 describe("JSX: Separator", () => {
 	it('Should return a "SeparatorBuilder" instance when using the "Separator" component.', () => {
-		const SeparatorComponent1 = <Separator />;
-		const SeparatorComponent2 = <Separator divider={true} spacing={SeparatorSpacingSizes.Large} />;
+		const SeparatorComponent1: SeparatorBuilder = <Separator />;
+		const SeparatorComponent2: SeparatorBuilder = (
+			<Separator divider={true} spacing={SeparatorSpacingSizes.Large} />
+		);
 
 		const SeparatorComponentBase: SeparatorComponent = {
 			type: ComponentTypes.Separator,

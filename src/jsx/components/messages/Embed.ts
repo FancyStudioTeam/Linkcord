@@ -1,4 +1,4 @@
-import { EmbedBuilder, EmbedFieldBuilder } from "#builders/index.js";
+import { EmbedAuthorBuilder, EmbedBuilder, EmbedFieldBuilder, EmbedFooterBuilder } from "#builders/index.js";
 import type { EmbedProperties } from "#jsx/types/index.js";
 
 /**
@@ -33,8 +33,16 @@ export function Embed(properties: EmbedProperties): EmbedBuilder {
 					embed.setDescription(child);
 				}
 
+				if (child instanceof EmbedAuthorBuilder) {
+					embed.setAuthor(child);
+				}
+
 				if (child instanceof EmbedFieldBuilder) {
 					embed.addFields(child);
+				}
+
+				if (child instanceof EmbedFooterBuilder) {
+					embed.setFooter(child);
 				}
 			}
 		}

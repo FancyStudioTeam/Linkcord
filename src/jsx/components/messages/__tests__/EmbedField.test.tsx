@@ -9,12 +9,14 @@ describe("JSX: EmbedField", () => {
 		const EmbedFieldValue =
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at turpis venenatis, tempor nulla ac, dictum tortor.";
 
-		const EmbedFieldComponent1 = (
+		const EmbedFieldComponent1: EmbedFieldBuilder = (
 			<EmbedField inline={true} name={EmbedFieldName}>
 				{EmbedFieldValue}
 			</EmbedField>
 		);
-		const EmbedFieldComponent2 = <EmbedField inline={true} name={EmbedFieldName} value={EmbedFieldValue} />;
+		const EmbedFieldComponent2: EmbedFieldBuilder = (
+			<EmbedField inline={true} name={EmbedFieldName} value={EmbedFieldValue} />
+		);
 
 		const ExpectedEmbedFieldResult: EmbedFieldInterface = {
 			inline: true,

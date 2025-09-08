@@ -8,8 +8,12 @@ describe("JSX: EmbedFooter", () => {
 		const EmbedFooterText = "Lorem ipsum dolor sit amet";
 		const EmbedFooterIconURL = "https://example.com";
 
-		const EmbedFooterComponent1 = <EmbedFooter iconURL={EmbedFooterIconURL}>{EmbedFooterText}</EmbedFooter>;
-		const EmbedFooterComponent2 = <EmbedFooter iconURL={EmbedFooterIconURL} text={EmbedFooterText} />;
+		const EmbedFooterComponent1: EmbedFooterBuilder = (
+			<EmbedFooter iconURL={EmbedFooterIconURL}>{EmbedFooterText}</EmbedFooter>
+		);
+		const EmbedFooterComponent2: EmbedFooterBuilder = (
+			<EmbedFooter iconURL={EmbedFooterIconURL} text={EmbedFooterText} />
+		);
 
 		const ExpectedEmbedFooterResult: EmbedFooterInterface = {
 			iconURL: EmbedFooterIconURL,

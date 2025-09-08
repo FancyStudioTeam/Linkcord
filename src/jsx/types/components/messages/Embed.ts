@@ -7,7 +7,9 @@ import type {
 	AllowedEmbedThumbnailURL,
 	AllowedEmbedTimestamp,
 	AllowedEmbedURL,
+	EmbedAuthorBuilder,
 	EmbedFieldBuilder,
+	EmbedFooterBuilder,
 } from "#builders/index.js";
 import { Embed } from "#jsx/components/index.js";
 import type { ComponentProperties } from "#jsx/types/jsx-runtime.js";
@@ -40,4 +42,4 @@ export type EmbedProperties = ComponentProperties<
 >;
 
 /** Represents the children of the {@link Embed | `Embed`} JSX component. */
-export type EmbedChildren = string | EmbedFieldBuilder | EmbedChildren[];
+export type EmbedChildren = string | EmbedAuthorBuilder | EmbedFieldBuilder | EmbedFooterBuilder | EmbedChildren[];

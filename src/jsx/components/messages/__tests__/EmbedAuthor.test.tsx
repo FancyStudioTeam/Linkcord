@@ -8,8 +8,10 @@ describe("JSX: EmbedAuthor", () => {
 		const EmbedAuthorName = "Lorem ipsum dolor sit amet";
 		const EmbedAuthorURL = "https://example.com";
 
-		const EmbedAuthorComponent1 = <EmbedAuthor url={EmbedAuthorURL}>{EmbedAuthorName}</EmbedAuthor>;
-		const EmbedAuthorComponent2 = <EmbedAuthor name={EmbedAuthorName} url={EmbedAuthorURL} />;
+		const EmbedAuthorComponent1: EmbedAuthorBuilder = (
+			<EmbedAuthor url={EmbedAuthorURL}>{EmbedAuthorName}</EmbedAuthor>
+		);
+		const EmbedAuthorComponent2: EmbedAuthorBuilder = <EmbedAuthor name={EmbedAuthorName} url={EmbedAuthorURL} />;
 
 		const ExpectedEmbedAuthorResult: EmbedAuthorInterface = {
 			name: EmbedAuthorName,
