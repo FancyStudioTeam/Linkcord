@@ -19,6 +19,7 @@ const configuration = {
 	out: ".typedoc",
 	plugin: ["typedoc-material-theme"],
 	themeColor: "#2D3748",
+	tsconfig: "./tsconfig.json",
 };
 
 export default configuration;
