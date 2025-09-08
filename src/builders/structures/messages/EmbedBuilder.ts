@@ -1,10 +1,10 @@
 import { parse } from "valibot";
 import { normalizeArray } from "#builders/functions/normalizeArray.js";
-import { EmbedFieldSchema } from "#builders/schemas/messages/EmbedFieldSchema.js";
 import {
 	EmbedAuthorSchema,
 	EmbedColorSchema,
 	EmbedDescriptionSchema,
+	EmbedFieldSchema,
 	EmbedFieldsSchema,
 	EmbedFooterSchema,
 	EmbedImageSchema,
