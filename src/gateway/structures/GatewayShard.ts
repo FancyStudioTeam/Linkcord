@@ -52,11 +52,11 @@ export class GatewayShard {
 	}
 
 	/** The default browser to use when identifying the shard. */
-	static DEFAULT_BROWSER = "Discord Client";
+	static DEFAULT_BROWSER = "Discord Client" as const;
 
 	/** The default device to use when identifying the shard. */
 	static DEFAULT_DEVICE =
-		`Linkcord/${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord, v${LINKCORD_VERSION})`;
+		`Linkcord/${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord, v${LINKCORD_VERSION})` as const;
 
 	/** The default operating system when identifying the shard. */
 	static DEFAULT_OPERATING_SYSTEM = platform;
@@ -126,7 +126,7 @@ export class GatewayShard {
 	 * Initializes the `WebSocket` instance to interact with the Discord gateway.
 	 * @param gatewayURL - The URL of the Discord gateway to use.
 	 */
-	#initializeWebSocket(gatewayURL = GatewayManager.GATEWAY_URL_BASE): void {
+	#initializeWebSocket(gatewayURL: string = GatewayManager.GATEWAY_URL_BASE): void {
 		const urlObject = new URL(gatewayURL);
 
 		const { searchParams } = urlObject;

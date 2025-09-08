@@ -27,10 +27,10 @@ export class GatewayManager {
 	}
 
 	/** The base URL of the Discord gateway. */
-	static GATEWAY_URL_BASE = "wss://gateway.discord.gg";
+	static GATEWAY_URL_BASE = "wss://gateway.discord.gg" as const;
 
 	/** The version of the Discord gateway. */
-	static GATEWAY_VERSION = 10;
+	static GATEWAY_VERSION = 10 as const;
 
 	/** The API manager from the REST manager. */
 	get #api(): APIManager {

@@ -28,13 +28,13 @@ export class RESTManager {
 
 	/** The default user agent to use when making requests. */
 	static DEFAULT_USER_AGENT =
-		`Linkcord/${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord, v${LINKCORD_VERSION})`;
+		`Linkcord/${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord, v${LINKCORD_VERSION})` as const;
 
 	/** The base URL of the Discord REST API. */
-	static REST_URL_BASE = "https://discord.com/api";
+	static REST_URL_BASE = "https://discord.com/api" as const;
 
 	/** The version of the Discord REST API. */
-	static REST_VERSION = 9;
+	static REST_VERSION = 10 as const;
 
 	/**
 	 * Creates the {@link Headers | `Headers`} object for the request.
