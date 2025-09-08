@@ -10,14 +10,13 @@ describe("JSX: Separator", () => {
 			<Separator divider={true} spacing={SeparatorSpacingSizes.Large} />
 		);
 
-		const SeparatorComponentBase: SeparatorComponent = {
+		const ExpectedSeparatorResult1: SeparatorComponent = {
 			type: ComponentTypes.Separator,
 		};
-		const ExpectedSeparatorResult1: SeparatorComponent = SeparatorComponentBase;
 		const ExpectedSeparatorResult2: SeparatorComponent = {
-			...SeparatorComponentBase,
 			divider: true,
 			spacing: SeparatorSpacingSizes.Large,
+			type: ComponentTypes.Separator,
 		};
 
 		expect(SeparatorComponent1).toBeInstanceOf(SeparatorBuilder);
