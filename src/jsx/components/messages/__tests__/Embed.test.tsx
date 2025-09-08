@@ -5,12 +5,12 @@ import { Embed } from "../Embed.js";
 import { EmbedField } from "../EmbedField.js";
 
 describe("JSX: Embed", () => {
-	it('Should return an "EmbedBuilder" instance.', () => {
+	it('Returns an "EmbedBuilder" instance.', () => {
 		const EmbedTitle = "Lorem ipsum dolor sit amet";
 		const EmbedDescription =
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at turpis venenatis, tempor nulla ac, dictum tortor.";
 
-		const EmbedFieldName = EmbedTitle;
+		const EmbedFieldName = "Lorem ipsum dolor sit amet";
 		const EmbedFieldValue = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 
 		const EmbedComponent = (

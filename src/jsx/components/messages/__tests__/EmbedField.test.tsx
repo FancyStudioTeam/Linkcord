@@ -4,7 +4,7 @@ import type { EmbedField as EmbedFieldInterface } from "#types/index.js";
 import { EmbedField } from "../EmbedField.js";
 
 describe("JSX: EmbedField", () => {
-	it('Should return an "EmbedFieldBuilder" instance.', () => {
+	it('Returns an "EmbedFieldBuilder" instance.', () => {
 		const EmbedFieldName = "Lorem ipsum";
 		const EmbedFieldValue =
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at turpis venenatis, tempor nulla ac, dictum tortor.";
