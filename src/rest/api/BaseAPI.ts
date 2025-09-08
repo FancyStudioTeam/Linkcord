@@ -7,18 +7,19 @@ import type {
 	RESTPostOptions,
 	RESTPutOptions,
 } from "#rest/structures/RESTManager.js";
+import { defineInternalProperty } from "#utils/functions/defineInternalProperty.js";
 
 /** Represents a base class for all API classes. */
 export class BaseAPI {
 	/** The REST manager to perform requests within the API. */
-	protected readonly rest: RESTManager;
+	protected declare readonly rest: RESTManager;
 
 	/**
 	 * Creates a new {@link BaseAPI | `BaseAPI`} instance.
 	 * @param rest - The REST manager that instantiated the API.
 	 */
 	constructor(rest: RESTManager) {
-		this.rest = rest;
+		defineInternalProperty(this, "rest", rest);
 	}
 
 	/** The client to instantiate the returned data into Discord structures. */
