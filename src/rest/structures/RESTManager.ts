@@ -75,11 +75,17 @@ export class RESTManager {
 	 * @returns The created {@link RequestInit | `RequestInit`} object.
 	 */
 	#createRequestInit(method: RESTMethods, options?: CreateRequestInitOptions): RequestInit {
+		const { json } = options ?? {};
+
 		const headers = this.#createRequestHeaders(options);
 		const data: RequestInit = {
 			headers,
 			method,
 		};
+
+		if (json) {
+			data.body = JSON.stringify(json);
+		}
 
 		return data;
 	}
