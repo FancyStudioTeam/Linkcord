@@ -1,5 +1,6 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
+import { cwd } from "node:process";
 import type { LinkcordOptions, LinkcordOptionsLocations } from "#configuration/types/index.js";
 import type { GatewayIntents } from "#types/index.js";
 import { ImportUtils } from "#utils/helpers/ImportUtils.js";
@@ -56,7 +57,7 @@ function getToken(): Readonly<string> {
  * @param workingDirectory - The directory root where the configuration file
  * 	is located.
  */
-async function loadConfigurationFile(workingDirectory = process.cwd()): Promise<void> {
+async function loadConfigurationFile(workingDirectory = cwd()): Promise<void> {
 	for (const extension of AVAILABLE_FILE_EXTENSIONS) {
 		const configurationFilePath = join(workingDirectory, `linkcord.config.${extension}`);
 		const existsConfigurationFile = existsSync(configurationFilePath);
