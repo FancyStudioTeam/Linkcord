@@ -11,6 +11,7 @@ const configuration = defineConfig({
 		}),
 	],
 	test: {
+		globals: true,
 		reporters: GITHUB_ACTIONS ? ["verbose", "github-actions"] : ["verbose"],
 	},
 });
