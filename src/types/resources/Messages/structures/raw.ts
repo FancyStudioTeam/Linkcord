@@ -1,6 +1,6 @@
 import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
 import type { APIUser } from "#types/resources/Users/index.js";
-import type { EmbedTypes } from "../enums.js";
+import type { EmbedTypes, MessageFlags, MessageTypes } from "../enums.js";
 
 /**
  * Represents a Discord embed object.
@@ -147,12 +147,18 @@ export interface APIMessage {
 	edited_timestamp: ISO8601Date | null;
 	/** The embeds of the message. */
 	embeds: APIEmbed[];
+	/** The flags of the message. */
+	flags?: MessageFlags;
 	/** Whether the message is pinned. */
 	pinned: boolean;
+	/** The position of the message in the thread channel. */
+	position?: number;
 	/** The timestamp at which the message was created. */
 	timestamp: ISO8601Date;
 	/** Whether the message was a Text-to-Speech message. */
 	tts: boolean;
+	/** The type of the message. */
+	type: MessageTypes;
 	/** The ID of the webhook that created the message. */
 	webhook_id?: Snowflake;
 }

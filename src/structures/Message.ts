@@ -1,6 +1,7 @@
 import type { Client } from "#client/index.js";
 import { parseEmbeds } from "#transformers/Messages.js";
-import type { APIMessage, Embed, Snowflake } from "#types/index.js";
+import type { APIMessage, Embed, MessageTypes, Snowflake } from "#types/index.js";
+import { BitFieldResolver } from "#utils/index.js";
 import { Base } from "./Base.js";
 import { User } from "./User.js";
 
@@ -20,13 +21,19 @@ export class Message extends Base {
 	/** The timestamp at which the message was created. */
 	readonly createdTimestamp: number;
 	/** The timestamp at which the message was edited. */
-	readonly editedTimestamp: number | null;
+	editedTimestamp: number | null = null;
 	/** The embeds of the message. */
-	readonly embeds: Embed[];
+	embeds: Embed[] = [];
+	/** The flags of the message. */
+	flags: BitFieldResolver | null = null;
 	/** Whether the message is pinned. */
 	readonly pinned: boolean;
+	/** The position of the message in the thread channel. */
+	readonly position: number | null;
 	/** Whether the message was a Text-to-Speech message. */
 	readonly tts: boolean;
+	/** The type of the message. */
+	readonly type: MessageTypes;
 	/** The ID of the webhook that created the message. */
 	readonly webhookId: Snowflake | null;
 
@@ -43,22 +50,25 @@ export class Message extends Base {
 			channel_id: channelId,
 			content,
 			edited_timestamp: editedTimestamp,
-			embeds,
 			pinned,
+			position,
 			timestamp,
 			tts,
+			type,
 			webhook_id: webhookId,
 		} = data;
 
-		this.author = new User(client, author);
+		this.author = webhookId ? new User(client, author) : this.patchUser(author);
 		this.channelId = channelId;
 		this.content = content;
 		this.editedTimestamp = editedTimestamp ? Date.parse(editedTimestamp) : null;
-		this.embeds = parseEmbeds(embeds);
 		this.createdTimestamp = Date.parse(timestamp);
 		this.pinned = pinned;
+		this.position = position ?? null;
 		this.tts = tts;
+		this.type = type;
 		this.webhookId = webhookId ?? null;
+		this.patch(data);
 	}
 
 	/** The date at which the message was created. */
@@ -80,8 +90,15 @@ export class Message extends Base {
 	 * @param data - The updated data for the current {@link Message | `Message`} instance.
 	 */
 	protected patch(data: Partial<APIMessage> = {}): void {
-		const { content } = data;
+		const { content, edited_timestamp: editedTimestamp, embeds, flags } = data;
 
 		if (content !== undefined) this.content = content;
+
+		if (editedTimestamp !== undefined && editedTimestamp !== null) {
+			this.editedTimestamp = Date.parse(editedTimestamp);
+		}
+
+		if (embeds !== undefined) this.embeds = parseEmbeds(embeds);
+		if (flags !== undefined) this.flags = new BitFieldResolver(flags);
 	}
 }
