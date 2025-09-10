@@ -61,7 +61,8 @@ export class Message extends Base {
 			webhook_id: webhookId,
 		} = data;
 
-		this.author = webhookId ? new User(client, author) : this.patchUser(author);
+		// TODO: Do not cache Webhook users.
+		this.author = new User(client, author);
 		this.channelId = channelId;
 		this.content = content;
 		this.createdTimestamp = Date.parse(timestamp);

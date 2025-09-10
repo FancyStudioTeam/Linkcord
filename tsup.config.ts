@@ -7,8 +7,6 @@ const configuration = defineConfig({
 	entry: ["src/index.ts", "src/jsx/jsx-runtime.ts"],
 	esbuildPlugins: [esbuildPluginVersionInjector()],
 	format: "esm",
-	sourcemap: true,
-	splitting: true,
 });
 
 export default configuration;
