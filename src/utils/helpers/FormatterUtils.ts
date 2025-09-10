@@ -6,6 +6,18 @@ import type { Snowflake } from "#types/index.js";
  */
 export class FormatterUtils {
 	/**
+	 * Formats a string into bold text.
+	 *
+	 * @param content - The content to format.
+	 * @returns The formatted bold text.
+	 *
+	 * @typeParam Content - The content to format.
+	 */
+	static bold<Content extends string>(content: Content): `**${Content}**` {
+		return `**${content}**`;
+	}
+
+	/**
 	 * Formats a channel id into a channel mention.
 	 *
 	 * @param channelId - The ID of the channel to format.
