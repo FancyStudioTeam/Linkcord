@@ -147,6 +147,12 @@ export interface APIMessage {
 	edited_timestamp: ISO8601Date | null;
 	/** The embeds of the message. */
 	embeds: APIEmbed[];
+	/** Whether the message is pinned. */
+	pinned: boolean;
 	/** The timestamp at which the message was created. */
 	timestamp: ISO8601Date;
+	/** Whether the message was a Text-to-Speech message. */
+	tts: boolean;
+	/** The ID of the webhook that created the message. */
+	webhook_id?: Snowflake;
 }

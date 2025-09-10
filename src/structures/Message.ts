@@ -1,6 +1,6 @@
 import type { Client } from "#client/index.js";
 import { parseEmbeds } from "#transformers/Messages.js";
-import type { APIMessage, Embed, ISO8601Date, Snowflake } from "#types/index.js";
+import type { APIMessage, Embed, Snowflake } from "#types/index.js";
 import { Base } from "./Base.js";
 import { User } from "./User.js";
 
@@ -23,6 +23,12 @@ export class Message extends Base {
 	readonly editedTimestamp: number | null;
 	/** The embeds of the message. */
 	readonly embeds: Embed[];
+	/** Whether the message is pinned. */
+	readonly pinned: boolean;
+	/** Whether the message was a Text-to-Speech message. */
+	readonly tts: boolean;
+	/** The ID of the webhook that created the message. */
+	readonly webhookId: Snowflake | null;
 
 	/**
 	 * Creates a new {@link Message | `Message`} instance.
@@ -32,7 +38,17 @@ export class Message extends Base {
 	constructor(client: Client, data: APIMessage) {
 		super(client);
 
-		const { author, channel_id: channelId, content, edited_timestamp: editedTimestamp, embeds, timestamp } = data;
+		const {
+			author,
+			channel_id: channelId,
+			content,
+			edited_timestamp: editedTimestamp,
+			embeds,
+			pinned,
+			timestamp,
+			tts,
+			webhook_id: webhookId,
+		} = data;
 
 		this.author = new User(client, author);
 		this.channelId = channelId;
@@ -40,6 +56,9 @@ export class Message extends Base {
 		this.editedTimestamp = editedTimestamp ? Date.parse(editedTimestamp) : null;
 		this.embeds = parseEmbeds(embeds);
 		this.createdTimestamp = Date.parse(timestamp);
+		this.pinned = pinned;
+		this.tts = tts;
+		this.webhookId = webhookId ?? null;
 	}
 
 	/** The date at which the message was created. */
