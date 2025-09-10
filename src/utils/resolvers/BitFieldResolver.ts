@@ -9,7 +9,7 @@ export class BitFieldResolver {
 
 	/**
 	 * Creates a new {@link BitFieldResolver | `BitFieldResolver`} instance.
-	 * @param bitField - The bit field of the resolver.
+	 * @param bitField - The bit field of the resolver. (Default: `0`)
 	 */
 	constructor(bitField: number = 0) {
 		this.bitField = bitField;
@@ -21,10 +21,10 @@ export class BitFieldResolver {
 	}
 
 	/**
-	 * Adds a bit to the bit field.
+	 * Adds bits to the bit field.
 	 *
 	 * @param bits - The bits to add to the bit field.
-	 * @returns The updated bit field with the added bits.
+	 * @returns The updated bit field.
 	 */
 	add(...bits: number[]): number {
 		for (const bit of bits) {
@@ -51,10 +51,10 @@ export class BitFieldResolver {
 	}
 
 	/**
-	 * Removes a bit from the bit field.
+	 * Removes bits from the bit field.
 	 *
 	 * @param bits - The bits to remove from the bit field.
-	 * @returns The updated bit field without the removed bits.
+	 * @returns The updated bit field.
 	 */
 	remove(...bits: number[]): number {
 		for (const bit of bits) {
