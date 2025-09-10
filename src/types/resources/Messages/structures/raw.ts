@@ -6,6 +6,8 @@ import type { EmbedTypes, MessageFlags, MessageTypes } from "../enums.js";
 /**
  * Represents a Discord channel mention object.
  * @see https://discord.com/developers/docs/resources/message#channel-mention-object-channel-mention-structure
+ *
+ * @group API/Interfaces
  */
 export interface APIChannelMention {
 	/** The ID of the guild where the channel is located. */
@@ -21,6 +23,8 @@ export interface APIChannelMention {
 /**
  * Represents a Discord embed object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-structure
+ *
+ * @group API/Interfaces
  */
 export interface APIEmbed {
 	/** The author of the embed. */
@@ -54,6 +58,8 @@ export interface APIEmbed {
 /**
  * Represents a Discord embed author object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-author-structure
+ *
+ * @group API/Interfaces
  */
 export interface APIEmbedAuthor {
 	/** The URL of the icon of the author. */
@@ -69,6 +75,8 @@ export interface APIEmbedAuthor {
 /**
  * Represents a Discord embed field object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-field-structure
+ *
+ * @group API/Interfaces
  */
 export interface APIEmbedField {
 	/** Whether the field should be displayed inline. */
@@ -82,6 +90,8 @@ export interface APIEmbedField {
 /**
  * Represents a Discord embed footer object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-footer-structure
+ *
+ * @group API/Interfaces
  */
 export interface APIEmbedFooter {
 	/** The URL of the icon of the footer. */
@@ -95,6 +105,8 @@ export interface APIEmbedFooter {
 /**
  * Represents a Discord embed image object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-image-structure
+ *
+ * @group API/Interfaces
  */
 export interface APIEmbedImage {
 	/** The height of the image. */
@@ -110,6 +122,8 @@ export interface APIEmbedImage {
 /**
  * Represents a Discord embed provider object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-provider-structure
+ *
+ * @group API/Interfaces
  */
 export interface APIEmbedProvider {
 	/** The name of the provider. */
@@ -121,6 +135,8 @@ export interface APIEmbedProvider {
 /**
  * Represents a Discord embed thumbnail object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-thumbnail-structure
+ *
+ * @group API/Interfaces
  */
 export interface APIEmbedThumbnail {
 	/** The height of the thumbnail. */
@@ -136,6 +152,8 @@ export interface APIEmbedThumbnail {
 /**
  * Represents a Discord embed video object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-video-structure
+ *
+ * @group API/Interfaces
  */
 export interface APIEmbedVideo {
 	/** The height of the video. */
@@ -151,6 +169,8 @@ export interface APIEmbedVideo {
 /**
  * Represents a Discord message object.
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
+ *
+ * @group API/Interfaces
  */
 export interface APIMessage {
 	/** The author of the message. */
