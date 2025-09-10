@@ -7,6 +7,7 @@ import type {
 
 /**
  * Parses the given {@link APIGatewayBotSessionStartLimit | `APIGatewayBotSessionStartLimit`} object into a {@link GatewayBotSessionStartLimit | `GatewayBotSessionStartLimit`} object.
+ *
  * @param sessionStartLimit - The {@link APIGatewayBotSessionStartLimit | `APIGatewayBotSessionStartLimit`} object to parse.
  * @returns The parsed {@link GatewayBotSessionStartLimit | `GatewayBotSessionStartLimit`} object.
  */
@@ -26,6 +27,7 @@ export function parseGatewayBotSessionStartLimit(
 
 /**
  * Parses the given {@link APIGatewayBot | `APIGatewayBot`} object into a {@link GatewayBot | `GatewayBot`} object.
+ *
  * @param gatewayBot - The {@link APIGatewayBot | `APIGatewayBot`} object to parse.
  * @returns The parsed {@link GatewayBot | `GatewayBot`} object.
  */

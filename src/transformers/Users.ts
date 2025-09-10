@@ -11,6 +11,7 @@ import type {
 
 /**
  * Parses the given {@link APIAvatarDecorationData | `APIAvatarDecorationData`} object into a {@link AvatarDecorationData | `AvatarDecorationData`} object.
+ *
  * @param avatarDecoration - The {@link APIAvatarDecorationData | `APIAvatarDecorationData`} object to parse.
  * @returns The parsed {@link AvatarDecorationData | `AvatarDecorationData`} object.
  */
@@ -28,6 +29,7 @@ export function parseAvatarDecoration(avatarDecoration: APIAvatarDecorationData 
 
 /**
  * Parses the given {@link APICollectibles | `APICollectibles`} object into a {@link Collectibles | `Collectibles`} object.
+ *
  * @param collectibles - The {@link APICollectibles | `APICollectibles`} object to parse.
  * @returns The parsed {@link Collectibles | `Collectibles`} object.
  */
@@ -44,6 +46,7 @@ export function parseCollectibles(collectibles: APICollectibles | null): Collect
 
 /**
  * Parses the given {@link APINameplate | `APINameplate`} object into a {@link Nameplate | `Nameplate`} object.
+ *
  * @param nameplate - The {@link APINameplate | `APINameplate`} object to parse.
  * @returns The parsed {@link Nameplate | `Nameplate`} object.
  */
@@ -61,6 +64,7 @@ export function parseNameplate(nameplate: APINameplate): Nameplate {
 
 /**
  * Parses the given {@link APIPrimaryGuild | `APIPrimaryGuild`} object into a {@link PrimaryGuild | `PrimaryGuild`} object.
+ *
  * @param primaryGuild - The {@link APIPrimaryGuild | `APIPrimaryGuild`} object to parse.
  * @returns The parsed {@link PrimaryGuild | `PrimaryGuild`} object.
  */

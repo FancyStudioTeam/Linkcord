@@ -11,6 +11,7 @@ import type {
 
 /**
  * Normalizes the given embed into a {@link Embed | `Embed`} object.
+ *
  * @param embed - The embed to normalize.
  * @returns The normalized {@link Embed | `Embed`} object.
  */
@@ -20,6 +21,7 @@ export function normalizeEmbed(embed: CreateMessageEmbedOptions): Embed {
 
 /**
  * Normalizes the given list of embeds into a list of {@link Embed | `Embed`} objects.
+ *
  * @param embeds - The list of embeds to normalize.
  * @returns The normalized list of {@link Embed | `Embed`} objects.
  */
@@ -29,6 +31,7 @@ export function normalizeEmbeds(embeds: CreateMessageEmbedOptions[]): Embed[] {
 
 /**
  * Parses the given {@link APIEmbed | `APIEmbed`} object into an {@link Embed | `Embed`} object.
+ *
  * @param embed - The {@link APIEmbed | `APIEmbed`} object to parse.
  * @returns The parsed {@link Embed | `Embed`} object.
  */
@@ -69,6 +72,7 @@ export function parseEmbed(embed: APIEmbed): Embed {
 
 /**
  * Parses the given {@link APIEmbedAuthor | `APIEmbedAuthor`} object into a {@link EmbedAuthor | `EmbedAuthor`} object.
+ *
  * @param embedAuthor - The {@link APIEmbedAuthor | `APIEmbedAuthor`} object to parse.
  * @returns The parsed {@link EmbedAuthor | `EmbedAuthor`} object.
  */
@@ -86,6 +90,7 @@ export function parseEmbedAuthor(embedAuthor: APIEmbedAuthor): EmbedAuthor {
 
 /**
  * Parses the given {@link APIEmbedFooter | `APIEmbedFooter`} object into a {@link EmbedFooter | `EmbedFooter`} object.
+ *
  * @param embedFooter - The {@link APIEmbedFooter | `APIEmbedFooter`} object to parse.
  * @returns The parsed {@link EmbedFooter | `EmbedFooter`} object.
  */
@@ -102,6 +107,7 @@ export function parseEmbedFooter(embedFooter: APIEmbedFooter): EmbedFooter {
 
 /**
  * Parses the given list of {@link APIEmbed | `APIEmbed`} objects into a list of {@link Embed | `Embed`} objects.
+ *
  * @param embeds - The list of {@link APIEmbed | `APIEmbed`} objects to parse.
  * @returns The parsed list of {@link Embed | `Embed`} objects.
  */
@@ -111,6 +117,7 @@ export function parseEmbeds(embeds: APIEmbed[]): Embed[] {
 
 /**
  * Serializes the given {@link Embed | `Embed`} object into an {@link APIEmbed | `APIEmbed`} object.
+ *
  * @param embed - The {@link Embed | `Embed`} object to serialize.
  * @returns The serialized {@link APIEmbed | `APIEmbed`} object.
  */
@@ -151,6 +158,7 @@ export function serializeEmbed(embed: Embed): APIEmbed {
 
 /**
  * Serializes the given {@link EmbedAuthor | `EmbedAuthor`} object into a {@link APIEmbedAuthor | `APIEmbedAuthor`} object.
+ *
  * @param embedAuthor - The {@link EmbedAuthor | `EmbedAuthor`} object to serialize.
  * @returns The serialized {@link APIEmbedAuthor | `APIEmbedAuthor`} object.
  */
@@ -168,6 +176,7 @@ export function serializeEmbedAuthor(embedAuthor: EmbedAuthor): APIEmbedAuthor {
 
 /**
  * Serializes the given {@link EmbedFooter | `EmbedFooter`} object into a {@link APIEmbedFooter | `APIEmbedFooter`} object.
+ *
  * @param embedFooter - The {@link EmbedFooter | `EmbedFooter`} object to serialize.
  * @returns The serialized {@link APIEmbedFooter | `APIEmbedFooter`} object.
  */
@@ -184,6 +193,7 @@ export function serializeEmbedFooter(embedFooter: EmbedFooter): APIEmbedFooter {
 
 /**
  * Serializes the given list of {@link Embed | `Embed`} objects into a list of {@link APIEmbed | `APIEmbed`} objects.
+ *
  * @param embeds - The list of {@link Embed | `Embed`} objects to serialize.
  * @returns The serialized list of {@link APIEmbed | `APIEmbed`} objects.
  */
