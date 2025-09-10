@@ -7,6 +7,8 @@ import { Base } from "./Base.js";
 /**
  * Represents a Discord user object.
  * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
+ *
+ * @group Structures/Classes
  */
 export class User extends Base {
 	/** The accent color of the user. */
@@ -38,7 +40,7 @@ export class User extends Base {
 
 	/**
 	 * Creates a new {@link User | `User`} instance.
-	 * @param client - The client that instantiated the user.
+	 * @param client - The client that instantiated the {@link User | `User`} instance.
 	 * @param data - The {@link APIUser | `APIUser`} object from the Discord API.
 	 */
 	constructor(client: Client, data: APIUser) {
@@ -56,7 +58,7 @@ export class User extends Base {
 
 	/**
 	 * Patches the current {@link User | `User`} instance with the given data.
-	 * @param data - The updated data to use when patching the current {@link User | `User`} instance.
+	 * @param data - The updated data for the current {@link User | `User`} instance.
 	 */
 	protected patch(data: Partial<APIUser> = {}): void {
 		const {

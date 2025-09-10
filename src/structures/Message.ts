@@ -7,6 +7,8 @@ import { User } from "./User.js";
 /**
  * Represents a Discord message object.
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
+ *
+ * @group Structures/Classes
  */
 export class Message extends Base {
 	/** The author of the message. */
@@ -18,6 +20,11 @@ export class Message extends Base {
 	/** The embeds of the message. */
 	readonly embeds: Embed[];
 
+	/**
+	 * Creates a new {@link Message | `Message`} instance.
+	 * @param client - The client that instantiated the {@link Message | `Message`} instance.
+	 * @param data - The {@link APIMessage | `APIMessage`} object from the Discord API.
+	 */
 	constructor(client: Client, data: APIMessage) {
 		super(client);
 
@@ -31,7 +38,7 @@ export class Message extends Base {
 
 	/**
 	 * Patches the current {@link Message | `Message`} instance with the given data.
-	 * @param data - The updated data to use when patching the current {@link Message | `Message`} instance.
+	 * @param data - The updated data for the current {@link Message | `Message`} instance.
 	 */
 	protected patch(data: Partial<APIMessage> = {}): void {
 		const { content } = data;

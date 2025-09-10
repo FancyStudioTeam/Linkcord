@@ -18,9 +18,11 @@ export interface ApplicationRoleConnection {
 /**
  * Represents a Discord avatar decoration data object.
  * @see https://discord.com/developers/docs/resources/user#avatar-decoration-data-object-avatar-decoration-data-structure
+ *
+ * @group Structures/Interfaces
  */
 export interface AvatarDecorationData {
-	/** The asset of the avatar decoration data. */
+	/** The asset of the avatar decoration. */
 	asset: string;
 	/** The ID of the sku of the avatar decoration. */
 	skuId: Snowflake;
@@ -29,6 +31,8 @@ export interface AvatarDecorationData {
 /**
  * Represents a Discord collectibles object.
  * @see https://discord.com/developers/docs/resources/user#collectibles-collectible-structure
+ *
+ * @group Structures/Interfaces
  */
 export interface Collectibles {
 	/** The nameplate of the user. */
@@ -66,6 +70,8 @@ export interface Connection {
 /**
  * Represents a Discord nameplate object.
  * @see https://discord.com/developers/docs/resources/user#nameplate-nameplate-structure
+ *
+ * @group Structures/Interfaces
  */
 export interface Nameplate {
 	/** The asset of the nameplate. */
@@ -81,6 +87,8 @@ export interface Nameplate {
 /**
  * Represents a Discord primary guild object.
  * @see https://discord.com/developers/docs/resources/user#user-object-user-primary-guild
+ *
+ * @group Structures/Interfaces
  */
 export interface PrimaryGuild {
 	/** The badge of the guild. */

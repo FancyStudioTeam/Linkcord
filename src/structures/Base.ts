@@ -3,7 +3,10 @@ import type { RESTManager } from "#rest/index.js";
 import type { APIManager } from "#rest/structures/APIManager.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 
-/** Represents a base class for some Discord structures. */
+/**
+ * Represents a base class for all Discord structures.
+ * @group Structures/Classes
+ */
 export abstract class Base {
 	/** The client that instantiated the base. */
 	protected declare readonly client: Client;

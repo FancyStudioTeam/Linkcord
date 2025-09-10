@@ -4,6 +4,8 @@ import type { EmbedTypes } from "../enums.js";
 /**
  * Represents a Discord embed object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-structure
+ *
+ * @group Structures/Interfaces
  */
 export interface Embed {
 	/** The author of the embed. */
@@ -37,6 +39,8 @@ export interface Embed {
 /**
  * Represents a Discord embed author object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-author-structure
+ *
+ * @group Structures/Interfaces
  */
 export interface EmbedAuthor {
 	/** The URL of the icon of the author. */
@@ -50,6 +54,8 @@ export interface EmbedAuthor {
 /**
  * Represents a Discord embed field object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-field-structure
+ *
+ * @group Structures/Interfaces
  */
 export interface EmbedField {
 	/** Whether the field should be displayed inline. */
@@ -63,6 +69,8 @@ export interface EmbedField {
 /**
  * Represents a Discord embed footer object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-footer-structure
+ *
+ * @group Structures/Interfaces
  */
 export interface EmbedFooter {
 	/** The URL of the icon of the footer. */
@@ -74,6 +82,8 @@ export interface EmbedFooter {
 /**
  * Represents a Discord embed image object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-image-structure
+ *
+ * @group Structures/Interfaces
  */
 export interface EmbedImage {
 	/** The URL of the image. */
@@ -83,6 +93,8 @@ export interface EmbedImage {
 /**
  * Represents a Discord embed provider object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-provider-structure
+ *
+ * @group Structures/Interfaces
  */
 export interface EmbedProvider {
 	/** The name of the provider. */
@@ -94,6 +106,8 @@ export interface EmbedProvider {
 /**
  * Represents a Discord embed thumbnail object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-thumbnail-structure
+ *
+ * @group Structures/Interfaces
  */
 export interface EmbedThumbnail {
 	/** The URL of the thumbnail. */
@@ -103,6 +117,8 @@ export interface EmbedThumbnail {
 /**
  * Represents a Discord embed video object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-video-structure
+ *
+ * @group Structures/Interfaces
  */
 export interface EmbedVideo {
 	/** The URL of the video. */

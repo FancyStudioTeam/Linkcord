@@ -1,6 +1,8 @@
 /**
  * The services of a connection.
  * @see https://discord.com/developers/docs/resources/user#connection-object-services
+ *
+ * @group Structures/Enums
  */
 export enum ConnectionServices {
 	AmazonMusic = "amazon_music",
@@ -34,6 +36,8 @@ export enum ConnectionServices {
 /**
  * The type of the visibility of a connection.
  * @see https://discord.com/developers/docs/resources/user#connection-object-visibility-types
+ *
+ * @group Structures/Enums
  */
 export enum ConnectionVisibilityTypes {
 	Everyone = 1,
@@ -43,6 +47,8 @@ export enum ConnectionVisibilityTypes {
 /**
  * The palette of a nameplate.
  * @see https://discord.com/developers/docs/resources/user#nameplate-nameplate-structure
+ *
+ * @group Structures/Enums
  */
 export enum NameplatePalette {
 	Berry = "berry",
@@ -61,6 +67,8 @@ export enum NameplatePalette {
 /**
  * The type of the subscription of a user.
  * @see https://discord.com/developers/docs/resources/user#user-object-premium-types
+ *
+ * @group Structures/Enums
  */
 export enum UserPremiumTypes {
 	Nitro = 2,
@@ -72,6 +80,8 @@ export enum UserPremiumTypes {
 /**
  * The flags of a user.
  * @see https://discord.com/developers/docs/resources/user#user-object-user-flags
+ *
+ * @group Structures/Enums
  */
 export enum UserFlags {
 	ActiveDeveloper = 1 << 22,
