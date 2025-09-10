@@ -10,7 +10,7 @@ describe("Class: CacheManager", () => {
 		expect(CacheManager.size).toBe(ExpectedCacheManagerSizeResult);
 	});
 
-	it('Should create a new "CacheManager" instance with an initial iterable.', () => {
+	it('Should create a new "CacheManager" instance with an initial iterable.', async () => {
 		const User1 = new UserClass("User 1");
 		const User2 = new UserClass("User 2");
 
@@ -20,8 +20,8 @@ describe("Class: CacheManager", () => {
 		];
 		const CacheManager = new CacheManagerClass(Infinity, CacheManagerIterable);
 
-		const CachedValue1 = CacheManager.get("user_1");
-		const CachedValue2 = CacheManager.get("user_2");
+		const CachedValue1 = await CacheManager.get("user_1");
+		const CachedValue2 = await CacheManager.get("user_2");
 
 		const ExpectedCacheManagerSizeResult = 2;
 

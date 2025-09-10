@@ -6,7 +6,7 @@ export type Brand<Type, Brand extends string> = Type & {
 };
 
 /** Represents the properties of an instance that can be serialized into a JSON object. */
-export type JSONProperties<Instance extends Newable<unknown>> = Readonly<
+/*export type JSONProperties<Instance extends Newable<unknown>> = Readonly<
 	Omit<
 		{
 			// biome-ignore lint/complexity/noBannedTypes: Exlude any method from the instance.
@@ -16,7 +16,7 @@ export type JSONProperties<Instance extends Newable<unknown>> = Readonly<
 		},
 		"client"
 	>
->;
+>;*/
 
 /** Represents a conditional type that returns the `TrueResult` if the `Condition` is `true`, or the `FalseResult` if the condition is `false`. */
 export type If<Condition, TrueResult, FalseResult = null> = Condition extends true
