@@ -1,6 +1,6 @@
 import type { Client } from "#client/index.js";
 import { parseEmbeds } from "#transformers/Messages.js";
-import type { APIMessage, Embed, Snowflake } from "#types/index.js";
+import type { APIMessage, Embed, ISO8601Date, Snowflake } from "#types/index.js";
 import { Base } from "./Base.js";
 import { User } from "./User.js";
 
@@ -17,6 +17,10 @@ export class Message extends Base {
 	readonly channelId: Snowflake;
 	/** The content of the message. */
 	content: string;
+	/** The timestamp at which the message was created. */
+	readonly createdTimestamp: number;
+	/** The timestamp at which the message was edited. */
+	readonly editedTimestamp: number | null;
 	/** The embeds of the message. */
 	readonly embeds: Embed[];
 
@@ -28,12 +32,28 @@ export class Message extends Base {
 	constructor(client: Client, data: APIMessage) {
 		super(client);
 
-		const { author, channel_id: channelId, content, embeds } = data;
+		const { author, channel_id: channelId, content, edited_timestamp: editedTimestamp, embeds, timestamp } = data;
 
 		this.author = new User(client, author);
 		this.channelId = channelId;
 		this.content = content;
+		this.editedTimestamp = editedTimestamp ? Date.parse(editedTimestamp) : null;
 		this.embeds = parseEmbeds(embeds);
+		this.createdTimestamp = Date.parse(timestamp);
+	}
+
+	/** The date at which the message was created. */
+	get createdAt(): Date {
+		const { createdTimestamp } = this;
+
+		return new Date(createdTimestamp);
+	}
+
+	/** The date at which the message was edited. */
+	get editedAt(): Date | null {
+		const { editedTimestamp } = this;
+
+		return editedTimestamp ? new Date(editedTimestamp) : null;
 	}
 
 	/**

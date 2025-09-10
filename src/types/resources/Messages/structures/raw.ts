@@ -143,6 +143,10 @@ export interface APIMessage {
 	channel_id: Snowflake;
 	/** The content of the message. */
 	content: string;
+	/** The timestamp at which the message was edited. */
+	edited_timestamp: ISO8601Date | null;
 	/** The embeds of the message. */
 	embeds: APIEmbed[];
+	/** The timestamp at which the message was created. */
+	timestamp: ISO8601Date;
 }
