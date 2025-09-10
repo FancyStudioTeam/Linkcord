@@ -47,6 +47,61 @@ export class FormatterUtils {
 	}
 
 	/**
+	 * Formats a string into code block.
+	 *
+	 * @param content - The code to format.
+	 * @returns The formatted code block.
+	 *
+	 * @typeParam Content - The code to format.
+	 */
+	static codeBlock<Code extends string>(code: Code): `\`\`\`\n${Code}\n\`\`\``;
+
+	/**
+	 * Formats a string into code block.
+	 *
+	 * @param language - The language of the code to format.
+	 * @param code - The code to format.
+	 * @returns The formatted code block.
+	 *
+	 * @typeParam Language - The language of the code to format.
+	 * @typeParam Code - The code to format.
+	 */
+	static codeBlock<Language extends string, Code extends string>(
+		language: Language,
+		code: Code,
+	): `\`\`\`${Language}\n${Code}\n\`\`\``;
+
+	/**
+	 * Formats a string into code block.
+	 *
+	 * @param languageOrCode - The language of the code to format or the code to format.
+	 * @param possibleCode - The code to format, if any.
+	 * @returns The formatted code block.
+	 */
+	static codeBlock(
+		languageOrCode: string,
+		possibleCode?: string,
+	): `\`\`\`\n${string}\n\`\`\`` | `\`\`\`${string}\n${string}\n\`\`\`` {
+		if (typeof possibleCode === "string") {
+			return `\`\`\`${languageOrCode}\n${possibleCode}\n\`\`\``;
+		}
+
+		return `\`\`\`\n${languageOrCode}\n\`\`\``;
+	}
+
+	/**
+	 * Formats a string into inline code.
+	 *
+	 * @param code - The code to format.
+	 * @returns The formatted inline code.
+	 *
+	 * @typeParam Code - The code to format.
+	 */
+	static inlineCode<Code extends string>(code: Code): `\`${Code}\`` {
+		return `\`${code}\``;
+	}
+
+	/**
 	 * Formats a role id into a role mention.
 	 *
 	 * @param roleId - The ID of the role to format.
