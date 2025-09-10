@@ -1,4 +1,4 @@
-declare const brand: unique symbol;
+declare const Brand: unique symbol;
 
 /**
  * Represents a type that can be awaited.
@@ -16,7 +16,7 @@ export type Awaitable<Type> = Promise<Type> | Type;
  * @group Utils/Types
  */
 export type Brand<Type, Brand extends string> = Type & {
-	readonly [brand]: Brand;
+	readonly [Brand]: Brand;
 };
 
 /**
