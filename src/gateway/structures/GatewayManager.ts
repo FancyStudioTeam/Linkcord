@@ -4,7 +4,7 @@
 import { type Client, ClientEvents } from "#client/index.js";
 import { GatewayShardStatus } from "#gateway/types/index.js";
 import type { APIManager } from "#rest/structures/APIManager.js";
-import { defineInternalProperty } from "#utils/functions/defineInternalProperty.js";
+import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 import { GatewayShard } from "./GatewayShard.js";
 
 /** The gateway manager for the client. */
@@ -22,8 +22,8 @@ export class GatewayManager {
 	 * @param client - The client that instantiated the gateway manager.
 	 */
 	constructor(client: Client) {
-		defineInternalProperty(this, "client", client);
-		defineInternalProperty(this, "shards", new Map());
+		defineImmutableProperty(this, "client", client);
+		defineImmutableProperty(this, "shards", new Map());
 	}
 
 	/** The base URL of the Discord gateway. */

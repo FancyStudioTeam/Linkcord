@@ -1,5 +1,5 @@
 import type { Client } from "#client/index.js";
-import { defineInternalProperty } from "#utils/functions/defineInternalProperty.js";
+import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 import { LINKCORD_VERSION } from "../../index.js";
 import { APIManager } from "./APIManager.js";
 
@@ -22,8 +22,8 @@ export class RESTManager {
 	 * @param client - The client that instantiated the REST manager.
 	 */
 	constructor(client: Client) {
-		defineInternalProperty(this, "api", new APIManager(this));
-		defineInternalProperty(this, "client", client);
+		defineImmutableProperty(this, "api", new APIManager(this));
+		defineImmutableProperty(this, "client", client);
 	}
 
 	/** The default user agent to use when making requests. */

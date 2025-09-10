@@ -1,7 +1,7 @@
 import type { Client } from "#client/index.js";
 import type { RESTManager } from "#rest/index.js";
 import type { APIManager } from "#rest/structures/APIManager.js";
-import { defineInternalProperty } from "#utils/functions/defineInternalProperty.js";
+import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 
 /** Represents a base class for some Discord structures. */
 export abstract class Base {
@@ -17,8 +17,8 @@ export abstract class Base {
 	constructor(client: Client) {
 		const { rest } = client;
 
-		defineInternalProperty(this, "client", client);
-		defineInternalProperty(this, "rest", rest);
+		defineImmutableProperty(this, "client", client);
+		defineImmutableProperty(this, "rest", rest);
 	}
 
 	/** The API manager to perform requests within the API. */
