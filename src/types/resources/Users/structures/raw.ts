@@ -25,9 +25,11 @@ export interface APIApplicationRoleConnection {
 /**
  * Represents a Discord avatar decoration data object.
  * @see https://discord.com/developers/docs/resources/user#avatar-decoration-data-object-avatar-decoration-data-structure
+ *
+ * @group API/Interfaces
  */
 export interface APIAvatarDecorationData {
-	/** The asset of the avatar decoration data. */
+	/** The asset of the avatar decoration. */
 	asset: string;
 	/** The ID of the sku of the avatar decoration. */
 	sku_id: Snowflake;
@@ -36,6 +38,8 @@ export interface APIAvatarDecorationData {
 /**
  * Represents a Discord collectibles object.
  * @see https://discord.com/developers/docs/resources/user#collectibles-collectible-structure
+ *
+ * @group API/Interfaces
  */
 export interface APICollectibles {
 	/** The nameplate of the user. */
@@ -73,6 +77,8 @@ export interface APIConnection {
 /**
  * Represents a Discord primary guild object.
  * @see https://discord.com/developers/docs/resources/user#user-object-user-primary-guild
+ *
+ * @group API/Interfaces
  */
 export interface APIPrimaryGuild {
 	/** The badge of the guild. */
@@ -88,6 +94,8 @@ export interface APIPrimaryGuild {
 /**
  * Represents a Discord nameplate object.
  * @see https://discord.com/developers/docs/resources/user#nameplate-nameplate-structure
+ *
+ * @group API/Interfaces
  */
 export interface APINameplate {
 	/** The asset of the nameplate. */
@@ -103,6 +111,8 @@ export interface APINameplate {
 /**
  * Represents a Discord user object.
  * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
+ *
+ * @group API/Interfaces
  */
 export interface APIUser {
 	/** The accent color of the user. */
@@ -148,6 +158,8 @@ export interface APIUser {
 /**
  * Represents a Discord user guild object.
  * @see https://discord.com/developers/docs/resources/user#get-current-user-guilds-example-partial-guild
+ *
+ * @group API/Interfaces
  */
 export interface APIUserGuild {
 	/** The approximate number of members in the guild. */
