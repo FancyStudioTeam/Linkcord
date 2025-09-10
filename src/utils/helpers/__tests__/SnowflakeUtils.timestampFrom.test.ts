@@ -1,23 +1,25 @@
 import { describe, expect, it } from "vitest";
 import { SnowflakeUtils } from "../SnowflakeUtils.js";
 
-describe("Method: SnowflakeUtils.timestampFrom", () => {
-	it("Should return the timestamp of the snowflake.", () => {
-		const UserIDString = "1346162378575970326";
-		const UserIDSnowflake = SnowflakeUtils.cast(UserIDString);
-		const ExpectedTimestampResult = 1741020521540;
+const USER_ID_STRING = "80351110224678912";
+const USER_ID_SNOWFLAKE = SnowflakeUtils.cast(USER_ID_STRING);
 
-		expect(SnowflakeUtils.timestampFrom(UserIDSnowflake)).toBe(ExpectedTimestampResult);
+describe("Method: SnowflakeUtils.timestampFrom", () => {
+	it("Should return '1439227597529' when using a valid snowflake.", () => {
+		const expectedTimestampResult = 1439227597529;
+
+		expect(SnowflakeUtils.timestampFrom(USER_ID_SNOWFLAKE)).toBe(expectedTimestampResult);
 	});
 
-	it('Should throw a "TypeError" if the snowflake is not a valid snowflake.', () => {
-		const InvalidSnowflakeInput1 = null;
-		const InvalidSnowflakeInput2 = "NOT_A_VALID_SNOWFLAKE_STRING";
-		const ExpectedErrorResult = new TypeError("The first parameter (snowflake) must be a valid snowflake.");
+	it("Should throw 'TypeError' when the input is not a valid snowflake.", () => {
+		const invalidSnowflakeInput1 = null;
+		const invalidSnowflakeInput2 = "NOT_A_VALID_SNOWFLAKE_STRING";
+
+		const expectedErrorResult = new TypeError("The first parameter (snowflake) must be a valid snowflake.");
 
 		// @ts-expect-error
-		expect(() => SnowflakeUtils.timestampFrom(InvalidSnowflakeInput1)).toThrow(ExpectedErrorResult);
+		expect(() => SnowflakeUtils.timestampFrom(invalidSnowflakeInput1)).toThrow(expectedErrorResult);
 		// @ts-expect-error
-		expect(() => SnowflakeUtils.timestampFrom(InvalidSnowflakeInput2)).toThrow(ExpectedErrorResult);
+		expect(() => SnowflakeUtils.timestampFrom(invalidSnowflakeInput2)).toThrow(expectedErrorResult);
 	});
 });

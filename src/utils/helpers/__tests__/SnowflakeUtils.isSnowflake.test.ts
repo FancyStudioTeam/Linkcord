@@ -1,14 +1,22 @@
 import { describe, expect, it } from "vitest";
 import { SnowflakeUtils } from "../SnowflakeUtils.js";
 
-describe("Method: SnowflakeUtils.isSnowflake", () => {
-	it('Should return whether the input is a "Snowflake".', () => {
-		const UserIDString = "1346162378575970326";
-		const UserIDBigInt = BigInt(UserIDString);
-		const UserIDSnowflake = SnowflakeUtils.cast(UserIDString);
+const USER_ID_STRING = "80351110224678912";
 
-		expect(SnowflakeUtils.isSnowflake(UserIDSnowflake)).toBe(true);
-		expect(SnowflakeUtils.isSnowflake(UserIDString)).toBe(true);
-		expect(SnowflakeUtils.isSnowflake(UserIDBigInt)).toBe(false);
+describe("Method: SnowflakeUtils.isSnowflake", () => {
+	it("Should return 'true' when the input is a valid snowflake.", () => {
+		const expectedBooleanResult = true;
+
+		expect(SnowflakeUtils.isSnowflake(USER_ID_STRING)).toBe(expectedBooleanResult);
+	});
+
+	it("Should return 'false' when the input is not a valid snowflake.", () => {
+		const userIdBitInt = BigInt(USER_ID_STRING);
+		const userIdNumber = Number(userIdBitInt);
+
+		const expectedBooleanResult = false;
+
+		expect(SnowflakeUtils.isSnowflake(userIdBitInt)).toBe(expectedBooleanResult);
+		expect(SnowflakeUtils.isSnowflake(userIdNumber)).toBe(expectedBooleanResult);
 	});
 });
