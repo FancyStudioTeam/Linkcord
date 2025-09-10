@@ -28,10 +28,10 @@ export class ImportUtils {
 	}
 
 	/**
-	 * Resolves a path to a file for compatible with both CommonJS and ESM.
+	 * Resolves a path to a file for compatible with both CommonJS and ESModules.
 	 *
 	 * @param fragments - The fragments of the path to resolve.
-	 * @returns The resolved path compatible with both CommonJS and ESM.
+	 * @returns The resolved path compatible with both CommonJS and ESModules.
 	 */
 	static resolvePath(...fragments: string[]): string {
 		const path = join(...fragments);

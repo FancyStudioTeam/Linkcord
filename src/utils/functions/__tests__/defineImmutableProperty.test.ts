@@ -5,17 +5,19 @@ describe("Function: defineImmutableProperty", () => {
 		const object = {};
 		const tokenValue = "ANY_DISCORD_BOT_TOKEN";
 
-		// Get the property descriptor of the token property before defining it.
-		const tokenPropertyDescriptor1 = Object.getOwnPropertyDescriptor(object, "token");
-
-		expect(tokenPropertyDescriptor1?.value).toBe(undefined);
+		expect(Object.getOwnPropertyDescriptor(object, "token")).toBeUndefined();
 
 		defineImmutableProperty(object, "token", tokenValue);
 
-		// Get the property descriptor of the token property after defining it.
-		const tokenPropertyDescriptor2 = Object.getOwnPropertyDescriptor(object, "token");
-		const expectedTokenValueResult = tokenValue;
+		const descriptorObject = Object.getOwnPropertyDescriptor(object, "token");
 
-		expect(tokenPropertyDescriptor2?.value).toBe(expectedTokenValueResult);
+		const expectedTokenValueResult = tokenValue;
+		const expectedTokenBooleanResult = false;
+
+		expect(descriptorObject?.value).toBe(expectedTokenValueResult);
+
+		expect(descriptorObject?.configurable).toBe(expectedTokenBooleanResult);
+		expect(descriptorObject?.enumerable).toBe(expectedTokenBooleanResult);
+		expect(descriptorObject?.writable).toBe(expectedTokenBooleanResult);
 	});
 });
