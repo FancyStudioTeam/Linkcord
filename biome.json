@@ -35,6 +35,7 @@
 		"rules": {
 			"complexity": {
 				"noImplicitCoercions": "error",
+				"noStaticOnlyClass": "off",
 				"useSimplifiedLogicExpression": "error"
 			},
 			"correctness": {
