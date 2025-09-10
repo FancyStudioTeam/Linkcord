@@ -1,6 +1,22 @@
 import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
+import type { ChannelTypes } from "#types/resources/Channels/enums.js";
 import type { APIUser } from "#types/resources/Users/index.js";
 import type { EmbedTypes, MessageFlags, MessageTypes } from "../enums.js";
+
+/**
+ * Represents a Discord channel mention object.
+ * @see https://discord.com/developers/docs/resources/message#channel-mention-object-channel-mention-structure
+ */
+export interface APIChannelMention {
+	/** The ID of the guild where the channel is located. */
+	guild_id: Snowflake;
+	/** The ID of the channel. */
+	id: Snowflake;
+	/** The name of the channel. */
+	name: string;
+	/** The type of the channel. */
+	type: ChannelTypes;
+}
 
 /**
  * Represents a Discord embed object.
@@ -149,6 +165,14 @@ export interface APIMessage {
 	embeds: APIEmbed[];
 	/** The flags of the message. */
 	flags?: MessageFlags;
+	/** The mention to channels in the message. */
+	mention_channels?: APIChannelMention[];
+	/** Whether the message mentions everyone. */
+	mention_everyone: boolean;
+	/** The mention of roles in the message. */
+	mention_roles: Snowflake[];
+	/** The mention of users in the message. */
+	mentions: APIUser[];
 	/** Whether the message is pinned. */
 	pinned: boolean;
 	/** The position of the message in the thread channel. */
