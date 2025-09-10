@@ -33,7 +33,7 @@ export class CacheManager<Key extends string, Value> {
 	 * @param key - The key of the value to add.
 	 * @param value - The value to add.
 	 */
-	async add(key: Key, value: Value): Promise<void> {
+	add(key: Key, value: Value): void {
 		const cache = this.#cache;
 		const limit = this.#limit;
 
@@ -57,7 +57,7 @@ export class CacheManager<Key extends string, Value> {
 	 * @param key - The key of the value to remove.
 	 * @returns Whether the cached value was deleted.
 	 */
-	async delete(key: Key): Promise<boolean> {
+	delete(key: Key): boolean {
 		const cache = this.#cache;
 
 		return cache.delete(key);
@@ -68,7 +68,7 @@ export class CacheManager<Key extends string, Value> {
 	 * @param key - The key of the cached value to get.
 	 * @returns The cached value, if exists.
 	 */
-	async get(key: Key): Promise<Value | undefined> {
+	get(key: Key): Value | undefined {
 		const cache = this.#cache;
 		const cachedValue = cache.get(key);
 
@@ -80,7 +80,7 @@ export class CacheManager<Key extends string, Value> {
 	 * @param key - The key of the value to set.
 	 * @param value - The value to set.
 	 */
-	async set(key: Key, value: Value): Promise<void> {
+	set(key: Key, value: Value): void {
 		const cache = this.#cache;
 		const limit = this.#limit;
 
@@ -88,7 +88,7 @@ export class CacheManager<Key extends string, Value> {
 
 		// If the cache size is full, emit a warning instead of removing the oldest value.
 		if (cacheSize >= limit) {
-			return emitWarning(`Cache size exceeded limit of ${limit} entries.`, {
+			return void emitWarning(`Cache size exceeded limit of ${limit} entries.`, {
 				code: "CACHE_MANAGER_SIZE_EXCEEDED",
 			});
 		}
