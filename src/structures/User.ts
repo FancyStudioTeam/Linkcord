@@ -1,7 +1,7 @@
 import type { Client } from "#client/index.js";
 import { parseAvatarDecoration, parseCollectibles, parsePrimaryGuild } from "#transformers/Users.js";
 import type { APIUser, AvatarDecorationData, Collectibles, PrimaryGuild, Snowflake } from "#types/index.js";
-import { BitFieldResolver } from "#utils/index.js";
+import { BitFieldResolver, FormatterUtils } from "#utils/index.js";
 import { Base } from "./Base.js";
 
 /**
@@ -54,6 +54,13 @@ export class User extends Base {
 		this.system = system ?? false;
 		this.username = username;
 		this.patch(data);
+	}
+
+	/** The mention of the user. */
+	get mention(): `<@${Snowflake}>` {
+		const { id } = this;
+
+		return FormatterUtils.userMention(id);
 	}
 
 	/**
