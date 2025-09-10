@@ -1,30 +1,32 @@
 declare const brand: unique symbol;
 
-/** Represents a branded type. */
+/**
+ * Represents a type that can be awaited.
+ * @group Utils/Types
+ */
+export type Awaitable<Type> = Promise<Type> | Type;
+
+/**
+ * Represents a type that is marked as a branded type.
+ * @group Utils/Types
+ */
 export type Brand<Type, Brand extends string> = Type & {
 	readonly [brand]: Brand;
 };
 
-/** Represents the properties of an instance that can be serialized into a JSON object. */
-/*export type JSONProperties<Instance extends Newable<unknown>> = Readonly<
-	Omit<
-		{
-			// biome-ignore lint/complexity/noBannedTypes: Exlude any method from the instance.
-			[Key in keyof InstanceType<Instance> as InstanceType<Instance>[Key] extends Function
-				? never
-				: Key]: InstanceType<Instance>[Key];
-		},
-		"client"
-	>
->;*/
-
-/** Represents a conditional type that returns the `TrueResult` if the `Condition` is `true`, or the `FalseResult` if the condition is `false`. */
+/**
+ * Represents a type that evaluates a boolean condition.
+ * @group Utils/Types
+ */
 export type If<Condition, TrueResult, FalseResult = null> = Condition extends true
 	? TrueResult
 	: Condition extends false
 		? FalseResult
 		: never;
 
-/** Represents a class that can be instantiated. */
-// biome-ignore lint/suspicious/noExplicitAny: Expect anything.
+/**
+ * Represents an instance of a class.
+ * @group Utils/Types
+ */
+// biome-ignore lint/suspicious/noExplicitAny: Expect anything in the constructor arguments.
 export type Newable<Class> = new (...args: any[]) => Class;
