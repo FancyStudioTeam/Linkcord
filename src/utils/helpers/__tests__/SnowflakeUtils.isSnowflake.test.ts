@@ -12,7 +12,7 @@ describe("Method: SnowflakeUtils.isSnowflake", () => {
 
 	it("Should return 'false' when the input is not a valid snowflake.", () => {
 		const userIdBitInt = BigInt(USER_ID_STRING);
-		const userIdNumber = Number(userIdBitInt);
+		const userIdNumber = Number(USER_ID_STRING);
 
 		const expectedBooleanResult = false;
 

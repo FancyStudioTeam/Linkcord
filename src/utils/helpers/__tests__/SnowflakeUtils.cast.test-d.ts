@@ -7,7 +7,7 @@ const USER_ID_STRING = "80351110224678912";
 describe("Method: SnowflakeUtils.cast", () => {
 	it("Should return 'Snowflake' when using a valid bigint, number, or string.", () => {
 		const userIdBigInt = BigInt(USER_ID_STRING);
-		const userIdNumber = Number(userIdBigInt);
+		const userIdNumber = Number(USER_ID_STRING);
 
 		const expectedSnowflakeResult = USER_ID_STRING;
 
