@@ -1,7 +1,9 @@
 import type { Client } from "#client/index.js";
 import type { RESTManager } from "#rest/index.js";
 import type { APIManager } from "#rest/structures/APIManager.js";
+import type { APIUser } from "#types/index.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
+import { User } from "./User.js";
 
 /**
  * Represents a base class for all Discord structures.
@@ -44,4 +46,31 @@ export abstract class Base {
 
 	/** Patches the current {@link Base | `Base`} instance with the given data. */
 	protected abstract patch(data: unknown): void;
+
+	/**
+	 * Patches the given user data into a {@link User | `User`} instance.
+	 *
+	 * @param userData - The {@link APIUser | `APIUser`} data to patch.
+	 * @returns The updated or created {@link User | `User`} instance.
+	 */
+	protected patchUser(userData: APIUser): User {
+		const { client } = this;
+		const { users } = client;
+
+		const { id: userId } = userData;
+		const existingUser = users.get(userId);
+
+		if (existingUser) {
+			// biome-ignore lint/complexity/useLiteralKeys: "patch" is a protected method.
+			existingUser["patch"](userData);
+
+			return existingUser;
+		}
+
+		const user = new User(client, userData);
+
+		users.set(userId, user);
+
+		return user;
+	}
 }
