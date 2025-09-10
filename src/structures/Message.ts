@@ -26,6 +26,8 @@ export class Message extends Base {
 	embeds: Embed[] = [];
 	/** The flags of the message. */
 	flags: BitFieldResolver | null = null;
+	/** The nonce used for validating when a message was created. */
+	readonly nonce: string | null = null;
 	/** Whether the message is pinned. */
 	readonly pinned: boolean;
 	/** The position of the message in the thread channel. */
@@ -50,6 +52,7 @@ export class Message extends Base {
 			channel_id: channelId,
 			content,
 			edited_timestamp: editedTimestamp,
+			nonce,
 			pinned,
 			position,
 			timestamp,
@@ -61,8 +64,9 @@ export class Message extends Base {
 		this.author = webhookId ? new User(client, author) : this.patchUser(author);
 		this.channelId = channelId;
 		this.content = content;
-		this.editedTimestamp = editedTimestamp ? Date.parse(editedTimestamp) : null;
 		this.createdTimestamp = Date.parse(timestamp);
+		this.editedTimestamp = editedTimestamp ? Date.parse(editedTimestamp) : null;
+		this.nonce = nonce ? nonce.toString() : null;
 		this.pinned = pinned;
 		this.position = position ?? null;
 		this.tts = tts;

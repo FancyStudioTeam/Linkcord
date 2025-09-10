@@ -173,6 +173,8 @@ export interface APIMessage {
 	mention_roles: Snowflake[];
 	/** The mention of users in the message. */
 	mentions: APIUser[];
+	/** The nonce used for validating when a message was created. */
+	nonce?: number | string;
 	/** Whether the message is pinned. */
 	pinned: boolean;
 	/** The position of the message in the thread channel. */
