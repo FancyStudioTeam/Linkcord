@@ -2,11 +2,9 @@ import { describe, expect, it } from "vitest";
 import { BitFieldResolver as BitFieldResolverClass } from "../BitFieldResolver.js";
 
 describe("Method: BitFieldResolver.freeze", () => {
-	it("Should freeze the instance.", () => {
-		const BitFieldResolver = new BitFieldResolverClass();
+	it("Should freeze the 'BitFieldResolver' instance when using 'freeze' method.", () => {
+		const bitFieldResolver = new BitFieldResolverClass().freeze();
 
-		BitFieldResolver.freeze();
-
-		expect(Object.isFrozen(BitFieldResolver)).toBe(true);
+		expect(bitFieldResolver.isFrozen).toBe(true);
 	});
 });

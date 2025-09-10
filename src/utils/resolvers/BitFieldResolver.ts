@@ -1,64 +1,65 @@
 /**
- * Utiliy class to manage bit fields.
- * @public
+ * Utility class for working with bitfields.
+ * @group Utils/Resolvers
  */
 export class BitFieldResolver {
-	/** The bitfield of the resolver. */
+	/** The bit field of the resolver. */
+	// biome-ignore lint/style/useReadonlyClassProperties: False positive.
 	bitField: number;
 
 	/**
 	 * Creates a new {@link BitFieldResolver | `BitFieldResolver`} instance.
-	 * @param bitField - The bitfield of the resolver.
+	 * @param bitField - The bit field of the resolver.
 	 */
-	constructor(bitField?: number) {
-		this.bitField = bitField ?? 0;
+	constructor(bitField: number = 0) {
+		this.bitField = bitField;
 	}
 
-	/**
-	 * Whether the current {@link BitFieldResolver | `BitFieldResolver`} is
-	 * frozen.
-	 */
+	/** Whether the current {@link BitFieldResolver | `BitFieldResolver`} is frozen. */
 	get isFrozen(): boolean {
 		return Object.isFrozen(this);
 	}
 
 	/**
-	 * Adds a bit to the bitfield.
-	 * @param bit - The bit to add.
-	 * @returns The bitfield with the bit added.
+	 * Adds a bit to the bit field.
+	 *
+	 * @param bits - The bits to add to the bit field.
+	 * @returns The updated bit field with the added bits.
 	 */
-	add(bit: number): number {
-		this.bitField |= bit;
+	add(...bits: number[]): number {
+		for (const bit of bits) {
+			this.bitField |= bit;
+		}
 
 		return this.bitField;
 	}
 
 	/**
-	 * Freezes the current {@link BitFieldResolver | `BitFieldResolver`}
-	 * instance.
-	 * @returns The frozen {@link BitFieldResolver | `BitFieldResolver`}
-	 * instance.
+	 * Freezes the current {@link BitFieldResolver | `BitFieldResolver`} instance.
+	 * @returns The frozen current {@link BitFieldResolver | `BitFieldResolver`} instance.
 	 */
 	freeze(): Readonly<this> {
 		return Object.freeze(this);
 	}
 
 	/**
-	 * Checks whether a bit is present in the bitfield.
+	 * Checks whether a bit is set in the bit field.
 	 * @param bit - The bit to check.
-	 * @returns Whether the bit is present in the bitfield.
 	 */
 	has(bit: number): boolean {
 		return (this.bitField & bit) === bit;
 	}
 
 	/**
-	 * Removes a bit from the bitfield.
-	 * @param bit - The bit to remove.
-	 * @returns The bitfield with the bit removed.
+	 * Removes a bit from the bit field.
+	 *
+	 * @param bits - The bits to remove from the bit field.
+	 * @returns The updated bit field without the removed bits.
 	 */
-	remove(bit: number): number {
-		this.bitField &= ~bit;
+	remove(...bits: number[]): number {
+		for (const bit of bits) {
+			this.bitField &= ~bit;
+		}
 
 		return this.bitField;
 	}
