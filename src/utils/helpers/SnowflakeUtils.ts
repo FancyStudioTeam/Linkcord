@@ -13,6 +13,14 @@ export class SnowflakeUtils {
 	 *
 	 * @param input - The input to cast.
 	 * @returns The casted {@link Snowflake | `Snowflake`} input.
+	 *
+	 * @example
+	 * ```ts
+	 * SnowflakeUtils.cast(80351110224678912); // -> "80351110224678912" (Snowflake)
+	 * SnowflakeUtils.cast(80351110224678912n); // -> "80351110224678912" (Snowflake)
+	 * SnowflakeUtils.cast("80351110224678912"); // -> "80351110224678912" (Snowflake)
+	 * SnowflakeUtils.cast(null); // -> TypeError
+	 * ```
 	 */
 	static cast(input: bigint | number | string): Snowflake {
 		if (typeof input === "bigint" || typeof input === "number") {
@@ -38,6 +46,12 @@ export class SnowflakeUtils {
 	/**
 	 * Checks whether a value is a {@link Snowflake | `Snowflake`}.
 	 * @param input - The input to check.
+	 *
+	 * @example
+	 * ```ts
+	 * SnowflakeUtils.isSnowflake(80351110224678912); // -> false
+	 * SnowflakeUtils.isSnowflake("80351110224678912"); // -> true
+	 * ```
 	 */
 	static isSnowflake(input: unknown): input is Snowflake {
 		return typeof input === "string" && DISCORD_SNOWFLAKE_REGEX.test(input);
@@ -48,6 +62,12 @@ export class SnowflakeUtils {
 	 *
 	 * @param snowflake - The {@link Snowflake | `Snowflake`} input to get its timestamp.
 	 * @returns The timestamp of the {@link Snowflake | `Snowflake`} input.
+	 *
+	 * @example
+	 * ```ts
+	 * SnowflakeUtils.timestampFrom("80351110224678912"); // -> 1439227597529
+	 * SnowflakeUtils.timestampFrom(null); // -> TypeError
+	 * ```
 	 */
 	static timestampFrom(snowflake: Snowflake): number {
 		if (!SnowflakeUtils.isSnowflake(snowflake)) {
