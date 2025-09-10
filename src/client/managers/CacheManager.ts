@@ -1,5 +1,6 @@
 /** biome-ignore-all lint/suspicious/useAwait: Caching methods are kept asynchronous for future compatibility. */
 
+import { emitWarning } from "node:process";
 import type { Iterable } from "#client/types/index.js";
 
 /** The cache manager for the client. */
@@ -72,5 +73,26 @@ export class CacheManager<Key extends string, Value> {
 		const cachedValue = cache.get(key);
 
 		return cachedValue;
+	}
+
+	/**
+	 * Sets a value in the cache.
+	 * @param key - The key of the value to set.
+	 * @param value - The value to set.
+	 */
+	async set(key: Key, value: Value): Promise<void> {
+		const cache = this.#cache;
+		const limit = this.#limit;
+
+		const { size: cacheSize } = cache;
+
+		// If the cache size is full, emit a warning instead of removing the oldest value.
+		if (cacheSize >= limit) {
+			return emitWarning(`Cache size exceeded limit of ${limit} entries.`, {
+				code: "CACHE_MANAGER_SIZE_EXCEEDED",
+			});
+		}
+
+		cache.set(key, value);
 	}
 }
