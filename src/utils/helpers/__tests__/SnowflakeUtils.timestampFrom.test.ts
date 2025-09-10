@@ -1,4 +1,3 @@
-import { describe, expect, it } from "vitest";
 import { SnowflakeUtils } from "../SnowflakeUtils.js";
 
 const USER_ID_STRING = "80351110224678912";
