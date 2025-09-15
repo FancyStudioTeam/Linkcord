@@ -76,6 +76,7 @@
 		"vitest": "vitest --typecheck -c vitest.config.ts",
 		"vitest:watch": "vitest --typecheck -c vitest.config.ts --watch"
 	},
+	"type": "module",
 	"types": "dist/index.d.ts",
 	"version": "0.0.0"
 }
