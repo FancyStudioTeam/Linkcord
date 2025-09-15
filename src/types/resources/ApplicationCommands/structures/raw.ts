@@ -1,6 +1,7 @@
 import type { Localizations, Snowflake } from "#types/miscellaneous/discord.js";
-import type { ApplicationIntegrationTypes, InteractionContextTypes } from "#types/resources/Applications/enums.js";
+import type { ApplicationIntegrationTypes } from "#types/resources/Applications/enums.js";
 import type { ChannelTypes } from "#types/resources/Channels/enums.js";
+import type { InteractionContextTypes } from "#types/resources/Interactions/enums.js";
 import type {
 	ApplicationCommandOptionTypes,
 	ApplicationCommandPermissionTypes,
