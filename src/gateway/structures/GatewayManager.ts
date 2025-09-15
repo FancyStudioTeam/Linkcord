@@ -48,6 +48,21 @@ export class GatewayManager {
 		return shardsToSpawn;
 	}
 
+	/**
+	 * Creates and initializes an instance of {@link GatewayShard | `GatewayShard`}.
+	 * @param shardId - The ID of the {@link GatewayShard | `GatewayShard`} to create.
+	 * @returns The created {@link GatewayShard | `GatewayShard`} instance.
+	 */
+	#create(shardId: number): GatewayShard {
+		const { shards } = this;
+		const shard = new GatewayShard(shardId, this);
+
+		shard.init();
+		shards.set(shardId, shard);
+
+		return shard;
+	}
+
 	/** Checks whether the gateway manager should trigger the {@link ClientEvents.ClientReady | `ClientEvents.ClientReady`} event. */
 	#shouldTriggerReady(): boolean {
 		const shardsToSpawn = this.#shardsToSpawn;
@@ -76,7 +91,7 @@ export class GatewayManager {
 
 	/** Spawns the shards of the gateway manager. */
 	async init(): Promise<void> {
-		const { client, shards } = this;
+		const { client } = this;
 		const api = this.#api;
 
 		const { sessionStartLimit, shards: shardCount } = await api.getGatewayBot();
@@ -90,10 +105,7 @@ export class GatewayManager {
 		);
 
 		for (let shardId = 0; shardId < shardCount; shardId++) {
-			const shard = new GatewayShard(shardId, this);
-
-			shard.init();
-			shards.set(shardId, shard);
+			this.#create(shardId);
 		}
 	}
 }
