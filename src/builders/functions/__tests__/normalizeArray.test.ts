@@ -1,21 +1,17 @@
-/*
- * biome-ignore-all lint/style/noMagicNumbers: Magic numbers are not important
- * in testing files.
- */
-
-import { describe, expect, it } from "vitest";
 import { normalizeArray } from "../normalizeArray.js";
 
-describe("Function: normalizeArray", () => {
-	it("Should return the original array if it is already an array.", () => {
-		const NumbersArray = [1, 2, 3];
+const STRINGS_ARRAY = ["Hello", "world"];
 
-		expect(normalizeArray(NumbersArray)).toEqual(NumbersArray);
+describe("Function: normalizeArray", () => {
+	it("Should return the original array when the provided argument is an array.", () => {
+		const expectedStringsArrayResult = STRINGS_ARRAY;
+
+		expect(normalizeArray(STRINGS_ARRAY)).toEqual(expectedStringsArrayResult);
 	});
 
-	it("Should normalize a rest parameter into an array.", () => {
-		const NumbersArray = [1, 2, 3];
+	it("Should normalize the array when the provided argument is a rest parameter.", () => {
+		const expectedStringsArrayResult = STRINGS_ARRAY;
 
-		expect(normalizeArray(...NumbersArray)).toEqual(NumbersArray);
+		expect(normalizeArray(...STRINGS_ARRAY)).toEqual(expectedStringsArrayResult);
 	});
 });
