@@ -53,13 +53,3 @@ export enum ApplicationFlags {
 	GatewayPresenceLimited = 1 << 13,
 	VerificationPendingGuildLimit = 1 << 16,
 }
-
-/**
- * The types of an interaction context.
- * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-context-types
- */
-export enum InteractionContextTypes {
-	BotDM = 1,
-	Guild = 0,
-	PrivateChannel = 2,
-}

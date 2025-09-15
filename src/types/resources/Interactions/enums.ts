@@ -14,6 +14,16 @@ export enum InteractionCallbackTypes {
 }
 
 /**
+ * The types of context of an interaction.
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-context-types
+ */
+export enum InteractionContextTypes {
+	BotDM = 1,
+	Guild = 0,
+	PrivateChannel = 2,
+}
+
+/**
  * The types of an interaction.
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-type
  */
