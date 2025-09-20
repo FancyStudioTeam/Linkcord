@@ -7,7 +7,9 @@ import { BaseBuilder } from "./BaseBuilder.js";
  * @typeParam ButtonBuilderData - The type of the data of the button builder.
  * @group Builders/Structures
  */
-export abstract class ButtonBase<ButtonBuilderData extends ButtonComponent> extends BaseBuilder<ButtonBuilderData> {
+export abstract class ButtonBaseBuilder<
+	ButtonBuilderData extends ButtonComponent,
+> extends BaseBuilder<ButtonBuilderData> {
 	/**
 	 * Creates a new {@link ButtonBase | `ButtonBase`} instance.
 	 * @param data - The data of the button to use.

@@ -1,2 +1,2 @@
 export * from "./BaseBuilder.js";
-export * from "./ButtonBase.js";
+export * from "./ButtonBaseBuilder.js";
