@@ -129,6 +129,17 @@ export interface FileComponent extends BaseComponent<ComponentTypes.File> {
 }
 
 /**
+ * Represents a file upload component.
+ * @see TBD
+ */
+export interface FileUploadComponent extends BaseComponent<ComponentTypes.FileUpload> {
+	/** The maximum number of files that can be uploaded. */
+	maxValues?: number;
+	/** The minimum number of files that can be uploaded. */
+	minValues?: number;
+}
+
+/**
  * Represents a label component.
  * @see https://discord.com/developers/docs/components/reference#label-label-structure
  */

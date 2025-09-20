@@ -130,6 +130,17 @@ export interface APIFileComponent extends APIBaseComponent<ComponentTypes.File> 
 }
 
 /**
+ * Represents a file upload component.
+ * @see TBD
+ */
+export interface APIFileUploadComponent extends APIBaseComponent<ComponentTypes.FileUpload> {
+	/** The maximum number of files that can be uploaded. */
+	max_values?: number;
+	/** The minimum number of files that can be uploaded. */
+	min_values?: number;
+}
+
+/**
  * Represents a label component.
  * @see https://discord.com/developers/docs/components/reference#label-label-structure
  */
