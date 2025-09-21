@@ -62,6 +62,12 @@ export interface ClientEventsMap {
 	 */
 	[ClientEvents.MessageCreate]: [message: Message];
 	/**
+	 * Emitted when a request is made to the Discord API.
+	 * @param request - The {@link Request | `Request`} object that was made.
+	 * @param response - The {@link Response | `Response`} object that was received.
+	 */
+	[ClientEvents.RestRequest]: [request: Request, response: Response];
+	/**
 	 * Emitted when a shard has been disconnected.
 	 * @param reason - The reason of the disconnection.
 	 * @param code - The received close event code.
@@ -123,6 +129,7 @@ export enum ClientEvents {
 	// GuildUpdate = "guildUpdate",
 	// InteractionCreate = "interactionCreate",
 	MessageCreate = "messageCreate",
+	RestRequest = "restRequest",
 	ShardDisconnected = "shardDisconnected",
 	ShardHello = "shardHello",
 	ShardPacket = "shardPacket",

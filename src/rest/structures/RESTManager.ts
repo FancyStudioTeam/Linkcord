@@ -1,6 +1,12 @@
 import type { Client } from "#client/index.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
-import { LINKCORD_VERSION, type MakeRequestOptions, RESTContentTypes, type RESTMethods } from "../../index.js";
+import {
+	ClientEvents,
+	LINKCORD_VERSION,
+	type MakeRequestOptions,
+	RESTContentTypes,
+	type RESTMethods,
+} from "../../index.js";
 import { APIManager } from "./APIManager.js";
 
 const NO_CONTENT_STATUS_CODE = 204;
@@ -142,8 +148,13 @@ export class RESTManager {
 		const init = this.#createRequestInit(method, options);
 		const url = this.#createRequestURL<QueryStringParams>(endpoint, queryString);
 
-		const request = await fetch(url, init);
-		const { headers, status } = request;
+		const request = new Request(url, init);
+		const response = await fetch(request);
+
+		const { client } = this;
+		const { headers, status } = response;
+
+		client.emit(ClientEvents.RestRequest, request, response);
 
 		// Check if the response was rate limited or does not have a content.
 		const isRateLimited = status === TOO_MANY_REQUESTS_STATUS_CODE;
