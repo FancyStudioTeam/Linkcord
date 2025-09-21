@@ -80,14 +80,40 @@ export class User extends Base {
 			username,
 		} = data;
 
-		if (accentColor !== undefined) this.accentColor = accentColor;
-		if (avatar !== undefined) this.avatar = avatar;
-		if (avatarDecorationData !== undefined) this.avatarDecorationData = parseAvatarDecoration(avatarDecorationData);
-		if (banner !== undefined) this.banner = banner;
-		if (collectibles !== undefined) this.collectibles = parseCollectibles(collectibles);
-		if (flags !== undefined) this.flags = new BitFieldResolver(flags);
-		if (globalName !== undefined) this.globalName = globalName;
-		if (primaryGuild !== undefined) this.primaryGuild = parsePrimaryGuild(primaryGuild);
-		if (username !== undefined) this.username = username;
+		if (accentColor !== undefined) {
+			this.accentColor = accentColor;
+		}
+
+		if (avatar !== undefined) {
+			this.avatar = avatar;
+		}
+
+		if (avatarDecorationData !== undefined) {
+			this.avatarDecorationData = parseAvatarDecoration(avatarDecorationData);
+		}
+
+		if (banner !== undefined) {
+			this.banner = banner;
+		}
+
+		if (collectibles !== undefined) {
+			this.collectibles = parseCollectibles(collectibles);
+		}
+
+		if (flags !== undefined) {
+			this.flags = new BitFieldResolver(flags);
+		}
+
+		if (globalName !== undefined) {
+			this.globalName = globalName;
+		}
+
+		if (primaryGuild !== undefined) {
+			this.primaryGuild = parsePrimaryGuild(primaryGuild);
+		}
+
+		if (username !== undefined) {
+			this.username = username;
+		}
 	}
 }

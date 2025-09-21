@@ -29,7 +29,7 @@ export class Message extends Base {
 	/** The nonce used for validating when a message was created. */
 	readonly nonce: string | null = null;
 	/** Whether the message is pinned. */
-	readonly pinned: boolean;
+	pinned: boolean = false;
 	/** The position of the message in the thread channel. */
 	readonly position: number | null;
 	/** Whether the message was a Text-to-Speech message. */
@@ -53,7 +53,6 @@ export class Message extends Base {
 			content,
 			edited_timestamp: editedTimestamp,
 			nonce,
-			pinned,
 			position,
 			timestamp,
 			tts,
@@ -61,14 +60,12 @@ export class Message extends Base {
 			webhook_id: webhookId,
 		} = data;
 
-		// TODO: Do not cache Webhook users.
 		this.author = new User(client, author);
 		this.channelId = channelId;
 		this.content = content;
 		this.createdTimestamp = Date.parse(timestamp);
 		this.editedTimestamp = editedTimestamp ? Date.parse(editedTimestamp) : null;
 		this.nonce = nonce ? nonce.toString() : null;
-		this.pinned = pinned;
 		this.position = position ?? null;
 		this.tts = tts;
 		this.type = type;
@@ -95,15 +92,26 @@ export class Message extends Base {
 	 * @param data - The updated data for the current {@link Message | `Message`} instance.
 	 */
 	protected patch(data: Partial<APIMessage> = {}): void {
-		const { content, edited_timestamp: editedTimestamp, embeds, flags } = data;
+		const { content, edited_timestamp: editedTimestamp, embeds, flags, pinned } = data;
 
-		if (content !== undefined) this.content = content;
+		if (content !== undefined) {
+			this.content = content;
+		}
 
 		if (editedTimestamp !== undefined && editedTimestamp !== null) {
 			this.editedTimestamp = Date.parse(editedTimestamp);
 		}
 
-		if (embeds !== undefined) this.embeds = parseEmbeds(embeds);
-		if (flags !== undefined) this.flags = new BitFieldResolver(flags);
+		if (embeds !== undefined) {
+			this.embeds = parseEmbeds(embeds);
+		}
+
+		if (flags !== undefined) {
+			this.flags = new BitFieldResolver(flags);
+		}
+
+		if (pinned !== undefined) {
+			this.pinned = pinned;
+		}
 	}
 }
