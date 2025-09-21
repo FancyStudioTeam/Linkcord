@@ -4,7 +4,7 @@ const DISCORD_EPOCH_BIGINT = 1420070400000n;
 const DISCORD_SNOWFLAKE_REGEX = /^(?<id>\d{17,20})$/;
 
 /**
- * Utility class for working with snowflakes.
+ * Utility class for working with Discord Snowflakes.
  * @group Utils/Helpers
  */
 export class SnowflakeUtils {
@@ -23,24 +23,21 @@ export class SnowflakeUtils {
 	 * ```
 	 */
 	static cast(input: bigint | number | string): Snowflake {
+		let snowflakeString: string;
+
 		if (typeof input === "bigint" || typeof input === "number") {
-			return String(input) as Snowflake;
+			snowflakeString = String(input);
+		} else if (typeof input === "string") {
+			snowflakeString = input;
+		} else {
+			throw new TypeError("The first parameter (input) must be a valid bigint, number, or string.");
 		}
 
-		if (typeof input === "string") {
-			const match = input.match(DISCORD_SNOWFLAKE_REGEX);
-
-			const { groups } = match ?? {};
-			const { id } = groups ?? {};
-
-			if (!id) {
-				throw new TypeError("The first parameter (input) does not match the Discord snowflake format.");
-			}
-
-			return id as Snowflake;
+		if (!SnowflakeUtils.isSnowflake(snowflakeString)) {
+			throw new TypeError("The first parameter (input) does not match the Discord Snowflake regex.");
 		}
 
-		throw new TypeError("The first parameter (input) must be a valid bigint, number, or string.");
+		return snowflakeString;
 	}
 
 	/**
@@ -49,8 +46,8 @@ export class SnowflakeUtils {
 	 *
 	 * @example
 	 * ```ts
-	 * SnowflakeUtils.isSnowflake(80351110224678912); // -> false
 	 * SnowflakeUtils.isSnowflake("80351110224678912"); // -> true
+	 * SnowflakeUtils.isSnowflake(80351110224678912); // -> false
 	 * ```
 	 */
 	static isSnowflake(input: unknown): input is Snowflake {
