@@ -1,6 +1,6 @@
 import type { Client } from "#client/index.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
-import { LINKCORD_VERSION } from "../../index.js";
+import { LINKCORD_VERSION, type MakeRequestOptions, RESTContentTypes, type RESTMethods } from "../../index.js";
 import { APIManager } from "./APIManager.js";
 
 const NO_CONTENT_STATUS_CODE = 204;
@@ -38,6 +38,7 @@ export class RESTManager {
 
 	/**
 	 * Creates the {@link Headers | `Headers`} object for the request.
+	 *
 	 * @param options - The options to use when creating the headers.
 	 * @returns The created {@link Headers | `Headers`} object.
 	 */
@@ -50,7 +51,6 @@ export class RESTManager {
 
 		let { contentType, reason, withAuthorization } = options ?? {};
 
-		// Set the content type to "application/json" by default.
 		contentType ??= RESTContentTypes.ApplicationJSON;
 		withAuthorization ??= true;
 
@@ -70,11 +70,12 @@ export class RESTManager {
 
 	/**
 	 * Creates the {@link RequestInit | `RequestInit`} object for the request.
+	 *
 	 * @param method - The HTTP method to use when making the request.
 	 * @param options - The options to use when creating the request.
 	 * @returns The created {@link RequestInit | `RequestInit`} object.
 	 */
-	#createRequestInit(method: RESTMethods, options?: CreateRequestInitOptions): RequestInit {
+	#createRequestInit(method: RESTMethods, options?: MakeRequestOptions): RequestInit {
 		const { json } = options ?? {};
 
 		const headers = this.#createRequestHeaders(options);
@@ -91,9 +92,13 @@ export class RESTManager {
 	}
 
 	/**
-	 * @internal
+	 * Creates the {@link URL | `URL`} object for the request.
+	 *
+	 * @param endpoint - The endpoint to use for the request.
+	 * @param queryStringParams - The query string parameters to append to the request URL.
+	 * @returns The created {@link URL | `URL`} object.
 	 */
-	#createRequestURL<QueryStringParams>(endpoint: string, queryStringParams?: QueryStringParams): string {
+	#createRequestURL<QueryStringParams>(endpoint: string, queryStringParams?: QueryStringParams): URL {
 		const { REST_URL_BASE, REST_VERSION } = RESTManager;
 
 		const urlObject = new URL(endpoint, `${REST_URL_BASE}/v${REST_VERSION}`);
@@ -105,33 +110,21 @@ export class RESTManager {
 			}
 		}
 
-		return urlObject.toString();
+		return urlObject;
 	}
 
 	/**
-	 * Performs a `DELETE` request to the Discord API.
-	 * @param endpoint - The endpoint where the request will be made.
-	 * @param options - The options to use when performing the request.
+	 * Performs a request to the Discord API with the given options.
+	 *
+	 * @param method - The HTTP method to use for the request.
+	 * @param endpoint - The enpoint where the request will be made.
+	 * @param options - The options to use when making the request.
+	 * @returns The response from the Discord API.
+	 *
+	 * @typeParam Result - The shape of the response from the Discord API.
+	 * @typeParam JSONParams - The shape of the JSON data to send with the request.
+	 * @typeParam QueryStringParams - The shape of the query string parameters to append to the request URL.
 	 */
-	async delete<Result, QueryStringParams = never>(
-		endpoint: string,
-		options?: RESTDeleteOptions<QueryStringParams>,
-	): Promise<Result> {
-		return await this.makeRequest<Result, never, QueryStringParams>(RESTMethods.Delete, endpoint, options);
-	}
-
-	/**
-	 * Performs a `GET` request to the Discord API.
-	 * @param endpoint - The endpoint where the request will be made.
-	 * @param options - The options to use when performing the request.
-	 */
-	async get<Result, QueryStringParams = never>(
-		endpoint: string,
-		options?: RESTGetOptions<QueryStringParams>,
-	): Promise<Result> {
-		return await this.makeRequest<Result, never, QueryStringParams>(RESTMethods.Get, endpoint, options);
-	}
-
 	async makeRequest<Result, JSONParams = never, QueryStringParams = never>(
 		method: RESTMethods,
 		endpoint: string,
@@ -139,6 +132,7 @@ export class RESTManager {
 	): Promise<Result> {
 		const globalRateLimit = this.#globalRateLimit;
 
+		// If the client has a global rate limit, do not proceed with the request.
 		if (globalRateLimit) {
 			throw new Error("You are being rate limited.");
 		}
@@ -151,6 +145,7 @@ export class RESTManager {
 		const request = await fetch(url, init);
 		const { headers, status } = request;
 
+		// Check if the response was rate limited or does not have a content.
 		const isRateLimited = status === TOO_MANY_REQUESTS_STATUS_CODE;
 		const isNoContent = status === NO_CONTENT_STATUS_CODE;
 
@@ -178,115 +173,7 @@ export class RESTManager {
 
 		return (await request.json()) as Promise<Result>;
 	}
-
-	/**
-	 * Performs a `PATCH` request to the Discord API.
-	 * @param endpoint - The endpoint where the request will be made.
-	 * @param options - The options to use when performing the request.
-	 */
-	async patch<Result, JSONParams = never, QueryStringParams = never>(
-		endpoint: string,
-		options?: RESTPatchOptions<JSONParams, QueryStringParams>,
-	): Promise<Result> {
-		return await this.makeRequest<Result, JSONParams, QueryStringParams>(RESTMethods.Patch, endpoint, options);
-	}
-
-	/**
-	 * Performs a `POST` request to the Discord API.
-	 * @param endpoint - The endpoint where the request will be made.
-	 * @param options - The options to use when performing the request.
-	 */
-	async post<Result, JSONParams = never, QueryStringParams = never>(
-		endpoint: string,
-		options?: RESTPostOptions<JSONParams, QueryStringParams>,
-	): Promise<Result> {
-		return await this.makeRequest<Result, JSONParams, QueryStringParams>(RESTMethods.Post, endpoint, options);
-	}
-
-	/**
-	 * Performs a `PUT` request to the Discord API.
-	 * @param endpoint - The endpoint where the request will be made.
-	 * @param options - The options to use when performing the request.
-	 */
-	async put<Result, JSONParams = never, QueryStringParams = never>(
-		endpoint: string,
-		options?: RESTPutOptions<JSONParams, QueryStringParams>,
-	): Promise<Result> {
-		return await this.makeRequest<Result, JSONParams, QueryStringParams>(RESTMethods.Put, endpoint, options);
-	}
 }
 
-/**
- * @public
- */
-export interface MakeRequestOptions<JSONParams = unknown, QueryStringParams = unknown> {
-	contentType?: RESTContentTypes;
-	json?: JSONParams;
-	queryString?: QueryStringParams;
-	reason?: string;
-	withAuthorization?: boolean;
-}
-
-/**
- * @internal
- */
-type CreateRequestInitOptions = MakeRequestOptions;
-
-/**
- * @internal
- */
+/** Represents the options to use when creating the request headers. */
 type CreateRequestHeadersOptions = Pick<MakeRequestOptions, "contentType" | "reason" | "withAuthorization">;
-
-/**
- * @public
- */
-export type RESTDeleteOptions<QueryStringParams = never> = MakeRequestOptions<never, QueryStringParams>;
-
-/**
- * @public
- */
-export type RESTGetOptions<QueryStringParams = never> = MakeRequestOptions<never, QueryStringParams>;
-
-/**
- * @public
- */
-export type RESTPatchOptions<JSONParams = unknown, QueryStringParams = never> = MakeRequestOptions<
-	JSONParams,
-	QueryStringParams
->;
-
-/**
- * @public
- */
-export type RESTPostOptions<JSONParams = unknown, QueryStringParams = never> = MakeRequestOptions<
-	JSONParams,
-	QueryStringParams
->;
-
-/**
- * @public
- */
-export type RESTPutOptions<JSONParams = unknown, QueryStringParams = never> = MakeRequestOptions<
-	JSONParams,
-	QueryStringParams
->;
-
-/**
- * @public
- */
-export enum RESTContentTypes {
-	ApplicationJSON = "application/json",
-	ApplicationXWWWFormURLEncoded = "application/x-www-form-urlencoded",
-	MultipartFormData = "multipart/form-data",
-}
-
-/**
- * @public
- */
-export enum RESTMethods {
-	Delete = "DELETE",
-	Get = "GET",
-	Patch = "PATCH",
-	Post = "POST",
-	Put = "PUT",
-}
