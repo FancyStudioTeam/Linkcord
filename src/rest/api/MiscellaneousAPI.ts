@@ -3,10 +3,14 @@ import { parseVoiceRegions } from "#transformers/Voice.js";
 import type { RESTGetAPIVoiceRegions, VoiceRegion } from "#types/index.js";
 import { BaseAPI } from "./BaseAPI.js";
 
-/** API class that handles all miscellaneous requests. */
+/**
+ * API class that handles all miscellaneous requests.
+ * @group REST/API
+ */
 export class MiscellaneousAPI extends BaseAPI {
 	/**
 	 * Performs a {@link RESTGetAPIVoiceRegions | `GET /voice/regions`} request to the Discord API.
+	 *
 	 * @returns The parsed list of {@link VoiceRegion | `VoiceRegion`} objects.
 	 * @see https://discord.com/developers/docs/resources/voice#list-voice-regions
 	 */
