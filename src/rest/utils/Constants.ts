@@ -13,7 +13,7 @@ export const SAFE_CHARACTERS = new Set([":", "?", "@"]);
 export const REST_URL_BASE = "https://discord.com/api" as const;
 
 /**
- * The user agent to use when making requests to the Discord REST API.
+ * The user agent to use when making Discord API requests.
  * @group REST/Constants
  */
 export const REST_USER_AGENT = `Linkcord/${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord, v${LINKCORD_VERSION})`;
