@@ -22,7 +22,9 @@ export class ChannelsAPI extends BaseAPI {
 		const { content, embeds } = options ?? {};
 		const json: RESTPostAPIMessageJSONParams = {};
 
-		if (content) json.content = content;
+		if (content) {
+			json.content = content;
+		}
 
 		if (embeds) {
 			const normalizedEmbeds = normalizeEmbeds(embeds);
