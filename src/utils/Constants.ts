@@ -7,3 +7,9 @@ const { NODE_ENV } = env;
  * @group Utils/Constants
  */
 export const IS_PRODUCTION_ENVIRONMENT = String(NODE_ENV).toLowerCase() === "production";
+
+/**
+ * The current version of Linkcord.
+ * @group Utils/Constants
+ */
+export const LINKCORD_VERSION: string = "[VI]{{inject}}[/VI]";

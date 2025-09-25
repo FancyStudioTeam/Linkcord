@@ -7,6 +7,3 @@ export * from "./rest/index.js";
 export * from "./structures/index.js";
 export * from "./types/index.js";
 export * from "./utils/index.js";
-
-/** The current version of Linkcord. */
-export const LINKCORD_VERSION: string = "[VI]{{inject}}[/VI]";

@@ -2,8 +2,10 @@ import type { Client } from "#client/index.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 import {
 	ClientEvents,
-	LINKCORD_VERSION,
 	type MakeRequestOptions,
+	REST_URL_BASE,
+	REST_USER_AGENT,
+	REST_VERSION,
 	RESTContentTypes,
 	type RESTMethods,
 } from "../../index.js";
@@ -32,36 +34,27 @@ export class RESTManager {
 		defineImmutableProperty(this, "client", client);
 	}
 
-	/** The default user agent to use when making requests. */
-	static DEFAULT_USER_AGENT =
-		`Linkcord/${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord, v${LINKCORD_VERSION})` as const;
-
-	/** The base URL of the Discord REST API. */
-	static REST_URL_BASE = "https://discord.com/api" as const;
-
-	/** The version of the Discord REST API. */
-	static REST_VERSION = 10 as const;
-
 	/**
 	 * Creates the {@link Headers | `Headers`} object for the request.
 	 *
 	 * @param options - The options to use when creating the headers.
 	 * @returns The created {@link Headers | `Headers`} object.
 	 */
-	#createRequestHeaders(options?: CreateRequestHeadersOptions): Headers {
+	#createRequestHeaders(
+		options: CreateRequestHeadersOptions = {
+			contentType: RESTContentTypes.ApplicationJSON,
+			withAuthorization: true,
+		},
+	): Headers {
 		const { client } = this;
 		const { token } = client;
-		const { DEFAULT_USER_AGENT } = RESTManager;
 
 		const headers = new Headers();
 
-		let { contentType, reason, withAuthorization } = options ?? {};
+		const { contentType, reason, withAuthorization } = options;
 
-		contentType ??= RESTContentTypes.ApplicationJSON;
-		withAuthorization ??= true;
-
-		headers.set("User-Agent", DEFAULT_USER_AGENT);
-		headers.set("Content-Type", contentType);
+		headers.set("User-Agent", REST_USER_AGENT);
+		headers.set("Content-Type", String(contentType));
 
 		if (withAuthorization) {
 			headers.set("Authorization", `Bot ${token}`);
@@ -105,8 +98,6 @@ export class RESTManager {
 	 * @returns The created {@link URL | `URL`} object.
 	 */
 	#createRequestURL<QueryStringParams>(endpoint: string, queryStringParams?: QueryStringParams): URL {
-		const { REST_URL_BASE, REST_VERSION } = RESTManager;
-
 		const urlObject = new URL(endpoint, `${REST_URL_BASE}/v${REST_VERSION}`);
 		const { searchParams } = urlObject;
 
@@ -182,7 +173,7 @@ export class RESTManager {
 			return undefined as Result;
 		}
 
-		return (await request.json()) as Promise<Result>;
+		return (await response.json()) as Promise<Result>;
 	}
 }
 
