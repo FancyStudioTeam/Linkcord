@@ -13,6 +13,7 @@
 		"@microsoft/api-extractor": "7.52.13",
 		"@swc/core": "1.13.5",
 		"@types/node": "24.5.2",
+		"@vitest/ui": "3.2.4",
 		"esbuild-plugin-version-injector": "1.2.1",
 		"husky": "9.1.7",
 		"lint-staged": "16.1.6",
@@ -74,6 +75,8 @@
 		"tarball": "pnpm pack",
 		"typedoc": "typedoc",
 		"vitest": "vitest --typecheck -c vitest.config.ts",
+		"vitest:html": "vitest --typecheck -c vitest.config.ts --reporter=html",
+		"vitest:preview": "pnpx vite preview --outDit html",
 		"vitest:watch": "vitest --typecheck -c vitest.config.ts --watch"
 	},
 	"types": "dist/index.d.ts",
