@@ -149,15 +149,17 @@ export class FormatterUtils {
 	static email(username: string, domain: string, headers?: Record<string, string>): string {
 		const email = `${username}@${domain}`;
 
-		if (headers) {
-			if (typeof headers !== "object") {
+		if (headers !== undefined) {
+			if (typeof headers !== "object" || headers === null) {
 				throw new TypeError("The third parameter (headers) must be a record of strings.");
 			}
 
-			const searchStringParams = new URLSearchParams(headers);
-			const searchString = searchStringParams.toString();
+			const headersEntries = Object.entries(headers);
+			const headersArray = headersEntries.map(([key, value]) => `${key}=${value}`).join("&");
 
-			return `<${email}?${searchString}>`;
+			const encodedQueryStringParams = encodeURIComponent(headersArray);
+
+			return `<${email}?${encodedQueryStringParams}>`;
 		}
 
 		return `<${email}>`;
