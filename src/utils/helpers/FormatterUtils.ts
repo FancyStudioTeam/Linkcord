@@ -57,7 +57,7 @@ export class FormatterUtils {
 	 */
 	static channelMention<ChannelId extends Snowflake>(channelId: ChannelId): `<#${ChannelId}>` {
 		if (!SnowflakeUtils.isSnowflake(channelId)) {
-			throw new TypeError("The first parameter (channelId) must be a valid Snowflake.");
+			throw new TypeError("The first parameter (channelId) must be a Snowflake.");
 		}
 
 		return `<#${channelId}>`;
@@ -204,8 +204,12 @@ export class FormatterUtils {
 	 * @returns The formatted header.
 	 */
 	static header(levelOrContent: HeadingLevels | string, possibleContent?: string): string {
+		if (typeof levelOrContent === "string") {
+			return `# ${levelOrContent}`;
+		}
+
 		if (typeof levelOrContent === "number") {
-			if (!possibleContent || typeof possibleContent !== "string") {
+			if (possibleContent === undefined || typeof possibleContent !== "string") {
 				throw new TypeError("The second parameter (content) must be present and be a string.");
 			}
 
@@ -216,7 +220,7 @@ export class FormatterUtils {
 			return `${"#".repeat(levelOrContent)} ${possibleContent}`;
 		}
 
-		return `# ${levelOrContent}`;
+		throw new TypeError("The first parameter (levelOrContent) must be a number or string.");
 	}
 
 	/**
@@ -352,7 +356,7 @@ export class FormatterUtils {
 	 */
 	static roleMention<RoleId extends Snowflake>(roleId: RoleId): `<@&${RoleId}>` {
 		if (!SnowflakeUtils.isSnowflake(roleId)) {
-			throw new TypeError("The first parameter (roleId) must be a valid Snowflake.");
+			throw new TypeError("The first parameter (roleId) must be a Snowflake.");
 		}
 
 		return `<@&${roleId}>`;
@@ -426,7 +430,7 @@ export class FormatterUtils {
 	 */
 	static userMention<UserId extends Snowflake>(userId: UserId): `<@${UserId}>` {
 		if (!SnowflakeUtils.isSnowflake(userId)) {
-			throw new TypeError("The first parameter (userId) must be a valid Snowflake.");
+			throw new TypeError("The first parameter (userId) must be a Snowflake.");
 		}
 
 		return `<@${userId}>`;

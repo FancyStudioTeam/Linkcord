@@ -52,4 +52,20 @@ describe("Method: FormatterUtils.header", () => {
 			expect<typeof expectedResult>(result).toBe(expectedResult);
 		});
 	});
+
+	describe("GIVEN valid heading level but invalid content", () => {
+		it("THEN throws 'TypeError'", () => {
+			// @ts-expect-error
+			const result1 = () => FormatterUtils.header(HeadingLevels.One);
+			// @ts-expect-error
+			const result2 = () => FormatterUtils.header(HeadingLevels.One, null);
+
+			const expectedErrorResult = new TypeError(
+				"The second parameter (content) must be present and be a string.",
+			);
+
+			expect(result1).toThrow(expectedErrorResult);
+			expect(result2).toThrow(expectedErrorResult);
+		});
+	});
 });

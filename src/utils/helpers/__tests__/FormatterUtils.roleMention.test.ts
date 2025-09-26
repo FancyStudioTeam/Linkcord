@@ -21,7 +21,7 @@ describe("Method: FormatterUtils.roleMention", () => {
 			// @ts-expect-error
 			const result2 = () => FormatterUtils.roleMention("NOT_A_VALID_SNOWFLAKE_STRING");
 
-			const expectedErrorResult = new TypeError("The first parameter (roleId) must be a valid Snowflake.");
+			const expectedErrorResult = new TypeError("The first parameter (roleId) must be a Snowflake.");
 
 			expect(result1).toThrow(expectedErrorResult);
 			expect(result2).toThrow(expectedErrorResult);
