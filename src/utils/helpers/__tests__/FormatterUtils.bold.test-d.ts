@@ -1,13 +1,15 @@
 import { FormatterUtils } from "../FormatterUtils.js";
 
 describe("Method: FormatterUtils.bold", () => {
-	it("GIVEN 'Hello, world' WHEN using 'bold' method THEN returns '**Hello, world**'", () => {
-		const unformattedString = "Hello, World!";
+	describe("GIVEN valid content", () => {
+		it("THEN returns '**Hello, world!**'", () => {
+			const content = "Hello, World!";
 
-		const result = FormatterUtils.bold(unformattedString);
-		const expectedResult = "**Hello, World!**" as const;
+			const result = FormatterUtils.bold(content);
+			const expectedResult = `**${content}**` as const;
 
-		expect(result).toBe(expectedResult);
-		expectTypeOf(result).toEqualTypeOf<typeof expectedResult>();
+			expect(result).toBe(expectedResult);
+			expectTypeOf(result).toEqualTypeOf<typeof expectedResult>();
+		});
 	});
 });
