@@ -4,18 +4,17 @@
  */
 export class BitFieldResolver {
 	/** The bit field of the resolver. */
-	// biome-ignore lint/style/useReadonlyClassProperties: False positive.
 	bitField: number;
 
 	/**
 	 * Creates a new {@link BitFieldResolver | `BitFieldResolver`} instance.
-	 * @param bitField - The bit field of the resolver. (Default: `0`)
+	 * @param bitField - The bit field of the resolver, defaults to `0`.
 	 */
 	constructor(bitField: number = 0) {
 		this.bitField = bitField;
 	}
 
-	/** Whether the current {@link BitFieldResolver | `BitFieldResolver`} is frozen. */
+	/** Whether the current {@link BitFieldResolver | `BitFieldResolver`} instance is frozen. */
 	get isFrozen(): boolean {
 		return Object.isFrozen(this);
 	}

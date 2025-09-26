@@ -5,16 +5,17 @@ const USER_ID_STRING = "80351110224678912";
 
 describe("Method: SnowflakeUtils.cast", () => {
 	it("Should return 'Snowflake' when using a valid bigint, number, or string.", () => {
+		const userIdString = USER_ID_STRING;
 		const userIdBigInt = BigInt(USER_ID_STRING);
 		const userIdNumber = Number(USER_ID_STRING);
 
 		const expectedSnowflakeResult = USER_ID_STRING;
 
-		expect(SnowflakeUtils.cast(USER_ID_STRING)).toBe(expectedSnowflakeResult);
+		expect(SnowflakeUtils.cast(userIdString)).toBe(expectedSnowflakeResult);
 		expect(SnowflakeUtils.cast(userIdBigInt)).toBe(expectedSnowflakeResult);
 		expect(SnowflakeUtils.cast(userIdNumber)).toBe(expectedSnowflakeResult);
 
-		expectTypeOf(SnowflakeUtils.cast(USER_ID_STRING)).branded.toEqualTypeOf<Snowflake>();
+		expectTypeOf(SnowflakeUtils.cast(userIdString)).branded.toEqualTypeOf<Snowflake>();
 		expectTypeOf(SnowflakeUtils.cast(userIdBigInt)).branded.toEqualTypeOf<Snowflake>();
 		expectTypeOf(SnowflakeUtils.cast(userIdNumber)).branded.toEqualTypeOf<Snowflake>();
 	});
