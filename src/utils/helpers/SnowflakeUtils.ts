@@ -46,7 +46,7 @@ export class SnowflakeUtils {
 	 */
 	static timestampFrom(snowflake: Snowflake): number {
 		if (!SnowflakeUtils.isSnowflake(snowflake)) {
-			throw new TypeError("The first parameter (snowflake) must be a valid snowflake.");
+			throw new TypeError("The first parameter (snowflake) must be a valid Snowflake.");
 		}
 
 		const snowflakeBigInt = (BigInt(snowflake) >> 22n) + DISCORD_EPOCH_BIGINT;
