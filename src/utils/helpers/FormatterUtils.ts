@@ -3,6 +3,22 @@ import { HeadingLevels, type RecursiveArray } from "#utils/types/index.js";
 import { SnowflakeUtils } from "./SnowflakeUtils.js";
 
 /**
+ * Creates a list from the given items.
+ *
+ * @param item - The item of the given items.
+ * @param startNumber - The number at which the list should start.
+ * @param depth - The depth of the list.
+ * @returns The formatted list.
+ */
+function listCallback(item: RecursiveArray<string>, startNumber?: number, depth = 0): string {
+	if (Array.isArray(item)) {
+		return item.map((item) => listCallback(item, startNumber, depth + 1)).join("\n");
+	}
+
+	return `${"  ".repeat(depth - 1)}${startNumber ? `${startNumber}.` : "-"} ${item}`;
+}
+
+/**
  * Utility class for working with Discord markdown.
  * @group Utils/Helpers
  */
@@ -302,6 +318,17 @@ export class FormatterUtils {
 	}
 
 	/**
+	 * Formats the given items into an ordered list.
+	 *
+	 * @param items - The items to format.
+	 * @param startNumber The number at which the list should start.
+	 * @returns The formatted ordered list.
+	 */
+	static orderedList(items: RecursiveArray<string>, startNumber = 1): string {
+		return listCallback(items, Math.max(startNumber, 1));
+	}
+
+	/**
 	 * Formats the given content into a quote.
 	 *
 	 * @param content - The content to format.
@@ -377,8 +404,14 @@ export class FormatterUtils {
 		return `__${content}__`;
 	}
 
-	static unorderedList<Item extends string>(items: RecursiveArray<Item>): string {
-		return "hola";
+	/**
+	 * Formats the given items into an unordered list.
+	 *
+	 * @param items - The items to format.
+	 * @returns The formatted unordered list.
+	 */
+	static unorderedList(items: RecursiveArray<string>): string {
+		return listCallback(items);
 	}
 
 	/**
