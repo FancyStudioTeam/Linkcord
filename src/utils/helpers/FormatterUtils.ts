@@ -1,4 +1,6 @@
 import type { Snowflake } from "#types/index.js";
+import { HeadingLevels } from "#utils/types/index.js";
+import { SnowflakeUtils } from "./SnowflakeUtils.js";
 
 /**
  * Utility class for working with Discord markdown.
@@ -6,122 +8,388 @@ import type { Snowflake } from "#types/index.js";
  */
 export class FormatterUtils {
 	/**
-	 * Formats a string into bold text.
+	 * Formats the given content into a block quote.
+	 *
+	 * @param content - The content to format.
+	 * @returns The formatted block quote.
+	 *
+	 * @typeParam Content - The inferred type from the `content` parameter.
+	 */
+	static blockQuote<Content extends string>(content: Content): `>>> ${Content}` {
+		return `>>> ${content}`;
+	}
+
+	/**
+	 * Formats the given content in a bold text.
 	 *
 	 * @param content - The content to format.
 	 * @returns The formatted bold text.
 	 *
-	 * @typeParam Content - The content to format.
+	 * @typeParam Content - The inferred type from the `content` parameter.
 	 */
 	static bold<Content extends string>(content: Content): `**${Content}**` {
 		return `**${content}**`;
 	}
 
 	/**
-	 * Formats a channel id into a channel mention.
+	 * Formats the given channel ID into a channel mention.
 	 *
 	 * @param channelId - The ID of the channel to format.
 	 * @returns The formatted channel mention.
 	 *
-	 * @typeParam ChannelId - The ID of the channel.
+	 * @typeParam ChannelId - The inferred type from the `channelId` parameter.
 	 */
 	static channelMention<ChannelId extends Snowflake>(channelId: ChannelId): `<#${ChannelId}>` {
+		if (!SnowflakeUtils.isSnowflake(channelId)) {
+			throw new TypeError("The first parameter (channelId) must be a valid Snowflake.");
+		}
+
 		return `<#${channelId}>`;
 	}
 
 	/**
-	 * Formats a chat input application command id into a chat input application command mention.
+	 * Formats the given content into a code block.
 	 *
-	 * @param commandName - The name of the chat input application command.
-	 * @param commandId - The ID of the chat input application command.
-	 * @returns The formatted chat input application command mention.
-	 *
-	 * @typeParam CommandName - The name of the chat input application command.
-	 * @typeParam CommandId - The ID of the chat input application command.
-	 */
-	static chatInputApplicationCommandMention<CommandName extends string, CommandId extends Snowflake>(
-		commandName: CommandName,
-		commandId: CommandId,
-	): `</${CommandName}:${CommandId}>` {
-		return `</${commandName}:${commandId}>`;
-	}
-
-	/**
-	 * Formats a string into code block.
-	 *
-	 * @param content - The code to format.
+	 * @param content - The content to format.
 	 * @returns The formatted code block.
 	 *
-	 * @typeParam Content - The code to format.
+	 * @typeParam Content - The inferred type from the `content` parameter.
 	 */
-	static codeBlock<Code extends string>(code: Code): `\`\`\`\n${Code}\n\`\`\``;
+	static codeBlock<Content extends string>(content: Content): `\`\`\`\n${Content}\n\`\`\``;
 
 	/**
-	 * Formats a string into code block.
+	 * Formats the given content into a code block.
 	 *
 	 * @param language - The language of the code to format.
-	 * @param code - The code to format.
+	 * @param content - The content to format.
 	 * @returns The formatted code block.
 	 *
-	 * @typeParam Language - The language of the code to format.
-	 * @typeParam Code - The code to format.
+	 * @typeParam Language - The inferred type from the `language` parameter.
+	 * @typeParam Content - The inferred type from the `content` parameter.
 	 */
-	static codeBlock<Language extends string, Code extends string>(
+	static codeBlock<Language extends string, Content extends string>(
 		language: Language,
-		code: Code,
-	): `\`\`\`${Language}\n${Code}\n\`\`\``;
+		content: Content,
+	): `\`\`\`${Language}\n${Content}\n\`\`\``;
 
 	/**
-	 * Formats a string into code block.
+	 * Formats the given content into a code block.
 	 *
-	 * @param languageOrCode - The language of the code to format or the code to format.
-	 * @param possibleCode - The code to format, if any.
+	 * @param languageOrContent - The language of the code to format or the content to format.
+	 * @param possibleContent - The content to format, if the `languageOrContent` parameter is a language.
 	 * @returns The formatted code block.
 	 */
-	static codeBlock(
-		languageOrCode: string,
-		possibleCode?: string,
-	): `\`\`\`\n${string}\n\`\`\`` | `\`\`\`${string}\n${string}\n\`\`\`` {
-		if (typeof possibleCode === "string") {
-			return `\`\`\`${languageOrCode}\n${possibleCode}\n\`\`\``;
+	static codeBlock(languageOrContent: string, possibleContent?: string): string {
+		if (typeof possibleContent === "string") {
+			return `\`\`\`${languageOrContent}\n${possibleContent}\n\`\`\``;
 		}
 
-		return `\`\`\`\n${languageOrCode}\n\`\`\``;
+		return `\`\`\`\n${languageOrContent}\n\`\`\``;
 	}
 
 	/**
-	 * Formats a string into inline code.
+	 * Formats the given username and domain into an email.
 	 *
-	 * @param code - The code to format.
+	 * @param username - The username of the email.
+	 * @param domain - The domain of the email.
+	 * @returns The formatted email.
+	 *
+	 * @typeParam Username - The inferred type from the `username` parameter.
+	 * @typeParam Domain - The inferred type from the `domain` parameter.
+	 */
+	static email<Username extends string, Domain extends string>(
+		username: Username,
+		domain: Domain,
+	): `<${Username}@${Domain}>`;
+
+	/**
+	 * Formats the given username, domain, and headers into an email.
+	 *
+	 * @param username - The username of the email.
+	 * @param domain - The domain of the email.
+	 * @param headers - The headers of the email.
+	 * @returns The formatted email.
+	 *
+	 * @typeParam Username - The inferred type from the `username` parameter.
+	 * @typeParam Domain - The inferred type from the `domain` parameter.
+	 */
+	static email<Username extends string, Domain extends string>(
+		username: Username,
+		domain: Domain,
+		headers: Record<string, string>,
+	): `<${Username}@${Domain}?${string}>`;
+
+	/**
+	 * Formats the given username, domain, and headers into an email.
+	 *
+	 * @param username - The username of the email.
+	 * @param domain - The domain of the email.
+	 * @param headers - The headers of the email, if provided.
+	 * @returns The formatted email.
+	 *
+	 * @typeParam Username - The inferred type from the `username` parameter.
+	 * @typeParam Domain - The inferred type from the `domain` parameter.
+	 */
+	static email(username: string, domain: string, headers?: Record<string, string>): string {
+		const email = `${username}@${domain}`;
+
+		if (headers) {
+			if (typeof headers !== "object") {
+				throw new TypeError("The third parameter (headers) must be a record of strings.");
+			}
+
+			const searchStringParams = new URLSearchParams(headers);
+			const searchString = searchStringParams.toString();
+
+			return `<${email}?${searchString}>`;
+		}
+
+		return `<${email}>`;
+	}
+
+	/**
+	 * Formats the given content into a header of the first level.
+	 *
+	 * @param content - The content of the header.
+	 * @returns The formatted header.
+	 *
+	 * @typeParam Content - The inferred type from the `content` parameter.
+	 */
+	static header<Content extends string>(content: Content): `# ${Content}`;
+
+	/**
+	 * Formats the given content into a header of the first level.
+	 *
+	 * @param level - The level of the header.
+	 * @param content - The content of the header.
+	 * @returns The formatted header.
+	 *
+	 * @typeParam Level - The inferred type from the `level` parameter.
+	 * @typeParam Content - The inferred type from the `content` parameter.
+	 */
+	static header<Level extends number, Content extends string>(
+		level: Level,
+		content: Content,
+	): Level extends HeadingLevels.One
+		? `# ${Content}`
+		: Level extends HeadingLevels.Two
+			? `## ${Content}`
+			: Level extends HeadingLevels.Three
+				? `### ${Content}`
+				: `# ${Content}`;
+
+	/**
+	 * Formats the given content into a header of the first level or the given level.
+	 *
+	 * @param levelOrContent - The level of the header or the content of the header.
+	 * @param possibleContent - The content of the header, if the `levelOrContent` parameter is a level.
+	 * @returns The formatted header.
+	 */
+	static header(levelOrContent: HeadingLevels | string, possibleContent?: string): string {
+		if (typeof levelOrContent === "number") {
+			if (!possibleContent || typeof possibleContent !== "string") {
+				throw new TypeError("The second parameter (content) must be present and be a string.");
+			}
+
+			if (HeadingLevels[levelOrContent] === undefined) {
+				return `# ${possibleContent}`;
+			}
+
+			return `${"#".repeat(levelOrContent)} ${possibleContent}`;
+		}
+
+		return `# ${levelOrContent}`;
+	}
+
+	/**
+	 * Formats the given content and link into a hyperlink.
+	 *
+	 * @param content - The content of the hyperlink.
+	 * @param url - The {@link URL | `URL`} instance of the hyperlink.
+	 * @returns The formatted hyperlink.
+	 *
+	 * @typeParam Content - The inferred type from the `content` parameter.
+	 */
+	static hyperLink<Content extends string>(content: Content, url: URL): `[${Content}](${string})`;
+
+	/**
+	 * Formats the given content and link into a hyperlink.
+	 *
+	 * @param content - The content of the hyperlink.
+	 * @param url - The URL of the hyperlink.
+	 * @returns The formatted hyperlink.
+	 *
+	 * @typeParam Content - The inferred type from the `content` parameter.
+	 * @typeParam Url - The inferred type from the `url` parameter.
+	 */
+	static hyperLink<Content extends string, Url extends string>(content: Content, url: Url): `[${Content}](${Url})`;
+
+	/**
+	 * Formats the given content, link, and title into a hyperlink.
+	 *
+	 * @param content - The content of the hyperlink.
+	 * @param url - The {@link URL | `URL`} instance of the hyperlink.
+	 * @param title - The title of the hyperlink.
+	 * @returns The formatted hyperlink.
+	 *
+	 * @typeParam Content - The inferred type from the `content` parameter.
+	 * @typeParam Title - The inferred type from the `title` parameter.
+	 */
+	static hyperLink<Content extends string, Title extends string>(
+		content: Content,
+		url: URL,
+		title: Title,
+	): `[${Content}](${string} "${Title}")`;
+
+	/**
+	 * Formats the given content, link, and title into a hyperlink.
+	 *
+	 * @param content - The content of the hyperlink.
+	 * @param url - The URL of the hyperlink.
+	 * @param title - The title of the hyperlink.
+	 * @returns The formatted hyperlink.
+	 *
+	 * @typeParam Content - The inferred type from the `content` parameter.
+	 * @typeParam Url - The inferred type from the `url` parameter.
+	 * @typeParam Title - The inferred type from the `title` parameter.
+	 */
+	static hyperLink<Content extends string, Url extends string, Title extends string>(
+		content: Content,
+		url: Url,
+		title: Title,
+	): `[${Content}](${Url} "${Title}")`;
+
+	/**
+	 * Formats the given content and link into a hyperlink.
+	 *
+	 * @param content - The content of the hyperlink.
+	 * @param url - The URL of the hyperlink.
+	 * @param possibleTitle - The title of the hyperlink, if provided.
+	 * @returns The formatted hyperlink.
+	 */
+	static hyperLink(content: string, url: URL | string, possibleTitle?: string): string {
+		const urlString = url instanceof URL ? url.toString() : url;
+
+		if (typeof possibleTitle === "string") {
+			return `[${content}](${urlString} "${possibleTitle}")`;
+		}
+
+		return `[${content}](${urlString})`;
+	}
+
+	/**
+	 * Formats the given content into an inline code.
+	 *
+	 * @param content - The content to format.
 	 * @returns The formatted inline code.
 	 *
-	 * @typeParam Code - The code to format.
+	 * @typeParam Content - The inferred type from the `content` parameter.
 	 */
-	static inlineCode<Code extends string>(code: Code): `\`${Code}\`` {
-		return `\`${code}\``;
+	static inlineCode<Content extends string>(content: Content): `\`${Content}\`` {
+		return `\`${content}\``;
 	}
 
 	/**
-	 * Formats a role id into a role mention.
+	 * Formats the given content into italic text.
+	 *
+	 * @param content - The content to format.
+	 * @returns The formatted italic text.
+	 *
+	 * @typeParam Content - The inferred type from the `content` parameter.
+	 */
+	static italic<Content extends string>(content: Content): `*${Content}*` {
+		return `*${content}*`;
+	}
+
+	/**
+	 * Formats the given content into a quote.
+	 *
+	 * @param content - The content to format.
+	 * @returns The formatted quote.
+	 *
+	 * @typeParam Content - The inferred type from the `content` parameter.
+	 */
+	static quote<Content extends string>(content: Content): `> ${Content}` {
+		return `> ${content}`;
+	}
+
+	/**
+	 * Formats the given role ID into a role mention.
 	 *
 	 * @param roleId - The ID of the role to format.
 	 * @returns The formatted role mention.
 	 *
-	 * @typeParam RoleId - The ID of the role.
+	 * @typeParam RoleId - The inferred type from the `roleId` parameter.
 	 */
 	static roleMention<RoleId extends Snowflake>(roleId: RoleId): `<@&${RoleId}>` {
+		if (!SnowflakeUtils.isSnowflake(roleId)) {
+			throw new TypeError("The first parameter (roleId) must be a valid Snowflake.");
+		}
+
 		return `<@&${roleId}>`;
 	}
 
 	/**
-	 * Formats a user id into a user mention.
+	 * Formats the given content into a spoiler text.
+	 *
+	 * @param content - The content to format.
+	 * @returns The formatted spoiler text.
+	 *
+	 * @typeParam Content - The inferred type from the `content` parameter.
+	 */
+	static spoiler<Content extends string>(content: Content): `||${Content}||` {
+		return `||${content}||`;
+	}
+
+	/**
+	 * Formats the given content into a strikethrough text.
+	 *
+	 * @param content - The content to format.
+	 * @returns The formatted strikethrough text.
+	 *
+	 * @typeParam Content - The inferred type from the `content` parameter.
+	 */
+	static strikethrough<Content extends string>(content: Content): `~~${Content}~~` {
+		return `~~${content}~~`;
+	}
+
+	/**
+	 * Formats the given content into a sub-text.
+	 *
+	 * @param content - The content to format.
+	 * @returns The formatted sub-text.
+	 *
+	 * @typeParam Content - The inferred type from the `content` parameter.
+	 */
+	static subText<Content extends string>(content: Content): `-# ${Content}` {
+		return `-# ${content}`;
+	}
+
+	/**
+	 * Formats the given content into an under line text.
+	 *
+	 * @param content - The content to format.
+	 * @returns The formatted underline text.
+	 *
+	 * @typeParam Content - The inferred type from the `content` parameter.
+	 */
+	static underline<Content extends string>(content: Content): `__${Content}__` {
+		return `__${content}__`;
+	}
+
+	/**
+	 * Formats the given user ID into a user mention.
 	 *
 	 * @param userId - The ID of the user to format.
 	 * @returns The formatted user mention.
 	 *
-	 * @typeParam UserId - The ID of the user.
+	 * @typeParam UserId - The inferred type from the `userId` parameter.
 	 */
 	static userMention<UserId extends Snowflake>(userId: UserId): `<@${UserId}>` {
+		if (!SnowflakeUtils.isSnowflake(userId)) {
+			throw new TypeError("The first parameter (userId) must be a valid Snowflake.");
+		}
+
 		return `<@${userId}>`;
 	}
 }
