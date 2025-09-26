@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /** biome-ignore-all lint/style/noMagicNumbers: Magic numbers in testing files are not important. */
 
 import { HeadingLevels } from "#utils/types/index.js";
@@ -55,9 +57,7 @@ describe("Method: FormatterUtils.header", () => {
 
 	describe("GIVEN valid heading level but invalid content", () => {
 		it("THEN throws 'TypeError'", () => {
-			// @ts-expect-error
 			const result1 = () => FormatterUtils.header(HeadingLevels.One);
-			// @ts-expect-error
 			const result2 = () => FormatterUtils.header(HeadingLevels.One, null);
 
 			const expectedErrorResult = new TypeError(

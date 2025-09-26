@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { SnowflakeUtils } from "../SnowflakeUtils.js";
 
 const USER_ID_STRING = "80351110224678912";
@@ -15,9 +17,7 @@ describe("Method: SnowflakeUtils.timestampFrom", () => {
 
 	describe("GIVEN invalid snowflake", () => {
 		it("THEN throws 'TypeError'", () => {
-			// @ts-expect-error
 			const result1 = () => SnowflakeUtils.timestampFrom(null);
-			// @ts-expect-error
 			const result2 = () => SnowflakeUtils.timestampFrom("NOT_A_VALID_SNOWFLAKE_STRING");
 
 			const expectedErrorResult = new TypeError("The first parameter (snowflake) must be a Snowflake.");

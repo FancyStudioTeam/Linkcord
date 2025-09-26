@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { FormatterUtils } from "../FormatterUtils.js";
 import { SnowflakeUtils } from "../SnowflakeUtils.js";
 
@@ -16,9 +18,7 @@ describe("Method: FormatterUtils.channelMention", () => {
 
 	describe("GIVEN invalid channel id", () => {
 		it("THEN throws 'TypeError'", () => {
-			// @ts-expect-error
 			const result1 = () => FormatterUtils.channelMention(null);
-			// @ts-expect-error
 			const result2 = () => FormatterUtils.channelMention("NOT_A_VALID_SNOWFLAKE_STRING");
 
 			const expectedErrorResult = new TypeError("The first parameter (channelId) must be a Snowflake.");

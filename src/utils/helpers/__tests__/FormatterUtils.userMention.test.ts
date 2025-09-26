@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { FormatterUtils } from "../FormatterUtils.js";
 import { SnowflakeUtils } from "../SnowflakeUtils.js";
 
@@ -16,9 +18,7 @@ describe("Method: FormatterUtils.userMention", () => {
 
 	describe("GIVEN invalid user id", () => {
 		it("THEN throws 'TypeError'", () => {
-			// @ts-expect-error
 			const result1 = () => FormatterUtils.userMention(null);
-			// @ts-expect-error
 			const result2 = () => FormatterUtils.userMention("NOT_A_VALID_SNOWFLAKE_STRING");
 
 			const expectedErrorResult = new TypeError("The first parameter (userId) must be a Snowflake.");

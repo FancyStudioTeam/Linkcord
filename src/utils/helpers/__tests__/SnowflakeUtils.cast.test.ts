@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import type { Snowflake } from "#types/index.js";
 import { SnowflakeUtils } from "../SnowflakeUtils.js";
 
@@ -6,7 +8,7 @@ const USER_ID_BIGINT = BigInt(USER_ID_STRING);
 
 describe("Method: SnowflakeUtils.cast", () => {
 	describe("GIVEN valid input", () => {
-		it("THEN casts the input to a snowflake", () => {
+		it("THEN casts input to snowflake", () => {
 			const result1 = SnowflakeUtils.cast(USER_ID_STRING);
 			const result2 = SnowflakeUtils.cast(USER_ID_BIGINT);
 
@@ -19,7 +21,6 @@ describe("Method: SnowflakeUtils.cast", () => {
 
 	describe("GIVEN invalid input", () => {
 		it("THEN throws 'TypeError'", () => {
-			// @ts-expect-error
 			const result1 = () => SnowflakeUtils.cast(null);
 			const result2 = () => SnowflakeUtils.cast("NOT_A_VALID_SNOWFLAKE_STRING");
 

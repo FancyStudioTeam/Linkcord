@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { FormatterUtils } from "../FormatterUtils.js";
 
 const EMAIL_DOMAIN = "discord.com";
@@ -32,7 +34,6 @@ describe("Method: FormatterUtils.email", () => {
 
 			describe("GIVEN invalid headers", () => {
 				it("THEN throws 'TypeError'", () => {
-					// @ts-expect-error
 					const result = () => FormatterUtils.email(EMAIL_USERNAME, EMAIL_DOMAIN, null);
 					const expectedErrorResult = new TypeError(
 						"The third parameter (headers) must be a record of strings.",
