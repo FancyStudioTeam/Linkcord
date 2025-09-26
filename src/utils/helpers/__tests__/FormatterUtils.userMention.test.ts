@@ -10,8 +10,7 @@ describe("Method: FormatterUtils.userMention", () => {
 			const result = FormatterUtils.userMention(USER_ID_SNOWFLAKE);
 			const expectedResult = `<@${USER_ID_SNOWFLAKE}>` as const;
 
-			expect(result).toBe(expectedResult);
-			expectTypeOf(result).toEqualTypeOf<typeof expectedResult>();
+			expect<typeof expectedResult>(result).toBe(expectedResult);
 		});
 	});
 

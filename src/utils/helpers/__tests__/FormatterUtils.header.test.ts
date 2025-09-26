@@ -11,8 +11,7 @@ describe("Method: FormatterUtils.header", () => {
 			const result = FormatterUtils.header(CONTENT);
 			const expectedResult = `# ${CONTENT}` as const;
 
-			expect(result).toBe(expectedResult);
-			expectTypeOf(result).toEqualTypeOf<typeof expectedResult>();
+			expect<typeof expectedResult>(result).toBe(expectedResult);
 		});
 	});
 
@@ -22,8 +21,7 @@ describe("Method: FormatterUtils.header", () => {
 				const result = FormatterUtils.header(HeadingLevels.One, CONTENT);
 				const expectedResult = `# ${CONTENT}` as const;
 
-				expect(result).toBe(expectedResult);
-				expectTypeOf(result).toEqualTypeOf<typeof expectedResult>();
+				expect<typeof expectedResult>(result).toBe(expectedResult);
 			});
 		});
 
@@ -33,7 +31,6 @@ describe("Method: FormatterUtils.header", () => {
 				const expectedResult = `## ${CONTENT}` as const;
 
 				expect(result).toBe(expectedResult);
-				expectTypeOf(result).toEqualTypeOf<typeof expectedResult>();
 			});
 		});
 
@@ -42,8 +39,7 @@ describe("Method: FormatterUtils.header", () => {
 				const result = FormatterUtils.header(HeadingLevels.Three, CONTENT);
 				const expectedResult = `### ${CONTENT}` as const;
 
-				expect(result).toBe(expectedResult);
-				expectTypeOf(result).toEqualTypeOf<typeof expectedResult>();
+				expect<typeof expectedResult>(result).toBe(expectedResult);
 			});
 		});
 	});
@@ -56,11 +52,8 @@ describe("Method: FormatterUtils.header", () => {
 
 			const expectedResult = `# ${CONTENT}` as const;
 
-			expect(result1).toBe(expectedResult);
-			expect(result2).toBe(expectedResult);
-
-			expectTypeOf(result1).toEqualTypeOf<typeof expectedResult>();
-			expectTypeOf(result2).toEqualTypeOf<typeof expectedResult>();
+			expect<typeof expectedResult>(result1).toBe(expectedResult);
+			expect<typeof expectedResult>(result2).toBe(expectedResult);
 		});
 	});
 });

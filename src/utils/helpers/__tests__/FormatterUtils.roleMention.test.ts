@@ -10,8 +10,7 @@ describe("Method: FormatterUtils.roleMention", () => {
 			const result = FormatterUtils.roleMention(ROLE_ID_SNOWFLAKE);
 			const expectedResult = `<@&${ROLE_ID_SNOWFLAKE}>` as const;
 
-			expect(result).toBe(expectedResult);
-			expectTypeOf(result).toEqualTypeOf<typeof expectedResult>();
+			expect<typeof expectedResult>(result).toBe(expectedResult);
 		});
 	});
 

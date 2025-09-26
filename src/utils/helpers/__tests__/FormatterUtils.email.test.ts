@@ -13,8 +13,7 @@ describe("Method: FormatterUtils.email", () => {
 			const result = FormatterUtils.email(EMAIL_USERNAME, EMAIL_DOMAIN);
 			const expectedResult = `<${EMAIL_USERNAME}@${EMAIL_DOMAIN}>` as const;
 
-			expect(result).toBe(expectedResult);
-			expectTypeOf(result).toEqualTypeOf<typeof expectedResult>();
+			expect<typeof expectedResult>(result).toBe(expectedResult);
 		});
 
 		describe("WHEN specifying headers", () => {
@@ -27,8 +26,7 @@ describe("Method: FormatterUtils.email", () => {
 					const result = FormatterUtils.email(EMAIL_USERNAME, EMAIL_DOMAIN, EMAIL_HEADERS);
 					const expectedResult = `<${EMAIL_USERNAME}@${EMAIL_DOMAIN}?${encodedQueryStringParams}>` as const;
 
-					expect(result).toBe(expectedResult);
-					expectTypeOf(result).toEqualTypeOf<typeof expectedResult>();
+					expect<typeof expectedResult>(result).toBe(expectedResult);
 				});
 			});
 

@@ -10,8 +10,7 @@ describe("Method: FormatterUtils.channelMention", () => {
 			const result = FormatterUtils.channelMention(CHANNEL_ID_SNOWFLAKE);
 			const expectedResult = `<#${CHANNEL_ID_SNOWFLAKE}>` as const;
 
-			expect(result).toBe(expectedResult);
-			expectTypeOf(result).toEqualTypeOf<typeof expectedResult>();
+			expect<typeof expectedResult>(result).toBe(expectedResult);
 		});
 	});
 
