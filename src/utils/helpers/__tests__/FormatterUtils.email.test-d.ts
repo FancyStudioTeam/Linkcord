@@ -16,7 +16,7 @@ describe("FormatterUtils.email", () => {
 		expectTypeOf(result).toEqualTypeOf<typeof expectedResult>();
 	});
 
-	it("GIVEN 'nelly' and 'discord.com' with headers WHEN using 'email' method THEN returns '<nelly@discord.com?content=Message+Content&subject=Message+Title>'", () => {
+	it("GIVEN 'nelly' and 'discord.com' with valid headers WHEN using 'email' method THEN returns '<nelly@discord.com?content=Message+Content&subject=Message+Title>'", () => {
 		const { content, subject } = EMAIL_HEADERS;
 		const queryStringParams = `content=${content}&subject=${subject}`;
 		const encodedQueryStringParams = encodeURIComponent(queryStringParams);
@@ -26,5 +26,13 @@ describe("FormatterUtils.email", () => {
 
 		expect(result).toBe(expectedResult);
 		expectTypeOf(result).toEqualTypeOf<typeof expectedResult>();
+	});
+
+	it("GIVEN 'nelly' and 'discord.com' with invalid headers WHEN using 'email' method THEN throws 'TypeError'", () => {
+		// @ts-expect-error
+		const result = () => FormatterUtils.email(EMAIL_USERNAME, EMAIL_DOMAIN, true);
+		const expectedErrorResult = new TypeError("The third parameter (headers) must be a record of strings.");
+
+		expect(result).toThrow(expectedErrorResult);
 	});
 });
