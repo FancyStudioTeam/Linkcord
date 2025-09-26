@@ -6,7 +6,7 @@ const CHANNEL_ID_SNOWFLAKE = SnowflakeUtils.cast(CHANNEL_ID_STRING);
 
 describe("Method: FormatterUtils.channelMention", () => {
 	describe("GIVEN valid channel id", () => {
-		it("THEN returns '<#103735883630395392>'", () => {
+		it("THEN returns '<#[channelId]>'", () => {
 			const result = FormatterUtils.channelMention(CHANNEL_ID_SNOWFLAKE);
 			const expectedResult = `<#${CHANNEL_ID_SNOWFLAKE}>` as const;
 

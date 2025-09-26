@@ -9,7 +9,7 @@ const EMAIL_USERNAME = "nelly";
 
 describe("Method: FormatterUtils.email", () => {
 	describe("GIVEN valid username and domain", () => {
-		it("THEN returns '<nelly@discord.com>'", () => {
+		it("THEN returns '<[username]@[domain]>'", () => {
 			const result = FormatterUtils.email(EMAIL_USERNAME, EMAIL_DOMAIN);
 			const expectedResult = `<${EMAIL_USERNAME}@${EMAIL_DOMAIN}>` as const;
 
@@ -19,7 +19,7 @@ describe("Method: FormatterUtils.email", () => {
 
 		describe("WHEN specifying headers", () => {
 			describe("GIVEN valid headers", () => {
-				it("THEN returns '<nelly@discord.com?content=Message+Content&subject=Message+Title>'", () => {
+				it("THEN returns '<[username]@[domain]?[...headers]>' with encoded headers", () => {
 					const { content, subject } = EMAIL_HEADERS;
 					const queryStringParams = `content=${content}&subject=${subject}`;
 					const encodedQueryStringParams = encodeURIComponent(queryStringParams);

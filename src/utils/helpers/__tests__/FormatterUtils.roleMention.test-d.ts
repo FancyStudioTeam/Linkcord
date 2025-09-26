@@ -6,7 +6,7 @@ const ROLE_ID_SNOWFLAKE = SnowflakeUtils.cast(ROLE_ID_STRING);
 
 describe("Method: FormatterUtils.roleMention", () => {
 	describe("GIVEN valid role id", () => {
-		it("THEN returns '<@&165511591545143296>'", () => {
+		it("THEN returns '<@&[roleId]>'", () => {
 			const result = FormatterUtils.roleMention(ROLE_ID_SNOWFLAKE);
 			const expectedResult = `<@&${ROLE_ID_SNOWFLAKE}>` as const;
 

@@ -1,10 +1,10 @@
 import { FormatterUtils } from "../FormatterUtils.js";
 
-const CONTENT = "Hello, world!";
+const CONTENT = "print('Hello, world!');";
 
 describe("Method: FormatterUtils.codeBlock", () => {
 	describe("GIVEN valid content", () => {
-		it("THEN returns '```\nHello, world!\n```'", () => {
+		it("THEN returns codeblock without language", () => {
 			const result = FormatterUtils.codeBlock(CONTENT);
 			const expectedResult = `\`\`\`\n${CONTENT}\n\`\`\`` as const;
 
@@ -13,7 +13,7 @@ describe("Method: FormatterUtils.codeBlock", () => {
 		});
 
 		describe("WHEN specifying a language", () => {
-			it("THEN returns '```js\nHello, world!\n```'", () => {
+			it("THEN returns codeblock with language", () => {
 				const result = FormatterUtils.codeBlock("js", CONTENT);
 				const expectedResult = `\`\`\`js\n${CONTENT}\n\`\`\`` as const;
 

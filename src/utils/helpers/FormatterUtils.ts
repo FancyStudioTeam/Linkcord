@@ -1,5 +1,5 @@
 import type { Snowflake } from "#types/index.js";
-import { HeadingLevels } from "#utils/types/index.js";
+import { HeadingLevels, type RecursiveArray } from "#utils/types/index.js";
 import { SnowflakeUtils } from "./SnowflakeUtils.js";
 
 /**
@@ -210,7 +210,7 @@ export class FormatterUtils {
 	 *
 	 * @typeParam Content - The inferred type from the `content` parameter.
 	 */
-	static hyperLink<Content extends string>(content: Content, url: URL): `[${Content}](${string})`;
+	static hyperlink<Content extends string>(content: Content, url: URL): `[${Content}](${string})`;
 
 	/**
 	 * Formats the given content and link into a hyperlink.
@@ -222,7 +222,7 @@ export class FormatterUtils {
 	 * @typeParam Content - The inferred type from the `content` parameter.
 	 * @typeParam Url - The inferred type from the `url` parameter.
 	 */
-	static hyperLink<Content extends string, Url extends string>(content: Content, url: Url): `[${Content}](${Url})`;
+	static hyperlink<Content extends string, Url extends string>(content: Content, url: Url): `[${Content}](${Url})`;
 
 	/**
 	 * Formats the given content, link, and title into a hyperlink.
@@ -235,7 +235,7 @@ export class FormatterUtils {
 	 * @typeParam Content - The inferred type from the `content` parameter.
 	 * @typeParam Title - The inferred type from the `title` parameter.
 	 */
-	static hyperLink<Content extends string, Title extends string>(
+	static hyperlink<Content extends string, Title extends string>(
 		content: Content,
 		url: URL,
 		title: Title,
@@ -253,7 +253,7 @@ export class FormatterUtils {
 	 * @typeParam Url - The inferred type from the `url` parameter.
 	 * @typeParam Title - The inferred type from the `title` parameter.
 	 */
-	static hyperLink<Content extends string, Url extends string, Title extends string>(
+	static hyperlink<Content extends string, Url extends string, Title extends string>(
 		content: Content,
 		url: Url,
 		title: Title,
@@ -267,7 +267,7 @@ export class FormatterUtils {
 	 * @param possibleTitle - The title of the hyperlink, if provided.
 	 * @returns The formatted hyperlink.
 	 */
-	static hyperLink(content: string, url: URL | string, possibleTitle?: string): string {
+	static hyperlink(content: string, url: URL | string, possibleTitle?: string): string {
 		const urlString = url instanceof URL ? url.toString() : url;
 
 		if (typeof possibleTitle === "string") {
@@ -375,6 +375,10 @@ export class FormatterUtils {
 	 */
 	static underline<Content extends string>(content: Content): `__${Content}__` {
 		return `__${content}__`;
+	}
+
+	static unorderedList<Item extends string>(items: RecursiveArray<Item>): string {
+		return "hola";
 	}
 
 	/**

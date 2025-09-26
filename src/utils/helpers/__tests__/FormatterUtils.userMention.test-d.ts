@@ -6,7 +6,7 @@ const USER_ID_SNOWFLAKE = SnowflakeUtils.cast(USER_ID_STRING);
 
 describe("Method: FormatterUtils.userMention", () => {
 	describe("GIVEN valid user id", () => {
-		it("THEN returns '<@80351110224678912>'", () => {
+		it("THEN returns '<@[userId]>'", () => {
 			const result = FormatterUtils.userMention(USER_ID_SNOWFLAKE);
 			const expectedResult = `<@${USER_ID_SNOWFLAKE}>` as const;
 
