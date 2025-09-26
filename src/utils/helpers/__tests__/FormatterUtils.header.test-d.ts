@@ -50,11 +50,17 @@ describe("Method: FormatterUtils.header", () => {
 
 	describe("GIVEN invalid heading level", () => {
 		it("THEN returns '# Hello, world!'", () => {
-			const result = FormatterUtils.header(0, CONTENT);
+			const result1 = FormatterUtils.header(0, CONTENT);
+			// @ts-expect-error
+			const result2 = FormatterUtils.header(null, CONTENT);
+
 			const expectedResult = `# ${CONTENT}` as const;
 
-			expect(result).toBe(expectedResult);
-			expectTypeOf(result).toEqualTypeOf<typeof expectedResult>();
+			expect(result1).toBe(expectedResult);
+			expect(result2).toBe(expectedResult);
+
+			expectTypeOf(result1).toEqualTypeOf<typeof expectedResult>();
+			expectTypeOf(result2).toEqualTypeOf<typeof expectedResult>();
 		});
 	});
 });
