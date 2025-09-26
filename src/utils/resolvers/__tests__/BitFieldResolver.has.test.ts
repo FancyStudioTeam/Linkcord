@@ -2,17 +2,27 @@ import { UserFlags } from "#types/index.js";
 import { BitFieldResolver } from "../BitFieldResolver.js";
 
 describe("Method: BitFieldResolver.freeze", () => {
-	it("Should return 'true' when cheking if 'UserFlags.ActiveDeveloper' is set.", () => {
-		const bitFieldResolver = new BitFieldResolver(UserFlags.ActiveDeveloper | UserFlags.Staff);
-		const expectedResult = true;
+	let bitFieldResolver: BitFieldResolver;
 
-		expect(bitFieldResolver.has(UserFlags.ActiveDeveloper)).toBe(expectedResult);
+	beforeEach(() => {
+		bitFieldResolver = new BitFieldResolver(UserFlags.Staff | UserFlags.ActiveDeveloper);
 	});
 
-	it("Should return 'false' when cheking if 'UserFlags.ActiveDeveloper' is not set.", () => {
-		const bitFieldResolver = new BitFieldResolver(UserFlags.BugHunterLevel1 | UserFlags.BugHunterLevel2);
-		const expectedResult = false;
+	describe("GIVEN valid bit", () => {
+		it("THEN returns 'true'", () => {
+			const result = bitFieldResolver.has(UserFlags.Staff);
+			const expectedResult = true;
 
-		expect(bitFieldResolver.has(UserFlags.ActiveDeveloper)).toBe(expectedResult);
+			expect(result).toBe(expectedResult);
+		});
+	});
+
+	describe("GIVEN invalid bit", () => {
+		it("THEN returns 'false'", () => {
+			const result = bitFieldResolver.has(UserFlags.HypeSquad);
+			const expectedResult = false;
+
+			expect(result).toBe(expectedResult);
+		});
 	});
 });

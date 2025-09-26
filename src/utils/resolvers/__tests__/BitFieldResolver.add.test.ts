@@ -2,24 +2,38 @@ import { UserFlags } from "#types/index.js";
 import { BitFieldResolver } from "../BitFieldResolver.js";
 
 describe("Method: BitFieldResolver.add", () => {
-	it("Should return '0' when adding '0'.", () => {
-		const bitFieldResolver = new BitFieldResolver();
-		const expectedBitFieldResult = 0;
+	let bitFieldResolver: BitFieldResolver;
 
-		expect(bitFieldResolver.add(0)).toBe(expectedBitFieldResult);
+	beforeEach(() => {
+		bitFieldResolver = new BitFieldResolver();
 	});
 
-	it("Should return '1' when adding 'UserFlags.Staff' flag.", () => {
-		const bitFieldResolver = new BitFieldResolver();
-		const expectedBitFieldResult = UserFlags.Staff;
+	describe("GIVEN valid bits", () => {
+		describe("WHEN adding 0 with bitfield 0", () => {
+			it("THEN returns bitfield 0", () => {
+				const result = bitFieldResolver.add(0);
+				const expectedResult = 0;
 
-		expect(bitFieldResolver.add(UserFlags.Staff)).toBe(expectedBitFieldResult);
-	});
+				expect(result).toBe(expectedResult);
+			});
+		});
 
-	it("Should return '4194305' when adding 'UserFlags.Staff' and 'UserFlags.ActiveDeveloper' flags.", () => {
-		const bitFieldResolver = new BitFieldResolver();
-		const expectedBitFieldResult = UserFlags.Staff | UserFlags.ActiveDeveloper;
+		describe("WHEN adding 'UserFlags.Staff' with bitfield 0", () => {
+			it("THEN returns bitfield 1", () => {
+				const result = bitFieldResolver.add(UserFlags.Staff);
+				const expectedResult = UserFlags.Staff;
 
-		expect(bitFieldResolver.add(UserFlags.Staff, UserFlags.ActiveDeveloper)).toBe(expectedBitFieldResult);
+				expect(result).toBe(expectedResult);
+			});
+		});
+
+		describe("WHEN adding 'UserFlags.Staff' and 'UserFlags.ActiveDeveloper'", () => {
+			it("THEN returns bitfield 4194305", () => {
+				const result = bitFieldResolver.add(UserFlags.Staff, UserFlags.ActiveDeveloper);
+				const expectedResult = UserFlags.Staff | UserFlags.ActiveDeveloper;
+
+				expect(result).toBe(expectedResult);
+			});
+		});
 	});
 });

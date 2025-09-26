@@ -2,24 +2,38 @@ import { UserFlags } from "#types/index.js";
 import { BitFieldResolver } from "../BitFieldResolver.js";
 
 describe("Method: BitFieldResolver.remove", () => {
-	it("Should return '0' when removing '0'.", () => {
-		const bitFieldResolver = new BitFieldResolver();
-		const expectedBitFieldResult = 0;
+	let bitFieldResolver: BitFieldResolver;
 
-		expect(bitFieldResolver.remove(0)).toBe(expectedBitFieldResult);
+	beforeEach(() => {
+		bitFieldResolver = new BitFieldResolver(UserFlags.Staff | UserFlags.ActiveDeveloper);
 	});
 
-	it("Should return '4194304' when removing the 'UserFlags.Staff' flag.", () => {
-		const bitFieldResolver = new BitFieldResolver(UserFlags.Staff | UserFlags.ActiveDeveloper);
-		const expectedBitFieldResult = UserFlags.ActiveDeveloper;
+	describe("GIVEN valid bits", () => {
+		describe("WHEN removing 0 with bitfield 4194305", () => {
+			it("THEN returns bitfield 4194305", () => {
+				const result = bitFieldResolver.remove(0);
+				const expectedResult = 4194305;
 
-		expect(bitFieldResolver.remove(UserFlags.Staff)).toBe(expectedBitFieldResult);
-	});
+				expect(result).toBe(expectedResult);
+			});
+		});
 
-	it("Should return '0' when removing 'UserFlags.Staff' and 'UserFlags.ActiveDeveloper' flags.", () => {
-		const bitFieldResolver = new BitFieldResolver(UserFlags.Staff | UserFlags.ActiveDeveloper);
-		const expectedBitFieldResult = 0;
+		describe("WHEN removing 'UserFlags.Staff' with bitfield 4194305", () => {
+			it("THEN returns bitfield 4194304", () => {
+				const result = bitFieldResolver.remove(UserFlags.Staff);
+				const expectedResult = UserFlags.ActiveDeveloper;
 
-		expect(bitFieldResolver.remove(UserFlags.Staff, UserFlags.ActiveDeveloper)).toBe(expectedBitFieldResult);
+				expect(result).toBe(expectedResult);
+			});
+		});
+
+		describe("WHEN removing 'UserFlags.Staff' and 'UserFlags.ActiveDeveloper' with bitfield 4194305", () => {
+			it("THEN returns bitfield 0", () => {
+				const result = bitFieldResolver.remove(UserFlags.Staff, UserFlags.ActiveDeveloper);
+				const expectedResult = 0;
+
+				expect(result).toBe(expectedResult);
+			});
+		});
 	});
 });
