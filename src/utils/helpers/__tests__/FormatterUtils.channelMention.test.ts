@@ -21,7 +21,9 @@ describe("Method: FormatterUtils.channelMention", () => {
 			const result1 = () => FormatterUtils.channelMention(null);
 			const result2 = () => FormatterUtils.channelMention("NOT_A_VALID_SNOWFLAKE_STRING");
 
-			const expectedErrorResult = new TypeError("The first parameter (channelId) must be a Snowflake.");
+			const expectedErrorResult = new TypeError(
+				"First parameter (channelId) from 'FormatterUtils.channelMention' must be a Snowflake.",
+			);
 
 			expect(result1).toThrow(expectedErrorResult);
 			expect(result2).toThrow(expectedErrorResult);

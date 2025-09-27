@@ -57,7 +57,9 @@ export class FormatterUtils {
 	 */
 	static channelMention<ChannelId extends Snowflake>(channelId: ChannelId): `<#${ChannelId}>` {
 		if (!SnowflakeUtils.isSnowflake(channelId)) {
-			throw new TypeError("The first parameter (channelId) must be a Snowflake.");
+			throw new TypeError(
+				"First parameter (channelId) from 'FormatterUtils.channelMention' must be a Snowflake.",
+			);
 		}
 
 		return `<#${channelId}>`;
@@ -151,7 +153,9 @@ export class FormatterUtils {
 
 		if (headers !== undefined) {
 			if (typeof headers !== "object" || headers === null) {
-				throw new TypeError("The third parameter (headers) must be a record of strings.");
+				throw new TypeError(
+					"Third parameter (headers) from 'FormatterUtils.email' must be a record of strings.",
+				);
 			}
 
 			const headersEntries = Object.entries(headers);
@@ -210,7 +214,9 @@ export class FormatterUtils {
 
 		if (typeof levelOrContent === "number") {
 			if (possibleContent === undefined || typeof possibleContent !== "string") {
-				throw new TypeError("The second parameter (content) must be present and be a string.");
+				throw new TypeError(
+					"Second parameter (content) from 'FormatterUtils.header' must be present and be a string.",
+				);
 			}
 
 			if (HeadingLevels[levelOrContent] === undefined) {
@@ -220,7 +226,9 @@ export class FormatterUtils {
 			return `${"#".repeat(levelOrContent)} ${possibleContent}`;
 		}
 
-		throw new TypeError("The first parameter (levelOrContent) must be a number or string.");
+		throw new TypeError(
+			"First parameter (levelOrContent) from 'FormatterUtils.header' must be a number or string.",
+		);
 	}
 
 	/**
@@ -356,7 +364,7 @@ export class FormatterUtils {
 	 */
 	static roleMention<RoleId extends Snowflake>(roleId: RoleId): `<@&${RoleId}>` {
 		if (!SnowflakeUtils.isSnowflake(roleId)) {
-			throw new TypeError("The first parameter (roleId) must be a Snowflake.");
+			throw new TypeError("First parameter (roleId) from 'FormatterUtils.roleMention' must be a Snowflake.");
 		}
 
 		return `<@&${roleId}>`;
@@ -387,14 +395,14 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given content into a sub-text.
+	 * Formats the given content into a subtext.
 	 *
 	 * @param content - The content to format.
-	 * @returns The formatted sub-text.
+	 * @returns The formatted subtext.
 	 *
 	 * @typeParam Content - The inferred type from the `content` parameter.
 	 */
-	static subText<Content extends string>(content: Content): `-# ${Content}` {
+	static subtext<Content extends string>(content: Content): `-# ${Content}` {
 		return `-# ${content}`;
 	}
 
@@ -430,7 +438,7 @@ export class FormatterUtils {
 	 */
 	static userMention<UserId extends Snowflake>(userId: UserId): `<@${UserId}>` {
 		if (!SnowflakeUtils.isSnowflake(userId)) {
-			throw new TypeError("The first parameter (userId) must be a Snowflake.");
+			throw new TypeError("First parameter (userId) from 'FormatterUtils.userMention' must be a Snowflake.");
 		}
 
 		return `<@${userId}>`;

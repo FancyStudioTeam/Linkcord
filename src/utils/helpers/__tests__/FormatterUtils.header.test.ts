@@ -61,11 +61,22 @@ describe("Method: FormatterUtils.header", () => {
 			const result2 = () => FormatterUtils.header(HeadingLevels.One, null);
 
 			const expectedErrorResult = new TypeError(
-				"The second parameter (content) must be present and be a string.",
+				"Second parameter (content) from 'FormatterUtils.header' must be present and be a string.",
 			);
 
 			expect(result1).toThrow(expectedErrorResult);
 			expect(result2).toThrow(expectedErrorResult);
+		});
+	});
+
+	describe("GIVEN invalid first parameter", () => {
+		it("THEN throws 'TypeError'", () => {
+			const result = () => FormatterUtils.header(null);
+			const expectedErrorResult = new TypeError(
+				"First parameter (levelOrContent) from 'FormatterUtils.header' must be a number or string.",
+			);
+
+			expect(result).toThrow(expectedErrorResult);
 		});
 	});
 });

@@ -23,4 +23,15 @@ describe("Function: defineImmutableProperty", () => {
 			expect(descriptorAfter).toBeDefined();
 		});
 	});
+
+	describe("GIVEN invalid object", () => {
+		it("THEN throw 'TypeError'", () => {
+			const result = () => defineImmutableProperty(null, "token", DISCORD_BOT_TOKEN);
+			const expectedErrorResult = new TypeError(
+				"First parameter (object) from 'defineImmutableProperty' must be an object.",
+			);
+
+			expect(result).toThrow(expectedErrorResult);
+		});
+	});
 });

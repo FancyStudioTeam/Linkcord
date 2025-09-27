@@ -36,7 +36,7 @@ describe("Method: FormatterUtils.email", () => {
 				it("THEN throws 'TypeError'", () => {
 					const result = () => FormatterUtils.email(EMAIL_USERNAME, EMAIL_DOMAIN, null);
 					const expectedErrorResult = new TypeError(
-						"The third parameter (headers) must be a record of strings.",
+						"Third parameter (headers) from 'FormatterUtils.email' must be a record of strings.",
 					);
 
 					expect(result).toThrow(expectedErrorResult);

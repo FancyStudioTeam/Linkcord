@@ -21,7 +21,9 @@ describe("Method: FormatterUtils.userMention", () => {
 			const result1 = () => FormatterUtils.userMention(null);
 			const result2 = () => FormatterUtils.userMention("NOT_A_VALID_SNOWFLAKE_STRING");
 
-			const expectedErrorResult = new TypeError("The first parameter (userId) must be a Snowflake.");
+			const expectedErrorResult = new TypeError(
+				"First parameter (userId) from 'FormatterUtils.userMention' must be a Snowflake.",
+			);
 
 			expect(result1).toThrow(expectedErrorResult);
 			expect(result2).toThrow(expectedErrorResult);
