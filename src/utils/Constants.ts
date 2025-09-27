@@ -3,6 +3,12 @@ import { env } from "node:process";
 const { NODE_ENV } = env;
 
 /**
+ * Whether the current environment is a CommonJS environment.
+ * @group Utils/Constants
+ */
+export const IS_COMMON_JS = typeof require !== "undefined" && typeof module !== "undefined";
+
+/**
  * Whether the current environment is a production environment.
  * @group Utils/Constants
  */
