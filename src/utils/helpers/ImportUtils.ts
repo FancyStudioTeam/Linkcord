@@ -1,7 +1,6 @@
 import { basename, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-
-const IS_COMMON_JS = typeof require !== "undefined" && typeof module !== "undefined";
+import { IS_COMMON_JS } from "#utils/Constants.js";
 
 /**
  * Utility class for working with imports.
