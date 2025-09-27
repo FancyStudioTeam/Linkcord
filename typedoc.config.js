@@ -10,6 +10,7 @@ const configuration = {
 	hideGenerator: true,
 	includeHierarchySummary: true,
 	includeVersion: true,
+	kindSortOrder: ["Class", "Enum", "TypeLiteral", "Interface", "Variable"],
 	name: "Linkcord",
 	navigation: {
 		includeCategories: true,
@@ -18,7 +19,8 @@ const configuration = {
 	},
 	out: ".typedoc",
 	plugin: ["typedoc-material-theme"],
-	themeColor: "#2D3748",
+	sort: ["kind", "alphabetical"],
+	themeColor: "#E0E3FF",
 	tsconfig: "./tsconfig.json",
 };
 

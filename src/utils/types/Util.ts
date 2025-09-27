@@ -34,7 +34,7 @@ export type If<Condition, TrueResult, FalseResult = null> = Condition extends tr
 		: never;
 
 /**
- * Represents an instance of a class.
+ * Represents a type that is an instance of a class.
  *
  * @typeParam Class - The shape of the class.
  * @group Utils/Types
