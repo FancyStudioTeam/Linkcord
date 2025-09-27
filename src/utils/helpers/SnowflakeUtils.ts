@@ -16,13 +16,17 @@ export class SnowflakeUtils {
 	 */
 	static cast(input: bigint | number | string): Snowflake {
 		if (!(typeof input === "bigint" || typeof input === "number" || typeof input === "string")) {
-			throw new TypeError("The first parameter (input) must be a valid bigint, number, or string.");
+			throw new TypeError(
+				"First parameter (input) from 'SnowflakeUtils.cast' must be a bigint, number, or string.",
+			);
 		}
 
 		const snowflakeString = String(input);
 
 		if (!SnowflakeUtils.isSnowflake(snowflakeString)) {
-			throw new TypeError("The first parameter (input) does not match the Discord Snowflake regex.");
+			throw new TypeError(
+				"First parameter (input) from 'SnowflakeUtils.cast' does not match Discord Snowflake regex.",
+			);
 		}
 
 		return snowflakeString;
@@ -46,7 +50,7 @@ export class SnowflakeUtils {
 	 */
 	static timestampFrom(snowflake: Snowflake): number {
 		if (!SnowflakeUtils.isSnowflake(snowflake)) {
-			throw new TypeError("The first parameter (snowflake) must be a Snowflake.");
+			throw new TypeError("First parameter (snowflake) from 'SnowflakeUtils.timestampFrom' must be a Snowflake.");
 		}
 
 		const snowflakeBigInt = (BigInt(snowflake) >> 22n) + DISCORD_EPOCH_BIGINT;
