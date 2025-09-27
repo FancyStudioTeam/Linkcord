@@ -14,6 +14,8 @@ import type {
  *
  * @param avatarDecoration - The {@link APIAvatarDecorationData | `APIAvatarDecorationData`} object to parse.
  * @returns The parsed {@link AvatarDecorationData | `AvatarDecorationData`} object.
+ *
+ * @group Transformers/Messages
  */
 export function parseAvatarDecoration(avatarDecoration: APIAvatarDecorationData | null): AvatarDecorationData | null {
 	if (!avatarDecoration) return null;
@@ -32,6 +34,8 @@ export function parseAvatarDecoration(avatarDecoration: APIAvatarDecorationData 
  *
  * @param collectibles - The {@link APICollectibles | `APICollectibles`} object to parse.
  * @returns The parsed {@link Collectibles | `Collectibles`} object.
+ *
+ * @group Transformers/Messages
  */
 export function parseCollectibles(collectibles: APICollectibles | null): Collectibles {
 	if (!collectibles) return {};
@@ -49,6 +53,8 @@ export function parseCollectibles(collectibles: APICollectibles | null): Collect
  *
  * @param nameplate - The {@link APINameplate | `APINameplate`} object to parse.
  * @returns The parsed {@link Nameplate | `Nameplate`} object.
+ *
+ * @group Transformers/Messages
  */
 export function parseNameplate(nameplate: APINameplate): Nameplate {
 	const { asset, label, palette, sku_id: skuId } = nameplate;
@@ -67,6 +73,8 @@ export function parseNameplate(nameplate: APINameplate): Nameplate {
  *
  * @param primaryGuild - The {@link APIPrimaryGuild | `APIPrimaryGuild`} object to parse.
  * @returns The parsed {@link PrimaryGuild | `PrimaryGuild`} object.
+ *
+ * @group Transformers/Messages
  */
 export function parsePrimaryGuild(primaryGuild: APIPrimaryGuild | null): PrimaryGuild | null {
 	if (!primaryGuild) return null;

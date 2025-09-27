@@ -10,6 +10,8 @@ import type {
  *
  * @param sessionStartLimit - The {@link APIGatewayBotSessionStartLimit | `APIGatewayBotSessionStartLimit`} object to parse.
  * @returns The parsed {@link GatewayBotSessionStartLimit | `GatewayBotSessionStartLimit`} object.
+ *
+ * @group Transformers/Messages
  */
 export function parseGatewayBotSessionStartLimit(
 	sessionStartLimit: APIGatewayBotSessionStartLimit,
@@ -30,6 +32,8 @@ export function parseGatewayBotSessionStartLimit(
  *
  * @param gatewayBot - The {@link APIGatewayBot | `APIGatewayBot`} object to parse.
  * @returns The parsed {@link GatewayBot | `GatewayBot`} object.
+ *
+ * @group Transformers/Messages
  */
 export function parseGatewayBot(gatewayBot: APIGatewayBot): GatewayBot {
 	const { session_start_limit: sessionStartLimit, shards, url } = gatewayBot;

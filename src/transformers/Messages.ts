@@ -14,6 +14,8 @@ import type {
  *
  * @param embed - The embed to normalize.
  * @returns The normalized {@link Embed | `Embed`} object.
+ *
+ * @group Transformers/Messages
  */
 export function normalizeEmbed(embed: CreateMessageEmbedOptions): Embed {
 	return embed instanceof EmbedBuilder ? embed.toJSON() : embed;
@@ -24,6 +26,8 @@ export function normalizeEmbed(embed: CreateMessageEmbedOptions): Embed {
  *
  * @param embeds - The list of embeds to normalize.
  * @returns The normalized list of {@link Embed | `Embed`} objects.
+ *
+ * @group Transformers/Messages
  */
 export function normalizeEmbeds(embeds: CreateMessageEmbedOptions[]): Embed[] {
 	return embeds.map(normalizeEmbed);
@@ -34,6 +38,8 @@ export function normalizeEmbeds(embeds: CreateMessageEmbedOptions[]): Embed[] {
  *
  * @param embed - The {@link APIEmbed | `APIEmbed`} object to parse.
  * @returns The parsed {@link Embed | `Embed`} object.
+ *
+ * @group Transformers/Messages
  */
 export function parseEmbed(embed: APIEmbed): Embed {
 	const {
@@ -75,6 +81,8 @@ export function parseEmbed(embed: APIEmbed): Embed {
  *
  * @param embedAuthor - The {@link APIEmbedAuthor | `APIEmbedAuthor`} object to parse.
  * @returns The parsed {@link EmbedAuthor | `EmbedAuthor`} object.
+ *
+ * @group Transformers/Messages
  */
 export function parseEmbedAuthor(embedAuthor: APIEmbedAuthor): EmbedAuthor {
 	const { icon_url: iconURL, name, url } = embedAuthor;
@@ -93,6 +101,8 @@ export function parseEmbedAuthor(embedAuthor: APIEmbedAuthor): EmbedAuthor {
  *
  * @param embedFooter - The {@link APIEmbedFooter | `APIEmbedFooter`} object to parse.
  * @returns The parsed {@link EmbedFooter | `EmbedFooter`} object.
+ *
+ * @group Transformers/Messages
  */
 export function parseEmbedFooter(embedFooter: APIEmbedFooter): EmbedFooter {
 	const { icon_url: iconURL, text } = embedFooter;
@@ -110,6 +120,8 @@ export function parseEmbedFooter(embedFooter: APIEmbedFooter): EmbedFooter {
  *
  * @param embeds - The list of {@link APIEmbed | `APIEmbed`} objects to parse.
  * @returns The parsed list of {@link Embed | `Embed`} objects.
+ *
+ * @group Transformers/Messages
  */
 export function parseEmbeds(embeds: APIEmbed[]): Embed[] {
 	return embeds.map(parseEmbed);
@@ -120,6 +132,8 @@ export function parseEmbeds(embeds: APIEmbed[]): Embed[] {
  *
  * @param embed - The {@link Embed | `Embed`} object to serialize.
  * @returns The serialized {@link APIEmbed | `APIEmbed`} object.
+ *
+ * @group Transformers/Messages
  */
 export function serializeEmbed(embed: Embed): APIEmbed {
 	const {
@@ -161,6 +175,8 @@ export function serializeEmbed(embed: Embed): APIEmbed {
  *
  * @param embedAuthor - The {@link EmbedAuthor | `EmbedAuthor`} object to serialize.
  * @returns The serialized {@link APIEmbedAuthor | `APIEmbedAuthor`} object.
+ *
+ * @group Transformers/Messages
  */
 export function serializeEmbedAuthor(embedAuthor: EmbedAuthor): APIEmbedAuthor {
 	const { iconURL, name, url } = embedAuthor;
@@ -179,6 +195,8 @@ export function serializeEmbedAuthor(embedAuthor: EmbedAuthor): APIEmbedAuthor {
  *
  * @param embedFooter - The {@link EmbedFooter | `EmbedFooter`} object to serialize.
  * @returns The serialized {@link APIEmbedFooter | `APIEmbedFooter`} object.
+ *
+ * @group Transformers/Messages
  */
 export function serializeEmbedFooter(embedFooter: EmbedFooter): APIEmbedFooter {
 	const { iconURL, text } = embedFooter;
@@ -196,6 +214,8 @@ export function serializeEmbedFooter(embedFooter: EmbedFooter): APIEmbedFooter {
  *
  * @param embeds - The list of {@link Embed | `Embed`} objects to serialize.
  * @returns The serialized list of {@link APIEmbed | `APIEmbed`} objects.
+ *
+ * @group Transformers/Messages
  */
 export function serializeEmbeds(embeds: Embed[]): APIEmbed[] {
 	return embeds.map(serializeEmbed);

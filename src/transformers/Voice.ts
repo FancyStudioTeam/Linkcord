@@ -5,6 +5,8 @@ import type { APIVoiceRegion, VoiceRegion } from "#types/index.js";
  *
  * @param voiceRegion - The {@link APIVoiceRegion | `APIVoiceRegion`} object to parse.
  * @returns The parsed {@link VoiceRegion | `VoiceRegion`} object.
+ *
+ * @group Transformers/Messages
  */
 export function parseVoiceRegion(voiceRegion: APIVoiceRegion): VoiceRegion {
 	const { custom, deprecated, id, name, optimal } = voiceRegion;
@@ -24,6 +26,8 @@ export function parseVoiceRegion(voiceRegion: APIVoiceRegion): VoiceRegion {
  *
  * @param voiceRegions - The list of {@link APIVoiceRegion | `APIVoiceRegion`} objects to parse.
  * @returns The parsed list of {@link VoiceRegion | `VoiceRegion`} objects.
+ *
+ * @group Transformers/Messages
  */
 export function parseVoiceRegions(voiceRegions: APIVoiceRegion[]): VoiceRegion[] {
 	return voiceRegions.map(parseVoiceRegion);
