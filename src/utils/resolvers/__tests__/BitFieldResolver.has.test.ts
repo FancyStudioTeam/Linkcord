@@ -2,27 +2,18 @@ import { UserFlags } from "#types/index.js";
 import { BitFieldResolver } from "../BitFieldResolver.js";
 
 describe("Method: BitFieldResolver.freeze", () => {
-	let bitFieldResolver: BitFieldResolver;
-
-	beforeEach(() => {
-		bitFieldResolver = new BitFieldResolver(UserFlags.Staff | UserFlags.ActiveDeveloper);
-	});
-
 	describe("GIVEN valid bit", () => {
-		it("THEN returns 'true'", () => {
-			const result = bitFieldResolver.has(UserFlags.Staff);
-			const expectedResult = true;
+		it("THEN checks whether the bit is set", () => {
+			const bitFieldResolver = new BitFieldResolver(UserFlags.Staff | UserFlags.ActiveDeveloper);
 
-			expect(result).toBe(expectedResult);
-		});
-	});
+			const result1 = bitFieldResolver.has(UserFlags.Staff);
+			const result2 = bitFieldResolver.has(UserFlags.HypeSquad);
 
-	describe("GIVEN invalid bit", () => {
-		it("THEN returns 'false'", () => {
-			const result = bitFieldResolver.has(UserFlags.HypeSquad);
-			const expectedResult = false;
+			const expectedResult1 = true;
+			const expectedResult2 = false;
 
-			expect(result).toBe(expectedResult);
+			expect(result1).toBe(expectedResult1);
+			expect(result2).toBe(expectedResult2);
 		});
 	});
 });
