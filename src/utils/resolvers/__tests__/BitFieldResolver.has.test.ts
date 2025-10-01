@@ -3,9 +3,9 @@
 import { UserFlags } from "#types/index.js";
 import { BitFieldResolver } from "../BitFieldResolver.js";
 
-describe("Method: BitFieldResolver.freeze", () => {
-	it("GIVEN first parameter THEN checks whether the bit is set", () => {
-		const bitFieldResolver = new BitFieldResolver(UserFlags.Staff | UserFlags.ActiveDeveloper);
+describe("Method: BitFieldResolver.has", () => {
+	it("GIVEN a bit field WHEN checking UserFlags.Staff and UserFlags.HypeSquad THEN returns true for UserFlags.Staff and false for UserFlags.HypeSquad", () => {
+		const bitFieldResolver = new BitFieldResolver(UserFlags.Staff);
 
 		const result1 = bitFieldResolver.has(UserFlags.Staff);
 		const result2 = bitFieldResolver.has(UserFlags.HypeSquad);
@@ -17,7 +17,7 @@ describe("Method: BitFieldResolver.freeze", () => {
 		expect(result2).toBe(expectedResult2);
 	});
 
-	it("GIVEN invalid bit THEN throws 'TypeError'", () => {
+	it("GIVEN an invalid bit WHEN checking it THEN a TypeError is thrown", () => {
 		const bitFieldResolver = new BitFieldResolver(UserFlags.Staff | UserFlags.ActiveDeveloper);
 
 		const result = () => bitFieldResolver.has(null);

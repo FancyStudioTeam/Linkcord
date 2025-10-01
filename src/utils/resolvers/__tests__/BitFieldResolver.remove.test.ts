@@ -10,28 +10,28 @@ describe("Method: BitFieldResolver.remove", () => {
 		bitFieldResolver = new BitFieldResolver(UserFlags.Staff | UserFlags.ActiveDeveloper);
 	});
 
-	it("GIVEN valid bits WHEN removing 0 WHEN bit field is 0 THEN returns 0", () => {
+	it("GIVEN a bit field with UserFlags.Staff | UserFlags.ActiveDeveloper set WHEN removing 0 THEN returns UserFlags.Staff | UserFlags.ActiveDeveloper", () => {
 		const result = bitFieldResolver.remove(0);
 		const expectedResult = 4194305;
 
 		expect(result).toBe(expectedResult);
 	});
 
-	it("GIVEN valid bits WHEN removing 'UserFlags.Staff' WHEN bit field is 4194305 THEN returns 4194304", () => {
+	it("GIVEN a bit field with UserFlags.Staff | UserFlags.ActiveDeveloper set WHEN removing UserFlags.Staff THEN returns UserFlags.ActiveDeveloper", () => {
 		const result = bitFieldResolver.remove(UserFlags.Staff);
 		const expectedResult = UserFlags.ActiveDeveloper;
 
 		expect(result).toBe(expectedResult);
 	});
 
-	it("GIVEN valid bits WHEN removing 'UserFlags.Staff' and 'UserFlags.ActiveDeveloper' WHEN bit field is 4194305 THEN returns 0", () => {
+	it("GIVEN a bit field with UserFlags.Staff | UserFlags.ActiveDeveloper set WHEN removing UserFlags.Staff and UserFlags.ActiveDeveloper THEN returns an empty bit field", () => {
 		const result = bitFieldResolver.remove(UserFlags.Staff, UserFlags.ActiveDeveloper);
 		const expectedResult = 0;
 
 		expect(result).toBe(expectedResult);
 	});
 
-	it("GIVEN some invalid bits THEN throws 'TypeError'", () => {
+	it("GIVEN some invalid bits WHEN removing them THEN a TypeError is thrown", () => {
 		const bits = [1, NaN, "NOT_A_VALID_NUMBER"];
 
 		const result = () => bitFieldResolver.remove(...bits);
