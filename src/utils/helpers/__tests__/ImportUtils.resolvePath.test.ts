@@ -4,14 +4,13 @@ import { ImportUtils } from "../ImportUtils.js";
 
 const CURRENT_WORKING_DIRECTORY = cwd();
 const FRAGMENTS = ["src", "utils", "index.ts"] as const;
+const JOINED_FRAGMENTS = FRAGMENTS.join(sep);
 
 describe("Method: ImportUtils.resolvePath", () => {
-	describe("GIVEN valid fragments", () => {
-		it("THEN returns resolved path", () => {
-			const result = ImportUtils.resolvePath(...FRAGMENTS);
-			const expectedResult = [CURRENT_WORKING_DIRECTORY, FRAGMENTS.join(sep)].join(sep);
+	it("GIVEN valid fragments THEN returns resolved path", () => {
+		const result = ImportUtils.resolvePath(...FRAGMENTS);
+		const expectedResult = [CURRENT_WORKING_DIRECTORY, JOINED_FRAGMENTS].join(sep);
 
-			expect(result).toBe(expectedResult);
-		});
+		expect(result).toBe(expectedResult);
 	});
 });

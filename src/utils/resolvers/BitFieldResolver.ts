@@ -26,6 +26,12 @@ export class BitFieldResolver {
 	 * @returns The updated bit field.
 	 */
 	add(...bits: number[]): number {
+		const someInvalidBits = bits.some((bit) => typeof bit !== "number" || Number.isNaN(bit));
+
+		if (someInvalidBits) {
+			throw new TypeError("All parameters (bits) from 'BitFieldResolver.add' must be numbers.");
+		}
+
 		for (const bit of bits) {
 			this.bitField |= bit;
 		}
@@ -46,6 +52,10 @@ export class BitFieldResolver {
 	 * @param bit - The bit to check.
 	 */
 	has(bit: number): boolean {
+		if (typeof bit !== "number" || Number.isNaN(bit)) {
+			throw new TypeError("First parameter (bit) from 'BitFieldResolver.has' must be a number.");
+		}
+
 		return (this.bitField & bit) === bit;
 	}
 
@@ -56,6 +66,12 @@ export class BitFieldResolver {
 	 * @returns The updated bit field.
 	 */
 	remove(...bits: number[]): number {
+		const someInvalidBits = bits.some((bit) => typeof bit !== "number" || Number.isNaN(bit));
+
+		if (someInvalidBits) {
+			throw new TypeError("All parameters (bits) from 'BitFieldResolver.remove' must be numbers.");
+		}
+
 		for (const bit of bits) {
 			this.bitField &= ~bit;
 		}
