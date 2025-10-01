@@ -7,14 +7,14 @@ const CHANNEL_ID_STRING = "103735883630395392";
 const CHANNEL_ID_SNOWFLAKE = SnowflakeUtils.cast(CHANNEL_ID_STRING);
 
 describe("Method: FormatterUtils.channelMention", () => {
-	it("GIVEN valid channel ID THEN returns channel mention", () => {
+	it("GIVEN a valid channel ID WHEN formatting it THEN returns the formatted channel mention", () => {
 		const result = FormatterUtils.channelMention(CHANNEL_ID_SNOWFLAKE);
 		const expectedResult = `<#${CHANNEL_ID_SNOWFLAKE}>` as const;
 
 		expect<typeof expectedResult>(result).toBe(expectedResult);
 	});
 
-	it("GIVEN invalid channel ID THEN throws 'TypeError'", () => {
+	it("GIVEN an invalid channel ID WHEN formatting it THEN a TypeError is thrown", () => {
 		const result1 = () => FormatterUtils.channelMention(null);
 		const result2 = () => FormatterUtils.channelMention("NOT_A_VALID_SNOWFLAKE_STRING");
 

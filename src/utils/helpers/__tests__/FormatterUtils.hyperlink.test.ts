@@ -5,7 +5,7 @@ const URL_STRING = "https://discord.com";
 const URL_OBJECT = new URL(URL_STRING);
 
 describe("Method: FormatterUtils.hyperlink", () => {
-	it("GIVEN valid content and URL THEN returns hyperlink", () => {
+	it("GIVEN some content and a URL WHEN formatting them THEN returns the formatted hyperlink", () => {
 		const result1 = FormatterUtils.hyperlink(URL_CONTENT, URL_STRING);
 		const result2 = FormatterUtils.hyperlink(URL_CONTENT, URL_OBJECT);
 
@@ -16,7 +16,7 @@ describe("Method: FormatterUtils.hyperlink", () => {
 		expect<typeof expectedResult2>(result2).toBe(expectedResult2);
 	});
 
-	it("GIVEN valid content, URL, and title THEN returns hyperlink with title", () => {
+	it("GIVEN some content, a URL, and a title WHEN formatting them THEN returns the formatted hyperlink with the title specified", () => {
 		const result = FormatterUtils.hyperlink(URL_CONTENT, URL_STRING, URL_CONTENT);
 		const expectedResult = `[${URL_CONTENT}](${URL_STRING} "${URL_CONTENT}")` as const;
 

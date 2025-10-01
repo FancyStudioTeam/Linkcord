@@ -8,28 +8,28 @@ import { FormatterUtils } from "../FormatterUtils.js";
 const CONTENT = "Hello, world!";
 
 describe("Method: FormatterUtils.header", () => {
-	it("GIVEN valid content THEN returns header", () => {
+	it("GIVEN some content WHEN formatting it THEN returns the formatted header", () => {
 		const result = FormatterUtils.header(CONTENT);
 		const expectedResult = `# ${CONTENT}` as const;
 
 		expect<typeof expectedResult>(result).toBe(expectedResult);
 	});
 
-	it("GIVEN valid heading level and content THEN returns header", () => {
+	it("GIVEN a heading level and a content WHEN formatting them THEN returns the formatted header", () => {
 		const result = FormatterUtils.header(HeadingLevels.Two, CONTENT);
 		const expectedResult = `## ${CONTENT}` as const;
 
 		expect<typeof expectedResult>(result).toBe(expectedResult);
 	});
 
-	it("GIVEN invalid heading level THEN returns header", () => {
+	it("GIVEN an invalid heading level WHEN formatting it with a content THEN returns the default formatted header", () => {
 		const result = FormatterUtils.header(0, CONTENT);
 		const expectedResult = `# ${CONTENT}` as const;
 
 		expect<typeof expectedResult>(result).toBe(expectedResult);
 	});
 
-	it("GIVEN valid heading level but invalid content THEN throws 'TypeError'", () => {
+	it("GIVEN a valid heading level but an invalid content WHEN formatting them THEN a TypeError is thrown", () => {
 		const result1 = () => FormatterUtils.header(HeadingLevels.One);
 		const result2 = () => FormatterUtils.header(HeadingLevels.One, null);
 
@@ -41,7 +41,7 @@ describe("Method: FormatterUtils.header", () => {
 		expect(result2).toThrow(expectedErrorResult);
 	});
 
-	it("GIVEN invalid first parameter THEN throws 'TypeError'", () => {
+	it("GIVEN an invalid heading level or content WHEN formatting them THEN a TypeError is thrown", () => {
 		const result = () => FormatterUtils.header(null);
 		const expectedErrorResult = new TypeError(
 			"First parameter (levelOrContent) from 'FormatterUtils.header' must be a number or string.",

@@ -7,7 +7,7 @@ const USER_ID_STRING = "80351110224678912";
 const USER_ID_BIGINT = BigInt(USER_ID_STRING);
 
 describe("Method: SnowflakeUtils.cast", () => {
-	it("GIVEN valid input THEN casts input to Snowflake", () => {
+	it("GIVEN a valid input WHEN casting it THEN returns the casted input", () => {
 		const result1 = SnowflakeUtils.cast(USER_ID_STRING);
 		const result2 = SnowflakeUtils.cast(USER_ID_BIGINT);
 
@@ -17,7 +17,7 @@ describe("Method: SnowflakeUtils.cast", () => {
 		expect<Snowflake>(result2).toBe(expectedResult);
 	});
 
-	it("GIVEN invalid input THEN throws 'TypeError'", () => {
+	it("GIVEN an invalid input WHEN casting it THEN a TypeError is thrown", () => {
 		const result1 = () => SnowflakeUtils.cast(null);
 		const result2 = () => SnowflakeUtils.cast("NOT_A_VALID_SNOWFLAKE_STRING");
 

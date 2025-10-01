@@ -7,14 +7,14 @@ const USER_ID_STRING = "80351110224678912";
 const USER_ID_SNOWFLAKE = SnowflakeUtils.cast(USER_ID_STRING);
 
 describe("Method: FormatterUtils.userMention", () => {
-	it("GIVEN valid user ID THEN returns user mention", () => {
+	it("GIVEN a valid user ID WHEN formatting it THEN returns the formatted user mention", () => {
 		const result = FormatterUtils.userMention(USER_ID_SNOWFLAKE);
 		const expectedResult = `<@${USER_ID_SNOWFLAKE}>` as const;
 
 		expect<typeof expectedResult>(result).toBe(expectedResult);
 	});
 
-	it("GIVEN invalid user ID THEN throws 'TypeError'", () => {
+	it("GIVEN an invalid user ID WHEN formatting it THEN a TypeError is thrown", () => {
 		const result1 = () => FormatterUtils.userMention(null);
 		const result2 = () => FormatterUtils.userMention("NOT_A_VALID_SNOWFLAKE_STRING");
 
