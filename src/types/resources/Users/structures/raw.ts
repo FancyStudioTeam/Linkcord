@@ -12,6 +12,8 @@ import type {
 /**
  * Represents a Discord application role connection object.
  * @see https://discord.com/developers/docs/resources/user#application-role-connection-object-application-role-connection-structure
+ *
+ * @group Structures/Interfaces
  */
 export interface APIApplicationRoleConnection {
 	/** The metadata of the platform. */

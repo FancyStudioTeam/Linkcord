@@ -5,6 +5,8 @@ import type { ConnectionServices, ConnectionVisibilityTypes, NameplatePalette } 
 /**
  * Represents a Discord application role connection object.
  * @see https://discord.com/developers/docs/resources/user#application-role-connection-object-application-role-connection-structure
+ *
+ * @group Structures/Interfaces
  */
 export interface ApplicationRoleConnection {
 	/** The metadata of the platform. */
@@ -42,6 +44,8 @@ export interface Collectibles {
 /**
  * Represents a Discord connection object.
  * @see https://discord.com/developers/docs/resources/user#connection-object-connection-structure
+ *
+ * @group Structures/Interfaces
  */
 export interface Connection {
 	/** Whether the friend sync is enabled. */
@@ -104,6 +108,8 @@ export interface PrimaryGuild {
 /**
  * Represents a Discord user guild object.
  * @see https://discord.com/developers/docs/resources/user#get-current-user-guilds-example-partial-guild
+ *
+ * @group Structures/Interfaces
  */
 export interface UserGuild {
 	/** The approximate number of members in the guild. */
