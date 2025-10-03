@@ -2,7 +2,8 @@
 	"dependencies": {
 		"glob": "11.0.3",
 		"ts-mixer": "6.0.4",
-		"valibot": "1.1.0"
+		"valibot": "1.1.0",
+		"zod": "4.1.11"
 	},
 	"description": "An opinionated framework made in TypeScript for building Discord bots.",
 	"devDependencies": {
