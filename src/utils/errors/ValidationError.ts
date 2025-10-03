@@ -24,6 +24,34 @@ export class ValidationError extends Error {
 	}
 
 	/**
+	 * Flattens a list of `PropertyKey` objects into a string.
+	 *
+	 * @param path - The list of `PropertyKey` objects to flatten.
+	 * @returns The flattened string.
+	 */
+	#flattenIssuePath(path: PropertyKey[]): string {
+		const filteredPath = path.filter((item) => typeof item !== "symbol");
+		const formattedPathCallback = (
+			accumulator: string | number,
+			currentItem: string | number,
+			currentIndex: number,
+		) => {
+			if (currentIndex === 0) {
+				return String(currentItem);
+			}
+
+			if (typeof currentItem === "number") {
+				return `${accumulator}[${currentItem}]`;
+			}
+
+			return `${accumulator}.${currentItem}`;
+		};
+		const formattedPath = filteredPath.reduce(formattedPathCallback, "");
+
+		return formattedPath.toString();
+	}
+
+	/**
 	 * Handles the callback for the `prettifyIssues` method.
 	 *
 	 * @param issue - The issue from the callback to handle.
@@ -43,7 +71,7 @@ export class ValidationError extends Error {
 				const { expected, path } = issue;
 
 				const formattedExpected = styleText("bold", expected);
-				const formattedPath = styleText("bold", path);
+				const formattedPath = styleText("bold", this.#flattenIssuePath(path));
 
 				return `${formattedPath}\n\t└── Expected input to be ${formattedExpected}.`;
 			}

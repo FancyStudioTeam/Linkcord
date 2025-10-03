@@ -1,10 +1,6 @@
 import { type core, parse, ZodError } from "zod";
 import { ValidationError } from "#utils/errors/ValidationError.js";
-import {
-	type ValidationErrorInvalidInputTypeWithPathIssue,
-	type ValidationErrorIssue,
-	ValidationErrorIssueKind,
-} from "#utils/types/index.js";
+import { type ValidationErrorIssue, ValidationErrorIssueKind } from "#utils/types/index.js";
 
 /**
  * Validates the given input with a Zod schema.
@@ -69,51 +65,17 @@ function handleZodIssue(issue: ZodIssue): ValidationErrorIssue {
 function handleZodInvalidTypeIssue(issue: ZodInvalidTypeIssue): ValidationErrorIssue {
 	const { expected, path } = issue;
 
-	if (Array.isArray(path) && path.length > 0) {
-		return handleZodInvalidTypeIssueWithPath(issue);
+	if (path.length > 0) {
+		return {
+			expected,
+			kind: ValidationErrorIssueKind.InvalidInputTypeWithPath,
+			path,
+		};
 	}
 
 	return {
 		expected,
 		kind: ValidationErrorIssueKind.InvalidInputType,
-	};
-}
-
-/**
- * Handles the given {@link ZodInvalidTypeIssue | `ZodInvalidTypeIssue`} object when the code is `invalid_type` and the path is not empty.
- *
- * @param issue - The {@link ZodInvalidTypeIssue | `ZodInvalidTypeIssue`} object to handle.
- * @returns The parsed {@link ValidationErrorInvalidInputTypeWithPathIssue | `ValidationErrorInvalidInputTypeWithPathIssue`} object.
- */
-function handleZodInvalidTypeIssueWithPath(issue: ZodInvalidTypeIssue): ValidationErrorInvalidInputTypeWithPathIssue {
-	const { expected, path } = issue;
-
-	if (!Array.isArray(path) || path.length === 0) {
-		throw new TypeError("Issue must contain a path that is an array and is not empty.");
-	}
-
-	const filteredPath = path.filter((item) => typeof item !== "symbol");
-	const formattedPathCallback = (
-		accumulator: string | number,
-		currentItem: string | number,
-		currentIndex: number,
-	) => {
-		if (currentIndex === 0) {
-			return String(currentItem);
-		}
-
-		if (typeof currentItem === "number") {
-			return `${accumulator}[${currentItem}]`;
-		}
-
-		return `${accumulator}.${currentItem}`;
-	};
-	const formattedPath = filteredPath.reduce(formattedPathCallback, "");
-
-	return {
-		expected,
-		kind: ValidationErrorIssueKind.InvalidInputTypeWithPath,
-		path: formattedPath.toString(),
 	};
 }
 

@@ -18,7 +18,7 @@ export interface ValidationErrorIssueBase<Kind extends ValidationErrorIssueKind>
 export interface ValidationErrorInvalidInputTypeWithPathIssue
 	extends ValidationErrorIssueBase<ValidationErrorIssueKind.InvalidInputTypeWithPath> {
 	/** The path where the validation failed. */
-	path: string;
+	path: PropertyKey[];
 }
 
 /**
