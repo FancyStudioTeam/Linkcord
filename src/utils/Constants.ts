@@ -1,6 +1,6 @@
 import { env } from "node:process";
 
-const { NODE_ENV } = env;
+const { NODE_ENV } = env ?? {};
 
 /**
  * Whether the current environment is a CommonJS environment.
