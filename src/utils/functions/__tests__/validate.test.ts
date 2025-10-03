@@ -50,17 +50,17 @@ describe("Function: validate", () => {
 			{
 				expected: "number",
 				kind: ValidationErrorIssueKind.InvalidInputTypeWithPath,
-				path: "age",
+				path: ["age"],
 			},
 			{
 				expected: "string",
 				kind: ValidationErrorIssueKind.InvalidInputTypeWithPath,
-				path: "name",
+				path: ["name"],
 			},
 			{
 				expected: "string",
 				kind: ValidationErrorIssueKind.InvalidInputTypeWithPath,
-				path: "tags[0]",
+				path: ["tags", 0],
 			},
 		]);
 		const expectedResult3 = {
@@ -89,7 +89,7 @@ describe("Function: validate", () => {
 			{
 				expected: "string",
 				kind: ValidationErrorIssueKind.InvalidInputTypeWithPath,
-				path: "0",
+				path: [0],
 			},
 		]);
 		const expectedResult3 = ["Employee"];

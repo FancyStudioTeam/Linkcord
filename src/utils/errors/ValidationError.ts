@@ -88,7 +88,7 @@ export class ValidationError extends Error {
 	 * @returns The prettified issues string.
 	 */
 	#prettifyIssues(issues: ValidationErrorIssue[]): string {
-		const formattedStringIssues = issues.map(this.#issuesCallback);
+		const formattedStringIssues = issues.map(this.#issuesCallback.bind(this));
 		const prettifiedIssues = formattedStringIssues.map((issue) => styleText("red", `\t🞫 ${issue}`)).join("\n");
 
 		return prettifiedIssues;
