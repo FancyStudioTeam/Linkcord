@@ -4,7 +4,7 @@ import { ValidationError } from "#utils/errors/ValidationError.js";
  * Represents the base structure of an issue in a {@link ValidationError | `ValidationError`} instance.
  * @group Utils/Errors
  */
-export interface ValidationErrorIssueBase<Kind extends ValidationErrorIssueKinds> {
+export interface ValidationErrorIssueBase<Kind extends ValidationErrorIssueKind> {
 	/** The kind of the issue. */
 	kind: Kind;
 }
@@ -13,7 +13,7 @@ export interface ValidationErrorIssueBase<Kind extends ValidationErrorIssueKinds
  * Represents a schema issue in a {@link ValidationError | `ValidationError`} instance.
  * @group Utils/Errors
  */
-export interface ValidationErrorSchemaIssue extends ValidationErrorIssueBase<ValidationErrorIssueKinds.Schema> {
+export interface ValidationErrorSchemaIssue extends ValidationErrorIssueBase<ValidationErrorIssueKind.Schema> {
 	/** The expected value from the schema. */
 	expected: unknown;
 	/** The received value from the input. */
@@ -30,6 +30,6 @@ export type ValidationErrorIssue = ValidationErrorSchemaIssue;
  * Represents the kinds of issues that can occur in a {@link ValidationError | `ValidationError`} instance.
  * @group Utils/Errors
  */
-export enum ValidationErrorIssueKinds {
+export enum ValidationErrorIssueKind {
 	Schema = "SCHEMA",
 }
