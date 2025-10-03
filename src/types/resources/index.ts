@@ -1,4 +1,5 @@
 export * from "./ApplicationCommands/index.js";
+export * from "./Applications/index.js";
 export * from "./Channels/index.js";
 export * from "./Components/index.js";
 export * from "./Emojis/index.js";
