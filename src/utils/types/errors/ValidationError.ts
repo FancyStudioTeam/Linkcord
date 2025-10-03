@@ -15,9 +15,9 @@ export interface ValidationErrorIssueBase<Kind extends ValidationErrorIssueKind>
  */
 export interface ValidationErrorSchemaIssue extends ValidationErrorIssueBase<ValidationErrorIssueKind.Schema> {
 	/** The expected value from the schema. */
-	expected: unknown;
+	expected: string;
 	/** The received value from the input. */
-	received: unknown;
+	received: string;
 }
 
 /**
