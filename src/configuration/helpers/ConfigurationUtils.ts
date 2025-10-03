@@ -1,7 +1,8 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { cwd } from "node:process";
-import type { LinkcordOptions, LinkcordOptionsLocations } from "#configuration/types/index.js";
+import type { core } from "zod";
+import type { ConfigurationLocationsSchema, ConfigurationSchema } from "#configuration/schemas/ConfigurationSchema.js";
 import type { GatewayIntents } from "#types/index.js";
 import { ImportUtils } from "#utils/helpers/ImportUtils.js";
 
@@ -150,3 +151,15 @@ interface ConfigurationFileData {
 	/** The validated options of the framework. */
 	default: LinkcordOptions;
 }
+
+/**
+ * Represents the options used in the Linkcord framework.
+ * @group Configuration/Types
+ */
+export type LinkcordOptions = core.output<typeof ConfigurationSchema>;
+
+/**
+ * Represents the options used in the `locations` property in the Linkcord framework.
+ * @group Configuration/Types
+ */
+export type LinkcordOptionsLocations = core.output<typeof ConfigurationLocationsSchema>;

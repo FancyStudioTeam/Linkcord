@@ -1,50 +1,27 @@
-import type { InferOutput } from "valibot";
-import type { ConfigurationLocationsSchema, ConfigurationSchema } from "#configuration/schemas/ConfigurationSchema.js";
 import type { GatewayIntents } from "#types/index.js";
 
 /**
- * The `locations` options of the framework.
- * @public
+ * Represents the options of the `locations` property of the Linkcord framework.
+ * @group Configuration/Functions
  */
 export interface DefineConfigLocationsOptions {
-	/**
-	 * The name of the directory that contains the command handlers.
-	 * @default commands
-	 */
+	/** The name of the directory that contains the command files. Defaults to `commands`. */
 	commands?: string;
-	/**
-	 * The name of the directory that contains the event handlers.
-	 * @default events
-	 */
+	/** The name of the directory that contains the event files. Defaults to `events`. */
 	events?: string;
-	/**
-	 * The name of the directory of the source code.
-	 * @default src
-	 */
+	/** The name of the root directory. Defaults to `src` when `NODE_ENV` is `development` and `dist` when `NODE_ENV` is `production`. */
 	root?: string;
 }
 
 /**
- * The options of the framework.
- * @public
+ * Represents the options of the Linkcord framework.
+ * @group Configuration/Functions
  */
 export interface DefineConfigOptions {
-	/** The intents to use when connecting the shards to the Discord gateway. */
+	/** The intents of the client. */
 	intents: GatewayIntents[];
 	/** The locations of the modules. */
-	locations: DefineConfigLocationsOptions;
-	/** The token to use for all Discord API interactions. */
-	token: string;
+	locations?: DefineConfigLocationsOptions;
+	/** The token of the bot. */
+	token?: string;
 }
-
-/**
- * The validated options of the framework.
- * @public
- */
-export type LinkcordOptions = InferOutput<typeof ConfigurationSchema>;
-
-/**
- * The `locations` options validated by the framework.
- * @public
- */
-export type LinkcordOptionsLocations = InferOutput<typeof ConfigurationLocationsSchema>;
