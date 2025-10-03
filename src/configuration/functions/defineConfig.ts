@@ -1,6 +1,7 @@
 import { env } from "node:process";
+import type { LinkcordOptions } from "#configuration/helpers/ConfigurationUtils.js";
 import { ConfigurationSchema } from "#configuration/schemas/ConfigurationSchema.js";
-import type { DefineConfigOptions, LinkcordOptions } from "#configuration/types/index.js";
+import type { DefineConfigOptions } from "#configuration/types/index.js";
 import { IS_PRODUCTION_ENVIRONMENT } from "#utils/Constants.js";
 import { exception } from "#utils/functions/exception.js";
 import { validate } from "#utils/functions/validate.js";
@@ -19,9 +20,7 @@ export function defineConfig(options: DefineConfigOptions): LinkcordOptions {
 	options.token ??=
 		DISCORD_TOKEN ??
 		exception(
-			new TypeError(
-				"Attempted to use 'DISCORD_TOKEN' environment variable, but it is not defined. Please define it in your environment variables.",
-			),
+			"Attempted to use 'DISCORD_TOKEN' environment variable, but it was not found. Please provide a token in the 'token' property of the options.",
 		);
 
 	options.locations ??= {
