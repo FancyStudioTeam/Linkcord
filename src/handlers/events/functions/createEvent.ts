@@ -1,4 +1,4 @@
-import { parse } from "valibot";
+import { parse } from "zod";
 import type { ClientEvents } from "#client/index.js";
 import { EventSchema } from "#handlers/schemas/events/EventSchema.js";
 import type { CreateEventOptions, EventData } from "#handlers/types/index.js";
