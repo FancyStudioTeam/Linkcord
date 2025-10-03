@@ -32,9 +32,9 @@ export function validate<Schema extends ZodSchema>(schema: Schema, input: unknow
 }
 
 /**
- * Handles the given Zod issues.
+ * Handles the given list of {@link ZodIssue | `ZodIssue`} objects.
  *
- * @param issues - The Zod issues to handle.
+ * @param issues - The list of {@link ZodIssue | `ZodIssue`} objects to handle.
  * @returns The parsed list of {@link ValidationErrorIssue | `ValidationErrorIssue`} objects.
  */
 function handleZodIssues(issues: ZodIssue[]): ValidationErrorIssue[] {
@@ -42,9 +42,9 @@ function handleZodIssues(issues: ZodIssue[]): ValidationErrorIssue[] {
 }
 
 /**
- * Handles the given Zod issue.
+ * Handles the given {@link ZodIssue | `ZodIssue`} object.
  *
- * @param issue - The Zod issue to handle.
+ * @param issue - The {@link ZodIssue | `ZodIssue`} object to handle.
  * @returns The parsed {@link ValidationErrorIssue | `ValidationErrorIssue`} object.
  */
 function handleZodIssue(issue: ZodIssue): ValidationErrorIssue {
@@ -61,9 +61,9 @@ function handleZodIssue(issue: ZodIssue): ValidationErrorIssue {
 }
 
 /**
- * Handles the Zod issue when the code is `invalid_type`.
+ * Handles the given {@link ZodInvalidTypeIssue | `ZodInvalidTypeIssue`} object when the code is `invalid_type`.
  *
- * @param issue - The Zod issue to handle.
+ * @param issue - The {@link ZodInvalidTypeIssue | `ZodInvalidTypeIssue`} object to handle.
  * @returns The parsed {@link ValidationErrorIssue | `ValidationErrorIssue`} object.
  */
 function handleZodInvalidTypeIssue(issue: ZodInvalidTypeIssue): ValidationErrorIssue {
@@ -80,15 +80,17 @@ function handleZodInvalidTypeIssue(issue: ZodInvalidTypeIssue): ValidationErrorI
 }
 
 /**
- * Handles the Zod issue when the code is `invalid_type` and the path is not empty.
+ * Handles the given {@link ZodInvalidTypeIssue | `ZodInvalidTypeIssue`} object when the code is `invalid_type` and the path is not empty.
  *
- * @param issue - The Zod issue to handle.
+ * @param issue - The {@link ZodInvalidTypeIssue | `ZodInvalidTypeIssue`} object to handle.
  * @returns The parsed {@link ValidationErrorInvalidInputTypeWithPathIssue | `ValidationErrorInvalidInputTypeWithPathIssue`} object.
  */
 function handleZodInvalidTypeIssueWithPath(issue: ZodInvalidTypeIssue): ValidationErrorInvalidInputTypeWithPathIssue {
 	const { expected, path } = issue;
 
-	if (!Array.isArray(path)) throw "Issue must contain a path that is an array.";
+	if (!Array.isArray(path) || path.length === 0) {
+		throw new TypeError("Issue must contain a path that is an array and is not empty.");
+	}
 
 	const filteredPath = path.filter((item) => typeof item !== "symbol");
 	const formattedPathCallback = (

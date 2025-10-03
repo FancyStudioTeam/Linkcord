@@ -2,7 +2,7 @@ import { styleText } from "node:util";
 import { type ValidationErrorIssue, ValidationErrorIssueKind } from "#utils/types/index.js";
 
 /**
- * Represents an error that occurs when validating an input.
+ * Represents an error thrown when validating an invalid input.
  * @group Utils/Errors
  */
 export class ValidationError extends Error {
@@ -20,13 +20,14 @@ export class ValidationError extends Error {
 
 		this.issues = issues;
 		this.message = `Validation has failed with the following issues:\n${prettifiedIssues}`;
+		this.name = "ValidationError";
 	}
 
 	/**
 	 * Handles the callback for the `prettifyIssues` method.
 	 *
-	 * @param issue - The issue to handle.
-	 * @returns The formatted string of the issue.
+	 * @param issue - The issue from the callback to handle.
+	 * @returns The formatted pretty issue.
 	 */
 	#issuesCallback(issue: ValidationErrorIssue): string {
 		const { kind } = issue;
@@ -56,7 +57,7 @@ export class ValidationError extends Error {
 	 * Converts the given list of issues into a prettified string.
 	 *
 	 * @param issues - The issues to prettify.
-	 * @returns The prettified issues.
+	 * @returns The prettified issues string.
 	 */
 	#prettifyIssues(issues: ValidationErrorIssue[]): string {
 		const formattedStringIssues = issues.map(this.#issuesCallback);
