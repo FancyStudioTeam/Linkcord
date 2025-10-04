@@ -9,5 +9,8 @@ import type { GatewayIntents } from "#types/index.js";
  * @group Configuration/Functions
  */
 export function transformIntents(intents: GatewayIntents[]): number {
-	return intents.reduce((accumulator, intent) => accumulator | intent, 0);
+	const intentsSet = new Set(intents);
+	const intentsArray = Array.from(intentsSet);
+
+	return intentsArray.reduce((accumulator, intent) => accumulator | intent, 0);
 }
