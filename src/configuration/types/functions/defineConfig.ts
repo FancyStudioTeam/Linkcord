@@ -1,7 +1,7 @@
 import type { GatewayIntents } from "#types/index.js";
 
 /**
- * Represents the options of the `locations` property of the Linkcord framework.
+ * Represents the options of the `locations` property of Linkcord.
  * @group Configuration/Functions
  */
 export interface DefineConfigLocationsOptions {
@@ -14,7 +14,7 @@ export interface DefineConfigLocationsOptions {
 }
 
 /**
- * Represents the options of the Linkcord framework.
+ * Represents the options of Linkcord.
  * @group Configuration/Functions
  */
 export interface DefineConfigOptions {
@@ -22,6 +22,6 @@ export interface DefineConfigOptions {
 	intents: GatewayIntents[];
 	/** The locations of the modules. */
 	locations?: DefineConfigLocationsOptions;
-	/** The token of the bot. */
-	token?: string;
+	/** The token of the client. */
+	token: string;
 }

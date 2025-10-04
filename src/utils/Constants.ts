@@ -1,7 +1,5 @@
 import { env } from "node:process";
 
-const { NODE_ENV } = env ?? {};
-
 /**
  * Whether the current environment is a CommonJS environment.
  * @group Utils/Constants
@@ -12,7 +10,7 @@ export const IS_COMMON_JS = typeof require !== "undefined" && typeof module !== 
  * Whether the current environment is a production environment.
  * @group Utils/Constants
  */
-export const IS_PRODUCTION_ENVIRONMENT = String(NODE_ENV).toLowerCase() === "production";
+export const IS_PRODUCTION_ENVIRONMENT = String(env.NODE_ENV).toLowerCase() === "production";
 
 /**
  * The current version of Linkcord.
