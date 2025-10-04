@@ -3,11 +3,9 @@ import { join } from "node:path";
 import { cwd } from "node:process";
 import type { core } from "zod";
 import type { ConfigurationLocationsSchema, ConfigurationSchema } from "#configuration/schemas/ConfigurationSchema.js";
-import type { GatewayIntents } from "#types/index.js";
 import { ImportUtils } from "#utils/helpers/ImportUtils.js";
 
 const AVAILABLE_FILE_EXTENSIONS = ["js", "cjs", "mjs", "ts", "cts", "mts"] as const;
-const BOT_PREFIX_REGEX = /^Bot\s*/i;
 // @ts-expect-error
 const LINKCORD_CONFIGURATION: LinkcordOptions = {};
 
@@ -100,37 +98,6 @@ function setOptions(options: LinkcordOptions): void {
 }
 
 /**
- * Reduces the intents to a number.
- * @param intents - The intents to reduce.
- * @returns The reduced intents as number.
- */
-function transformIntents(intents: GatewayIntents[]): number {
-	if (!Array.isArray(intents)) {
-		return 0;
-	}
-
-	const reducedIntents = intents.reduce((accumulator, intent) => accumulator | intent, 0);
-
-	return reducedIntents;
-}
-
-/**
- * Removes the `Bot` prefix from the bot token, if exists.
- * @param token - The token to transform.
- * @returns The token without the `Bot` prefix.
- */
-function transformToken(token: string): string {
-	if (typeof token !== "string") {
-		return "";
-	}
-
-	const trimmedToken = token.trim();
-	const replacedToken = trimmedToken.replace(BOT_PREFIX_REGEX, "");
-
-	return replacedToken;
-}
-
-/**
  * Utilities for the configuration.
  * @internal
  */
@@ -142,8 +109,6 @@ export const ConfigurationUtils = Object.freeze({
 	getToken,
 	loadConfigurationFile,
 	setOptions,
-	transformIntents,
-	transformToken,
 });
 
 /** The expected structure of the imported file. */

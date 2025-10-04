@@ -1,5 +1,10 @@
 import { styleText } from "node:util";
+import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 import { type ValidationErrorIssue, ValidationErrorIssueKind } from "#utils/types/index.js";
+
+const CONJUNCTION_FORMATTER = new Intl.ListFormat("en", {
+	type: "conjunction",
+});
 
 /**
  * Represents an error thrown when validating an invalid input.
@@ -7,7 +12,7 @@ import { type ValidationErrorIssue, ValidationErrorIssueKind } from "#utils/type
  */
 export class ValidationError extends Error {
 	/** The issues that caused the error. */
-	readonly issues: ValidationErrorIssue[];
+	declare readonly issues: Readonly<ValidationErrorIssue[]>;
 
 	/**
 	 * Creates a new {@link ValidationError | `ValidationError`} instance.
@@ -18,7 +23,8 @@ export class ValidationError extends Error {
 
 		const prettifiedIssues = this.#prettifyIssues(issues);
 
-		this.issues = issues;
+		defineImmutableProperty(this, "issues", issues);
+
 		this.message = `Validation has failed with the following issues:\n${prettifiedIssues}`;
 		this.name = "ValidationError";
 	}
@@ -31,24 +37,16 @@ export class ValidationError extends Error {
 	 */
 	#flattenIssuePath(path: PropertyKey[]): string {
 		const filteredPath = path.filter((item) => typeof item !== "symbol");
-		const formattedPathCallback = (
-			accumulator: string | number,
-			currentItem: string | number,
-			currentIndex: number,
-		) => {
-			if (currentIndex === 0) {
-				return String(currentItem);
-			}
-
+		const formattedPathCallback = (accumulator: string, currentItem: string | number) => {
 			if (typeof currentItem === "number") {
 				return `${accumulator}[${currentItem}]`;
 			}
 
 			return `${accumulator}.${currentItem}`;
 		};
-		const formattedPath = filteredPath.reduce(formattedPathCallback, "");
+		const formattedPath = filteredPath.slice(1).reduce(formattedPathCallback, String(filteredPath[0]));
 
-		return formattedPath.toString();
+		return formattedPath;
 	}
 
 	/**
@@ -61,6 +59,20 @@ export class ValidationError extends Error {
 		const { kind } = issue;
 
 		switch (kind) {
+			case ValidationErrorIssueKind.ArrayTooSmall: {
+				const { minimum } = issue;
+				const formattedMinimum = styleText("bold", String(minimum));
+
+				return `Expected input to be array with a minimum length of ${formattedMinimum} item(s).`;
+			}
+			case ValidationErrorIssueKind.ArrayTooSmallWithPath: {
+				const { minimum, path } = issue;
+
+				const formattedMinimum = styleText("bold", String(minimum));
+				const formattedPath = styleText("bold", this.#flattenIssuePath(path));
+
+				return `${formattedPath}\n\t└── Expected input to be array with a minimum length of ${formattedMinimum} item(s).`;
+			}
 			case ValidationErrorIssueKind.InvalidInputType: {
 				const { expected } = issue;
 				const formattedExpected = styleText("bold", expected);
@@ -74,6 +86,20 @@ export class ValidationError extends Error {
 				const formattedPath = styleText("bold", this.#flattenIssuePath(path));
 
 				return `${formattedPath}\n\t└── Expected input to be ${formattedExpected}.`;
+			}
+			case ValidationErrorIssueKind.InvalidInputValue: {
+				const { values } = issue;
+				const formattedValues = CONJUNCTION_FORMATTER.format(values.map(String));
+
+				return `Expected input to be one of ${formattedValues}.`;
+			}
+			case ValidationErrorIssueKind.InvalidInputValueWithPath: {
+				const { values, path } = issue;
+
+				const formattedValues = CONJUNCTION_FORMATTER.format(values.map(String));
+				const formattedPath = styleText("bold", this.#flattenIssuePath(path));
+
+				return `${formattedPath}\n\t└── Expected input to be one of ${formattedValues}.`;
 			}
 			default: {
 				return "Unknown issue.";
@@ -89,7 +115,9 @@ export class ValidationError extends Error {
 	 */
 	#prettifyIssues(issues: ValidationErrorIssue[]): string {
 		const formattedStringIssues = issues.map(this.#issuesCallback.bind(this));
-		const prettifiedIssues = formattedStringIssues.map((issue) => styleText("red", `\t🞫 ${issue}`)).join("\n");
+		const prettifiedIssues = formattedStringIssues
+			.map((issue) => `\t${styleText(["bold", "red"], `🞬 ${issue}`)}`)
+			.join("\n");
 
 		return prettifiedIssues;
 	}
