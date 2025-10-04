@@ -5,6 +5,8 @@ const BOT_PREFIX_REGEX = /^Bot\s*/i;
  *
  * @param token - The token to delete the `Bot` prefix.
  * @returns The token without the `Bot` prefix.
+ *
+ * @group Configuration/Functions
  */
 export function transformToken(token: string): string {
 	const trimmedToken = token.trim();
