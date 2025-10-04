@@ -30,7 +30,7 @@ export class ValidationError extends Error {
 	}
 
 	/**
-	 * Flattens a list of `PropertyKey` objects into a string.
+	 * Flattens the given list of `PropertyKey` objects into a string.
 	 *
 	 * @param path - The list of `PropertyKey` objects to flatten.
 	 * @returns The flattened string.

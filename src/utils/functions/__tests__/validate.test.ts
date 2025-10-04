@@ -20,6 +20,7 @@ describe("Function: validate", () => {
 			{
 				expected: "string",
 				kind: ValidationErrorIssueKind.InvalidInputType,
+				path: [],
 			},
 		]);
 		const expectedResult2 = "Hello World!";
@@ -44,22 +45,23 @@ describe("Function: validate", () => {
 			{
 				expected: "object",
 				kind: ValidationErrorIssueKind.InvalidInputType,
+				path: [],
 			},
 		]);
 		const expectedErrorResult2 = new ValidationError([
 			{
 				expected: "number",
-				kind: ValidationErrorIssueKind.InvalidInputTypeWithPath,
+				kind: ValidationErrorIssueKind.InvalidInputType,
 				path: ["age"],
 			},
 			{
 				expected: "string",
-				kind: ValidationErrorIssueKind.InvalidInputTypeWithPath,
+				kind: ValidationErrorIssueKind.InvalidInputType,
 				path: ["name"],
 			},
 			{
 				expected: "string",
-				kind: ValidationErrorIssueKind.InvalidInputTypeWithPath,
+				kind: ValidationErrorIssueKind.InvalidInputType,
 				path: ["tags", 0],
 			},
 		]);
@@ -83,12 +85,13 @@ describe("Function: validate", () => {
 			{
 				expected: "array",
 				kind: ValidationErrorIssueKind.InvalidInputType,
+				path: [],
 			},
 		]);
 		const expectedErrorResult2 = new ValidationError([
 			{
 				expected: "string",
-				kind: ValidationErrorIssueKind.InvalidInputTypeWithPath,
+				kind: ValidationErrorIssueKind.InvalidInputType,
 				path: [0],
 			},
 		]);
