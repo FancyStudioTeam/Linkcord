@@ -12,5 +12,7 @@ export function transformIntents(intents: GatewayIntents[]): number {
 	const intentsSet = new Set(intents);
 	const intentsArray = Array.from(intentsSet);
 
-	return intentsArray.reduce((accumulator, intent) => accumulator | intent, 0);
+	const reducedIntents = intentsArray.reduce((accumulator, intent) => accumulator | intent, 0);
+
+	return reducedIntents;
 }
