@@ -5,126 +5,112 @@ import type { core } from "zod";
 import type { ConfigurationLocationsSchema, ConfigurationSchema } from "#configuration/schemas/ConfigurationSchema.js";
 import { ImportUtils } from "#utils/helpers/ImportUtils.js";
 
-const AVAILABLE_FILE_EXTENSIONS = ["js", "cjs", "mjs", "ts", "cts", "mts"] as const;
+const FILE_EXTENSIONS = ["js", "cjs", "mjs", "ts", "cts", "mts"] as const;
 // @ts-expect-error
 const LINKCORD_CONFIGURATION: LinkcordOptions = {};
 
-let ConfigurationFileLoaded = false;
-
 /**
- * Freezes the configuration object.
- * @returns The frozen configuration object.
+ * Utility class for working with the Linkcord configuration.
+ * @group Configuration/Helpers
  */
-function freeze(): Readonly<LinkcordOptions> {
-	return Object.freeze(LINKCORD_CONFIGURATION);
-}
-
-/**
- * Gets the intents from the configuration.
- * @returns The intents from the configuration.
- */
-function getIntents(): Readonly<number> {
-	return getOptions().intents;
-}
-
-/**
- * Gets the locations from the configuration.
- * @returns The locations from the configuration.
- */
-function getLocations(): Readonly<LinkcordOptionsLocations> {
-	return getOptions().locations;
-}
-
-/**
- * Gets the options from the configuration.
- * @returns The options from the configuration.
- */
-function getOptions(): Readonly<LinkcordOptions> {
-	return LINKCORD_CONFIGURATION;
-}
-
-/**
- * Gets the	token from the configuration.
- * @returns The token from the configuration.
- */
-function getToken(): Readonly<string> {
-	return getOptions().token;
-}
-
-/**
- * Loads the configuration file and assigns the options to the configuration.
- * @param workingDirectory - The directory root where the configuration file
- * 	is located.
- */
-async function loadConfigurationFile(workingDirectory = cwd()): Promise<void> {
-	for (const extension of AVAILABLE_FILE_EXTENSIONS) {
-		const configurationFilePath = join(workingDirectory, `linkcord.config.${extension}`);
-		const existsConfigurationFile = existsSync(configurationFilePath);
-
-		// If the configuration file path with the current extension does not
-		// exist, continue to the next extension.
-		if (!existsConfigurationFile) continue;
-
-		const importConfigurationFilePath = ImportUtils.resolvePath(configurationFilePath);
-		const importConfigurationFileData = await ImportUtils.import<ConfigurationFileData>(
-			importConfigurationFilePath,
-			true,
-		);
-
-		const { default: defaultExport } = importConfigurationFileData;
-
-		setOptions(defaultExport);
-		setConfigurationFileLoaded();
-
-		break;
+export class ConfigurationUtils {
+	/**
+	 * Freezes the configuration object of Linkcord.
+	 * @returns The frozen configuration object of Linkcord.
+	 */
+	static freeze(): Readonly<LinkcordOptions> {
+		return Object.freeze(LINKCORD_CONFIGURATION);
 	}
 
-	if (!ConfigurationFileLoaded) {
-		throw new Error('Configuration file "linkcord.config" has not been found.');
+	/**
+	 * Gets the defined intents from the configuration.
+	 * @returns The defined intents from the configuration.
+	 */
+	static getIntents(): number {
+		const { intents } = ConfigurationUtils.getOptions();
+
+		return intents;
+	}
+
+	/**
+	 * Gets the defined locations from the configuration.
+	 * @returns The defined intents from the configuration.
+	 */
+	static getLocations(): LinkcordOptionsLocations {
+		const { locations } = ConfigurationUtils.getOptions();
+
+		return locations;
+	}
+
+	/**
+	 * Gets the defined options from the configuration.
+	 * @returns The defined options from the configuration.
+	 */
+	static getOptions(): LinkcordOptions {
+		return LINKCORD_CONFIGURATION;
+	}
+
+	/**
+	 * Gets the defined token from the configuration.
+	 * @returns The defined token from the configuration.
+	 */
+	static getToken(): string {
+		const { token } = ConfigurationUtils.getOptions();
+
+		return token;
+	}
+
+	/**
+	 * Loads the configuration file with its configuration.
+	 * @param workingDirectory - The root directory where the configuration file is located.
+	 */
+	static async loadConfigurationFile(workingDirectory = cwd()): Promise<void> {
+		for (const extension of FILE_EXTENSIONS) {
+			const configurationFilePath = join(workingDirectory, `linkcord.config.${extension}`);
+			const existsConfigurationFile = existsSync(configurationFilePath);
+
+			if (!existsConfigurationFile) continue;
+
+			const importConfigurationFilePath = ImportUtils.resolvePath(configurationFilePath);
+			const importConfigurationFileData = await ImportUtils.import<ConfigurationFileData>(
+				importConfigurationFilePath,
+				true,
+			);
+
+			const { default: defaultExport } = importConfigurationFileData;
+
+			return void ConfigurationUtils.setOptions(defaultExport);
+		}
+
+		throw new Error("Configuration file 'linkcord.config' was not found.");
+	}
+
+	/**
+	 * Assigns the options to the configuration object.
+	 * @param options - The options to assign to the configuration object.
+	 */
+	static setOptions(options: LinkcordOptions): void {
+		Object.assign(LINKCORD_CONFIGURATION, options);
 	}
 }
 
-/** Marks the configuration file as loaded. */
-function setConfigurationFileLoaded(): void {
-	ConfigurationFileLoaded = true;
-}
-
 /**
- * Assigns the options to the configuration.
- * @param options - The options to assign to the configuration.
+ * Represents the structure of the configuration file import.
+ * @group Configuration/Helpers
  */
-function setOptions(options: LinkcordOptions): void {
-	Object.assign(LINKCORD_CONFIGURATION, options);
-}
-
-/**
- * Utilities for the configuration.
- * @internal
- */
-export const ConfigurationUtils = Object.freeze({
-	freeze,
-	getIntents,
-	getLocations,
-	getOptions,
-	getToken,
-	loadConfigurationFile,
-	setOptions,
-});
-
-/** The expected structure of the imported file. */
 interface ConfigurationFileData {
-	/** The validated options of the framework. */
+	/** The validated options of Linkcord. */
 	default: LinkcordOptions;
 }
 
 /**
- * Represents the options used in the Linkcord framework.
+ * Represents the options used in Linkcord.
  * @group Configuration/Types
  */
 export type LinkcordOptions = core.output<typeof ConfigurationSchema>;
 
 /**
- * Represents the options used in the `locations` property in the Linkcord framework.
+ * Represents the options used in the `locations` property in Linkcord.
  * @group Configuration/Types
  */
 export type LinkcordOptionsLocations = core.output<typeof ConfigurationLocationsSchema>;

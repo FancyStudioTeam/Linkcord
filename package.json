@@ -31,12 +31,10 @@
 	},
 	"exports": {
 		".": {
-			"import": "./dist/index.mjs",
-			"require": "./dist/index.js"
+			"import": "./dist/index.mjs"
 		},
 		"./jsx-runtime": {
-			"import": "./dist/jsx/jsx-runtime.mjs",
-			"require": "./dist/jsx/jsx-runtime.js"
+			"import": "./dist/jsx/jsx-runtime.mjs"
 		}
 	},
 	"files": [
@@ -50,7 +48,7 @@
 			"pnpm biome:write"
 		]
 	},
-	"main": "dist/index.js",
+	"main": "dist/index.mjs",
 	"module": "dist/index.mjs",
 	"name": "linkcord",
 	"optionalDependencies": {
@@ -80,6 +78,7 @@
 		"vitest:preview": "pnpx vite preview --outDit html",
 		"vitest:watch": "vitest --typecheck -c vitest.config.ts --watch"
 	},
+	"type": "module",
 	"types": "dist/index.d.ts",
 	"version": "0.0.0"
 }
