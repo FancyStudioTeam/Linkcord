@@ -50,6 +50,15 @@ function handleZodIssue(issue: ZodIssue): ValidationErrorIssue {
 		case "invalid_type": {
 			return handleZodInvalidTypeIssue(issue);
 		}
+		case "invalid_value": {
+			return handleZodInvalidValueIssue(issue);
+		}
+		case "too_big": {
+			return handleZodTooBigIssue(issue);
+		}
+		case "too_small": {
+			return handleZodTooSmallIssue(issue);
+		}
 		default: {
 			throw new TypeError(`Unhandled Zod issue code: ${code}`);
 		}
@@ -65,17 +74,58 @@ function handleZodIssue(issue: ZodIssue): ValidationErrorIssue {
 function handleZodInvalidTypeIssue(issue: ZodInvalidTypeIssue): ValidationErrorIssue {
 	const { expected, path } = issue;
 
-	if (path.length > 0) {
-		return {
-			expected,
-			kind: ValidationErrorIssueKind.InvalidInputTypeWithPath,
-			path,
-		};
-	}
-
 	return {
 		expected,
 		kind: ValidationErrorIssueKind.InvalidInputType,
+		path,
+	};
+}
+
+/**
+ * Handles the given {@link ZodInvalidValueIssue | `ZodInvalidValueIssue`} object when the code is `invalid_value`.
+ *
+ * @param issue - The {@link ZodInvalidValueIssue | `ZodInvalidValueIssue`} object to handle.
+ * @returns The parsed {@link ValidationErrorIssue | `ValidationErrorIssue`} object.
+ */
+function handleZodInvalidValueIssue(issue: ZodInvalidValueIssue): ValidationErrorIssue {
+	const { path, values } = issue;
+
+	return {
+		kind: ValidationErrorIssueKind.InvalidInputValue,
+		path,
+		values,
+	};
+}
+
+/**
+ * Handles the given {@link ZodTooBigIssue | `ZodTooBigIssue`} object when the code is `too_big`.
+ *
+ * @param issue - The {@link ZodTooBigIssue | `ZodTooBigIssue`} object to handle.
+ * @returns The parsed {@link ValidationErrorIssue | `ValidationErrorIssue`} object.
+ */
+function handleZodTooBigIssue(issue: ZodTooBigIssue): ValidationErrorIssue {
+	const { maximum, path } = issue;
+
+	return {
+		kind: ValidationErrorIssueKind.ArrayTooBig,
+		maximum: Number(maximum),
+		path,
+	};
+}
+
+/**
+ * Handles the given {@link ZodTooSmallIssue | `ZodTooSmallIssue`} object when the code is `too_small`.
+ *
+ * @param issue - The {@link ZodTooSmallIssue | `ZodTooSmallIssue`} object to handle.
+ * @returns The parsed {@link ValidationErrorIssue | `ValidationErrorIssue`} object.
+ */
+function handleZodTooSmallIssue(issue: ZodTooSmallIssue): ValidationErrorIssue {
+	const { minimum, path } = issue;
+
+	return {
+		kind: ValidationErrorIssueKind.ArrayTooSmall,
+		minimum: Number(minimum),
+		path,
 	};
 }
 
@@ -84,6 +134,12 @@ function handleZodInvalidTypeIssue(issue: ZodInvalidTypeIssue): ValidationErrorI
  * @group Utils/Functions
  */
 type ZodInvalidTypeIssue = core.$ZodIssueInvalidType;
+
+/**
+ * Represents an `invalid_value` issue from Zod.
+ * @group Utils/Functions
+ */
+type ZodInvalidValueIssue = core.$ZodIssueInvalidValue;
 
 /**
  * Represents an issue from Zod.
@@ -96,3 +152,15 @@ type ZodIssue = core.$ZodIssue;
  * @group Utils/Functions
  */
 type ZodSchema = core.$ZodType;
+
+/**
+ * Represents a `too_big` issue from Zod.
+ * @group Utils/Functions
+ */
+type ZodTooBigIssue = core.$ZodIssueTooBig;
+
+/**
+ * Represents a `too_small` issue from Zod.
+ * @group Utils/Functions
+ */
+type ZodTooSmallIssue = core.$ZodIssueTooSmall;

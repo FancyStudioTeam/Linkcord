@@ -50,6 +50,26 @@ export class ValidationError extends Error {
 	}
 
 	/**
+	 * Formats the message of an issue.
+	 *
+	 * @param baseMessage - The base message to use.
+	 * @param path - The path where the validation failed.
+	 * @returns The formatted issue message.
+	 */
+	#formatIssueMessage(baseMessage: string, path: PropertyKey[]): string {
+		const { length: pathLength } = path;
+
+		if (pathLength > 0) {
+			const flattenedPath = this.#flattenIssuePath(path);
+			const formattedPath = styleText("bold", flattenedPath);
+
+			return `${formattedPath}\n\t└── ${baseMessage}`;
+		}
+
+		return baseMessage;
+	}
+
+	/**
 	 * Handles the callback for the `prettifyIssues` method.
 	 *
 	 * @param issue - The issue from the callback to handle.
@@ -59,47 +79,39 @@ export class ValidationError extends Error {
 		const { kind } = issue;
 
 		switch (kind) {
-			case ValidationErrorIssueKind.ArrayTooSmall: {
-				const { minimum } = issue;
-				const formattedMinimum = styleText("bold", String(minimum));
+			case ValidationErrorIssueKind.ArrayTooBig: {
+				const { maximum, path } = issue;
+				const formattedMaximum = styleText(["bold", "italic"], maximum.toString());
 
-				return `Expected input to be array with a minimum length of ${formattedMinimum} item(s).`;
+				const baseMessage = `Expected input to be array with a maximum length of ${formattedMaximum} item(s).`;
+
+				return this.#formatIssueMessage(baseMessage, path);
 			}
-			case ValidationErrorIssueKind.ArrayTooSmallWithPath: {
+			case ValidationErrorIssueKind.ArrayTooSmall: {
 				const { minimum, path } = issue;
+				const formattedMinimum = styleText(["bold", "italic"], minimum.toString());
 
-				const formattedMinimum = styleText("bold", String(minimum));
-				const formattedPath = styleText("bold", this.#flattenIssuePath(path));
+				const baseMessage = `Expected input to be array with a minimum length of ${formattedMinimum} item(s).`;
 
-				return `${formattedPath}\n\t└── Expected input to be array with a minimum length of ${formattedMinimum} item(s).`;
+				return this.#formatIssueMessage(baseMessage, path);
 			}
 			case ValidationErrorIssueKind.InvalidInputType: {
-				const { expected } = issue;
-				const formattedExpected = styleText("bold", expected);
-
-				return `Expected input to be ${formattedExpected}.`;
-			}
-			case ValidationErrorIssueKind.InvalidInputTypeWithPath: {
 				const { expected, path } = issue;
+				const formattedExpected = styleText(["bold", "italic"], expected);
 
-				const formattedExpected = styleText("bold", expected);
-				const formattedPath = styleText("bold", this.#flattenIssuePath(path));
+				const baseMessage = `Expected input to be ${formattedExpected}.`;
 
-				return `${formattedPath}\n\t└── Expected input to be ${formattedExpected}.`;
+				return this.#formatIssueMessage(baseMessage, path);
 			}
 			case ValidationErrorIssueKind.InvalidInputValue: {
-				const { values } = issue;
-				const formattedValues = CONJUNCTION_FORMATTER.format(values.map(String));
+				const { path, values } = issue;
+				const formattedValues = CONJUNCTION_FORMATTER.format(
+					values.map((value) => styleText(["bold", "italic"], String(value))),
+				);
 
-				return `Expected input to be one of ${formattedValues}.`;
-			}
-			case ValidationErrorIssueKind.InvalidInputValueWithPath: {
-				const { values, path } = issue;
+				const baseMessage = `Expected input to be one of ${formattedValues}.`;
 
-				const formattedValues = CONJUNCTION_FORMATTER.format(values.map(String));
-				const formattedPath = styleText("bold", this.#flattenIssuePath(path));
-
-				return `${formattedPath}\n\t└── Expected input to be one of ${formattedValues}.`;
+				return this.#formatIssueMessage(baseMessage, path);
 			}
 			default: {
 				return "Unknown issue.";
@@ -115,9 +127,7 @@ export class ValidationError extends Error {
 	 */
 	#prettifyIssues(issues: ValidationErrorIssue[]): string {
 		const formattedStringIssues = issues.map(this.#issuesCallback.bind(this));
-		const prettifiedIssues = formattedStringIssues
-			.map((issue) => `\t${styleText(["bold", "red"], `🞬 ${issue}`)}`)
-			.join("\n");
+		const prettifiedIssues = formattedStringIssues.map((issue) => `\t${styleText("red", `🞬 ${issue}`)}`).join("\n");
 
 		return prettifiedIssues;
 	}
