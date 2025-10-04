@@ -3,7 +3,7 @@ const BOT_PREFIX_REGEX = /^Bot\s*/i;
 /**
  * Removes the `Bot` prefix from the given token.
  *
- * @param token - The token to delete the `Bot` prefix.
+ * @param token - The token where the `Bot` prefix will be removed.
  * @returns The token without the `Bot` prefix.
  *
  * @group Configuration/Functions
