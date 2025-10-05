@@ -57,7 +57,7 @@ export enum SeparatorSpacingSizes {
  * The styles of a text input component.
  * @see https://discord.com/developers/docs/components/reference#text-input-text-input-styles
  */
-export enum TextInputStyles {
+export enum TextInputStyle {
 	Paragraph = 2,
 	Short = 1,
 }

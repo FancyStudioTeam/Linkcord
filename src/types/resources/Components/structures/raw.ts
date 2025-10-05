@@ -6,7 +6,7 @@ import type {
 	ComponentTypes,
 	SelectMenuDefaultValueTypes,
 	SeparatorSpacingSizes,
-	TextInputStyles,
+	TextInputStyle,
 } from "../enums.js";
 
 /**
@@ -266,7 +266,7 @@ export interface APITextInputComponent extends APIBaseComponent<ComponentTypes.T
 	/** Whether the text input is required for the modal. */
 	required?: boolean;
 	/** The style of the text input. */
-	style: TextInputStyles;
+	style: TextInputStyle;
 	/** The default value of the text input. */
 	value?: string;
 }
