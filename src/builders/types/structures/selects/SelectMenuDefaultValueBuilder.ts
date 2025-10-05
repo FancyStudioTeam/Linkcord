@@ -2,7 +2,7 @@ import type { SelectMenuDefaultValueBuilder } from "#builders/structures/index.j
 import type { SelectMenuDefaultValue } from "#types/index.js";
 
 /**
- * Represents a valid {@link SelectMenuDefaultValue | `SelectMenuDefaultValue`} object.
+ * Represents a select menu default value that can be set to a {@link MentionableSelectMenuBuilder | `MentionableSelectMenuBuilder`} instance.
  * @group Builders/Structures
  */
 export type AllowedSelectMenuDefaultValue = SelectMenuDefaultValueBuilder | SelectMenuDefaultValue;
