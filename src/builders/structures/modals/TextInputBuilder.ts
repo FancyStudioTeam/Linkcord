@@ -1,25 +1,28 @@
-import { parse } from "valibot";
 import {
 	TextInputCustomIDSchema,
-	TextInputMaxValueLengthSchema,
+	TextInputMaxValueSchema,
 	TextInputMinValueSchema,
+	TextInputObjectSchema,
 	TextInputPlaceholderSchema,
 	TextInputRequiredSchema,
-	TextInputSchema,
 	TextInputStyleSchema,
 	TextInputValueSchema,
 } from "#builders/schemas/modals/TextInputSchema.js";
-import { ComponentTypes, type TextInputComponent, type TextInputStyles } from "#types/index.js";
+import { ComponentTypes, type TextInputComponent, type TextInputStyle } from "#types/index.js";
+import { validate } from "#utils/functions/validate.js";
 import { BaseBuilder } from "../base/BaseBuilder.js";
 
-/** Utility class for building {@link TextInputComponent | `TextInputComponent`} objects. */
+/**
+ * Utility class for building {@link TextInputComponent | `TextInputComponent`} objects.
+ * @group Builders/Structures
+ */
 export class TextInputBuilder extends BaseBuilder<TextInputComponent> {
 	/**
 	 * Sets the custom ID of the text input component.
 	 * @param customId - The custom ID of the text input component.
 	 */
 	setCustomId(customId: string): this {
-		this.data.customId = parse(TextInputCustomIDSchema, customId);
+		this.data.customId = validate(TextInputCustomIDSchema, customId);
 
 		return this;
 	}
@@ -29,7 +32,7 @@ export class TextInputBuilder extends BaseBuilder<TextInputComponent> {
 	 * @param maxLength - The max length of the text input component.
 	 */
 	setMaxLength(maxLength: number): this {
-		this.data.maxLength = parse(TextInputMaxValueLengthSchema, maxLength);
+		this.data.maxLength = validate(TextInputMaxValueSchema, maxLength);
 
 		return this;
 	}
@@ -39,7 +42,7 @@ export class TextInputBuilder extends BaseBuilder<TextInputComponent> {
 	 * @param minLength - The min length of the text input component.
 	 */
 	setMinLength(minLength: number): this {
-		this.data.minLength = parse(TextInputMinValueSchema, minLength);
+		this.data.minLength = validate(TextInputMinValueSchema, minLength);
 
 		return this;
 	}
@@ -49,7 +52,7 @@ export class TextInputBuilder extends BaseBuilder<TextInputComponent> {
 	 * @param placeholder - The placeholder of the text input component.
 	 */
 	setPlaceholder(placeholder: string): this {
-		this.data.placeholder = parse(TextInputPlaceholderSchema, placeholder);
+		this.data.placeholder = validate(TextInputPlaceholderSchema, placeholder);
 
 		return this;
 	}
@@ -59,7 +62,7 @@ export class TextInputBuilder extends BaseBuilder<TextInputComponent> {
 	 * @param required - Whether the text input is required for the modal.
 	 */
 	setRequired(required: boolean): this {
-		this.data.required = parse(TextInputRequiredSchema, required);
+		this.data.required = validate(TextInputRequiredSchema, required);
 
 		return this;
 	}
@@ -68,8 +71,8 @@ export class TextInputBuilder extends BaseBuilder<TextInputComponent> {
 	 * Sets the style of the text input component.
 	 * @param style - The style of the text input component.
 	 */
-	setStyle(style: TextInputStyles): this {
-		this.data.style = parse(TextInputStyleSchema, style);
+	setStyle(style: TextInputStyle): this {
+		this.data.style = validate(TextInputStyleSchema, style);
 
 		return this;
 	}
@@ -79,7 +82,7 @@ export class TextInputBuilder extends BaseBuilder<TextInputComponent> {
 	 * @param value - The default value of the text input component.
 	 */
 	setValue(value: string): this {
-		this.data.value = parse(TextInputValueSchema, value);
+		this.data.value = validate(TextInputValueSchema, value);
 
 		return this;
 	}
@@ -90,7 +93,7 @@ export class TextInputBuilder extends BaseBuilder<TextInputComponent> {
 	 */
 	toJSON(): TextInputComponent {
 		const { data } = this;
-		const validatedData = parse(TextInputSchema, {
+		const validatedData = validate(TextInputObjectSchema, {
 			...data,
 			type: ComponentTypes.TextInput,
 		});
