@@ -1,25 +1,23 @@
-import { instance, maxLength, minLength, object, optional, pipe, string, transform, union, url } from "valibot";
+import { instanceof as instanceof_, object, string, union, url } from "zod";
+import { EmbedAuthorBuilder } from "#builders/structures/messages/EmbedAuthorBuilder.js";
 
 const MAXIMUM_EMBED_AUTHOR_NAME_LENGTH = 256;
 
-export const EmbedAuthorIconURLInstanceSchema = pipe(
-	instance(URL),
-	transform((url) => url.toString()),
-);
-export const EmbedAuthorIconURLStringSchema = pipe(string(), url());
+export const EmbedAuthorIconURLInstanceSchema = instanceof_(URL).transform((url) => url.toString());
+export const EmbedAuthorIconURLStringSchema = url();
 export const EmbedAuthorIconURLSchema = union([EmbedAuthorIconURLInstanceSchema, EmbedAuthorIconURLStringSchema]);
 
-export const EmbedAuthorNameSchema = pipe(string(), minLength(1), maxLength(MAXIMUM_EMBED_AUTHOR_NAME_LENGTH));
+export const EmbedAuthorNameSchema = string().min(1).max(MAXIMUM_EMBED_AUTHOR_NAME_LENGTH);
 
-export const EmbedAuthorURLInstanceSchema = pipe(
-	instance(URL),
-	transform((url) => url.toString()),
-);
-export const EmbedAuthorURLStringSchema = pipe(string(), url());
+export const EmbedAuthorURLInstanceSchema = instanceof_(URL).transform((url) => url.toString());
+export const EmbedAuthorURLStringSchema = url();
 export const EmbedAuthorURLSchema = union([EmbedAuthorURLInstanceSchema, EmbedAuthorURLStringSchema]);
 
-export const EmbedAuthorSchema = object({
-	iconURL: optional(EmbedAuthorIconURLSchema),
+export const EmbedAuthorInstanceSchema = instanceof_(EmbedAuthorBuilder).transform((builder) => builder.toJSON());
+export const EmbedAuthorObjectSchema = object({
+	iconURL: EmbedAuthorIconURLSchema.optional(),
 	name: EmbedAuthorNameSchema,
-	url: optional(EmbedAuthorURLSchema),
+	url: EmbedAuthorURLSchema.optional(),
 });
+
+export const EmbedAuthorSchema = union([EmbedAuthorObjectSchema]);

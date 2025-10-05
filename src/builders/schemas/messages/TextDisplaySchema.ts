@@ -1,15 +1,18 @@
-import { literal, maxLength, minLength, minValue, number, object, optional, pipe, string } from "valibot";
+import { instanceof as instanceof_, literal, number, object, string, union } from "zod";
+import { TextDisplayBuilder } from "#builders/structures/messages/TextDisplayBuilder.js";
 import { ComponentTypes } from "#types/index.js";
 
 const MAXIMUM_TEXT_DISPLAY_CONTENT_LENGTH = 4000;
 
-export const TextDisplayContentSchema = pipe(string(), minLength(1), maxLength(MAXIMUM_TEXT_DISPLAY_CONTENT_LENGTH));
-
-export const TextDisplayIDSchema = pipe(number(), minValue(0));
+export const TextDisplayContentSchema = string().min(1).max(MAXIMUM_TEXT_DISPLAY_CONTENT_LENGTH);
+export const TextDisplayIDSchema = number().int();
 export const TextDisplayTypeSchema = literal(ComponentTypes.TextDisplay);
 
-export const TextDisplaySchema = object({
+export const TextDisplayInstanceSchema = instanceof_(TextDisplayBuilder).transform((builder) => builder.toJSON());
+export const TextDisplayObjectSchema = object({
 	content: TextDisplayContentSchema,
-	id: optional(TextDisplayIDSchema),
+	id: TextDisplayIDSchema.optional(),
 	type: TextDisplayTypeSchema,
 });
+
+export const TextDisplaySchema = union([TextDisplayInstanceSchema, TextDisplayObjectSchema]);

@@ -19,7 +19,7 @@ export const TextInputStyleSchema = union([PARAGRAPH_STYLE_LITERAL, SHORT_STYLE_
 export const TextInputTypeSchema = literal(ComponentTypes.TextInput);
 export const TextInputValueSchema = string().min(1).max(MAXIMUM_TEXT_INPUT_VALUE_LENGTH);
 
-export const TextInputInstanceSchema = instanceof_(TextInputBuilder);
+export const TextInputInstanceSchema = instanceof_(TextInputBuilder).transform((builder) => builder.toJSON());
 export const TextInputObjectSchema = object({
 	customId: TextInputCustomIDSchema,
 	id: TextInputIDSchema.optional(),
