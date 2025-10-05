@@ -1,21 +1,24 @@
-import { parse } from "valibot";
 import {
 	EmbedFooterIconURLSchema,
-	EmbedFooterSchema,
+	EmbedFooterObjectSchema,
 	EmbedFooterTextSchema,
 } from "#builders/schemas/messages/EmbedFooterSchema.js";
 import type { AllowedEmbedFooterIconURL } from "#builders/types/index.js";
 import type { EmbedFooter } from "#types/index.js";
+import { validate } from "#utils/functions/validate.js";
 import { BaseBuilder } from "../base/BaseBuilder.js";
 
-/** Utility class for building {@link EmbedFooter | `EmbedFooter`} objects. */
+/**
+ * Utility class for building {@link EmbedFooter | `EmbedFooter`} objects.
+ * @group Builders/Structures
+ */
 export class EmbedFooterBuilder extends BaseBuilder<EmbedFooter> {
 	/**
 	 * Sets the text of the embed footer.
 	 * @param text - The text of the embed footer.
 	 */
 	setText(text: string): this {
-		this.data.text = parse(EmbedFooterTextSchema, text);
+		this.data.text = validate(EmbedFooterTextSchema, text);
 
 		return this;
 	}
@@ -25,7 +28,7 @@ export class EmbedFooterBuilder extends BaseBuilder<EmbedFooter> {
 	 * @param iconURL - The icon URL of the embed footer.
 	 */
 	setIconURL(iconURL: AllowedEmbedFooterIconURL): this {
-		this.data.iconURL = parse(EmbedFooterIconURLSchema, iconURL);
+		this.data.iconURL = validate(EmbedFooterIconURLSchema, iconURL);
 
 		return this;
 	}
@@ -36,7 +39,7 @@ export class EmbedFooterBuilder extends BaseBuilder<EmbedFooter> {
 	 */
 	toJSON(): EmbedFooter {
 		const { data } = this;
-		const validatedData = parse(EmbedFooterSchema, data);
+		const validatedData = validate(EmbedFooterObjectSchema, data);
 
 		return validatedData;
 	}

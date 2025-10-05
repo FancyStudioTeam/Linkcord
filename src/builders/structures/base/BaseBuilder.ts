@@ -9,14 +9,6 @@ export abstract class BaseBuilder<BuilderData> {
 	// biome-ignore lint/style/useReadonlyClassProperties: The "data" property is being assigned in some builders.
 	protected data: Partial<BuilderData> = {};
 
-	/**
-	 * Creates a new {@link BaseBuilder | `BaseBuilder`} instance.
-	 * @param data - The object containing the data of the builder.
-	 */
-	constructor(data?: BuilderData) {
-		this.data = data ?? {};
-	}
-
 	/** Converts the builder instance into a JSON object. */
 	abstract toJSON(): BuilderData;
 }

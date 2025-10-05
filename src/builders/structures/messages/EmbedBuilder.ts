@@ -1,12 +1,11 @@
-import { parse } from "valibot";
 import { normalizeArray } from "#builders/functions/normalizeArray.js";
+import { EmbedAuthorSchema } from "#builders/schemas/messages/EmbedAuthorSchema.js";
+import { EmbedFieldSchema } from "#builders/schemas/messages/EmbedFieldSchema.js";
+import { EmbedFooterSchema } from "#builders/schemas/messages/EmbedFooterSchema.js";
 import {
-	EmbedAuthorSchema,
 	EmbedColorSchema,
 	EmbedDescriptionSchema,
-	EmbedFieldSchema,
 	EmbedFieldsSchema,
-	EmbedFooterSchema,
 	EmbedImageSchema,
 	EmbedSchema,
 	EmbedThumbnailSchema,
@@ -26,16 +25,20 @@ import type {
 	AllowedEmbedURL,
 } from "#builders/types/index.js";
 import type { Embed } from "#types/index.js";
+import { validate } from "#utils/functions/validate.js";
 import { BaseBuilder } from "../base/BaseBuilder.js";
 
-/** Utility class for building {@link Embed | `Embed`} objects. */
+/**
+ * Utility class for building {@link Embed | `Embed`} objects.
+ * @group Builders/Structures
+ */
 export class EmbedBuilder extends BaseBuilder<Embed> {
 	/**
 	 * Adds a field to the embed.
 	 * @param field - The field of the embed to add.
 	 */
 	addField(field: AllowedEmbedField): this {
-		const validatedField = parse(EmbedFieldSchema, field);
+		const validatedField = validate(EmbedFieldSchema, field);
 
 		this.data.fields ??= [];
 		this.data.fields.push(validatedField);
@@ -62,7 +65,7 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 	 * @param author - The author of the embed.
 	 */
 	setAuthor(author: AllowedEmbedAuthor): this {
-		this.data.author = parse(EmbedAuthorSchema, author);
+		this.data.author = validate(EmbedAuthorSchema, author);
 
 		return this;
 	}
@@ -72,7 +75,7 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 	 * @param color - The color of the embed.
 	 */
 	setColor(color: AllowedEmbedColor): this {
-		this.data.color = parse(EmbedColorSchema, color);
+		this.data.color = validate(EmbedColorSchema, color);
 
 		return this;
 	}
@@ -82,7 +85,7 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 	 * @param description - The description of the embed.
 	 */
 	setDescription(description: string): this {
-		this.data.description = parse(EmbedDescriptionSchema, description);
+		this.data.description = validate(EmbedDescriptionSchema, description);
 
 		return this;
 	}
@@ -93,7 +96,7 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 	 */
 	setFields(...fields: RestOrArray<AllowedEmbedField>): this {
 		const normalizedFields = normalizeArray(...fields);
-		const validatedFields = parse(EmbedFieldsSchema, normalizedFields);
+		const validatedFields = validate(EmbedFieldsSchema, normalizedFields);
 
 		this.data.fields = validatedFields;
 
@@ -105,7 +108,7 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 	 * @param footer - The footer of the embed.
 	 */
 	setFooter(footer: AllowedEmbedFooter): this {
-		this.data.footer = parse(EmbedFooterSchema, footer);
+		this.data.footer = validate(EmbedFooterSchema, footer);
 
 		return this;
 	}
@@ -115,7 +118,7 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 	 * @param imageURL - The URL of the image of the embed.
 	 */
 	setImage(imageURL: AllowedEmbedImageURL): this {
-		this.data.image = parse(EmbedImageSchema, imageURL);
+		this.data.image = validate(EmbedImageSchema, imageURL);
 
 		return this;
 	}
@@ -125,7 +128,7 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 	 * @param thumbnailURL - The URL of the thumbnail of the embed.
 	 */
 	setThumbnail(thumbnailURL: AllowedEmbedThumbnailURL): this {
-		this.data.thumbnail = parse(EmbedThumbnailSchema, thumbnailURL);
+		this.data.thumbnail = validate(EmbedThumbnailSchema, thumbnailURL);
 
 		return this;
 	}
@@ -135,7 +138,7 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 	 * @param timestamp - The timestamp of the embed.
 	 */
 	setTimestamp(timestamp: AllowedEmbedTimestamp = new Date().toISOString()): this {
-		this.data.timestamp = parse(EmbedTimestampSchema, timestamp);
+		this.data.timestamp = validate(EmbedTimestampSchema, timestamp);
 
 		return this;
 	}
@@ -145,7 +148,7 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 	 * @param title - The title of the embed.
 	 */
 	setTitle(title: string): this {
-		this.data.title = parse(EmbedTitleSchema, title);
+		this.data.title = validate(EmbedTitleSchema, title);
 
 		return this;
 	}
@@ -155,7 +158,7 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 	 * @param url - The URL of the embed.
 	 */
 	setURL(url: AllowedEmbedURL): this {
-		this.data.url = parse(EmbedURLSchema, url);
+		this.data.url = validate(EmbedURLSchema, url);
 
 		return this;
 	}
@@ -166,7 +169,7 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 	 */
 	toJSON(): Embed {
 		const { data } = this;
-		const validatedData = parse(EmbedSchema, data);
+		const validatedData = validate(EmbedSchema, data);
 
 		return validatedData;
 	}

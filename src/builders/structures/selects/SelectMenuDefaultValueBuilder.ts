@@ -3,7 +3,6 @@ import {
 	SelectMenuDefaultValueObjectSchema,
 	SelectMenuDefaultValueTypeSchema,
 } from "#builders/schemas/selects/SelectMenuDefaultValueSchema.js";
-import type { AllowedSelectMenuDefaultValue } from "#builders/types/index.js";
 import type { SelectMenuDefaultValue, SelectMenuDefaultValueType, Snowflake } from "#types/index.js";
 import { validate } from "#utils/functions/validate.js";
 import { BaseBuilder } from "../base/BaseBuilder.js";
@@ -13,24 +12,6 @@ import { BaseBuilder } from "../base/BaseBuilder.js";
  * @group Builders/Structures
  */
 export class SelectMenuDefaultValueBuilder extends BaseBuilder<SelectMenuDefaultValue> {
-	/**
-	 * Creates a new {@link SelectMenuDefaultValueBuilder | `SelectMenuDefaultValueBuilder`} instance.
-	 * @param selectMenuDefaultValue - The data of the select menu default value.
-	 */
-	constructor(selectMenuDefaultValue?: AllowedSelectMenuDefaultValue) {
-		super(validate(SelectMenuDefaultValueObjectSchema, selectMenuDefaultValue));
-	}
-
-	/**
-	 * Creates a new {@link SelectMenuDefaultValueBuilder | `SelectMenuDefaultValueBuilder`} instance using the given select menu default value data.
-	 *
-	 * @param selectMenuDefaultValue - The data of the select menu default value.
-	 * @returns The created {@link SelectMenuDefaultValueBuilder | `SelectMenuDefaultValueBuilder`} instance
-	 */
-	static from(selectMenuDefaultValue: AllowedSelectMenuDefaultValue): SelectMenuDefaultValueBuilder {
-		return new SelectMenuDefaultValueBuilder(selectMenuDefaultValue);
-	}
-
 	/**
 	 * Sets the ID of the default value.
 	 * @param id - The ID of the default value.

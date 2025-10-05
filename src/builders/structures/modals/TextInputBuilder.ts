@@ -88,7 +88,7 @@ export class TextInputBuilder extends BaseBuilder<TextInputComponent> {
 	}
 
 	/**
-	 * Converts the {@link TextInputBuilder | `TextInputBuilder`} instance into a {@link TextInputComponent | `TextInputComponent`} object.
+	 * Converts the current {@link TextInputBuilder | `TextInputBuilder`} instance into a {@link TextInputComponent | `TextInputComponent`} object.
 	 * @returns The converted {@link TextInputComponent | `TextInputComponent`} object.
 	 */
 	toJSON(): TextInputComponent {
