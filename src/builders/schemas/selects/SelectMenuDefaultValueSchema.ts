@@ -1,19 +1,22 @@
-import { literal, object, pipe, string, transform, union } from "valibot";
-import { SelectMenuDefaultValueTypes } from "#types/index.js";
+import { instanceof as instanceof_, literal, object, string, union } from "zod";
+import { SelectMenuDefaultValueBuilder } from "#builders/structures/selects/SelectMenuDefaultValueBuilder.js";
+import { SelectMenuDefaultValueType } from "#types/index.js";
 import { SnowflakeUtils } from "#utils/helpers/SnowflakeUtils.js";
 
-export const SelectMenuDefaultValueIDSchema = pipe(
-	string(),
-	transform((value) => SnowflakeUtils.cast(value)),
-);
+const CHANNEL_TYPE_LITERAL = literal(SelectMenuDefaultValueType.Channel);
+const ROLE_TYPE_LITERAL = literal(SelectMenuDefaultValueType.Role);
+const USER_TYPE_LITERAL = literal(SelectMenuDefaultValueType.User);
 
-export const SelectMenuDefaultValueTypeSchema = union([
-	literal(SelectMenuDefaultValueTypes.Channel),
-	literal(SelectMenuDefaultValueTypes.Role),
-	literal(SelectMenuDefaultValueTypes.User),
-]);
+export const SelectMenuDefaultValueIDSchema = string().transform(SnowflakeUtils.cast);
+export const SelectMenuDefaultValueTypeSchema = union([CHANNEL_TYPE_LITERAL, ROLE_TYPE_LITERAL, USER_TYPE_LITERAL]);
 
-export const SelectMenuDefaultValueSchema = object({
+export const SelectMenuDefaultValueInstanceSchema = instanceof_(SelectMenuDefaultValueBuilder);
+export const SelectMenuDefaultValueObjectSchema = object({
 	id: SelectMenuDefaultValueIDSchema,
 	type: SelectMenuDefaultValueTypeSchema,
 });
+
+export const SelectMenuDefaultValueSchema = union([
+	SelectMenuDefaultValueInstanceSchema,
+	SelectMenuDefaultValueObjectSchema,
+]);
