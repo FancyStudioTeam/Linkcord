@@ -38,7 +38,7 @@ export enum ComponentTypes {
  * The types of a default value of a select menu component.
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
-export enum SelectMenuDefaultValueTypes {
+export enum SelectMenuDefaultValueType {
 	Channel = "channel",
 	Role = "role",
 	User = "user",

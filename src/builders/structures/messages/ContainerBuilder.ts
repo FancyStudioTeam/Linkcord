@@ -1,24 +1,27 @@
-import { parse } from "valibot";
 import { normalizeArray } from "#builders/functions/normalizeArray.js";
 import {
 	ContainerAccentColorSchema,
 	ContainerComponentSchema,
 	ContainerComponentsSchema,
-	ContainerSchema,
+	ContainerObjectSchema,
 	ContainerSpoilerSchema,
 } from "#builders/schemas/messages/ContainerSchema.js";
 import type { AllowedContainerAccentColor, AllowedContainerComponent, RestOrArray } from "#builders/types/index.js";
 import { ComponentTypes, type ContainerComponent } from "#types/index.js";
+import { validate } from "#utils/functions/validate.js";
 import { BaseBuilder } from "../base/BaseBuilder.js";
 
-/** Utility class for building {@link ContainerComponent | `ContainerComponent`} objects. */
+/**
+ * Utility class for building {@link ContainerComponent | `ContainerComponent`} objects.
+ * @group Builders/Structures
+ */
 export class ContainerBuilder extends BaseBuilder<ContainerComponent> {
 	/**
 	 * Adds a component to the container.
 	 * @param component - The component of the container to add.
 	 */
 	addComponent(component: AllowedContainerComponent): this {
-		const validatedComponent = parse(ContainerComponentSchema, component);
+		const validatedComponent = validate(ContainerComponentSchema, component);
 
 		this.data.components ??= [];
 		this.data.components.push(validatedComponent);
@@ -45,7 +48,7 @@ export class ContainerBuilder extends BaseBuilder<ContainerComponent> {
 	 * @param accentColor - The accent color of the container.
 	 */
 	setAccentColor(accentColor: AllowedContainerAccentColor): this {
-		this.data.accentColor = parse(ContainerAccentColorSchema, accentColor);
+		this.data.accentColor = validate(ContainerAccentColorSchema, accentColor);
 
 		return this;
 	}
@@ -56,7 +59,7 @@ export class ContainerBuilder extends BaseBuilder<ContainerComponent> {
 	 */
 	setComponents(...components: RestOrArray<AllowedContainerComponent>): this {
 		const normalizedComponents = normalizeArray(components);
-		const validatedComponents = parse(ContainerComponentsSchema, normalizedComponents);
+		const validatedComponents = validate(ContainerComponentsSchema, normalizedComponents);
 
 		this.data.components = validatedComponents;
 
@@ -67,8 +70,8 @@ export class ContainerBuilder extends BaseBuilder<ContainerComponent> {
 	 * Sets whether the container is a spoiler.
 	 * @param spoiler - Whether the container is a spoiler.
 	 */
-	setSpoiler(spoiler: boolean): this {
-		this.data.spoiler = parse(ContainerSpoilerSchema, spoiler);
+	setSpoiler(spoiler: boolean = true): this {
+		this.data.spoiler = validate(ContainerSpoilerSchema, spoiler);
 
 		return this;
 	}
@@ -79,7 +82,7 @@ export class ContainerBuilder extends BaseBuilder<ContainerComponent> {
 	 */
 	toJSON(): ContainerComponent {
 		const { data } = this;
-		const validatedData = parse(ContainerSchema, {
+		const validatedData = validate(ContainerObjectSchema, {
 			...data,
 			type: ComponentTypes.Container,
 		});

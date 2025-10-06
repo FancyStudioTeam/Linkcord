@@ -1,5 +1,10 @@
-import type { ContainerBuilder, SeparatorBuilder, TextDisplayBuilder } from "#builders/structures/index.js";
-import type { SeparatorComponent, TextDisplayComponent } from "#types/index.js";
+import type {
+	ContainerBuilder,
+	FileBuilder,
+	SeparatorBuilder,
+	TextDisplayBuilder,
+} from "#builders/structures/index.js";
+import type { FileComponent, SeparatorComponent, TextDisplayComponent } from "#types/index.js";
 
 /**
  * Represents an accent color that can be set to a {@link ContainerBuilder | `ContainerBuilder`} instance.
@@ -11,7 +16,16 @@ export type AllowedContainerAccentColor = `#${string}` | number;
  * Represents a component that can be set to a {@link ContainerBuilder | `ContainerBuilder`} instance.
  * @group Builders/Structures
  */
-export type AllowedContainerComponent = AllowedContainerSeparatorComponent | AllowedContainerTextDisplayComponent;
+export type AllowedContainerComponent =
+	| AllowedContainerFileComponent
+	| AllowedContainerSeparatorComponent
+	| AllowedContainerTextDisplayComponent;
+
+/**
+ * Represents a file component that can be set to a {@link ContainerBuilder | `ContainerBuilder`} instance.
+ * @group Builders/Structures
+ */
+export type AllowedContainerFileComponent = FileBuilder | FileComponent;
 
 /**
  * Represents a separator component that can be set to a {@link ContainerBuilder | `ContainerBuilder`} instance.
