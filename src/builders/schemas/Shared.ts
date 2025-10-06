@@ -12,4 +12,8 @@ export const ColorSchema = union([ColorNumberSchema, ColorStringSchema]);
 
 export const CustomIDSchema = string().min(1).max(MAXIMUM_CUSTOM_ID_LENGTH);
 export const IDSchema = number().int().min(0).max(MAXIMUM_32_BIT_LENGTH);
+
 export const URLSchema = union([URLInstanceSchema, URLStringSchema]);
+export const UnfurledMediaItemSchema = URLSchema.transform((url) => ({
+	url,
+}));
