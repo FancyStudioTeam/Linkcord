@@ -1,12 +1,10 @@
-import { instanceof as instanceof_, object, string, union, url } from "zod";
+import { instanceof as instanceof_, object, string, union } from "zod";
 import { EmbedFooterBuilder } from "#builders/structures/messages/EmbedFooterBuilder.js";
+import { URLSchema } from "../Shared.js";
 
 const MAXIMUM_EMBED_FOOTER_TEXT_LENGTH = 2048;
 
-export const EmbedFooterIconURLInstanceSchema = instanceof_(URL).transform((url) => url.toString());
-export const EmbedFooterIconURLStringSchema = url();
-export const EmbedFooterIconURLSchema = union([EmbedFooterIconURLInstanceSchema, EmbedFooterIconURLStringSchema]);
-
+export const EmbedFooterIconURLSchema = URLSchema;
 export const EmbedFooterTextSchema = string().min(1).max(MAXIMUM_EMBED_FOOTER_TEXT_LENGTH);
 
 export const EmbedFooterInstanceSchema = instanceof_(EmbedFooterBuilder).transform((builder) => builder.toJSON());

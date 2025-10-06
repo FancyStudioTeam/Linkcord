@@ -1,20 +1,17 @@
-import { array, boolean, hex, instanceof as instanceof_, literal, number, object, union } from "zod";
+import { array, boolean, instanceof as instanceof_, literal, object, union } from "zod";
 import { ContainerBuilder } from "#builders/structures/messages/ContainerBuilder.js";
 import { ComponentTypes } from "#types/index.js";
+import { ColorSchema, IDSchema } from "../Shared.js";
 import { FileSchema } from "./FileSchema.js";
 import { SeparatorSchema } from "./SeparatorSchema.js";
 import { TextDisplaySchema } from "./TextDisplaySchema.js";
 
-export const ContainerAccentColorNumberSchema = number();
-export const ContainerAccentColorStringSchema = hex().transform((hex) =>
-	Number(`0x${hex.replace("#", "").toLowerCase()}`),
-);
-export const ContainerAccentColorSchema = union([ContainerAccentColorNumberSchema, ContainerAccentColorStringSchema]);
+export const ContainerAccentColorSchema = ColorSchema;
 
 export const ContainerComponentSchema = union([FileSchema, SeparatorSchema, TextDisplaySchema]);
 export const ContainerComponentsSchema = array(ContainerComponentSchema).min(1);
 
-export const ContainerIDSchema = number().int();
+export const ContainerIDSchema = IDSchema;
 export const ContainerSpoilerSchema = boolean();
 export const ContainerTypeSchema = literal(ComponentTypes.Container);
 

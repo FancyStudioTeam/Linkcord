@@ -1,16 +1,16 @@
 import { boolean, instanceof as instanceof_, literal, number, object, string, union } from "zod";
 import { TextInputBuilder } from "#builders/structures/modals/TextInputBuilder.js";
 import { ComponentTypes, TextInputStyle } from "#types/index.js";
+import { CustomIDSchema, IDSchema } from "../Shared.js";
 
-const MAXIMUM_TEXT_INPUT_CUSTOM_ID_LENGTH = 100;
 const MAXIMUM_TEXT_INPUT_PLACEHOLDER_LENGTH = 100;
 const MAXIMUM_TEXT_INPUT_VALUE_LENGTH = 4000;
 
 const PARAGRAPH_STYLE_LITERAL = literal(TextInputStyle.Paragraph);
 const SHORT_STYLE_LITERAL = literal(TextInputStyle.Short);
 
-export const TextInputCustomIDSchema = string().min(1).max(MAXIMUM_TEXT_INPUT_CUSTOM_ID_LENGTH);
-export const TextInputIDSchema = number().min(1);
+export const TextInputCustomIDSchema = CustomIDSchema;
+export const TextInputIDSchema = IDSchema;
 export const TextInputMaxValueSchema = number().int().min(1).max(MAXIMUM_TEXT_INPUT_VALUE_LENGTH);
 export const TextInputMinValueSchema = number().int().min(0).max(MAXIMUM_TEXT_INPUT_VALUE_LENGTH);
 export const TextInputPlaceholderSchema = string().min(1).max(MAXIMUM_TEXT_INPUT_PLACEHOLDER_LENGTH);
