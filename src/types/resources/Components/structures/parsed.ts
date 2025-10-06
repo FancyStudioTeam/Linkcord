@@ -4,7 +4,7 @@ import type { PartialEmoji } from "#types/resources/Emojis/index.js";
 import type {
 	ButtonStyles,
 	ComponentTypes,
-	SelectMenuDefaultValueTypes,
+	SelectMenuDefaultValueType,
 	SeparatorSpacingSizes,
 	TextInputStyle,
 } from "../enums.js";
@@ -121,7 +121,7 @@ export interface FileComponent extends BaseComponent<ComponentTypes.File> {
 	/** The file of the component. */
 	file: UnfurledMediaItem;
 	/** The name of the file. */
-	name: string;
+	name?: string;
 	/** The size of the file. */
 	size?: number;
 	/** Whether the file is a spoiler. */
@@ -198,7 +198,7 @@ export interface SectionComponent extends BaseComponent<ComponentTypes.Section> 
  */
 export interface SelectMenuDefaultValue {
 	/** The type of the default value. */
-	type: SelectMenuDefaultValueTypes;
+	type: SelectMenuDefaultValueType;
 	/** The ID of the default value. */
 	id: Snowflake;
 }

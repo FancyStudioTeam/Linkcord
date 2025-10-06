@@ -4,7 +4,7 @@ import type { APIPartialEmoji } from "#types/resources/Emojis/index.js";
 import type {
 	ButtonStyles,
 	ComponentTypes,
-	SelectMenuDefaultValueTypes,
+	SelectMenuDefaultValueType,
 	SeparatorSpacingSizes,
 	TextInputStyle,
 } from "../enums.js";
@@ -199,7 +199,7 @@ export interface APISectionComponent extends APIBaseComponent<ComponentTypes.Sec
  */
 export interface APISelectMenuDefaultValue {
 	/** The type of the default value. */
-	type: SelectMenuDefaultValueTypes;
+	type: SelectMenuDefaultValueType;
 	/** The ID of the default value. */
 	id: Snowflake;
 }
