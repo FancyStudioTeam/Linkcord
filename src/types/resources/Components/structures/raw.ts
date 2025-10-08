@@ -5,7 +5,7 @@ import type {
 	ButtonStyles,
 	ComponentTypes,
 	SelectMenuDefaultValueType,
-	SeparatorSpacingSizes,
+	SeparatorSpacingSize,
 	TextInputStyle,
 } from "../enums.js";
 
@@ -212,7 +212,7 @@ export interface APISeparatorComponent extends APIBaseComponent<ComponentTypes.S
 	/** Whether to display a divider between the components. */
 	divider?: boolean;
 	/** The size of the spacing of the separator. */
-	spacing?: SeparatorSpacingSizes;
+	spacing?: SeparatorSpacingSize;
 }
 
 /**

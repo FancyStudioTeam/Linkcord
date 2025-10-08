@@ -3,7 +3,7 @@ import {
 	SeparatorObjectSchema,
 	SeparatorSpacingSchema,
 } from "#builders/schemas/messages/SeparatorSchema.js";
-import { ComponentTypes, type SeparatorComponent, type SeparatorSpacingSizes } from "#types/index.js";
+import { ComponentTypes, type SeparatorComponent, type SeparatorSpacingSize } from "#types/index.js";
 import { validate } from "#utils/functions/validate.js";
 import { BaseBuilder } from "../base/BaseBuilder.js";
 
@@ -26,7 +26,7 @@ export class SeparatorBuilder extends BaseBuilder<SeparatorComponent> {
 	 * Sets the size of the spacing of the separator component.
 	 * @param spacing - The size of the spacing of the separator component.
 	 */
-	setSpacing(spacing: SeparatorSpacingSizes): this {
+	setSpacing(spacing: SeparatorSpacingSize): this {
 		this.data.spacing = validate(SeparatorSpacingSchema, spacing);
 
 		return this;

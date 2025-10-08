@@ -1,11 +1,11 @@
 import { boolean, enum as enum_, instanceof as instanceof_, literal, object, union } from "zod";
 import { SeparatorBuilder } from "#builders/structures/index.js";
-import { ComponentTypes, SeparatorSpacingSizes } from "#types/index.js";
+import { ComponentTypes, SeparatorSpacingSize } from "#types/index.js";
 import { IDSchema } from "../Shared.js";
 
 export const SeparatorDividerSchema = boolean();
 export const SeparatorIDSchema = IDSchema;
-export const SeparatorSpacingSchema = enum_(SeparatorSpacingSizes);
+export const SeparatorSpacingSchema = enum_(SeparatorSpacingSize);
 export const SeparatorTypeSchema = literal(ComponentTypes.Separator);
 
 export const SeparatorInstanceSchema = instanceof_(SeparatorBuilder).transform((builder) => builder.toJSON());

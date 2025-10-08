@@ -48,7 +48,7 @@ export enum SelectMenuDefaultValueType {
  * The size of the spacing of a separator component.
  * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
  */
-export enum SeparatorSpacingSizes {
+export enum SeparatorSpacingSize {
 	Large = 2,
 	Small = 1,
 }
