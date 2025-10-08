@@ -1,5 +1,5 @@
 import { boolean, enum as enum_, instanceof as instanceof_, literal, object, union } from "zod";
-import { SeparatorBuilder } from "#builders/structures/index.js";
+import { SeparatorBuilder } from "#builders/structures/messages/SeparatorBuilder.js";
 import { ComponentTypes, SeparatorSpacingSize } from "#types/index.js";
 import { IDSchema } from "../Shared.js";
 
