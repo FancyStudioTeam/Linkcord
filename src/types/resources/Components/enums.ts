@@ -21,6 +21,7 @@ export enum ComponentTypes {
 	ChannelSelect = 8,
 	Container = 17,
 	File = 13,
+	FileUpload = 19,
 	Label = 18,
 	MediaGallery = 12,
 	MentionableSelect = 7,
