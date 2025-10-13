@@ -20,7 +20,7 @@
 		"lint-staged": "16.2.3",
 		"rimraf": "6.0.1",
 		"tsup": "8.5.0",
-		"typedoc": "0.28.13",
+		"typedoc": "0.28.14",
 		"typedoc-material-theme": "1.4.0",
 		"typescript": "5.9.2",
 		"vite-tsconfig-paths": "5.1.4",
