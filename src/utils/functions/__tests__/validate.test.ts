@@ -1,6 +1,5 @@
 import { array, number, object, string } from "zod";
 import { ValidationError } from "#utils/errors/ValidationError.js";
-import { ValidationErrorIssueKind } from "#utils/types/index.js";
 import { validate } from "../validate.js";
 
 const ARRAY_SCHEMA = array(string());
