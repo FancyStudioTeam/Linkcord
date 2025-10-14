@@ -117,12 +117,12 @@ function handleZodCustomIssue(issue: core.$ZodIssueCustom): ValidationErrorIssue
  * @returns The parsed {@link ValidationErrorIssue | `ValidationErrorIssue`} object.
  */
 function handleZodInvalidTypeIssue(issue: core.$ZodIssueInvalidType): ValidationErrorIssue {
-	const { expected, input, path } = issue;
+	const { expected, path } = issue;
 	const article = startsWithVower(expected) ? "an" : "a";
 
 	return {
 		issues: null,
-		message: `Expected input to be ${article} ${expected} but received "${input}"`,
+		message: `Expected input to be ${article} ${expected}`,
 		path,
 	};
 }

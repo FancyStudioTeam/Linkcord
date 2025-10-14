@@ -18,8 +18,8 @@ describe("Function: validate", () => {
 
 		const expectedErrorResult1 = new ValidationError([
 			{
-				expected: "string",
-				kind: ValidationErrorIssueKind.InvalidInputType,
+				issues: null,
+				message: "Expected input to be a string",
 				path: [],
 			},
 		]);
@@ -43,25 +43,25 @@ describe("Function: validate", () => {
 
 		const expectedErrorResult1 = new ValidationError([
 			{
-				expected: "object",
-				kind: ValidationErrorIssueKind.InvalidInputType,
+				issues: null,
+				message: "Expected input to be an object",
 				path: [],
 			},
 		]);
 		const expectedErrorResult2 = new ValidationError([
 			{
-				expected: "number",
-				kind: ValidationErrorIssueKind.InvalidInputType,
+				issues: null,
+				message: "Expected input to be a number",
 				path: ["age"],
 			},
 			{
-				expected: "string",
-				kind: ValidationErrorIssueKind.InvalidInputType,
+				issues: null,
+				message: "Expected input to be a string",
 				path: ["name"],
 			},
 			{
-				expected: "string",
-				kind: ValidationErrorIssueKind.InvalidInputType,
+				issues: null,
+				message: "Expected input to be a string",
 				path: ["tags", 0],
 			},
 		]);
@@ -83,15 +83,15 @@ describe("Function: validate", () => {
 
 		const expectedErrorResult1 = new ValidationError([
 			{
-				expected: "array",
-				kind: ValidationErrorIssueKind.InvalidInputType,
+				issues: null,
+				message: "Expected input to be an array",
 				path: [],
 			},
 		]);
 		const expectedErrorResult2 = new ValidationError([
 			{
-				expected: "string",
-				kind: ValidationErrorIssueKind.InvalidInputType,
+				issues: null,
+				message: "Expected input to be a string",
 				path: [0],
 			},
 		]);

@@ -1,5 +1,5 @@
 import type { Snowflake } from "#types/index.js";
-import { HeadingLevels, type RecursiveArray } from "#utils/types/index.js";
+import { HeadingLevel, type RecursiveArray } from "#utils/types/index.js";
 import { SnowflakeUtils } from "./SnowflakeUtils.js";
 
 /**
@@ -192,11 +192,11 @@ export class FormatterUtils {
 	static header<Level extends number, Content extends string>(
 		level: Level,
 		content: Content,
-	): Level extends HeadingLevels.One
+	): Level extends HeadingLevel.One
 		? `# ${Content}`
-		: Level extends HeadingLevels.Two
+		: Level extends HeadingLevel.Two
 			? `## ${Content}`
-			: Level extends HeadingLevels.Three
+			: Level extends HeadingLevel.Three
 				? `### ${Content}`
 				: `# ${Content}`;
 
@@ -207,7 +207,7 @@ export class FormatterUtils {
 	 * @param possibleContent - The content of the header, if the `levelOrContent` parameter is a level.
 	 * @returns The formatted header.
 	 */
-	static header(levelOrContent: HeadingLevels | string, possibleContent?: string): string {
+	static header(levelOrContent: HeadingLevel | string, possibleContent?: string): string {
 		if (typeof levelOrContent === "string") {
 			return `# ${levelOrContent}`;
 		}
@@ -219,7 +219,7 @@ export class FormatterUtils {
 				);
 			}
 
-			if (HeadingLevels[levelOrContent] === undefined) {
+			if (HeadingLevel[levelOrContent] === undefined) {
 				return `# ${possibleContent}`;
 			}
 
