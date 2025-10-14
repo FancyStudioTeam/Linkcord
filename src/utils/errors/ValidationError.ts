@@ -1,29 +1,19 @@
 import { styleText } from "node:util";
-import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
-import { type ValidationErrorIssue, ValidationErrorIssueKind } from "#utils/types/index.js";
-
-const CONJUNCTION_FORMATTER = new Intl.ListFormat("en", {
-	type: "conjunction",
-});
+import type { ValidationErrorIssue } from "#utils/types/index.js";
 
 /**
  * Represents an error thrown when validating an invalid input.
  * @group Utils/Errors
  */
 export class ValidationError extends Error {
-	/** The issues that caused the error. */
-	declare readonly issues: Readonly<ValidationErrorIssue[]>;
-
 	/**
 	 * Creates a new {@link ValidationError | `ValidationError`} instance.
-	 * @param issues - The issues that caused the error.
+	 * @param issues - The list of {@link ValidationErrorIssue | `ValidationErrorIssue`} objects.
 	 */
 	constructor(issues: ValidationErrorIssue[]) {
 		super();
 
 		const prettifiedIssues = this.#prettifyIssues(issues);
-
-		defineImmutableProperty(this, "issues", issues);
 
 		this.message = `Validation has failed with the following issues:\n${prettifiedIssues}`;
 		this.name = "ValidationError";
@@ -50,85 +40,51 @@ export class ValidationError extends Error {
 	}
 
 	/**
-	 * Formats the message of an issue.
+	 * Converts the given {@link ValidationErrorIssue | `ValidationErrorIssue`} object into a prettified string.
 	 *
-	 * @param baseMessage - The base message to use.
-	 * @param path - The path where the validation failed.
-	 * @returns The formatted issue message.
+	 * @param issue - The {@link ValidationErrorIssue | `ValidationErrorIssue`} object to prettify.
+	 * @param isMainIssue - Whether the issue is a top-level issue.
+	 * @param indentLevel - The number of tabs to prepend at the beginning of the message.
+	 *
+	 * @returns The prettified {@link ValidationErrorIssue | `ValidationErrorIssue`} string.
 	 */
-	#formatIssueMessage(baseMessage: string, path: PropertyKey[]): string {
+	#prettifyIssue(issue: ValidationErrorIssue, isMainIssue = true, indentLevel = 1): string {
+		const { issues, message, path } = issue;
 		const { length: pathLength } = path;
 
-		if (pathLength > 0) {
+		const icon = isMainIssue ? "🞬" : "└──";
+		const indent = "\t".repeat(indentLevel);
+
+		let prettifiedMessage = "";
+
+		if (isMainIssue && pathLength > 0) {
 			const flattenedPath = this.#flattenIssuePath(path);
-			const formattedPath = styleText("bold", flattenedPath);
 
-			return `${formattedPath}\n\t└── ${baseMessage}`;
+			prettifiedMessage = `${indent}${icon} ${flattenedPath}:\n`;
+			prettifiedMessage += `${indent}└── ${message}`;
+		} else {
+			prettifiedMessage = `${indent}${icon} ${message}`;
 		}
 
-		return baseMessage;
+		if (issues) {
+			for (const issue of issues) {
+				prettifiedMessage += `\n${this.#prettifyIssue(issue, false, indentLevel + 1)}`;
+			}
+		}
+
+		return styleText(["bold", "red"], prettifiedMessage);
 	}
 
 	/**
-	 * Handles the callback for the `prettifyIssues` method.
+	 * Converts the given list of {@link ValidationErrorIssue | `ValidationErrorIssue`} objects into a prettified string.
 	 *
-	 * @param issue - The issue from the callback to handle.
-	 * @returns The formatted pretty issue.
-	 */
-	#issuesCallback(issue: ValidationErrorIssue): string {
-		const { kind } = issue;
-
-		switch (kind) {
-			case ValidationErrorIssueKind.ArrayTooBig: {
-				const { maximum, path } = issue;
-				const formattedMaximum = styleText(["bold", "italic"], maximum.toString());
-
-				const baseMessage = `Expected input to be array with a maximum length of ${formattedMaximum} item(s).`;
-
-				return this.#formatIssueMessage(baseMessage, path);
-			}
-			case ValidationErrorIssueKind.ArrayTooSmall: {
-				const { minimum, path } = issue;
-				const formattedMinimum = styleText(["bold", "italic"], minimum.toString());
-
-				const baseMessage = `Expected input to be array with a minimum length of ${formattedMinimum} item(s).`;
-
-				return this.#formatIssueMessage(baseMessage, path);
-			}
-			case ValidationErrorIssueKind.InvalidInputType: {
-				const { expected, path } = issue;
-				const formattedExpected = styleText(["bold", "italic"], expected);
-
-				const baseMessage = `Expected input to be ${formattedExpected}.`;
-
-				return this.#formatIssueMessage(baseMessage, path);
-			}
-			case ValidationErrorIssueKind.InvalidInputValue: {
-				const { path, values } = issue;
-				const formattedValues = CONJUNCTION_FORMATTER.format(
-					values.map((value) => styleText(["bold", "italic"], String(value))),
-				);
-
-				const baseMessage = `Expected input to be one of ${formattedValues}.`;
-
-				return this.#formatIssueMessage(baseMessage, path);
-			}
-			default: {
-				return "Unknown issue.";
-			}
-		}
-	}
-
-	/**
-	 * Converts the given list of issues into a prettified string.
-	 *
-	 * @param issues - The issues to prettify.
-	 * @returns The prettified issues string.
+	 * @param issues - The list of {@link ValidationErrorIssue | `ValidationErrorIssue`} objects to prettify.
+	 * @returns The prettified {@link ValidationErrorIssue | `ValidationErrorIssue`} strings.
 	 */
 	#prettifyIssues(issues: ValidationErrorIssue[]): string {
-		const formattedStringIssues = issues.map(this.#issuesCallback.bind(this));
-		const prettifiedIssues = formattedStringIssues.map((issue) => `\t${styleText("red", `🞬 ${issue}`)}`).join("\n");
+		const prettifiedIssues = issues.map((issue) => this.#prettifyIssue(issue));
+		const joinedIssueMessages = prettifiedIssues.join("\n\n");
 
-		return prettifiedIssues;
+		return joinedIssueMessages;
 	}
 }
