@@ -2,6 +2,7 @@
 	"dependencies": {
 		"glob": "11.0.3",
 		"ts-mixer": "6.0.4",
+		"ts-pattern": "5.8.0",
 		"valibot": "1.1.0",
 		"zod": "4.1.11"
 	},
