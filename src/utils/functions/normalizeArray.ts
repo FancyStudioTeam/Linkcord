@@ -1,4 +1,4 @@
-import type { RestOrArray } from "#builders/types/Common.js";
+import type { RestOrArray } from "#utils/types/Util.js";
 
 /**
  * Normalizes either a rest parameter or an array of items.
@@ -6,7 +6,7 @@ import type { RestOrArray } from "#builders/types/Common.js";
  * @param items - The items to normalize.
  * @returns The normalized array of items.
  *
- * @typeParam Item - The type of the items.
+ * @typeParam Item - The inferred type from the `items` parameter.
  * @group Builders/Functions
  */
 export function normalizeArray<Item>(...items: RestOrArray<Item>): Item[] {

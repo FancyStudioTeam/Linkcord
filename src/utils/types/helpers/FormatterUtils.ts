@@ -10,7 +10,7 @@ export type RecursiveArray<Item> = readonly (Item | RecursiveArray<Item>)[];
  * Represents the heading levels for headers.
  * @group Utils/Helpers
  */
-export enum HeadingLevels {
+export enum HeadingLevel {
 	One = 1,
 	Three = 3,
 	Two = 2,
