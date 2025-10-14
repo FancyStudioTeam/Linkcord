@@ -2,7 +2,7 @@
 
 /** biome-ignore-all lint/style/noMagicNumbers: Magic numbers in testing files are not important. */
 
-import { HeadingLevels } from "#utils/types/index.js";
+import { HeadingLevel } from "#utils/types/index.js";
 import { FormatterUtils } from "../FormatterUtils.js";
 
 const CONTENT = "Hello, world!";
@@ -16,7 +16,7 @@ describe("Method: FormatterUtils.header", () => {
 	});
 
 	it("GIVEN a heading level and a content WHEN formatting them THEN returns the formatted header", () => {
-		const result = FormatterUtils.header(HeadingLevels.Two, CONTENT);
+		const result = FormatterUtils.header(HeadingLevel.Two, CONTENT);
 		const expectedResult = `## ${CONTENT}` as const;
 
 		expect<typeof expectedResult>(result).toBe(expectedResult);
@@ -30,8 +30,8 @@ describe("Method: FormatterUtils.header", () => {
 	});
 
 	it("GIVEN a valid heading level but an invalid content WHEN formatting them THEN a TypeError is thrown", () => {
-		const result1 = () => FormatterUtils.header(HeadingLevels.One);
-		const result2 = () => FormatterUtils.header(HeadingLevels.One, null);
+		const result1 = () => FormatterUtils.header(HeadingLevel.One);
+		const result2 = () => FormatterUtils.header(HeadingLevel.One, null);
 
 		const expectedErrorResult = new TypeError(
 			"Second parameter (content) from 'FormatterUtils.header' must be present and be a string.",

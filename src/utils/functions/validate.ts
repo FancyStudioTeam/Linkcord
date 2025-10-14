@@ -61,6 +61,12 @@ function handleZodIssue(issue: ZodIssue): ValidationErrorIssue {
 		)
 		.with(
 			{
+				code: "invalid_format",
+			},
+			handleZodInvalidFormatIssue,
+		)
+		.with(
+			{
 				code: "invalid_type",
 			},
 			handleZodInvalidTypeIssue,
@@ -90,7 +96,7 @@ function handleZodIssue(issue: ZodIssue): ValidationErrorIssue {
 			handleZodTooSmallIssue,
 		)
 		.otherwise(({ code }) => {
-			throw new Error(`Unhandled issue from Zod: ${code}`);
+			throw new Error(`Unhandled issue from Zod: "${code}".`);
 		});
 }
 
@@ -102,6 +108,29 @@ function handleZodIssue(issue: ZodIssue): ValidationErrorIssue {
  */
 function handleZodCustomIssue(issue: core.$ZodIssueCustom): ValidationErrorIssue {
 	const { message, path } = issue;
+
+	return {
+		issues: null,
+		message,
+		path,
+	};
+}
+
+/**
+ * Handles an issue with code "invalid_type" from Zod.
+ *
+ * @param issue - The `ZodIssueInvalidStringFormat` object to handle.
+ * @returns The parsed {@link ValidationErrorIssue | `ValidationErrorIssue`} object.
+ */
+function handleZodInvalidFormatIssue(issue: core.$ZodIssueInvalidStringFormat): ValidationErrorIssue {
+	const { format, path } = issue;
+
+	const message = match(format)
+		.returnType<string>()
+		.with("url", () => "Expected input to be a valid URL")
+		.otherwise(() => {
+			throw new Error("Unhandled format from Zod.");
+		});
 
 	return {
 		issues: null,
@@ -180,7 +209,7 @@ function handleZodTooBigIssue(issue: core.$ZodIssueTooBig): ValidationErrorIssue
 		.with("array", () => `Expected input to be an array with a maximum of ${maximum} item(s)`)
 		.with("number", () => `Expected input to be a number ${phrase} ${maximum} `)
 		.otherwise(() => {
-			throw new Error("Unhandled maximum origin from Zod");
+			throw new Error("Unhandled maximum origin from Zod.");
 		});
 
 	return {
@@ -205,7 +234,7 @@ function handleZodTooSmallIssue(issue: core.$ZodIssueTooSmall): ValidationErrorI
 		.with("array", () => `Expected input to be an array with a minimum of ${minimum} item(s).`)
 		.with("number", () => `Expected input to be a number ${phrase} ${minimum} `)
 		.otherwise(() => {
-			throw new Error("Unhandled minimum origin from Zod");
+			throw new Error("Unhandled minimum origin from Zod.");
 		});
 
 	return {
@@ -216,10 +245,10 @@ function handleZodTooSmallIssue(issue: core.$ZodIssueTooSmall): ValidationErrorI
 }
 
 /**
- * Checks whether the word starts with a vowel.
+ * Checks whether the given word starts with a vowel.
  *
  * @param content - The word to check.
- * @returns Whether the word starts with a vowel.
+ * @returns Whether the given word starts with a vowel.
  */
 function startsWithVower(word: string): boolean {
 	const trimmedWord = word.trim();
