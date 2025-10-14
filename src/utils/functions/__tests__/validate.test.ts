@@ -11,7 +11,7 @@ const OBJECT_SCHEMA = object({
 const STRING_SCHEMA = string();
 
 describe("Function: validate", () => {
-	it("GIVEN a Zod string schema WHEN validating invalid input THEN a ValidationError is thrown", () => {
+	it("Should validate the given input with the given string schema", () => {
 		const result1 = () => validate(STRING_SCHEMA, null);
 		const result2 = validate(STRING_SCHEMA, "Hello World!");
 
@@ -28,7 +28,7 @@ describe("Function: validate", () => {
 		expect(result2).toBe(expectedResult2);
 	});
 
-	it("GIVEN a Zod object schema WHEN validating invalid input THEN a ValidationError is thrown", () => {
+	it("Should validate the given input with the given object schema", () => {
 		const result1 = () => validate(OBJECT_SCHEMA, null);
 		const result2 = () =>
 			validate(OBJECT_SCHEMA, {
@@ -75,7 +75,7 @@ describe("Function: validate", () => {
 		expect(result3).toStrictEqual(expectedResult3);
 	});
 
-	it("GIVEN a Zod array schema WHEN validating invalid input THEN a ValidationError is thrown", () => {
+	it("Should validate the given input with the given array schema", () => {
 		const result1 = () => validate(ARRAY_SCHEMA, null);
 		const result2 = () => validate(ARRAY_SCHEMA, [null]);
 		const result3 = validate(ARRAY_SCHEMA, ["Employee"]);

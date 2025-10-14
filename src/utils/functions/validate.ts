@@ -2,6 +2,7 @@ import { match } from "ts-pattern";
 import { type core, parse, ZodError } from "zod";
 import { ValidationError } from "#utils/errors/ValidationError.js";
 import type { ValidationErrorIssue } from "#utils/types/index.js";
+import { exception } from "./exception.js";
 
 const CONJUNCTION_FORMATTER = new Intl.ListFormat("en", {
 	style: "long",
@@ -24,7 +25,7 @@ export function validate<Schema extends ZodSchema>(schema: Schema, input: unknow
 		return parse(schema, input);
 	} catch (error) {
 		if (!(error instanceof ZodError)) {
-			throw new TypeError("Exception thrown from 'validate' is not a 'ZodError' instance.");
+			throw new TypeError("Exception thrown from 'validate' is not a 'ZodError' instance");
 		}
 
 		const { issues } = error;
@@ -95,9 +96,7 @@ function handleZodIssue(issue: ZodIssue): ValidationErrorIssue {
 			},
 			handleZodTooSmallIssue,
 		)
-		.otherwise(({ code }) => {
-			throw new Error(`Unhandled issue from Zod: "${code}".`);
-		});
+		.otherwise(({ code }) => exception(`Unhandled issue code from Zod: ${code}`));
 }
 
 /**
@@ -128,9 +127,7 @@ function handleZodInvalidFormatIssue(issue: core.$ZodIssueInvalidStringFormat): 
 	const message = match(format)
 		.returnType<string>()
 		.with("url", () => "Expected input to be a valid URL")
-		.otherwise(() => {
-			throw new Error("Unhandled format from Zod.");
-		});
+		.otherwise((format) => exception(`Unhandled string format from Zod: ${format}`));
 
 	return {
 		issues: null,
@@ -207,10 +204,8 @@ function handleZodTooBigIssue(issue: core.$ZodIssueTooBig): ValidationErrorIssue
 	const message = match(origin)
 		.returnType<string>()
 		.with("array", () => `Expected input to be an array with a maximum of ${maximum} item(s)`)
-		.with("number", () => `Expected input to be a number ${phrase} ${maximum} `)
-		.otherwise(() => {
-			throw new Error("Unhandled maximum origin from Zod.");
-		});
+		.with("number", () => `Expected input to be a number ${phrase} ${maximum}`)
+		.otherwise((origin) => exception(`Unhandled maximum origin from Zod: ${origin}`));
 
 	return {
 		issues: null,
@@ -231,11 +226,9 @@ function handleZodTooSmallIssue(issue: core.$ZodIssueTooSmall): ValidationErrorI
 	const phrase = inclusive ? "less than (or equal to)" : "less than";
 	const message = match(origin)
 		.returnType<string>()
-		.with("array", () => `Expected input to be an array with a minimum of ${minimum} item(s).`)
-		.with("number", () => `Expected input to be a number ${phrase} ${minimum} `)
-		.otherwise(() => {
-			throw new Error("Unhandled minimum origin from Zod.");
-		});
+		.with("array", () => `Expected input to be an array with a minimum of ${minimum} item(s)`)
+		.with("number", () => `Expected input to be a number ${phrase} ${minimum}`)
+		.otherwise((origin) => exception(`Unhandled minimum origin from Zod: ${origin}`));
 
 	return {
 		issues: null,

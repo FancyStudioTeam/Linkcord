@@ -11,7 +11,7 @@
  */
 export function defineImmutableProperty<Object, Value>(object: Object, propertyName: string, value: Value): void {
 	if (typeof object !== "object" || object === null) {
-		throw new TypeError("First parameter (object) from 'defineImmutableProperty' must be an object.");
+		throw new TypeError("First parameter (object) from 'defineImmutableProperty' must be an object");
 	}
 
 	Object.defineProperty(object, propertyName, {

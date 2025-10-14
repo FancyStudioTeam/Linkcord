@@ -6,7 +6,7 @@ const OBJECT = {
 };
 
 describe("Function: defineImmutableProperty", () => {
-	it("GIVEN a valid object, name, and value WHEN defining the property THEN the property is defined on the object", () => {
+	it("Should define the property as immutable with the given value in the given object", () => {
 		const keysLengthBefore = Object.keys(OBJECT).length;
 		const descriptorBefore = Object.getOwnPropertyDescriptor(OBJECT, "token");
 
@@ -22,10 +22,10 @@ describe("Function: defineImmutableProperty", () => {
 		expect(descriptorAfter).toBeDefined();
 	});
 
-	it("GIVEN an invalid object WHEN defining the property THEN a TypeError is thrown", () => {
+	it("Should throw a TypeError when the object is not a valid object", () => {
 		const result = () => defineImmutableProperty(null, "token", DISCORD_BOT_TOKEN);
 		const expectedErrorResult = new TypeError(
-			"First parameter (object) from 'defineImmutableProperty' must be an object.",
+			"First parameter (object) from 'defineImmutableProperty' must be an object",
 		);
 
 		expect(result).toThrow(expectedErrorResult);
