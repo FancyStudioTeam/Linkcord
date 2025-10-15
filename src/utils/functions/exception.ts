@@ -16,7 +16,7 @@ export function exception(message: string): never;
  *
  * @group Utils/Functions
  */
-export function exception<Error extends Newable<Error>>(error: Error, message: string): never;
+export function exception<ErrorConstructor extends Newable<Error>>(error: ErrorConstructor, message: string): never;
 
 /**
  * Throws an exception in an inline expression.
@@ -27,17 +27,17 @@ export function exception<Error extends Newable<Error>>(error: Error, message: s
  * @group Utils/Functions
  */
 export function exception(errorOrMessage: Newable<Error> | string, possibleMessage?: string): never {
-	if (typeof errorOrMessage === "string") {
-		throw new Error(errorOrMessage);
-	} else {
-		if (typeof errorOrMessage !== "function") {
-			throw new TypeError("First parameter (error) from 'exception' must be a funcion");
-		}
-
+	if (typeof errorOrMessage === "function") {
 		if (typeof possibleMessage !== "string") {
 			throw new TypeError("Second parameter (message) from 'exception' must be a string");
 		}
 
 		throw new errorOrMessage(possibleMessage);
 	}
+
+	if (typeof errorOrMessage !== "string") {
+		throw new TypeError("First parameter (message) from 'exception' must be a string");
+	}
+
+	throw new Error(errorOrMessage);
 }

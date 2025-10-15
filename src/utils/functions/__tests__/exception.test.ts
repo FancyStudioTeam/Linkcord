@@ -23,7 +23,7 @@ describe("Function: exception", () => {
 		const result1 = () => exception(null);
 		const result2 = () => exception(TypeError, null);
 
-		const expectedErrorResult1 = new TypeError("First parameter (error) from 'exception' must be a funcion");
+		const expectedErrorResult1 = new TypeError("First parameter (message) from 'exception' must be a string");
 		const expectedErrorResult2 = new TypeError("Second parameter (message) from 'exception' must be a string");
 
 		expect(result1).toThrow(expectedErrorResult1);
