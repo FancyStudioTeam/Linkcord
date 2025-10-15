@@ -1,20 +1,15 @@
-import type { RestOrArray } from "#utils/types/Util.js";
-
 /**
- * Normalizes either a rest parameter or an array of items.
+ * Normalizes a rest parameter or an array of items.
  *
  * @param items - The items to normalize.
- * @returns The normalized array of items.
+ * @returns A new array containing the normalized items.
  *
  * @typeParam Item - The inferred type from the `items` parameter.
- * @group Builders/Functions
+ *
+ * @group Utils/Functions
  */
-export function normalizeArray<Item>(...items: RestOrArray<Item>): Item[] {
+export function normalizeArray<Item>(...items: Item[]): Item[] {
 	const firstElement = items[0];
 
-	if (Array.isArray(firstElement)) {
-		return Array.from(firstElement);
-	}
-
-	return items as Item[];
+	return Array.isArray(firstElement) ? [...firstElement] : items;
 }

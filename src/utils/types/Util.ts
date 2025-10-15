@@ -41,11 +41,3 @@ export type If<Condition, TrueResult, FalseResult = null> = Condition extends tr
  */
 // biome-ignore lint/suspicious/noExplicitAny: Expect anything in the constructor arguments.
 export type Newable<Class> = new (...args: any[]) => Class;
-
-/**
- * Represents a type that is either a rest parameter or an array of items.
- *
- * @typeParam Item - The shape of the item inside the array.
- * @group Utils/Types
- */
-export type RestOrArray<Item> = Item[] | [Item[]];
