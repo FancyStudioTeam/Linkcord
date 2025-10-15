@@ -5,11 +5,11 @@ describe("Function: tryImport", () => {
 		const result = await tryImport<typeof import("node:fs")>("node:fs");
 
 		expect(result).toBeDefined();
-		expect(result?.readFileSync).toBeInstanceOf(Function);
+		expect(result?.readFileSync).toBeTypeOf("function");
 	});
 
 	it("Should return null if the given module is not installed", async () => {
-		const result = await tryImport("non-existent-module");
+		const result = await tryImport<null>("non-existent-module");
 		const expectedResult = null;
 
 		expect(result).toBe(expectedResult);
