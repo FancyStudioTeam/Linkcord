@@ -9,9 +9,17 @@
  * @typeParam Value - The inferred type from the `value` parameter.
  * @group Utils/Functions
  */
-export function defineImmutableProperty<Object, Value>(object: Object, propertyName: string, value: Value): void {
+export function defineImmutableProperty<Object extends object, PropertyName extends string, Value>(
+	object: Object,
+	propertyName: PropertyName,
+	value: Value,
+): void {
 	if (typeof object !== "object" || object === null) {
 		throw new TypeError("First parameter (object) from 'defineImmutableProperty' must be an object");
+	}
+
+	if (typeof propertyName !== "string") {
+		throw new TypeError("Second parameter (propertyName) from 'defineImmutableProperty' must be a string");
 	}
 
 	Object.defineProperty(object, propertyName, {
