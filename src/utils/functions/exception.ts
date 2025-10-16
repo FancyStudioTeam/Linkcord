@@ -24,14 +24,6 @@ export function exception<ErrorConstructor extends Newable<Error>>(
 	message: string,
 ): never;
 
-/**
- * Throws an exception in an inline expression.
- *
- * @param errorConstructorOrMessage - The constructor of the error to use for the exception or the message of the exception.
- * @param possibleMessage - The message of the exception, if any.
- *
- * @group Utils/Functions
- */
 export function exception(errorConstructorOrMessage: Newable<Error> | string, possibleMessage?: string): never {
 	if (typeof errorConstructorOrMessage === "function") {
 		if (typeof possibleMessage !== "string") {

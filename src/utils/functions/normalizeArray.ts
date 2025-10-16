@@ -22,16 +22,6 @@ export function normalizeArray<Item>(items: Item[]): Item[];
  */
 export function normalizeArray<Item>(...items: Item[]): Flatten<Item>[];
 
-/**
- * Normalizes a rest parameter or an array of items.
- *
- * @param items - The rest parameter of items to normalize.
- * @returns A new array containing the normalized items.
- *
- * @typeParam Item - The inferred type from the `items` parameter.
- *
- * @group Utils/Functions
- */
 export function normalizeArray<Item>(...items: Item[]): Item[] {
 	const firstElement = items[0];
 
@@ -42,7 +32,5 @@ export function normalizeArray<Item>(...items: Item[]): Item[] {
  * Represents an array of items that is flattened.
  *
  * @typeParam Item - The shape of the item in the array.
- *
- * @group Utils/Function
  */
 type Flatten<Item> = Item extends (infer ItemArray)[] ? ItemArray : Item;

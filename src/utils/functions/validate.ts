@@ -1,31 +1,50 @@
-import { match } from "ts-pattern";
 import { type core, parse, ZodError } from "zod";
 import { ValidationError } from "#utils/errors/ValidationError.js";
 import type { ValidationErrorIssue } from "#utils/types/index.js";
-import { exception } from "./exception.js";
 
-const CONJUNCTION_FORMATTER = new Intl.ListFormat("en", {
+const STRING_CONJUNCTION_FORMATTER = new Intl.ListFormat("en", {
 	style: "long",
 	type: "conjunction",
 });
-const VOWEL_REGEX = /^[aeiouAEIOU]/;
+const STRING_VOWEL_REGEX = /^[aeiouAEIOU]/;
+
+const ZOD_ISSUE_HANDLERS_MAP: ZodIssueHandlersMap = {
+	custom: handleZodCustomIssue,
+	invalid_format: handleZodInvalidFormatIssue,
+	invalid_type: handleZodInvalidTypeIssue,
+	invalid_union: handleZodInvalidUnionIssue,
+	invalid_value: handleZodInvalidValueIssue,
+	too_big: handleZodTooBigIssue,
+	too_small: handleZodTooSmallIssue,
+};
+const ZOD_ISSUE_INVALID_STRING_FORMAT_STRINGS_MAP: ZodIssueInvalidStringFormatStringsMap = {
+	url: () => "Expected input to be an URL",
+};
+const ZOD_ISSUE_TOO_BIG_STRINGS_MAP: ZodIssueTooBigStringsMap = {
+	array: ({ maximum }) => `Expected input to be an array with a maximum of ${maximum} item(s)`,
+	number: ({ maximum }) => `Expected input to be a number greater than or equal to ${maximum}`,
+};
+const ZOD_ISSUE_TOO_SMALL_STRINGS_MAP: ZodIssueTooSmallStringsMap = {
+	array: ({ minimum }) => `Expected input to be an array with a minimum of ${minimum} item(s)`,
+	number: ({ minimum }) => `Expected input to be a number less than or equal to ${minimum}`,
+};
 
 /**
  * Validates the given input with the given Zod schema.
  *
  * @param schema - The Zod schema used to validate the given input.
  * @param input - The input to validate with the given Zod schema.
- * @returns The validated input from the Zod schema.
  *
  * @typeParam Schema - The inferred type from the `schema` parameter.
+ *
  * @group Utils/Functions
  */
-export function validate<Schema extends ZodSchema>(schema: Schema, input: unknown): ZodSchemaOutput<Schema> {
+export function validate<Schema extends core.$ZodType>(schema: Schema, input: unknown): core.output<Schema> {
 	try {
 		return parse(schema, input);
 	} catch (error) {
 		if (!(error instanceof ZodError)) {
-			throw new TypeError("Exception thrown from 'validate' is not a 'ZodError' instance");
+			throw new Error("Exception thrown from 'validate' is not a 'ZodError' instance");
 		}
 
 		const { issues } = error;
@@ -39,9 +58,8 @@ export function validate<Schema extends ZodSchema>(schema: Schema, input: unknow
  * Handles the given list of {@link ZodIssue | `ZodIssue`} objects.
  *
  * @param issues - The list of {@link ZodIssue | `ZodIssue`} objects to handle.
- * @returns The parsed list of {@link ValidationErrorIssue | `ValidationErrorIssue`} objects.
  */
-function handleZodIssues(issues: ZodIssue[]): ValidationErrorIssue[] {
+function handleZodIssues(issues: core.$ZodIssue[]): ValidationErrorIssue[] {
 	return issues.map(handleZodIssue);
 }
 
@@ -49,61 +67,22 @@ function handleZodIssues(issues: ZodIssue[]): ValidationErrorIssue[] {
  * Handles the given {@link ZodIssue | `ZodIssue`} object.
  *
  * @param issue - The {@link ZodIssue | `ZodIssue`} object to handle.
- * @returns The message data from the issue from Zod.
  */
-function handleZodIssue(issue: ZodIssue): ValidationErrorIssue {
-	return match(issue)
-		.returnType<ValidationErrorIssue>()
-		.with(
-			{
-				code: "custom",
-			},
-			handleZodCustomIssue,
-		)
-		.with(
-			{
-				code: "invalid_format",
-			},
-			handleZodInvalidFormatIssue,
-		)
-		.with(
-			{
-				code: "invalid_type",
-			},
-			handleZodInvalidTypeIssue,
-		)
-		.with(
-			{
-				code: "invalid_union",
-			},
-			handleZodInvalidUnionIssue,
-		)
-		.with(
-			{
-				code: "invalid_value",
-			},
-			handleZodInvalidValueIssue,
-		)
-		.with(
-			{
-				code: "too_big",
-			},
-			handleZodTooBigIssue,
-		)
-		.with(
-			{
-				code: "too_small",
-			},
-			handleZodTooSmallIssue,
-		)
-		.otherwise(({ code }) => exception(`Unhandled issue code from Zod: ${code}`));
+function handleZodIssue(issue: core.$ZodIssue): ValidationErrorIssue {
+	const { code } = issue;
+	const handler = ZOD_ISSUE_HANDLERS_MAP[code];
+
+	if (!handler) {
+		throw new Error(`Unhandled issue code from Zod: ${code}`);
+	}
+
+	return handler(issue as never);
 }
 
 /**
  * Handles an issue with code "custom" from Zod.
  *
  * @param issue - The `ZodIssueCustom` object to handle.
- * @returns The parsed {@link ValidationErrorIssue | `ValidationErrorIssue`} object.
  */
 function handleZodCustomIssue(issue: core.$ZodIssueCustom): ValidationErrorIssue {
 	const { message, path } = issue;
@@ -119,19 +98,18 @@ function handleZodCustomIssue(issue: core.$ZodIssueCustom): ValidationErrorIssue
  * Handles an issue with code "invalid_type" from Zod.
  *
  * @param issue - The `ZodIssueInvalidStringFormat` object to handle.
- * @returns The parsed {@link ValidationErrorIssue | `ValidationErrorIssue`} object.
  */
 function handleZodInvalidFormatIssue(issue: core.$ZodIssueInvalidStringFormat): ValidationErrorIssue {
 	const { format, path } = issue;
+	const message = ZOD_ISSUE_INVALID_STRING_FORMAT_STRINGS_MAP[format];
 
-	const message = match(format)
-		.returnType<string>()
-		.with("url", () => "Expected input to be a valid URL")
-		.otherwise((format) => exception(`Unhandled string format from Zod: ${format}`));
+	if (!message) {
+		throw new Error(`Unhandled format from Zod: ${origin}`);
+	}
 
 	return {
 		issues: null,
-		message,
+		message: message(issue),
 		path,
 	};
 }
@@ -140,11 +118,10 @@ function handleZodInvalidFormatIssue(issue: core.$ZodIssueInvalidStringFormat): 
  * Handles an issue with code "invalid_type" from Zod.
  *
  * @param issue - The `ZodIssueInvalidType` object to handle.
- * @returns The parsed {@link ValidationErrorIssue | `ValidationErrorIssue`} object.
  */
 function handleZodInvalidTypeIssue(issue: core.$ZodIssueInvalidType): ValidationErrorIssue {
 	const { expected, path } = issue;
-	const article = startsWithVower(expected) ? "an" : "a";
+	const article = wordArticle(expected);
 
 	return {
 		issues: null,
@@ -157,7 +134,6 @@ function handleZodInvalidTypeIssue(issue: core.$ZodIssueInvalidType): Validation
  * Handles an issue with code "invalid_union" from Zod.
  *
  * @param issue - The `ZodIssueInvalidUnion` object to handle.
- * @returns The parsed {@link ValidationErrorIssue | `ValidationErrorIssue`} object.
  */
 function handleZodInvalidUnionIssue(issue: core.$ZodIssueInvalidUnion): ValidationErrorIssue {
 	const { errors, path } = issue;
@@ -176,13 +152,12 @@ function handleZodInvalidUnionIssue(issue: core.$ZodIssueInvalidUnion): Validati
  * Handles an issue with code "invalid_value" from Zod.
  *
  * @param issue - The `ZodIssueInvalidValue` object to handle.
- * @returns The parsed {@link ValidationErrorIssue | `ValidationErrorIssue`} object.
  */
 function handleZodInvalidValueIssue(issue: core.$ZodIssueInvalidValue): ValidationErrorIssue {
 	const { path, values } = issue;
 
 	const transformedValues = values.map(String);
-	const formattedValues = CONJUNCTION_FORMATTER.format(transformedValues);
+	const formattedValues = STRING_CONJUNCTION_FORMATTER.format(transformedValues);
 
 	return {
 		issues: null,
@@ -195,21 +170,18 @@ function handleZodInvalidValueIssue(issue: core.$ZodIssueInvalidValue): Validati
  * Handles an issue with code "too_big" from Zod.
  *
  * @param issue - The `ZodIssueTooBig` object to handle.
- * @returns The parsed {@link ValidationErrorIssue | `ValidationErrorIssue`} object.
  */
 function handleZodTooBigIssue(issue: core.$ZodIssueTooBig): ValidationErrorIssue {
-	const { inclusive, maximum, origin, path } = issue;
+	const { origin, path } = issue;
+	const message = ZOD_ISSUE_TOO_BIG_STRINGS_MAP[origin];
 
-	const phrase = inclusive ? "greater than (or equal to)" : "greater than";
-	const message = match(origin)
-		.returnType<string>()
-		.with("array", () => `Expected input to be an array with a maximum of ${maximum} item(s)`)
-		.with("number", () => `Expected input to be a number ${phrase} ${maximum}`)
-		.otherwise((origin) => exception(`Unhandled maximum origin from Zod: ${origin}`));
+	if (!message) {
+		throw new Error(`Unhandled maximum origin from Zod: ${origin}`);
+	}
 
 	return {
 		issues: null,
-		message,
+		message: message(issue),
 		path,
 	};
 }
@@ -218,53 +190,47 @@ function handleZodTooBigIssue(issue: core.$ZodIssueTooBig): ValidationErrorIssue
  * Handles an issue with code "too_small" from Zod.
  *
  * @param issue - The `ZodIssueTooSmall` object to handle.
- * @returns The parsed {@link ValidationErrorIssue | `ValidationErrorIssue`} object.
  */
 function handleZodTooSmallIssue(issue: core.$ZodIssueTooSmall): ValidationErrorIssue {
-	const { inclusive, minimum, origin, path } = issue;
+	const { origin, path } = issue;
+	const message = ZOD_ISSUE_TOO_SMALL_STRINGS_MAP[origin];
 
-	const phrase = inclusive ? "less than (or equal to)" : "less than";
-	const message = match(origin)
-		.returnType<string>()
-		.with("array", () => `Expected input to be an array with a minimum of ${minimum} item(s)`)
-		.with("number", () => `Expected input to be a number ${phrase} ${minimum}`)
-		.otherwise((origin) => exception(`Unhandled minimum origin from Zod: ${origin}`));
+	if (!message) {
+		throw new Error(`Unhandled maximum origin from Zod: ${origin}`);
+	}
 
 	return {
 		issues: null,
-		message,
+		message: message(issue),
 		path,
 	};
 }
 
 /**
- * Checks whether the given word starts with a vowel.
+ * Gets the article for the given word.
  *
- * @param content - The word to check.
- * @returns Whether the given word starts with a vowel.
+ * @param word - The word to get its article.
  */
-function startsWithVower(word: string): boolean {
-	const trimmedWord = word.trim();
-
-	return VOWEL_REGEX.test(trimmedWord);
+function wordArticle(word: string): "a" | "an" {
+	return STRING_VOWEL_REGEX.test(word) ? "an" : "a";
 }
 
-/**
- * Represents an issue from Zod.
- * @group Utils/Functions
- */
-type ZodIssue = core.$ZodIssue;
+/** Represents a map of issue codes from Zod with their respective handler. */
+type ZodIssueHandlersMap = Partial<{
+	[Issue in core.$ZodIssue as Issue["code"]]: (issue: Issue) => ValidationErrorIssue;
+}>;
 
-/**
- * Represents a schema from Zod.
- * @group Utils/Functions
- */
-type ZodSchema = core.$ZodType;
+/** Represents a map of issue origins from Zod with their respective messages. */
+type ZodIssueInvalidStringFormatStringsMap = Partial<{
+	[Issue in core.$ZodIssueInvalidStringFormat as Issue["format"]]: (issue: Issue) => string;
+}>;
 
-/**
- * Represents the output from the given Zod schema.
- *
- * @typeParam Schema - The inferred type from the `Schema` type.
- * @group Utils/Functions
- */
-type ZodSchemaOutput<Schema extends ZodSchema> = core.output<Schema>;
+/** Represents a map of issue origins from Zod with their respective messages. */
+type ZodIssueTooBigStringsMap = Partial<{
+	[Issue in core.$ZodIssueTooBig as Issue["origin"]]: (issue: Issue) => string;
+}>;
+
+/** Represents a map of issue origins from Zod with their respective messages. */
+type ZodIssueTooSmallStringsMap = Partial<{
+	[Issue in core.$ZodIssueTooSmall as Issue["origin"]]: (issue: Issue) => string;
+}>;
