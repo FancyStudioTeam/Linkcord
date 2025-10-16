@@ -5,19 +5,21 @@ const DISCORD_SNOWFLAKE_REGEX = /^(?<id>\d{17,20})$/;
 
 /**
  * Utility class for working with Discord Snowflakes.
+ *
  * @group Utils/Helpers
  */
 export class SnowflakeUtils {
 	/**
 	 * Casts an input into a {@link Snowflake | `Snowflake`} string.
 	 *
-	 * @param input - The input to cast.
+	 * @param input - The bigint, number, or string to cast.
+	 *
 	 * @returns The casted {@link Snowflake | `Snowflake`} string.
 	 */
 	static cast(input: bigint | number | string): Snowflake {
 		if (!(typeof input === "bigint" || typeof input === "number" || typeof input === "string")) {
 			throw new TypeError(
-				"First parameter (input) from 'SnowflakeUtils.cast' must be a bigint, number, or string.",
+				"First parameter (input) from 'SnowflakeUtils.cast' must be a bigint, number, or string",
 			);
 		}
 
@@ -25,7 +27,7 @@ export class SnowflakeUtils {
 
 		if (!SnowflakeUtils.isSnowflake(snowflakeString)) {
 			throw new TypeError(
-				"First parameter (input) from 'SnowflakeUtils.cast' does not match Discord Snowflake regex.",
+				"First parameter (input) from 'SnowflakeUtils.cast' does not match Discord Snowflake regex",
 			);
 		}
 
@@ -36,7 +38,6 @@ export class SnowflakeUtils {
 	 * Checks whether a value is a valid {@link Snowflake | `Snowflake`} string.
 	 *
 	 * @param input - The input to check.
-	 * @returns Whether the input is a valid {@link Snowflake | `Snowflake`} string.
 	 */
 	static isSnowflake(input: unknown): input is Snowflake {
 		return typeof input === "string" && DISCORD_SNOWFLAKE_REGEX.test(input);
@@ -46,11 +47,12 @@ export class SnowflakeUtils {
 	 * Gets the timestamp from a {@link Snowflake | `Snowflake`} string.
 	 *
 	 * @param snowflake - The {@link Snowflake | `Snowflake`} string to get its timestamp.
+	 *
 	 * @returns The timestamp of the {@link Snowflake | `Snowflake`} string.
 	 */
 	static timestampFrom(snowflake: Snowflake): number {
 		if (!SnowflakeUtils.isSnowflake(snowflake)) {
-			throw new TypeError("First parameter (snowflake) from 'SnowflakeUtils.timestampFrom' must be a Snowflake.");
+			throw new TypeError("First parameter (snowflake) from 'SnowflakeUtils.timestampFrom' must be a Snowflake");
 		}
 
 		const snowflakeBigInt = (BigInt(snowflake) >> 22n) + DISCORD_EPOCH_BIGINT;

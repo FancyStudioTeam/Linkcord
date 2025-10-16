@@ -9,7 +9,7 @@ describe("Function: normalizeArray", () => {
 
 		const expectedResult = STRINGS_ARRAY;
 
-		expect(result1).toEqual(expectedResult);
-		expect(result2).toEqual(expectedResult);
+		expect<string[]>(result1).toEqual(expectedResult);
+		expect<string[]>(result2).toEqual(expectedResult);
 	});
 });
