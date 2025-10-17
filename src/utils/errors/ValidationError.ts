@@ -1,10 +1,7 @@
 import { styleText } from "node:util";
 import type { ValidationErrorIssue } from "#utils/types/index.js";
 
-/**
- * Represents an error thrown when validating an invalid input.
- * @group Utils/Errors
- */
+/** Represents an error thrown when validating an invalid input. */
 export class ValidationError extends Error {
 	/**
 	 * Creates a new {@link ValidationError | `ValidationError`} instance.
