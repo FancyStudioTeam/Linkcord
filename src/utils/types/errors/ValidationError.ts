@@ -1,14 +1,14 @@
 import { ValidationError } from "#utils/errors/ValidationError.js";
 
-/**
- * Represents an issue for a {@link ValidationError | `ValidationError`} instance.
- * @group Utils/Errors
- */
+/** Represents a validation issue for a {@link ValidationError | `ValidationError`} instance. */
 export interface ValidationErrorIssue {
-	/** The issues from the main validation issue. */
+	/**
+	 * The sub-issues from the main validation issue.
+	 * Only available in union issues.
+	 */
 	issues: ValidationErrorIssue[] | null;
 	/** The message of the validation issue. */
 	message: string;
-	/** The path where the validation failed. */
+	/** The path where the issue was thrown. */
 	path: PropertyKey[];
 }
