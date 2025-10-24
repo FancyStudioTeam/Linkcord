@@ -5,6 +5,7 @@ import type { ValidationErrorIssue } from "#utils/types/index.js";
 export class ValidationError extends Error {
 	/**
 	 * Creates a new {@link ValidationError | `ValidationError`} instance.
+	 *
 	 * @param issues - The list of {@link ValidationErrorIssue | `ValidationErrorIssue`} objects.
 	 */
 	constructor(issues: ValidationErrorIssue[]) {
@@ -20,7 +21,6 @@ export class ValidationError extends Error {
 	 * Flattens the given list of `PropertyKey` objects into a string.
 	 *
 	 * @param path - The list of `PropertyKey` objects to flatten.
-	 * @returns The flattened string.
 	 */
 	#flattenIssuePath(path: PropertyKey[]): string {
 		const filteredPath = path.filter((item) => typeof item !== "symbol");
@@ -37,13 +37,11 @@ export class ValidationError extends Error {
 	}
 
 	/**
-	 * Converts the given {@link ValidationErrorIssue | `ValidationErrorIssue`} object into a prettified string.
+	 * Converts the given {@link ValidationErrorIssue | `ValidationErrorIssue`} object into a prettified issue message.
 	 *
 	 * @param issue - The {@link ValidationErrorIssue | `ValidationErrorIssue`} object to prettify.
 	 * @param isMainIssue - Whether the issue is a top-level issue.
 	 * @param indentLevel - The number of tabs to prepend at the beginning of the message.
-	 *
-	 * @returns The prettified {@link ValidationErrorIssue | `ValidationErrorIssue`} string.
 	 */
 	#prettifyIssue(issue: ValidationErrorIssue, isMainIssue = true, indentLevel = 1): string {
 		const { issues, message, path } = issue;
@@ -73,10 +71,9 @@ export class ValidationError extends Error {
 	}
 
 	/**
-	 * Converts the given list of {@link ValidationErrorIssue | `ValidationErrorIssue`} objects into a prettified string.
+	 * Converts the given list of {@link ValidationErrorIssue | `ValidationErrorIssue`} objects into a prettified issues message.
 	 *
 	 * @param issues - The list of {@link ValidationErrorIssue | `ValidationErrorIssue`} objects to prettify.
-	 * @returns The prettified {@link ValidationErrorIssue | `ValidationErrorIssue`} strings.
 	 */
 	#prettifyIssues(issues: ValidationErrorIssue[]): string {
 		const prettifiedIssues = issues.map((issue) => this.#prettifyIssue(issue));
