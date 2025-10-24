@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { exception } from "../exception.js";
 
 const ERROR_MESSAGE = "Expected type to be a string";
@@ -20,7 +18,9 @@ describe("Function: exception", () => {
 	});
 
 	it("Should throw a TypeError if some of the given parameters are not valid functions or strings", () => {
+		// @ts-expect-error
 		const result1 = () => exception(null);
+		// @ts-expect-error
 		const result2 = () => exception(TypeError, null);
 
 		const expectedErrorResult1 = new TypeError("First parameter (message) from 'exception' must be a string");

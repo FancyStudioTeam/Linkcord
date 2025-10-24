@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { defineImmutableProperty } from "../defineImmutableProperty.js";
 
 const DISCORD_BOT_DATA = {
@@ -25,7 +23,9 @@ describe("Function: defineImmutableProperty", () => {
 	});
 
 	it("Should throw a TypeError if some of the given parameters are not valid objects or strings", () => {
+		// @ts-expect-error
 		const result1 = () => defineImmutableProperty(null);
+		// @ts-expect-error
 		const result2 = () => defineImmutableProperty(DISCORD_BOT_DATA, null);
 
 		const expectedErrorResult1 = new TypeError(
