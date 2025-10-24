@@ -5,8 +5,6 @@
  * @returns The data of the package, or `null` if the package is not installed.
  *
  * @typeParam PackageData - The shape of the data of the package.
- *
- * @group Utils/Functions
  */
 export async function tryImport<PackageData>(packageName: string): Promise<PackageData | null> {
 	try {

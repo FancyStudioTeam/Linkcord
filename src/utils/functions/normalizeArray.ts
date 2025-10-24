@@ -5,8 +5,6 @@
  * @returns A new array containing the normalized items.
  *
  * @typeParam Item - The inferred type from the `items` parameter.
- *
- * @group Utils/Functions
  */
 export function normalizeArray<Item>(items: Item[]): Item[];
 
@@ -17,8 +15,6 @@ export function normalizeArray<Item>(items: Item[]): Item[];
  * @returns A new array containing the normalized items.
  *
  * @typeParam Item - The inferred type from the `items` parameter.
- *
- * @group Utils/Functions
  */
 export function normalizeArray<Item>(...items: Item[]): Flatten<Item>[];
 

@@ -8,8 +8,6 @@
  * @typeParam Object - The inferred type from the `object` parameter.
  * @typeParam PropertyName - The inferred type from the `propertyName` parameter.
  * @typeParam Value - The inferred type from the `value` parameter.
- *
- * @group Utils/Functions
  */
 export function defineImmutableProperty<Object extends object, PropertyName extends string, Value>(
 	object: Object,

@@ -1,11 +1,9 @@
-import type { Newable } from "#utils/types/Util.js";
+import type { Constructor } from "#utils/types/Util.js";
 
 /**
  * Throws an exception in an inline expression.
  *
  * @param message - The message of the exception.
- *
- * @group Utils/Functions
  */
 export function exception(message: string): never;
 
@@ -16,15 +14,13 @@ export function exception(message: string): never;
  * @param message - The message of the exception.
  *
  * @typeParam ErrorConstructor - The shape of the constructor of the error.
- *
- * @group Utils/Functions
  */
-export function exception<ErrorConstructor extends Newable<Error>>(
+export function exception<ErrorConstructor extends Constructor<Error>>(
 	errorConstructor: ErrorConstructor,
 	message: string,
 ): never;
 
-export function exception(errorConstructorOrMessage: Newable<Error> | string, possibleMessage?: string): never {
+export function exception(errorConstructorOrMessage: Constructor<Error> | string, possibleMessage?: string): never {
 	if (typeof errorConstructorOrMessage === "function") {
 		if (typeof possibleMessage !== "string") {
 			throw new TypeError("Second parameter (message) from 'exception' must be a string");

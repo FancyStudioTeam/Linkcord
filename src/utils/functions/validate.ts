@@ -36,8 +36,6 @@ const ZOD_ISSUE_TOO_SMALL_STRINGS_MAP: ZodIssueTooSmallStringsMap = {
  * @param input - The input to validate with the given Zod schema.
  *
  * @typeParam Schema - The inferred type from the `schema` parameter.
- *
- * @group Utils/Functions
  */
 export function validate<Schema extends core.$ZodType>(schema: Schema, input: unknown): core.output<Schema> {
 	try {
