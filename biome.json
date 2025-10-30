@@ -44,7 +44,12 @@
 			"correctness": {
 				"noNodejsModules": "warn",
 				"noUndeclaredDependencies": "warn",
-				"useImportExtensions": "error"
+				"useImportExtensions": {
+					"level": "error",
+					"options": {
+						"forceJsExtensions": true
+					}
+				}
 			},
 			"nursery": {
 				"noUnresolvedImports": "warn",
