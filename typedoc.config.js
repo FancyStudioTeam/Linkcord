@@ -1,7 +1,9 @@
 /**
  * @type {import("typedoc").TypeDocOptions}
  */
-const configuration = {
+
+// biome-ignore lint/style/noDefaultExport: Default exports are allowed for configuration files.
+export default {
 	categorizeByGroup: true,
 	entryPointStrategy: "Expand",
 	entryPoints: ["./src/index.ts"],
@@ -23,5 +25,3 @@ const configuration = {
 	themeColor: "#E0E3FF",
 	tsconfig: "./tsconfig.json",
 };
-
-export default configuration;

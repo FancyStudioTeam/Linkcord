@@ -1,30 +1,6 @@
 import type { UserConfig } from "@commitlint/types";
 
-const configuration: UserConfig = {
+// biome-ignore lint/style/noDefaultExport: Default exports are allowed for configuration files.
+export default (<UserConfig>{
 	extends: ["@commitlint/config-conventional"],
-	rules: {
-		"type-enum": [
-			2,
-			"always",
-			[
-				"api-docs",
-				"builders",
-				"chore",
-				"ci",
-				"client",
-				"docs",
-				"feat",
-				"fix",
-				"gateway",
-				"refactor",
-				"rest",
-				"style",
-				"test",
-				"transformers",
-				"types",
-			],
-		],
-	},
-};
-
-export default configuration;
+});

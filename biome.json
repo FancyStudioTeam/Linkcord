@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
 	"assist": {
 		"actions": {
 			"recommended": true,
@@ -12,7 +12,7 @@
 		"enabled": true
 	},
 	"files": {
-		"includes": ["**", "!**/.VSCodeCounter", "!**/.turbo", "!**/.typedoc", "!**/dist"]
+		"includes": ["**", "!!**/.VSCodeCounter", "!!**/.turbo", "!!**/.typedoc", "!!**/dist"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -20,6 +20,9 @@
 		"indentWidth": 4,
 		"lineEnding": "lf",
 		"lineWidth": 120
+	},
+	"html": {
+		"experimentalFullSupportEnabled": true
 	},
 	"javascript": {
 		"parser": {
@@ -39,12 +42,12 @@
 				"useSimplifiedLogicExpression": "error"
 			},
 			"correctness": {
-				"noNodejsModules": "off",
-				"noUndeclaredDependencies": "off",
+				"noNodejsModules": "warn",
+				"noUndeclaredDependencies": "warn",
 				"useImportExtensions": "error"
 			},
 			"nursery": {
-				"noUnresolvedImports": "off",
+				"noUnresolvedImports": "warn",
 				"useSortedClasses": "error"
 			},
 			"performance": {
@@ -53,7 +56,7 @@
 			},
 			"recommended": true,
 			"style": {
-				"noDefaultExport": "off",
+				"noDefaultExport": "error",
 				"noMagicNumbers": "error",
 				"useImportType": "error",
 				"useNamingConvention": {
