@@ -19,7 +19,7 @@
 		"esbuild-plugin-version-injector": "1.2.1",
 		"husky": "9.1.7",
 		"lint-staged": "16.2.6",
-		"rimraf": "6.0.1",
+		"rimraf": "6.1.0",
 		"tsup": "8.5.0",
 		"typedoc": "0.28.14",
 		"typedoc-material-theme": "1.4.0",
