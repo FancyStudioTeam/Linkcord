@@ -1,11 +1,5 @@
 // biome-ignore-all lint/style/useNamingConvention: Some languages use all uppercase letters for their names.
 
-/** Represents a record of headers. */
-export type HeadersRecord = Record<string, string>;
-
-/** Represents a tuple of headers. */
-export type HeadersTuple = [string, string][];
-
 /** Represents a map of levels of headings for headers with their respective literal content. */
 export type HeadingLevelsMap<Content extends string> = {
 	[HeadingLevel.One]: `# ${Content}`;
@@ -222,11 +216,13 @@ export enum HeadingLevel {
  * @see https://discord.com/developers/docs/reference#message-formatting-timestamp-styles
  */
 export enum TimestampStyle {
+	FullDateShortTime = "F",
 	LongDate = "D",
-	LongDateTime = "F",
-	LongTime = "T",
+	LongDateShortTime = "f",
+	MediumTime = "T",
 	Relative = "R",
 	ShortDate = "d",
-	ShortDateTime = "f",
+	ShortDateMediumTime = "S",
+	ShortDateShortTime = "s",
 	ShortTime = "t",
 }
