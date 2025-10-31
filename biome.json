@@ -42,7 +42,7 @@
 				"useSimplifiedLogicExpression": "error"
 			},
 			"correctness": {
-				"noNodejsModules": "warn",
+				"noNodejsModules": "off",
 				"noUndeclaredDependencies": "warn",
 				"useImportExtensions": {
 					"level": "error",
@@ -52,7 +52,7 @@
 				}
 			},
 			"nursery": {
-				"noUnresolvedImports": "warn",
+				"noUnresolvedImports": "off",
 				"useSortedClasses": "error"
 			},
 			"performance": {

@@ -1,12 +1,12 @@
 import { styleText } from "node:util";
 import type { ValidationErrorIssue } from "#utils/types/index.js";
 
-/** Represents an error thrown when validating an invalid input. */
+/** Represents an error that occurs when a validation fails. */
 export class ValidationError extends Error {
 	/**
-	 * Creates a new {@link ValidationError | `ValidationError`} instance.
+	 * Creates a new instance of the {@link ValidationError | `ValidationError`} class.
 	 *
-	 * @param issues - The list of {@link ValidationErrorIssue | `ValidationErrorIssue`} objects.
+	 * @param issues - The list of {@link ValidationErrorIssue | `ValidationErrorIssue`} objects for the error.
 	 */
 	constructor(issues: ValidationErrorIssue[]) {
 		super();
@@ -23,14 +23,10 @@ export class ValidationError extends Error {
 	 * @param path - The list of `PropertyKey` objects to flatten.
 	 */
 	#flattenIssuePath(path: PropertyKey[]): string {
-		const filteredPath = path.filter((item) => typeof item !== "symbol");
-		const formattedPathCallback = (accumulator: string, currentItem: string | number) => {
-			if (typeof currentItem === "number") {
-				return `${accumulator}[${currentItem}]`;
-			}
+		const formattedPathCallback = (accumulator: string, currentItem: string | number): string =>
+			typeof currentItem === "number" ? `${accumulator}[${currentItem}]` : `${accumulator}.${currentItem}`;
 
-			return `${accumulator}.${currentItem}`;
-		};
+		const filteredPath = path.filter((item) => typeof item !== "symbol");
 		const formattedPath = filteredPath.slice(1).reduce(formattedPathCallback, String(filteredPath[0]));
 
 		return formattedPath;
@@ -41,7 +37,7 @@ export class ValidationError extends Error {
 	 *
 	 * @param issue - The {@link ValidationErrorIssue | `ValidationErrorIssue`} object to prettify.
 	 * @param isMainIssue - Whether the issue is a top-level issue.
-	 * @param indentLevel - The number of tabs to prepend at the beginning of the message.
+	 * @param indentLevel - The number of tabs to prepend at the beginning of the message line.
 	 */
 	#prettifyIssue(issue: ValidationErrorIssue, isMainIssue = true, indentLevel = 1): string {
 		const { issues, message, path } = issue;

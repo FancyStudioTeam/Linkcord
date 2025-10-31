@@ -10,14 +10,14 @@ const EMAIL_HEADERS = {
 const EMAIL_USERNAME = "nelly";
 
 describe("Method: FormatterUtils.email", () => {
-	it("GIVEN a username and a domain WHEN formatting them THEN returns the formatted email", () => {
+	it("Should format the given username and domain into an email", () => {
 		const result = FormatterUtils.email(EMAIL_USERNAME, EMAIL_DOMAIN);
 		const expectedResult = `<${EMAIL_USERNAME}@${EMAIL_DOMAIN}>` as const;
 
 		expect<typeof expectedResult>(result).toBe(expectedResult);
 	});
 
-	it("GIVEN a username and a domain WHEN formatting them with headers THEN returns the formatted email with the encoded headers", () => {
+	it("Should format the given username and domain into an email with encoded query headers", () => {
 		const { content, subject } = EMAIL_HEADERS;
 		const queryStringParams = `content=${content}&subject=${subject}`;
 		const encodedQueryStringParams = encodeURIComponent(queryStringParams);
