@@ -4,13 +4,13 @@ import {
 	HeadingLevel,
 	type HeadingLevelsMap,
 	type RecursiveArray,
-	type TimestampStyle,
+	TimestampStyle,
 } from "#utils/types/index.js";
 import { AssertionUtils } from "./AssertionUtils.js";
 
 ///////////////////////////////////////////////////////////////////////////
 
-const { isArray, isEnum, isSnowflake, isString } = AssertionUtils;
+const { isArray, isEnum, isInstanceOf, isNumber, isSnowflake, isString } = AssertionUtils;
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -187,19 +187,15 @@ function header<Level extends HeadingLevel, Content extends string>(
 ): HeadingLevelsMap<Content>[Level];
 
 function header(levelOrContent: HeadingLevel | string, possibleContent?: string): string {
-	if (typeof levelOrContent === "number") {
-		if (!_isHeadingLevel(levelOrContent)) {
-			throw new TypeError("First parameter (level) from 'FormatterUtils.header' must be a valid heading level");
-		}
-
-		if (typeof possibleContent !== "string") {
+	if (isNumber(levelOrContent) && _isHeadingLevel(levelOrContent)) {
+		if (!isString(possibleContent)) {
 			throw new TypeError("Second parameter (content) from 'FormatterUtils.header' must be a string");
 		}
 
 		return `${"#".repeat(levelOrContent)} ${possibleContent}`;
 	}
 
-	if (typeof levelOrContent !== "string") {
+	if (!isString(possibleContent)) {
 		throw new TypeError("First parameter (content) from 'FormatterUtils.header' must be a string");
 	}
 
@@ -233,7 +229,7 @@ function hyperlink<Content extends string, Url extends string, Title extends str
 function hyperlink(content: string, url: URL | string, possibleTitle?: string): string {
 	const urlString = url.toString();
 
-	if (typeof possibleTitle === "string") {
+	if (isString(possibleTitle)) {
 		return `[${content}](${urlString} "${possibleTitle}")` as const;
 	}
 
@@ -331,22 +327,22 @@ function unixTimestamp<Seconds extends number, Style extends TimestampStyle>(
 ): `<t:${Seconds}:${Style}>`;
 
 function unixTimestamp(dateOrSeconds?: Date | number, possibleStyle?: TimestampStyle): string {
-	if (dateOrSeconds instanceof Date) {
+	if (isInstanceOf(dateOrSeconds, Date)) {
 		const dateTime = dateOrSeconds.getTime();
 		const unixTimestamp = Math.floor(dateTime / ONE_SECOND_MILLISECONDS);
 
-		if (possibleStyle) {
+		if (isEnum(possibleStyle, TimestampStyle)) {
 			return `<t:${unixTimestamp}:${possibleStyle}>` as const;
 		}
 
 		return `<t:${unixTimestamp}>` as const;
 	}
 
-	if (typeof dateOrSeconds !== "number") {
+	if (!isNumber(dateOrSeconds)) {
 		throw new TypeError("First parameter (seconds) from 'FormatterUtils.unixTimestamp' must be a number");
 	}
 
-	if (possibleStyle) {
+	if (isEnum(possibleStyle, TimestampStyle)) {
 		return `<t:${dateOrSeconds}:${possibleStyle}>` as const;
 	}
 
