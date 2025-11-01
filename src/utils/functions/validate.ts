@@ -194,7 +194,7 @@ function handleZodTooSmallIssue(issue: core.$ZodIssueTooSmall): ValidationErrorI
 	const message = ZOD_ISSUE_TOO_SMALL_STRINGS_MAP[origin];
 
 	if (!message) {
-		throw new Error(`Unhandled maximum origin from Zod: ${origin}`);
+		throw new Error(`Unhandled minimum origin from Zod: ${origin}`);
 	}
 
 	return {
@@ -209,7 +209,7 @@ function handleZodTooSmallIssue(issue: core.$ZodIssueTooSmall): ValidationErrorI
  *
  * @param word - The word to get its article.
  */
-function wordArticle(word: string): "a" | "an" {
+function wordArticle(word: string) {
 	return STRING_VOWEL_REGEX.test(word) ? "an" : "a";
 }
 
