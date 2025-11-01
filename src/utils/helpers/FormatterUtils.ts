@@ -117,7 +117,7 @@ function chatInputCommandMention<
 	commandId: CommandId,
 ): `</${CommandName} ${SubcommandGroupName} ${SubcommandName}:${CommandId}>`;
 
-function chatInputCommandMention(commandName: string | string[], commandId: Snowflake) {
+function chatInputCommandMention(commandName: string | string[], commandId: Snowflake): string {
 	const normalizedCommandName = _normalizeChatInputCommandName(commandName);
 
 	if (!isSnowflake(commandId)) {
@@ -160,8 +160,8 @@ function email<Username extends string, Domain extends string>(
 	headersInit: HeadersInit,
 ): `<${Username}@${Domain}?${string}>`;
 
-function email(username: string, domain: string, headersInit?: HeadersInit) {
-	const email = `${username}@${domain}`;
+function email(username: string, domain: string, headersInit?: HeadersInit): string {
+	const emailBase = `${username}@${domain}`;
 
 	if (headersInit) {
 		const headersObject = new Headers(headersInit);
@@ -170,12 +170,12 @@ function email(username: string, domain: string, headersInit?: HeadersInit) {
 		const headersArray = Array.from(headersEntries).map(([key, value]) => `${key}=${value}`);
 		const headersString = headersArray.join("&");
 
-		const encodedQueryStringParams = encodeURIComponent(headersString);
+		const encodedHeadersParams = encodeURIComponent(headersString);
 
-		return `<${email}?${encodedQueryStringParams}>` as const;
+		return `<${emailBase}?${encodedHeadersParams}>` as const;
 	}
 
-	return `<${email}>` as const;
+	return `<${emailBase}>` as const;
 }
 
 ///////////////////////////////////////////////////////////////////////////
