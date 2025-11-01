@@ -1,3 +1,5 @@
+import type { Constructor } from "#utils/types/Util.js";
+
 /** Static utility class that provides runtime type assertions and type narrowing helpers. */
 export class AssertionUtils {
 	/**
@@ -8,6 +10,16 @@ export class AssertionUtils {
 	// biome-ignore lint/complexity/noBannedTypes: Expect input to be any kind of function.
 	static isFunction(input: unknown): input is Function {
 		return typeof input === "function";
+	}
+
+	/**
+	 * Determines whether the provided input is an instance of the provided class.
+	 *
+	 * @param input - The input to check.
+	 * @param _class - The class constructor used to validate the input.
+	 */
+	static isInstanceOf<Class>(input: unknown, _class: Constructor<Class>): input is Class {
+		return input instanceof _class;
 	}
 
 	/**

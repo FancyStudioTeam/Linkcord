@@ -1,6 +1,9 @@
 import { type core, parse, ZodError } from "zod";
 import { ValidationError } from "#utils/errors/ValidationError.js";
+import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
 import type { ValidationErrorIssue } from "#utils/types/index.js";
+
+const { isInstanceOf } = AssertionUtils;
 
 const STRING_CONJUNCTION_FORMATTER = new Intl.ListFormat("en", {
 	style: "long",
@@ -41,8 +44,8 @@ export function validate<Schema extends core.$ZodType>(schema: Schema, input: un
 	try {
 		return parse(schema, input);
 	} catch (error) {
-		if (!(error instanceof ZodError)) {
-			throw new Error("Exception thrown from 'validate' is not a 'ZodError' instance");
+		if (!isInstanceOf(error, ZodError)) {
+			throw new Error("Exception thrown from 'validate' is not a valid 'ZodError' instance");
 		}
 
 		const { issues } = error;
