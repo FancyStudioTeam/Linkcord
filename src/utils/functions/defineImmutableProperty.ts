@@ -1,3 +1,5 @@
+import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
+
 /**
  * Defines an immutable property on an object.
  *
@@ -14,12 +16,12 @@ export function defineImmutableProperty<Object extends object, PropertyName exte
 	propertyName: PropertyName,
 	value: Value,
 ): void {
-	if (typeof object !== "object" || object === null) {
-		throw new TypeError("First parameter (object) from 'defineImmutableProperty' must be an object");
+	if (!AssertionUtils.isObject(object)) {
+		throw new TypeError("First parameter (object) from 'defineImmutableProperty' must be a valid object");
 	}
 
-	if (typeof propertyName !== "string") {
-		throw new TypeError("Second parameter (propertyName) from 'defineImmutableProperty' must be a string");
+	if (!AssertionUtils.isString(propertyName)) {
+		throw new TypeError("Second parameter (propertyName) from 'defineImmutableProperty' must be a valid string");
 	}
 
 	Object.defineProperty(object, propertyName, {
