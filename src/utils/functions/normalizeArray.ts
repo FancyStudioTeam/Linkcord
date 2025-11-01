@@ -1,5 +1,6 @@
 export function normalizeArray<Item>(items: Item[]): Item[];
 export function normalizeArray<Item>(...items: Item[]): Flatten<Item>[];
+
 export function normalizeArray<Item>(...items: Item[]): Item[] {
 	const firstElement = items[0];
 

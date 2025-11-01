@@ -23,10 +23,8 @@ describe("Function: exception", () => {
 		// @ts-expect-error
 		const result2 = () => exception(TypeError, null);
 
-		const expectedErrorResult1 = new TypeError("First parameter (message) from 'exception' must be a valid string");
-		const expectedErrorResult2 = new TypeError(
-			"Second parameter (message) from 'exception' must be a valid string",
-		);
+		const expectedErrorResult1 = new TypeError("First parameter (message) from 'exception' must be a string");
+		const expectedErrorResult2 = new TypeError("Second parameter (message) from 'exception' must be a string");
 
 		expect(result1).toThrow(expectedErrorResult1);
 		expect(result2).toThrow(expectedErrorResult2);

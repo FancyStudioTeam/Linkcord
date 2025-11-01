@@ -29,10 +29,10 @@ describe("Function: defineImmutableProperty", () => {
 		const result2 = () => defineImmutableProperty(DISCORD_BOT_DATA, null);
 
 		const expectedErrorResult1 = new TypeError(
-			"First parameter (object) from 'defineImmutableProperty' must be a valid object",
+			"First parameter (object) from 'defineImmutableProperty' must be an object",
 		);
 		const expectedErrorResult2 = new TypeError(
-			"Second parameter (propertyName) from 'defineImmutableProperty' must be a valid string",
+			"Second parameter (propertyName) from 'defineImmutableProperty' must be a string",
 		);
 
 		expect(result1).toThrow(expectedErrorResult1);
