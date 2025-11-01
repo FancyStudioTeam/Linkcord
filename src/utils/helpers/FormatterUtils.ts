@@ -6,7 +6,9 @@ import {
 	type RecursiveArray,
 	type TimestampStyle,
 } from "#utils/types/index.js";
-import { SnowflakeUtils } from "./SnowflakeUtils.js";
+import { AssertionUtils } from "./AssertionUtils.js";
+
+const { isArray, isSnowflake, isString } = AssertionUtils;
 
 const MAXIMUM_TUPLE_LENGTH = 3;
 const MINIMUM_TUPLE_LENGTH = 2;
@@ -16,31 +18,33 @@ const ONE_SECOND_MILLISECONDS = 1_000;
 /** Utility class for working with Discord markdown. */
 export class FormatterUtils {
 	/**
-	 * Checks whether the given input is a valid heading level.
+	 * Determines whether the provided input is a chat input command tuple.
 	 *
 	 * @param input - The input to check.
 	 */
-	static #isValidHeadingLevel(input: unknown): input is HeadingLevel {
+	static #isChatInputCommandTuple(input: unknown): input is string[] {
+		if (!isArray(input)) return false;
+
+		const { length } = input;
+
+		const isValidLength = length >= MINIMUM_TUPLE_LENGTH && length <= MAXIMUM_TUPLE_LENGTH;
+		const areAllStrings = input.every((item) => typeof item === "string");
+
+		return isValidLength && areAllStrings;
+	}
+
+	/**
+	 * Determines whether the provided input is a heading level.
+	 *
+	 * @param input - The input to check.
+	 */
+	static #isHeadingLevel(input: unknown): input is HeadingLevel {
 		// @ts-expect-error
 		return HeadingLevel[input] !== undefined;
 	}
 
 	/**
-	 * Checks whether the given input is a valid tuple.
-	 *
-	 * @param input - The input to check.
-	 */
-	static #isValidTuple(input: unknown): boolean {
-		if (!Array.isArray(input)) return false;
-
-		const isValidLength = input.length === MINIMUM_TUPLE_LENGTH || input.length === MAXIMUM_TUPLE_LENGTH;
-		const areAllStrings = input.every((item) => typeof item === "string");
-
-		return isValidLength || areAllStrings;
-	}
-
-	/**
-	 * Formats the given list of items into a markdown list.
+	 * Formats the provided list of items into a markdown list.
 	 *
 	 * @param items - The list of items to use in the markdown list.
 	 * @param startNumber - The number at which the markdown list starts.
@@ -64,7 +68,32 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given content into a block quote.
+	 * Normalizes the provided chat input command name into a unique string.
+	 *
+	 * @param commandName - The chat input command name to normalize.
+	 */
+	static #normalizeChatInputCommandName(commandName: string | string[]): string {
+		if (isArray(commandName)) {
+			if (!FormatterUtils.#isChatInputCommandTuple(commandName)) {
+				throw new TypeError(
+					"First parameter (commandNames) from 'FormatterUtils.chatInputCommandMention' must be a valid tuple of strings",
+				);
+			}
+
+			return commandName.join(" ");
+		}
+
+		if (isString(commandName)) {
+			return commandName;
+		}
+
+		throw new TypeError(
+			"First parameter (commandName) from 'FormatterUtils.chatInputCommandMention' must be a valid string",
+		);
+	}
+
+	/**
+	 * Formats the provided content into a block quote.
 	 *
 	 * @param content - The content to format.
 	 *
@@ -75,7 +104,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given content into a bold text.
+	 * Formats the provided content into a bold text.
 	 *
 	 * @param content - The content to format.
 	 *
@@ -86,14 +115,14 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given channel ID into a channel mention.
+	 * Formats the provided channel ID into a channel mention.
 	 *
 	 * @param channelId - The ID of the channel to format.
 	 *
 	 * @typeParam ChannelId - The inferred type from the `channelId` parameter.
 	 */
 	static channelMention<ChannelId extends Snowflake>(channelId: ChannelId) {
-		if (!SnowflakeUtils.isSnowflake(channelId)) {
+		if (!isSnowflake(channelId)) {
 			throw new TypeError("First parameter (channelId) from 'FormatterUtils.channelMention' must be a Snowflake");
 		}
 
@@ -101,7 +130,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given command name and command ID into a chat input command mention.
+	 * Formats the provided command name and command ID into a chat input command mention.
 	 *
 	 * @param commandName - The name of the chat input command.
 	 * @param commandId - The ID of the chat input command.
@@ -109,24 +138,24 @@ export class FormatterUtils {
 	 * @typeParam CommandName - The inferred type from the `commandName` parameter.
 	 * @typeParam CommandId - The inferred type from the `commandId` parameter.
 	 */
-	static chatInputCommandMention<CommandName extends string, CommandId extends Snowflake>(
+	static chatInputCommandMention<CommandName extends Lowercase<string>, CommandId extends Snowflake>(
 		commandName: CommandName,
 		commandId: CommandId,
 	): `</${CommandName}:${CommandId}>`;
 
 	/**
-	 * Formats the given list of command names and command ID into a chat input command mention.
+	 * Formats the provided list of command names and command ID into a chat input command mention.
 	 *
 	 * @param commandNames - The name and the subcommand name of the chat input command.
 	 * @param commandId - The ID of the chat input command.
 	 *
-	 * @typeParam CommandName - The inferred type from the first element at the `commandName` parameter.
-	 * @typeParam SubcommandName - The inferred type from the second element at the `commandName` parameter.
+	 * @typeParam CommandName - The inferred type from the first element at the `commandNames` parameter.
+	 * @typeParam SubcommandName - The inferred type from the second element at the `commandNames` parameter.
 	 * @typeParam CommandId - The inferred type from the `commandId` parameter.
 	 */
 	static chatInputCommandMention<
-		CommandName extends string,
-		SubcommandName extends string,
+		CommandName extends Lowercase<string>,
+		SubcommandName extends Lowercase<string>,
 		CommandId extends Snowflake,
 	>(
 		commandNames: [CommandName, SubcommandName],
@@ -134,20 +163,20 @@ export class FormatterUtils {
 	): `</${CommandName} ${SubcommandName}:${CommandId}>`;
 
 	/**
-	 * Formats the given list of command names and command ID into a chat input command mention.
+	 * Formats the provided list of command names and command ID into a chat input command mention.
 	 *
-	 * @param commandName - The name, the subcommand group name, and the subcommand name of the chat input command.
+	 * @param commandNames - The name, the subcommand group name, and the subcommand name of the chat input command.
 	 * @param commandId - The ID of the chat input command.
 	 *
-	 * @typeParam CommandName - The inferred type from the first element at the `commandName` parameter.
-	 * @typeParam SubcommandGroupName - The inferred type from the second element at the `commandName` parameter.
-	 * @typeParam SubcommandName - The inferred type from the third element at the `commandName` parameter.
+	 * @typeParam CommandName - The inferred type from the first element at the `commandNames` parameter.
+	 * @typeParam SubcommandGroupName - The inferred type from the second element at the `commandNames` parameter.
+	 * @typeParam SubcommandName - The inferred type from the third element at the `commandNames` parameter.
 	 * @typeParam CommandId - The inferred type from the `commandId` parameter.
 	 */
 	static chatInputCommandMention<
-		CommandName extends string,
-		SubcommandGroupName extends string,
-		SubcommandName extends string,
+		CommandName extends Lowercase<string>,
+		SubcommandGroupName extends Lowercase<string>,
+		SubcommandName extends Lowercase<string>,
 		CommandId extends Snowflake,
 	>(
 		commandNames: [CommandName, SubcommandGroupName, SubcommandName],
@@ -155,27 +184,22 @@ export class FormatterUtils {
 	): `</${CommandName} ${SubcommandGroupName} ${SubcommandName}:${CommandId}>`;
 
 	static chatInputCommandMention(commandName: string | string[], commandId: Snowflake) {
-		if (Array.isArray(commandName)) {
-			if (FormatterUtils.#isValidTuple(commandName)) {
-				throw new TypeError(
-					"First parameter (commandNames) from 'FormatterUtils.chatInputCommandMention' must be a tuple",
-				);
-			}
+		const normalizedCommandName = FormatterUtils.#normalizeChatInputCommandName(commandName);
 
-			return `</${commandName.join(" ")}:${commandId}>` as const;
-		}
-
-		if (typeof commandName !== "string") {
+		if (!isSnowflake(commandId)) {
 			throw new TypeError(
-				"First parameter (commandNames) from 'FormatterUtils.chatInputCommandMention' must be a string",
+				"Second parameter (commandId) from 'FormatterUtils.chatInputCommandMention' must be a valid Snowflake",
 			);
 		}
 
-		return `</${commandName}:${commandId}>` as const;
+		const commandMention = `</${normalizedCommandName}:${commandId}>`;
+		const lowercasedCommandMention = commandMention.toLowerCase();
+
+		return lowercasedCommandMention;
 	}
 
 	/**
-	 * Formats the given content into a code block.
+	 * Formats the provided content into a code block.
 	 *
 	 * @param content - The content to format.
 	 *
@@ -184,7 +208,7 @@ export class FormatterUtils {
 	static codeBlock<Content extends string>(content: Content): `\`\`\`\n${Content}\n\`\`\``;
 
 	/**
-	 * Formats the given content into a code block.
+	 * Formats the provided content into a code block.
 	 *
 	 * @param language - The language of the code.
 	 * @param content - The content to format.
@@ -206,7 +230,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given username and domain into an email mention.
+	 * Formats the provided username and domain into an email mention.
 	 *
 	 * @param username - The username of the email.
 	 * @param domain - The domain of the email.
@@ -220,7 +244,7 @@ export class FormatterUtils {
 	): `<${Username}@${Domain}>`;
 
 	/**
-	 * Formats the given username, domain, and headers into an email mention.
+	 * Formats the provided username, domain, and headers into an email mention.
 	 *
 	 * @param username - The username of the email.
 	 * @param domain - The domain of the email.
@@ -254,7 +278,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given content into a header of the first level.
+	 * Formats the provided content into a header of the first level.
 	 *
 	 * @param content - The content of the header.
 	 *
@@ -263,7 +287,7 @@ export class FormatterUtils {
 	static header<Content extends string>(content: Content): `# ${Content}`;
 
 	/**
-	 * Formats the given content into a header of the given level.
+	 * Formats the provided content into a header of the provided level.
 	 *
 	 * @param level - The level of the header.
 	 * @param content - The content of the header.
@@ -278,7 +302,7 @@ export class FormatterUtils {
 
 	static header(levelOrContent: HeadingLevel | string, possibleContent?: string): string {
 		if (typeof levelOrContent === "number") {
-			if (!FormatterUtils.#isValidHeadingLevel(levelOrContent)) {
+			if (!FormatterUtils.#isHeadingLevel(levelOrContent)) {
 				throw new TypeError(
 					"First parameter (level) from 'FormatterUtils.header' must be a valid heading level",
 				);
@@ -299,14 +323,14 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given link into a hidden embed link.
+	 * Formats the provided link into a hidden embed link.
 	 *
 	 * @param url - The {@link URL | `URL`} instance of the embed link.
 	 */
 	static hideEmbedLink(url: URL): `<${string}>`;
 
 	/**
-	 * Formats the given link into a hidden embed link.
+	 * Formats the provided link into a hidden embed link.
 	 *
 	 * @param url - The URL of the embed link.
 	 *
@@ -319,7 +343,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given content and link into a hyperlink.
+	 * Formats the provided content and link into a hyperlink.
 	 *
 	 * @param content - The content of the hyperlink.
 	 * @param url - The {@link URL | `URL`} instance of the hyperlink.
@@ -329,7 +353,7 @@ export class FormatterUtils {
 	static hyperlink<Content extends string>(content: Content, url: URL): `[${Content}](${string})`;
 
 	/**
-	 * Formats the given content and link into a hyperlink.
+	 * Formats the provided content and link into a hyperlink.
 	 *
 	 * @param content - The content of the hyperlink.
 	 * @param url - The URL of the hyperlink.
@@ -340,7 +364,7 @@ export class FormatterUtils {
 	static hyperlink<Content extends string, Url extends string>(content: Content, url: Url): `[${Content}](${Url})`;
 
 	/**
-	 * Formats the given content, link, and title into a hyperlink.
+	 * Formats the provided content, link, and title into a hyperlink.
 	 *
 	 * @param content - The content of the hyperlink.
 	 * @param url - The {@link URL | `URL`} instance of the hyperlink.
@@ -356,7 +380,7 @@ export class FormatterUtils {
 	): `[${Content}](${string} "${Title}")`;
 
 	/**
-	 * Formats the given content, link, and title into a hyperlink.
+	 * Formats the provided content, link, and title into a hyperlink.
 	 *
 	 * @param content - The content of the hyperlink.
 	 * @param url - The URL of the hyperlink.
@@ -383,7 +407,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given content into an inline code.
+	 * Formats the provided content into an inline code.
 	 *
 	 * @param content - The content to format.
 	 *
@@ -394,7 +418,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given content into italic text.
+	 * Formats the provided content into italic text.
 	 *
 	 * @param content - The content to format.
 	 *
@@ -405,7 +429,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given linked role ID into a linked role mention.
+	 * Formats the provided linked role ID into a linked role mention.
 	 *
 	 * @param linkedRoleId - The ID of the linked role to format.
 	 *
@@ -422,7 +446,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given items into an ordered list.
+	 * Formats the provided items into an ordered list.
 	 *
 	 * @param items - The items to format.
 	 * @param startNumber - The number at which the list starts.
@@ -432,7 +456,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given phone number into a phone number mention.
+	 * Formats the provided phone number into a phone number mention.
 	 *
 	 * @param number - The phone number to format.
 	 *
@@ -447,7 +471,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given content into a quote.
+	 * Formats the provided content into a quote.
 	 *
 	 * @param content - The content to format.
 	 *
@@ -458,7 +482,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given role ID into a role mention.
+	 * Formats the provided role ID into a role mention.
 	 *
 	 * @param roleId - The ID of the role to format.
 	 *
@@ -473,7 +497,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given content into a spoiler text.
+	 * Formats the provided content into a spoiler text.
 	 *
 	 * @param content - The content to format.
 	 *
@@ -484,7 +508,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given content into a strikethrough text.
+	 * Formats the provided content into a strikethrough text.
 	 *
 	 * @param content - The content to format.
 	 *
@@ -495,7 +519,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given content into a subtext.
+	 * Formats the provided content into a subtext.
 	 *
 	 * @param content - The content to format.
 	 *
@@ -506,7 +530,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given content into an underline text.
+	 * Formats the provided content into an underline text.
 	 *
 	 * @param content - The content to format.
 	 *
@@ -517,14 +541,14 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the current or given date into a unix timestamp of the default style.
+	 * Formats the current or provided date into a unix timestamp of the default style.
 	 *
 	 * @param date - The {@link Date | `Date`} instance to format.
 	 */
 	static unixTimestamp(date?: Date): `<t:${bigint}>`;
 
 	/**
-	 * Formats the given date into a unix timestamp with the given style.
+	 * Formats the provided date into a unix timestamp with the provided style.
 	 *
 	 * @param date - The {@link Date | `Date`} instance to format.
 	 * @param style - The style of the unix timestamp.
@@ -532,7 +556,7 @@ export class FormatterUtils {
 	static unixTimestamp<Style extends TimestampStyle>(date: Date, style: Style): `<t:${bigint}:${Style}>`;
 
 	/**
-	 * Formats the given seconds into a unix timestamp of the default style.
+	 * Formats the provided seconds into a unix timestamp of the default style.
 	 *
 	 * @param seconds - The seconds to format.
 	 *
@@ -541,7 +565,7 @@ export class FormatterUtils {
 	static unixTimestamp<Seconds extends number>(seconds: Seconds): `<t:${Seconds}>`;
 
 	/**
-	 * Formats the given seconds into a unix timestamp with the given style.
+	 * Formats the provided seconds into a unix timestamp with the provided style.
 	 *
 	 * @param seconds - The seconds to format.
 	 * @param style - The style of the unix timestamp.
@@ -578,7 +602,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given items into an unordered list.
+	 * Formats the provided items into an unordered list.
 	 *
 	 * @param items - The items to format.
 	 */
@@ -587,7 +611,7 @@ export class FormatterUtils {
 	}
 
 	/**
-	 * Formats the given user ID into a user mention.
+	 * Formats the provided user ID into a user mention.
 	 *
 	 * @param userId - The ID of the user to format.
 	 *
