@@ -22,7 +22,7 @@ describe("Function: defineImmutableProperty", () => {
 		expect(descriptorAfter).toBeDefined();
 	});
 
-	it("Should throw a TypeError if some of the provided parameters are not valid", () => {
+	it("Should throw a TypeError if any of the provided parameters are not valid", () => {
 		// @ts-expect-error
 		const result1 = () => defineImmutableProperty(null);
 		// @ts-expect-error

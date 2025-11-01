@@ -1,4 +1,7 @@
+import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
 import type { Constructor } from "#utils/types/Util.js";
+
+const { isFunction, isString } = AssertionUtils;
 
 /**
  * Throws an exception in an inline expression.
@@ -21,16 +24,16 @@ export function exception<ErrorConstructor extends Constructor<Error>>(
 ): never;
 
 export function exception(errorConstructorOrMessage: Constructor<Error> | string, possibleMessage?: string): never {
-	if (typeof errorConstructorOrMessage === "function") {
-		if (typeof possibleMessage !== "string") {
-			throw new TypeError("Second parameter (message) from 'exception' must be a string");
+	if (isFunction(errorConstructorOrMessage)) {
+		if (!isString(possibleMessage)) {
+			throw new TypeError("Second parameter (message) from 'exception' must be a valid string");
 		}
 
 		throw new errorConstructorOrMessage(possibleMessage);
 	}
 
-	if (typeof errorConstructorOrMessage !== "string") {
-		throw new TypeError("First parameter (message) from 'exception' must be a string");
+	if (!isString(errorConstructorOrMessage)) {
+		throw new TypeError("First parameter (message) from 'exception' must be a valid string");
 	}
 
 	throw new Error(errorConstructorOrMessage);
