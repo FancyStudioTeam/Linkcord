@@ -32,14 +32,6 @@ const ZOD_ISSUE_TOO_SMALL_STRINGS_MAP: ZodIssueTooSmallStringsMap = {
 	number: ({ minimum }) => `Expected input to be a number less than or equal to ${minimum}`,
 };
 
-/**
- * Validates the given input with the given Zod schema.
- *
- * @param schema - The Zod schema used to validate the given input.
- * @param input - The input to validate with the given Zod schema.
- *
- * @typeParam Schema - The inferred type from the `schema` parameter.
- */
 export function validate<Schema extends core.$ZodType>(schema: Schema, input: unknown): core.output<Schema> {
 	try {
 		return parse(schema, input);
@@ -55,20 +47,10 @@ export function validate<Schema extends core.$ZodType>(schema: Schema, input: un
 	}
 }
 
-/**
- * Handles the given list of {@link ZodIssue | `ZodIssue`} objects.
- *
- * @param issues - The list of {@link ZodIssue | `ZodIssue`} objects to handle.
- */
 function handleZodIssues(issues: core.$ZodIssue[]): ValidationErrorIssue[] {
 	return issues.map(handleZodIssue);
 }
 
-/**
- * Handles the given {@link ZodIssue | `ZodIssue`} object.
- *
- * @param issue - The {@link ZodIssue | `ZodIssue`} object to handle.
- */
 function handleZodIssue(issue: core.$ZodIssue): ValidationErrorIssue {
 	const { code } = issue;
 	const handler = ZOD_ISSUE_HANDLERS_MAP[code];
@@ -80,11 +62,6 @@ function handleZodIssue(issue: core.$ZodIssue): ValidationErrorIssue {
 	return handler(issue as never);
 }
 
-/**
- * Handles an issue with code "custom" from Zod.
- *
- * @param issue - The `ZodIssueCustom` object to handle.
- */
 function handleZodCustomIssue(issue: core.$ZodIssueCustom): ValidationErrorIssue {
 	const { message, path } = issue;
 
@@ -95,11 +72,6 @@ function handleZodCustomIssue(issue: core.$ZodIssueCustom): ValidationErrorIssue
 	};
 }
 
-/**
- * Handles an issue with code "invalid_type" from Zod.
- *
- * @param issue - The `ZodIssueInvalidStringFormat` object to handle.
- */
 function handleZodInvalidFormatIssue(issue: core.$ZodIssueInvalidStringFormat): ValidationErrorIssue {
 	const { format, path } = issue;
 	const message = ZOD_ISSUE_INVALID_STRING_FORMAT_STRINGS_MAP[format];
@@ -115,11 +87,6 @@ function handleZodInvalidFormatIssue(issue: core.$ZodIssueInvalidStringFormat): 
 	};
 }
 
-/**
- * Handles an issue with code "invalid_type" from Zod.
- *
- * @param issue - The `ZodIssueInvalidType` object to handle.
- */
 function handleZodInvalidTypeIssue(issue: core.$ZodIssueInvalidType): ValidationErrorIssue {
 	const { expected, path } = issue;
 	const article = wordArticle(expected);
@@ -131,11 +98,6 @@ function handleZodInvalidTypeIssue(issue: core.$ZodIssueInvalidType): Validation
 	};
 }
 
-/**
- * Handles an issue with code "invalid_union" from Zod.
- *
- * @param issue - The `ZodIssueInvalidUnion` object to handle.
- */
 function handleZodInvalidUnionIssue(issue: core.$ZodIssueInvalidUnion): ValidationErrorIssue {
 	const { errors, path } = issue;
 
@@ -149,11 +111,6 @@ function handleZodInvalidUnionIssue(issue: core.$ZodIssueInvalidUnion): Validati
 	};
 }
 
-/**
- * Handles an issue with code "invalid_value" from Zod.
- *
- * @param issue - The `ZodIssueInvalidValue` object to handle.
- */
 function handleZodInvalidValueIssue(issue: core.$ZodIssueInvalidValue): ValidationErrorIssue {
 	const { path, values } = issue;
 
@@ -167,11 +124,6 @@ function handleZodInvalidValueIssue(issue: core.$ZodIssueInvalidValue): Validati
 	};
 }
 
-/**
- * Handles an issue with code "too_big" from Zod.
- *
- * @param issue - The `ZodIssueTooBig` object to handle.
- */
 function handleZodTooBigIssue(issue: core.$ZodIssueTooBig): ValidationErrorIssue {
 	const { origin, path } = issue;
 	const message = ZOD_ISSUE_TOO_BIG_STRINGS_MAP[origin];
@@ -187,11 +139,6 @@ function handleZodTooBigIssue(issue: core.$ZodIssueTooBig): ValidationErrorIssue
 	};
 }
 
-/**
- * Handles an issue with code "too_small" from Zod.
- *
- * @param issue - The `ZodIssueTooSmall` object to handle.
- */
 function handleZodTooSmallIssue(issue: core.$ZodIssueTooSmall): ValidationErrorIssue {
 	const { origin, path } = issue;
 	const message = ZOD_ISSUE_TOO_SMALL_STRINGS_MAP[origin];
@@ -207,31 +154,22 @@ function handleZodTooSmallIssue(issue: core.$ZodIssueTooSmall): ValidationErrorI
 	};
 }
 
-/**
- * Gets the article for the given word.
- *
- * @param word - The word to get its article.
- */
 function wordArticle(word: string) {
 	return STRING_VOWEL_REGEX.test(word) ? "an" : "a";
 }
 
-/** Represents a map of issue codes from Zod with their respective handler. */
 type ZodIssueHandlersMap = Partial<{
 	[Issue in core.$ZodIssue as Issue["code"]]: (issue: Issue) => ValidationErrorIssue;
 }>;
 
-/** Represents a map of issue origins from Zod with their respective messages. */
 type ZodIssueInvalidStringFormatStringsMap = Partial<{
 	[Issue in core.$ZodIssueInvalidStringFormat as Issue["format"]]: (issue: Issue) => string;
 }>;
 
-/** Represents a map of issue origins from Zod with their respective messages. */
 type ZodIssueTooBigStringsMap = Partial<{
 	[Issue in core.$ZodIssueTooBig as Issue["origin"]]: (issue: Issue) => string;
 }>;
 
-/** Represents a map of issue origins from Zod with their respective messages. */
 type ZodIssueTooSmallStringsMap = Partial<{
 	[Issue in core.$ZodIssueTooSmall as Issue["origin"]]: (issue: Issue) => string;
 }>;
