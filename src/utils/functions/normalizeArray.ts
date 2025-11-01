@@ -7,4 +7,6 @@ export function normalizeArray<Item>(...items: Item[]): Item[] {
 	return Array.isArray(firstElement) ? [...firstElement] : items;
 }
 
+///////////////////////////////////////////////////////////////////////////
+
 type Flatten<Item> = Item extends (infer ItemArray)[] ? ItemArray : Item;

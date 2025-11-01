@@ -1,6 +1,6 @@
 import type { Snowflake } from "#types/index.js";
 import {
-	type CodeBlockLanguage,
+	CodeBlockLanguage,
 	HeadingLevel,
 	type HeadingLevelsMap,
 	type RecursiveArray,
@@ -10,7 +10,7 @@ import { AssertionUtils } from "./AssertionUtils.js";
 
 ///////////////////////////////////////////////////////////////////////////
 
-const { isArray, isSnowflake, isString } = AssertionUtils;
+const { isArray, isEnum, isSnowflake, isString } = AssertionUtils;
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -58,23 +58,17 @@ function _listCallback(items: RecursiveArray<string>, startNumber = 1, isMainLis
 ///////////////////////////////////////////////////////////////////////////
 
 function _normalizeChatInputCommandName(commandName: string | string[]): string {
-	if (isArray(commandName)) {
-		if (!_isChatInputCommandTuple(commandName)) {
-			throw new TypeError(
-				"First parameter (commandNames) from 'FormatterUtils.chatInputCommandMention' must be a valid tuple of strings",
-			);
-		}
-
+	if (isArray(commandName) && _isChatInputCommandTuple(commandName)) {
 		return commandName.join(" ");
 	}
 
-	if (isString(commandName)) {
-		return commandName;
+	if (!isString(commandName)) {
+		throw new TypeError(
+			"First parameter (commandName) from 'FormatterUtils.chatInputCommandMention' must be a string",
+		);
 	}
 
-	throw new TypeError(
-		"First parameter (commandName) from 'FormatterUtils.chatInputCommandMention' must be a valid string",
-	);
+	return commandName;
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -128,7 +122,7 @@ function chatInputCommandMention(commandName: string | string[], commandId: Snow
 
 	if (!isSnowflake(commandId)) {
 		throw new TypeError(
-			"Second parameter (commandId) from 'FormatterUtils.chatInputCommandMention' must be a valid Snowflake",
+			"Second parameter (commandId) from 'FormatterUtils.chatInputCommandMention' must be a Snowflake",
 		);
 	}
 
@@ -147,7 +141,7 @@ function codeBlock<Language extends CodeBlockLanguage, Content extends string>(
 ): `\`\`\`${Language}\n${Content}\n\`\`\``;
 
 function codeBlock(languageOrContent: CodeBlockLanguage | string, possibleContent?: string): string {
-	if (typeof possibleContent === "string") {
+	if (isString(possibleContent) && isEnum(languageOrContent, CodeBlockLanguage)) {
 		return `\`\`\`${languageOrContent}\n${possibleContent}\n\`\`\`` as const;
 	}
 

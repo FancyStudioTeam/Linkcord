@@ -30,22 +30,19 @@ describe("Method: FormatterUtils.chatInputCommandMention", () => {
 		// @ts-expect-error
 		const result1 = () => chatInputCommandMention(null);
 		// @ts-expect-error
-		const result2 = () => chatInputCommandMention("airhorn", null);
+		const result2 = () => chatInputCommandMention(["airhorn"], CHAT_INPUT_COMMAND_ID_SNOWFLAKE);
 		// @ts-expect-error
-		const result3 = () => chatInputCommandMention(["airhorn"], CHAT_INPUT_COMMAND_ID_SNOWFLAKE);
+		const result3 = () => chatInputCommandMention("airhorn", null);
 
 		const expectedError1 = new TypeError(
-			"First parameter (commandName) from 'FormatterUtils.chatInputCommandMention' must be a valid string",
+			"First parameter (commandName) from 'FormatterUtils.chatInputCommandMention' must be a string",
 		);
 		const expectedError2 = new TypeError(
-			"Second parameter (commandId) from 'FormatterUtils.chatInputCommandMention' must be a valid Snowflake",
-		);
-		const expectedError3 = new TypeError(
-			"First parameter (commandNames) from 'FormatterUtils.chatInputCommandMention' must be a valid tuple of strings",
+			"Second parameter (commandId) from 'FormatterUtils.chatInputCommandMention' must be a Snowflake",
 		);
 
 		expect(result1).toThrow(expectedError1);
-		expect(result2).toThrow(expectedError2);
-		expect(result3).toThrow(expectedError3);
+		expect(result2).toThrow(expectedError1);
+		expect(result3).toThrow(expectedError2);
 	});
 });
