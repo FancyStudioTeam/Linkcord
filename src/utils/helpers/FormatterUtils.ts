@@ -8,620 +8,397 @@ import {
 } from "#utils/types/index.js";
 import { AssertionUtils } from "./AssertionUtils.js";
 
+///////////////////////////////////////////////////////////////////////////
+
 const { isArray, isSnowflake, isString } = AssertionUtils;
+
+///////////////////////////////////////////////////////////////////////////
 
 const MAXIMUM_TUPLE_LENGTH = 3;
 const MINIMUM_TUPLE_LENGTH = 2;
 
 const ONE_SECOND_MILLISECONDS = 1_000;
 
-/** Utility class for working with Discord markdown. */
-export class FormatterUtils {
-	/**
-	 * Determines whether the provided input is a chat input command tuple.
-	 *
-	 * @param input - The input to check.
-	 */
-	static #isChatInputCommandTuple(input: unknown): input is string[] {
-		if (!isArray(input)) return false;
+///////////////////////////////////////////////////////////////////////////
 
-		const { length } = input;
+function _isChatInputCommandTuple(input: unknown): input is string[] {
+	if (!isArray(input)) return false;
 
-		const isValidLength = length >= MINIMUM_TUPLE_LENGTH && length <= MAXIMUM_TUPLE_LENGTH;
-		const areAllStrings = input.every((item) => typeof item === "string");
+	const { length } = input;
 
-		return isValidLength && areAllStrings;
+	const isValidLength = length >= MINIMUM_TUPLE_LENGTH && length <= MAXIMUM_TUPLE_LENGTH;
+	const areAllStrings = input.every((item) => typeof item === "string");
+
+	return isValidLength && areAllStrings;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+function _isHeadingLevel(input: unknown): input is HeadingLevel {
+	// @ts-expect-error
+	return HeadingLevel[input] !== undefined;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+function _listCallback(items: RecursiveArray<string>, startNumber = 1, isMainList = true, indentLevel = 0): string {
+	const indent = " ".repeat(indentLevel);
+	const mark = startNumber ? `${startNumber}.` : "-";
+
+	if (Array.isArray(items)) {
+		const spacesToPrepend = isMainList ? 0 : indentLevel + 2;
+		const formattedList = items.map((item) => _listCallback(item, startNumber, false, spacesToPrepend)).join("\n");
+
+		return formattedList;
 	}
 
-	/**
-	 * Determines whether the provided input is a heading level.
-	 *
-	 * @param input - The input to check.
-	 */
-	static #isHeadingLevel(input: unknown): input is HeadingLevel {
-		// @ts-expect-error
-		return HeadingLevel[input] !== undefined;
+	return `${indent}${mark} ${items}`;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+function _normalizeChatInputCommandName(commandName: string | string[]): string {
+	if (isArray(commandName)) {
+		if (!_isChatInputCommandTuple(commandName)) {
+			throw new TypeError(
+				"First parameter (commandNames) from 'FormatterUtils.chatInputCommandMention' must be a valid tuple of strings",
+			);
+		}
+
+		return commandName.join(" ");
 	}
 
-	/**
-	 * Formats the provided list of items into a markdown list.
-	 *
-	 * @param items - The list of items to use in the markdown list.
-	 * @param startNumber - The number at which the markdown list starts.
-	 * @param isMainList - Whether the markdown list is a top-level list.
-	 * @param indentLevel - The number of spaces to prepend at the beginning of the markdown list item.
-	 */
-	static #listCallback(items: RecursiveArray<string>, startNumber = 1, isMainList = true, indentLevel = 0): string {
-		const indent = " ".repeat(indentLevel);
-		const mark = startNumber ? `${startNumber}.` : "-";
-
-		if (Array.isArray(items)) {
-			const spacesToPrepend = isMainList ? 0 : indentLevel + 2;
-			const formattedList = items
-				.map((item) => FormatterUtils.#listCallback(item, startNumber, false, spacesToPrepend))
-				.join("\n");
-
-			return formattedList;
-		}
-
-		return `${indent}${mark} ${items}`;
+	if (isString(commandName)) {
+		return commandName;
 	}
 
-	/**
-	 * Normalizes the provided chat input command name into a unique string.
-	 *
-	 * @param commandName - The chat input command name to normalize.
-	 */
-	static #normalizeChatInputCommandName(commandName: string | string[]): string {
-		if (isArray(commandName)) {
-			if (!FormatterUtils.#isChatInputCommandTuple(commandName)) {
-				throw new TypeError(
-					"First parameter (commandNames) from 'FormatterUtils.chatInputCommandMention' must be a valid tuple of strings",
-				);
-			}
+	throw new TypeError(
+		"First parameter (commandName) from 'FormatterUtils.chatInputCommandMention' must be a valid string",
+	);
+}
 
-			return commandName.join(" ");
-		}
+///////////////////////////////////////////////////////////////////////////
 
-		if (isString(commandName)) {
-			return commandName;
-		}
+function blockQuote<Content extends string>(content: Content) {
+	return `>>> ${content}` as const;
+}
 
+///////////////////////////////////////////////////////////////////////////
+
+function bold<Content extends string>(content: Content) {
+	return `**${content}**` as const;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+function channelMention<ChannelId extends Snowflake>(channelId: ChannelId) {
+	if (!isSnowflake(channelId)) {
+		throw new TypeError("First parameter (channelId) from 'FormatterUtils.channelMention' must be a Snowflake");
+	}
+
+	return `<#${channelId}>` as const;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+function chatInputCommandMention<CommandName extends Lowercase<string>, CommandId extends Snowflake>(
+	commandName: CommandName,
+	commandId: CommandId,
+): `</${CommandName}:${CommandId}>`;
+function chatInputCommandMention<
+	CommandName extends Lowercase<string>,
+	SubcommandName extends Lowercase<string>,
+	CommandId extends Snowflake,
+>(
+	commandNames: [CommandName, SubcommandName],
+	commandId: CommandId,
+): `</${CommandName} ${SubcommandName}:${CommandId}>`;
+function chatInputCommandMention<
+	CommandName extends Lowercase<string>,
+	SubcommandGroupName extends Lowercase<string>,
+	SubcommandName extends Lowercase<string>,
+	CommandId extends Snowflake,
+>(
+	commandNames: [CommandName, SubcommandGroupName, SubcommandName],
+	commandId: CommandId,
+): `</${CommandName} ${SubcommandGroupName} ${SubcommandName}:${CommandId}>`;
+
+function chatInputCommandMention(commandName: string | string[], commandId: Snowflake) {
+	const normalizedCommandName = _normalizeChatInputCommandName(commandName);
+
+	if (!isSnowflake(commandId)) {
 		throw new TypeError(
-			"First parameter (commandName) from 'FormatterUtils.chatInputCommandMention' must be a valid string",
+			"Second parameter (commandId) from 'FormatterUtils.chatInputCommandMention' must be a valid Snowflake",
 		);
 	}
 
-	/**
-	 * Formats the provided content into a block quote.
-	 *
-	 * @param content - The content to format.
-	 *
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 */
-	static blockQuote<Content extends string>(content: Content) {
-		return `>>> ${content}` as const;
+	const commandMention = `</${normalizedCommandName}:${commandId}>`;
+	const lowercasedCommandMention = commandMention.toLowerCase();
+
+	return lowercasedCommandMention;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+function codeBlock<Content extends string>(content: Content): `\`\`\`\n${Content}\n\`\`\``;
+function codeBlock<Language extends CodeBlockLanguage, Content extends string>(
+	language: Language,
+	content: Content,
+): `\`\`\`${Language}\n${Content}\n\`\`\``;
+
+function codeBlock(languageOrContent: CodeBlockLanguage | string, possibleContent?: string): string {
+	if (typeof possibleContent === "string") {
+		return `\`\`\`${languageOrContent}\n${possibleContent}\n\`\`\`` as const;
 	}
 
-	/**
-	 * Formats the provided content into a bold text.
-	 *
-	 * @param content - The content to format.
-	 *
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 */
-	static bold<Content extends string>(content: Content) {
-		return `**${content}**` as const;
+	return `\`\`\`\n${languageOrContent}\n\`\`\`` as const;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+function email<Username extends string, Domain extends string>(
+	username: Username,
+	domain: Domain,
+): `<${Username}@${Domain}>`;
+function email<Username extends string, Domain extends string>(
+	username: Username,
+	domain: Domain,
+	headersInit: HeadersInit,
+): `<${Username}@${Domain}?${string}>`;
+
+function email(username: string, domain: string, headersInit?: HeadersInit) {
+	const email = `${username}@${domain}`;
+
+	if (headersInit) {
+		const headersObject = new Headers(headersInit);
+		const headersEntries = headersObject.entries();
+
+		const headersArray = Array.from(headersEntries).map(([key, value]) => `${key}=${value}`);
+		const headersString = headersArray.join("&");
+
+		const encodedQueryStringParams = encodeURIComponent(headersString);
+
+		return `<${email}?${encodedQueryStringParams}>` as const;
 	}
 
-	/**
-	 * Formats the provided channel ID into a channel mention.
-	 *
-	 * @param channelId - The ID of the channel to format.
-	 *
-	 * @typeParam ChannelId - The inferred type from the `channelId` parameter.
-	 */
-	static channelMention<ChannelId extends Snowflake>(channelId: ChannelId) {
-		if (!isSnowflake(channelId)) {
-			throw new TypeError("First parameter (channelId) from 'FormatterUtils.channelMention' must be a Snowflake");
+	return `<${email}>` as const;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+function header<Content extends string>(content: Content): `# ${Content}`;
+function header<Level extends HeadingLevel, Content extends string>(
+	level: Level,
+	content: Content,
+): HeadingLevelsMap<Content>[Level];
+
+function header(levelOrContent: HeadingLevel | string, possibleContent?: string): string {
+	if (typeof levelOrContent === "number") {
+		if (!_isHeadingLevel(levelOrContent)) {
+			throw new TypeError("First parameter (level) from 'FormatterUtils.header' must be a valid heading level");
 		}
 
-		return `<#${channelId}>` as const;
-	}
-
-	/**
-	 * Formats the provided command name and command ID into a chat input command mention.
-	 *
-	 * @param commandName - The name of the chat input command.
-	 * @param commandId - The ID of the chat input command.
-	 *
-	 * @typeParam CommandName - The inferred type from the `commandName` parameter.
-	 * @typeParam CommandId - The inferred type from the `commandId` parameter.
-	 */
-	static chatInputCommandMention<CommandName extends Lowercase<string>, CommandId extends Snowflake>(
-		commandName: CommandName,
-		commandId: CommandId,
-	): `</${CommandName}:${CommandId}>`;
-
-	/**
-	 * Formats the provided list of command names and command ID into a chat input command mention.
-	 *
-	 * @param commandNames - The name and the subcommand name of the chat input command.
-	 * @param commandId - The ID of the chat input command.
-	 *
-	 * @typeParam CommandName - The inferred type from the first element at the `commandNames` parameter.
-	 * @typeParam SubcommandName - The inferred type from the second element at the `commandNames` parameter.
-	 * @typeParam CommandId - The inferred type from the `commandId` parameter.
-	 */
-	static chatInputCommandMention<
-		CommandName extends Lowercase<string>,
-		SubcommandName extends Lowercase<string>,
-		CommandId extends Snowflake,
-	>(
-		commandNames: [CommandName, SubcommandName],
-		commandId: CommandId,
-	): `</${CommandName} ${SubcommandName}:${CommandId}>`;
-
-	/**
-	 * Formats the provided list of command names and command ID into a chat input command mention.
-	 *
-	 * @param commandNames - The name, the subcommand group name, and the subcommand name of the chat input command.
-	 * @param commandId - The ID of the chat input command.
-	 *
-	 * @typeParam CommandName - The inferred type from the first element at the `commandNames` parameter.
-	 * @typeParam SubcommandGroupName - The inferred type from the second element at the `commandNames` parameter.
-	 * @typeParam SubcommandName - The inferred type from the third element at the `commandNames` parameter.
-	 * @typeParam CommandId - The inferred type from the `commandId` parameter.
-	 */
-	static chatInputCommandMention<
-		CommandName extends Lowercase<string>,
-		SubcommandGroupName extends Lowercase<string>,
-		SubcommandName extends Lowercase<string>,
-		CommandId extends Snowflake,
-	>(
-		commandNames: [CommandName, SubcommandGroupName, SubcommandName],
-		commandId: CommandId,
-	): `</${CommandName} ${SubcommandGroupName} ${SubcommandName}:${CommandId}>`;
-
-	static chatInputCommandMention(commandName: string | string[], commandId: Snowflake) {
-		const normalizedCommandName = FormatterUtils.#normalizeChatInputCommandName(commandName);
-
-		if (!isSnowflake(commandId)) {
-			throw new TypeError(
-				"Second parameter (commandId) from 'FormatterUtils.chatInputCommandMention' must be a valid Snowflake",
-			);
+		if (typeof possibleContent !== "string") {
+			throw new TypeError("Second parameter (content) from 'FormatterUtils.header' must be a string");
 		}
 
-		const commandMention = `</${normalizedCommandName}:${commandId}>`;
-		const lowercasedCommandMention = commandMention.toLowerCase();
-
-		return lowercasedCommandMention;
+		return `${"#".repeat(levelOrContent)} ${possibleContent}`;
 	}
 
-	/**
-	 * Formats the provided content into a code block.
-	 *
-	 * @param content - The content to format.
-	 *
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 */
-	static codeBlock<Content extends string>(content: Content): `\`\`\`\n${Content}\n\`\`\``;
-
-	/**
-	 * Formats the provided content into a code block.
-	 *
-	 * @param language - The language of the code.
-	 * @param content - The content to format.
-	 *
-	 * @typeParam Language - The inferred type from the `language` parameter.
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 */
-	static codeBlock<Language extends CodeBlockLanguage, Content extends string>(
-		language: Language,
-		content: Content,
-	): `\`\`\`${Language}\n${Content}\n\`\`\``;
-
-	static codeBlock(languageOrContent: CodeBlockLanguage | string, possibleContent?: string): string {
-		if (typeof possibleContent === "string") {
-			return `\`\`\`${languageOrContent}\n${possibleContent}\n\`\`\`` as const;
-		}
-
-		return `\`\`\`\n${languageOrContent}\n\`\`\`` as const;
+	if (typeof levelOrContent !== "string") {
+		throw new TypeError("First parameter (content) from 'FormatterUtils.header' must be a string");
 	}
 
-	/**
-	 * Formats the provided username and domain into an email mention.
-	 *
-	 * @param username - The username of the email.
-	 * @param domain - The domain of the email.
-	 *
-	 * @typeParam Username - The inferred type from the `username` parameter.
-	 * @typeParam Domain - The inferred type from the `domain` parameter.
-	 */
-	static email<Username extends string, Domain extends string>(
-		username: Username,
-		domain: Domain,
-	): `<${Username}@${Domain}>`;
+	return `# ${levelOrContent}` as const;
+}
 
-	/**
-	 * Formats the provided username, domain, and headers into an email mention.
-	 *
-	 * @param username - The username of the email.
-	 * @param domain - The domain of the email.
-	 * @param headersInit - The headers to append at the end of the email.
-	 *
-	 * @typeParam Username - The inferred type from the `username` parameter.
-	 * @typeParam Domain - The inferred type from the `domain` parameter.
-	 */
-	static email<Username extends string, Domain extends string>(
-		username: Username,
-		domain: Domain,
-		headersInit: HeadersInit,
-	): `<${Username}@${Domain}?${string}>`;
+///////////////////////////////////////////////////////////////////////////
 
-	static email(username: string, domain: string, headersInit?: HeadersInit) {
-		const email = `${username}@${domain}`;
+function hideEmbedLink(url: URL): `<${string}>`;
+function hideEmbedLink<Url extends string>(url: Url): `<${Url}>`;
 
-		if (headersInit) {
-			const headersObject = new Headers(headersInit);
-			const headersEntries = headersObject.entries();
+function hideEmbedLink(url: URL | string): string {
+	return `<${url.toString()}>` as const;
+}
 
-			const headersArray = Array.from(headersEntries).map(([key, value]) => `${key}=${value}`);
-			const headersString = headersArray.join("&");
+///////////////////////////////////////////////////////////////////////////
 
-			const encodedQueryStringParams = encodeURIComponent(headersString);
+function hyperlink<Content extends string>(content: Content, url: URL): `[${Content}](${string})`;
+function hyperlink<Content extends string, Url extends string>(content: Content, url: Url): `[${Content}](${Url})`;
+function hyperlink<Content extends string, Title extends string>(
+	content: Content,
+	url: URL,
+	title: Title,
+): `[${Content}](${string} "${Title}")`;
+function hyperlink<Content extends string, Url extends string, Title extends string>(
+	content: Content,
+	url: Url,
+	title: Title,
+): `[${Content}](${Url} "${Title}")`;
 
-			return `<${email}?${encodedQueryStringParams}>` as const;
-		}
+function hyperlink(content: string, url: URL | string, possibleTitle?: string): string {
+	const urlString = url.toString();
 
-		return `<${email}>` as const;
+	if (typeof possibleTitle === "string") {
+		return `[${content}](${urlString} "${possibleTitle}")` as const;
 	}
 
-	/**
-	 * Formats the provided content into a header of the first level.
-	 *
-	 * @param content - The content of the header.
-	 *
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 */
-	static header<Content extends string>(content: Content): `# ${Content}`;
+	return `[${content}](${urlString})` as const;
+}
 
-	/**
-	 * Formats the provided content into a header of the provided level.
-	 *
-	 * @param level - The level of the header.
-	 * @param content - The content of the header.
-	 *
-	 * @typeParam Level - The inferred type from the `level` parameter.
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 */
-	static header<Level extends HeadingLevel, Content extends string>(
-		level: Level,
-		content: Content,
-	): HeadingLevelsMap<Content>[Level];
+///////////////////////////////////////////////////////////////////////////
 
-	static header(levelOrContent: HeadingLevel | string, possibleContent?: string): string {
-		if (typeof levelOrContent === "number") {
-			if (!FormatterUtils.#isHeadingLevel(levelOrContent)) {
-				throw new TypeError(
-					"First parameter (level) from 'FormatterUtils.header' must be a valid heading level",
-				);
-			}
+function inlineCode<Content extends string>(content: Content) {
+	return `\`${content}\`` as const;
+}
 
-			if (typeof possibleContent !== "string") {
-				throw new TypeError("Second parameter (content) from 'FormatterUtils.header' must be a string");
-			}
+///////////////////////////////////////////////////////////////////////////
 
-			return `${"#".repeat(levelOrContent)} ${possibleContent}`;
-		}
+function italic<Content extends string>(content: Content) {
+	return `*${content}*` as const;
+}
 
-		if (typeof levelOrContent !== "string") {
-			throw new TypeError("First parameter (content) from 'FormatterUtils.header' must be a string");
-		}
+///////////////////////////////////////////////////////////////////////////
 
-		return `# ${levelOrContent}` as const;
+function linkedRoleMention<LinkedRoleId extends Snowflake>(linkedRoleId: LinkedRoleId) {
+	if (!isSnowflake(linkedRoleId)) {
+		throw new TypeError(
+			"First parameter (linkedRoleId) from 'FormatterUtils.linkedRoleMention' must be a Snowflake",
+		);
 	}
 
-	/**
-	 * Formats the provided link into a hidden embed link.
-	 *
-	 * @param url - The {@link URL | `URL`} instance of the embed link.
-	 */
-	static hideEmbedLink(url: URL): `<${string}>`;
+	return `<id:linked-roles:${linkedRoleId}>` as const;
+}
 
-	/**
-	 * Formats the provided link into a hidden embed link.
-	 *
-	 * @param url - The URL of the embed link.
-	 *
-	 * @typeParam Url - The inferred type from the `url` parameter.
-	 */
-	static hideEmbedLink<Url extends string>(url: Url): `<${Url}>`;
+///////////////////////////////////////////////////////////////////////////
 
-	static hideEmbedLink(url: URL | string): string {
-		return `<${url.toString()}>` as const;
+function orderedList(items: RecursiveArray<string>, startNumber = 1): string {
+	return _listCallback(items, Math.max(startNumber, 1));
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+function phoneNumber<Number extends `+${string}`>(number: Number) {
+	if (!number.startsWith("+")) {
+		throw new TypeError("First parameter (number) from 'FormatterUtils.phoneNumber' must start with '+'");
 	}
 
-	/**
-	 * Formats the provided content and link into a hyperlink.
-	 *
-	 * @param content - The content of the hyperlink.
-	 * @param url - The {@link URL | `URL`} instance of the hyperlink.
-	 *
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 */
-	static hyperlink<Content extends string>(content: Content, url: URL): `[${Content}](${string})`;
+	return `<${number}>` as const;
+}
 
-	/**
-	 * Formats the provided content and link into a hyperlink.
-	 *
-	 * @param content - The content of the hyperlink.
-	 * @param url - The URL of the hyperlink.
-	 *
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 * @typeParam Url - The inferred type from the `url` parameter.
-	 */
-	static hyperlink<Content extends string, Url extends string>(content: Content, url: Url): `[${Content}](${Url})`;
+///////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Formats the provided content, link, and title into a hyperlink.
-	 *
-	 * @param content - The content of the hyperlink.
-	 * @param url - The {@link URL | `URL`} instance of the hyperlink.
-	 * @param title - The title of the hyperlink.
-	 *
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 * @typeParam Title - The inferred type from the `title` parameter.
-	 */
-	static hyperlink<Content extends string, Title extends string>(
-		content: Content,
-		url: URL,
-		title: Title,
-	): `[${Content}](${string} "${Title}")`;
+function quote<Content extends string>(content: Content) {
+	return `> ${content}` as const;
+}
 
-	/**
-	 * Formats the provided content, link, and title into a hyperlink.
-	 *
-	 * @param content - The content of the hyperlink.
-	 * @param url - The URL of the hyperlink.
-	 * @param title - The title of the hyperlink.
-	 *
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 * @typeParam Url - The inferred type from the `url` parameter.
-	 * @typeParam Title - The inferred type from the `title` parameter.
-	 */
-	static hyperlink<Content extends string, Url extends string, Title extends string>(
-		content: Content,
-		url: Url,
-		title: Title,
-	): `[${Content}](${Url} "${Title}")`;
+///////////////////////////////////////////////////////////////////////////
 
-	static hyperlink(content: string, url: URL | string, possibleTitle?: string): string {
-		const urlString = url.toString();
-
-		if (typeof possibleTitle === "string") {
-			return `[${content}](${urlString} "${possibleTitle}")` as const;
-		}
-
-		return `[${content}](${urlString})` as const;
+function roleMention<RoleId extends Snowflake>(roleId: RoleId) {
+	if (!isSnowflake(roleId)) {
+		throw new TypeError("First parameter (roleId) from 'FormatterUtils.roleMention' must be a Snowflake");
 	}
 
-	/**
-	 * Formats the provided content into an inline code.
-	 *
-	 * @param content - The content to format.
-	 *
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 */
-	static inlineCode<Content extends string>(content: Content) {
-		return `\`${content}\`` as const;
-	}
+	return `<@&${roleId}>` as const;
+}
 
-	/**
-	 * Formats the provided content into italic text.
-	 *
-	 * @param content - The content to format.
-	 *
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 */
-	static italic<Content extends string>(content: Content) {
-		return `*${content}*` as const;
-	}
+///////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Formats the provided linked role ID into a linked role mention.
-	 *
-	 * @param linkedRoleId - The ID of the linked role to format.
-	 *
-	 * @typeParam LinkedRoleId - The type inferred from the `linkedRoleId` parameter.
-	 */
-	static linkedRoleMention<LinkedRoleId extends Snowflake>(linkedRoleId: LinkedRoleId) {
-		if (!SnowflakeUtils.isSnowflake(linkedRoleId)) {
-			throw new TypeError(
-				"First parameter (linkedRoleId) from 'FormatterUtils.linkedRoleMention' must be a Snowflake",
-			);
-		}
+function spoiler<Content extends string>(content: Content) {
+	return `||${content}||` as const;
+}
 
-		return `<id:linked-roles:${linkedRoleId}>` as const;
-	}
+///////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Formats the provided items into an ordered list.
-	 *
-	 * @param items - The items to format.
-	 * @param startNumber - The number at which the list starts.
-	 */
-	static orderedList(items: RecursiveArray<string>, startNumber = 1): string {
-		return FormatterUtils.#listCallback(items, Math.max(startNumber, 1));
-	}
+function strikethrough<Content extends string>(content: Content) {
+	return `~~${content}~~` as const;
+}
 
-	/**
-	 * Formats the provided phone number into a phone number mention.
-	 *
-	 * @param number - The phone number to format.
-	 *
-	 * @typeParam Number - The inferred type from the `number` parameter.
-	 */
-	static phoneNumber<Number extends `+${string}`>(number: Number) {
-		if (!number.startsWith("+")) {
-			throw new TypeError("First parameter (number) from 'FormatterUtils.phoneNumber' must start with '+'");
-		}
+///////////////////////////////////////////////////////////////////////////
 
-		return `<${number}>` as const;
-	}
+function subtext<Content extends string>(content: Content) {
+	return `-# ${content}` as const;
+}
 
-	/**
-	 * Formats the provided content into a quote.
-	 *
-	 * @param content - The content to format.
-	 *
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 */
-	static quote<Content extends string>(content: Content) {
-		return `> ${content}` as const;
-	}
+///////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Formats the provided role ID into a role mention.
-	 *
-	 * @param roleId - The ID of the role to format.
-	 *
-	 * @typeParam RoleId - The inferred type from the `roleId` parameter.
-	 */
-	static roleMention<RoleId extends Snowflake>(roleId: RoleId) {
-		if (!SnowflakeUtils.isSnowflake(roleId)) {
-			throw new TypeError("First parameter (roleId) from 'FormatterUtils.roleMention' must be a Snowflake");
-		}
+function underline<Content extends string>(content: Content) {
+	return `__${content}__` as const;
+}
 
-		return `<@&${roleId}>` as const;
-	}
+///////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Formats the provided content into a spoiler text.
-	 *
-	 * @param content - The content to format.
-	 *
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 */
-	static spoiler<Content extends string>(content: Content) {
-		return `||${content}||` as const;
-	}
+function unixTimestamp(date?: Date): `<t:${string}>`;
+function unixTimestamp<Style extends TimestampStyle>(date: Date, style: Style): `<t:${string}:${Style}>`;
+function unixTimestamp<Seconds extends number>(seconds: Seconds): `<t:${Seconds}>`;
+function unixTimestamp<Seconds extends number, Style extends TimestampStyle>(
+	seconds: Seconds,
+	style: Style,
+): `<t:${Seconds}:${Style}>`;
 
-	/**
-	 * Formats the provided content into a strikethrough text.
-	 *
-	 * @param content - The content to format.
-	 *
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 */
-	static strikethrough<Content extends string>(content: Content) {
-		return `~~${content}~~` as const;
-	}
-
-	/**
-	 * Formats the provided content into a subtext.
-	 *
-	 * @param content - The content to format.
-	 *
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 */
-	static subtext<Content extends string>(content: Content) {
-		return `-# ${content}` as const;
-	}
-
-	/**
-	 * Formats the provided content into an underline text.
-	 *
-	 * @param content - The content to format.
-	 *
-	 * @typeParam Content - The inferred type from the `content` parameter.
-	 */
-	static underline<Content extends string>(content: Content) {
-		return `__${content}__` as const;
-	}
-
-	/**
-	 * Formats the current or provided date into a unix timestamp of the default style.
-	 *
-	 * @param date - The {@link Date | `Date`} instance to format.
-	 */
-	static unixTimestamp(date?: Date): `<t:${bigint}>`;
-
-	/**
-	 * Formats the provided date into a unix timestamp with the provided style.
-	 *
-	 * @param date - The {@link Date | `Date`} instance to format.
-	 * @param style - The style of the unix timestamp.
-	 */
-	static unixTimestamp<Style extends TimestampStyle>(date: Date, style: Style): `<t:${bigint}:${Style}>`;
-
-	/**
-	 * Formats the provided seconds into a unix timestamp of the default style.
-	 *
-	 * @param seconds - The seconds to format.
-	 *
-	 * @typeParam Seconds - The inferred type from the `seconds` parameter.
-	 */
-	static unixTimestamp<Seconds extends number>(seconds: Seconds): `<t:${Seconds}>`;
-
-	/**
-	 * Formats the provided seconds into a unix timestamp with the provided style.
-	 *
-	 * @param seconds - The seconds to format.
-	 * @param style - The style of the unix timestamp.
-	 *
-	 * @typeParam Seconds - The inferred type from the `seconds` parameter.
-	 * @typeParam Style - The inferred type from the `style` parameter.
-	 */
-	static unixTimestamp<Seconds extends number, Style extends TimestampStyle>(
-		seconds: Seconds,
-		style: Style,
-	): `<t:${Seconds}:${Style}>`;
-
-	static unixTimestamp(dateOrSeconds?: Date | number, possibleStyle?: TimestampStyle): string {
-		if (dateOrSeconds instanceof Date) {
-			const dateTime = dateOrSeconds.getTime();
-			const unixTimestamp = Math.floor(dateTime / ONE_SECOND_MILLISECONDS);
-
-			if (possibleStyle) {
-				return `<t:${unixTimestamp}:${possibleStyle}>` as const;
-			}
-
-			return `<t:${unixTimestamp}>` as const;
-		}
-
-		if (typeof dateOrSeconds !== "number") {
-			throw new TypeError("First parameter (seconds) from 'FormatterUtils.unixTimestamp' must be a number");
-		}
+function unixTimestamp(dateOrSeconds?: Date | number, possibleStyle?: TimestampStyle): string {
+	if (dateOrSeconds instanceof Date) {
+		const dateTime = dateOrSeconds.getTime();
+		const unixTimestamp = Math.floor(dateTime / ONE_SECOND_MILLISECONDS);
 
 		if (possibleStyle) {
-			return `<t:${dateOrSeconds}:${possibleStyle}>` as const;
+			return `<t:${unixTimestamp}:${possibleStyle}>` as const;
 		}
 
-		return `<t:${dateOrSeconds}>` as const;
+		return `<t:${unixTimestamp}>` as const;
 	}
 
-	/**
-	 * Formats the provided items into an unordered list.
-	 *
-	 * @param items - The items to format.
-	 */
-	static unorderedList(items: RecursiveArray<string>): string {
-		return FormatterUtils.#listCallback(items);
+	if (typeof dateOrSeconds !== "number") {
+		throw new TypeError("First parameter (seconds) from 'FormatterUtils.unixTimestamp' must be a number");
 	}
 
-	/**
-	 * Formats the provided user ID into a user mention.
-	 *
-	 * @param userId - The ID of the user to format.
-	 *
-	 * @typeParam UserId - The inferred type from the `userId` parameter.
-	 */
-	static userMention<UserId extends Snowflake>(userId: UserId) {
-		if (!SnowflakeUtils.isSnowflake(userId)) {
-			throw new TypeError("First parameter (userId) from 'FormatterUtils.userMention' must be a Snowflake");
-		}
-
-		return `<@${userId}>` as const;
+	if (possibleStyle) {
+		return `<t:${dateOrSeconds}:${possibleStyle}>` as const;
 	}
+
+	return `<t:${dateOrSeconds}>` as const;
 }
+
+///////////////////////////////////////////////////////////////////////////
+
+function unorderedList(items: RecursiveArray<string>): string {
+	return _listCallback(items);
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+function userMention<UserId extends Snowflake>(userId: UserId) {
+	if (!isSnowflake(userId)) {
+		throw new TypeError("First parameter (userId) from 'FormatterUtils.userMention' must be a Snowflake");
+	}
+
+	return `<@${userId}>` as const;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+export const FormatterUtils = Object.freeze({
+	blockQuote,
+	bold,
+	channelMention,
+	chatInputCommandMention,
+	codeBlock,
+	email,
+	header,
+	hideEmbedLink,
+	hyperlink,
+	inlineCode,
+	italic,
+	linkedRoleMention,
+	orderedList,
+	phoneNumber,
+	quote,
+	roleMention,
+	spoiler,
+	strikethrough,
+	subtext,
+	underline,
+	unixTimestamp,
+	unorderedList,
+	userMention,
+});
