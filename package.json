@@ -14,7 +14,7 @@
 		"@commitlint/types": "20.0.0",
 		"@microsoft/api-extractor": "7.53.3",
 		"@swc/core": "1.14.0",
-		"@types/node": "24.9.2",
+		"@types/node": "24.10.0",
 		"@vitest/ui": "4.0.5",
 		"esbuild-plugin-version-injector": "1.2.1",
 		"husky": "9.1.7",
