@@ -12,7 +12,7 @@
 		"enabled": true
 	},
 	"files": {
-		"includes": ["**", "!**/.VSCodeCounter", "!**/.turbo", "!**/.typedoc", "!**/dist"]
+		"includes": ["**", "!**/.turbo", "!**/.typedoc", "!**/dist"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -20,14 +20,6 @@
 		"indentWidth": 4,
 		"lineEnding": "lf",
 		"lineWidth": 120
-	},
-	"html": {
-		"experimentalFullSupportEnabled": true
-	},
-	"javascript": {
-		"parser": {
-			"unsafeParameterDecoratorsEnabled": true
-		}
 	},
 	"linter": {
 		"domains": {
@@ -38,7 +30,7 @@
 		"rules": {
 			"complexity": {
 				"noImplicitCoercions": "error",
-				"noStaticOnlyClass": "off",
+				"noStaticOnlyClass": "error",
 				"useSimplifiedLogicExpression": "error"
 			},
 			"correctness": {
@@ -51,21 +43,17 @@
 					}
 				}
 			},
-			"nursery": {
-				"noUnresolvedImports": "off",
-				"useSortedClasses": "error"
-			},
 			"performance": {
 				"noBarrelFile": "off",
 				"noReExportAll": "off"
 			},
 			"recommended": true,
 			"style": {
-				"noDefaultExport": "error",
-				"noMagicNumbers": "error",
+				"noDefaultExport": "off",
+				"noMagicNumbers": "warn",
 				"useImportType": "error",
 				"useNamingConvention": {
-					"level": "warn",
+					"level": "error",
 					"options": {
 						"conventions": [
 							{
@@ -94,9 +82,8 @@
 				"useUnifiedTypeSignatures": "error"
 			},
 			"suspicious": {
-				"noReactSpecificProps": "off",
 				"noUnassignedVariables": "error",
-				"useAwait": "error"
+				"useAwait": "warn"
 			}
 		}
 	}
