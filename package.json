@@ -3,29 +3,25 @@
 		"glob": "11.0.3",
 		"ts-mixer": "6.0.4",
 		"ts-pattern": "5.9.0",
-		"valibot": "1.1.0",
 		"zod": "4.1.12"
 	},
 	"description": "An opinionated framework made in TypeScript for building Discord bots.",
 	"devDependencies": {
-		"@biomejs/biome": "2.3.2",
+		"@biomejs/biome": "2.3.4",
 		"@commitlint/cli": "20.1.0",
 		"@commitlint/config-conventional": "20.0.0",
 		"@commitlint/types": "20.0.0",
-		"@microsoft/api-extractor": "7.53.3",
-		"@swc/core": "1.14.0",
-		"@types/node": "24.9.2",
-		"@vitest/ui": "4.0.5",
+		"@microsoft/api-extractor": "7.54.0",
+		"@swc/core": "1.15.1",
+		"@types/node": "24.10.0",
 		"esbuild-plugin-version-injector": "1.2.1",
 		"husky": "9.1.7",
 		"lint-staged": "16.2.6",
-		"rimraf": "6.0.1",
+		"rimraf": "6.1.0",
 		"tsup": "8.5.0",
-		"typedoc": "0.28.14",
-		"typedoc-material-theme": "1.4.0",
 		"typescript": "5.9.3",
 		"vite-tsconfig-paths": "5.1.4",
-		"vitest": "4.0.5"
+		"vitest": "4.0.8"
 	},
 	"engines": {
 		"node": ">=22.18.0"
@@ -76,7 +72,6 @@
 		"typedoc": "typedoc",
 		"vitest": "vitest --typecheck -c vitest.config.ts",
 		"vitest:html": "vitest --typecheck -c vitest.config.ts --reporter=html",
-		"vitest:preview": "pnpx vite preview --outDit html",
 		"vitest:watch": "vitest --typecheck -c vitest.config.ts --watch"
 	},
 	"type": "module",
