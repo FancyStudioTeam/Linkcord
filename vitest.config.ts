@@ -4,7 +4,6 @@ import { defineConfig } from "vitest/config";
 const { env } = process;
 const { GITHUB_ACTIONS } = env;
 
-// biome-ignore lint/style/noDefaultExport: Default exports are allowed for configuration files.
 export default defineConfig({
 	plugins: [
 		tsconfigPaths({
