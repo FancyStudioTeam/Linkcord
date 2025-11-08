@@ -8,46 +8,47 @@ import {
 } from "#utils/types/index.js";
 import { AssertionUtils } from "./AssertionUtils.js";
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-const { isArray, isEnum, isInstanceOf, isNumber, isSnowflake, isString } = AssertionUtils;
+const { isArray, isEnum, isInstanceOf, isNumber, isString } = AssertionUtils;
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
 const MAXIMUM_TUPLE_LENGTH = 3;
 const MINIMUM_TUPLE_LENGTH = 2;
 
 const ONE_SECOND_MILLISECONDS = 1_000;
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function _isChatInputCommandTuple(input: unknown): input is string[] {
+function isChatInputCommandTuple(input: unknown): input is string[] {
 	if (!isArray(input)) return false;
 
 	const { length } = input;
 
 	const isValidLength = length >= MINIMUM_TUPLE_LENGTH && length <= MAXIMUM_TUPLE_LENGTH;
-	const areAllStrings = input.every((item) => typeof item === "string");
+	const areAllStrings = input.every((item) => isString(item));
 
 	return isValidLength && areAllStrings;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function _isHeadingLevel(input: unknown): input is HeadingLevel {
-	// @ts-expect-error
+function isHeadingLevel(input: unknown): input is HeadingLevel {
+	if (!isNumber(input)) return false;
+
 	return HeadingLevel[input] !== undefined;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function _listCallback(items: RecursiveArray<string>, startNumber = 1, isMainList = true, indentLevel = 0): string {
+function listCallback(items: RecursiveArray<string>, startNumber = 1, isMainList = true, indentLevel = 0): string {
 	const indent = " ".repeat(indentLevel);
 	const mark = startNumber ? `${startNumber}.` : "-";
 
 	if (Array.isArray(items)) {
 		const spacesToPrepend = isMainList ? 0 : indentLevel + 2;
-		const formattedList = items.map((item) => _listCallback(item, startNumber, false, spacesToPrepend)).join("\n");
+		const formattedList = items.map((item) => listCallback(item, startNumber, false, spacesToPrepend)).join("\n");
 
 		return formattedList;
 	}
@@ -55,45 +56,35 @@ function _listCallback(items: RecursiveArray<string>, startNumber = 1, isMainLis
 	return `${indent}${mark} ${items}`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function _normalizeChatInputCommandName(commandName: string | string[]): string {
-	if (isArray(commandName) && _isChatInputCommandTuple(commandName)) {
+function normalizeChatInputCommandName(commandName: string | string[]): string {
+	if (isChatInputCommandTuple(commandName)) {
 		return commandName.join(" ");
-	}
-
-	if (!isString(commandName)) {
-		throw new TypeError(
-			"First parameter (commandName) from 'FormatterUtils.chatInputCommandMention' must be a string",
-		);
 	}
 
 	return commandName;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function blockQuote<Content extends string>(content: Content) {
-	return `>>> ${content}` as const;
+function blockQuote<Content extends string>(content: Content): `>>> ${Content}` {
+	return `>>> ${content}`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function bold<Content extends string>(content: Content) {
-	return `**${content}**` as const;
+function bold<Content extends string>(content: Content): `**${Content}**` {
+	return `**${content}**`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function channelMention<ChannelId extends Snowflake>(channelId: ChannelId) {
-	if (!isSnowflake(channelId)) {
-		throw new TypeError("First parameter (channelId) from 'FormatterUtils.channelMention' must be a Snowflake");
-	}
-
-	return `<#${channelId}>` as const;
+function channelMention<ChannelId extends Snowflake>(channelId: ChannelId): `<#${ChannelId}>` {
+	return `<#${channelId}>`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
 function chatInputCommandMention<CommandName extends Lowercase<string>, CommandId extends Snowflake>(
 	commandName: CommandName,
@@ -118,13 +109,7 @@ function chatInputCommandMention<
 ): `</${CommandName} ${SubcommandGroupName} ${SubcommandName}:${CommandId}>`;
 
 function chatInputCommandMention(commandName: string | string[], commandId: Snowflake): string {
-	const normalizedCommandName = _normalizeChatInputCommandName(commandName);
-
-	if (!isSnowflake(commandId)) {
-		throw new TypeError(
-			"Second parameter (commandId) from 'FormatterUtils.chatInputCommandMention' must be a Snowflake",
-		);
-	}
+	const normalizedCommandName = normalizeChatInputCommandName(commandName);
 
 	const commandMention = `</${normalizedCommandName}:${commandId}>`;
 	const lowercasedCommandMention = commandMention.toLowerCase();
@@ -132,7 +117,7 @@ function chatInputCommandMention(commandName: string | string[], commandId: Snow
 	return lowercasedCommandMention;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
 function codeBlock<Content extends string>(content: Content): `\`\`\`\n${Content}\n\`\`\``;
 function codeBlock<Language extends CodeBlockLanguage, Content extends string>(
@@ -141,14 +126,14 @@ function codeBlock<Language extends CodeBlockLanguage, Content extends string>(
 ): `\`\`\`${Language}\n${Content}\n\`\`\``;
 
 function codeBlock(languageOrContent: CodeBlockLanguage | string, possibleContent?: string): string {
-	if (isString(possibleContent) && isEnum(languageOrContent, CodeBlockLanguage)) {
-		return `\`\`\`${languageOrContent}\n${possibleContent}\n\`\`\`` as const;
+	if (isEnum(languageOrContent, CodeBlockLanguage)) {
+		return `\`\`\`${languageOrContent}\n${possibleContent}\n\`\`\``;
 	}
 
-	return `\`\`\`\n${languageOrContent}\n\`\`\`` as const;
+	return `\`\`\`\n${languageOrContent}\n\`\`\``;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
 function email<Username extends string, Domain extends string>(
 	username: Username,
@@ -172,13 +157,13 @@ function email(username: string, domain: string, headersInit?: HeadersInit): str
 
 		const encodedHeadersParams = encodeURIComponent(headersString);
 
-		return `<${emailBase}?${encodedHeadersParams}>` as const;
+		return `<${emailBase}?${encodedHeadersParams}>`;
 	}
 
-	return `<${emailBase}>` as const;
+	return `<${emailBase}>`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
 function header<Content extends string>(content: Content): `# ${Content}`;
 function header<Level extends HeadingLevel, Content extends string>(
@@ -187,31 +172,23 @@ function header<Level extends HeadingLevel, Content extends string>(
 ): HeadingLevelsMap<Content>[Level];
 
 function header(levelOrContent: HeadingLevel | string, possibleContent?: string): string {
-	if (isNumber(levelOrContent) && _isHeadingLevel(levelOrContent)) {
-		if (!isString(possibleContent)) {
-			throw new TypeError("Second parameter (content) from 'FormatterUtils.header' must be a string");
-		}
-
+	if (isHeadingLevel(levelOrContent)) {
 		return `${"#".repeat(levelOrContent)} ${possibleContent}`;
 	}
 
-	if (!isString(possibleContent)) {
-		throw new TypeError("First parameter (content) from 'FormatterUtils.header' must be a string");
-	}
-
-	return `# ${levelOrContent}` as const;
+	return `# ${levelOrContent}`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
 function hideEmbedLink(url: URL): `<${string}>`;
 function hideEmbedLink<Url extends string>(url: Url): `<${Url}>`;
 
 function hideEmbedLink(url: URL | string): string {
-	return `<${url.toString()}>` as const;
+	return `<${url.toString()}>`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
 function hyperlink<Content extends string>(content: Content, url: URL): `[${Content}](${string})`;
 function hyperlink<Content extends string, Url extends string>(content: Content, url: Url): `[${Content}](${Url})`;
@@ -230,93 +207,85 @@ function hyperlink(content: string, url: URL | string, possibleTitle?: string): 
 	const urlString = url.toString();
 
 	if (isString(possibleTitle)) {
-		return `[${content}](${urlString} "${possibleTitle}")` as const;
+		return `[${content}](${urlString} "${possibleTitle}")`;
 	}
 
-	return `[${content}](${urlString})` as const;
+	return `[${content}](${urlString})`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function inlineCode<Content extends string>(content: Content) {
-	return `\`${content}\`` as const;
+function inlineCode<Content extends string>(content: Content): `\`${Content}\`` {
+	return `\`${content}\``;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function italic<Content extends string>(content: Content) {
-	return `*${content}*` as const;
+function italic<Content extends string>(content: Content): `*${Content}*` {
+	return `*${content}*`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function linkedRoleMention<LinkedRoleId extends Snowflake>(linkedRoleId: LinkedRoleId) {
-	if (!isSnowflake(linkedRoleId)) {
-		throw new TypeError(
-			"First parameter (linkedRoleId) from 'FormatterUtils.linkedRoleMention' must be a Snowflake",
-		);
-	}
-
-	return `<id:linked-roles:${linkedRoleId}>` as const;
+function linkedRoleMention<LinkedRoleId extends Snowflake>(
+	linkedRoleId: LinkedRoleId,
+): `<id:linked-roles:${LinkedRoleId}>` {
+	return `<id:linked-roles:${linkedRoleId}>`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
 function orderedList(items: RecursiveArray<string>, startNumber = 1): string {
-	return _listCallback(items, Math.max(startNumber, 1));
+	return listCallback(items, Math.max(startNumber, 1));
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function phoneNumber<Number extends `+${string}`>(number: Number) {
+function phoneNumber<Number extends `+${string}`>(number: Number): `<${Number}>` {
 	if (!number.startsWith("+")) {
 		throw new TypeError("First parameter (number) from 'FormatterUtils.phoneNumber' must start with '+'");
 	}
 
-	return `<${number}>` as const;
+	return `<${number}>`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function quote<Content extends string>(content: Content) {
-	return `> ${content}` as const;
+function quote<Content extends string>(content: Content): `> ${Content}` {
+	return `> ${content}`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function roleMention<RoleId extends Snowflake>(roleId: RoleId) {
-	if (!isSnowflake(roleId)) {
-		throw new TypeError("First parameter (roleId) from 'FormatterUtils.roleMention' must be a Snowflake");
-	}
-
-	return `<@&${roleId}>` as const;
+function roleMention<RoleId extends Snowflake>(roleId: RoleId): `<@&${RoleId}>` {
+	return `<@&${roleId}>`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function spoiler<Content extends string>(content: Content) {
-	return `||${content}||` as const;
+function spoiler<Content extends string>(content: Content): `||${Content}||` {
+	return `||${content}||`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function strikethrough<Content extends string>(content: Content) {
-	return `~~${content}~~` as const;
+function strikethrough<Content extends string>(content: Content): `~~${Content}~~` {
+	return `~~${content}~~`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function subtext<Content extends string>(content: Content) {
-	return `-# ${content}` as const;
+function subtext<Content extends string>(content: Content): `-# ${Content}` {
+	return `-# ${content}`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function underline<Content extends string>(content: Content) {
-	return `__${content}__` as const;
+function underline<Content extends string>(content: Content): `__${Content}__` {
+	return `__${content}__`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
 function unixTimestamp(date?: Date): `<t:${string}>`;
 function unixTimestamp<Style extends TimestampStyle>(date: Date, style: Style): `<t:${string}:${Style}>`;
@@ -332,40 +301,32 @@ function unixTimestamp(dateOrSeconds?: Date | number, possibleStyle?: TimestampS
 		const unixTimestamp = Math.floor(dateTime / ONE_SECOND_MILLISECONDS);
 
 		if (isEnum(possibleStyle, TimestampStyle)) {
-			return `<t:${unixTimestamp}:${possibleStyle}>` as const;
+			return `<t:${unixTimestamp}:${possibleStyle}>`;
 		}
 
-		return `<t:${unixTimestamp}>` as const;
-	}
-
-	if (!isNumber(dateOrSeconds)) {
-		throw new TypeError("First parameter (seconds) from 'FormatterUtils.unixTimestamp' must be a number");
+		return `<t:${unixTimestamp}>`;
 	}
 
 	if (isEnum(possibleStyle, TimestampStyle)) {
-		return `<t:${dateOrSeconds}:${possibleStyle}>` as const;
+		return `<t:${dateOrSeconds}:${possibleStyle}>`;
 	}
 
-	return `<t:${dateOrSeconds}>` as const;
+	return `<t:${dateOrSeconds}>`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
 function unorderedList(items: RecursiveArray<string>): string {
-	return _listCallback(items);
+	return listCallback(items);
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
-function userMention<UserId extends Snowflake>(userId: UserId) {
-	if (!isSnowflake(userId)) {
-		throw new TypeError("First parameter (userId) from 'FormatterUtils.userMention' must be a Snowflake");
-	}
-
-	return `<@${userId}>` as const;
+function userMention<UserId extends Snowflake>(userId: UserId): `<@${UserId}>` {
+	return `<@${userId}>`;
 }
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
 export const FormatterUtils = Object.freeze({
 	blockQuote,
