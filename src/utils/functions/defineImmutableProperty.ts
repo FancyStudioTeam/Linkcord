@@ -1,10 +1,10 @@
 import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
 const { isObject, isString } = AssertionUtils;
 
-///////////////////////////////////////////////////////////////////////////
+/* --------------------------------------------------------------------------- */
 
 export function defineImmutableProperty<Object extends object, PropertyName extends string, Value>(
 	object: Object,
