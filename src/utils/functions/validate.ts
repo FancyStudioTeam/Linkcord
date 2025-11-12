@@ -3,19 +3,13 @@ import { ValidationError } from "#utils/errors/ValidationError.js";
 import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
 import type { ValidationErrorIssue } from "#utils/types/index.js";
 
-/* --------------------------------------------------------------------------- */
-
 const { isInstanceOf } = AssertionUtils;
-
-/* --------------------------------------------------------------------------- */
 
 const STRING_CONJUNCTION_FORMATTER = new Intl.ListFormat("en", {
 	style: "long",
 	type: "conjunction",
 });
 const STRING_VOWEL_REGEX = /^[aeiouAEIOU]/;
-
-/* --------------------------------------------------------------------------- */
 
 const ZOD_ISSUE_HANDLERS_MAP: ZodIssueHandlersMap = {
 	custom: handleZodCustomIssue,
@@ -38,8 +32,6 @@ const ZOD_ISSUE_TOO_SMALL_STRINGS_MAP: ZodIssueTooSmallStringsMap = {
 	number: ({ minimum }) => `Expected input to be a number less than or equal to ${minimum}`,
 };
 
-/* --------------------------------------------------------------------------- */
-
 export function validate<Schema extends core.$ZodType>(schema: Schema, input: unknown): core.output<Schema> {
 	try {
 		return parse(schema, input);
@@ -54,8 +46,6 @@ export function validate<Schema extends core.$ZodType>(schema: Schema, input: un
 		throw new ValidationError(validationIssues);
 	}
 }
-
-/* --------------------------------------------------------------------------- */
 
 function handleZodIssues(issues: core.$ZodIssue[]): ValidationErrorIssue[] {
 	return issues.map(handleZodIssue);
@@ -72,8 +62,6 @@ function handleZodIssue(issue: core.$ZodIssue): ValidationErrorIssue {
 	return handler(issue as never);
 }
 
-/* --------------------------------------------------------------------------- */
-
 function handleZodCustomIssue(issue: core.$ZodIssueCustom): ValidationErrorIssue {
 	const { message, path } = issue;
 
@@ -83,8 +71,6 @@ function handleZodCustomIssue(issue: core.$ZodIssueCustom): ValidationErrorIssue
 		path,
 	};
 }
-
-/* --------------------------------------------------------------------------- */
 
 function handleZodInvalidFormatIssue(issue: core.$ZodIssueInvalidStringFormat): ValidationErrorIssue {
 	const { format, path } = issue;
@@ -101,9 +87,9 @@ function handleZodInvalidFormatIssue(issue: core.$ZodIssueInvalidStringFormat): 
 	};
 }
 
-/* --------------------------------------------------------------------------- */
-
 function handleZodInvalidTypeIssue(issue: core.$ZodIssueInvalidType): ValidationErrorIssue {
+	const wordArticle = (word: string) => (STRING_VOWEL_REGEX.test(word) ? "an" : "a");
+
 	const { expected, path } = issue;
 	const article = wordArticle(expected);
 
@@ -113,8 +99,6 @@ function handleZodInvalidTypeIssue(issue: core.$ZodIssueInvalidType): Validation
 		path,
 	};
 }
-
-/* --------------------------------------------------------------------------- */
 
 function handleZodInvalidUnionIssue(issue: core.$ZodIssueInvalidUnion): ValidationErrorIssue {
 	const { errors, path } = issue;
@@ -129,8 +113,6 @@ function handleZodInvalidUnionIssue(issue: core.$ZodIssueInvalidUnion): Validati
 	};
 }
 
-/* --------------------------------------------------------------------------- */
-
 function handleZodInvalidValueIssue(issue: core.$ZodIssueInvalidValue): ValidationErrorIssue {
 	const { path, values } = issue;
 
@@ -143,8 +125,6 @@ function handleZodInvalidValueIssue(issue: core.$ZodIssueInvalidValue): Validati
 		path,
 	};
 }
-
-/* --------------------------------------------------------------------------- */
 
 function handleZodTooBigIssue(issue: core.$ZodIssueTooBig): ValidationErrorIssue {
 	const { origin, path } = issue;
@@ -161,8 +141,6 @@ function handleZodTooBigIssue(issue: core.$ZodIssueTooBig): ValidationErrorIssue
 	};
 }
 
-/* --------------------------------------------------------------------------- */
-
 function handleZodTooSmallIssue(issue: core.$ZodIssueTooSmall): ValidationErrorIssue {
 	const { origin, path } = issue;
 	const message = ZOD_ISSUE_TOO_SMALL_STRINGS_MAP[origin];
@@ -178,19 +156,9 @@ function handleZodTooSmallIssue(issue: core.$ZodIssueTooSmall): ValidationErrorI
 	};
 }
 
-/* --------------------------------------------------------------------------- */
-
-function wordArticle(word: string) {
-	return STRING_VOWEL_REGEX.test(word) ? "an" : "a";
-}
-
-/* --------------------------------------------------------------------------- */
-
 type ZodIssueHandlersMap = Partial<{
 	[Issue in core.$ZodIssue as Issue["code"]]: (issue: Issue) => ValidationErrorIssue;
 }>;
-
-/* --------------------------------------------------------------------------- */
 
 type ZodIssueInvalidStringFormatStringsMap = Partial<{
 	[Issue in core.$ZodIssueInvalidStringFormat as Issue["format"]]: (issue: Issue) => string;

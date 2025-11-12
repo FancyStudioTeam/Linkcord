@@ -1,11 +1,7 @@
 import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
 import type { Constructor } from "#utils/types/Util.js";
 
-/* --------------------------------------------------------------------------- */
-
 const { isFunction, isString } = AssertionUtils;
-
-/* --------------------------------------------------------------------------- */
 
 export function exception(message: string): never;
 export function exception<ErrorConstructor extends Constructor<Error>>(

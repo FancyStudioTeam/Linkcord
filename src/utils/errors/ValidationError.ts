@@ -2,11 +2,7 @@ import { styleText } from "node:util";
 import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
 import type { ValidationErrorIssue } from "#utils/types/index.js";
 
-/* --------------------------------------------------------------------------- */
-
-const { isSymbol } = AssertionUtils;
-
-/* --------------------------------------------------------------------------- */
+const { isNumber, isSymbol } = AssertionUtils;
 
 export class ValidationError extends Error {
 	constructor(issues: ValidationErrorIssue[]) {
@@ -18,12 +14,13 @@ export class ValidationError extends Error {
 		this.name = "ValidationError";
 	}
 
-	private flattenIssuePath(path: PropertyKey[]): string {
+	private formatIssuePath(path: PropertyKey[]): string {
 		const formattedPathCallback = (accumulator: string, currentItem: string | number): string =>
-			typeof currentItem === "number" ? `${accumulator}[${currentItem}]` : `${accumulator}.${currentItem}`;
+			isNumber(currentItem) ? `${accumulator}[${currentItem}]` : `${accumulator}.${currentItem}`;
 
 		const filteredPath = path.filter((item) => !isSymbol(item));
-		const formattedPath = filteredPath.slice(1).reduce(formattedPathCallback, String(filteredPath[0]));
+		const slicedPath = filteredPath.slice(1);
+		const formattedPath = slicedPath.reduce(formattedPathCallback, String(filteredPath[0]));
 
 		return formattedPath;
 	}
@@ -38,7 +35,7 @@ export class ValidationError extends Error {
 		let prettifiedMessage = "";
 
 		if (isMainIssue && pathLength > 0) {
-			const flattenedPath = this.flattenIssuePath(path);
+			const flattenedPath = this.formatIssuePath(path);
 
 			prettifiedMessage = `${indent}${icon} ${flattenedPath}:\n`;
 			prettifiedMessage += `${indent}└── ${message}`;
@@ -46,10 +43,8 @@ export class ValidationError extends Error {
 			prettifiedMessage = `${indent}${icon} ${message}`;
 		}
 
-		if (issues) {
-			for (const issue of issues) {
-				prettifiedMessage += `\n${this.prettifyIssue(issue, false, indentLevel + 1)}`;
-			}
+		for (const issue of issues ?? []) {
+			prettifiedMessage += `\n${this.prettifyIssue(issue, false, indentLevel + 1)}`;
 		}
 
 		return styleText(["bold", "red"], prettifiedMessage);
