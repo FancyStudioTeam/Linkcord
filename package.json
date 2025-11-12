@@ -13,7 +13,7 @@
 		"@commitlint/types": "20.0.0",
 		"@microsoft/api-extractor": "7.54.0",
 		"@swc/core": "1.15.1",
-		"@types/node": "24.10.0",
+		"@types/node": "24.10.1",
 		"esbuild-plugin-version-injector": "1.2.1",
 		"husky": "9.1.7",
 		"lint-staged": "16.2.6",
