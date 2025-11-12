@@ -8,18 +8,12 @@ import {
 } from "#utils/types/index.js";
 import { AssertionUtils } from "./AssertionUtils.js";
 
-/* --------------------------------------------------------------------------- */
-
 const { isArray, isEnum, isInstanceOf, isNumber, isString } = AssertionUtils;
-
-/* --------------------------------------------------------------------------- */
 
 const MAXIMUM_TUPLE_LENGTH = 3;
 const MINIMUM_TUPLE_LENGTH = 2;
 
 const ONE_SECOND_MILLISECONDS = 1_000;
-
-/* --------------------------------------------------------------------------- */
 
 function isChatInputCommandTuple(input: unknown): input is string[] {
 	if (!isArray(input)) return false;
@@ -32,15 +26,11 @@ function isChatInputCommandTuple(input: unknown): input is string[] {
 	return isValidLength && areAllStrings;
 }
 
-/* --------------------------------------------------------------------------- */
-
 function isHeadingLevel(input: unknown): input is HeadingLevel {
 	if (!isNumber(input)) return false;
 
 	return HeadingLevel[input] !== undefined;
 }
-
-/* --------------------------------------------------------------------------- */
 
 function listCallback(items: RecursiveArray<string>, startNumber = 1, isMainList = true, indentLevel = 0): string {
 	const indent = " ".repeat(indentLevel);
@@ -56,8 +46,6 @@ function listCallback(items: RecursiveArray<string>, startNumber = 1, isMainList
 	return `${indent}${mark} ${items}`;
 }
 
-/* --------------------------------------------------------------------------- */
-
 function normalizeChatInputCommandName(commandName: string | string[]): string {
 	if (isChatInputCommandTuple(commandName)) {
 		return commandName.join(" ");
@@ -66,25 +54,17 @@ function normalizeChatInputCommandName(commandName: string | string[]): string {
 	return commandName;
 }
 
-/* --------------------------------------------------------------------------- */
-
 function blockQuote<Content extends string>(content: Content): `>>> ${Content}` {
 	return `>>> ${content}`;
 }
-
-/* --------------------------------------------------------------------------- */
 
 function bold<Content extends string>(content: Content): `**${Content}**` {
 	return `**${content}**`;
 }
 
-/* --------------------------------------------------------------------------- */
-
 function channelMention<ChannelId extends Snowflake>(channelId: ChannelId): `<#${ChannelId}>` {
 	return `<#${channelId}>`;
 }
-
-/* --------------------------------------------------------------------------- */
 
 function chatInputCommandMention<CommandName extends Lowercase<string>, CommandId extends Snowflake>(
 	commandName: CommandName,
@@ -117,8 +97,6 @@ function chatInputCommandMention(commandName: string | string[], commandId: Snow
 	return lowercasedCommandMention;
 }
 
-/* --------------------------------------------------------------------------- */
-
 function codeBlock<Content extends string>(content: Content): `\`\`\`\n${Content}\n\`\`\``;
 function codeBlock<Language extends CodeBlockLanguage, Content extends string>(
 	language: Language,
@@ -132,8 +110,6 @@ function codeBlock(languageOrContent: CodeBlockLanguage | string, possibleConten
 
 	return `\`\`\`\n${languageOrContent}\n\`\`\``;
 }
-
-/* --------------------------------------------------------------------------- */
 
 function email<Username extends string, Domain extends string>(
 	username: Username,
@@ -163,8 +139,6 @@ function email(username: string, domain: string, headersInit?: HeadersInit): str
 	return `<${emailBase}>`;
 }
 
-/* --------------------------------------------------------------------------- */
-
 function header<Content extends string>(content: Content): `# ${Content}`;
 function header<Level extends HeadingLevel, Content extends string>(
 	level: Level,
@@ -179,16 +153,12 @@ function header(levelOrContent: HeadingLevel | string, possibleContent?: string)
 	return `# ${levelOrContent}`;
 }
 
-/* --------------------------------------------------------------------------- */
-
 function hideEmbedLink(url: URL): `<${string}>`;
 function hideEmbedLink<Url extends string>(url: Url): `<${Url}>`;
 
 function hideEmbedLink(url: URL | string): string {
 	return `<${url.toString()}>`;
 }
-
-/* --------------------------------------------------------------------------- */
 
 function hyperlink<Content extends string>(content: Content, url: URL): `[${Content}](${string})`;
 function hyperlink<Content extends string, Url extends string>(content: Content, url: Url): `[${Content}](${Url})`;
@@ -213,19 +183,13 @@ function hyperlink(content: string, url: URL | string, possibleTitle?: string): 
 	return `[${content}](${urlString})`;
 }
 
-/* --------------------------------------------------------------------------- */
-
 function inlineCode<Content extends string>(content: Content): `\`${Content}\`` {
 	return `\`${content}\``;
 }
 
-/* --------------------------------------------------------------------------- */
-
 function italic<Content extends string>(content: Content): `*${Content}*` {
 	return `*${content}*`;
 }
-
-/* --------------------------------------------------------------------------- */
 
 function linkedRoleMention<LinkedRoleId extends Snowflake>(
 	linkedRoleId: LinkedRoleId,
@@ -233,13 +197,9 @@ function linkedRoleMention<LinkedRoleId extends Snowflake>(
 	return `<id:linked-roles:${linkedRoleId}>`;
 }
 
-/* --------------------------------------------------------------------------- */
-
 function orderedList(items: RecursiveArray<string>, startNumber = 1): string {
 	return listCallback(items, Math.max(startNumber, 1));
 }
-
-/* --------------------------------------------------------------------------- */
 
 function phoneNumber<Number extends `+${string}`>(number: Number): `<${Number}>` {
 	if (!number.startsWith("+")) {
@@ -249,43 +209,29 @@ function phoneNumber<Number extends `+${string}`>(number: Number): `<${Number}>`
 	return `<${number}>`;
 }
 
-/* --------------------------------------------------------------------------- */
-
 function quote<Content extends string>(content: Content): `> ${Content}` {
 	return `> ${content}`;
 }
-
-/* --------------------------------------------------------------------------- */
 
 function roleMention<RoleId extends Snowflake>(roleId: RoleId): `<@&${RoleId}>` {
 	return `<@&${roleId}>`;
 }
 
-/* --------------------------------------------------------------------------- */
-
 function spoiler<Content extends string>(content: Content): `||${Content}||` {
 	return `||${content}||`;
 }
-
-/* --------------------------------------------------------------------------- */
 
 function strikethrough<Content extends string>(content: Content): `~~${Content}~~` {
 	return `~~${content}~~`;
 }
 
-/* --------------------------------------------------------------------------- */
-
 function subtext<Content extends string>(content: Content): `-# ${Content}` {
 	return `-# ${content}`;
 }
 
-/* --------------------------------------------------------------------------- */
-
 function underline<Content extends string>(content: Content): `__${Content}__` {
 	return `__${content}__`;
 }
-
-/* --------------------------------------------------------------------------- */
 
 function unixTimestamp(date?: Date): `<t:${string}>`;
 function unixTimestamp<Style extends TimestampStyle>(date: Date, style: Style): `<t:${string}:${Style}>`;
@@ -314,19 +260,13 @@ function unixTimestamp(dateOrSeconds?: Date | number, possibleStyle?: TimestampS
 	return `<t:${dateOrSeconds}>`;
 }
 
-/* --------------------------------------------------------------------------- */
-
 function unorderedList(items: RecursiveArray<string>): string {
 	return listCallback(items);
 }
 
-/* --------------------------------------------------------------------------- */
-
 function userMention<UserId extends Snowflake>(userId: UserId): `<@${UserId}>` {
 	return `<@${userId}>`;
 }
-
-/* --------------------------------------------------------------------------- */
 
 export const FormatterUtils = Object.freeze({
 	blockQuote,
