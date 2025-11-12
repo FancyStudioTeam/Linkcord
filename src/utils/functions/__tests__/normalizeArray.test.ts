@@ -3,7 +3,7 @@ import { normalizeArray } from "../normalizeArray.js";
 const STRINGS_ARRAY = ["Hello", "world"];
 
 describe("Function: normalizeArray", () => {
-	it("Should normalize the given array of strings", () => {
+	it("Should normalize the provided array of strings into a single array", () => {
 		const result1 = normalizeArray(STRINGS_ARRAY);
 		const result2 = normalizeArray(...STRINGS_ARRAY);
 

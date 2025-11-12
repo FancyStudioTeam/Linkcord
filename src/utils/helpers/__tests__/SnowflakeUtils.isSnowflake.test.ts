@@ -1,12 +1,14 @@
 import { SnowflakeUtils } from "../SnowflakeUtils.js";
 
+const { isSnowflake } = SnowflakeUtils;
+
 const USER_ID_STRING = "80351110224678912";
 const USER_ID_BIGINT = BigInt(USER_ID_STRING);
 
 describe("Method: SnowflakeUtils.isSnowflake", () => {
-	it("GIVEN an input WHEN checking if it is a Snowflake THEN returns whether the input is a Snowflake", () => {
-		const result1 = SnowflakeUtils.isSnowflake(USER_ID_STRING);
-		const result2 = SnowflakeUtils.isSnowflake(USER_ID_BIGINT);
+	it("Should check if the provided input is a snowflake", () => {
+		const result1 = isSnowflake(USER_ID_STRING);
+		const result2 = isSnowflake(USER_ID_BIGINT);
 
 		const expectedResult1 = true;
 		const expectedResult2 = false;
