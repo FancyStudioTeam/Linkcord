@@ -34,8 +34,8 @@ importers:
         specifier: 20.0.0
         version: 20.0.0
       '@microsoft/api-extractor':
-        specifier: 7.54.0
-        version: 7.54.0(@types/node@24.10.0)
+        specifier: 7.55.0
+        version: 7.55.0(@types/node@24.10.0)
       '@swc/core':
         specifier: 1.15.1
         version: 1.15.1(@swc/helpers@0.5.17)
@@ -56,7 +56,7 @@ importers:
         version: 6.1.0
       tsup:
         specifier: 8.5.0
-        version: 8.5.0(@microsoft/api-extractor@7.54.0(@types/node@24.10.0))(@swc/core@1.15.1(@swc/helpers@0.5.17))(jiti@2.6.1)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.3)(yaml@2.8.1)
+        version: 8.5.0(@microsoft/api-extractor@7.55.0(@types/node@24.10.0))(@swc/core@1.15.1(@swc/helpers@0.5.17))(jiti@2.6.1)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.3)(yaml@2.8.1)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -391,18 +391,18 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@microsoft/api-extractor-model@7.31.3':
-    resolution: {integrity: sha512-dv4quQI46p0U03TCEpasUf6JrJL3qjMN7JUAobsPElxBv4xayYYvWW9aPpfYV+Jx6hqUcVaLVOeV7+5hxsyoFQ==}
+  '@microsoft/api-extractor-model@7.32.0':
+    resolution: {integrity: sha512-QIVJSreb8fGGJy1Qx0yzGVXxvHJN1WXgkFNHFheVv1iBJNqgvp+xeT3ienJmRwXmPPc5Es/cxBrXtKZJR3i7iw==}
 
-  '@microsoft/api-extractor@7.54.0':
-    resolution: {integrity: sha512-t0SEcbVUPy4yAVykPafTNWktBg728X6p9t8qCuGDsYr1/lz2VQFihYDP2CnBFSArP5vwJPcvxktoKVSqH326cA==}
+  '@microsoft/api-extractor@7.55.0':
+    resolution: {integrity: sha512-TYc5OtAK/9E3HGgd2bIfSjQDYIwPc0dysf9rPiwXZGsq916I6W2oww9bhm1OxPOeg6rMfOX3PoroGd7oCryYog==}
     hasBin: true
 
-  '@microsoft/tsdoc-config@0.17.1':
-    resolution: {integrity: sha512-UtjIFe0C6oYgTnad4q1QP4qXwLhe6tIpNTRStJ2RZEPIkqQPREAwE5spzVxsdn9UaEMUqhh0AqSx3X4nWAKXWw==}
+  '@microsoft/tsdoc-config@0.18.0':
+    resolution: {integrity: sha512-8N/vClYyfOH+l4fLkkr9+myAoR6M7akc8ntBJ4DJdWH2b09uVfr71+LTMpNyG19fNqWDg8KEDZhx5wxuqHyGjw==}
 
-  '@microsoft/tsdoc@0.15.1':
-    resolution: {integrity: sha512-4aErSrCR/On/e5G2hDP0wjooqDdauzEbIq8hIkIe5pXV0rtWJZvdCEKL0ykZxex+IxIwBp0eGeV48hQN07dXtw==}
+  '@microsoft/tsdoc@0.16.0':
+    resolution: {integrity: sha512-xgAyonlVVS+q7Vc7qLW0UrJU7rSFcETRWsqdXZtjzRU8dF+6CkozTK4V4y1LwOX7j8r/vHphjDeMeGI4tNGeGA==}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -2156,19 +2156,19 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@microsoft/api-extractor-model@7.31.3(@types/node@24.10.0)':
+  '@microsoft/api-extractor-model@7.32.0(@types/node@24.10.0)':
     dependencies:
-      '@microsoft/tsdoc': 0.15.1
-      '@microsoft/tsdoc-config': 0.17.1
+      '@microsoft/tsdoc': 0.16.0
+      '@microsoft/tsdoc-config': 0.18.0
       '@rushstack/node-core-library': 5.18.0(@types/node@24.10.0)
     transitivePeerDependencies:
       - '@types/node'
 
-  '@microsoft/api-extractor@7.54.0(@types/node@24.10.0)':
+  '@microsoft/api-extractor@7.55.0(@types/node@24.10.0)':
     dependencies:
-      '@microsoft/api-extractor-model': 7.31.3(@types/node@24.10.0)
-      '@microsoft/tsdoc': 0.15.1
-      '@microsoft/tsdoc-config': 0.17.1
+      '@microsoft/api-extractor-model': 7.32.0(@types/node@24.10.0)
+      '@microsoft/tsdoc': 0.16.0
+      '@microsoft/tsdoc-config': 0.18.0
       '@rushstack/node-core-library': 5.18.0(@types/node@24.10.0)
       '@rushstack/rig-package': 0.6.0
       '@rushstack/terminal': 0.19.3(@types/node@24.10.0)
@@ -2183,14 +2183,14 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@microsoft/tsdoc-config@0.17.1':
+  '@microsoft/tsdoc-config@0.18.0':
     dependencies:
-      '@microsoft/tsdoc': 0.15.1
+      '@microsoft/tsdoc': 0.16.0
       ajv: 8.12.0
       jju: 1.4.0
       resolve: 1.22.11
 
-  '@microsoft/tsdoc@0.15.1': {}
+  '@microsoft/tsdoc@0.16.0': {}
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -3321,7 +3321,7 @@ snapshots:
   tslib@2.8.1:
     optional: true
 
-  tsup@8.5.0(@microsoft/api-extractor@7.54.0(@types/node@24.10.0))(@swc/core@1.15.1(@swc/helpers@0.5.17))(jiti@2.6.1)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.3)(yaml@2.8.1):
+  tsup@8.5.0(@microsoft/api-extractor@7.55.0(@types/node@24.10.0))(@swc/core@1.15.1(@swc/helpers@0.5.17))(jiti@2.6.1)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.3)(yaml@2.8.1):
     dependencies:
       bundle-require: 5.1.0(esbuild@0.25.12)
       cac: 6.7.14
@@ -3341,7 +3341,7 @@ snapshots:
       tinyglobby: 0.2.15
       tree-kill: 1.2.2
     optionalDependencies:
-      '@microsoft/api-extractor': 7.54.0(@types/node@24.10.0)
+      '@microsoft/api-extractor': 7.55.0(@types/node@24.10.0)
       '@swc/core': 1.15.1(@swc/helpers@0.5.17)
       postcss: 8.5.6
       typescript: 5.9.3
