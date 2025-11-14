@@ -1,21 +1,21 @@
 import type { Snowflake } from "#types/index.js";
 import { AssertionUtils } from "./AssertionUtils.js";
 
-const { isBigInt, isNumber, isString } = AssertionUtils;
+const { isBigInt, isString } = AssertionUtils;
 
 const DISCORD_EPOCH_BIGINT = 1420070400000n;
 const DISCORD_SNOWFLAKE_REGEX = /^(?<id>\d{17,20})$/;
 
 function cast<Input extends bigint | number | string>(input: Input): Snowflake {
-	if (!(isBigInt(input) && isNumber(input) && isString(input))) {
-		throw new TypeError("First parameter (input) from 'SnowflakeUtils.cast' must be a bigint, number, or string");
+	if (!(isBigInt(input) || isString(input))) {
+		throw new TypeError("First parameter (input) from 'SnowflakeUtils.cast' must be a bigint or string");
 	}
 
 	const snowflakeString = String(input);
 
 	if (!isSnowflake(snowflakeString)) {
 		throw new TypeError(
-			"First parameter (input) from 'SnowflakeUtils.cast' does not match Discord Snowflake regex",
+			"First parameter (input) from 'SnowflakeUtils.cast' does not match Discord snowflake regex",
 		);
 	}
 
@@ -23,7 +23,9 @@ function cast<Input extends bigint | number | string>(input: Input): Snowflake {
 }
 
 function isSnowflake(input: unknown): input is Snowflake {
-	return typeof input === "string" && DISCORD_SNOWFLAKE_REGEX.test(input);
+	const inputString = String(input);
+
+	return DISCORD_SNOWFLAKE_REGEX.test(inputString);
 }
 
 function timestampFrom(snowflake: Snowflake): number {

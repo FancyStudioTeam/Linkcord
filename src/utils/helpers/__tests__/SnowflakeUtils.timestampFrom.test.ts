@@ -20,7 +20,7 @@ describe("Method: SnowflakeUtils.timestampFrom", () => {
 		const result2 = () => timestampFrom("NOT_A_VALID_SNOWFLAKE_STRING");
 
 		const expectedErrorResult = new TypeError(
-			"First parameter (snowflake) from 'SnowflakeUtils.timestampFrom' must be a Snowflake.",
+			"First parameter (snowflake) from 'SnowflakeUtils.timestampFrom' must be a snowflake",
 		);
 
 		expect(result1).toThrow(expectedErrorResult);

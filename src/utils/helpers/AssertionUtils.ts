@@ -1,7 +1,4 @@
 import type { Constructor } from "#utils/types/Util.js";
-import { SnowflakeUtils } from "./SnowflakeUtils.js";
-
-const { isSnowflake } = SnowflakeUtils;
 
 function isArray<Item>(input: unknown): input is Item[] {
 	return Array.isArray(input);
@@ -53,7 +50,6 @@ export const AssertionUtils = Object.freeze({
 	isInstanceOf,
 	isNumber,
 	isObject,
-	isSnowflake,
 	isString,
 	isSymbol,
 });

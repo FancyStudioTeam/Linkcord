@@ -139,6 +139,10 @@ function email(username: string, domain: string, headersInit?: HeadersInit): str
 	return `<${emailBase}>`;
 }
 
+function everyone(): "@everyone" {
+	return "@everyone";
+}
+
 function header<Content extends string>(content: Content): `# ${Content}`;
 function header<Level extends HeadingLevel, Content extends string>(
 	level: Level,
@@ -151,6 +155,10 @@ function header(levelOrContent: HeadingLevel | string, possibleContent?: string)
 	}
 
 	return `# ${levelOrContent}`;
+}
+
+function here(): "@here" {
+	return "@here";
 }
 
 function hideEmbedLink(url: URL): `<${string}>`;
@@ -275,7 +283,9 @@ export const FormatterUtils = Object.freeze({
 	chatInputCommandMention,
 	codeBlock,
 	email,
+	everyone,
 	header,
+	here,
 	hideEmbedLink,
 	hyperlink,
 	inlineCode,
