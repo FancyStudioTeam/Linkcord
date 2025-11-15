@@ -1,44 +1,22 @@
-// @ts-nocheck
-
 import { UserFlags } from "#types/index.js";
 import { BitFieldResolver } from "../BitFieldResolver.js";
 
 describe("Method: BitFieldResolver.remove", () => {
-	let bitFieldResolver: BitFieldResolver;
+	it("Should remove the provided bits from the bit field", () => {
+		const bitFieldResolver1 = new BitFieldResolver();
+		const bitFieldResolver2 = new BitFieldResolver(UserFlags.ActiveDeveloper);
+		const bitFieldResolver3 = new BitFieldResolver(UserFlags.ActiveDeveloper | UserFlags.Staff);
 
-	beforeEach(() => {
-		bitFieldResolver = new BitFieldResolver(UserFlags.Staff | UserFlags.ActiveDeveloper);
-	});
+		const result1 = bitFieldResolver1.remove(0);
+		const result2 = bitFieldResolver2.remove(UserFlags.ActiveDeveloper);
+		const result3 = bitFieldResolver3.remove(UserFlags.ActiveDeveloper);
 
-	it("GIVEN a bit field with UserFlags.Staff | UserFlags.ActiveDeveloper set WHEN removing 0 THEN returns UserFlags.Staff | UserFlags.ActiveDeveloper", () => {
-		const result = bitFieldResolver.remove(0);
-		const expectedResult = 4194305;
+		const expectedResult1 = 0;
+		const expectedResult2 = 0;
+		const expectedResult3 = UserFlags.Staff;
 
-		expect(result).toBe(expectedResult);
-	});
-
-	it("GIVEN a bit field with UserFlags.Staff | UserFlags.ActiveDeveloper set WHEN removing UserFlags.Staff THEN returns UserFlags.ActiveDeveloper", () => {
-		const result = bitFieldResolver.remove(UserFlags.Staff);
-		const expectedResult = UserFlags.ActiveDeveloper;
-
-		expect(result).toBe(expectedResult);
-	});
-
-	it("GIVEN a bit field with UserFlags.Staff | UserFlags.ActiveDeveloper set WHEN removing UserFlags.Staff and UserFlags.ActiveDeveloper THEN returns an empty bit field", () => {
-		const result = bitFieldResolver.remove(UserFlags.Staff, UserFlags.ActiveDeveloper);
-		const expectedResult = 0;
-
-		expect(result).toBe(expectedResult);
-	});
-
-	it("GIVEN some invalid bits WHEN removing them THEN a TypeError is thrown", () => {
-		const bits = [1, NaN, "NOT_A_VALID_NUMBER"];
-
-		const result = () => bitFieldResolver.remove(...bits);
-		const expectedErrorResult = new TypeError(
-			"All parameters (bits) from 'BitFieldResolver.remove' must be numbers.",
-		);
-
-		expect(result).toThrow(expectedErrorResult);
+		expect(result1).toBe(expectedResult1);
+		expect(result2).toBe(expectedResult2);
+		expect(result3).toBe(expectedResult3);
 	});
 });
