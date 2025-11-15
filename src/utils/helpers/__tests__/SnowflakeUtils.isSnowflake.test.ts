@@ -7,7 +7,7 @@ const USER_ID_BIGINT = BigInt(USER_ID_STRING);
 const USER_ID_NUMBER = Number(USER_ID_STRING);
 
 describe("Method: SnowflakeUtils.isSnowflake", () => {
-	it("Should check if the provided input is a snowflake", () => {
+	it("Should check whether the provided input is a snowflake", () => {
 		const result1 = isSnowflake(USER_ID_STRING);
 		const result2 = isSnowflake(USER_ID_BIGINT);
 		const result3 = isSnowflake(USER_ID_NUMBER);
