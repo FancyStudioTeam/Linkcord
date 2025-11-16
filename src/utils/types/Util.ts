@@ -6,7 +6,7 @@ export type Brand<Type, Brand extends string> = Type & {
 	readonly [Brand]: Brand;
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: Expect anything in the constructor parameters
+// biome-ignore lint/suspicious/noExplicitAny: Expect anything in the constructor parameters.
 export type Constructor<Class> = new (...args: any[]) => Class;
 
 export type If<Condition, TrueResult, FalseResult = null> = Condition extends true

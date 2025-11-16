@@ -17,7 +17,7 @@ function isEnum<Enum>(input: unknown, _enum: Enum): input is Enum {
 	return isIncluded;
 }
 
-// biome-ignore lint/complexity/noBannedTypes: Expect any function
+// biome-ignore lint/complexity/noBannedTypes: Expect any function.
 function isFunction(input: unknown): input is Function {
 	return typeof input === "function";
 }

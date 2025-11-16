@@ -177,6 +177,9 @@ export enum CodeBlockLanguage {
 }
 // biome-ignore-end lint/style/useNamingConvention: (x)
 
+/**
+ * @see https://discord.com/developers/docs/reference#message-formatting-guild-navigation-types
+ */
 export enum GuildNavegationType {
 	Browse = "<id:browse>",
 	Customize = "<id:customize>",
@@ -190,6 +193,9 @@ export enum HeadingLevel {
 	Two = 2,
 }
 
+/**
+ * @see https://discord.com/developers/docs/reference#message-formatting-timestamp-styles
+ */
 export enum TimestampStyle {
 	FullDateShortTime = "F",
 	LongDate = "D",

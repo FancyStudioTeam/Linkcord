@@ -28,6 +28,9 @@ function isSnowflake(input: unknown): input is Snowflake {
 	return DISCORD_SNOWFLAKE_REGEX.test(inputString);
 }
 
+/**
+ * @see https://discord.com/developers/docs/reference#convert-snowflake-to-datetime
+ */
 function timestampFrom(snowflake: Snowflake): number {
 	if (!isSnowflake(snowflake)) {
 		throw new TypeError("First parameter (snowflake) from 'SnowflakeUtils.timestampFrom' must be a snowflake");

@@ -104,7 +104,11 @@ function codeBlock<Language extends CodeBlockLanguage, Content extends string>(
 ): `\`\`\`${Language}\n${Content}\n\`\`\``;
 
 function codeBlock(languageOrContent: CodeBlockLanguage | string, possibleContent?: string): string {
-	if (isEnum(languageOrContent, CodeBlockLanguage)) {
+	if (possibleContent) {
+		if (!isEnum(languageOrContent, CodeBlockLanguage)) {
+			throw new TypeError("First parameter (language) from 'FormatterUtils.codeBlock' must be an enum");
+		}
+
 		return `\`\`\`${languageOrContent}\n${possibleContent}\n\`\`\``;
 	}
 
@@ -150,7 +154,11 @@ function header<Level extends HeadingLevel, Content extends string>(
 ): HeadingLevelsMap<Content>[Level];
 
 function header(levelOrContent: HeadingLevel | string, possibleContent?: string): string {
-	if (isHeadingLevel(levelOrContent)) {
+	if (possibleContent) {
+		if (!isHeadingLevel(levelOrContent)) {
+			throw new TypeError("First parameter (level) from 'FormatterUtils.header' must be an enum");
+		}
+
 		return `${"#".repeat(levelOrContent)} ${possibleContent}`;
 	}
 
