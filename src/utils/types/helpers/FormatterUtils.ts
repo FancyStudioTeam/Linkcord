@@ -1,20 +1,12 @@
-// biome-ignore-all lint/style/useNamingConvention: Some languages use all uppercase letters for their names.
-
-/** Represents a map of levels of headings for headers with their respective literal content. */
 export type HeadingLevelsMap<Content extends string> = {
 	[HeadingLevel.One]: `# ${Content}`;
 	[HeadingLevel.Three]: `### ${Content}`;
 	[HeadingLevel.Two]: `## ${Content}`;
 };
 
-/**
- * Represents a type that is a recursive array.
- *
- * @typeParam Item - The shape of the item in the array.
- */
 export type RecursiveArray<Item> = readonly (Item | RecursiveArray<Item>)[];
 
-/** Represents the suported languages for Discord code blocks. */
+// biome-ignore-start lint/style/useNamingConvention: (x)
 export enum CodeBlockLanguage {
 	ABNF = "abnf",
 	ANSI = "ansi",
@@ -183,19 +175,8 @@ export enum CodeBlockLanguage {
 	YAML = "yaml",
 	Zephir = "zephir",
 }
+// biome-ignore-end lint/style/useNamingConvention: (x)
 
-/** Represents the faces from the Discord chat input command. */
-export enum Faces {
-	Shrug = "¯\\_(ツ)_/¯",
-	Tableflip = "(╯°□°)╯︵ ┻━┻",
-	Unflip = "┬─┬ノ( º _ ºノ)",
-}
-
-/**
- * Represents the navigation types for a guild.
- *
- * @see https://discord.com/developers/docs/reference#message-formatting-guild-navigation-types
- */
 export enum GuildNavegationType {
 	Browse = "<id:browse>",
 	Customize = "<id:customize>",
@@ -203,18 +184,12 @@ export enum GuildNavegationType {
 	LinkedRoles = "<id:linked-roles>",
 }
 
-/** Represents the levels of headings for headers. */
 export enum HeadingLevel {
 	One = 1,
 	Three = 3,
 	Two = 2,
 }
 
-/**
- * Represents the styles for timestamps.
- *
- * @see https://discord.com/developers/docs/reference#message-formatting-timestamp-styles
- */
 export enum TimestampStyle {
 	FullDateShortTime = "F",
 	LongDate = "D",

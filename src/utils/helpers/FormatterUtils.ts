@@ -225,6 +225,10 @@ function roleMention<RoleId extends Snowflake>(roleId: RoleId): `<@&${RoleId}>` 
 	return `<@&${roleId}>`;
 }
 
+function shrug(): "¯\\_(ツ)_/¯" {
+	return "¯\\_(ツ)_/¯";
+}
+
 function spoiler<Content extends string>(content: Content): `||${Content}||` {
 	return `||${content}||`;
 }
@@ -237,8 +241,16 @@ function subtext<Content extends string>(content: Content): `-# ${Content}` {
 	return `-# ${content}`;
 }
 
+function tableFlip(): "(╯°□°)╯︵ ┻━┻" {
+	return "(╯°□°)╯︵ ┻━┻";
+}
+
 function underline<Content extends string>(content: Content): `__${Content}__` {
 	return `__${content}__`;
+}
+
+function unflip(): "┬─┬ノ( º _ ºノ)" {
+	return "┬─┬ノ( º _ ºノ)";
 }
 
 function unixTimestamp(date?: Date): `<t:${string}>`;
@@ -295,10 +307,13 @@ export const FormatterUtils = Object.freeze({
 	phoneNumber,
 	quote,
 	roleMention,
+	shrug,
 	spoiler,
 	strikethrough,
 	subtext,
+	tableFlip,
 	underline,
+	unflip,
 	unixTimestamp,
 	unorderedList,
 	userMention,
