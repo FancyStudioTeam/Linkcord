@@ -1,210 +1,309 @@
 import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
-import type { ChannelTypes } from "#types/resources/Channels/enums.js";
+import type { ChannelType } from "#types/resources/Channels/enums.js";
+import type { APIMessageComponent } from "#types/resources/Components/index.js";
+import type { APIPartialEmoji } from "#types/resources/Emojis/index.js";
+import type { InteractionType } from "#types/resources/Interactions/enums.js";
 import type { APIUser } from "#types/resources/Users/index.js";
-import type { EmbedTypes, MessageFlags, MessageTypes } from "../enums.js";
+import type {
+	AllowedMentionType,
+	AttachmentFlags,
+	EmbedType,
+	MessageActivityType,
+	MessageFlags,
+	MessageReferenceType,
+	MessageType,
+} from "../enums.js";
 
 /**
- * Represents a Discord channel mention object.
- * @see https://discord.com/developers/docs/resources/message#channel-mention-object-channel-mention-structure
- *
- * @group API/Interfaces
+ * @see https://discord.com/developers/docs/resources/message#allowed-mentions-object
  */
-export interface APIChannelMention {
-	/** The ID of the guild where the channel is located. */
-	guild_id: Snowflake;
-	/** The ID of the channel. */
-	id: Snowflake;
-	/** The name of the channel. */
-	name: string;
-	/** The type of the channel. */
-	type: ChannelTypes;
+export interface APIAllowedMentions {
+	parse?: AllowedMentionType[];
+	replied_user?: boolean;
+	roles?: Snowflake[];
+	users?: Snowflake[];
 }
 
 /**
- * Represents a Discord embed object.
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-application-command-interaction-metadata-structure
+ */
+export interface APIApplicationCommandInteractionMetadata extends APIBaseMessageInteractionMetadata {
+	target_user?: APIUser;
+	target_message_id?: Snowflake;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
+ */
+export interface APIAttachment {
+	content_type?: string;
+	description?: string;
+	duration_secs?: number;
+	ephemeral?: boolean;
+	filename: string;
+	flags: AttachmentFlags;
+	heigth?: number | null;
+	id: Snowflake;
+	proxy_url: string;
+	size: number;
+	title?: string;
+	url: string;
+	waveform?: string;
+	width?: number | null;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
+ */
+export interface APIBaseMessageInteractionMetadata {
+	authorizing_integration_owners: APIAuthorizingIntegrationOwners;
+	id: Snowflake;
+	type: InteractionType;
+	user: APIUser;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#channel-mention-object-channel-mention-structure
+ */
+export interface APIChannelMention {
+	guild_id: Snowflake;
+	id: Snowflake;
+	name: string;
+	type: ChannelType;
+}
+
+/**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-structure
- *
- * @group API/Interfaces
  */
 export interface APIEmbed {
-	/** The author of the embed. */
 	author?: APIEmbedAuthor;
-	/** The color of the embed. */
 	color?: number;
-	/** The description of the embed. */
 	description?: string;
-	/** The fields of the embed. */
 	fields?: APIEmbedField[];
-	/** The footer of the embed. */
 	footer?: APIEmbedFooter;
-	/** The image of the embed. */
 	image?: APIEmbedImage;
-	/** The provider of the embed. */
 	provider?: APIEmbedProvider;
-	/** The thumbnail of the embed. */
 	thumbnail?: APIEmbedThumbnail;
-	/** The timestamp of the embed. */
 	timestamp?: ISO8601Date;
-	/** The title of the embed. */
 	title?: string;
-	/** The type of the embed. */
-	type?: EmbedTypes;
-	/** The URL of the embed. */
+	type?: EmbedType;
 	url?: string;
-	/** The video of the embed. */
 	video?: APIEmbedVideo;
 }
 
 /**
- * Represents a Discord embed author object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-author-structure
- *
- * @group API/Interfaces
  */
 export interface APIEmbedAuthor {
-	/** The URL of the icon of the author. */
 	icon_url?: string;
-	/** The name of the author. */
 	name: string;
-	/** The proxied URL of the icon of the author. */
 	proxy_icon_url?: string;
-	/** The URL of the author. */
 	url?: string;
 }
 
 /**
- * Represents a Discord embed field object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-field-structure
- *
- * @group API/Interfaces
  */
 export interface APIEmbedField {
-	/** Whether the field should be displayed inline. */
 	inline?: boolean;
-	/** The name of the field. */
 	name: string;
-	/** The value of the field. */
 	value: string;
 }
 
 /**
- * Represents a Discord embed footer object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-footer-structure
- *
- * @group API/Interfaces
  */
 export interface APIEmbedFooter {
-	/** The URL of the icon of the footer. */
 	icon_url?: string;
-	/** The proxied URL of the icon of the footer. */
 	proxy_icon_url?: string;
-	/** The text of the footer. */
 	text: string;
 }
 
 /**
- * Represents a Discord embed image object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-image-structure
- *
- * @group API/Interfaces
  */
 export interface APIEmbedImage {
-	/** The height of the image. */
 	height?: number;
-	/** The proxied URL of the image. */
 	proxy_url?: string;
-	/** The URL of the image. */
 	url: string;
-	/** The width of the image. */
 	width?: number;
 }
 
 /**
- * Represents a Discord embed provider object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-provider-structure
- *
- * @group API/Interfaces
  */
 export interface APIEmbedProvider {
-	/** The name of the provider. */
 	name?: string;
-	/** The URL of the provider. */
 	url?: string;
 }
 
 /**
- * Represents a Discord embed thumbnail object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-thumbnail-structure
- *
- * @group API/Interfaces
  */
 export interface APIEmbedThumbnail {
-	/** The height of the thumbnail. */
 	height?: number;
-	/** The proxied URL of the thumbnail. */
 	proxy_url?: string;
-	/** The URL of the thumbnail. */
 	url: string;
-	/** The width of the thumbnail. */
 	width?: number;
 }
 
 /**
- * Represents a Discord embed video object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-video-structure
- *
- * @group API/Interfaces
  */
 export interface APIEmbedVideo {
-	/** The height of the video. */
 	height?: number;
-	/** The proxied URL of the video. */
 	proxy_url?: string;
-	/** The URL of the video. */
 	url: string;
-	/** The width of the video. */
 	width?: number;
 }
 
 /**
- * Represents a Discord message object.
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
- *
- * @group API/Interfaces
  */
 export interface APIMessage {
-	/** The author of the message. */
+	activity?: APIMessageActivity;
+	application_id?: Snowflake;
+	attachments: APIAttachment[];
 	author: APIUser;
-	/** The ID of the channel where the message was created. */
+	call?: APIMessageCall;
 	channel_id: Snowflake;
-	/** The content of the message. */
+	components: APIMessageComponent[];
 	content: string;
-	/** The timestamp at which the message was edited. */
 	edited_timestamp: ISO8601Date | null;
-	/** The embeds of the message. */
 	embeds: APIEmbed[];
-	/** The flags of the message. */
 	flags?: MessageFlags;
-	/** The mention to channels in the message. */
+	interaction_metadata?: APIMessageInteractionMetadata;
 	mention_channels?: APIChannelMention[];
-	/** Whether the message mentions everyone. */
 	mention_everyone: boolean;
-	/** The mention of roles in the message. */
+	message_reference?: APIMessageReference;
 	mention_roles: Snowflake[];
-	/** The mention of users in the message. */
 	mentions: APIUser[];
-	/** The nonce used for validating when a message was created. */
 	nonce?: number | string;
-	/** Whether the message is pinned. */
 	pinned: boolean;
-	/** The position of the message in the thread channel. */
 	position?: number;
-	/** The timestamp at which the message was created. */
+	poll?: APIPoll;
+	reactions?: APIReaction[];
+	referenced_message?: APIMessage | null;
+	resolved?: APIResolved;
+	role_subscription_data?: APIRoleSubscriptionData;
+	sticker_items?: APIStickerItem[];
+	thread?: APIThreadChannel;
 	timestamp: ISO8601Date;
-	/** Whether the message was a Text-to-Speech message. */
 	tts: boolean;
-	/** The type of the message. */
-	type: MessageTypes;
-	/** The ID of the webhook that created the message. */
+	type: MessageType;
 	webhook_id?: Snowflake;
 }
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-activity-structure
+ */
+export interface APIMessageActivity {
+	party_id?: string;
+	type: MessageActivityType;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-call-object-message-call-object-structure
+ */
+export interface APIMessageCall {
+	ended_timestamp?: ISO8601Date | null;
+	participants: Snowflake[];
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-message-component-interaction-metadata-structure
+ */
+export interface APIMessageComponentInteractionMetadata extends APIBaseMessageInteractionMetadata {
+	interacted_message_id: Snowflake;
+	original_response_message_id?: Snowflake;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-pin-object-message-pin-object-struture
+ */
+export interface APIMessagePin {
+	message: APIMessage;
+	pinned_at: ISO8601Date;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-reference-structure
+ */
+export interface APIMessageReference {
+	channel_id?: Snowflake;
+	fail_if_not_exists?: boolean;
+	guild_id?: Snowflake;
+	message_id?: Snowflake;
+	type?: MessageReferenceType;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-snapshot-structure
+ */
+export interface APIMessageSnapshot {
+	message: Pick<
+		APIMessage,
+		| "attachments"
+		| "components"
+		| "content"
+		| "edited_timestamp"
+		| "embeds"
+		| "flags"
+		| "mention_roles"
+		| "mentions"
+		| "sticker_items"
+		| "timestamp"
+		| "type"
+	>;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-modal-submit-interaction-metadata-structure
+ */
+export interface APIModalSubmitInteractionMetadata extends APIBaseMessageInteractionMetadata {
+	original_response_message_id?: Snowflake;
+	triggering_interaction_metadata: APIApplicationCommandInteractionMetadata | APIMessageComponentInteractionMetadata;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#reaction-object-reaction-structure
+ */
+export interface APIReaction {
+	burst_colors: string[];
+	count: number;
+	count_details: APIReactionCountDetails;
+	emoji: APIPartialEmoji;
+	me: boolean;
+	me_burst: boolean;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#reaction-count-details-object-reaction-count-details-structure
+ */
+export interface APIReactionCountDetails {
+	burst: number;
+	normal: number;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#role-subscription-data-object-role-subscription-data-object-structure
+ */
+export interface APIRoleSubscriptionData {
+	is_renewal: boolean;
+	role_subscription_listing_id: Snowflake;
+	tier_name: string;
+	total_months_subscribed: number;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
+ */
+export type APIMessageInteractionMetadata =
+	| APIApplicationCommandInteractionMetadata
+	| APIMessageComponentInteractionMetadata
+	| APIModalSubmitInteractionMetadata;
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
+ */
+export type APIPartialAttachent = Partial<APIAttachment>;

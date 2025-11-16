@@ -1,10 +1,23 @@
 /**
- * The types of an embed.
- * @see https://discord.com/developers/docs/resources/message#embed-object-embed-types
- *
- * @group Structures/Enums
+ * @see https://discord.com/developers/docs/resources/message#allowed-mentions-object-allowed-mention-types
  */
-export enum EmbedTypes {
+export enum AllowedMentionType {
+	Everyone = "everyone",
+	Roles = "roles",
+	Users = "users",
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-flags
+ */
+export enum AttachmentFlags {
+	IsRemix = 1 << 2,
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#embed-object-embed-types
+ */
+export enum EmbedType {
 	Article = "article",
 	GifV = "gifv",
 	Image = "image",
@@ -15,10 +28,17 @@ export enum EmbedTypes {
 }
 
 /**
- * The flags of a message.
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-activity-types
+ */
+export enum MessageActivityType {
+	Join = 1,
+	JoinRequest = 5,
+	Listen = 3,
+	Spectate = 2,
+}
+
+/**
  * @see https://discord.com/developers/docs/resources/message#message-object-message-flags
- *
- * @group Structures/Enums
  */
 export enum MessageFlags {
 	Crossposted = 1 << 0,
@@ -37,12 +57,17 @@ export enum MessageFlags {
 }
 
 /**
- * The types of a message.
- * @see https://discord.com/developers/docs/resources/message#message-object-message-types
- *
- * @group Structures/Enums
+ * @see https://discord.com/developers/docs/resources/message#message-reference-types
  */
-export enum MessageTypes {
+export enum MessageReferenceType {
+	Default = 1,
+	Forward = 1,
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-types
+ */
+export enum MessageType {
 	AutoModerationAction = 24,
 	Call = 3,
 	ChannelFollowAdd = 12,
@@ -80,4 +105,12 @@ export enum MessageTypes {
 	ThreadCreated = 18,
 	ThreadStarterMessage = 21,
 	UserJoin = 6,
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#get-reactions-reaction-types
+ */
+export enum ReactionType {
+	Burst = 1,
+	Normal = 0,
 }

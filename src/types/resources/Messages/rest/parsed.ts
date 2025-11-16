@@ -1,19 +1,70 @@
 import type { EmbedBuilder } from "#builders/index.js";
-import type { Embed } from "../structures/parsed.js";
+import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
+import type { MessageComponent } from "#types/resources/Components/index.js";
+import type { BitFieldResolver } from "#utils/index.js";
+import type { MessageFlags, ReactionType } from "../enums.js";
+import type { AllowedMentions, Attachment, Embed, MessageReference, PartialAttachment } from "../structures/parsed.js";
 
 /**
- * The options to use when creating a message.
- * @see https://discord.com/developers/docs/resources/message#create-message-jsonform-params
+ * @see https://discord.com/developers/docs/resources/message#bulk-delete-messages-json-params
  */
-export interface CreateMessageOptions {
-	/** The content of the message. */
-	content?: string;
-	/** The embeds of the message. */
-	embeds?: CreateMessageEmbedOptions[];
+export interface BulkMessagesOptions {
+	messages: Snowflake[];
 }
 
 /**
- * Represents a valid embed when creating a message.
- * @see https://discord.com/developers/docs/resources/message#embed-object-embed-structure
+ * @see https://discord.com/developers/docs/resources/message#create-message-jsonform-params
  */
-export type CreateMessageEmbedOptions = Embed | EmbedBuilder;
+export interface CreateMessageOptions {
+	allowedMentions?: AllowedMentions;
+	attachments?: PartialAttachment[];
+	components?: MessageComponent[];
+	content?: string;
+	embeds?: Embed | EmbedBuilder[];
+	enforceNonce?: boolean;
+	flags?: BitFieldResolver | MessageFlags;
+	messageReference?: MessageReference;
+	nonce?: number | string;
+	poll?: MessagePoll;
+	stickerIds?: Snowflake[];
+	tts?: boolean;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#edit-message-jsonform-params
+ */
+export interface EditMessageOptions {
+	allowedMentions?: AllowedMentions | null;
+	attachments?: Attachment[] | null;
+	components?: MessageComponent[] | null;
+	content?: string | null;
+	embeds?: Embed | EmbedBuilder[];
+	flags?: BitFieldResolver | MessageFlags;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#get-channel-messages-query-string-params
+ */
+export interface GetChannelMessagesOptions {
+	after?: Snowflake;
+	around?: Snowflake;
+	before?: Snowflake;
+	limit?: number;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#get-channel-pins-query-string-params
+ */
+export interface GetMessagePinsOptions {
+	before?: ISO8601Date;
+	limit?: number;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#get-reactions-query-string-params
+ */
+export interface GetMessageReactionsOptions {
+	after?: Snowflake;
+	limit?: number;
+	type?: ReactionType;
+}

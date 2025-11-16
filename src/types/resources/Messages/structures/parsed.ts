@@ -1,126 +1,241 @@
-import type { ISO8601Date } from "#types/miscellaneous/discord.js";
-import type { EmbedTypes } from "../enums.js";
+import type { Message } from "#structures/Message.js";
+import type { User } from "#structures/User.js";
+import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
+import type { ChannelType } from "#types/resources/Channels/enums.js";
+import type { PartialEmoji } from "#types/resources/Emojis/index.js";
+import type { InteractionType } from "#types/resources/Interactions/enums.js";
+import type {
+	AllowedMentionType,
+	AttachmentFlags,
+	EmbedType,
+	MessageActivityType,
+	MessageReferenceType,
+} from "../enums.js";
+
+// TODO: Add `MessageSnapshot`
 
 /**
- * Represents a Discord embed object.
+ * @see https://discord.com/developers/docs/resources/message#allowed-mentions-object
+ */
+export interface AllowedMentions {
+	parse?: AllowedMentionType[];
+	repliedUser?: boolean;
+	roles?: Snowflake[];
+	users?: Snowflake[];
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
+ */
+export interface Attachment {
+	contentType?: string;
+	description?: string;
+	durationSecs?: number;
+	ephemeral?: boolean;
+	filename: string;
+	flags: AttachmentFlags;
+	heigth?: number | null;
+	id: Snowflake;
+	proxyUrl: string;
+	size: number;
+	title?: string;
+	url: string;
+	waveform?: string;
+	width?: number | null;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-application-command-interaction-metadata-structure
+ */
+export interface ApplicationCommandInteractionMetadata extends BaseMessageInteractionMetadata {
+	targetUser?: User;
+	targetMessageId?: Snowflake;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
+ */
+export interface BaseMessageInteractionMetadata {
+	authorizing_integration_owners: AuthorizingIntegrationOwners;
+	id: Snowflake;
+	type: InteractionType;
+	user: User;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#channel-mention-object-channel-mention-structure
+ */
+export interface ChannelMention {
+	guildId: Snowflake;
+	id: Snowflake;
+	name: string;
+	type: ChannelType;
+}
+
+/**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-structure
- *
- * @group Structures/Interfaces
  */
 export interface Embed {
-	/** The author of the embed. */
 	author?: EmbedAuthor;
-	/** The color of the embed. */
 	color?: number;
-	/** The description of the embed. */
 	description?: string;
-	/** The fields of the embed. */
 	fields?: EmbedField[];
-	/** The footer of the embed. */
 	footer?: EmbedFooter;
-	/** The image of the embed. */
 	image?: EmbedImage;
-	/** The provider of the embed. */
 	provider?: EmbedProvider;
-	/** The thumbnail of the embed. */
 	thumbnail?: EmbedThumbnail;
-	/** The timestamp of the embed. */
 	timestamp?: ISO8601Date;
-	/** The title of the embed. */
 	title?: string;
-	/** The type of the embed. */
-	type?: EmbedTypes;
-	/** The URL of the embed. */
+	type?: EmbedType;
 	url?: string;
-	/** The video of the embed. */
 	video?: EmbedVideo;
 }
 
 /**
- * Represents a Discord embed author object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-author-structure
- *
- * @group Structures/Interfaces
  */
 export interface EmbedAuthor {
-	/** The URL of the icon of the author. */
 	iconURL?: string;
-	/** The name of the author. */
 	name: string;
-	/** The URL of the author. */
 	url?: string;
 }
 
 /**
- * Represents a Discord embed field object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-field-structure
- *
- * @group Structures/Interfaces
  */
 export interface EmbedField {
-	/** Whether the field should be displayed inline. */
 	inline?: boolean;
-	/** The name of the field. */
 	name: string;
-	/** The value of the field. */
 	value: string;
 }
 
 /**
- * Represents a Discord embed footer object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-footer-structure
- *
- * @group Structures/Interfaces
  */
 export interface EmbedFooter {
-	/** The URL of the icon of the footer. */
 	iconURL?: string;
-	/** The text of the footer. */
 	text: string;
 }
 
 /**
- * Represents a Discord embed image object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-image-structure
- *
- * @group Structures/Interfaces
  */
 export interface EmbedImage {
-	/** The URL of the image. */
 	url: string;
 }
 
 /**
- * Represents a Discord embed provider object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-provider-structure
- *
- * @group Structures/Interfaces
  */
 export interface EmbedProvider {
-	/** The name of the provider. */
 	name?: string;
-	/** The URL of the provider. */
 	url?: string;
 }
 
 /**
- * Represents a Discord embed thumbnail object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-thumbnail-structure
- *
- * @group Structures/Interfaces
  */
 export interface EmbedThumbnail {
-	/** The URL of the thumbnail. */
 	url: string;
 }
 
 /**
- * Represents a Discord embed video object.
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-video-structure
- *
- * @group Structures/Interfaces
  */
 export interface EmbedVideo {
-	/** The URL of the video. */
 	url: string;
 }
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-activity-structure
+ */
+export interface MessageActivity {
+	partyId?: string;
+	type: MessageActivityType;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-call-object-message-call-object-structure
+ */
+export interface MessageCall {
+	endedTimestamp?: ISO8601Date | null;
+	participants: Snowflake[];
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-message-component-interaction-metadata-structure
+ */
+export interface MessageComponentInteractionMetadata extends BaseMessageInteractionMetadata {
+	interactedMessageId: Snowflake;
+	originalResponseMessageId?: Snowflake;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-pin-object-message-pin-object-struture
+ */
+export interface MessagePin {
+	message: Message;
+	pinnedAt: ISO8601Date;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-reference-structure
+ */
+export interface MessageReference {
+	channelId?: Snowflake;
+	failIfNotExists?: boolean;
+	guildId?: Snowflake;
+	messageId?: Snowflake;
+	type?: MessageReferenceType;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-modal-submit-interaction-metadata-structure
+ */
+export interface ModalSubmitInteractionMetadata extends BaseMessageInteractionMetadata {
+	originalResponseMessageId?: Snowflake;
+	triggeringInteractionMetadata: ApplicationCommandInteractionMetadata | MessageComponentInteractionMetadata;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#reaction-object-reaction-structure
+ */
+export interface Reaction {
+	burstColors: string[];
+	count: number;
+	countDetails: ReactionCountDetails;
+	emoji: PartialEmoji;
+	me: boolean;
+	meBurst: boolean;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#reaction-count-details-object-reaction-count-details-structure
+ */
+export interface ReactionCountDetails {
+	burst: number;
+	normal: number;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#role-subscription-data-object-role-subscription-data-object-structure
+ */
+export interface RoleSubscriptionData {
+	isRenewal: boolean;
+	roleSubscriptionListingId: Snowflake;
+	tierName: string;
+	totalMonthsSubscribed: number;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
+ */
+export type MessageInteractionMetadata =
+	| ApplicationCommandInteractionMetadata
+	| MessageComponentInteractionMetadata
+	| ModalSubmitInteractionMetadata;
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
+ */
+export type PartialAttachment = Partial<Attachment>;
