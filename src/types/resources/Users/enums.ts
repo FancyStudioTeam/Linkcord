@@ -1,10 +1,7 @@
 /**
- * The services of a connection.
  * @see https://discord.com/developers/docs/resources/user#connection-object-services
- *
- * @group Structures/Enums
  */
-export enum ConnectionServices {
+export enum ConnectionService {
 	AmazonMusic = "amazon_music",
 	BattleNet = "battlenet",
 	Bluesky = "bluesky",
@@ -34,21 +31,45 @@ export enum ConnectionServices {
 }
 
 /**
- * The type of the visibility of a connection.
  * @see https://discord.com/developers/docs/resources/user#connection-object-visibility-types
- *
- * @group Structures/Enums
  */
-export enum ConnectionVisibilityTypes {
+export enum ConnectionVisibilityType {
 	Everyone = 1,
 	None = 0,
 }
 
 /**
- * The palette of a nameplate.
+ * @undocumented
+ */
+export enum DisplayNameEffect {
+	Glow = 6,
+	Gradient = 2,
+	Neon = 3,
+	Pop = 5,
+	Solid = 1,
+	Toon = 4,
+}
+
+/**
+ * @undocumented
+ */
+export enum DisplayNameFont {
+	Bangers = 1,
+	BioRhyme = 2,
+	CherryBomb = 3,
+	Chicle = 4,
+	Compagnon = 5,
+	Default = 11,
+	MuseoModerno = 6,
+	NeoCastel = 7,
+	Pixelify = 8,
+	Ribes = 9,
+	Sinestre = 10,
+	ZillaSlab = 12,
+}
+
+/**
  * @see https://discord.com/developers/docs/resources/user#nameplate-nameplate-structure
- *
- * @group Structures/Enums
  */
 export enum NameplatePalette {
 	Berry = "berry",
@@ -65,12 +86,9 @@ export enum NameplatePalette {
 }
 
 /**
- * The type of the subscription of a user.
  * @see https://discord.com/developers/docs/resources/user#user-object-premium-types
- *
- * @group Structures/Enums
  */
-export enum UserPremiumTypes {
+export enum UserPremiumType {
 	Nitro = 2,
 	NitroBasic = 3,
 	NitroClassic = 1,
@@ -78,10 +96,7 @@ export enum UserPremiumTypes {
 }
 
 /**
- * The flags of a user.
  * @see https://discord.com/developers/docs/resources/user#user-object-user-flags
- *
- * @group Structures/Enums
  */
 export enum UserFlags {
 	ActiveDeveloper = 1 << 22,
