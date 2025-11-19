@@ -28,9 +28,6 @@
 	"exports": {
 		".": {
 			"import": "./dist/index.mjs"
-		},
-		"./jsx-runtime": {
-			"import": "./dist/jsx/jsx-runtime.mjs"
 		}
 	},
 	"files": [
