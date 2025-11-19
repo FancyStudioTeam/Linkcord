@@ -1,5 +1,6 @@
 import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
 import type { APIMessageComponent } from "#types/resources/Components/index.js";
+import type { APIMessagePoll } from "#types/resources/Polls/index.js";
 import type { APIUser } from "#types/resources/Users/index.js";
 import type { MessageFlags, ReactionType } from "../enums.js";
 import type {
