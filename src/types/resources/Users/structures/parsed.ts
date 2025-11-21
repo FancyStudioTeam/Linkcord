@@ -51,7 +51,7 @@ export interface Connection {
 /**
  * @undocumented
  */
-export interface APIDisplayNameStyles {
+export interface DisplayNameStyles {
 	colors: [number, number];
 	effectId: DisplayNameEffect;
 	fontId: DisplayNameFont;
