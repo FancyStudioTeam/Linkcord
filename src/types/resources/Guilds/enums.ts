@@ -1,18 +1,16 @@
 /**
- * The levels of the explicit content filter of a guild.
  * @see https://discord.com/developers/docs/resources/guild#guild-object-explicit-content-filter-level
  */
-export enum GuildExplicitContentFilterLevels {
+export enum GuildExplicitContentFilterLevel {
 	Disabled = 0,
 	MembersWithoutRoles = 1,
 	AllMembers = 2,
 }
 
 /**
- * The features of a guild.
  * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-features
  */
-export enum GuildFeatures {
+export enum GuildFeature {
 	AnimatedBanner = "ANIMATED_BANNER",
 	AnimatedIcon = "ANIMATED_ICON",
 	ApplicationCommandPermissionsV2 = "APPLICATION_COMMAND_PERMISSIONS_V2",
@@ -46,7 +44,6 @@ export enum GuildFeatures {
 }
 
 /**
- * The flags of a member of a guild.
  * @see https://discord.com/developers/docs/resources/guild#guild-member-object-guild-member-flags
  */
 export enum GuildMemberFlags {
@@ -63,28 +60,25 @@ export enum GuildMemberFlags {
 }
 
 /**
- * The levels of the multifactor authentication of a guild.
  * @see https://discord.com/developers/docs/resources/guild#guild-object-mfa-level
  */
-export enum GuildMFALevels {
+export enum GuildMFALevel {
 	Elevated = 1,
 	None = 0,
 }
 
 /**
- * The levels of notifications of a guild.
  * @see https://discord.com/developers/docs/resources/guild#guild-object-default-message-notification-level
  */
-export enum GuildNotificationLevels {
+export enum GuildNotificationLevel {
 	AllMessages = 0,
 	OnlyMentions = 1,
 }
 
 /**
- * The levels of NSFW of a guild.
  * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-nsfw-level
  */
-export enum GuildNSFWLevels {
+export enum GuildNSFWLevel {
 	AgeRestricted = 3,
 	Default = 0,
 	Explicit = 1,
@@ -92,28 +86,25 @@ export enum GuildNSFWLevels {
 }
 
 /**
- * The modes of onboarding of a guild.
  * @see https://discord.com/developers/docs/resources/guild#guild-onboarding-object-onboarding-mode
  */
-export enum GuildOnboardingModes {
+export enum GuildOnboardingMode {
 	OnboardingAdvanced = 1,
 	OnboardingDefault = 0,
 }
 
 /**
- * The types of onboarding prompts of a guild.
  * @see https://discord.com/developers/docs/resources/guild#guild-onboarding-object-prompt-types
  */
-export enum GuildOnboardingPromptTypes {
+export enum GuildOnboardingPromptType {
 	MultipleChoice = 0,
 	Dropdown = 1,
 }
 
 /**
- * The tiers of premium of a guild.
  * @see https://discord.com/developers/docs/resources/guild#guild-object-premium-tier
  */
-export enum GuildPremiumTiers {
+export enum GuildPremiumTier {
 	None = 0,
 	Tier1 = 1,
 	Tier2 = 2,
@@ -121,10 +112,9 @@ export enum GuildPremiumTiers {
 }
 
 /**
- * The levels of verification of a guild.
  * @see https://discord.com/developers/docs/resources/guild#guild-object-verification-level
  */
-export enum GuildVerificationLevels {
+export enum GuildVerificationLevel {
 	High = 3,
 	Low = 1,
 	Medium = 2,
@@ -133,7 +123,24 @@ export enum GuildVerificationLevels {
 }
 
 /**
- * The flags of a system channel.
+ * @see https://discord.com/developers/docs/resources/guild#integration-object-integration-expire-behaviors
+ */
+export enum IntegrationExpireBehavior {
+	Kick = 1,
+	RemoveRole = 0,
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/guild#integration-object-integration-structure
+ */
+export enum IntegrationType {
+	Discord = "discord",
+	GuildSubscription = "guild_subscription",
+	Twitch = "twitch",
+	YouTube = "youtube",
+}
+
+/**
  * @see https://discord.com/developers/docs/resources/guild#guild-object-system-channel-flags
  */
 export enum SystemChannelFlags {
@@ -143,13 +150,4 @@ export enum SystemChannelFlags {
 	SuppressPremiumSubscriptions = 1 << 1,
 	SuppressRoleSubscriptionPurchaseNotificationReplies = 1 << 5,
 	SuppressRoleSubscriptionPurchaseNotifications = 1 << 4,
-}
-
-/**
- * The expiration behavior of an integration.
- * @see https://discord.com/developers/docs/resources/guild#integration-object-integration-expire-behaviors
- */
-export enum IntegrationExpireBehaviors {
-	Kick = 1,
-	RemoveRole = 0,
 }

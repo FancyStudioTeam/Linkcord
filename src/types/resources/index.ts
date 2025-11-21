@@ -8,6 +8,7 @@ export * from "./Gateway/index.js";
 export * from "./Guilds/index.js";
 export * from "./Interactions/index.js";
 export * from "./Messages/index.js";
+export * from "./OAuth2/index.js";
 export * from "./Polls/index.js";
 export * from "./Users/index.js";
 export * from "./Voice/index.js";
