@@ -30,7 +30,7 @@ export class User extends Base {
 	banner: string | null;
 	readonly bot: boolean;
 	collectibles: Collectibles;
-	discriminator: string;
+	readonly discriminator: string;
 	displayNameStyles: DisplayNameStyles | null;
 	flags: BitFieldResolver;
 	globalName: string | null;
@@ -90,7 +90,6 @@ export class User extends Base {
 			avatar_decoration_data: avatarDecorationData,
 			banner,
 			collectibles,
-			discriminator,
 			display_name_styles: displayNameStyles,
 			flags,
 			global_name: globalName,
@@ -116,10 +115,6 @@ export class User extends Base {
 
 		if (!isUndefined(collectibles)) {
 			this.collectibles = parseCollectibles(collectibles);
-		}
-
-		if (!isUndefined(discriminator)) {
-			this.discriminator = discriminator;
 		}
 
 		if (!isUndefined(displayNameStyles)) {
