@@ -42,6 +42,10 @@ function isSymbol(input: unknown): input is symbol {
 	return typeof input === "symbol";
 }
 
+function isUndefined(input: unknown): input is undefined {
+	return typeof input === "undefined";
+}
+
 export const AssertionUtils = Object.freeze({
 	isArray,
 	isBigInt,
@@ -52,4 +56,5 @@ export const AssertionUtils = Object.freeze({
 	isObject,
 	isString,
 	isSymbol,
+	isUndefined,
 });
