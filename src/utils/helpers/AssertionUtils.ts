@@ -26,6 +26,10 @@ function isInstanceOf<Class>(input: unknown, _class: Constructor<Class>): input 
 	return input instanceof _class;
 }
 
+function isNull(input: unknown): input is null {
+	return input === null;
+}
+
 function isNumber(input: unknown): input is number {
 	return typeof input === "number";
 }
@@ -52,6 +56,7 @@ export const AssertionUtils = Object.freeze({
 	isEnum,
 	isFunction,
 	isInstanceOf,
+	isNull,
 	isNumber,
 	isObject,
 	isString,
