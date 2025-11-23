@@ -5,6 +5,7 @@ import {
 	GatewayAPI,
 	type MakeRequestOptions,
 	MiscellaneousAPI,
+	ONE_SECOND_MILLISECONDS,
 	REST_URL_BASE,
 	REST_USER_AGENT,
 	REST_VERSION,
