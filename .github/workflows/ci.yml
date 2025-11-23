@@ -1,4 +1,4 @@
-name: 🌀 Continuous Integration
+name: Continuous Integration
 
 on: [push, pull_request]
 
@@ -7,22 +7,22 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - name: 📂 Checkout Code
+            - name: Checkout Code
               uses: actions/checkout@v6
 
-            - name: 🔧 Setup Node.js
+            - name: Setup Node.js
               uses: actions/setup-node@v6
               with:
                   node-version: 24
 
-            - name: 📦 Install PNPM
+            - name: Install PNPM
               run: npm install -g pnpm
 
-            - name: 📥 Install Dependencies
+            - name: Install Dependencies
               run: pnpm install
 
-            - name: 🦺 Build Packages
+            - name: Build Packages
               run: pnpm build
 
-            - name: 🧪 Run Vitest
+            - name: Run Vitest
               run: pnpm vitest
