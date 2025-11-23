@@ -1,6 +1,5 @@
 # Build
 .turbo
-build
 dist
 
 # Docs
@@ -13,14 +12,17 @@ temp
 .env
 .env.*
 
-# Extensions
-.VSCodeCounter
-
-# IDEs
-.idea
-
 # Internal
 internal_testing
+
+# Logs
+logs
+*.log
+
+# Miscellaneous
+.DS_Store
+.fleet
+.idea
 
 # Packages
 node_modules
@@ -29,5 +31,4 @@ node_modules
 *.tgz
 
 # Vitest
-html
 tsconfig.vitest-temp.json
