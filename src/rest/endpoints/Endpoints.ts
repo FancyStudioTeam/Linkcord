@@ -446,11 +446,6 @@ function webhookSlack(webhookId: Snowflake, webhookToken: string): string {
 	return encode`webhooks/${webhookId}/${webhookToken}/slack`;
 }
 
-/**
- * Endpoints for Discord requests.
- *
- * @public
- */
 export const Endpoints = Object.freeze({
 	application,
 	applicationActivityInstance,

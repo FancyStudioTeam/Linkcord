@@ -97,11 +97,6 @@ function teamIcon(teamId: Snowflake, teamIcon: string): string {
 	return encode`team-icons/${teamId}/${teamIcon}`;
 }
 
-/**
- * Endpoints for Discord assets.
- *
- * @public
- */
 export const CDNEndpoints = Object.freeze({
 	applicationAsset,
 	applicationAssetAchievementIcon,
