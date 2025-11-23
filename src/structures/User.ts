@@ -1,72 +1,88 @@
 import type { Client } from "#client/index.js";
-import { parseAvatarDecoration, parseCollectibles, parsePrimaryGuild } from "#transformers/Users.js";
-import type { APIUser, AvatarDecorationData, Collectibles, PrimaryGuild, Snowflake } from "#types/index.js";
+import {
+	parseAvatarDecoration,
+	parseCollectibles,
+	parseDisplayNameStyles,
+	parsePrimaryGuild,
+} from "#transformers/Users.js";
+import type {
+	APIUser,
+	AvatarDecorationData,
+	Collectibles,
+	DisplayNameStyles,
+	PrimaryGuild,
+	Snowflake,
+} from "#types/index.js";
+import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
 import { BitFieldResolver, FormatterUtils } from "#utils/index.js";
 import { Base } from "./Base.js";
 
+const { isUndefined } = AssertionUtils;
+const { hexColor, userMention } = FormatterUtils;
+
 /**
- * Represents a Discord user object.
  * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
- *
- * @group Structures/Classes
  */
 export class User extends Base {
-	/** The accent color of the user. */
-	accentColor: number | null = null;
-	/** The avatar of the user. */
-	avatar: string | null = null;
-	/** The decoration of the avatar of the user. */
-	avatarDecorationData: AvatarDecorationData | null = null;
-	/** The banner of the user. */
-	banner: string | null = null;
-	/** Whether the user is a bot. */
-	readonly bot: boolean = false;
-	/** The collectibles of the user. */
-	collectibles: Collectibles = {};
-	/** The discriminator of the user. */
-	readonly discriminator: string;
-	/** The flags of the user. */
-	flags: BitFieldResolver | null = null;
-	/** The global name of the user. */
-	globalName: string | null = null;
-	/** The ID of the user. */
+	accentColor: number | null;
+	avatar: string | null;
+	avatarDecorationData: AvatarDecorationData | null;
+	banner: string | null;
+	readonly bot: boolean;
+	collectibles: Collectibles;
+	discriminator: string;
+	displayNameStyles: DisplayNameStyles | null;
+	flags: BitFieldResolver;
+	globalName: string | null;
 	readonly id: Snowflake;
-	/**  The primary guild of the user. */
-	primaryGuild: PrimaryGuild | null = null;
-	/** Whether the user is from the Discord system. */
-	readonly system: boolean = false;
-	/** The username of the user. */
+	primaryGuild: PrimaryGuild | null;
+	readonly system: boolean;
 	username: string;
 
-	/**
-	 * Creates a new {@link User | `User`} instance.
-	 * @param client - The client that instantiated the {@link User | `User`} instance.
-	 * @param data - The {@link APIUser | `APIUser`} object from the Discord API.
-	 */
 	constructor(client: Client, data: APIUser) {
 		super(client);
 
-		const { bot, id, discriminator, system, username } = data;
+		const {
+			accent_color: accentColor,
+			avatar,
+			avatar_decoration_data: avatarDecorationData,
+			banner,
+			bot,
+			collectibles,
+			discriminator,
+			display_name_styles: displayNameStyles,
+			flags,
+			global_name: globalName,
+			id,
+			primary_guild: primaryGuild,
+			system,
+			username,
+		} = data;
 
-		this.bot = bot ?? false;
+		this.accentColor = accentColor ?? null;
+		this.avatar = avatar;
+		this.avatarDecorationData = parseAvatarDecoration(avatarDecorationData ?? null);
+		this.banner = banner ?? null;
+		this.bot = Boolean(bot);
+		this.collectibles = parseCollectibles(collectibles ?? null);
 		this.discriminator = discriminator;
+		this.displayNameStyles = parseDisplayNameStyles(displayNameStyles ?? null);
+		this.flags = new BitFieldResolver(flags);
+		this.globalName = globalName;
 		this.id = id;
-		this.system = system ?? false;
+		this.primaryGuild = parsePrimaryGuild(primaryGuild ?? null);
+		this.system = Boolean(system);
 		this.username = username;
-		this.patch(data);
 	}
 
-	/** The mention of the user. */
+	get accentColorHex(): `#${string}` | null {
+		return this.accentColor ? hexColor(this.accentColor) : null;
+	}
+
 	get mention(): `<@${Snowflake}>` {
-		const { id } = this;
-
-		return FormatterUtils.userMention(id);
+		return userMention(this.id);
 	}
 
-	/**
-	 * Patches the current {@link User | `User`} instance with the given data.
-	 * @param data - The updated data for the current {@link User | `User`} instance.
-	 */
 	protected patch(data: Partial<APIUser> = {}): void {
 		const {
 			accent_color: accentColor,
@@ -74,45 +90,55 @@ export class User extends Base {
 			avatar_decoration_data: avatarDecorationData,
 			banner,
 			collectibles,
+			discriminator,
+			display_name_styles: displayNameStyles,
 			flags,
 			global_name: globalName,
 			primary_guild: primaryGuild,
 			username,
 		} = data;
 
-		if (accentColor !== undefined) {
+		if (!isUndefined(accentColor)) {
 			this.accentColor = accentColor;
 		}
 
-		if (avatar !== undefined) {
+		if (!isUndefined(avatar)) {
 			this.avatar = avatar;
 		}
 
-		if (avatarDecorationData !== undefined) {
+		if (!isUndefined(avatarDecorationData)) {
 			this.avatarDecorationData = parseAvatarDecoration(avatarDecorationData);
 		}
 
-		if (banner !== undefined) {
+		if (!isUndefined(banner)) {
 			this.banner = banner;
 		}
 
-		if (collectibles !== undefined) {
+		if (!isUndefined(collectibles)) {
 			this.collectibles = parseCollectibles(collectibles);
 		}
 
-		if (flags !== undefined) {
+		if (!isUndefined(discriminator)) {
+			this.discriminator = discriminator;
+		}
+
+		if (!isUndefined(displayNameStyles)) {
+			this.displayNameStyles = parseDisplayNameStyles(displayNameStyles);
+		}
+
+		if (!isUndefined(flags)) {
 			this.flags = new BitFieldResolver(flags);
 		}
 
-		if (globalName !== undefined) {
+		if (!isUndefined(globalName)) {
 			this.globalName = globalName;
 		}
 
-		if (primaryGuild !== undefined) {
+		if (!isUndefined(primaryGuild)) {
 			this.primaryGuild = parsePrimaryGuild(primaryGuild);
 		}
 
-		if (username !== undefined) {
+		if (!isUndefined(username)) {
 			this.username = username;
 		}
 	}

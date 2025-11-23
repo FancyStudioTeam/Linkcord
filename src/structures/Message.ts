@@ -1,117 +1,39 @@
 import type { Client } from "#client/index.js";
-import { parseEmbeds } from "#transformers/Messages.js";
-import type { APIMessage, Embed, MessageTypes, Snowflake } from "#types/index.js";
-import { BitFieldResolver } from "#utils/index.js";
+import type { APIMessage, Snowflake } from "#types/index.js";
+import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
+import { FormatterUtils } from "#utils/index.js";
 import { Base } from "./Base.js";
-import { User } from "./User.js";
+
+const { isUndefined } = AssertionUtils;
+const { messageLink } = FormatterUtils;
 
 /**
- * Represents a Discord message object.
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
- *
- * @group Structures/Classes
  */
 export class Message extends Base {
-	/** The author of the message. */
-	readonly author: User;
-	/** The ID of the channel where the message was created. */
 	readonly channelId: Snowflake;
-	/** The content of the message. */
 	content: string;
-	/** The timestamp at which the message was created. */
-	readonly createdTimestamp: number;
-	/** The timestamp at which the message was edited. */
-	editedTimestamp: number | null = null;
-	/** The embeds of the message. */
-	embeds: Embed[] = [];
-	/** The flags of the message. */
-	flags: BitFieldResolver | null = null;
-	/** The nonce used for validating when a message was created. */
-	readonly nonce: string | null = null;
-	/** Whether the message is pinned. */
-	pinned: boolean = false;
-	/** The position of the message in the thread channel. */
-	readonly position: number | null;
-	/** Whether the message was a Text-to-Speech message. */
-	readonly tts: boolean;
-	/** The type of the message. */
-	readonly type: MessageTypes;
-	/** The ID of the webhook that created the message. */
-	readonly webhookId: Snowflake | null;
+	readonly id: Snowflake;
 
-	/**
-	 * Creates a new {@link Message | `Message`} instance.
-	 * @param client - The client that instantiated the {@link Message | `Message`} instance.
-	 * @param data - The {@link APIMessage | `APIMessage`} object from the Discord API.
-	 */
 	constructor(client: Client, data: APIMessage) {
 		super(client);
 
-		const {
-			author,
-			channel_id: channelId,
-			content,
-			edited_timestamp: editedTimestamp,
-			nonce,
-			position,
-			timestamp,
-			tts,
-			type,
-			webhook_id: webhookId,
-		} = data;
+		const { channel_id: channelId, content, id } = data;
 
-		this.author = new User(client, author);
 		this.channelId = channelId;
 		this.content = content;
-		this.createdTimestamp = Date.parse(timestamp);
-		this.editedTimestamp = editedTimestamp ? Date.parse(editedTimestamp) : null;
-		this.nonce = nonce ? nonce.toString() : null;
-		this.position = position ?? null;
-		this.tts = tts;
-		this.type = type;
-		this.webhookId = webhookId ?? null;
-		this.patch(data);
+		this.id = id;
 	}
 
-	/** The date at which the message was created. */
-	get createdAt(): Date {
-		const { createdTimestamp } = this;
-
-		return new Date(createdTimestamp);
+	get messageLink(): `https://discord.com/channels/@me/${Snowflake}/${Snowflake}` {
+		return messageLink(this.channelId, this.id);
 	}
 
-	/** The date at which the message was edited. */
-	get editedAt(): Date | null {
-		const { editedTimestamp } = this;
-
-		return editedTimestamp ? new Date(editedTimestamp) : null;
-	}
-
-	/**
-	 * Patches the current {@link Message | `Message`} instance with the given data.
-	 * @param data - The updated data for the current {@link Message | `Message`} instance.
-	 */
 	protected patch(data: Partial<APIMessage> = {}): void {
-		const { content, edited_timestamp: editedTimestamp, embeds, flags, pinned } = data;
+		const { content } = data;
 
-		if (content !== undefined) {
+		if (!isUndefined(content)) {
 			this.content = content;
-		}
-
-		if (editedTimestamp !== undefined && editedTimestamp !== null) {
-			this.editedTimestamp = Date.parse(editedTimestamp);
-		}
-
-		if (embeds !== undefined) {
-			this.embeds = parseEmbeds(embeds);
-		}
-
-		if (flags !== undefined) {
-			this.flags = new BitFieldResolver(flags);
-		}
-
-		if (pinned !== undefined) {
-			this.pinned = pinned;
 		}
 	}
 }

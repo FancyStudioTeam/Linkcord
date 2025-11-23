@@ -223,6 +223,28 @@ function linkedRoleMention<LinkedRoleId extends Snowflake>(
 	return `<id:linked-roles:${linkedRoleId}>`;
 }
 
+function messageLink<ChannelId extends Snowflake, MessageId extends Snowflake>(
+	channelId: ChannelId,
+	messageId: MessageId,
+): `https://discord.com/channels/@me/${ChannelId}/${MessageId}`;
+function messageLink<GuildId extends Snowflake, ChannelId extends Snowflake, MessageId extends Snowflake>(
+	guildId: GuildId,
+	channelId: ChannelId,
+	messageId: MessageId,
+): `https://discord.com/channels/${GuildId}/${ChannelId}/${MessageId}`;
+
+function messageLink(
+	channelOrGuildId: Snowflake,
+	channelOrMessageId: Snowflake,
+	possibleMessageId?: Snowflake,
+): string {
+	if (possibleMessageId) {
+		return `https://discord.com/channels/${channelOrGuildId}/${channelOrMessageId}/${possibleMessageId}`;
+	}
+
+	return `https://discord.com/channels/@me/${channelOrGuildId}/${channelOrMessageId}`;
+}
+
 function orderedList(items: RecursiveArray<string>, startNumber = 1): string {
 	return listCallback(items, Math.max(startNumber, 1));
 }
@@ -322,6 +344,7 @@ export const FormatterUtils = Object.freeze({
 	inlineCode,
 	italic,
 	linkedRoleMention,
+	messageLink,
 	orderedList,
 	phoneNumber,
 	quote,

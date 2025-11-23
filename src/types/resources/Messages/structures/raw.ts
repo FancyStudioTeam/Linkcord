@@ -172,6 +172,7 @@ export interface APIMessage {
 	edited_timestamp: ISO8601Date | null;
 	embeds: APIEmbed[];
 	flags?: MessageFlags;
+	id: Snowflake;
 	interaction_metadata?: APIMessageInteractionMetadata;
 	mention_channels?: APIChannelMention[];
 	mention_everyone: boolean;

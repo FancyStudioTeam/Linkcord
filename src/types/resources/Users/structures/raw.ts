@@ -1,6 +1,7 @@
 import type { Snowflake } from "#types/miscellaneous/discord.js";
 import type { Locales } from "#types/miscellaneous/enums.js";
 import type { GuildFeatures } from "#types/resources/Guilds/enums.js";
+import type { APIPartialIntegration } from "#types/resources/Guilds/index.js";
 import type {
 	ConnectionService,
 	ConnectionVisibilityType,
