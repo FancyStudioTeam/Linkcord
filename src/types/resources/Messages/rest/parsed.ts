@@ -21,7 +21,7 @@ export interface CreateMessageOptions {
 	attachments?: PartialAttachment[];
 	components?: MessageComponent[];
 	content?: string;
-	embeds?: Embed | EmbedBuilder[];
+	embeds?: (Embed | EmbedBuilder)[];
 	enforceNonce?: boolean;
 	flags?: BitFieldResolver | MessageFlags;
 	messageReference?: MessageReference;

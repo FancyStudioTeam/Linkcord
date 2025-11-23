@@ -9,22 +9,17 @@ import type {
 } from "#types/index.js";
 import { BaseAPI } from "./BaseAPI.js";
 
-/** API class that handles all request related to `/channels` endpoints. */
+const { channelMessages } = Endpoints;
+
 export class ChannelsAPI extends BaseAPI {
 	/**
-	 * Performs a {@link RESTPostAPIMessage | `POST /channels/(channel.id)/messages`} request to the Discord API.
-	 * @param channelId - The ID of the channel where the message will be created.
-	 * @param options - The options to use when creating the message.
-	 * @returns The created {@link Message | `Message`} instance.
 	 * @see https://discord.com/developers/docs/resources/message#create-message
 	 */
 	async createMessage(channelId: Snowflake, options: CreateMessageOptions): Promise<Message> {
-		const { content, embeds } = options ?? {};
+		const { content, embeds, nonce, tts } = options ?? {};
 		const json: RESTPostAPIMessageJSONParams = {};
 
-		if (content) {
-			json.content = content;
-		}
+		if (content) json.content = content;
 
 		if (embeds) {
 			const normalizedEmbeds = normalizeEmbeds(embeds);
@@ -33,8 +28,11 @@ export class ChannelsAPI extends BaseAPI {
 			json.embeds = serializedEmbeds;
 		}
 
+		if (nonce) json.nonce = nonce;
+		if (tts) json.tts = tts;
+
 		const messageResponseData = await super.post<RESTPostAPIMessage, RESTPostAPIMessageJSONParams>(
-			Endpoints.channelMessages(channelId),
+			channelMessages(channelId),
 			{
 				json,
 			},

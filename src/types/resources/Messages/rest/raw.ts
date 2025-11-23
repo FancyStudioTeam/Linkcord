@@ -72,12 +72,12 @@ export interface RESTPostAPIMessageBulkJSONParams {
  */
 export interface RESTPostAPIMessageJSONParams {
 	allowed_mentions?: APIAllowedMentions;
-	attachments: APIPartialAttachent[];
+	attachments?: APIPartialAttachent[];
 	components?: APIMessageComponent[];
 	content?: string;
 	embeds?: APIEmbed[];
 	enforce_nonce?: boolean;
-	flags: MessageFlags;
+	flags?: MessageFlags;
 	message_reference?: APIMessageReference;
 	nonce?: number | string;
 	poll?: APIMessagePoll;
