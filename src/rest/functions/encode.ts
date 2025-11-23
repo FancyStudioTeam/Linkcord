@@ -1,11 +1,8 @@
 import { SAFE_CHARACTERS } from "#rest/utils/Constants.js";
 
-/**
- * @internal
- */
-export const encode = (strings: TemplateStringsArray, ...values: (string | number)[]): string =>
-	strings.reduce((endpoint, nextString, index) => {
-		endpoint += nextString;
+export function encode(strings: TemplateStringsArray, ...values: (number | string)[]): string {
+	const encodedEndpointCallback = (accumulator: string, fragment: string, index: number) => {
+		accumulator += fragment;
 
 		const value = values[index];
 
@@ -22,8 +19,12 @@ export const encode = (strings: TemplateStringsArray, ...values: (string | numbe
 				return character;
 			});
 
-			endpoint += array.join("");
+			accumulator += array.join("");
 		}
 
-		return endpoint;
-	}, "");
+		return accumulator;
+	};
+	const encodedEndpoint = strings.reduce(encodedEndpointCallback, "");
+
+	return encodedEndpoint;
+}
