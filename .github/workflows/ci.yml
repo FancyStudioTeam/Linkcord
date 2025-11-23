@@ -21,7 +21,7 @@ jobs:
             - name: Install Dependencies
               run: pnpm install
 
-            - name: Build Packages
+            - name: Build Package
               run: pnpm build
 
             - name: Run Vitest
