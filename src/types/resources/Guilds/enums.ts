@@ -10,7 +10,7 @@ export enum GuildExplicitContentFilterLevel {
 /**
  * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-features
  */
-export enum GuildFeature {
+export enum GuildFeatures {
 	AnimatedBanner = "ANIMATED_BANNER",
 	AnimatedIcon = "ANIMATED_ICON",
 	ApplicationCommandPermissionsV2 = "APPLICATION_COMMAND_PERMISSIONS_V2",
