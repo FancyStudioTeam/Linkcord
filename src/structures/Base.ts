@@ -3,20 +3,10 @@ import type { RESTManager } from "#rest/index.js";
 import type { APIManager } from "#rest/structures/APIManager.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 
-/**
- * Represents a base class for all Discord structures.
- * @group Structures/Classes
- */
 export abstract class Base {
-	/** The client that instantiated the base. */
 	protected declare readonly client: Client;
-	/** The REST manager to perform requests within the API. */
 	protected declare readonly rest: RESTManager;
 
-	/**
-	 * Creates a new {@link Base | `Base`} instance.
-	 * @param client - The client that instantiated the base.
-	 */
 	constructor(client: Client) {
 		const { rest } = client;
 
@@ -24,7 +14,6 @@ export abstract class Base {
 		defineImmutableProperty(this, "rest", rest);
 	}
 
-	/** The API manager to perform requests within the API. */
 	protected get api(): APIManager {
 		const { rest } = this;
 		const { api } = rest;
@@ -32,16 +21,9 @@ export abstract class Base {
 		return api;
 	}
 
-	/**
-	 * Clones the current {@link Base | `Base`} instance.
-	 * @returns The cloned {@link Base | `Base`} instance.
-	 */
 	protected clone(): this {
-		const createdObject = Object.create(this);
-
-		return Object.assign(createdObject, this);
+		return Object.assign(Object.create(this), this);
 	}
 
-	/** Patches the current {@link Base | `Base`} instance with the given data. */
 	protected abstract patch(data: unknown): void;
 }
