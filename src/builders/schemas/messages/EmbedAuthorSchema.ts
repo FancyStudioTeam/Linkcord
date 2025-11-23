@@ -1,5 +1,5 @@
 import { instanceof as instanceof_, object, string, union } from "zod";
-import { EmbedAuthorBuilder } from "#builders/structures/messages/EmbedAuthorBuilder.js";
+import { EmbedAuthorBuilder } from "../../structures/messages/EmbedAuthorBuilder.js";
 import { URLSchema } from "../Shared.js";
 
 const MAXIMUM_EMBED_AUTHOR_NAME_LENGTH = 256;

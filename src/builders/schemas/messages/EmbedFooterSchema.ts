@@ -1,5 +1,5 @@
 import { instanceof as instanceof_, object, string, union } from "zod";
-import { EmbedFooterBuilder } from "#builders/structures/messages/EmbedFooterBuilder.js";
+import { EmbedFooterBuilder } from "../../structures/messages/EmbedFooterBuilder.js";
 import { URLSchema } from "../Shared.js";
 
 const MAXIMUM_EMBED_FOOTER_TEXT_LENGTH = 2048;

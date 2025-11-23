@@ -1,7 +1,7 @@
 import { instanceof as instanceof_, literal, object, string, union } from "zod";
-import { SelectMenuDefaultValueBuilder } from "#builders/structures/selects/SelectMenuDefaultValueBuilder.js";
 import { SelectMenuDefaultValueType } from "#types/index.js";
-import { SnowflakeUtils } from "#utils/helpers/SnowflakeUtils.js";
+import { SnowflakeUtils } from "#utils/index.js";
+import { SelectMenuDefaultValueBuilder } from "../../structures/selects/SelectMenuDefaultValueBuilder.js";
 
 const CHANNEL_TYPE_LITERAL = literal(SelectMenuDefaultValueType.Channel);
 const ROLE_TYPE_LITERAL = literal(SelectMenuDefaultValueType.Role);

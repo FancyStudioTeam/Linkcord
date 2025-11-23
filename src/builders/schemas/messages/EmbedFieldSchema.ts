@@ -1,5 +1,5 @@
 import { boolean, instanceof as instanceof_, object, string, union } from "zod";
-import { EmbedFieldBuilder } from "#builders/structures/messages/EmbedFieldBuilder.js";
+import { EmbedFieldBuilder } from "../../structures/messages/EmbedFieldBuilder.js";
 
 const MAXIMUM_EMBED_FIELD_NAME_LENGTH = 256;
 const MAXIMUM_EMBED_FIELD_VALUE_LENGTH = 1024;
