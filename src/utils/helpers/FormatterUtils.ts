@@ -10,6 +10,9 @@ import { AssertionUtils } from "./AssertionUtils.js";
 
 const { isArray, isEnum, isInstanceOf, isNumber, isString } = AssertionUtils;
 
+const HEX_COLOR_DIGITS = 6;
+const HEXADECIMAL_BASE = 16;
+
 const MAXIMUM_TUPLE_LENGTH = 3;
 const MINIMUM_TUPLE_LENGTH = 2;
 
@@ -169,6 +172,13 @@ function here(): "@here" {
 	return "@here";
 }
 
+function hexColor(color: number): `#${string}` {
+	const hexadecimal = color.toString(HEXADECIMAL_BASE);
+	const hexColor = `#${hexadecimal.padEnd(HEX_COLOR_DIGITS, "0")}` as const;
+
+	return hexColor;
+}
+
 function hideEmbedLink(url: URL): `<${string}>`;
 function hideEmbedLink<Url extends string>(url: Url): `<${Url}>`;
 
@@ -306,6 +316,7 @@ export const FormatterUtils = Object.freeze({
 	everyone,
 	header,
 	here,
+	hexColor,
 	hideEmbedLink,
 	hyperlink,
 	inlineCode,
