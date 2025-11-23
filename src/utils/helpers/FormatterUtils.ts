@@ -1,4 +1,5 @@
 import type { Snowflake } from "#types/index.js";
+import { ONE_SECOND_MILLISECONDS } from "#utils/Constants.js";
 import {
 	CodeBlockLanguage,
 	HeadingLevel,
@@ -15,8 +16,6 @@ const HEXADECIMAL_BASE = 16;
 
 const MAXIMUM_TUPLE_LENGTH = 3;
 const MINIMUM_TUPLE_LENGTH = 2;
-
-const ONE_SECOND_MILLISECONDS = 1_000;
 
 function isChatInputCommandTuple(input: unknown): input is string[] {
 	if (!isArray(input)) return false;

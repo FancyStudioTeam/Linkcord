@@ -1,83 +1,57 @@
 import type { Client } from "#client/index.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
+import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
 import {
-	ClientEvents,
+	GatewayAPI,
 	type MakeRequestOptions,
+	MiscellaneousAPI,
 	REST_URL_BASE,
 	REST_USER_AGENT,
 	REST_VERSION,
-	RESTContentTypes,
-	type RESTMethods,
+	RESTContentType,
+	type RESTMethod,
 } from "../../index.js";
-import { APIManager } from "./APIManager.js";
 
-const NO_CONTENT_STATUS_CODE = 204;
-const ONE_SECOND_MILLISECONDS = 1000;
-const TOO_MANY_REQUESTS_STATUS_CODE = 429;
+const { isObject } = AssertionUtils;
 
-/** The REST manager for the client. */
 export class RESTManager {
-	/** Whether the client is rate limited globally. */
 	#globalRateLimit = false;
 
-	/** The API manager to perform requests within the REST manager. */
-	declare readonly api: APIManager;
-	/** The client of the REST manager. */
 	declare readonly client: Client;
+	declare readonly gateway: GatewayAPI;
+	declare readonly miscellaneous: MiscellaneousAPI;
 
-	/**
-	 * Creates a new {@link RESTManager | `RESTManager`} instance.
-	 * @param client - The client that instantiated the REST manager.
-	 */
 	constructor(client: Client) {
-		defineImmutableProperty(this, "api", new APIManager(this));
 		defineImmutableProperty(this, "client", client);
+		defineImmutableProperty(this, "gateway", new GatewayAPI(this));
+		defineImmutableProperty(this, "miscellaneous", new MiscellaneousAPI(this));
 	}
 
-	/**
-	 * Creates the {@link Headers | `Headers`} object for the request.
-	 *
-	 * @param options - The options to use when creating the headers.
-	 * @returns The created {@link Headers | `Headers`} object.
-	 */
-	#createRequestHeaders(
+	private createRequestHeaders(
 		options: CreateRequestHeadersOptions = {
-			contentType: RESTContentTypes.ApplicationJSON,
+			contentType: RESTContentType.ApplicationJSON,
 			withAuthorization: true,
 		},
 	): Headers {
 		const { client } = this;
 		const { token } = client;
 
-		const headers = new Headers();
-
 		const { contentType, reason, withAuthorization } = options;
+		const headers = new Headers({
+			"Content-Type": contentType ?? RESTContentType.ApplicationJSON,
+			"User-Agent": REST_USER_AGENT,
+		});
 
-		headers.set("User-Agent", REST_USER_AGENT);
-		headers.set("Content-Type", String(contentType));
-
-		if (withAuthorization) {
-			headers.set("Authorization", `Bot ${token}`);
-		}
-
-		if (reason) {
-			headers.set("X-Audit-Log-Reason", reason);
-		}
+		if (withAuthorization) headers.set("Authorization", `Bot ${token}`);
+		if (reason) headers.set("X-Audit-Log-Reason", reason);
 
 		return headers;
 	}
 
-	/**
-	 * Creates the {@link RequestInit | `RequestInit`} object for the request.
-	 *
-	 * @param method - The HTTP method to use when making the request.
-	 * @param options - The options to use when creating the request.
-	 * @returns The created {@link RequestInit | `RequestInit`} object.
-	 */
-	#createRequestInit(method: RESTMethods, options?: MakeRequestOptions): RequestInit {
+	private createRequestInit(method: RESTMethod, options?: MakeRequestOptions): RequestInit {
 		const { json } = options ?? {};
 
-		const headers = this.#createRequestHeaders(options);
+		const headers = this.createRequestHeaders(options);
 		const data: RequestInit = {
 			headers,
 			method,
@@ -90,18 +64,11 @@ export class RESTManager {
 		return data;
 	}
 
-	/**
-	 * Creates the {@link URL | `URL`} object for the request.
-	 *
-	 * @param endpoint - The endpoint to use for the request.
-	 * @param queryStringParams - The query string parameters to append to the request URL.
-	 * @returns The created {@link URL | `URL`} object.
-	 */
-	#createRequestURL<QueryStringParams>(endpoint: string, queryStringParams?: QueryStringParams): URL {
+	createRequestUrl(endpoint: string, queryStringParams?: unknown): URL {
 		const urlObject = new URL(endpoint, `${REST_URL_BASE}/v${REST_VERSION}`);
 		const { searchParams } = urlObject;
 
-		if (queryStringParams && typeof queryStringParams === "object") {
+		if (isObject(queryStringParams)) {
 			for (const [key, value] of Object.entries(queryStringParams)) {
 				searchParams.append(key, String(value));
 			}
@@ -110,46 +77,29 @@ export class RESTManager {
 		return urlObject;
 	}
 
-	/**
-	 * Performs a request to the Discord API with the given options.
-	 *
-	 * @param method - The HTTP method to use for the request.
-	 * @param endpoint - The enpoint where the request will be made.
-	 * @param options - The options to use when making the request.
-	 * @returns The response from the Discord API.
-	 *
-	 * @typeParam Result - The shape of the response from the Discord API.
-	 * @typeParam JSONParams - The shape of the JSON data to send with the request.
-	 * @typeParam QueryStringParams - The shape of the query string parameters to append to the request URL.
-	 */
 	async makeRequest<Result, JSONParams = never, QueryStringParams = never>(
-		method: RESTMethods,
+		method: RESTMethod,
 		endpoint: string,
 		options?: MakeRequestOptions<JSONParams, QueryStringParams>,
 	): Promise<Result> {
 		const globalRateLimit = this.#globalRateLimit;
 
-		// If the client has a global rate limit, do not proceed with the request.
 		if (globalRateLimit) {
-			throw new Error("You are being rate limited.");
+			throw new Error("You are being globally rate limited");
 		}
 
 		const { queryString } = options ?? {};
 
-		const init = this.#createRequestInit(method, options);
-		const url = this.#createRequestURL<QueryStringParams>(endpoint, queryString);
+		const init = this.createRequestInit(method, options);
+		const url = this.createRequestUrl(endpoint, queryString);
 
 		const request = new Request(url, init);
 		const response = await fetch(request);
 
-		const { client } = this;
 		const { headers, status } = response;
 
-		client.emit(ClientEvents.RestRequest, request, response);
-
-		// Check if the response was rate limited or does not have a content.
-		const isRateLimited = status === TOO_MANY_REQUESTS_STATUS_CODE;
-		const isNoContent = status === NO_CONTENT_STATUS_CODE;
+		const isRateLimited = status === HTTPStatusCodes.TooManyRequests;
+		const isNoContent = status === HTTPStatusCodes.NoContent;
 
 		if (isRateLimited) {
 			const isGlobalRateLimit = headers.has("X-RateLimit-Global");
@@ -163,7 +113,7 @@ export class RESTManager {
 				}, Number(rateLimitResetAfter) * ONE_SECOND_MILLISECONDS);
 			} else {
 				setTimeout(
-					async () => await this.makeRequest(method, endpoint, options),
+					await this.makeRequest.bind(this)(method, endpoint, options),
 					Number(rateLimitResetAfter) * ONE_SECOND_MILLISECONDS,
 				);
 			}
@@ -173,9 +123,16 @@ export class RESTManager {
 			return undefined as Result;
 		}
 
-		return (await response.json()) as Promise<Result>;
+		const jsonResponse = (await response.json()) as Promise<Result>;
+
+		return jsonResponse;
 	}
 }
 
-/** Represents the options to use when creating the request headers. */
 type CreateRequestHeadersOptions = Pick<MakeRequestOptions, "contentType" | "reason" | "withAuthorization">;
+
+enum HTTPStatusCodes {
+	NoContent = 204,
+	Ok = 200,
+	TooManyRequests = 429,
+}
