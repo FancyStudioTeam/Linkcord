@@ -2,6 +2,7 @@ import type { Client } from "#client/index.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
 import {
+	ChannelsAPI,
 	GatewayAPI,
 	type MakeRequestOptions,
 	MiscellaneousAPI,
@@ -18,11 +19,13 @@ const { isObject } = AssertionUtils;
 export class RESTManager {
 	#globalRateLimit = false;
 
+	declare readonly channels: ChannelsAPI;
 	declare readonly client: Client;
 	declare readonly gateway: GatewayAPI;
 	declare readonly miscellaneous: MiscellaneousAPI;
 
 	constructor(client: Client) {
+		defineImmutableProperty(this, "channels", new ChannelsAPI(this));
 		defineImmutableProperty(this, "client", client);
 		defineImmutableProperty(this, "gateway", new GatewayAPI(this));
 		defineImmutableProperty(this, "miscellaneous", new MiscellaneousAPI(this));
