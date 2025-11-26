@@ -1,9 +1,10 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.3.4/schema.json",
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"assist": {
 		"actions": {
 			"recommended": true,
 			"source": {
+				"organizeImports": "on",
 				"useSortedAttributes": "on",
 				"useSortedKeys": "on",
 				"useSortedProperties": "on"
@@ -12,10 +13,17 @@
 		"enabled": true
 	},
 	"files": {
-		"includes": ["**", "!**/.turbo", "!**/.typedoc", "!**/dist"]
+		"includes": [
+			"**",
+			"!**/.turbo",
+			"!**/.typedoc",
+			"!**/dist"
+		]
 	},
 	"formatter": {
+		"attributePosition": "multiline",
 		"enabled": true,
+		"expand": "always",
 		"indentStyle": "tab",
 		"indentWidth": 4,
 		"lineEnding": "lf",
@@ -36,12 +44,17 @@
 			"correctness": {
 				"noNodejsModules": "off",
 				"noUndeclaredDependencies": "warn",
+				"noUnusedImports": "error",
+				"noUnusedVariables": "error",
 				"useImportExtensions": {
 					"level": "error",
 					"options": {
 						"forceJsExtensions": true
 					}
 				}
+			},
+			"nursery": {
+				"noUnresolvedImports": "error"
 			},
 			"performance": {
 				"noBarrelFile": "off",
@@ -50,20 +63,26 @@
 			"recommended": true,
 			"style": {
 				"noDefaultExport": "off",
-				"noMagicNumbers": "warn",
+				"noMagicNumbers": "error",
 				"useImportType": "error",
 				"useNamingConvention": {
 					"level": "error",
 					"options": {
 						"conventions": [
 							{
-								"formats": ["camelCase", "snake_case"],
+								"formats": [
+									"camelCase",
+									"snake_case"
+								],
 								"selector": {
 									"kind": "typeProperty"
 								}
 							},
 							{
-								"formats": ["camelCase", "snake_case"],
+								"formats": [
+									"camelCase",
+									"snake_case"
+								],
 								"selector": {
 									"kind": "objectLiteralProperty"
 								}
