@@ -15,4 +15,7 @@ export const EmbedAuthorObjectSchema = object({
 	url: EmbedAuthorURLSchema.optional(),
 });
 
-export const EmbedAuthorSchema = union([EmbedAuthorObjectSchema]);
+export const EmbedAuthorSchema = union([
+	EmbedAuthorInstanceSchema,
+	EmbedAuthorObjectSchema,
+]);
