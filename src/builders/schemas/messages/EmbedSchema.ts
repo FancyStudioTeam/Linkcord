@@ -23,7 +23,10 @@ export const EmbedTimestampInstanceSchema = instanceof_(Date).transform((date) =
 export const EmbedTimestampISOTimestampSchema = iso.datetime({
 	offset: true,
 });
-export const EmbedTimestampSchema = union([EmbedTimestampInstanceSchema, EmbedTimestampISOTimestampSchema]);
+export const EmbedTimestampSchema = union([
+	EmbedTimestampInstanceSchema,
+	EmbedTimestampISOTimestampSchema,
+]);
 
 export const EmbedTitleSchema = string().min(1).max(MAXIMUM_EMBED_TITLE_LENGTH);
 export const EmbedURLSchema = URLSchema;
@@ -42,4 +45,7 @@ export const EmbedObjectSchema = object({
 	url: EmbedURLSchema.optional(),
 });
 
-export const EmbedSchema = union([EmbedInstanceSchema, EmbedObjectSchema]);
+export const EmbedSchema = union([
+	EmbedInstanceSchema,
+	EmbedObjectSchema,
+]);

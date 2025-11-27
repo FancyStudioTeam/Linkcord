@@ -54,7 +54,7 @@
 				}
 			},
 			"nursery": {
-				"noUnresolvedImports": "error"
+				"noUnresolvedImports": "off"
 			},
 			"performance": {
 				"noBarrelFile": "off",
