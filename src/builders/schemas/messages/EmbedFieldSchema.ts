@@ -15,4 +15,7 @@ export const EmbedFieldObjectSchema = object({
 	value: EmbedFieldValueSchema,
 });
 
-export const EmbedFieldSchema = union([EmbedFieldInstanceSchema, EmbedFieldObjectSchema]);
+export const EmbedFieldSchema = union([
+	EmbedFieldInstanceSchema,
+	EmbedFieldObjectSchema,
+]);

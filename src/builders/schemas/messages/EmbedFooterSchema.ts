@@ -13,4 +13,7 @@ export const EmbedFooterObjectSchema = object({
 	text: EmbedFooterTextSchema,
 });
 
-export const EmbedFooterSchema = union([EmbedFooterInstanceSchema, EmbedFooterObjectSchema]);
+export const EmbedFooterSchema = union([
+	EmbedFooterInstanceSchema,
+	EmbedFooterObjectSchema,
+]);
