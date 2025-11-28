@@ -2,17 +2,10 @@ import type { EmbedAuthorBuilder, EmbedFieldBuilder, EmbedFooterBuilder } from "
 import type { EmbedAuthor, EmbedField, EmbedFooter } from "#types/index.js";
 
 export type AllowedEmbedAuthor = EmbedAuthorBuilder | EmbedAuthor;
-
 export type AllowedEmbedColor = `#${string}` | number;
-
 export type AllowedEmbedField = EmbedFieldBuilder | EmbedField;
-
 export type AllowedEmbedFooter = EmbedFooterBuilder | EmbedFooter;
-
-export type AllowedEmbedImageURL = URL | string;
-
-export type AllowedEmbedThumbnailURL = URL | string;
-
+export type AllowedEmbedImageUrl = URL | string;
+export type AllowedEmbedThumbnailUrl = URL | string;
 export type AllowedEmbedTimestamp = Date | string;
-
-export type AllowedEmbedURL = URL | string;
+export type AllowedEmbedUrl = URL | string;
