@@ -7,12 +7,21 @@ const { GITHUB_ACTIONS } = env;
 export default defineConfig({
 	plugins: [
 		tsconfigPaths({
-			projects: ["tsconfig.json"],
+			projects: [
+				"tsconfig.json",
+			],
 		}),
 	],
 	test: {
 		globals: true,
-		reporters: GITHUB_ACTIONS ? ["verbose", "github-actions"] : ["verbose"],
+		reporters: GITHUB_ACTIONS
+			? [
+					"verbose",
+					"github-actions",
+				]
+			: [
+					"verbose",
+				],
 		typecheck: {
 			enabled: true,
 		},

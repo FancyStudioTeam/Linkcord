@@ -1,6 +1,9 @@
 import { normalizeArray } from "../normalizeArray.js";
 
-const STRINGS_ARRAY = ["Hello", "world"];
+const STRINGS_ARRAY = [
+	"Hello",
+	"world",
+];
 
 describe("Function: normalizeArray", () => {
 	it("Should normalize the provided array of strings into a single array", () => {

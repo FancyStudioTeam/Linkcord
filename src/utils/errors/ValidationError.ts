@@ -47,7 +47,13 @@ export class ValidationError extends Error {
 			prettifiedMessage += `\n${this.prettifyIssue(issue, false, indentLevel + 1)}`;
 		}
 
-		return styleText(["bold", "red"], prettifiedMessage);
+		return styleText(
+			[
+				"bold",
+				"red",
+			],
+			prettifiedMessage,
+		);
 	}
 
 	private prettifyIssues(issues: ValidationErrorIssue[]): string {

@@ -77,7 +77,10 @@ function chatInputCommandMention<
 	SubcommandName extends Lowercase<string>,
 	CommandId extends Snowflake,
 >(
-	commandNames: [CommandName, SubcommandName],
+	commandNames: [
+		CommandName,
+		SubcommandName,
+	],
 	commandId: CommandId,
 ): `</${CommandName} ${SubcommandName}:${CommandId}>`;
 function chatInputCommandMention<
@@ -86,7 +89,11 @@ function chatInputCommandMention<
 	SubcommandName extends Lowercase<string>,
 	CommandId extends Snowflake,
 >(
-	commandNames: [CommandName, SubcommandGroupName, SubcommandName],
+	commandNames: [
+		CommandName,
+		SubcommandGroupName,
+		SubcommandName,
+	],
 	commandId: CommandId,
 ): `</${CommandName} ${SubcommandGroupName} ${SubcommandName}:${CommandId}>`;
 

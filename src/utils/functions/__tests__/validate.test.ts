@@ -32,12 +32,16 @@ describe("Function: validate", () => {
 		const result1 = () => validate(OBJECT_SCHEMA, null);
 		const result2 = () =>
 			validate(OBJECT_SCHEMA, {
-				tags: [null],
+				tags: [
+					null,
+				],
 			});
 		const result3 = validate(OBJECT_SCHEMA, {
 			age: 25,
 			name: "John Doe",
-			tags: ["Employee"],
+			tags: [
+				"Employee",
+			],
 		});
 
 		const expectedErrorResult1 = new ValidationError([
@@ -51,23 +55,32 @@ describe("Function: validate", () => {
 			{
 				issues: null,
 				message: "Expected input to be a number",
-				path: ["age"],
+				path: [
+					"age",
+				],
 			},
 			{
 				issues: null,
 				message: "Expected input to be a string",
-				path: ["name"],
+				path: [
+					"name",
+				],
 			},
 			{
 				issues: null,
 				message: "Expected input to be a string",
-				path: ["tags", 0],
+				path: [
+					"tags",
+					0,
+				],
 			},
 		]);
 		const expectedResult3 = {
 			age: 25,
 			name: "John Doe",
-			tags: ["Employee"],
+			tags: [
+				"Employee",
+			],
 		};
 
 		expect(result1).toThrow(expectedErrorResult1);
@@ -77,8 +90,13 @@ describe("Function: validate", () => {
 
 	it("Should validate the provided input with the provided array schema", () => {
 		const result1 = () => validate(ARRAY_SCHEMA, null);
-		const result2 = () => validate(ARRAY_SCHEMA, [null]);
-		const result3 = validate(ARRAY_SCHEMA, ["Employee"]);
+		const result2 = () =>
+			validate(ARRAY_SCHEMA, [
+				null,
+			]);
+		const result3 = validate(ARRAY_SCHEMA, [
+			"Employee",
+		]);
 
 		const expectedErrorResult1 = new ValidationError([
 			{
@@ -91,10 +109,14 @@ describe("Function: validate", () => {
 			{
 				issues: null,
 				message: "Expected input to be a string",
-				path: [0],
+				path: [
+					0,
+				],
 			},
 		]);
-		const expectedResult3 = ["Employee"];
+		const expectedResult3 = [
+			"Employee",
+		];
 
 		expect(result1).toThrow(expectedErrorResult1);
 		expect(result2).toThrow(expectedErrorResult2);
