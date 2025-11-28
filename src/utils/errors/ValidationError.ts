@@ -8,13 +8,13 @@ export class ValidationError extends Error {
 	constructor(issues: ValidationErrorIssue[]) {
 		super();
 
-		const prettifiedIssues = this.prettifyIssues(issues);
+		const prettifiedIssues = this.#prettifyIssues(issues);
 
 		this.message = `Validation has failed with the following issues:\n${prettifiedIssues}`;
 		this.name = "ValidationError";
 	}
 
-	private formatIssuePath(path: PropertyKey[]): string {
+	#formatIssuePath(path: PropertyKey[]): string {
 		const formattedPathCallback = (accumulator: string, currentItem: string | number): string =>
 			isNumber(currentItem) ? `${accumulator}[${currentItem}]` : `${accumulator}.${currentItem}`;
 
@@ -25,7 +25,7 @@ export class ValidationError extends Error {
 		return formattedPath;
 	}
 
-	private prettifyIssue(issue: ValidationErrorIssue, isMainIssue = true, indentLevel = 1): string {
+	#prettifyIssue(issue: ValidationErrorIssue, isMainIssue = true, indentLevel = 1): string {
 		const { issues, message, path } = issue;
 		const { length: pathLength } = path;
 
@@ -35,7 +35,7 @@ export class ValidationError extends Error {
 		let prettifiedMessage = "";
 
 		if (isMainIssue && pathLength > 0) {
-			const flattenedPath = this.formatIssuePath(path);
+			const flattenedPath = this.#formatIssuePath(path);
 
 			prettifiedMessage = `${indent}${icon} ${flattenedPath}:\n`;
 			prettifiedMessage += `${indent}└── ${message}`;
@@ -44,7 +44,7 @@ export class ValidationError extends Error {
 		}
 
 		for (const issue of issues ?? []) {
-			prettifiedMessage += `\n${this.prettifyIssue(issue, false, indentLevel + 1)}`;
+			prettifiedMessage += `\n${this.#prettifyIssue(issue, false, indentLevel + 1)}`;
 		}
 
 		return styleText(
@@ -56,8 +56,8 @@ export class ValidationError extends Error {
 		);
 	}
 
-	private prettifyIssues(issues: ValidationErrorIssue[]): string {
-		const prettifiedIssues = issues.map((issue) => this.prettifyIssue(issue));
+	#prettifyIssues(issues: ValidationErrorIssue[]): string {
+		const prettifiedIssues = issues.map((issue) => this.#prettifyIssue(issue));
 		const joinedIssueMessages = prettifiedIssues.join("\n\n");
 
 		return joinedIssueMessages;

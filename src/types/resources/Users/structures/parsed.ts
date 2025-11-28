@@ -52,7 +52,10 @@ export interface Connection {
  * @undocumented
  */
 export interface DisplayNameStyles {
-	colors: [number, number];
+	colors: [
+		number,
+		number,
+	];
 	effectId: DisplayNameEffect;
 	fontId: DisplayNameFont;
 }

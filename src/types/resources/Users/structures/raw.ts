@@ -56,7 +56,10 @@ export interface APIConnection {
  * @undocumented
  */
 export interface APIDisplayNameStyles {
-	colors: [number, number];
+	colors: [
+		number,
+		number,
+	];
 	effect_id: DisplayNameEffect;
 	font_id: DisplayNameFont;
 }
