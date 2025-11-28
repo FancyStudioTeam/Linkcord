@@ -5,7 +5,7 @@ const MAXIMUM_CUSTOM_ID_LENGTH = 100;
 const MAXIMUM_HEX_CODE_DECIMAL_LENGTH = 16_777_215;
 
 export const ColorNumberSchema = int().min(0).max(MAXIMUM_HEX_CODE_DECIMAL_LENGTH);
-export const ColorStringSchema = hex().transform((hex) => Number(`0x${hex.replace("#", "")}`));
+export const ColorStringSchema = hex().transform((hex) => Number(hex.replace("#", "0x")));
 export const ColorSchema = union([
 	ColorNumberSchema,
 	ColorStringSchema,
