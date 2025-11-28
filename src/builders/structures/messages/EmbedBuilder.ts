@@ -10,17 +10,17 @@ import {
 	EmbedThumbnailSchema,
 	EmbedTimestampSchema,
 	EmbedTitleSchema,
-	EmbedUrlSchema,
+	EmbedURLSchema,
 } from "#builders/schemas/messages/EmbedSchema.js";
 import type {
 	AllowedEmbedAuthor,
 	AllowedEmbedColor,
 	AllowedEmbedField,
 	AllowedEmbedFooter,
-	AllowedEmbedImageUrl,
-	AllowedEmbedThumbnailUrl,
+	AllowedEmbedImageURL,
+	AllowedEmbedThumbnailURL,
 	AllowedEmbedTimestamp,
-	AllowedEmbedUrl,
+	AllowedEmbedURL,
 } from "#builders/types/index.js";
 import type { Embed } from "#types/index.js";
 import { normalizeArray } from "#utils/functions/normalizeArray.js";
@@ -80,14 +80,14 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 		return this;
 	}
 
-	setImage(imageUrl: AllowedEmbedImageUrl): this {
-		this.data.image = validate(EmbedImageSchema, imageUrl);
+	setImage(imageURL: AllowedEmbedImageURL): this {
+		this.data.image = validate(EmbedImageSchema, imageURL);
 
 		return this;
 	}
 
-	setThumbnail(thumbnailUrl: AllowedEmbedThumbnailUrl): this {
-		this.data.thumbnail = validate(EmbedThumbnailSchema, thumbnailUrl);
+	setThumbnail(thumbnailURL: AllowedEmbedThumbnailURL): this {
+		this.data.thumbnail = validate(EmbedThumbnailSchema, thumbnailURL);
 
 		return this;
 	}
@@ -104,8 +104,8 @@ export class EmbedBuilder extends BaseBuilder<Embed> {
 		return this;
 	}
 
-	setUrl(url: AllowedEmbedUrl): this {
-		this.data.url = validate(EmbedUrlSchema, url);
+	setURL(url: AllowedEmbedURL): this {
+		this.data.url = validate(EmbedURLSchema, url);
 
 		return this;
 	}

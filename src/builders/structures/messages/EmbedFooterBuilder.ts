@@ -1,9 +1,9 @@
 import {
-	EmbedFooterIconUrlSchema,
+	EmbedFooterIconURLSchema,
 	EmbedFooterObjectSchema,
 	EmbedFooterTextSchema,
 } from "#builders/schemas/messages/EmbedFooterSchema.js";
-import type { AllowedEmbedFooterIconUrl } from "#builders/types/index.js";
+import type { AllowedEmbedFooterIconURL } from "#builders/types/index.js";
 import type { EmbedFooter } from "#types/index.js";
 import { validate } from "#utils/functions/validate.js";
 import { BaseBuilder } from "../base/BaseBuilder.js";
@@ -15,8 +15,8 @@ export class EmbedFooterBuilder extends BaseBuilder<EmbedFooter> {
 		return this;
 	}
 
-	setIconUrl(iconUrl: AllowedEmbedFooterIconUrl): this {
-		this.data.iconURL = validate(EmbedFooterIconUrlSchema, iconUrl);
+	setIconURL(iconURL: AllowedEmbedFooterIconURL): this {
+		this.data.iconURL = validate(EmbedFooterIconURLSchema, iconURL);
 
 		return this;
 	}

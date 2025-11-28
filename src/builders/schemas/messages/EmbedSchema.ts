@@ -1,6 +1,6 @@
 import { array, instanceof as instanceof_, iso, object, string, union } from "zod";
 import { EmbedBuilder } from "#builders/structures/index.js";
-import { ColorSchema, UrlSchema } from "../Shared.js";
+import { ColorSchema, URLSchema } from "../Shared.js";
 import { EmbedAuthorSchema } from "./EmbedAuthorSchema.js";
 import { EmbedFieldSchema } from "./EmbedFieldSchema.js";
 import { EmbedFooterSchema } from "./EmbedFooterSchema.js";
@@ -12,10 +12,10 @@ const MAXIMUM_EMBED_TITLE_LENGTH = 256;
 export const EmbedColorSchema = ColorSchema;
 export const EmbedDescriptionSchema = string().min(1).max(MAXIMUM_EMBED_DESCRIPTION_LENGTH);
 export const EmbedFieldsSchema = array(EmbedFieldSchema).max(MAXIMUM_EMBED_FIELDS_LENGTH);
-export const EmbedImageSchema = UrlSchema.transform((url) => ({
+export const EmbedImageSchema = URLSchema.transform((url) => ({
 	url,
 }));
-export const EmbedThumbnailSchema = UrlSchema.transform((url) => ({
+export const EmbedThumbnailSchema = URLSchema.transform((url) => ({
 	url,
 }));
 
@@ -29,7 +29,7 @@ export const EmbedTimestampSchema = union([
 ]);
 
 export const EmbedTitleSchema = string().min(1).max(MAXIMUM_EMBED_TITLE_LENGTH);
-export const EmbedUrlSchema = UrlSchema;
+export const EmbedURLSchema = URLSchema;
 
 export const EmbedInstanceSchema = instanceof_(EmbedBuilder).transform((builder) => builder.toJSON());
 export const EmbedObjectSchema = object({
@@ -42,7 +42,7 @@ export const EmbedObjectSchema = object({
 	thumbnail: EmbedThumbnailSchema.optional(),
 	timestamp: EmbedTimestampSchema.optional(),
 	title: EmbedTitleSchema.optional(),
-	url: EmbedUrlSchema.optional(),
+	url: EmbedURLSchema.optional(),
 });
 
 export const EmbedSchema = union([

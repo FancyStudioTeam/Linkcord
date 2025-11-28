@@ -1,18 +1,18 @@
 import { instanceof as instanceof_, object, string, union } from "zod";
 import { EmbedAuthorBuilder } from "../../structures/messages/EmbedAuthorBuilder.js";
-import { UrlSchema } from "../Shared.js";
+import { URLSchema } from "../Shared.js";
 
 const MAXIMUM_EMBED_AUTHOR_NAME_LENGTH = 256;
 
-export const EmbedAuthorIconUrlSchema = UrlSchema;
+export const EmbedAuthorIconURLSchema = URLSchema;
 export const EmbedAuthorNameSchema = string().min(1).max(MAXIMUM_EMBED_AUTHOR_NAME_LENGTH);
-export const EmbedAuthorUrlSchema = UrlSchema;
+export const EmbedAuthorURLSchema = URLSchema;
 
 export const EmbedAuthorInstanceSchema = instanceof_(EmbedAuthorBuilder).transform((builder) => builder.toJSON());
 export const EmbedAuthorObjectSchema = object({
-	iconURL: EmbedAuthorIconUrlSchema.optional(),
+	iconURL: EmbedAuthorIconURLSchema.optional(),
 	name: EmbedAuthorNameSchema,
-	url: EmbedAuthorUrlSchema.optional(),
+	url: EmbedAuthorURLSchema.optional(),
 });
 
 export const EmbedAuthorSchema = union([

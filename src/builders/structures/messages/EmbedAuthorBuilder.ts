@@ -1,17 +1,17 @@
 import {
-	EmbedAuthorIconUrlSchema,
+	EmbedAuthorIconURLSchema,
 	EmbedAuthorNameSchema,
 	EmbedAuthorObjectSchema,
-	EmbedAuthorUrlSchema,
+	EmbedAuthorURLSchema,
 } from "#builders/schemas/messages/EmbedAuthorSchema.js";
-import type { AllowedEmbedAuthorIconUrl, AllowedEmbedAuthorUrl } from "#builders/types/index.js";
+import type { AllowedEmbedAuthorIconURL, AllowedEmbedAuthorURL } from "#builders/types/index.js";
 import type { EmbedAuthor } from "#types/index.js";
 import { validate } from "#utils/functions/validate.js";
 import { BaseBuilder } from "../base/BaseBuilder.js";
 
 export class EmbedAuthorBuilder extends BaseBuilder<EmbedAuthor> {
-	setIconUrl(iconUrl: AllowedEmbedAuthorIconUrl): this {
-		this.data.iconURL = validate(EmbedAuthorIconUrlSchema, iconUrl);
+	setIconURL(iconURL: AllowedEmbedAuthorIconURL): this {
+		this.data.iconURL = validate(EmbedAuthorIconURLSchema, iconURL);
 
 		return this;
 	}
@@ -22,8 +22,8 @@ export class EmbedAuthorBuilder extends BaseBuilder<EmbedAuthor> {
 		return this;
 	}
 
-	setUrl(url: AllowedEmbedAuthorUrl): this {
-		this.data.url = validate(EmbedAuthorUrlSchema, url);
+	setURL(url: AllowedEmbedAuthorURL): this {
+		this.data.url = validate(EmbedAuthorURLSchema, url);
 
 		return this;
 	}

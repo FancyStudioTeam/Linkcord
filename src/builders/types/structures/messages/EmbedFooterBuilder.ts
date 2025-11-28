@@ -1,1 +1,1 @@
-export type AllowedEmbedFooterIconUrl = URL | string;
+export type AllowedEmbedFooterIconURL = URL | string;
