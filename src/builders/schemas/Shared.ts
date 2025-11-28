@@ -11,18 +11,18 @@ export const ColorSchema = union([
 	ColorStringSchema,
 ]);
 
-export const CustomIDSchema = string().min(1).max(MAXIMUM_CUSTOM_ID_LENGTH);
-export const IDSchema = int().min(0).max(MAXIMUM_32_BIT_LENGTH);
+export const CustomIdSchema = string().min(1).max(MAXIMUM_CUSTOM_ID_LENGTH);
+export const IdSchema = int().min(0).max(MAXIMUM_32_BIT_LENGTH);
 
-export const URLInstanceSchema = instanceof_(URL, {
+export const UrlInstanceSchema = instanceof_(URL, {
 	error: "Expected input to be an instance of URL",
 }).transform((url) => url.toString());
-export const URLStringSchema = url();
-export const URLSchema = union([
-	URLInstanceSchema,
-	URLStringSchema,
+export const UrlStringSchema = url();
+export const UrlSchema = union([
+	UrlInstanceSchema,
+	UrlStringSchema,
 ]);
 
-export const UnfurledMediaItemSchema = URLSchema.transform((url) => ({
+export const UnfurledMediaItemSchema = UrlSchema.transform((url) => ({
 	url,
 }));

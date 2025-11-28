@@ -20,16 +20,16 @@ export const EmbedThumbnailSchema = URLSchema.transform((url) => ({
 }));
 
 export const EmbedTimestampInstanceSchema = instanceof_(Date).transform((date) => date.toISOString());
-export const EmbedTimestampISOTimestampSchema = iso.datetime({
+export const EmbedTimestampIsoTimestampSchema = iso.datetime({
 	offset: true,
 });
 export const EmbedTimestampSchema = union([
 	EmbedTimestampInstanceSchema,
-	EmbedTimestampISOTimestampSchema,
+	EmbedTimestampIsoTimestampSchema,
 ]);
 
 export const EmbedTitleSchema = string().min(1).max(MAXIMUM_EMBED_TITLE_LENGTH);
-export const EmbedURLSchema = URLSchema;
+export const EmbedUrlSchema = URLSchema;
 
 export const EmbedInstanceSchema = instanceof_(EmbedBuilder).transform((builder) => builder.toJSON());
 export const EmbedObjectSchema = object({
@@ -42,7 +42,7 @@ export const EmbedObjectSchema = object({
 	thumbnail: EmbedThumbnailSchema.optional(),
 	timestamp: EmbedTimestampSchema.optional(),
 	title: EmbedTitleSchema.optional(),
-	url: EmbedURLSchema.optional(),
+	url: EmbedUrlSchema.optional(),
 });
 
 export const EmbedSchema = union([
