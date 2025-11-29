@@ -8,9 +8,10 @@ export interface Gateway {
 /**
  * @see https://discord.com/developers/docs/events/gateway#get-gateway-bot-example-response
  */
-export interface GatewayBot extends Gateway {
+export interface GatewayBot {
 	shards: number;
 	sessionStartLimit: GatewayBotSessionStartLimit;
+	url: string;
 }
 
 /**

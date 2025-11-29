@@ -8,9 +8,10 @@ export interface APIGateway {
 /**
  * @see https://discord.com/developers/docs/events/gateway#get-gateway-bot-example-response
  */
-export interface APIGatewayBot extends APIGateway {
+export interface APIGatewayBot {
 	shards: number;
 	session_start_limit: APIGatewayBotSessionStartLimit;
+	url: string;
 }
 
 /**
