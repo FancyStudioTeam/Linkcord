@@ -34,6 +34,19 @@ export function parseCollectibles(collectibles: APICollectibles | null): Collect
 	return collectiblesData;
 }
 
+export function parseDisplayNameStyles(displayNameStyles: APIDisplayNameStyles | null): DisplayNameStyles | null {
+	if (!displayNameStyles) return null;
+
+	const { colors, effect_id: effectId, font_id: fontId } = displayNameStyles;
+	const displayNameStylesData: DisplayNameStyles = {
+		colors,
+		effectId,
+		fontId,
+	};
+
+	return displayNameStylesData;
+}
+
 export function parseNameplate(nameplate: APINameplate): Nameplate {
 	const { asset, label, palette, sku_id: skuId } = nameplate;
 	const nameplateData: Nameplate = {
@@ -58,17 +71,4 @@ export function parsePrimaryGuild(primaryGuild: APIPrimaryGuild | null): Primary
 	};
 
 	return primaryGuildData;
-}
-
-export function parseDisplayNameStyles(displayNameStyles: APIDisplayNameStyles | null): DisplayNameStyles | null {
-	if (!displayNameStyles) return null;
-
-	const { colors, effect_id: effectId, font_id: fontId } = displayNameStyles;
-	const displayNameStylesData: DisplayNameStyles = {
-		colors,
-		effectId,
-		fontId,
-	};
-
-	return displayNameStylesData;
 }

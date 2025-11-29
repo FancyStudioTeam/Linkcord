@@ -5,6 +5,18 @@ import type {
 	GatewayBotSessionStartLimit,
 } from "#types/index.js";
 
+export function parseGatewayBot(gatewayBot: APIGatewayBot): GatewayBot {
+	const { session_start_limit: sessionStartLimit, shards, url } = gatewayBot;
+	const sessionStartLimitData = parseGatewayBotSessionStartLimit(sessionStartLimit);
+	const gatewayBotData: GatewayBot = {
+		sessionStartLimit: sessionStartLimitData,
+		shards,
+		url,
+	};
+
+	return gatewayBotData;
+}
+
 export function parseGatewayBotSessionStartLimit(
 	sessionStartLimit: APIGatewayBotSessionStartLimit,
 ): GatewayBotSessionStartLimit {
@@ -17,16 +29,4 @@ export function parseGatewayBotSessionStartLimit(
 	};
 
 	return sessionStartLimitData;
-}
-
-export function parseGatewayBot(gatewayBot: APIGatewayBot): GatewayBot {
-	const { session_start_limit: sessionStartLimit, shards, url } = gatewayBot;
-	const sessionStartLimitData = parseGatewayBotSessionStartLimit(sessionStartLimit);
-	const gatewayBotData: GatewayBot = {
-		sessionStartLimit: sessionStartLimitData,
-		shards,
-		url,
-	};
-
-	return gatewayBotData;
 }
