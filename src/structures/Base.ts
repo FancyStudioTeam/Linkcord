@@ -1,6 +1,5 @@
 import type { Client } from "#client/index.js";
 import type { RESTManager } from "#rest/index.js";
-import type { APIManager } from "#rest/structures/APIManager.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 
 export abstract class Base {
@@ -12,13 +11,6 @@ export abstract class Base {
 
 		defineImmutableProperty(this, "client", client);
 		defineImmutableProperty(this, "rest", rest);
-	}
-
-	protected get api(): APIManager {
-		const { rest } = this;
-		const { api } = rest;
-
-		return api;
 	}
 
 	protected clone(): this {

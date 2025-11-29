@@ -75,11 +75,11 @@ export class User extends Base {
 		this.username = username;
 	}
 
-	get accentColorHex(): `#${string}` | null {
+	get accentColorHex() {
 		return this.accentColor ? hexColor(this.accentColor) : null;
 	}
 
-	get mention(): `<@${Snowflake}>` {
+	get mention() {
 		return userMention(this.id);
 	}
 

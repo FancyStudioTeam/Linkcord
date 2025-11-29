@@ -25,7 +25,7 @@ export class Message extends Base {
 		this.id = id;
 	}
 
-	get messageLink(): `https://discord.com/channels/@me/${Snowflake}/${Snowflake}` {
+	get messageLink() {
 		return messageLink(this.channelId, this.id);
 	}
 
