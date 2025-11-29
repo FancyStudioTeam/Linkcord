@@ -33,7 +33,7 @@ export interface BaseComponent<Type extends ComponentType> {
 }
 
 /**
- * @see https://discord.com/developers/docs/components/button#link-button-structure
+ * @see https://discord.com/developers/docs/components/reference#button
  */
 export interface BaseInteractableButtonComponent<Type extends InteractableButtonComponentStyle>
 	extends BaseTextableButtonComponent<Type> {
@@ -61,7 +61,7 @@ export interface BaseSelectMenuComponent<Type extends SelectMenuComponentType> e
 }
 
 /**
- * @see https://discord.com/developers/docs/components/reference#button-button-structure
+ * @see https://discord.com/developers/docs/components/reference#button
  */
 export interface BaseTextableButtonComponent<Style extends TextableButtonComponentStyle>
 	extends BaseButtonComponent<Style> {
@@ -254,7 +254,7 @@ export type ContainerComponents =
 export type DangerButtonComponent = BaseInteractableButtonComponent<ButtonStyle.Danger>;
 
 /**
- * @see https://discord.com/developers/docs/components/reference#button-button-structure
+ * @see https://discord.com/developers/docs/components/reference#button
  */
 export type InteractableButtonComponent =
 	| DangerButtonComponent
@@ -263,7 +263,7 @@ export type InteractableButtonComponent =
 	| SuccessButtonComponent;
 
 /**
- * @see https://discord.com/developers/docs/components/reference#button-button-structure
+ * @see https://discord.com/developers/docs/components/reference#button
  */
 export type InteractableButtonComponentStyle = Exclude<TextableButtonComponentStyle, ButtonStyle.Link>;
 
@@ -354,7 +354,7 @@ export type SelectMenuComponentType =
 export type SuccessButtonComponent = BaseInteractableButtonComponent<ButtonStyle.Success>;
 
 /**
- * @see https://discord.com/developers/docs/components/reference#button-button-structure
+ * @see https://discord.com/developers/docs/components/reference#button
  */
 export type TextableButtonComponentStyle =
 	| ButtonStyle.Danger
