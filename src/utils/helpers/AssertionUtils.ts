@@ -26,6 +26,14 @@ function isInstanceOf<Class>(input: unknown, _class: Constructor<Class>): input 
 	return input instanceof _class;
 }
 
+function isInteger(input: unknown): input is number {
+	return isNumber(input) && Number.isInteger(input);
+}
+
+function isNegativeNumber(input: unknown): input is number {
+	return isNumber(input) && input < 0;
+}
+
 function isNull(input: unknown): input is null {
 	return input === null;
 }
@@ -36,6 +44,10 @@ function isNumber(input: unknown): input is number {
 
 function isObject(input: unknown): input is object {
 	return typeof input === "object" && input !== null;
+}
+
+function isPositiveNumber(input: unknown): input is number {
+	return isNumber(input) && input > 0;
 }
 
 function isString(input: unknown): input is string {
@@ -56,9 +68,12 @@ export const AssertionUtils = Object.freeze({
 	isEnum,
 	isFunction,
 	isInstanceOf,
+	isInteger,
+	isNegativeNumber,
 	isNull,
 	isNumber,
 	isObject,
+	isPositiveNumber,
 	isString,
 	isSymbol,
 	isUndefined,
