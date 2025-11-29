@@ -1,8 +1,7 @@
 /**
- * The types of a channel.
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-types
  */
-export enum ChannelTypes {
+export enum ChannelType {
 	AnnouncementThread = 10,
 	DirectMessage = 1,
 	GroupDM = 3,

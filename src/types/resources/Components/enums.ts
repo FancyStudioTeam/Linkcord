@@ -1,8 +1,7 @@
 /**
- * The styles of a button component.
  * @see https://discord.com/developers/docs/components/reference#button-button-styles
  */
-export enum ButtonStyles {
+export enum ButtonStyle {
 	Danger = 4,
 	Link = 5,
 	Premium = 6,
@@ -12,15 +11,15 @@ export enum ButtonStyles {
 }
 
 /**
- * The types of a component.
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export enum ComponentTypes {
+export enum ComponentType {
 	ActionRow = 1,
 	Button = 2,
 	ChannelSelect = 8,
 	Container = 17,
 	File = 13,
+	FileUpload = 19,
 	Label = 18,
 	MediaGallery = 12,
 	MentionableSelect = 7,
@@ -35,7 +34,6 @@ export enum ComponentTypes {
 }
 
 /**
- * The types of a default value of a select menu component.
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
 export enum SelectMenuDefaultValueType {
@@ -45,7 +43,6 @@ export enum SelectMenuDefaultValueType {
 }
 
 /**
- * The size of the spacing of a separator component.
  * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
  */
 export enum SeparatorSpacingSize {
@@ -54,7 +51,6 @@ export enum SeparatorSpacingSize {
 }
 
 /**
- * The styles of a text input component.
  * @see https://discord.com/developers/docs/components/reference#text-input-text-input-styles
  */
 export enum TextInputStyle {
