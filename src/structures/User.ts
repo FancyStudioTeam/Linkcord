@@ -58,34 +58,34 @@ export class User extends Base {
 		super(client);
 
 		const {
-			accent_color: accentColor,
+			accent_color,
 			avatar,
-			avatar_decoration_data: avatarDecorationData,
+			avatar_decoration_data,
 			banner,
 			bot,
 			collectibles,
 			discriminator,
-			display_name_styles: displayNameStyles,
+			display_name_styles,
 			flags,
-			global_name: globalName,
+			global_name,
 			id,
-			primary_guild: primaryGuild,
+			primary_guild,
 			system,
 			username,
 		} = data;
 
-		this.accentColor = accentColor ?? null;
+		this.accentColor = accent_color ?? null;
 		this.avatar = avatar;
-		this.avatarDecorationData = parseAvatarDecoration(avatarDecorationData ?? null);
+		this.avatarDecorationData = parseAvatarDecoration(avatar_decoration_data ?? null);
 		this.banner = banner ?? null;
 		this.bot = Boolean(bot);
 		this.collectibles = parseCollectibles(collectibles ?? null);
 		this.discriminator = discriminator;
-		this.displayNameStyles = parseDisplayNameStyles(displayNameStyles ?? null);
+		this.displayNameStyles = parseDisplayNameStyles(display_name_styles ?? null);
 		this.flags = new BitFieldResolver(flags);
-		this.globalName = globalName;
+		this.globalName = global_name;
 		this.id = id;
-		this.primaryGuild = parsePrimaryGuild(primaryGuild ?? null);
+		this.primaryGuild = parsePrimaryGuild(primary_guild ?? null);
 		this.system = Boolean(system);
 		this.username = username;
 	}
@@ -100,28 +100,28 @@ export class User extends Base {
 
 	protected patch(data: Partial<APIUser> = {}): void {
 		const {
-			accent_color: accentColor,
+			accent_color,
 			avatar,
-			avatar_decoration_data: avatarDecorationData,
+			avatar_decoration_data,
 			banner,
 			collectibles,
-			display_name_styles: displayNameStyles,
+			display_name_styles,
 			flags,
-			global_name: globalName,
-			primary_guild: primaryGuild,
+			global_name,
+			primary_guild,
 			username,
 		} = data;
 
-		if (!isUndefined(accentColor)) {
-			this.accentColor = accentColor;
+		if (!isUndefined(accent_color)) {
+			this.accentColor = accent_color;
 		}
 
 		if (!isUndefined(avatar)) {
 			this.avatar = avatar;
 		}
 
-		if (!isUndefined(avatarDecorationData)) {
-			this.avatarDecorationData = parseAvatarDecoration(avatarDecorationData);
+		if (!isUndefined(avatar_decoration_data)) {
+			this.avatarDecorationData = parseAvatarDecoration(avatar_decoration_data);
 		}
 
 		if (!isUndefined(banner)) {
@@ -132,20 +132,20 @@ export class User extends Base {
 			this.collectibles = parseCollectibles(collectibles);
 		}
 
-		if (!isUndefined(displayNameStyles)) {
-			this.displayNameStyles = parseDisplayNameStyles(displayNameStyles);
+		if (!isUndefined(display_name_styles)) {
+			this.displayNameStyles = parseDisplayNameStyles(display_name_styles);
 		}
 
 		if (!isUndefined(flags)) {
 			this.flags = new BitFieldResolver(flags);
 		}
 
-		if (!isUndefined(globalName)) {
-			this.globalName = globalName;
+		if (!isUndefined(global_name)) {
+			this.globalName = global_name;
 		}
 
-		if (!isUndefined(primaryGuild)) {
-			this.primaryGuild = parsePrimaryGuild(primaryGuild);
+		if (!isUndefined(primary_guild)) {
+			this.primaryGuild = parsePrimaryGuild(primary_guild);
 		}
 
 		if (!isUndefined(username)) {

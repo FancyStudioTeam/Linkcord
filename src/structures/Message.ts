@@ -22,9 +22,9 @@ export class Message extends Base {
 	constructor(client: Client, data: APIMessage) {
 		super(client);
 
-		const { channel_id: channelId, content, id } = data;
+		const { channel_id, content, id } = data;
 
-		this.channelId = channelId;
+		this.channelId = channel_id;
 		this.content = content;
 		this.id = id;
 	}
