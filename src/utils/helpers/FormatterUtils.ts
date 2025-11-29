@@ -56,16 +56,16 @@ function normalizeChatInputCommandName(commandName: string | string[]): string {
 	return commandName;
 }
 
-function blockQuote<Content extends string>(content: Content): `>>> ${Content}` {
-	return `>>> ${content}`;
+function blockQuote<Content extends string>(content: Content) {
+	return `>>> ${content}` as const;
 }
 
-function bold<Content extends string>(content: Content): `**${Content}**` {
-	return `**${content}**`;
+function bold<Content extends string>(content: Content) {
+	return `**${content}**` as const;
 }
 
-function channelMention<ChannelId extends Snowflake>(channelId: ChannelId): `<#${ChannelId}>` {
-	return `<#${channelId}>`;
+function channelMention<ChannelId extends Snowflake>(channelId: ChannelId) {
+	return `<#${channelId}>` as const;
 }
 
 function chatInputCommandMention<CommandName extends Lowercase<string>, CommandId extends Snowflake>(
@@ -152,8 +152,8 @@ function email(username: string, domain: string, headersInit?: HeadersInit): str
 	return `<${emailBase}>`;
 }
 
-function everyone(): "@everyone" {
-	return "@everyone";
+function everyone() {
+	return "@everyone" as const;
 }
 
 function header<Content extends string>(content: Content): `# ${Content}`;
@@ -174,11 +174,11 @@ function header(levelOrContent: HeadingLevel | string, possibleContent?: string)
 	return `# ${levelOrContent}`;
 }
 
-function here(): "@here" {
-	return "@here";
+function here() {
+	return "@here" as const;
 }
 
-function hexColor(color: number): `#${string}` {
+function hexColor(color: number) {
 	const hexadecimal = color.toString(HEXADECIMAL_BASE);
 	const hexColor = `#${hexadecimal.padEnd(HEX_COLOR_DIGITS, "0")}` as const;
 
@@ -215,18 +215,16 @@ function hyperlink(content: string, url: URL | string, possibleTitle?: string): 
 	return `[${content}](${urlString})`;
 }
 
-function inlineCode<Content extends string>(content: Content): `\`${Content}\`` {
-	return `\`${content}\``;
+function inlineCode<Content extends string>(content: Content) {
+	return `\`${content}\`` as const;
 }
 
-function italic<Content extends string>(content: Content): `*${Content}*` {
-	return `*${content}*`;
+function italic<Content extends string>(content: Content) {
+	return `*${content}*` as const;
 }
 
-function linkedRoleMention<LinkedRoleId extends Snowflake>(
-	linkedRoleId: LinkedRoleId,
-): `<id:linked-roles:${LinkedRoleId}>` {
-	return `<id:linked-roles:${linkedRoleId}>`;
+function linkedRoleMention<LinkedRoleId extends Snowflake>(linkedRoleId: LinkedRoleId) {
+	return `<id:linked-roles:${linkedRoleId}>` as const;
 }
 
 function messageLink<ChannelId extends Snowflake, MessageId extends Snowflake>(
@@ -255,48 +253,48 @@ function orderedList(items: RecursiveArray<string>, startNumber = 1): string {
 	return listCallback(items, Math.max(startNumber, 1));
 }
 
-function phoneNumber<Number extends `+${string}`>(number: Number): `<${Number}>` {
+function phoneNumber<Number extends `+${string}`>(number: Number) {
 	if (!number.startsWith("+")) {
 		throw new TypeError("First parameter (number) from 'FormatterUtils.phoneNumber' must start with '+'");
 	}
 
-	return `<${number}>`;
+	return `<${number}>` as const;
 }
 
-function quote<Content extends string>(content: Content): `> ${Content}` {
-	return `> ${content}`;
+function quote<Content extends string>(content: Content) {
+	return `> ${content}` as const;
 }
 
-function roleMention<RoleId extends Snowflake>(roleId: RoleId): `<@&${RoleId}>` {
-	return `<@&${roleId}>`;
+function roleMention<RoleId extends Snowflake>(roleId: RoleId) {
+	return `<@&${roleId}>` as const;
 }
 
-function shrug(): "¯\\_(ツ)_/¯" {
-	return "¯\\_(ツ)_/¯";
+function shrug() {
+	return "¯\\_(ツ)_/¯" as const;
 }
 
-function spoiler<Content extends string>(content: Content): `||${Content}||` {
-	return `||${content}||`;
+function spoiler<Content extends string>(content: Content) {
+	return `||${content}||` as const;
 }
 
-function strikethrough<Content extends string>(content: Content): `~~${Content}~~` {
-	return `~~${content}~~`;
+function strikethrough<Content extends string>(content: Content) {
+	return `~~${content}~~` as const;
 }
 
-function subtext<Content extends string>(content: Content): `-# ${Content}` {
-	return `-# ${content}`;
+function subtext<Content extends string>(content: Content) {
+	return `-# ${content}` as const;
 }
 
-function tableFlip(): "(╯°□°)╯︵ ┻━┻" {
-	return "(╯°□°)╯︵ ┻━┻";
+function tableFlip() {
+	return "(╯°□°)╯︵ ┻━┻" as const;
 }
 
-function underline<Content extends string>(content: Content): `__${Content}__` {
-	return `__${content}__`;
+function underline<Content extends string>(content: Content) {
+	return `__${content}__` as const;
 }
 
-function unflip(): "┬─┬ノ( º _ ºノ)" {
-	return "┬─┬ノ( º _ ºノ)";
+function unflip() {
+	return "┬─┬ノ( º _ ºノ)" as const;
 }
 
 function unixTimestamp(date?: Date): `<t:${string}>`;
@@ -330,8 +328,8 @@ function unorderedList(items: RecursiveArray<string>): string {
 	return listCallback(items);
 }
 
-function userMention<UserId extends Snowflake>(userId: UserId): `<@${UserId}>` {
-	return `<@${userId}>`;
+function userMention<UserId extends Snowflake>(userId: UserId) {
+	return `<@${userId}>` as const;
 }
 
 export const FormatterUtils = Object.freeze({
