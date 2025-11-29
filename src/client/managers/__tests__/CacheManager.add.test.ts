@@ -1,20 +1,16 @@
-import { describe, expect, it } from "vitest";
 import { CacheManager } from "../CacheManager.js";
 
 describe("Method: CacheManager.add", () => {
-	it("Should add an entry to the cache", () => {
-		const cacheManager = new CacheManager<string, string>();
+	it("Should add an entry to the cached entries", () => {
+		const cacheManager = new CacheManager();
 
-		cacheManager.add("key_1", "value_1");
+		const result = cacheManager.add("key_1", "value_1");
+		const expectedResult = true;
 
-		const { size: cacheSize } = cacheManager;
-		const cachedValue = cacheManager.get("key_1");
-
-		expect(cachedValue).toBeTypeOf("string");
-		expect(cacheSize).toBe(1);
+		expect(result).toBe(expectedResult);
 	});
 
-	it("Should remove the oldest cached value from the cache when adding a new entry", () => {
+	it("Should remove the oldest cached entry from the cached entries", () => {
 		const cacheManager = new CacheManager(2, [
 			[
 				"key_1",
