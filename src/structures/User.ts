@@ -24,6 +24,15 @@ const { hexColor, userMention } = FormatterUtils;
  * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
  */
 export class User extends Base {
+	/** Whether the user belongs to an OAuth2 application. */
+	readonly bot: boolean;
+	/** The discriminator of the user. */
+	readonly discriminator: string;
+	/** The ID of the user. */
+	readonly id: Snowflake;
+	/** Whether the user belongs to the Discord system. */
+	readonly system: boolean;
+
 	/** The accent color of the user represented in decimal, if any. */
 	accentColor: number | null;
 	/** The avatar hash of the user, if any. */
@@ -32,24 +41,16 @@ export class User extends Base {
 	avatarDecorationData: AvatarDecorationData | null;
 	/** The banner hash of the user, if any. */
 	banner: string | null;
-	/** Whether the user belongs to an OAuth2 application. */
-	readonly bot: boolean;
 	/** The collectibles data of the user. */
 	collectibles: Collectibles;
-	/** The discriminator of the user. */
-	readonly discriminator: string;
 	/** The display name styles data of the user, if any. */
 	displayNameStyles: DisplayNameStyles | null;
 	/** The flags of the user. */
 	flags: BitFieldResolver;
 	/** The display name of the user, if any. */
 	globalName: string | null;
-	/** The ID of the user. */
-	readonly id: Snowflake;
 	/** The primary guild data of the user, if any. */
 	primaryGuild: PrimaryGuild | null;
-	/** Whether the user belongs to the Discord system. */
-	readonly system: boolean;
 	/** The username of the user. */
 	username: string;
 

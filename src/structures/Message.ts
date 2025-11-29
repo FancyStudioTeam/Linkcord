@@ -13,10 +13,11 @@ const { messageLink } = FormatterUtils;
 export class Message extends Base {
 	/** The ID of the channel where the message was sent. */
 	readonly channelId: Snowflake;
-	/** The content of the message. */
-	content: string;
 	/** The ID of the message. */
 	readonly id: Snowflake;
+
+	/** The content of the message. */
+	content: string;
 
 	constructor(client: Client, data: APIMessage) {
 		super(client);
