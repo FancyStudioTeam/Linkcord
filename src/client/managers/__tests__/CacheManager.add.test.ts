@@ -14,7 +14,7 @@ describe("Method: CacheManager.add", () => {
 		expect(cacheSize).toBe(1);
 	});
 
-	it("Should remove the oldest cached value from the cache", () => {
+	it("Should remove the oldest cached value from the cache when adding a new entry", () => {
 		const cacheManager = new CacheManager(2, [
 			[
 				"key_1",
