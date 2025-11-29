@@ -1,5 +1,4 @@
 /**
- * The location of an application activity.
  * @see https://discord.com/developers/docs/resources/application#get-application-activity-instance-activity-location-kind-enum
  */
 export enum ActivityLocationKind {
@@ -8,16 +7,14 @@ export enum ActivityLocationKind {
 }
 
 /**
- * The types of an application command integration.
  * @see https://discord.com/developers/docs/resources/application#application-object-application-integration-types
  */
-export enum ApplicationIntegrationTypes {
+export enum ApplicationIntegrationType {
 	GuildInstall = 0,
 	UserInstall = 1,
 }
 
 /**
- * The status of an application event webhook.
  * @see https://discord.com/developers/docs/resources/application#application-object-application-event-webhook-status
  */
 export enum ApplicationEventWebhookStatus {
@@ -27,18 +24,22 @@ export enum ApplicationEventWebhookStatus {
 }
 
 /**
- * The types of an application event webhook.
  * @see https://discord.com/developers/docs/events/webhook-events#event-types
  */
-export enum ApplicationEventWebhookTypes {
+export enum ApplicationEventWebhookType {
 	ApplicationAuthorized = "APPLICATION_AUTHORIZED",
 	ApplicationDeauthorized = "APPLICATION_DEAUTHORIZED",
 	EntitlementCreate = "ENTITLEMENT_CREATE",
+	GameDirectMessageCreate = "GAME_DIRECT_MESSAGE_CREATE",
+	GameDirectMessageDelete = "GAME_DIRECT_MESSAGE_DELETE",
+	GameDirectMessageUpdate = "GAME_DIRECT_MESSAGE_UPDATE",
+	LobbyMessageCreate = "LOBBY_MESSAGE_CREATE",
+	LobbyMessageDelete = "LOBBY_MESSAGE_DELETE",
+	LobbyMessageUpdate = "LOBBY_MESSAGE_UPDATE",
 	QuestUserEnrollment = "QUEST_USER_ENROLLMENT",
 }
 
 /**
- * The flags of an application.
  * @see https://discord.com/developers/docs/resources/application#application-object-application-flags
  */
 export enum ApplicationFlags {
