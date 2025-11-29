@@ -33,8 +33,8 @@ export class Message extends Base {
 		return messageLink(this.channelId, this.id);
 	}
 
-	protected patch(data: Partial<APIMessage> = {}): void {
-		const { content } = data;
+	protected patch(data?: Partial<APIMessage>): void {
+		const { content } = data ?? {};
 
 		if (!isUndefined(content)) {
 			this.content = content;

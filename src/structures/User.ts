@@ -98,7 +98,7 @@ export class User extends Base {
 		return userMention(this.id);
 	}
 
-	protected patch(data: Partial<APIUser> = {}): void {
+	protected patch(data?: Partial<APIUser>): void {
 		const {
 			accent_color,
 			avatar,
@@ -110,7 +110,7 @@ export class User extends Base {
 			global_name,
 			primary_guild,
 			username,
-		} = data;
+		} = data ?? {};
 
 		if (!isUndefined(accent_color)) {
 			this.accentColor = accent_color;
