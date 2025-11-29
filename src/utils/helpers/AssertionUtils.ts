@@ -8,6 +8,10 @@ function isBigInt(input: unknown): input is bigint {
 	return typeof input === "bigint";
 }
 
+function isBoolean(input: unknown): input is boolean {
+	return typeof input === "boolean";
+}
+
 function isEnum<Enum>(input: unknown, _enum: Enum): input is Enum {
 	if (!isObject(_enum)) return false;
 
@@ -65,6 +69,7 @@ function isUndefined(input: unknown): input is undefined {
 export const AssertionUtils = Object.freeze({
 	isArray,
 	isBigInt,
+	isBoolean,
 	isEnum,
 	isFunction,
 	isInstanceOf,

@@ -1,13 +1,8 @@
 import type { ClientEvents, ClientEventsMap } from "../ClientEvents.js";
 
-/** Represents a listener data object for an event. */
-export interface EventListener {
-	/** The callback to execute when the event is emitted. */
-	// biome-ignore lint/complexity/noBannedTypes: Allow any function.
-	callback: Function;
-	/** Whether the listener should be executed once. */
+export interface EventListener<Event extends ClientEvents> {
+	callback: EventListenerCallback<Event>;
 	once: boolean;
 }
 
-/** Represents a listener callback for an event. */
 export type EventListenerCallback<Event extends ClientEvents> = (...data: ClientEventsMap[Event]) => unknown;
