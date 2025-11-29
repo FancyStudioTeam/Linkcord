@@ -1,26 +1,24 @@
-/** biome-ignore-all lint/suspicious/useAwait: Caching methods are kept asynchronous for future compatibility. */
-
-import { emitWarning } from "node:process";
 import type { Iterable } from "#client/types/index.js";
 
-/** The cache manager for the client. */
-export class CacheManager<Key extends string, Value> {
-	/** The map where the cached values are stored. */
+export class CacheManager<Key, Value> {
 	readonly #cache: Map<Key, Value>;
-	/** The maximum number of cached values allowed. */
 	readonly #limit: number;
 
-	/**
-	 * Creates a new {@link CacheManager | `CacheManager`} instance.
-	 * @param limit - The maximum number of cached values allowed.
-	 * @param initialCachedValues - The initial values to cache when instantiating the cache manager.
-	 */
 	constructor(limit = Infinity, initialCachedValues: Iterable<Key, Value> = []) {
 		this.#cache = new Map(initialCachedValues);
 		this.#limit = limit;
 	}
 
-	/** The number of cached values. */
+	get #isCacheLimitExceeded(): boolean {
+		const cache = this.#cache;
+		const limit = this.#limit;
+
+		const { size: cacheSize } = cache;
+		const isCacheLimitExceeded = cacheSize >= limit;
+
+		return isCacheLimitExceeded;
+	}
+
 	get size(): number {
 		const cache = this.#cache;
 		const { size } = cache;
@@ -28,46 +26,32 @@ export class CacheManager<Key extends string, Value> {
 		return size;
 	}
 
-	/**
-	 * Adds a value to the cache.
-	 * @param key - The key of the value to add.
-	 * @param value - The value to add.
-	 */
-	add(key: Key, value: Value): void {
+	#deleteOldestValue(): boolean {
 		const cache = this.#cache;
-		const limit = this.#limit;
+		const cacheEntries = cache.entries();
+		const [firstCachedValueKey] = cacheEntries.next().value ?? [];
 
-		const { size: cacheSize } = cache;
-
-		// If the cache is full, remove the oldest value.
-		if (cacheSize >= limit) {
-			const entries = cache.entries();
-			const [firstCachedValueKey] = entries.next().value ?? [];
-
-			if (firstCachedValueKey) {
-				cache.delete(firstCachedValueKey);
-			}
+		if (firstCachedValueKey) {
+			return cache.delete(firstCachedValueKey);
 		}
 
-		cache.set(key, value);
+		return false;
 	}
 
-	/**
-	 * Deletes a value from the cache.
-	 * @param key - The key of the value to remove.
-	 * @returns Whether the cached value was deleted.
-	 */
+	add(key: Key, value: Value): boolean {
+		if (this.#isCacheLimitExceeded) {
+			this.#deleteOldestValue();
+		}
+
+		return this.set(key, value);
+	}
+
 	delete(key: Key): boolean {
 		const cache = this.#cache;
 
 		return cache.delete(key);
 	}
 
-	/**
-	 * Gets a value from the cache.
-	 * @param key - The key of the cached value to get.
-	 * @returns The cached value, if exists.
-	 */
 	get(key: Key): Value | undefined {
 		const cache = this.#cache;
 		const cachedValue = cache.get(key);
@@ -75,24 +59,16 @@ export class CacheManager<Key extends string, Value> {
 		return cachedValue;
 	}
 
-	/**
-	 * Sets a value in the cache.
-	 * @param key - The key of the value to set.
-	 * @param value - The value to set.
-	 */
-	set(key: Key, value: Value): void {
+	set(key: Key, value: Value): boolean {
 		const cache = this.#cache;
 		const limit = this.#limit;
 
-		const { size: cacheSize } = cache;
-
-		// If the cache size is full, emit a warning instead of removing the oldest value.
-		if (cacheSize >= limit) {
-			return void emitWarning(`Cache size exceeded limit of ${limit} entries.`, {
-				code: "CACHE_MANAGER_SIZE_EXCEEDED",
-			});
+		if (this.#isCacheLimitExceeded) {
+			throw new Error(`Cache exceeded the limit of ${limit} cached entries`);
 		}
 
 		cache.set(key, value);
+
+		return true;
 	}
 }
