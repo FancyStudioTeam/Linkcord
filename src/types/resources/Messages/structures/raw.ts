@@ -5,6 +5,7 @@ import type { APIMessageComponent } from "#types/resources/Components/index.js";
 import type { APIPartialEmoji } from "#types/resources/Emojis/index.js";
 import type { InteractionType } from "#types/resources/Interactions/enums.js";
 import type { APIPoll } from "#types/resources/Polls/index.js";
+import type { APIStickerItem } from "#types/resources/Stickers/structures/raw.js";
 import type { APIUser } from "#types/resources/Users/index.js";
 import type {
 	AllowedMentionType,
@@ -162,7 +163,7 @@ export interface APIEmbedVideo {
 /**
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
  */
-// TODO: Add "resolved", "sticker_items" and "thread" to "APIMessage".
+// TODO: Add "resolved" and "thread" to "APIMessage".
 export interface APIMessage {
 	activity?: APIMessageActivity;
 	application_id?: Snowflake;
@@ -190,7 +191,7 @@ export interface APIMessage {
 	referenced_message?: APIMessage | null;
 	// resolved?: APIResolved;
 	role_subscription_data?: APIRoleSubscriptionData;
-	// sticker_items?: APIStickerItem[];
+	sticker_items?: APIStickerItem[];
 	// thread?: APIThreadChannel;
 	timestamp: ISO8601Date;
 	tts: boolean;
