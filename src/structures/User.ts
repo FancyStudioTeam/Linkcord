@@ -90,10 +90,12 @@ export class User extends Base {
 		this.username = username;
 	}
 
+	/** The accent color of the user represented in a hex color, if any. */
 	get accentColorHex() {
 		return this.accentColor ? hexColor(this.accentColor) : null;
 	}
 
+	/** The formatted mention of the user. */
 	get mention() {
 		return userMention(this.id);
 	}
