@@ -1,6 +1,7 @@
 import type { Message } from "#structures/Message.js";
 import type { User } from "#structures/User.js";
 import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
+import type { ApplicationIntegrationType } from "#types/resources/Applications/enums.js";
 import type { ChannelType } from "#types/resources/Channels/enums.js";
 import type { PartialEmoji } from "#types/resources/Emojis/index.js";
 import type { InteractionType } from "#types/resources/Interactions/enums.js";
@@ -226,6 +227,13 @@ export interface RoleSubscriptionData {
 	tierName: string;
 	totalMonthsSubscribed: number;
 }
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object
+ */
+export type AuthorizingIntegrationOwners = {
+	[Type in ApplicationIntegrationType]?: Snowflake;
+};
 
 /**
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object

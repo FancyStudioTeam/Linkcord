@@ -23,7 +23,7 @@ export interface APIActivityLocation {
 /**
  * @see https://discord.com/developers/docs/resources/application#application-object-application-structure
  */
-// TODO: Add `guild` in `APIApplication`.
+// TODO: Add "guild" to "APIApplication".
 export interface APIApplication {
 	approximate_guild_count?: number;
 	approximate_user_authorization_count?: number;

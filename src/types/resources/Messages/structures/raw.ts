@@ -1,8 +1,10 @@
 import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
+import type { ApplicationIntegrationType } from "#types/resources/Applications/enums.js";
 import type { ChannelType } from "#types/resources/Channels/enums.js";
 import type { APIMessageComponent } from "#types/resources/Components/index.js";
 import type { APIPartialEmoji } from "#types/resources/Emojis/index.js";
 import type { InteractionType } from "#types/resources/Interactions/enums.js";
+import type { APIPoll } from "#types/resources/Polls/index.js";
 import type { APIUser } from "#types/resources/Users/index.js";
 import type {
 	AllowedMentionType,
@@ -160,6 +162,7 @@ export interface APIEmbedVideo {
 /**
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
  */
+// TODO: Add "resolved", "sticker_items" and "thread" to "APIMessage".
 export interface APIMessage {
 	activity?: APIMessageActivity;
 	application_id?: Snowflake;
@@ -185,10 +188,10 @@ export interface APIMessage {
 	poll?: APIPoll;
 	reactions?: APIReaction[];
 	referenced_message?: APIMessage | null;
-	resolved?: APIResolved;
+	// resolved?: APIResolved;
 	role_subscription_data?: APIRoleSubscriptionData;
-	sticker_items?: APIStickerItem[];
-	thread?: APIThreadChannel;
+	// sticker_items?: APIStickerItem[];
+	// thread?: APIThreadChannel;
 	timestamp: ISO8601Date;
 	tts: boolean;
 	type: MessageType;
@@ -295,6 +298,13 @@ export interface APIRoleSubscriptionData {
 	tier_name: string;
 	total_months_subscribed: number;
 }
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object
+ */
+export type APIAuthorizingIntegrationOwners = {
+	[Type in ApplicationIntegrationType]?: Snowflake;
+};
 
 /**
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
