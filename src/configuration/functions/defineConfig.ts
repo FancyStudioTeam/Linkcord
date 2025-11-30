@@ -4,14 +4,6 @@ import type { DefineConfigOptions } from "#configuration/types/index.js";
 import { IS_PRODUCTION_ENVIRONMENT } from "#utils/Constants.js";
 import { validate } from "#utils/functions/validate.js";
 
-/**
- * Defines the configuration of Linkcord.
- *
- * @param options - The options to use in Linkcord.
- * @returns The validated {@link LinkcordOptions | `LinkcordOptions`} object.
- *
- * @group Configuration/Functions
- */
 export function defineConfig(options: DefineConfigOptions): LinkcordOptions {
 	options.locations ??= {};
 	options.locations.commands ??= "commands";

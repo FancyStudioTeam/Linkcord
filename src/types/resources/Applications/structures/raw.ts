@@ -93,6 +93,11 @@ export interface APIGatewayApplication {
 }
 
 /**
+ * @see https://discord.com/developers/docs/resources/application#application-object-application-structure
+ */
+export type APIPartialApplication = Partial<APIApplication>;
+
+/**
  * @see https://discord.com/developers/docs/resources/application#application-object-application-integration-type-configuration-object
  */
 export type APIApplicationIntegrationTypesConfig = {

@@ -1,5 +1,5 @@
 import type { ISO8601Date } from "#types/miscellaneous/discord.js";
-import type { APIApplication, APIPartialApplication } from "#types/resources/Application/index.js";
+import type { APIApplication, APIPartialApplication } from "#types/resources/Applications/index.js";
 import type { APIUser } from "#types/resources/Users/index.js";
 import type { OAuth2Scopes } from "../enums.js";
 
