@@ -1,5 +1,4 @@
 /**
- * The available languages for application command localizations.
  * @see https://discord.com/developers/docs/reference#locales
  */
 export enum Locales {
