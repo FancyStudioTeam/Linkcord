@@ -4,17 +4,14 @@ import { type MakeRequestOptions, RESTMethod } from "#rest/types/index.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 
 export class BaseAPI {
+	protected declare readonly client: Client;
 	protected declare readonly rest: RESTManager;
 
 	constructor(rest: RESTManager) {
-		defineImmutableProperty(this, "rest", rest);
-	}
-
-	protected get client(): Client {
-		const { rest } = this;
 		const { client } = rest;
 
-		return client;
+		defineImmutableProperty(this, "client", client);
+		defineImmutableProperty(this, "rest", rest);
 	}
 
 	protected delete<Result, QueryStringParams = never>(
