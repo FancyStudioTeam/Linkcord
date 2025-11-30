@@ -11,5 +11,6 @@ export * from "./Messages/index.js";
 export * from "./OAuth2/index.js";
 export * from "./Permissions/index.js";
 export * from "./Polls/index.js";
+export * from "./Stickers/index.js";
 export * from "./Users/index.js";
 export * from "./Voice/index.js";
