@@ -1,4 +1,3 @@
-export * from "./builders/index.js";
 export * from "./client/index.js";
 export * from "./configuration/index.js";
 export * from "./gateway/index.js";
