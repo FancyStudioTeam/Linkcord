@@ -1,13 +1,13 @@
 import type { Snowflake } from "#types/index.js";
 import { ONE_SECOND_MILLISECONDS } from "#utils/Constants.js";
+import { AssertionUtils } from "./AssertionUtils.js";
 import {
 	CodeBlockLanguage,
 	HeadingLevel,
 	type HeadingLevelsMap,
 	type RecursiveArray,
 	TimestampStyle,
-} from "#utils/types/index.js";
-import { AssertionUtils } from "./AssertionUtils.js";
+} from "./FormatterUtils.types.js";
 
 const { isArray, isEnum, isInstanceOf, isNumber, isString } = AssertionUtils;
 

@@ -1,6 +1,6 @@
 import { type core, parse, ZodError } from "zod";
-import type { ValidationErrorIssue } from "#utils/errors/types.js";
 import { ValidationError } from "#utils/errors/ValidationError.js";
+import type { ValidationErrorIssue } from "#utils/errors/ValidationError.types.js";
 import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
 
 const { isInstanceOf } = AssertionUtils;
