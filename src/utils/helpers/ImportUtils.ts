@@ -1,11 +1,11 @@
-import { basename, join, resolve } from "node:path";
+import { basename, join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { IS_COMMON_JS } from "#utils/Constants.js";
 
 async function importFile<ImportData>(path: string, options?: ImportFileOptions): Promise<ImportData> {
 	const { requiredDefaultExport } = options ?? {
 		requiredDefaultExport: false,
 	};
+
 	const data = await import(path);
 
 	if (requiredDefaultExport && !("default" in data)) {
@@ -15,15 +15,9 @@ async function importFile<ImportData>(path: string, options?: ImportFileOptions)
 	return data;
 }
 
-function resolvePath(fragmentsOrPath: string[] | string, isCommonJS = IS_COMMON_JS): string {
-	const path = join(...fragmentsOrPath);
-	const resolvedPath = resolve(path);
-
-	if (isCommonJS) {
-		return resolvedPath;
-	}
-
-	const { href } = pathToFileURL(resolvedPath);
+function resolvePath(...fragments: string[]): string {
+	const normalizedPath = join(...fragments);
+	const { href } = pathToFileURL(normalizedPath);
 
 	return href;
 }

@@ -1,6 +1,6 @@
 import { styleText } from "node:util";
 import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
-import type { ValidationErrorIssue } from "#utils/types/index.js";
+import type { ValidationErrorIssue } from "./types.js";
 
 const { isNumber, isSymbol } = AssertionUtils;
 
