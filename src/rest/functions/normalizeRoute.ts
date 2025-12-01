@@ -15,7 +15,7 @@ export function normalizeRoute<Method extends RESTMethod>(
 	endpoint: `/${string}`,
 ): `${Method} ${string}` {
 	if (!endpoint.startsWith("/")) {
-		endpoint += `/${endpoint}`;
+		endpoint = `/${endpoint}`;
 	}
 
 	const routeCallback = (match: string, path: TopLevelResourcePath) =>
