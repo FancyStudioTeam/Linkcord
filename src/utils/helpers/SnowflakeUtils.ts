@@ -23,9 +23,7 @@ function cast<Input extends bigint | number | string>(input: Input): Snowflake {
 }
 
 function isSnowflake(input: unknown): input is Snowflake {
-	const inputString = String(input);
-
-	return DISCORD_SNOWFLAKE_REGEX.test(inputString);
+	return isString(input) && DISCORD_SNOWFLAKE_REGEX.test(input);
 }
 
 /**

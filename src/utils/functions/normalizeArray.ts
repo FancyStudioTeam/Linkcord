@@ -1,14 +1,5 @@
-export function normalizeArray<Item>(items: Item[]): Item[];
-export function normalizeArray<Item>(...items: Item[]): Flatten<Item>[];
+import type { RestOrArray } from "#utils/types/index.js";
 
-export function normalizeArray<Item>(...items: Item[]): Item[] {
-	const firstElement = items[0];
-
-	return Array.isArray(firstElement)
-		? [
-				...firstElement,
-			]
-		: items;
+export function normalizeArray<Item>(...items: RestOrArray<Item>): Item[] {
+	return items.flat() as Item[];
 }
-
-type Flatten<Item> = Item extends (infer ItemArray)[] ? ItemArray : Item;

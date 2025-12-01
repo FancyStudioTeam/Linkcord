@@ -12,10 +12,11 @@ describe("Method: SnowflakeUtils.isSnowflake", () => {
 		const result2 = isSnowflake(USER_ID_BIGINT);
 		const result3 = isSnowflake(USER_ID_NUMBER);
 
-		const expectedResult = true;
+		const expectedResult1 = true;
+		const expectedResult2 = false;
 
-		expect(result1).toBe(expectedResult);
-		expect(result2).toBe(expectedResult);
-		expect(result3).toBe(expectedResult);
+		expect(result1).toBe(expectedResult1);
+		expect(result2).toBe(expectedResult2);
+		expect(result3).toBe(expectedResult2);
 	});
 });
