@@ -1,4 +1,3 @@
-import type { EmbedBuilder } from "#builders/index.js";
 import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
 import type { MessageComponent } from "#types/resources/Components/index.js";
 import type { MessagePoll } from "#types/resources/Polls/index.js";
@@ -21,7 +20,7 @@ export interface CreateMessageOptions {
 	attachments?: PartialAttachment[];
 	components?: MessageComponent[];
 	content?: string;
-	embeds?: (Embed | EmbedBuilder)[];
+	embeds?: Embed[];
 	enforceNonce?: boolean;
 	flags?: BitFieldResolver | MessageFlags;
 	messageReference?: MessageReference;
@@ -39,7 +38,7 @@ export interface EditMessageOptions {
 	attachments?: Attachment[] | null;
 	components?: MessageComponent[] | null;
 	content?: string | null;
-	embeds?: Embed | EmbedBuilder[];
+	embeds?: Embed[];
 	flags?: BitFieldResolver | MessageFlags;
 }
 

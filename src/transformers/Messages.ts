@@ -1,11 +1,11 @@
-import { EmbedBuilder } from "#builders/index.js";
+// import { EmbedBuilder } from "#builders/index.js";
 import type { APIEmbed, APIEmbedAuthor, APIEmbedFooter, Embed, EmbedAuthor, EmbedFooter } from "#types/index.js";
 
-export function normalizeEmbed(embed: Embed | EmbedBuilder): Embed {
-	return embed instanceof EmbedBuilder ? embed.toJSON() : embed;
+export function normalizeEmbed(embed: Embed): Embed {
+	return embed;
 }
 
-export function normalizeEmbeds(embeds: (Embed | EmbedBuilder)[]): Embed[] {
+export function normalizeEmbeds(embeds: Embed[]): Embed[] {
 	return embeds.map(normalizeEmbed);
 }
 
