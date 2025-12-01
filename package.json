@@ -27,7 +27,8 @@
 	},
 	"exports": {
 		".": {
-			"import": "./dist/index.mjs"
+			"import": "./dist/index.js",
+			"require": "./dist/index.js"
 		}
 	},
 	"files": [
@@ -41,8 +42,8 @@
 			"pnpm biome:write"
 		]
 	},
-	"main": "dist/index.mjs",
-	"module": "dist/index.mjs",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
 	"name": "linkcord",
 	"optionalDependencies": {
 		"@discordjs/voice": "0.19.0"
@@ -53,7 +54,7 @@
 		"url": "https://github.com/FancyStudioTeam/Linkcord"
 	},
 	"scripts": {
-		"biome": "biome check",
+		"biome:check": "biome check",
 		"biome:ci": "biome ci",
 		"biome:write": "biome check --write",
 		"build": "tsup",
@@ -63,7 +64,7 @@
 		"release": "pnpm publish --access public --no-git-checks",
 		"rimraf": "rimraf dist",
 		"tarball": "pnpm pack",
-		"vitest": "vitest --typecheck -c vitest.config.ts",
+		"vitest:run": "vitest --typecheck -c vitest.config.ts",
 		"vitest:watch": "vitest --typecheck -c vitest.config.ts --watch"
 	},
 	"type": "module",
