@@ -28,7 +28,7 @@ export interface RESTPostAPITestEntitlementJSONParams {
 /**
  * @see https://discord.com/developers/docs/resources/entitlement#delete-test-entitlement
  */
-export type RESTDeleteAPIEntitlement = undefined;
+export type RESTDeleteAPITestEntitlement = undefined;
 
 /**
  * @see https://discord.com/developers/docs/resources/entitlement#get-entitlement
