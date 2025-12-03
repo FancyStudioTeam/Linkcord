@@ -1,21 +1,15 @@
 /**
- * The types of owner of an entitlement.
  * @see https://discord.com/developers/docs/resources/entitlement#create-test-entitlement-json-params
- *
- * @group Structures/Enums
  */
-export enum EntitlementOwnerTypes {
+export enum EntitlementOwnerType {
 	GuildSubscription = 1,
 	UserSubscription = 2,
 }
 
 /**
- * The types of an entitlement.
  * @see https://discord.com/developers/docs/resources/entitlement#entitlement-object-entitlement-types
- *
- * @group Structures/Enums
  */
-export enum EntitlementTypes {
+export enum EntitlementType {
 	ApplicationSubscription = 8,
 	FreePurchase = 7,
 	DeveloperGift = 3,
