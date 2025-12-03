@@ -59,6 +59,7 @@
 		"strict": true,
 		"target": "ESNext",
 		"types": [
+			"node",
 			"vitest/globals"
 		]
 	}

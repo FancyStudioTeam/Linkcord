@@ -11,6 +11,7 @@
 		"@commitlint/cli": "20.1.0",
 		"@commitlint/config-conventional": "20.0.0",
 		"@commitlint/types": "20.0.0",
+		"@microsoft/api-extractor": "7.55.1",
 		"@swc/core": "1.15.1",
 		"@types/node": "24.10.0",
 		"esbuild-plugin-version-injector": "1.2.1",
@@ -18,6 +19,7 @@
 		"lint-staged": "16.2.6",
 		"rimraf": "6.1.0",
 		"tsup": "8.5.0",
+		"tsx": "4.21.0",
 		"typescript": "5.9.3",
 		"vite-tsconfig-paths": "5.1.4",
 		"vitest": "4.0.8"
@@ -58,6 +60,7 @@
 		"biome:ci": "biome ci",
 		"biome:write": "biome check --write",
 		"build": "tsup",
+		"extractor:check-release-tags": "tsx scripts/checkReleaseTags.ts",
 		"prebuild": "pnpm rimraf dist",
 		"prepare": "husky",
 		"pretarball": "pnpm build",
@@ -65,7 +68,7 @@
 		"rimraf": "rimraf dist",
 		"tarball": "pnpm pack",
 		"vitest:run": "vitest --typecheck -c vitest.config.ts",
-		"vitest:watch": "vitest --typecheck -c vitest.config.ts --watch"
+		"vitest:watch": "vitest --typecheck --watch -c vitest.config.ts"
 	},
 	"type": "module",
 	"types": "dist/index.d.ts",
