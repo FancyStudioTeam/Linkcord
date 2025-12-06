@@ -3,21 +3,36 @@ import type { EntitlementType } from "../enums.js";
 
 /**
  * @see https://discord.com/developers/docs/resources/entitlement#entitlement-object-entitlement-structure
- *
- * @todo Consider modeling `APIEntitlement` as a union of user-granted and guild-granted entitlements.
  */
-export interface APIEntitlement {
+export interface APIEntitlementBase {
 	application_id: Snowflake;
 	consumed?: boolean;
 	deleted: boolean;
 	expires_at: ISO8601Date | null;
-	guild_id?: Snowflake;
 	id: Snowflake;
 	sku_id: Snowflake;
 	starts_at: ISO8601Date | null;
 	type: EntitlementType;
-	user_id?: Snowflake;
 }
+
+/**
+ * @see https://discord.com/developers/docs/resources/entitlement#entitlement-object-entitlement-structure
+ */
+export interface APIGuildEntitlement extends APIEntitlementBase {
+	guild_id: Snowflake;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/entitlement#entitlement-object-entitlement-structure
+ */
+export interface APIUserEntitlement extends APIEntitlementBase {
+	user_id: Snowflake;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/entitlement#entitlement-object-entitlement-structure
+ */
+export type APIEntitlement = APIGuildEntitlement | APIUserEntitlement;
 
 /**
  * @see https://discord.com/developers/docs/resources/entitlement#create-test-entitlement
