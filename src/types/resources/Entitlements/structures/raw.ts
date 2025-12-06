@@ -3,6 +3,8 @@ import type { EntitlementType } from "../enums.js";
 
 /**
  * @see https://discord.com/developers/docs/resources/entitlement#entitlement-object-entitlement-structure
+ *
+ * @todo Consider modeling `APIEntitlement` as a union of user-granted and guild-granted entitlements.
  */
 export interface APIEntitlement {
 	application_id: Snowflake;
