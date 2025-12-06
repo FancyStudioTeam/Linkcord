@@ -4,6 +4,9 @@ import type { ValidationErrorIssue } from "./ValidationError.types.js";
 
 const { isNumber, isSymbol } = AssertionUtils;
 
+/**
+ * @public
+ */
 export class ValidationError extends Error {
 	constructor(issues: ValidationErrorIssue[]) {
 		super();
@@ -14,11 +17,11 @@ export class ValidationError extends Error {
 		this.name = "ValidationError";
 	}
 
-	#formatIssuePath(path: PropertyKey[]): string {
+	#formatIssuePath(propertyKeys: PropertyKey[]): string {
 		const formattedPathCallback = (accumulator: string, currentItem: string | number): string =>
 			isNumber(currentItem) ? `${accumulator}[${currentItem}]` : `${accumulator}.${currentItem}`;
 
-		const filteredPath = path.filter((item) => !isSymbol(item));
+		const filteredPath = propertyKeys.filter((propertyKey) => !isSymbol(propertyKey));
 		const slicedPath = filteredPath.slice(1);
 		const formattedPath = slicedPath.reduce(formattedPathCallback, String(filteredPath[0]));
 
@@ -47,13 +50,15 @@ export class ValidationError extends Error {
 			prettifiedMessage += `\n${this.#prettifyIssue(issue, false, indentLevel + 1)}`;
 		}
 
-		return styleText(
+		const styledIssue = styleText(
 			[
 				"bold",
 				"red",
 			],
 			prettifiedMessage,
 		);
+
+		return styledIssue;
 	}
 
 	#prettifyIssues(issues: ValidationErrorIssue[]): string {
