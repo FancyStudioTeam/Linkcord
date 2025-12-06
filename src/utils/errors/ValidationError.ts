@@ -4,9 +4,6 @@ import type { ValidationErrorIssue } from "./ValidationError.types.js";
 
 const { isNumber, isSymbol } = AssertionUtils;
 
-/**
- * @public
- */
 export class ValidationError extends Error {
 	constructor(issues: ValidationErrorIssue[]) {
 		super();

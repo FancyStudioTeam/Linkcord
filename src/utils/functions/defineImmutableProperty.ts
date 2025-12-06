@@ -2,20 +2,20 @@ import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
 
 const { isObject, isString } = AssertionUtils;
 
-export function defineImmutableProperty<Object extends object, PropertyName extends string, Value>(
-	object: Object,
-	propertyName: PropertyName,
+export function defineImmutableProperty<Object extends object, Name extends string, Value>(
+	parent: Object,
+	name: Name,
 	value: Value,
 ): void {
-	if (!isObject(object)) {
-		throw new TypeError("First parameter (object) from 'defineImmutableProperty' must be an object");
+	if (!isObject(parent)) {
+		throw new TypeError("First parameter (parent) from 'defineImmutableProperty' must be an object");
 	}
 
-	if (!isString(propertyName)) {
-		throw new TypeError("Second parameter (propertyName) from 'defineImmutableProperty' must be a string");
+	if (!isString(name)) {
+		throw new TypeError("Second parameter (name) from 'defineImmutableProperty' must be a string");
 	}
 
-	Object.defineProperty(object, propertyName, {
+	Object.defineProperty(parent, name, {
 		configurable: false,
 		enumerable: false,
 		value,

@@ -1,2 +1,2 @@
-export { ValidationError } from "./ValidationError.js";
-export type { ValidationErrorIssue } from "./ValidationError.types.js";
+export * from "./ValidationError.js";
+export * from "./ValidationError.types.js";

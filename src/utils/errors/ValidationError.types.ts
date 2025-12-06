@@ -1,6 +1,3 @@
-/**
- * @public
- */
 export interface ValidationErrorIssue {
 	issues: ValidationErrorIssue[] | null;
 	message: string;
