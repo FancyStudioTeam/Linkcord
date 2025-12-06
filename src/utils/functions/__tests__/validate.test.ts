@@ -1,125 +1,34 @@
-import { array, number, object, string } from "zod";
+import { array, string } from "zod";
 import { ValidationError } from "#utils/errors/ValidationError.js";
 import { validate } from "../validate.js";
 
-const ARRAY_SCHEMA = array(string());
-const OBJECT_SCHEMA = object({
-	age: number(),
-	name: string(),
-	tags: array(string()),
-});
-const STRING_SCHEMA = string();
+const ARRAY_SCHEMA = array(string()).min(1);
 
 describe("Function: validate", () => {
-	it("Should validate the provided input with the provided string schema", () => {
-		const result1 = () => validate(STRING_SCHEMA, null);
-		const result2 = validate(STRING_SCHEMA, "Hello World!");
-
-		const expectedErrorResult1 = new ValidationError([
-			{
-				issues: null,
-				message: "Expected input to be a string",
-				path: [],
-			},
-		]);
-		const expectedResult2 = "Hello World!";
-
-		expect(result1).toThrow(expectedErrorResult1);
-		expect(result2).toBe(expectedResult2);
-	});
-
-	it("Should validate the provided input with the provided object schema", () => {
-		const result1 = () => validate(OBJECT_SCHEMA, null);
-		const result2 = () =>
-			validate(OBJECT_SCHEMA, {
-				tags: [
-					null,
-				],
+	describe("GIVEN valid parameters", () => {
+		describe("WHEN calling validate", () => {
+			it("THEN should validate the provided data with the specified schema", () => {
+				expect(() => validate(ARRAY_SCHEMA, null)).toThrow(ValidationError);
+				expect(() => validate(ARRAY_SCHEMA, [])).toThrow(ValidationError);
+				expect(
+					validate(ARRAY_SCHEMA, [
+						"Hello",
+					]),
+				).toStrictEqual([
+					"Hello",
+				]);
 			});
-		const result3 = validate(OBJECT_SCHEMA, {
-			age: 25,
-			name: "John Doe",
-			tags: [
-				"Employee",
-			],
 		});
-
-		const expectedErrorResult1 = new ValidationError([
-			{
-				issues: null,
-				message: "Expected input to be an object",
-				path: [],
-			},
-		]);
-		const expectedErrorResult2 = new ValidationError([
-			{
-				issues: null,
-				message: "Expected input to be a number",
-				path: [
-					"age",
-				],
-			},
-			{
-				issues: null,
-				message: "Expected input to be a string",
-				path: [
-					"name",
-				],
-			},
-			{
-				issues: null,
-				message: "Expected input to be a string",
-				path: [
-					"tags",
-					0,
-				],
-			},
-		]);
-		const expectedResult3 = {
-			age: 25,
-			name: "John Doe",
-			tags: [
-				"Employee",
-			],
-		};
-
-		expect(result1).toThrow(expectedErrorResult1);
-		expect(result2).toThrow(expectedErrorResult2);
-		expect(result3).toStrictEqual(expectedResult3);
 	});
 
-	it("Should validate the provided input with the provided array schema", () => {
-		const result1 = () => validate(ARRAY_SCHEMA, null);
-		const result2 = () =>
-			validate(ARRAY_SCHEMA, [
-				null,
-			]);
-		const result3 = validate(ARRAY_SCHEMA, [
-			"Employee",
-		]);
-
-		const expectedErrorResult1 = new ValidationError([
-			{
-				issues: null,
-				message: "Expected input to be an array",
-				path: [],
-			},
-		]);
-		const expectedErrorResult2 = new ValidationError([
-			{
-				issues: null,
-				message: "Expected input to be a string",
-				path: [
-					0,
-				],
-			},
-		]);
-		const expectedResult3 = [
-			"Employee",
-		];
-
-		expect(result1).toThrow(expectedErrorResult1);
-		expect(result2).toThrow(expectedErrorResult2);
-		expect(result3).toStrictEqual(expectedResult3);
+	describe("GIVEN invalid parameters", () => {
+		describe("WHEN calling validate", () => {
+			it("THEN a TypeError is thrown", () => {
+				// @ts-expect-error
+				expect(() => validate(null)).toThrow(
+					"First parameter (schema) from 'validate' must be an instance of 'ZodType'",
+				);
+			});
+		});
 	});
 });

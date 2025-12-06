@@ -1,4 +1,4 @@
-import { type core, parse, ZodError } from "zod";
+import { type core, parse, ZodError, ZodType } from "zod";
 import { ValidationError } from "#utils/errors/ValidationError.js";
 import type { ValidationErrorIssue } from "#utils/errors/ValidationError.types.js";
 import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
@@ -25,19 +25,25 @@ const ZOD_ISSUE_INVALID_STRING_FORMAT_STRINGS_MAP: ZodIssueInvalidStringFormatSt
 };
 const ZOD_ISSUE_TOO_BIG_STRINGS_MAP: ZodIssueTooBigStringsMap = {
 	array: ({ maximum }) => `Expected input to be an array with a maximum of ${maximum} item(s)`,
+	int: ({ maximum }) => `Expected input to be an integer greater than or equal to ${maximum}`,
 	number: ({ maximum }) => `Expected input to be a number greater than or equal to ${maximum}`,
 };
 const ZOD_ISSUE_TOO_SMALL_STRINGS_MAP: ZodIssueTooSmallStringsMap = {
 	array: ({ minimum }) => `Expected input to be an array with a minimum of ${minimum} item(s)`,
+	int: ({ minimum }) => `Expected input to be an integer less than or equal to ${minimum}`,
 	number: ({ minimum }) => `Expected input to be a number less than or equal to ${minimum}`,
 };
 
 export function validate<Schema extends core.$ZodType>(schema: Schema, input: unknown): core.output<Schema> {
+	if (!isInstanceOf(schema, ZodType)) {
+		throw new TypeError("First parameter (schema) from 'validate' must be an instance of 'ZodType'");
+	}
+
 	try {
 		return parse(schema, input);
 	} catch (error) {
 		if (!isInstanceOf(error, ZodError)) {
-			throw new Error("Exception thrown from 'validate' is not a valid 'ZodError' instance");
+			throw new Error("Exception thrown from 'validate' is not a 'ZodError' instance");
 		}
 
 		const { issues } = error;
