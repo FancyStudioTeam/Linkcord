@@ -1,5 +1,3 @@
-import type { FragmentProperties } from "./types/jsx-runtime.js";
-
 export function Fragment(properties: FragmentProperties): unknown {
 	const { children } = properties;
 
@@ -19,3 +17,7 @@ export function jsx(
 }
 
 export const jsxs = jsx;
+
+export interface FragmentProperties {
+	children: unknown[];
+}
