@@ -4,7 +4,7 @@ const ERROR_MESSAGE = "Expected type to be a string";
 
 describe("Function: exception", () => {
 	describe("GIVEN valid parameters", () => {
-		describe("WHEN calling exception without a scpecified constructor", () => {
+		describe("WHEN calling exception without a specified constructor", () => {
 			it("THEN should throw a Error with the provided message", () => {
 				expect(() => exception(ERROR_MESSAGE)).toThrow(Error);
 				expect(() => exception(ERROR_MESSAGE)).toThrow(ERROR_MESSAGE);
