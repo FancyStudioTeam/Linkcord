@@ -1,8 +1,5 @@
 {
 	"dependencies": {
-		"glob": "11.0.3",
-		"ts-mixer": "6.0.4",
-		"ts-pattern": "5.9.0",
 		"zod": "4.1.12"
 	},
 	"description": "An opinionated framework made in TypeScript for building Discord bots.",
