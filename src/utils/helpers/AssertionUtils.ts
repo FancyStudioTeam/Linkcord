@@ -21,8 +21,7 @@ function isEnum<Enum>(input: unknown, _enum: Enum): input is Enum {
 	return isIncluded;
 }
 
-// biome-ignore lint/complexity/noBannedTypes: Expect any function.
-function isFunction(input: unknown): input is Function {
+function isFunction(input: unknown): input is (...args: unknown[]) => unknown {
 	return typeof input === "function";
 }
 
@@ -34,10 +33,6 @@ function isInteger(input: unknown): input is number {
 	return isNumber(input) && Number.isInteger(input);
 }
 
-function isNegativeNumber(input: unknown): input is number {
-	return isNumber(input) && input < 0;
-}
-
 function isNull(input: unknown): input is null {
 	return input === null;
 }
@@ -47,11 +42,7 @@ function isNumber(input: unknown): input is number {
 }
 
 function isObject(input: unknown): input is object {
-	return typeof input === "object" && input !== null;
-}
-
-function isPositiveNumber(input: unknown): input is number {
-	return isNumber(input) && input > 0;
+	return typeof input === "object" && !isNull(input);
 }
 
 function isString(input: unknown): input is string {
@@ -74,11 +65,9 @@ export const AssertionUtils = Object.freeze({
 	isFunction,
 	isInstanceOf,
 	isInteger,
-	isNegativeNumber,
 	isNull,
 	isNumber,
 	isObject,
-	isPositiveNumber,
 	isString,
 	isSymbol,
 	isUndefined,
