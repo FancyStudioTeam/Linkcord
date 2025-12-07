@@ -1,5 +1,8 @@
 import type { ClientEvents } from "#client/index.js";
 
+/**
+ * Represents the configuration options for an event handled by the event handler.
+ */
 export interface DefineEventConfig {
 	/** Whether the event should be ignored from the event handler. */
 	disabled?: boolean;
