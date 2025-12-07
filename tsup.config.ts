@@ -1,5 +1,5 @@
-import { esbuildPluginVersionInjector } from "esbuild-plugin-version-injector";
 import { defineConfig } from "tsup";
+import replacePlugin from "unplugin-replace/esbuild";
 
 export default defineConfig({
 	clean: true,
@@ -9,7 +9,7 @@ export default defineConfig({
 		"src/jsx-runtime.ts",
 	],
 	esbuildPlugins: [
-		esbuildPluginVersionInjector(),
+		replacePlugin(),
 	],
 	format: "esm",
 });

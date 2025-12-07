@@ -1,25 +1,25 @@
 {
 	"dependencies": {
-		"zod": "4.1.12"
+		"zod": "4.1.13"
 	},
 	"description": "An opinionated framework made in TypeScript for building Discord bots.",
 	"devDependencies": {
-		"@biomejs/biome": "2.3.6",
-		"@commitlint/cli": "20.1.0",
-		"@commitlint/config-conventional": "20.0.0",
-		"@commitlint/types": "20.0.0",
-		"@microsoft/api-extractor": "7.55.1",
-		"@swc/core": "1.15.1",
+		"@biomejs/biome": "2.3.8",
+		"@commitlint/cli": "20.2.0",
+		"@commitlint/config-conventional": "20.2.0",
+		"@commitlint/types": "20.2.0",
+		"@microsoft/api-extractor": "7.55.2",
+		"@swc/core": "1.15.3",
 		"@types/node": "24.10.1",
-		"esbuild-plugin-version-injector": "1.2.1",
 		"husky": "9.1.7",
 		"lint-staged": "16.2.7",
-		"rimraf": "6.1.0",
+		"rimraf": "6.1.2",
 		"tsup": "8.5.1",
 		"tsx": "4.21.0",
 		"typescript": "5.9.3",
+		"unplugin-replace": "0.6.2",
 		"vite-tsconfig-paths": "5.1.4",
-		"vitest": "4.0.8"
+		"vitest": "4.0.15"
 	},
 	"engines": {
 		"node": ">=22.18.0"
