@@ -1,5 +1,5 @@
 import { validate } from "#utils/functions/validate.js";
-import type { EventConfig } from "../loaders/EventsLoader.types.js";
+import type { EventConfig } from "../loaders/EventLoader.types.js";
 import { EventSchema } from "../schemas/EventSchema.js";
 import type { DefineEventConfig } from "./defineEventConfig.types.js";
 
