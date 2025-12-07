@@ -1,0 +1,90 @@
+import type { Dirent } from "node:fs";
+import { glob } from "node:fs/promises";
+import { basename } from "node:path";
+import { emitWarning } from "node:process";
+import type { Client, ClientEvents } from "#client/index.js";
+import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
+import { ImportUtils } from "#utils/helpers/ImportUtils.js";
+import type { EventConfig, EventHandler } from "./EventLoader.types.js";
+
+const { importFile, resolvePath } = ImportUtils;
+
+export class EventLoader {
+	declare readonly client: Client;
+	declare readonly eventsFolderPath: string;
+
+	constructor(eventsFolderPath: string, client: Client) {
+		defineImmutableProperty(this, "client", client);
+		defineImmutableProperty(this, "eventsFolderPath", eventsFolderPath);
+	}
+
+	static EVENTS_GLOB_PATTERNS = [
+		"**/*.event.{js,mjs,cjs,jsx,ts,mts,cts,tsx}",
+	];
+
+	async #asyncGeneratorToArray<Item>(asyncIterator: AsyncIterable<Item>): Promise<Item[]> {
+		const result: Item[] = [];
+
+		for await (const value of asyncIterator) {
+			result.push(value);
+		}
+
+		return result;
+	}
+
+	async #getEventFilePaths(): Promise<Dirent<string>[]> {
+		const { eventsFolderPath } = this;
+		const { EVENTS_GLOB_PATTERNS } = EventLoader;
+
+		const filePathsAsyncGenerator = glob(EVENTS_GLOB_PATTERNS, {
+			cwd: eventsFolderPath,
+			exclude: [
+				"node_modules",
+			],
+			withFileTypes: true,
+		});
+		const filePathsArray = await this.#asyncGeneratorToArray(filePathsAsyncGenerator);
+
+		return filePathsArray;
+	}
+
+	async #importEventFile(eventFilePath: Dirent<string>): Promise<void> {
+		const { client } = this;
+		const { name: eventFileName, parentPath: eventFileParentPath } = eventFilePath;
+
+		const resolvedEventFilePath = resolvePath(eventFileParentPath, eventFileName);
+		const importedEventFileData = await importFile<ImportedEventFileData>(resolvedEventFilePath);
+
+		const { config, handler } = importedEventFileData;
+		const { disabled, name, once } = config;
+
+		if (disabled) {
+			return this.#showDisabledEventWarning(resolvedEventFilePath);
+		}
+
+		const { events } = client;
+
+		return void events.addEventListener(name, Boolean(once), handler);
+	}
+
+	#showDisabledEventWarning(eventFilePathString: string): void {
+		const fileName = basename(eventFilePathString);
+		const warningMessage = `Event file '${fileName}' is disabled and will be ignored from the event handler`;
+
+		emitWarning(warningMessage, {
+			code: "EVENTS_HANDLER",
+		});
+	}
+
+	async registerEvents(): Promise<void> {
+		const eventFilePaths = await this.#getEventFilePaths();
+		const eventFileImportPromises = eventFilePaths.map((eventFilePath) => this.#importEventFile(eventFilePath));
+
+		await Promise.all(eventFileImportPromises);
+	}
+}
+
+interface ImportedEventFileData {
+	config: EventConfig;
+	handler: EventHandler<ClientEvents>;
+}
