@@ -1,8 +1,6 @@
+import { env } from "node:process";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
-
-const { env } = process;
-const { GITHUB_ACTIONS } = env;
 
 export default defineConfig({
 	plugins: [
@@ -14,7 +12,7 @@ export default defineConfig({
 	],
 	test: {
 		globals: true,
-		reporters: GITHUB_ACTIONS
+		reporters: env.GITHUB_ACTIONS
 			? [
 					"tree",
 					"github-actions",

@@ -1,18 +1,27 @@
+import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
+
+const { isArray } = AssertionUtils;
+
 export function Fragment(properties: FragmentProperties): unknown {
 	const { children } = properties;
 
-	return Array.isArray(children) ? children.flat() : children;
+	if (isArray(children)) {
+		return children.flat();
+	}
+
+	return children;
 }
 
 export function jsx(
-	// biome-ignore lint/complexity/noBannedTypes: Expect any function.
-	componentFunction: Function,
+	componentFunction: ComponentFunction,
 	properties: Record<string, unknown>,
 	...children: unknown[]
 ): unknown {
+	const { children: propertiesChildren } = properties;
+
 	return componentFunction({
 		...properties,
-		children: properties.children ?? children,
+		children: propertiesChildren ?? children,
 	});
 }
 
@@ -21,3 +30,5 @@ export const jsxs = jsx;
 export interface FragmentProperties {
 	children: unknown[];
 }
+
+type ComponentFunction = (...args: unknown[]) => unknown;
