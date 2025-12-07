@@ -16,11 +16,11 @@ export default defineConfig({
 		globals: true,
 		reporters: GITHUB_ACTIONS
 			? [
-					"verbose",
+					"tree",
 					"github-actions",
 				]
 			: [
-					"verbose",
+					"tree",
 				],
 		typecheck: {
 			enabled: true,
