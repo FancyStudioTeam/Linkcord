@@ -1,0 +1,10 @@
+import type { ClientEvents } from "#client/index.js";
+
+export interface DefineEventConfig {
+	/** Whether the event should be ignored from the event handler. */
+	disabled?: boolean;
+	/** The name of the event. */
+	name: ClientEvents;
+	/** Whether the event should be emitted once. */
+	once?: boolean;
+}
