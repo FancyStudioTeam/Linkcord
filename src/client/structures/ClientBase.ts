@@ -44,27 +44,45 @@ export class ClientBase {
 	}
 
 	/**
-	 * Registers all framework modules for the provided Discord client.
+	 * Prepares and registers the Discord commands into the main Discord client.
 	 *
-	 * @param client - The main Discord client instance where the modules will be registered.
+	 * @param root - The root directory where the commands directory is located.
+	 * @param commandsDirectory - The name of the directory where the command files are located.
+	 * @param client - The main Discord client instance where the commands will be registered.
 	 */
-	async #register(client: Client): Promise<void> {
+	async #prepareCommands(root: string, commandsDirectory: string, client: Client): Promise<void> {
+		const commandsFolderPath = this.#createDirectoryPath(root, commandsDirectory);
+		const commandLoader = new CommandLoader(commandsFolderPath, client);
+
+		await commandLoader.registerCommands();
+	}
+
+	/**
+	 * Prepares and registers the Discord events into the main Discord client.
+	 *
+	 * @param root - The root directory where the events directory is located.
+	 * @param eventsDirectory - The name of the directory where the event files are located.
+	 * @param client - The main Discord client instance where the events will be registered.
+	 */
+	async #prepareEvents(root: string, eventsDirectory: string, client: Client): Promise<void> {
+		const eventsFolderPath = this.#createDirectoryPath(root, eventsDirectory);
+		const eventLoader = new EventLoader(eventsFolderPath, client);
+
+		await eventLoader.registerEvents();
+	}
+
+	/**
+	 * Initializes the framework by registering all modules into the main Discord client.
+	 *
+	 * @param client - The main Discord client instance where the framework modules will be registered.
+	 */
+	protected async init(client: Client): Promise<void> {
 		const locations = ConfigurationUtils.getLocations();
 		const { commands, events, root } = locations;
 
-		const commandsFolderPath = this.#createDirectoryPath(root, commands);
-		const eventsFolderPath = this.#createDirectoryPath(root, events);
-
-		const commandLoader = new CommandLoader(commandsFolderPath, client);
-		const eventLoader = new EventLoader(eventsFolderPath, client);
-
 		await Promise.all([
-			commandLoader.registerCommands(),
-			eventLoader.registerEvents(),
+			this.#prepareCommands(root, commands, client),
+			this.#prepareEvents(root, events, client),
 		]);
-	}
-
-	async init(client: Client): Promise<void> {
-		await this.#register(client);
 	}
 }
