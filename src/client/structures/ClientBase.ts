@@ -3,7 +3,11 @@ import { cwd } from "node:process";
 import { getOptions } from "#configuration/helpers/ConfigurationUtils.js";
 import { CommandLoader } from "#handlers/commands/loaders/CommandLoader.js";
 import { EventLoader } from "#handlers/events/loaders/EventLoader.js";
+import type { Snowflake } from "#types/index.js";
+import { SnowflakeUtils } from "#utils/index.js";
 import type { Client } from "./Client.js";
+
+const { cast } = SnowflakeUtils;
 
 /**
  * Represents the base structure of the main Discord client instance.
@@ -13,6 +17,23 @@ import type { Client } from "./Client.js";
  * foundation for initializing and managing the main Discord client.
  */
 export class ClientBase {
+	/**
+	 * The application ID associated with the application token.
+	 *
+	 * @remarks
+	 * This value is retrieved by decoding the first segment of the application token
+	 * which contains the application ID encoded in Base64.
+	 */
+	get applicationId(): Snowflake {
+		const { token } = getOptions();
+		const [encodedApplicationId] = token.split(".");
+
+		const base64Buffer = Buffer.from(encodedApplicationId, "base64");
+		const decodedApplicationId = base64Buffer.toString("utf-8");
+
+		return cast(decodedApplicationId);
+	}
+
 	/**
 	 * The gateway intents used when connecting the Discord client to the gateway.
 	 *
