@@ -1,7 +1,8 @@
 import { basename, join } from "node:path";
 import { pathToFileURL } from "node:url";
+import type { ImportFileOptions } from "./ImportUtils.types.js";
 
-async function importFile<ImportData>(path: string, options?: ImportFileOptions): Promise<ImportData> {
+export async function importFile<ImportData>(path: string, options?: ImportFileOptions): Promise<ImportData> {
 	const { requiredDefaultExport } = options ?? {
 		requiredDefaultExport: false,
 	};
@@ -15,18 +16,9 @@ async function importFile<ImportData>(path: string, options?: ImportFileOptions)
 	return data;
 }
 
-function resolvePath(...fragments: string[]): string {
+export function resolvePath(...fragments: string[]): string {
 	const normalizedPath = join(...fragments);
 	const { href } = pathToFileURL(normalizedPath);
 
 	return href;
-}
-
-export const ImportUtils = Object.freeze({
-	importFile,
-	resolvePath,
-});
-
-interface ImportFileOptions {
-	requiredDefaultExport?: boolean;
 }
