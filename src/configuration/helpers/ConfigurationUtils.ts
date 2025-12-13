@@ -34,7 +34,7 @@ export async function loadConfigurationFile(workingDirectory = cwd()): Promise<v
 		const importedConfigurationFileData = await importFile<ImportedConfigurationFileData>(
 			resolvedConfigurationFilePath,
 			{
-				requiredDefaultExport: true,
+				requireDefault: true,
 			},
 		);
 

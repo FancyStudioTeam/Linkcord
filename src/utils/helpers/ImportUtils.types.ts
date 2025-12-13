@@ -1,4 +1,4 @@
 export interface ImportFileOptions {
-	requireDefault: boolean;
-	requiredExports: string[];
+	requireDefault?: boolean;
+	requiredExports?: string[];
 }

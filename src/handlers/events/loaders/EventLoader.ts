@@ -41,7 +41,7 @@ export class EventLoader {
 
 		const resolvedEventFilePath = resolvePath(eventFileParentPath, eventFileName);
 		const importedEventFileData = await importFile<ImportedEventFileData>(resolvedEventFilePath, {
-			requiredNamedExports: [
+			requiredExports: [
 				"config",
 				"handler",
 			],
