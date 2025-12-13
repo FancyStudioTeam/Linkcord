@@ -1,6 +1,6 @@
 import { join } from "node:path";
 import { cwd } from "node:process";
-import { ConfigurationUtils } from "#configuration/helpers/ConfigurationUtils.js";
+import { getOptions } from "#configuration/helpers/ConfigurationUtils.js";
 import { CommandLoader } from "#handlers/commands/loaders/CommandLoader.js";
 import { EventLoader } from "#handlers/events/loaders/EventLoader.js";
 import type { Client } from "./Client.js";
@@ -20,7 +20,7 @@ export class ClientBase {
 	 * This value is retrieved from the framework configuration.
 	 */
 	get intents(): number {
-		return ConfigurationUtils.getIntents();
+		return getOptions().intents;
 	}
 
 	/**
@@ -30,7 +30,7 @@ export class ClientBase {
 	 * This value is retrieved from the framework configuration.
 	 */
 	get token(): string {
-		return ConfigurationUtils.getToken();
+		return getOptions().token;
 	}
 
 	/**
@@ -77,7 +77,7 @@ export class ClientBase {
 	 * @param client - The main Discord client instance where the framework modules will be registered.
 	 */
 	protected async init(client: Client): Promise<void> {
-		const locations = ConfigurationUtils.getLocations();
+		const { locations } = getOptions();
 		const { commands, events, root } = locations;
 
 		await Promise.all([
