@@ -26,10 +26,9 @@ export class ClientBase {
 	 */
 	get applicationId(): Snowflake {
 		const { token } = getOptions();
-		const [encodedApplicationId] = token.split(".");
 
-		const base64Buffer = Buffer.from(encodedApplicationId, "base64");
-		const decodedApplicationId = base64Buffer.toString("utf-8");
+		const [encodedApplicationId] = token.split(".");
+		const decodedApplicationId = atob(encodedApplicationId);
 
 		return cast(decodedApplicationId);
 	}
