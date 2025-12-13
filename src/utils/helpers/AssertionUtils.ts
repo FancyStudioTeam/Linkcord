@@ -1,4 +1,5 @@
-import type { Constructor } from "#utils/types/Util.js";
+// biome-ignore lint/suspicious/noShadowRestrictedNames: (x)
+import type { Constructor, Function } from "#utils/types/Util.js";
 
 export function isArray<Item>(input: unknown): input is Item[] {
 	return Array.isArray(input);
@@ -12,21 +13,23 @@ export function isBoolean(input: unknown): input is boolean {
 	return typeof input === "boolean";
 }
 
-export function isEnum<Enum>(input: unknown, _enum: Enum): input is Enum {
-	if (!isObject(_enum)) return false;
+export function isEnum<Enum>(input: unknown, TargetEnum: Enum): input is Enum {
+	if (!isObject(TargetEnum)) {
+		return false;
+	}
 
-	const objectValues = Object.values(_enum);
+	const objectValues = Object.values(TargetEnum);
 	const isIncluded = objectValues.includes(input);
 
 	return isIncluded;
 }
 
-export function isFunction(input: unknown): input is (...args: unknown[]) => unknown {
+export function isFunction(input: unknown): input is Function {
 	return typeof input === "function";
 }
 
-export function isInstanceOf<Class>(input: unknown, _class: Constructor<Class>): input is Class {
-	return input instanceof _class;
+export function isInstanceOf<Class>(input: unknown, TargetClass: Constructor<Class>): input is Class {
+	return input instanceof TargetClass;
 }
 
 export function isInteger(input: unknown): input is number {
