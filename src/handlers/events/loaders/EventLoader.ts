@@ -47,7 +47,6 @@ export class EventLoader {
 	}
 
 	async #importEventFile(eventFilePath: Dirent<string>): Promise<void> {
-		const { client } = this;
 		const { name: eventFileName, parentPath: eventFileParentPath } = eventFilePath;
 
 		const resolvedEventFilePath = resolvePath(eventFileParentPath, eventFileName);
@@ -60,6 +59,7 @@ export class EventLoader {
 			return this.#showDisabledEventWarning(resolvedEventFilePath);
 		}
 
+		const { client } = this;
 		const { events } = client;
 
 		return void events.addEventListener(name, Boolean(once), handler);
@@ -71,6 +71,7 @@ export class EventLoader {
 
 		emitWarning(warningMessage, {
 			code: "EVENTS_HANDLER",
+			type: "Disabled Event Warning",
 		});
 	}
 
