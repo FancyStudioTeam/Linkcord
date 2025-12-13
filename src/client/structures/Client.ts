@@ -4,11 +4,9 @@ import { GatewayManager } from "#gateway/index.js";
 import { RESTManager } from "#rest/index.js";
 import type { User } from "#structures/index.js";
 import type { Snowflake } from "#types/index.js";
-import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
+import { isUndefined } from "#utils/helpers/AssertionUtils.js";
 import { type ClientDebugOptions, ClientEvents } from "./Client.types.js";
 import { ClientBase } from "./ClientBase.js";
-
-const { isUndefined } = AssertionUtils;
 
 const BRACKETS_REGEX = /^\[*(.*?)\]*$/;
 

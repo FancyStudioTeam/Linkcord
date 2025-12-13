@@ -13,11 +13,10 @@ import type {
 	PrimaryGuild,
 	Snowflake,
 } from "#types/index.js";
-import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
+import { isUndefined } from "#utils/helpers/AssertionUtils.js";
 import { BitFieldResolver, FormatterUtils } from "#utils/index.js";
 import { Base } from "./Base.js";
 
-const { isUndefined } = AssertionUtils;
 const { hexColor, userMention } = FormatterUtils;
 
 /**

@@ -1,6 +1,4 @@
-import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
-
-const { isObject, isString } = AssertionUtils;
+import { isObject, isString } from "#utils/helpers/AssertionUtils.js";
 
 export function defineImmutableProperty<Object extends object, Name extends string, Value>(
 	parent: Object,

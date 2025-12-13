@@ -1,6 +1,6 @@
 import type { Snowflake } from "#types/index.js";
 import { ONE_SECOND_MILLISECONDS } from "#utils/Constants.js";
-import { AssertionUtils } from "./AssertionUtils.js";
+import { isArray, isEnum, isInstanceOf, isNumber, isString } from "./AssertionUtils.js";
 import {
 	CodeBlockLanguage,
 	HeadingLevel,
@@ -8,8 +8,6 @@ import {
 	type RecursiveArray,
 	TimestampStyle,
 } from "./FormatterUtils.types.js";
-
-const { isArray, isEnum, isInstanceOf, isNumber, isString } = AssertionUtils;
 
 const HEX_COLOR_DIGITS = 6;
 const HEXADECIMAL_BASE = 16;

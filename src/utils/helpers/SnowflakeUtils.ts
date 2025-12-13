@@ -1,7 +1,5 @@
 import type { Snowflake } from "#types/index.js";
-import { AssertionUtils } from "./AssertionUtils.js";
-
-const { isBigInt, isString } = AssertionUtils;
+import { isBigInt, isString } from "./AssertionUtils.js";
 
 const DISCORD_EPOCH_BIGINT = 1420070400000n;
 const DISCORD_SNOWFLAKE_REGEX = /^(?<id>\d{17,20})$/;

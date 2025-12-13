@@ -1,11 +1,10 @@
 import type { Client } from "#client/index.js";
 import { parseEmbeds } from "#transformers/Messages.js";
 import type { APIMessage, Embed, Snowflake } from "#types/index.js";
-import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
+import { isUndefined } from "#utils/helpers/AssertionUtils.js";
 import { FormatterUtils } from "#utils/index.js";
 import { Base } from "./Base.js";
 
-const { isUndefined } = AssertionUtils;
 const { messageLink } = FormatterUtils;
 
 /**

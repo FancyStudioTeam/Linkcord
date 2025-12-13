@@ -1,8 +1,6 @@
 import { styleText } from "node:util";
-import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
+import { isNumber, isSymbol } from "#utils/helpers/AssertionUtils.js";
 import type { ValidationErrorIssue } from "./ValidationError.types.js";
-
-const { isNumber, isSymbol } = AssertionUtils;
 
 export class ValidationError extends Error {
 	constructor(issues: ValidationErrorIssue[]) {

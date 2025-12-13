@@ -1,6 +1,4 @@
-import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
-
-const { isArray } = AssertionUtils;
+import { isArray } from "#utils/helpers/AssertionUtils.js";
 
 export function Fragment(properties: FragmentProperties): unknown {
 	const { children } = properties;
