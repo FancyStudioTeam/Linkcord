@@ -20,16 +20,6 @@ export class EventLoader {
 		"**/*.event.{js,mjs,cjs,jsx,ts,mts,cts,tsx}",
 	];
 
-	async #asyncGeneratorToArray<Item>(asyncIterator: AsyncIterable<Item>): Promise<Item[]> {
-		const result: Item[] = [];
-
-		for await (const value of asyncIterator) {
-			result.push(value);
-		}
-
-		return result;
-	}
-
 	async #getEventFilePaths(): Promise<Dirent<string>[]> {
 		const { eventsFolderPath } = this;
 		const { EVENTS_GLOB_PATTERNS } = EventLoader;
@@ -41,7 +31,7 @@ export class EventLoader {
 			],
 			withFileTypes: true,
 		});
-		const filePathsArray = await this.#asyncGeneratorToArray(filePathsAsyncGenerator);
+		const filePathsArray = await Array.fromAsync(filePathsAsyncGenerator);
 
 		return filePathsArray;
 	}
