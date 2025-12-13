@@ -1,8 +1,7 @@
 /**
- * The types of an application command.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
  */
-export enum ApplicationCommandTypes {
+export enum ApplicationCommandType {
 	ChatInput = 1,
 	Message = 3,
 	PrimaryEntryPoint = 4,
@@ -10,10 +9,9 @@ export enum ApplicationCommandTypes {
 }
 
 /**
- * The types of an application command option of the application command.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
  */
-export enum ApplicationCommandOptionTypes {
+export enum ApplicationCommandOptionType {
 	Attachment = 11,
 	Boolean = 5,
 	Channel = 7,
@@ -28,20 +26,18 @@ export enum ApplicationCommandOptionTypes {
 }
 
 /**
- * The type of permissions of the application command.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-application-command-permission-type
  */
-export enum ApplicationCommandPermissionTypes {
+export enum ApplicationCommandPermissionType {
 	Channel = 3,
 	Role = 1,
 	User = 2,
 }
 
 /**
- * The type of the entry point of the application command.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-entry-point-command-handler-types
  */
-export enum EntryPointCommandHandlerTypes {
+export enum EntryPointCommandHandlerType {
 	AppHandler = 1,
 	DiscordLaunchActivity = 2,
 }
