@@ -4,10 +4,8 @@ import { basename } from "node:path";
 import { emitWarning } from "node:process";
 import type { Client, ClientEvents } from "#client/index.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
-import { ImportUtils } from "#utils/helpers/ImportUtils.js";
+import { importFile, resolvePath } from "#utils/helpers/ImportUtils.js";
 import type { EventConfig, EventHandler } from "./EventLoader.types.js";
-
-const { importFile, resolvePath } = ImportUtils;
 
 export class EventLoader {
 	declare readonly client: Client;
