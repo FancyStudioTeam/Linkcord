@@ -50,7 +50,12 @@ export class EventLoader {
 		const { name: eventFileName, parentPath: eventFileParentPath } = eventFilePath;
 
 		const resolvedEventFilePath = resolvePath(eventFileParentPath, eventFileName);
-		const importedEventFileData = await importFile<ImportedEventFileData>(resolvedEventFilePath);
+		const importedEventFileData = await importFile<ImportedEventFileData>(resolvedEventFilePath, {
+			requiredNamedExports: [
+				"config",
+				"handler",
+			],
+		});
 
 		const { config, handler } = importedEventFileData;
 		const { disabled, name, once } = config;
@@ -70,7 +75,7 @@ export class EventLoader {
 		const warningMessage = `Event file '${fileName}' is disabled and will be ignored from the event handler`;
 
 		emitWarning(warningMessage, {
-			code: "EVENTS_HANDLER",
+			code: "EVENT_HANDLER",
 			type: "Disabled Event Warning",
 		});
 	}
