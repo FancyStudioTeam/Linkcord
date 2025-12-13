@@ -37,9 +37,9 @@ export class Client extends ClientBase {
 
 	debug(message: string, options?: ClientDebugOptions): void {
 		const { events } = this;
-		const { label: labelOption } = options ?? {};
+		const { label: labelOption = "Client" } = options ?? {};
 
-		const label = this.#checkForBrackets(labelOption ?? "Client");
+		const label = this.#checkForBrackets(labelOption);
 
 		events.emit(ClientEvents.Debug, `${label} ${message}`);
 	}
