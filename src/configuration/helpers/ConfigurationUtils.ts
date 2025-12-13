@@ -43,10 +43,10 @@ export async function loadConfigurationFile(workingDirectory = cwd()): Promise<v
 		setOptions(defaultExport);
 		freeze();
 
-		break;
+		return;
 	}
 
-	throw new Error("Unable to find 'linkcord.config' file");
+	throw new Error("Configuration file 'linkcord.config' not found");
 }
 
 export function setOptions(options: LinkcordOptions): void {
