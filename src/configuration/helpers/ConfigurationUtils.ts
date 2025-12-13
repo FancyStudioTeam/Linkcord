@@ -38,9 +38,9 @@ export async function loadConfigurationFile(workingDirectory = cwd()): Promise<v
 			},
 		);
 
-		const { default: defaultExport } = importedConfigurationFileData;
+		const { default: linkcordOptions } = importedConfigurationFileData;
 
-		setOptions(defaultExport);
+		setOptions(linkcordOptions);
 		freeze();
 
 		return;
