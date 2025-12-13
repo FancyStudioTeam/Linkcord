@@ -14,6 +14,8 @@ export type Brand<Type, Brand extends string> = Type & {
 
 export type Constructor<Class> = new (...args: Any[]) => Class;
 
+export type Function = (...args: Any[]) => Any;
+
 export type If<Condition, TrueResult, FalseResult = null> = Condition extends true
 	? TrueResult
 	: Condition extends false
