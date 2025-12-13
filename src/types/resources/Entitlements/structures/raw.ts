@@ -8,7 +8,7 @@ export interface APIEntitlementBase {
 	application_id: Snowflake;
 	consumed?: boolean;
 	deleted: boolean;
-	expires_at: ISO8601Date | null;
+	ends_at: ISO8601Date | null;
 	id: Snowflake;
 	sku_id: Snowflake;
 	starts_at: ISO8601Date | null;
