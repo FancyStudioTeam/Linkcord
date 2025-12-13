@@ -13,7 +13,7 @@ export function defineImmutableProperty<Object extends object, Name extends stri
 		throw new TypeError("Second parameter (name) from 'defineImmutableProperty' must be a string");
 	}
 
-	Object.defineProperty(parent, name, {
+	Reflect.defineProperty(parent, name, {
 		configurable: false,
 		enumerable: false,
 		value,
