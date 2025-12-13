@@ -1,13 +1,18 @@
 import { CacheManager, EventsManager } from "#client/managers/index.js";
-import { ClientEvents, type ClientEventsMap } from "#client/types/ClientEvents.js";
 import { ConfigurationUtils } from "#configuration/helpers/ConfigurationUtils.js";
 import { GatewayManager } from "#gateway/index.js";
 import { RESTManager } from "#rest/index.js";
 import type { User } from "#structures/index.js";
 import type { Snowflake } from "#types/index.js";
-import { BaseClient } from "./BaseClient.js";
+import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
+import { type ClientDebugOptions, ClientEvents } from "./Client.types.js";
+import { ClientBase } from "./ClientBase.js";
 
-export class Client extends BaseClient {
+const { isUndefined } = AssertionUtils;
+
+const BRACKETS_REGEX = /^\[*(.*?)\]*$/;
+
+export class Client extends ClientBase {
 	readonly events = new EventsManager();
 	readonly gateway: GatewayManager;
 	readonly rest: RESTManager;
@@ -20,25 +25,25 @@ export class Client extends BaseClient {
 		this.rest = new RESTManager(this);
 	}
 
-	debug(message: string): void;
-	debug(label: `[${string}]`, message: string): void;
+	/**
+	 * Normalizes a label wrapped in one or multiple pairs of brackets,
+	 * ensuring the result contains exactly one outer pair of `[]`.
+	 *
+	 * @param label - The label to normalize.
+	 */
+	#checkForBrackets(label: string): `[${string}]` {
+		const [_, content] = label.match(BRACKETS_REGEX) ?? [];
 
-	debug(labelOrMessage: string | `[${string}]`, possibleMessage?: string): void {
-		let message: string;
-
-		if (labelOrMessage && possibleMessage) {
-			message = `${labelOrMessage} ${possibleMessage}`;
-		} else {
-			message = `[Client] ${labelOrMessage}`;
-		}
-
-		this.emit(ClientEvents.Debug, message);
+		return !isUndefined(content) ? `[${content}]` : `[Unknown]`;
 	}
 
-	emit<Event extends ClientEvents>(event: Event, ...data: ClientEventsMap[Event]): void {
+	debug(message: string, options?: ClientDebugOptions): void {
 		const { events } = this;
+		const { label: labelOption } = options ?? {};
 
-		events.emit(event, ...data);
+		const label = this.#checkForBrackets(labelOption ?? "Client");
+
+		events.emit(ClientEvents.Debug, `${label} ${message}`);
 	}
 
 	async init(): Promise<void> {

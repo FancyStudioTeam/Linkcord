@@ -6,7 +6,7 @@ import { EventLoader } from "#handlers/events/loaders/EventLoader.js";
 import type { Client } from "./Client.js";
 
 /**
- * Represents the base structure of the main Discord client.
+ * Represents the base structure of the main Discord client instance.
  *
  * @remarks
  * This class provides access to core client management and serves as the
