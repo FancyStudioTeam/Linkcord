@@ -3,17 +3,20 @@ import { pathToFileURL } from "node:url";
 import type { ImportFileOptions } from "./ImportUtils.types.js";
 
 export async function importFile<ImportData>(path: string, options?: ImportFileOptions): Promise<ImportData> {
-	const { requiredDefaultExport } = options ?? {
-		requiredDefaultExport: false,
-	};
+	const { requireDefault = false, requiredExports = [] } = options ?? {};
+	const importedFileData = await import(path);
 
-	const data = await import(path);
-
-	if (requiredDefaultExport && !("default" in data)) {
-		throw new Error(`File '${basename(path)}' must include a 'default' export`);
+	if (requireDefault && !Reflect.has(importedFileData, "default")) {
+		throw new Error(`File '${basename(path)}' must include a default export`);
 	}
 
-	return data;
+	for (const namedExport of requiredExports) {
+		if (!Reflect.has(importedFileData, namedExport)) {
+			throw new Error(`File '${basename(path)}' must include a named export named '${namedExport}'`);
+		}
+	}
+
+	return importedFileData;
 }
 
 export function resolvePath(...fragments: string[]): string {
