@@ -12,74 +12,37 @@ import type {
 /**
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-structure
  */
-export interface ActionRowComponent extends BaseComponent<ComponentType.ActionRow> {
+export interface ActionRowComponent extends ComponentBase<ComponentType.ActionRow> {
 	components: ActionRowComponents[];
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export interface BaseButtonComponent<Style extends ButtonStyle> extends BaseComponent<ComponentType.Button> {
+export interface ButtonComponentBase<Style extends ButtonStyle> extends ComponentBase<ComponentType.Button> {
 	disabled?: boolean;
 	style: Style;
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#channel-select-channel-select-structure
+ */
+export interface ChannelSelectMenuComponent extends ResolvableSelectMenuComponentBase<ComponentType.ChannelSelect> {
+	channelTypes?: ChannelType[];
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#anatomy-of-a-component
  */
-export interface BaseComponent<Type extends ComponentType> {
+export interface ComponentBase<Type extends ComponentType> {
 	id?: number;
 	type: Type;
 }
 
 /**
- * @see https://discord.com/developers/docs/components/reference#button
- */
-export interface BaseInteractableButtonComponent<Type extends InteractableButtonComponentStyle>
-	extends BaseTextableButtonComponent<Type> {
-	customId: string;
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#component-object-component-types
- */
-export interface BaseResolvableSelectMenuComponent<Type extends ResolvableSelectMenuComponentType>
-	extends BaseSelectMenuComponent<Type> {
-	defaultValues?: SelectMenuDefaultValue[];
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
- */
-export interface BaseSelectMenuComponent<Type extends SelectMenuComponentType> extends BaseComponent<Type> {
-	customId: string;
-	disabled?: boolean;
-	maxValues?: number;
-	minValues?: number;
-	placeholder?: string;
-	required?: boolean;
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#button
- */
-export interface BaseTextableButtonComponent<Style extends TextableButtonComponentStyle>
-	extends BaseButtonComponent<Style> {
-	emoji?: PartialEmoji;
-	label?: string;
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#channel-select-channel-select-structure
- */
-export interface ChannelSelectMenuComponent extends BaseResolvableSelectMenuComponent<ComponentType.ChannelSelect> {
-	channelTypes?: ChannelType[];
-}
-
-/**
  * @see https://discord.com/developers/docs/components/reference#container-container-structure
  */
-export interface ContainerComponent extends BaseComponent<ComponentType.Container> {
+export interface ContainerComponent extends ComponentBase<ComponentType.Container> {
 	accentColor?: number;
 	components: ContainerComponents[];
 	spoiler?: boolean;
@@ -88,7 +51,7 @@ export interface ContainerComponent extends BaseComponent<ComponentType.Containe
 /**
  * @see https://discord.com/developers/docs/components/reference#file-file-structure
  */
-export interface FileComponent extends BaseComponent<ComponentType.File> {
+export interface FileComponent extends ComponentBase<ComponentType.File> {
 	file: UnfurledMediaItem;
 	name?: string;
 	size?: number;
@@ -98,7 +61,7 @@ export interface FileComponent extends BaseComponent<ComponentType.File> {
 /**
  * @see https://discord.com/developers/docs/components/reference#file-upload-file-upload-structure
  */
-export interface FileUploadComponent extends BaseComponent<ComponentType.FileUpload> {
+export interface FileUploadComponent extends ComponentBase<ComponentType.FileUpload> {
 	customId: string;
 	maxValues?: number;
 	minValues?: number;
@@ -106,9 +69,17 @@ export interface FileUploadComponent extends BaseComponent<ComponentType.FileUpl
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#button
+ */
+export interface InteractableButtonComponentBase<Type extends InteractableButtonComponentStyle>
+	extends TextableButtonComponentBase<Type> {
+	customId: string;
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#label-label-structure
  */
-export interface LabelComponent extends BaseComponent<ComponentType.Label> {
+export interface LabelComponent extends ComponentBase<ComponentType.Label> {
 	component: LabelComponents;
 	description?: string;
 	label: string;
@@ -117,14 +88,14 @@ export interface LabelComponent extends BaseComponent<ComponentType.Label> {
 /**
  * @see https://discord.com/developers/docs/components/button#link-button-structure
  */
-export interface LinkButtonComponent extends BaseTextableButtonComponent<ButtonStyle.Link> {
+export interface LinkButtonComponent extends TextableButtonComponentBase<ButtonStyle.Link> {
 	url: string;
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#media-gallery-media-gallery-structure
  */
-export interface MediaGalleryComponent extends BaseComponent<ComponentType.MediaGallery> {
+export interface MediaGalleryComponent extends ComponentBase<ComponentType.MediaGallery> {
 	items: MediaGalleryItem[];
 }
 
@@ -140,16 +111,36 @@ export interface MediaGalleryItem {
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export interface PremiumButtonComponent extends BaseButtonComponent<ButtonStyle.Premium> {
+export interface PremiumButtonComponent extends ButtonComponentBase<ButtonStyle.Premium> {
 	skuId: Snowflake;
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#component-object-component-types
+ */
+export interface ResolvableSelectMenuComponentBase<Type extends ResolvableSelectMenuComponentType>
+	extends SelectMenuComponentBase<Type> {
+	defaultValues?: SelectMenuDefaultValue[];
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#section-section-structure
  */
-export interface SectionComponent extends BaseComponent<ComponentType.Section> {
+export interface SectionComponent extends ComponentBase<ComponentType.Section> {
 	accessory: SectionAccessory;
 	components: SectionComponents[];
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
+ */
+export interface SelectMenuComponentBase<Type extends SelectMenuComponentType> extends ComponentBase<Type> {
+	customId: string;
+	disabled?: boolean;
+	maxValues?: number;
+	minValues?: number;
+	placeholder?: string;
+	required?: boolean;
 }
 
 /**
@@ -163,7 +154,7 @@ export interface SelectMenuDefaultValue {
 /**
  * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
  */
-export interface SeparatorComponent extends BaseComponent<ComponentType.Separator> {
+export interface SeparatorComponent extends ComponentBase<ComponentType.Separator> {
 	divider?: boolean;
 	spacing?: SeparatorSpacingSize;
 }
@@ -171,7 +162,7 @@ export interface SeparatorComponent extends BaseComponent<ComponentType.Separato
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
  */
-export interface StringSelectMenuComponent extends BaseSelectMenuComponent<ComponentType.StringSelect> {
+export interface StringSelectMenuComponent extends SelectMenuComponentBase<ComponentType.StringSelect> {
 	options: StringSelectMenuOption[];
 }
 
@@ -189,14 +180,14 @@ export interface StringSelectMenuOption {
 /**
  * @see https://discord.com/developers/docs/components/reference#text-display-text-display-structure
  */
-export interface TextDisplayComponent extends BaseComponent<ComponentType.TextDisplay> {
+export interface TextDisplayComponent extends ComponentBase<ComponentType.TextDisplay> {
 	content: string;
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#text-input-text-input-structure
  */
-export interface TextInputComponent extends BaseComponent<ComponentType.TextInput> {
+export interface TextInputComponent extends ComponentBase<ComponentType.TextInput> {
 	customId: string;
 	maxLength?: number;
 	minLength?: number;
@@ -207,9 +198,18 @@ export interface TextInputComponent extends BaseComponent<ComponentType.TextInpu
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#button
+ */
+export interface TextableButtonComponentBase<Style extends TextableButtonComponentStyle>
+	extends ButtonComponentBase<Style> {
+	emoji?: PartialEmoji;
+	label?: string;
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#thumbnail-thumbnail-structure
  */
-export interface ThumbnailComponent extends BaseComponent<ComponentType.Thumbnail> {
+export interface ThumbnailComponent extends ComponentBase<ComponentType.Thumbnail> {
 	description?: string;
 	media: UnfurledMediaItem;
 	spoiler?: boolean;
@@ -251,7 +251,7 @@ export type ContainerComponents =
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type DangerButtonComponent = BaseInteractableButtonComponent<ButtonStyle.Danger>;
+export type DangerButtonComponent = InteractableButtonComponentBase<ButtonStyle.Danger>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button
@@ -275,7 +275,7 @@ export type LabelComponents = FileUploadComponent | SelectMenuComponent | TextIn
 /**
  * @see https://discord.com/developers/docs/components/reference#mentionable-select-mentionable-select-structure
  */
-export type MentionableSelectMenuComponent = BaseResolvableSelectMenuComponent<ComponentType.MentionableSelect>;
+export type MentionableSelectMenuComponent = ResolvableSelectMenuComponentBase<ComponentType.MentionableSelect>;
 
 /**
  * @see https://discord.com/developers/docs/components/component-object#component-object-component-types
@@ -297,7 +297,7 @@ export type ModalComponent = LabelComponent | TextDisplayComponent;
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type PrimaryButtonComponent = BaseInteractableButtonComponent<ButtonStyle.Primary>;
+export type PrimaryButtonComponent = InteractableButtonComponentBase<ButtonStyle.Primary>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
@@ -316,12 +316,12 @@ export type ResolvableSelectMenuComponentType = Exclude<SelectMenuComponentType,
 /**
  * @see https://discord.com/developers/docs/components/reference#role-select-role-select-structure
  */
-export type RoleSelectMenuComponent = BaseResolvableSelectMenuComponent<ComponentType.RoleSelect>;
+export type RoleSelectMenuComponent = ResolvableSelectMenuComponentBase<ComponentType.RoleSelect>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type SecondaryButtonComponent = BaseInteractableButtonComponent<ButtonStyle.Secondary>;
+export type SecondaryButtonComponent = InteractableButtonComponentBase<ButtonStyle.Secondary>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#section-section-accessory-components
@@ -351,7 +351,7 @@ export type SelectMenuComponentType =
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type SuccessButtonComponent = BaseInteractableButtonComponent<ButtonStyle.Success>;
+export type SuccessButtonComponent = InteractableButtonComponentBase<ButtonStyle.Success>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button
@@ -366,4 +366,4 @@ export type TextableButtonComponentStyle =
 /**
  * @see https://discord.com/developers/docs/components/reference#user-select-user-select-structure
  */
-export type UserSelectMenuComponent = BaseResolvableSelectMenuComponent<ComponentType.UserSelect>;
+export type UserSelectMenuComponent = ResolvableSelectMenuComponentBase<ComponentType.UserSelect>;
