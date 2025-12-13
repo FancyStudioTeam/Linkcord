@@ -1,5 +1,5 @@
 import { CacheManager, EventsManager } from "#client/managers/index.js";
-import { ConfigurationUtils } from "#configuration/helpers/ConfigurationUtils.js";
+import { loadConfigurationFile } from "#configuration/helpers/ConfigurationUtils.js";
 import { GatewayManager } from "#gateway/index.js";
 import { RESTManager } from "#rest/index.js";
 import type { User } from "#structures/index.js";
@@ -47,7 +47,7 @@ export class Client extends ClientBase {
 	async init(): Promise<void> {
 		this.debug("Initializing the client and its dependencies...");
 
-		await ConfigurationUtils.loadConfigurationFile();
+		await loadConfigurationFile();
 		await super.init(this);
 
 		const { gateway } = this;
