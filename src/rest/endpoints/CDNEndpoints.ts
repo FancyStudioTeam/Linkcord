@@ -17,17 +17,17 @@ export function APPLICATION_ASSET_ENDPOINT<ApplicationId extends Snowflake, Appl
 	return `app-assets/${encodeURIComponent(applicationId)}/${encodeURIComponent(applicationAsset)}` as const;
 }
 
-export function APPLICATION_STORE_STICKER_PACK_BANNER_ENDPOINT<StickerPackBannerAssetId extends Snowflake>(
-	stickerPackBannerAssetId: StickerPackBannerAssetId,
-) {
-	return `app-assets/710982414301790216/store/${encodeURIComponent(stickerPackBannerAssetId)}` as const;
-}
-
 export function APPLICATION_ASSET_STORE_ASSET_ENDPOINT<ApplicationId extends Snowflake, AssetId extends Snowflake>(
 	applicationId: ApplicationId,
 	assetId: AssetId,
 ) {
 	return `app-assets/${encodeURIComponent(applicationId)}/store/${encodeURIComponent(assetId)}` as const;
+}
+
+export function APPLICATION_STORE_STICKER_PACK_BANNER_ENDPOINT<StickerPackBannerAssetId extends Snowflake>(
+	stickerPackBannerAssetId: StickerPackBannerAssetId,
+) {
+	return `app-assets/710982414301790216/store/${encodeURIComponent(stickerPackBannerAssetId)}` as const;
 }
 
 export function APPLICATION_ICON_ENDPOINT<ApplicationId extends Snowflake, EntityImage extends string>(
