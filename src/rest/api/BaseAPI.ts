@@ -1,6 +1,13 @@
 import type { Client } from "#client/index.js";
 import type { RESTManager } from "#rest/structures/RESTManager.js";
-import { type MakeRequestOptions, RESTMethod } from "#rest/types/index.js";
+import {
+	type MakeDeleteRequestOptions,
+	type MakeGetRequestOptions,
+	type MakePatchRequestOptions,
+	type MakePostRequestOptions,
+	type MakePutRequestOptions,
+	RESTMethod,
+} from "#rest/types/index.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 
 export class BaseAPI {
@@ -14,48 +21,51 @@ export class BaseAPI {
 		defineImmutableProperty(this, "rest", rest);
 	}
 
-	protected delete<Result, QueryStringParams = never>(
-		endpoint: string,
-		options?: MakeRequestOptions<never, QueryStringParams>,
-	): Promise<Result> {
+	protected delete<Result>(endpoint: string, options?: Omit<MakeDeleteRequestOptions, "method">): Promise<Result> {
 		const { rest } = this;
 
-		return rest.makeRequest<Result, never, QueryStringParams>(RESTMethod.Delete, endpoint, options);
+		return rest.makeRequest<Result>(endpoint, {
+			...options,
+			method: RESTMethod.Delete,
+		});
 	}
 
-	protected async get<Result, QueryStringParams = never>(
-		endpoint: string,
-		options?: MakeRequestOptions<never, QueryStringParams>,
-	): Promise<Result> {
+	protected async get<Result>(endpoint: string, options?: Omit<MakeGetRequestOptions, "method">): Promise<Result> {
 		const { rest } = this;
 
-		return await rest.makeRequest<Result, never, QueryStringParams>(RESTMethod.Get, endpoint, options);
+		return await rest.makeRequest<Result>(endpoint, {
+			...options,
+			method: RESTMethod.Get,
+		});
 	}
 
-	protected async patch<Result, JSONParams = never, QueryStringParams = never>(
+	protected async patch<Result>(
 		endpoint: string,
-		options?: MakeRequestOptions<JSONParams, QueryStringParams>,
+		options?: Omit<MakePatchRequestOptions, "method">,
 	): Promise<Result> {
 		const { rest } = this;
 
-		return await rest.makeRequest<Result, JSONParams, QueryStringParams>(RESTMethod.Patch, endpoint, options);
+		return await rest.makeRequest<Result>(endpoint, {
+			...options,
+			method: RESTMethod.Patch,
+		});
 	}
 
-	protected async post<Result, JSONParams = never, QueryStringParams = never>(
-		endpoint: string,
-		options?: MakeRequestOptions<JSONParams, QueryStringParams>,
-	): Promise<Result> {
+	protected async post<Result>(endpoint: string, options?: Omit<MakePostRequestOptions, "method">): Promise<Result> {
 		const { rest } = this;
 
-		return await rest.makeRequest<Result, JSONParams, QueryStringParams>(RESTMethod.Post, endpoint, options);
+		return await rest.makeRequest<Result>(endpoint, {
+			...options,
+			method: RESTMethod.Post,
+		});
 	}
 
-	protected async put<Result, JSONParams = never, QueryStringParams = never>(
-		endpoint: string,
-		options?: MakeRequestOptions<JSONParams, QueryStringParams>,
-	): Promise<Result> {
+	protected async put<Result>(endpoint: string, options?: Omit<MakePutRequestOptions, "method">): Promise<Result> {
 		const { rest } = this;
 
-		return await rest.makeRequest<Result, JSONParams, QueryStringParams>(RESTMethod.Put, endpoint, options);
+		return await rest.makeRequest<Result>(endpoint, {
+			...options,
+			method: RESTMethod.Put,
+		});
 	}
 }

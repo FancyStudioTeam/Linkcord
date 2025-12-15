@@ -10,10 +10,7 @@ const ROUTE_TOP_LEVEL_RESOURCES_PATH = [
 ] as const;
 const ROUTE_WEBHOOKS_REGEX = /^\/webhooks\/(\d+)\/[A-Za-z0-9-_]{64,}/;
 
-export function normalizeRoute<Method extends RESTMethod>(
-	method: Method,
-	endpoint: `/${string}`,
-): `${Method} ${string}` {
+export function normalizeRoute<Method extends RESTMethod>(method: Method, endpoint: string): `${Method} ${string}` {
 	if (!endpoint.startsWith("/")) {
 		endpoint = `/${endpoint}`;
 	}

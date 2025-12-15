@@ -1,33 +1,92 @@
 import type { Snowflake } from "#types/miscellaneous/discord.js";
 import type { Locales } from "#types/miscellaneous/enums.js";
+import type { ApplicationCommandType } from "#types/resources/ApplicationCommands/enums.js";
+import type { APIPartialChannel } from "#types/resources/Channels/index.js";
+import type { APIEntitlement } from "#types/resources/Entitlements/index.js";
+import type { APIGuildMember, APIInteractionGuild } from "#types/resources/Guilds/index.js";
+import type { APIAuthorizingIntegrationOwners, APIMessage } from "#types/resources/Messages/index.js";
 import type { APIUser } from "#types/resources/Users/index.js";
-import type { InteractionContextTypes, InteractionTypes } from "../enums.js";
+import type { InteractionContextType, InteractionType } from "../enums.js";
 
 /**
- * Represents the base structure of an interaction.
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
  */
-export interface APIBaseInteraction<Type extends InteractionTypes> {
-	/** The ID of the application that the interaction is for. */
+export interface APIInteractionBase<Type extends InteractionType, Data> {
+	app_permissions: string;
 	application_id: Snowflake;
-	/** The size limit of attachments in the interaction. */
 	attachment_size_limit: number;
-	/** The ID of the channel where the interaction was sent. */
-	channel_id: Snowflake;
-	/** THe context of the interaction. */
-	context?: InteractionContextTypes;
-	/** The ID of the guild where the interaction was sent. */
+	authorizing_integration_owners: APIAuthorizingIntegrationOwners;
+	channel?: APIPartialChannel;
+	channel_id?: Snowflake;
+	context?: InteractionContextType;
+	data?: Data;
+	entitlements: APIEntitlement[];
 	guild_id?: Snowflake;
-	/** The preferred locale of the guild in the interaction. */
+	guild?: APIInteractionGuild;
 	guild_locale?: Locales;
-	/** The ID of the interaction. */
 	id: Snowflake;
-	/** The token of the interaction. */
+	locale: Locales;
+	member?: APIGuildMember;
+	message?: APIMessage;
 	token: string;
-	/** The type of the interaction. */
 	type: Type;
-	/** The user that triggered the interaction. */
-	user: APIUser;
-	/** The version of the interaction. */
+	user?: APIUser;
 	version: 1;
 }
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
+ */
+export interface APIApplicationCommandInteractionDataBase<Type extends ApplicationCommandType> {
+	guild_id?: Snowflake;
+	id: Snowflake;
+	name: string;
+	type: Type;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export interface APIContextApplicationCommandDataBase<Type extends APIContextApplicationCommandType>
+	extends APIApplicationCommandInteractionDataBase<Type> {
+	target_id: Snowflake;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
+ */
+export type APIApplicationCommandInteractionData = APIContextApplicationCommandInteractionData;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
+ */
+export type APIContextApplicationCommandInteractionData =
+	| APIMessageApplicationCommandInteractionData
+	| APIUserApplicationCommandInteractionData;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
+ */
+export type APIContextApplicationCommandType = ApplicationCommandType.Message | ApplicationCommandType.User;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ */
+export type APIInteraction = APIPingInteraction;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ */
+export type APIPingInteraction = Omit<APIInteractionBase<InteractionType.Ping, never>, "locale">;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
+ */
+export type APIMessageApplicationCommandInteractionData =
+	APIContextApplicationCommandDataBase<ApplicationCommandType.Message>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
+ */
+export type APIUserApplicationCommandInteractionData =
+	APIContextApplicationCommandDataBase<ApplicationCommandType.User>;

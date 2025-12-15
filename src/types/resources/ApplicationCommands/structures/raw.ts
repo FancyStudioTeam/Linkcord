@@ -1,19 +1,19 @@
 import type { Localizations, Snowflake } from "#types/miscellaneous/discord.js";
-import type { ApplicationIntegrationTypes } from "#types/resources/Applications/enums.js";
-import type { ChannelTypes } from "#types/resources/Channels/enums.js";
-import type { InteractionContextTypes } from "#types/resources/Interactions/enums.js";
+import type { ApplicationIntegrationType } from "#types/resources/Applications/enums.js";
+import type { ChannelType } from "#types/resources/Channels/enums.js";
+import type { InteractionContextType } from "#types/resources/Interactions/enums.js";
 import type {
-	ApplicationCommandOptionTypes,
-	ApplicationCommandPermissionTypes,
-	ApplicationCommandTypes,
-	EntryPointCommandHandlerTypes,
+	ApplicationCommandOptionType,
+	ApplicationCommandPermissionType,
+	ApplicationCommandType,
+	EntryPointCommandHandlerType,
 } from "../enums.js";
 
 /**
  * Represents an application command for chat inputs.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
  */
-export interface APIApplicationCommandChatInput extends APIBaseApplicationCommand<ApplicationCommandTypes.ChatInput> {
+export interface APIApplicationCommandChatInput extends APIBaseApplicationCommand<ApplicationCommandType.ChatInput> {
 	/** The options of the application command. */
 	options?: APIApplicationCommandOption[];
 }
@@ -36,8 +36,8 @@ export interface APIApplicationCommandOptionChoice {
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
 export interface APIApplicationCommandOptionChannel
-	extends APIBaseApplicationCommandOption<ApplicationCommandOptionTypes.Channel> {
-	channel_types?: ChannelTypes[];
+	extends APIBaseApplicationCommandOption<ApplicationCommandOptionType.Channel> {
+	channel_types?: ChannelType[];
 }
 
 /**
@@ -46,7 +46,7 @@ export interface APIApplicationCommandOptionChannel
  */
 export interface APIApplicationCommandOptionNumber
 	extends APIBaseApplicationCommandOption<
-		ApplicationCommandOptionTypes.Integer | ApplicationCommandOptionTypes.Number
+		ApplicationCommandOptionType.Integer | ApplicationCommandOptionType.Number
 	> {
 	/** Whether to autocomplete the choices of the application command option. */
 	autocomplete?: boolean;
@@ -63,7 +63,7 @@ export interface APIApplicationCommandOptionNumber
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
 export interface APIApplicationCommandOptionString
-	extends APIBaseApplicationCommandOption<ApplicationCommandOptionTypes.String> {
+	extends APIBaseApplicationCommandOption<ApplicationCommandOptionType.String> {
 	/** Whether to autocomplete the choices of the application command option. */
 	autocomplete?: boolean;
 	/** The choices of the application command option. */
@@ -80,7 +80,7 @@ export interface APIApplicationCommandOptionString
  */
 export interface APIApplicationCommandOptionSubCommand
 	extends APIBaseApplicationCommandOption<
-		ApplicationCommandOptionTypes.SubCommand | ApplicationCommandOptionTypes.SubCommandGroup
+		ApplicationCommandOptionType.SubCommand | ApplicationCommandOptionType.SubCommandGroup
 	> {
 	/** The options of the application command option. */
 	options?: APIApplicationCommandOption[];
@@ -96,7 +96,7 @@ export interface APIApplicationCommandPermissions {
 	/** Whether the application command is allowed to be used by the specified entity. */
 	permission: boolean;
 	/** The type of the permission. */
-	type: ApplicationCommandPermissionTypes;
+	type: ApplicationCommandPermissionType;
 }
 
 /**
@@ -104,20 +104,20 @@ export interface APIApplicationCommandPermissions {
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
  */
 export interface APIApplicationCommandPrimaryEntryPoint
-	extends APIBaseApplicationCommand<ApplicationCommandTypes.PrimaryEntryPoint> {
+	extends APIBaseApplicationCommand<ApplicationCommandType.PrimaryEntryPoint> {
 	/** The handler of the application command. */
-	handler: EntryPointCommandHandlerTypes;
+	handler: EntryPointCommandHandlerType;
 }
 
 /**
  * Represents the base structure of an application command.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
  */
-export interface APIBaseApplicationCommand<Type extends ApplicationCommandTypes> {
+export interface APIBaseApplicationCommand<Type extends ApplicationCommandType> {
 	/** The ID of the application where the application command is registered. */
 	application_id: Snowflake;
 	/** The contexts of the application command. */
-	contexts?: InteractionContextTypes[];
+	contexts?: InteractionContextType[];
 	/** The default member permissions of the application command. */
 	default_member_permissions: string | null;
 	/** The description of the application command. */
@@ -125,11 +125,11 @@ export interface APIBaseApplicationCommand<Type extends ApplicationCommandTypes>
 	/** The localized description of the application command. */
 	description_localizations?: Localizations;
 	/** The handler of the application command. */
-	handler?: EntryPointCommandHandlerTypes;
+	handler?: EntryPointCommandHandlerType;
 	/** The ID of the application command. */
 	id: Snowflake;
 	/** The integration types of the application command. */
-	integration_types?: ApplicationIntegrationTypes[];
+	integration_types?: ApplicationIntegrationType[];
 	/** The name of the application command. */
 	name: string;
 	/** The localized name of the application command. */
@@ -146,7 +146,7 @@ export interface APIBaseApplicationCommand<Type extends ApplicationCommandTypes>
  * Represents the base structure of an application command option.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export interface APIBaseApplicationCommandOption<Type extends ApplicationCommandOptionTypes> {
+export interface APIBaseApplicationCommandOption<Type extends ApplicationCommandOptionType> {
 	/** The description of the application command option. */
 	description: string;
 	/** The localized description of the application command option. */
@@ -227,32 +227,32 @@ export type APIApplicationCommand =
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
 export type APIApplicationCommandOptionAttachment =
-	APIBaseApplicationCommandOption<ApplicationCommandOptionTypes.Attachment>;
+	APIBaseApplicationCommandOption<ApplicationCommandOptionType.Attachment>;
 
 /**
  * Represents an application command option for booleans.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type APIApplicationCommandOptionBoolean = APIBaseApplicationCommandOption<ApplicationCommandOptionTypes.Boolean>;
+export type APIApplicationCommandOptionBoolean = APIBaseApplicationCommandOption<ApplicationCommandOptionType.Boolean>;
 
 /**
  * Represents an application command option for mentionables.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
 export type APIApplicationCommandOptionMentionable =
-	APIBaseApplicationCommandOption<ApplicationCommandOptionTypes.Mentionable>;
+	APIBaseApplicationCommandOption<ApplicationCommandOptionType.Mentionable>;
 
 /**
  * Represents an application command option for roles.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type APIApplicationCommandOptionRole = APIBaseApplicationCommandOption<ApplicationCommandOptionTypes.Role>;
+export type APIApplicationCommandOptionRole = APIBaseApplicationCommandOption<ApplicationCommandOptionType.Role>;
 
 /**
  * Represents an application command option for users.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type APIApplicationCommandOptionUser = APIBaseApplicationCommandOption<ApplicationCommandOptionTypes.User>;
+export type APIApplicationCommandOptionUser = APIBaseApplicationCommandOption<ApplicationCommandOptionType.User>;
 
 /**
  * Represents an application command option.
@@ -273,13 +273,13 @@ export type APIApplicationCommandOption =
  * Represents an application command for message contexts.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
  */
-export type APIApplicationCommandMessage = APIBaseApplicationCommand<ApplicationCommandTypes.Message>;
+export type APIApplicationCommandMessage = APIBaseApplicationCommand<ApplicationCommandType.Message>;
 
 /**
  * Represents an application command for user contexts.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
  */
-export type APIApplicationCommandUser = APIBaseApplicationCommand<ApplicationCommandTypes.User>;
+export type APIApplicationCommandUser = APIBaseApplicationCommand<ApplicationCommandType.User>;
 
 /**
  * Represents an autocomplete choice.

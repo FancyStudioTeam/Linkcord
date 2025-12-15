@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/style/noMagicNumbers: (x) */
+
 import { GatewayCloseEventCodes, GatewayOpcodes } from "#types/index.js";
 
 /** Represents the names of the opcodes. */
@@ -40,5 +42,9 @@ export const SENDABLE_OPCODES = [
 ] as const;
 
 /** The suffix of the zlib-compressed packet. */
-// biome-ignore lint/style/noMagicNumbers: These values can be magic numbers.
-export const ZLIB_SUFFIX = Buffer.from([0x00, 0x00, 0xff, 0xff]);
+export const ZLIB_SUFFIX = Buffer.from([
+	0x00,
+	0x00,
+	0xff,
+	0xff,
+]);

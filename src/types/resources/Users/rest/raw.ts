@@ -1,15 +1,6 @@
 import type { ImageDataURI, Snowflake } from "#types/miscellaneous/discord.js";
-import type { APIApplicationRoleConnection, APIConnection, APIUser, APIUserGuild } from "../structures/raw.js";
-
-/**
- * @see https://discord.com/developers/docs/resources/user#get-current-user-guilds-query-string-params
- */
-export interface RESTGetAPIUserGuildsQueryStringParams {
-	after?: Snowflake;
-	before?: Snowflake;
-	limit?: number;
-	with_counts?: boolean;
-}
+import type { APIDMChannel } from "#types/resources/Channels/index.js";
+import type { APIApplicationRoleConnection, APIConnection, APIUser } from "../structures/raw.js";
 
 /**
  * @see https://discord.com/developers/docs/resources/user#modify-current-user-json-params
@@ -21,17 +12,9 @@ export interface RESTPatchAPICurrentUserJSONParams {
 }
 
 /**
- * @see https://discord.com/developers/docs/resources/user#create-group-dm-json-params
- */
-export interface RESTPostAPIUserChannelGroupJSONParams {
-	access_tokens: string[];
-	nicks: Record<Snowflake, string>;
-}
-
-/**
  * @see https://discord.com/developers/docs/resources/user#create-dm-json-params
  */
-export interface RESTPostAPIUserChannelJSONParams {
+export interface RESTPostAPIUserDMChannelJSONParams {
 	recipient_id: Snowflake;
 }
 
@@ -70,16 +53,6 @@ export type RESTGetAPIUserApplicationRoleConnection = APIApplicationRoleConnecti
 export type RESTGetAPIUserConnections = APIConnection[];
 
 /**
- * @see https://discord.com/developers/docs/resources/user#get-current-user-guild-member
- */
-export type RESTGetAPIUserGuildMember = APIGuildMember;
-
-/**
- * @see https://discord.com/developers/docs/resources/user#get-current-user-guilds
- */
-export type RESTGetAPIUserGuilds = APIUserGuild[];
-
-/**
  * @see https://discord.com/developers/docs/resources/user#modify-current-user
  */
 export type RESTPatchAPICurrentUser = APIUser;
@@ -87,12 +60,7 @@ export type RESTPatchAPICurrentUser = APIUser;
 /**
  * @see https://discord.com/developers/docs/resources/user#create-dm
  */
-export type RESTPostAPIUserChannel = APIDMChannel;
-
-/**
- * @see https://discord.com/developers/docs/resources/user#create-group-dm
- */
-export type RESTPostAPIUserChannelGroup = APIGroupDMChannel;
+export type RESTPostAPIUserDMChannel = APIDMChannel;
 
 /**
  * @see https://discord.com/developers/docs/resources/user#update-current-user-application-role-connection-json-params

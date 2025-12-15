@@ -124,3 +124,8 @@ export interface APIUserGuild {
 	owner: boolean;
 	permissions: string;
 }
+
+/**
+ * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
+ */
+export type APIPartialUser = Partial<APIUser>;

@@ -8,8 +8,6 @@ export class Collection<Key, Value> {
 
 	/**
 	 * Indicates whether the collection exceeds its limit.
-	 *
-	 * @returns `true` if the collection exceeds its limit, `false` otherwise.
 	 */
 	get #isLimitExceeded(): boolean {
 		const entries = this.#entries;

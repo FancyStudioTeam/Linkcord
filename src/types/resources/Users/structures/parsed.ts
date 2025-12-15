@@ -1,5 +1,6 @@
 import type { Snowflake } from "#types/miscellaneous/discord.js";
 import type { GuildFeatures } from "#types/resources/Guilds/enums.js";
+// import type { PartialIntegration } from "#types/resources/Guilds/index.js";
 import type {
 	ConnectionService,
 	ConnectionVisibilityType,
@@ -38,7 +39,7 @@ export interface Collectibles {
 export interface Connection {
 	friendSync: boolean;
 	id: string;
-	integrations?: PartialIntegration[];
+	//integrations?: PartialIntegration[];
 	name: string;
 	revoked: boolean;
 	showActivity: boolean;

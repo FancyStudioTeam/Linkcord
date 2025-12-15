@@ -50,7 +50,10 @@ export interface GatewayIdentifyEventPayload {
 	/** The connection properties of the session of the client. */
 	properties: GatewayIdentifyEventPayloadProperties;
 	/** The shard information of the session of the client. */
-	shard?: [number, number];
+	shard?: [
+		number,
+		number,
+	];
 	/** The token of the client. */
 	token: string;
 }

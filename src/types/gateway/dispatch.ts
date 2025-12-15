@@ -26,7 +26,10 @@ export interface GatewayDispatchReadyEventPayload {
 	/** The ID of the session of the gateway. */
 	session_id: string;
 	/** The shard information of the gateway. */
-	shard: [number, number];
+	shard: [
+		number,
+		number,
+	];
 	/** The connected user to the gateway. */
 	user: APIUser;
 	/** The version of the Discord gateway. */

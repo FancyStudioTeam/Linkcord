@@ -1,142 +1,76 @@
 import type { Client } from "#client/index.js";
+import { ApplicationsAPI } from "#rest/api/ApplicationsAPI.js";
+import { ChannelsAPI } from "#rest/api/ChannelsAPI.js";
+import { GatewayAPI } from "#rest/api/GatewayAPI.js";
+import { MiscellaneousAPI } from "#rest/api/MiscellaneousAPI.js";
+import { normalizeRoute } from "#rest/functions/normalizeRoute.js";
+import type { MakeRequestOptions } from "#rest/types/index.js";
+import { REST_URL_BASE } from "#rest/utils/Constants.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
-import { AssertionUtils } from "#utils/helpers/AssertionUtils.js";
-import {
-	ChannelsAPI,
-	GatewayAPI,
-	type MakeRequestOptions,
-	MiscellaneousAPI,
-	ONE_SECOND_MILLISECONDS,
-	REST_URL_BASE,
-	REST_USER_AGENT,
-	REST_VERSION,
-	RESTContentType,
-	type RESTMethod,
-} from "../../index.js";
-
-const { isObject } = AssertionUtils;
+import { BucketManager } from "./BucketManager.js";
 
 export class RESTManager {
-	#globalRateLimit = false;
-
+	declare readonly applications: ApplicationsAPI;
+	declare readonly buckets: BucketManager;
 	declare readonly channels: ChannelsAPI;
 	declare readonly client: Client;
 	declare readonly gateway: GatewayAPI;
 	declare readonly miscellaneous: MiscellaneousAPI;
 
 	constructor(client: Client) {
+		defineImmutableProperty(this, "applications", new ApplicationsAPI(this));
+		defineImmutableProperty(this, "buckets", new BucketManager());
 		defineImmutableProperty(this, "channels", new ChannelsAPI(this));
 		defineImmutableProperty(this, "client", client);
 		defineImmutableProperty(this, "gateway", new GatewayAPI(this));
 		defineImmutableProperty(this, "miscellaneous", new MiscellaneousAPI(this));
 	}
 
-	private createRequestHeaders(
-		options: CreateRequestHeadersOptions = {
-			contentType: RESTContentType.ApplicationJSON,
-			withAuthorization: true,
-		},
-	): Headers {
+	get token(): string {
 		const { client } = this;
 		const { token } = client;
 
-		const { contentType, reason, withAuthorization } = options;
-		const headers = new Headers({
-			"Content-Type": contentType ?? RESTContentType.ApplicationJSON,
-			"User-Agent": REST_USER_AGENT,
+		return token;
+	}
+
+	makeRequest<Result>(endpoint: string, options: MakeRequestOptions): Promise<Result> {
+		const { method } = options;
+		const { buckets, token } = this;
+
+		const normalizedRoute = normalizeRoute(method, endpoint);
+
+		const promise = new Promise<Result>((resolve, reject) => {
+			const bucket = buckets.getBucket(normalizedRoute);
+			const requestFunction = async () => {
+				try {
+					const response = await fetch(`${REST_URL_BASE}/${endpoint}`, {
+						// @ts-expect-error
+						body: options.body ?? undefined,
+						headers: {
+							authorization: `Bot ${token}`,
+							"content-type": "application/json",
+						},
+						method,
+					});
+
+					const { headers } = response;
+
+					const bucketId = headers.get("X-RateLimit-Bucket") ?? undefined;
+					const bucket = buckets.getBucket(normalizedRoute, bucketId);
+
+					bucket.update(headers);
+
+					const data = await response.json();
+
+					resolve(data);
+				} catch (error) {
+					reject(error);
+				}
+			};
+
+			bucket.enqueue(requestFunction);
 		});
 
-		if (withAuthorization) headers.set("Authorization", `Bot ${token}`);
-		if (reason) headers.set("X-Audit-Log-Reason", reason);
-
-		return headers;
+		return promise;
 	}
-
-	private createRequestInit(method: RESTMethod, options?: MakeRequestOptions): RequestInit {
-		const { json } = options ?? {};
-
-		const headers = this.createRequestHeaders(options);
-		const data: RequestInit = {
-			headers,
-			method,
-		};
-
-		if (json) {
-			data.body = JSON.stringify(json);
-		}
-
-		return data;
-	}
-
-	createRequestUrl(endpoint: string, queryStringParams?: unknown): URL {
-		const urlObject = new URL(endpoint, `${REST_URL_BASE}/v${REST_VERSION}`);
-		const { searchParams } = urlObject;
-
-		if (isObject(queryStringParams)) {
-			for (const [key, value] of Object.entries(queryStringParams)) {
-				searchParams.append(key, String(value));
-			}
-		}
-
-		return urlObject;
-	}
-
-	async makeRequest<Result, JSONParams = never, QueryStringParams = never>(
-		method: RESTMethod,
-		endpoint: string,
-		options?: MakeRequestOptions<JSONParams, QueryStringParams>,
-	): Promise<Result> {
-		const globalRateLimit = this.#globalRateLimit;
-
-		if (globalRateLimit) {
-			throw new Error("You are being globally rate limited");
-		}
-
-		const { queryString } = options ?? {};
-
-		const init = this.createRequestInit(method, options);
-		const url = this.createRequestUrl(endpoint, queryString);
-
-		const request = new Request(url, init);
-		const response = await fetch(request);
-
-		const { headers, status } = response;
-
-		const isRateLimited = status === HTTPStatusCodes.TooManyRequests;
-		const isNoContent = status === HTTPStatusCodes.NoContent;
-
-		if (isRateLimited) {
-			const isGlobalRateLimit = headers.has("X-RateLimit-Global");
-			const rateLimitResetAfter = headers.get("X-RateLimit-Reset-After");
-
-			if (isGlobalRateLimit) {
-				this.#globalRateLimit = true;
-
-				setTimeout(() => {
-					this.#globalRateLimit = false;
-				}, Number(rateLimitResetAfter) * ONE_SECOND_MILLISECONDS);
-			} else {
-				setTimeout(
-					await this.makeRequest.bind(this)(method, endpoint, options),
-					Number(rateLimitResetAfter) * ONE_SECOND_MILLISECONDS,
-				);
-			}
-		}
-
-		if (isNoContent) {
-			return undefined as Result;
-		}
-
-		const jsonResponse = (await response.json()) as Promise<Result>;
-
-		return jsonResponse;
-	}
-}
-
-type CreateRequestHeadersOptions = Pick<MakeRequestOptions, "contentType" | "reason" | "withAuthorization">;
-
-enum HTTPStatusCodes {
-	NoContent = 204,
-	Ok = 200,
-	TooManyRequests = 429,
 }

@@ -1,8 +1,13 @@
 import { ApplicationCommandType, type CreateChatInputApplicationCommandOptions } from "#types/index.js";
-import type { ChatInputCommandHandlerDeclareOptions } from "./ChatInputCommandHandler.types.js";
+import type {
+	ChatInputCommandHandlerDeclareOptions,
+	ChatInputCommandRunOptions,
+} from "./ChatInputCommandHandler.types.js";
 
 export abstract class ChatInputCommandHandler {
-	declare declareOptions: ChatInputCommandHandlerDeclareOptions;
+	declare readonly declareOptions: ChatInputCommandHandlerDeclareOptions;
+
+	abstract run(options: ChatInputCommandRunOptions): unknown;
 
 	toJSON(): CreateChatInputApplicationCommandOptions {
 		const { declareOptions } = this;

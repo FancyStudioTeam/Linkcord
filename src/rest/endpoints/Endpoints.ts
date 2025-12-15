@@ -1,12 +1,33 @@
+/** biome-ignore-all lint/style/useNamingConvention: (x) */
+
 import type { Snowflake } from "#types/index.js";
 import { encode } from "../functions/encode.js";
 
-function application(applicationId: "@me"): string {
-	return encode`applications/${applicationId}`;
+export function APPLICATION_ENDPOINT(): "applications/@me";
+export function APPLICATION_ENDPOINT<ApplicationId extends Snowflake>(
+	applicationId: ApplicationId,
+): `applications/${ApplicationId}`;
+
+export function APPLICATION_ENDPOINT<ApplicationId extends Snowflake>(applicationId?: ApplicationId) {
+	return `applications/${encodeURIComponent(applicationId ?? "@me")}` as const;
 }
 
-function applicationActivityInstance(applicationId: Snowflake, activityInstance: string): string {
-	return encode`applications/${applicationId}/activity-instances/${activityInstance}`;
+export function APPLICATION_ACTIVITY_INSTANCE_ENDPOINT<
+	ApplicationId extends Snowflake,
+	ActivityInstanceId extends string,
+>(applicationId: ApplicationId, activityInstanceId: ActivityInstanceId) {
+	return `applications/${encodeURIComponent(applicationId)}/activity-instances/${encodeURIComponent(activityInstanceId)}` as const;
+}
+
+export function APPLICATION_COMMAND<ApplicationId extends Snowflake, CommandId extends Snowflake>(
+	applicationId: ApplicationId,
+	commandId: CommandId,
+) {
+	return `applications/${encodeURIComponent(applicationId)}/commands/${encodeURIComponent(commandId)}` as const;
+}
+
+export function APPLICATION_COMMANDS<ApplicationId extends Snowflake>(applicationId: ApplicationId) {
+	return `applications/${encodeURIComponent(applicationId)}/commands` as const;
 }
 
 function applicationEmoji(applicationId: Snowflake, emojiId: Snowflake): string {
@@ -158,12 +179,12 @@ function channelWebhooks(channelId: Snowflake): string {
 	return encode`channels/${channelId}/webhooks`;
 }
 
-function gateway(): string {
-	return "gateway";
+export function GATEWAY_BOT_ENDPOINT() {
+	return "gateway/bot" as const;
 }
 
-function gatewayBot(): string {
-	return "gateway/bot";
+export function GATEWAY_ENDPOINT() {
+	return "gateway" as const;
 }
 
 function guild(guildId: Snowflake): string {
@@ -447,8 +468,6 @@ function webhookSlack(webhookId: Snowflake, webhookToken: string): string {
 }
 
 export const Endpoints = Object.freeze({
-	application,
-	applicationActivityInstance,
 	applicationEmoji,
 	applicationEmojis,
 	applicationEntitlement,
@@ -485,8 +504,6 @@ export const Endpoints = Object.freeze({
 	channelTyping,
 	channelUserThreadsArchivedPrivate,
 	channelWebhooks,
-	gateway,
-	gatewayBot,
 	guild,
 	guildAuditLogs,
 	guildAutoModerationRule,
