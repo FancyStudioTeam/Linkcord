@@ -1,9 +1,9 @@
-import { CacheManager, EventsManager } from "#client/managers/index.js";
+import { CommandManager } from "#client/managers/CommandManager.js";
+import { CacheManager, EventManager } from "#client/managers/index.js";
 import { loadConfigurationFile } from "#configuration/helpers/ConfigurationUtils.js";
 import { GatewayManager } from "#gateway/index.js";
 import { RESTManager } from "#rest/index.js";
-import type { User } from "#structures/index.js";
-import type { Snowflake } from "#types/index.js";
+import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 import { isUndefined } from "#utils/helpers/AssertionUtils.js";
 import { type ClientDebugOptions, ClientEvents } from "./Client.types.js";
 import { ClientBase } from "./ClientBase.js";
@@ -11,25 +11,23 @@ import { ClientBase } from "./ClientBase.js";
 const BRACKETS_REGEX = /^\[*(.*?)\]*$/;
 
 export class Client extends ClientBase {
-	readonly events = new EventsManager();
-	readonly gateway: GatewayManager;
-	readonly rest: RESTManager;
-	readonly users = new CacheManager<Snowflake, User>();
+	declare readonly cache: CacheManager;
+	declare readonly commands: CommandManager;
+	declare readonly events: EventManager;
+	declare readonly gateway: GatewayManager;
+	declare readonly rest: RESTManager;
 
 	constructor() {
 		super();
 
-		this.gateway = new GatewayManager(this);
-		this.rest = new RESTManager(this);
+		defineImmutableProperty(this, "cache", new CacheManager());
+		defineImmutableProperty(this, "commands", new CommandManager());
+		defineImmutableProperty(this, "events", new EventManager());
+		defineImmutableProperty(this, "gateway", new GatewayManager(this));
+		defineImmutableProperty(this, "rest", new RESTManager(this));
 	}
 
-	/**
-	 * Normalizes a label wrapped in one or multiple pairs of brackets,
-	 * ensuring the result contains exactly one outer pair of `[]`.
-	 *
-	 * @param label - The label to normalize.
-	 */
-	#checkForBrackets(label: string): `[${string}]` {
+	#normalizeLabelBrackets(label: string): `[${string}]` {
 		const [_, content] = label.match(BRACKETS_REGEX) ?? [];
 
 		return !isUndefined(content) ? `[${content}]` : `[Unknown]`;
@@ -37,11 +35,11 @@ export class Client extends ClientBase {
 
 	debug(message: string, options?: ClientDebugOptions): void {
 		const { events } = this;
-		const { label: labelOption = "Client" } = options ?? {};
+		const { label = "Client" } = options ?? {};
 
-		const label = this.#checkForBrackets(labelOption);
+		const normalizedLabel = this.#normalizeLabelBrackets(label);
 
-		events.emit(ClientEvents.Debug, `${label} ${message}`);
+		events.emit(ClientEvents.Debug, `${normalizedLabel} ${message}`);
 	}
 
 	async init(): Promise<void> {
