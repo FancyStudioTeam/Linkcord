@@ -2,6 +2,7 @@
 	"$schema": "https://json.schemastore.org/tsconfig",
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
+		"baseUrl": "./src/",
 		"declaration": true,
 		"emitDeclarationOnly": false,
 		"emitDecoratorMetadata": true,
@@ -12,55 +13,49 @@
 		"isolatedModules": true,
 		"jsx": "react-jsx",
 		"jsxImportSource": "./src",
-		"module": "NodeNext",
+		"module": "nodenext",
 		"moduleResolution": "nodenext",
 		"outDir": "dist",
 		"paths": {
-			"#builders/*": [
-				"./src/builders/*"
-			],
 			"#client/*": [
-				"./src/client/*"
+				"client/*"
 			],
 			"#configuration/*": [
-				"./src/configuration/*"
-			],
-			"#errors/*": [
-				"./src/errors/*"
+				"configuration/*"
 			],
 			"#gateway/*": [
-				"./src/gateway/*"
+				"gateway/*"
 			],
 			"#handlers/*": [
-				"./src/handlers/*"
-			],
-			"#jsx/*": [
-				"./src/jsx/*"
+				"handlers/*"
 			],
 			"#rest/*": [
-				"./src/rest/*"
+				"rest/*"
 			],
 			"#structures/*": [
-				"./src/structures/*"
+				"structures/*"
 			],
 			"#transformers/*": [
-				"./src/transformers/*"
+				"transformers/*"
 			],
 			"#types/*": [
-				"./src/types/*"
+				"types/*"
 			],
 			"#utils/*": [
-				"./src/utils/*"
+				"utils/*"
 			]
 		},
 		"resolveJsonModule": true,
 		"skipDefaultLibCheck": true,
 		"skipLibCheck": true,
 		"strict": true,
-		"target": "ESNext",
+		"target": "esnext",
 		"types": [
 			"node",
 			"vitest/globals"
 		]
-	}
+	},
+	"include": [
+		"src/**/*.ts"
+	]
 }
