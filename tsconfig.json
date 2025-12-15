@@ -55,6 +55,9 @@
 			"vitest/globals"
 		]
 	},
+	"exclude": [
+		"src/**/*.test.ts"
+	],
 	"include": [
 		"src/**/*.ts"
 	]

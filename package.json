@@ -33,6 +33,35 @@
 		"README.md",
 		"dist"
 	],
+	"imports": {
+		"#client/*": [
+			"./dist/client/*"
+		],
+		"#configuration/*": [
+			"./dist/configuration/*"
+		],
+		"#gateway/*": [
+			"./dist/gateway/*"
+		],
+		"#handlers/*": [
+			"./dist/handlers/*"
+		],
+		"#rest/*": [
+			"./dist/rest/*"
+		],
+		"#structures/*": [
+			"./dist/structures/*"
+		],
+		"#transformers/*": [
+			"./dist/transformers/*"
+		],
+		"#types/*": [
+			"./dist/types/*"
+		],
+		"#utils/*": [
+			"./dist/utils/*"
+		]
+	},
 	"license": "MIT",
 	"lint-staged": {
 		"**/*.{js,jsx,ts,tsx,json}": [
