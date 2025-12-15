@@ -16,7 +16,7 @@ export class Collection<Key, Value> {
 		return isLimitExceeded;
 	}
 
-	get size() {
+	get size(): number {
 		const entries = this.#entries;
 		const { size } = entries;
 
