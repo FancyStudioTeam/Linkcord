@@ -1,6 +1,6 @@
 import { GatewayOpcodes } from "#types/index.js";
 
-export const OPCODE_NAMES: Record<GatewayOpcodes, string> = {
+const OPCODE_NAMES: Record<GatewayOpcodes, string> = {
 	[GatewayOpcodes.Dispatch]: "Dispatch",
 	[GatewayOpcodes.Heartbeat]: "Heartbeat",
 	[GatewayOpcodes.HeartbeatAck]: "Heartbeat Ack",
