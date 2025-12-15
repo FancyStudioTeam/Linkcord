@@ -15,6 +15,6 @@ const OPCODE_NAMES: Record<GatewayOpcodes, string> = {
 	[GatewayOpcodes.VoiceStateUpdate]: "Voice State Update",
 };
 
-export function getOpcodeName<Opcode extends GatewayOpcodes>(opcode: Opcode): (typeof OPCODE_NAMES)[Opcode] {
+export function getOpcodeName(opcode: GatewayOpcodes): string {
 	return OPCODE_NAMES[opcode];
 }
