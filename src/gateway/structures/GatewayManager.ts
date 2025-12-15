@@ -67,17 +67,21 @@ export class GatewayManager {
 
 		this.#shardsToSpawn = shardCount;
 
-		const debugMessage = dedent`
+		const gatewayInformation = dedent`
 			Gateway Information:
 				Shards: ${shardCount}
 				URL:    ${url}
-
-			Session Limit Information:
-				Total:     ${total}
+		`;
+		const sessionStartLimitInformation = dedent`
+			Session Start Limit Information:
+				Total: ${total}
 				Remaining: ${remaining}
 		`;
 
-		client.debug(debugMessage, {
+		client.debug(gatewayInformation, {
+			label: "Gateway Manager",
+		});
+		client.debug(sessionStartLimitInformation, {
 			label: "Gateway Manager",
 		});
 
