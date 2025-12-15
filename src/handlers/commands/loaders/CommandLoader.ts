@@ -48,6 +48,8 @@ export class CommandLoader {
 		if (isInstanceOf(commandHandler, ChatInputCommandHandler)) {
 			return this.#handleChatInputCommandHandler(commandHandler);
 		}
+
+		throw new Error("Unknown instance");
 	}
 
 	async #importCommandFile(commandFilePath: Dirent<string>): Promise<CreateApplicationCommandOptions> {
