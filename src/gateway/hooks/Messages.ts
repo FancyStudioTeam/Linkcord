@@ -1,4 +1,7 @@
-/* biome-ignore-all lint/style/useNamingConvention: Function names must be the exact name as the corresponding dispatch event. */
+/*
+ * biome-ignore-all lint/style/useNamingConvention: Function names must exactly
+ * match Discord dispatch event names.
+ */
 
 import { type Client, ClientEvents } from "#client/index.js";
 import type { GatewayShard } from "#gateway/structures/GatewayShard.js";
@@ -10,7 +13,8 @@ export function MESSAGE_CREATE(
 	_shard: GatewayShard,
 	messagePayload: GatewayDispatchMessageCreateEventPayload,
 ): void {
+	const { events } = client;
 	const message = new Message(client, messagePayload);
 
-	client.emit(ClientEvents.MessageCreate, message);
+	events.emit(ClientEvents.MessageCreate, message);
 }
