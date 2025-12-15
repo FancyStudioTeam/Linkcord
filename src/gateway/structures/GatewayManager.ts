@@ -69,12 +69,12 @@ export class GatewayManager {
 
 		const gatewayInformation = dedent`
 			Gateway Information:
-				Shards: ${shardCount}
-				URL:    ${url}
+				Gateway URL:        ${url}
+				Recommended Shards: ${shardCount}
 		`;
 		const sessionStartLimitInformation = dedent`
 			Session Start Limit Information:
-				Total: ${total}
+				Total:     ${total}
 				Remaining: ${remaining}
 		`;
 
