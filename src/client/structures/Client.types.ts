@@ -4,7 +4,6 @@ import type { GatewayEvent } from "#types/index.js";
 
 export interface ClientDebugOptions {
 	label?: string;
-	pairs?: ClientDebugPair[];
 }
 
 export interface ClientEventsMap {
@@ -36,11 +35,6 @@ export interface ClientEventsMap {
 		warning: string,
 	];
 }
-
-export type ClientDebugPair = readonly [
-	Key: string,
-	Value: string,
-];
 
 export enum ClientEvents {
 	ClientReady = "clientReady",
