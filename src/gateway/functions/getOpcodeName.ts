@@ -3,7 +3,7 @@ import { GatewayOpcodes } from "#types/index.js";
 const OPCODE_NAMES: Record<GatewayOpcodes, string> = {
 	[GatewayOpcodes.Dispatch]: "Dispatch",
 	[GatewayOpcodes.Heartbeat]: "Heartbeat",
-	[GatewayOpcodes.HeartbeatAck]: "Heartbeat Ack",
+	[GatewayOpcodes.HeartbeatAck]: "Heartbeat Acknowledge",
 	[GatewayOpcodes.Hello]: "Hello",
 	[GatewayOpcodes.Identify]: "Identify",
 	[GatewayOpcodes.InvalidSession]: "Invalid Session",
