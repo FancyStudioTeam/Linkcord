@@ -8,6 +8,9 @@ import type { GatewayShard } from "#gateway/structures/GatewayShard.js";
 import { Message } from "#structures/Message.js";
 import type { GatewayDispatchMessageCreateEventPayload } from "#types/index.js";
 
+/**
+ * @see https://discord.com/developers/docs/events/gateway-events#message-create
+ */
 export function MESSAGE_CREATE(
 	client: Client,
 	_shard: GatewayShard,
