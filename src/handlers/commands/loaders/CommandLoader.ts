@@ -19,7 +19,7 @@ export class CommandLoader {
 
 	static COMMANDS_GLOB_PATTERNS = [
 		"**/*.command.{js,mjs,cjs,jsx,ts,mts,cts,tsx}",
-	];
+	] as const;
 
 	async #bulkOverwriteApplicationCommands(applicationCommands: CreateApplicationCommandOptions[]): Promise<void> {
 		const { client } = this;

@@ -2,7 +2,7 @@ export class Collection<Key, Value> {
 	readonly #entries = new Map<Key, Value>();
 	readonly #limit: number;
 
-	constructor(limit = Infinity) {
+	constructor(limit: number = Infinity) {
 		this.#limit = limit;
 	}
 

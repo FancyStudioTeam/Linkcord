@@ -18,7 +18,7 @@ export class EventLoader {
 
 	static EVENTS_GLOB_PATTERNS = [
 		"**/*.event.{js,mjs,cjs,jsx,ts,mts,cts,tsx}",
-	];
+	] as const;
 
 	async #getEventFilePaths(): Promise<Dirent<string>[]> {
 		const { eventsFolderPath } = this;
