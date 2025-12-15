@@ -37,8 +37,9 @@ export class CommandLoader {
 
 		const { client } = this;
 		const { commands } = client;
+		const { chatInput } = commands;
 
-		commands.set(name, chatInputCommandHandler);
+		chatInput.set(name, chatInputCommandHandler);
 
 		return chatInputApplicationCommand;
 	}
