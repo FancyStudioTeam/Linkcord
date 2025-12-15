@@ -5,7 +5,7 @@
 
 import { type Client, ClientEvents } from "#client/index.js";
 import type { GatewayShard } from "#gateway/structures/GatewayShard.js";
-import { GatewayShardStatus } from "#gateway/types/index.js";
+import { GatewayShardStatus } from "#gateway/structures/GatewayShard.types.js";
 import { User } from "#structures/index.js";
 import type { GatewayDispatchReadyEventPayload } from "#types/index.js";
 

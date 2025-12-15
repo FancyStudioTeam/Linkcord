@@ -1,9 +1,9 @@
 import dedent from "string-dedent";
 import { type Client, ClientEvents } from "#client/index.js";
-import { GatewayShardStatus } from "#gateway/types/index.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 import type { Collection } from "#utils/index.js";
 import { GatewayShard } from "./GatewayShard.js";
+import { GatewayShardStatus } from "./GatewayShard.types.js";
 
 export class GatewayManager {
 	#shardsToSpawn = 0;
