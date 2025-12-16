@@ -1,59 +1,64 @@
 import { platform } from "node:process";
 import { type Client, ClientEvents } from "#client/index.js";
 import { GatewayShardError } from "#gateway/errors/GatewayShardError.js";
+import { getOpcodeName } from "#gateway/functions/getOpcodeName.js";
 import { DispatchHooks } from "#gateway/hooks/index.js";
-import { GatewayShardStatus, type SendableOpcodes, type SendableOpcodesPayloadMap } from "#gateway/types/index.js";
-import { OPCODE_NAMES, RESUMABLE_CLOSE_CODES, SENDABLE_OPCODES } from "#gateway/utils/Constants.js";
+import { RESUMABLE_CLOSE_EVENT_CODES, SENDABLE_OPCODES } from "#gateway/utils/Constants.js";
 import { type GatewayDispatchEvent, type GatewayEvent, GatewayOpcodes } from "#types/index.js";
-import { LINKCORD_VERSION } from "../../index.js";
+import { LINKCORD_AGENT } from "#utils/Constants.js";
+import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 import { GatewayManager } from "./GatewayManager.js";
+import { GatewayShardStatus, type SendableOpcodes, type SendableOpcodesMap } from "./GatewayShard.types.js";
 
-const GOING_AWAY_CLOSE_CODE = 1001;
-const GRACEFUL_CLOSE_CODE = 1000;
+const GOING_AWAY_CLOSE_EVENT_CODE = 1001;
+const GRACEFUL_CLOSE_EVENT_CODE = 1000;
 
 export class GatewayShard {
+	declare readonly client: Client;
+	declare readonly manager: GatewayManager;
+
 	protected resumeGatewayURL: string | null = null;
 	protected sequence: number | null = null;
 	protected sessionId: string | null = null;
 
-	readonly client: Client;
 	readonly id: number;
-	readonly manager: GatewayManager;
 
-	lastHeartbeatReceivedAt = 0;
-	lastHeartbeatSentAt = 0;
+	#lastHeartbeatReceivedAt = 0;
+	#lastHeartbeatSentAt = 0;
+	#ws: WebSocket | null = null;
+
 	status = GatewayShardStatus.Disconnected;
-	ws: WebSocket | null = null;
 
 	constructor(id: number, manager: GatewayManager) {
 		const { client } = manager;
 
-		this.client = client;
 		this.id = id;
-		this.manager = manager;
+
+		defineImmutableProperty(this, "client", client);
+		defineImmutableProperty(this, "manager", manager);
 	}
 
 	static DEFAULT_BROWSER = "Discord Client" as const;
-	static DEFAULT_DEVICE =
-		`Linkcord/${LINKCORD_VERSION} (https://github.com/FancyStudioTeam/Linkcord, v${LINKCORD_VERSION})` as const;
+	static DEFAULT_DEVICE = LINKCORD_AGENT;
 	static DEFAULT_OPERATING_SYSTEM = platform;
 
 	get #label(): `[Shard ${number}]` {
-		return `[Shard ${this.id}]`;
+		return `[Shard ${this.id}]` as const;
 	}
 
 	get latency(): number {
-		const { lastHeartbeatReceivedAt, lastHeartbeatSentAt } = this;
+		const lastHeartbeatReceivedAt = this.#lastHeartbeatReceivedAt;
+		const lastHeartbeatSentAt = this.#lastHeartbeatSentAt;
 
 		return lastHeartbeatReceivedAt - lastHeartbeatSentAt;
 	}
 
 	#getWebSocket(): WebSocket {
-		const { id, ws } = this;
+		const ws = this.#ws;
 		const { OPEN } = WebSocket;
 
 		if (!ws || ws.readyState !== OPEN) {
-			throw new GatewayShardError("WebSocket has not been opened or initialized yet.", id);
+			throw new GatewayShardError("WebSocket has not been opened or initialized yet", this.id);
 		}
 
 		return ws;
@@ -63,25 +68,29 @@ export class GatewayShard {
 		const { client, sequence } = this;
 		const label = this.#label;
 
-		client.debug(`Sending a "HEARTBEAT" packet to the Discord gateway...`, {
+		const debugMessage = `Sending a "${getOpcodeName(GatewayOpcodes.Heartbeat)}" packet to the Discord gateway...`;
+
+		client.debug(debugMessage, {
 			label,
 		});
 
-		this.lastHeartbeatSentAt = Date.now();
+		this.#lastHeartbeatSentAt = Date.now();
 		this.send(GatewayOpcodes.Heartbeat, sequence);
 	}
 
 	#identify(): void {
 		const { client, id, manager } = this;
-
 		const label = this.#label;
 
-		client.debug(`Sending an "IDENTIFY" packet to the Discord gateway...`, {
+		const debugMessage = `Sending a "${getOpcodeName(GatewayOpcodes.Identify)}" packet to the Discord gateway...`;
+
+		client.debug(debugMessage, {
 			label,
 		});
 
 		const { intents, token } = client;
 		const { shardCount } = manager;
+
 		const { DEFAULT_BROWSER, DEFAULT_DEVICE, DEFAULT_OPERATING_SYSTEM } = GatewayShard;
 
 		this.send(GatewayOpcodes.Identify, {
@@ -112,24 +121,28 @@ export class GatewayShard {
 		searchParams.append("v", gatewayVersionString);
 
 		const gatewayURLString = urlObject.toString();
+		const debugMessage = `Handshaking with the Discord gateway using URL "${gatewayURLString}"...`;
 
-		client.debug(`Handshaking with the Discord gateway using URL "${gatewayURLString}".`, {
+		client.debug(debugMessage, {
 			label,
 		});
 
-		this.ws = new WebSocket(gatewayURLString);
-		this.ws.onclose = this.#onClose.bind(this);
-		this.ws.onmessage = this.#onMessage.bind(this);
-		this.ws.onopen = this.#onOpen.bind(this);
+		this.#ws = new WebSocket(gatewayURLString);
+		this.#ws.onclose = this.#onClose.bind(this);
+		this.#ws.onmessage = this.#onMessage.bind(this);
+		this.#ws.onopen = this.#onOpen.bind(this);
 	}
 
-	#isCloseCodeResumable(code: number): boolean {
-		return RESUMABLE_CLOSE_CODES.includes(code) || code === GOING_AWAY_CLOSE_CODE;
+	#isCloseEventCodeResumable(code: number): boolean {
+		const isResumableCloseEventCode = RESUMABLE_CLOSE_EVENT_CODES.includes(code);
+		const isGoingAwaitCloseEventCode = code === GOING_AWAY_CLOSE_EVENT_CODE;
+
+		return isResumableCloseEventCode || isGoingAwaitCloseEventCode;
 	}
 
 	#onClose(closeEvent: CloseEvent): void {
 		const { code, reason } = closeEvent;
-		const isReconnectable = this.#isCloseCodeResumable(code);
+		const isReconnectable = this.#isCloseEventCodeResumable(code);
 
 		if (!isReconnectable) {
 			this.resumeGatewayURL = null;
@@ -142,16 +155,15 @@ export class GatewayShard {
 		const label = this.#label;
 
 		const baseMessage = `Session has been closed with code ${code} (${reason || "N/A"}).`;
-		const message = `${baseMessage} ${isReconnectable ? "Attempting to resume..." : "Attempting to re-identify..."}`;
+		const debugMessage = `${baseMessage} ${isReconnectable ? "Attempting to resume..." : "Attempting to re-identify..."}`;
 
 		const { events } = client;
 
-		events.emit(ClientEvents.ShardDisconnected, reason, code, isReconnectable, this);
-		client.debug(message, {
+		client.debug(debugMessage, {
 			label,
 		});
+		events.emit(ClientEvents.ShardDisconnected, reason, code, isReconnectable, this);
 
-		// Using "undefined" will use the default gateway URL from the "initializeWebSocket" method.
 		const gatewayURL = isReconnectable && resumeGatewayURL ? resumeGatewayURL : undefined;
 
 		this.#initializeWebSocket(gatewayURL);
@@ -207,7 +219,7 @@ export class GatewayShard {
 				break;
 			}
 			default: {
-				const opcodeName = OPCODE_NAMES[opcode];
+				const opcodeName = getOpcodeName(opcode);
 				const warning = `Received an unhandled opcode (${opcode}: ${opcodeName}) from "Shard ${id}".`;
 
 				events.emit(ClientEvents.Warn, warning);
@@ -229,7 +241,7 @@ export class GatewayShard {
 	}
 
 	#onMessageHeartbeatAck(): void {
-		this.lastHeartbeatReceivedAt = Date.now();
+		this.#lastHeartbeatReceivedAt = Date.now();
 	}
 
 	#onMessageHello(heartbeatInterval: number): void {
@@ -330,7 +342,7 @@ export class GatewayShard {
 		const ws = this.#getWebSocket();
 		const label = this.#label;
 
-		ws.close(GRACEFUL_CLOSE_CODE, "User requested a disconnect.");
+		ws.close(GRACEFUL_CLOSE_EVENT_CODE, "User requested a disconnect.");
 		client.debug("Disconnecting the shard from the Discord gateway...", {
 			label,
 		});
@@ -341,11 +353,11 @@ export class GatewayShard {
 		this.#initializeWebSocket();
 	}
 
-	send<Opcode extends SendableOpcodes>(opcode: Opcode, payload: SendableOpcodesPayloadMap[Opcode]): void {
+	send<Opcode extends SendableOpcodes>(opcode: Opcode, payload: SendableOpcodesMap[Opcode]): void {
 		const { id } = this;
 
 		if (!SENDABLE_OPCODES.includes(opcode)) {
-			const opcodeName = OPCODE_NAMES[opcode];
+			const opcodeName = getOpcodeName(opcode);
 
 			throw new GatewayShardError(
 				`Cannot send a non-sendable opcode (${opcode}: ${opcodeName}) to the Discord gateway.`,
