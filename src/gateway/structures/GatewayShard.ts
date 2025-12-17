@@ -53,6 +53,19 @@ export class GatewayShard {
 		return lastHeartbeatReceivedAt - lastHeartbeatSentAt;
 	}
 
+	#buildGatewayURL(baseURL: string = GatewayManager.GATEWAY_URL_BASE): string {
+		const urlObject = new URL(baseURL);
+		const { searchParams } = urlObject;
+
+		// TODO: May we should add ETF encoding and compressing
+		searchParams.append("encoding", "json");
+		searchParams.append("v", String(GatewayManager.GATEWAY_VERSION));
+
+		const urlString = urlObject.toString();
+
+		return urlString;
+	}
+
 	#getWebSocket(): WebSocket {
 		const ws = this.#ws;
 		const { OPEN } = WebSocket;
@@ -108,26 +121,18 @@ export class GatewayShard {
 		});
 	}
 
-	#initializeWebSocket(gatewayURL: string = GatewayManager.GATEWAY_URL_BASE): void {
-		const urlObject = new URL(gatewayURL);
-
-		const { searchParams } = urlObject;
+	#initializeWebSocket(baseURL: string = GatewayManager.GATEWAY_URL_BASE): void {
 		const { client } = this;
+		const gatewayURL = this.#buildGatewayURL(baseURL);
 
 		const label = this.#label;
-		const gatewayVersionString = String(GatewayManager.GATEWAY_VERSION);
-
-		searchParams.append("encoding", "json");
-		searchParams.append("v", gatewayVersionString);
-
-		const gatewayURLString = urlObject.toString();
-		const debugMessage = `Handshaking with the Discord gateway using URL "${gatewayURLString}"...`;
+		const debugMessage = `Handshaking with the Discord gateway using URL "${gatewayURL}"...`;
 
 		client.debug(debugMessage, {
 			label,
 		});
 
-		this.#ws = new WebSocket(gatewayURLString);
+		this.#ws = new WebSocket(gatewayURL);
 		this.#ws.onclose = this.#onClose.bind(this);
 		this.#ws.onmessage = this.#onMessage.bind(this);
 		this.#ws.onopen = this.#onOpen.bind(this);
@@ -172,10 +177,11 @@ export class GatewayShard {
 	async #onMessage(messageEvent: MessageEvent): Promise<void> {
 		const { data } = messageEvent;
 
-		const dataString = data.toString();
+		const dataString = String(data);
 		const message = JSON.parse(dataString) as GatewayEvent;
 
 		const { op: opcode } = message;
+
 		const { client, id } = this;
 		const { events } = client;
 
