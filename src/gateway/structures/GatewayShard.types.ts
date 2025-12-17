@@ -6,6 +6,17 @@ import {
 	type GatewayResumeEventPayload,
 } from "#types/index.js";
 
+/**
+ * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
+ *
+ * @remarks
+ * The {@link GatewayOpcodes.Heartbeat} can be sent by both the client and Discord.
+ */
+export type ReceivableOpcodes = Exclude<GatewayOpcodes, Exclude<SendableOpcodes, GatewayOpcodes.Heartbeat>>;
+
+/**
+ * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
+ */
 export type SendableOpcodes = (typeof SENDABLE_OPCODES)[number];
 
 export type SendableOpcodesMap = {
