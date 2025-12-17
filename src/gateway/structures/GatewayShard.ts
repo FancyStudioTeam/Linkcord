@@ -57,7 +57,6 @@ export class GatewayShard {
 		const urlObject = new URL(baseURL);
 		const { searchParams } = urlObject;
 
-		// TODO: May we should add ETF encoding and compressing
 		searchParams.append("encoding", "json");
 		searchParams.append("v", String(GatewayManager.GATEWAY_VERSION));
 
@@ -355,7 +354,7 @@ export class GatewayShard {
 	}
 
 	init(): void {
-		this.status = GatewayShardStatus.Connecting;
+		this.status = GatewayShardStatus.Initializing;
 		this.#initializeWebSocket();
 	}
 
