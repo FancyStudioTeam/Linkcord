@@ -1,5 +1,4 @@
 /**
- * The close event codes of the Discord gateway.
  * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-close-event-codes
  */
 export enum GatewayCloseEventCodes {
@@ -20,7 +19,6 @@ export enum GatewayCloseEventCodes {
 }
 
 /**
- * The dispatch events of the Discord gateway.
  * @see https://discord.com/developers/docs/events/gateway-events#receive-events
  */
 export enum GatewayDispatchEvents {
@@ -102,7 +100,6 @@ export enum GatewayDispatchEvents {
 }
 
 /**
- * The intents of the Discord gateway.
  * @see https://discord.com/developers/docs/events/gateway#list-of-intents
  */
 export enum GatewayIntents {
@@ -130,7 +127,6 @@ export enum GatewayIntents {
 }
 
 /**
- * The opcodes of the Discord gateway.
  * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
  */
 export enum GatewayOpcodes {
