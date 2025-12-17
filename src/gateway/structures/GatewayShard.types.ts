@@ -1,4 +1,4 @@
-import type { SENDABLE_OPCODES } from "#gateway/utils/Constants.js";
+import type { RECEIVABLE_OPCODES, SENDABLE_OPCODES } from "#gateway/utils/Constants.js";
 import {
 	type GatewayHeartbeatEventPayload,
 	type GatewayIdentifyEventPayload,
@@ -8,11 +8,8 @@ import {
 
 /**
  * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
- *
- * @remarks
- * The {@link GatewayOpcodes.Heartbeat} can be sent by both the client and Discord.
  */
-export type ReceivableOpcodes = Exclude<GatewayOpcodes, Exclude<SendableOpcodes, GatewayOpcodes.Heartbeat>>;
+export type ReceivableOpcodes = (typeof RECEIVABLE_OPCODES)[number];
 
 /**
  * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
