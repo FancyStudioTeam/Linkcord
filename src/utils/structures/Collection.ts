@@ -58,7 +58,7 @@ export class Collection<Key, Value> {
 
 	/**
 	 * @remarks
-	 * - If the collection exceeds its limit, the oldest entry will be removed
+	 * If the collection exceeds its limit, the oldest entry will be removed
 	 * before setting the new entry.
 	 */
 	set(key: Key, value: Value): void {
