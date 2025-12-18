@@ -16,6 +16,7 @@ export class ClientBase {
 	 * token which contains the application ID encoded in Base64.
 	 *
 	 * The first segment is decoded using the `atob` method:
+	 *
 	 * ```ts
 	 * atob("ODAzNTExMTAyMjQ2Nzg5MTI"); // -> "80351110224678912"
 	 * ```
