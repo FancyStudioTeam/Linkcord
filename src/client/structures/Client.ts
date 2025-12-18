@@ -1,6 +1,5 @@
 import { CommandManager } from "#client/managers/CommandManager.js";
 import { CacheManager, EventManager } from "#client/managers/index.js";
-import { loadConfigurationFile } from "#configuration/helpers/ConfigurationUtils.js";
 import { GatewayManager } from "#gateway/index.js";
 import { RESTManager } from "#rest/index.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
@@ -46,7 +45,6 @@ export class Client extends ClientBase {
 	async init(): Promise<void> {
 		this.debug("Initializing the client and its dependencies...");
 
-		await loadConfigurationFile();
 		await super.init(this);
 
 		const { gateway } = this;
