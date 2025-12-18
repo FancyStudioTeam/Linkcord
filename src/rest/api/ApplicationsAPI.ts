@@ -1,4 +1,4 @@
-import { APPLICATION_COMMANDS } from "#rest/endpoints/Endpoints.js";
+import { APPLICATION_COMMANDS_ENDPOINT } from "#rest/endpoints/Endpoints.js";
 import type {
 	CreateApplicationCommandOptions,
 	RESTPutAPIApplicationCommandsJSONParams,
@@ -25,7 +25,7 @@ export class ApplicationsAPI extends BaseAPI {
 			});
 		}
 
-		await super.put<RESTPutAPIApplicationCommandsJSONParams>(APPLICATION_COMMANDS(applicationId), {
+		await super.put<RESTPutAPIApplicationCommandsJSONParams>(APPLICATION_COMMANDS_ENDPOINT(applicationId), {
 			body: JSON.stringify(body),
 		});
 
