@@ -33,8 +33,8 @@ export class Client extends ClientBase {
 	}
 
 	debug(message: string, options?: ClientDebugOptions): void {
-		const { events } = this;
 		const { label = "Client" } = options ?? {};
+		const { events } = this;
 
 		const normalizedLabel = this.#normalizeLabelBrackets(label);
 		const debugMessage = `${normalizedLabel} ${message}`;
