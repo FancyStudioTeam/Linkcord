@@ -7,7 +7,7 @@ import {
 	type MakePostRequestOptions,
 	type MakePutRequestOptions,
 	RESTMethod,
-} from "#rest/types/index.js";
+} from "#rest/structures/RESTManager.types.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 
 export class BaseAPI {

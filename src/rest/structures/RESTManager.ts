@@ -4,10 +4,10 @@ import { ChannelsAPI } from "#rest/api/ChannelsAPI.js";
 import { GatewayAPI } from "#rest/api/GatewayAPI.js";
 import { MiscellaneousAPI } from "#rest/api/MiscellaneousAPI.js";
 import { normalizeRoute } from "#rest/functions/normalizeRoute.js";
-import type { MakeRequestOptions } from "#rest/types/index.js";
 import { REST_URL_BASE } from "#rest/utils/Constants.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 import { BucketManager } from "./BucketManager.js";
+import type { MakeRequestOptions } from "./RESTManager.types.js";
 
 export class RESTManager {
 	declare readonly applications: ApplicationsAPI;

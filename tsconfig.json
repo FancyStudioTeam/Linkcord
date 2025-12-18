@@ -2,7 +2,7 @@
 	"$schema": "https://json.schemastore.org/tsconfig",
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
-		"baseUrl": "./src/",
+		"baseUrl": "src",
 		"declaration": true,
 		"emitDeclarationOnly": false,
 		"emitDecoratorMetadata": true,
@@ -46,6 +46,7 @@
 			]
 		},
 		"resolveJsonModule": true,
+		"rootDir": "src",
 		"skipDefaultLibCheck": true,
 		"skipLibCheck": true,
 		"strict": true,
