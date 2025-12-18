@@ -1,4 +1,4 @@
-import { Endpoints } from "#rest/endpoints/Endpoints.js";
+import { CHANNEL_MESSAGES_ENDPOINT } from "#rest/endpoints/Endpoints.js";
 import { Message } from "#structures/Message.js";
 import { normalizeEmbeds, serializeEmbeds } from "#transformers/Messages.js";
 import type {
@@ -8,8 +8,6 @@ import type {
 	Snowflake,
 } from "#types/index.js";
 import { BaseAPI } from "./BaseAPI.js";
-
-const { channelMessages } = Endpoints;
 
 export class ChannelsAPI extends BaseAPI {
 	/**
@@ -33,7 +31,7 @@ export class ChannelsAPI extends BaseAPI {
 		if (nonce) body.nonce = nonce;
 		if (tts) body.tts = tts;
 
-		const messageResponseData = await super.post<RESTPostAPIMessage>(channelMessages(channelId), {
+		const messageResponseData = await super.post<RESTPostAPIMessage>(CHANNEL_MESSAGES_ENDPOINT(channelId), {
 			body: JSON.stringify(body),
 		});
 		const messageData = new Message(client, messageResponseData);
