@@ -1,4 +1,4 @@
-import type { RESTMethod } from "#rest/types/index.js";
+import type { RESTMethod } from "#rest/structures/RESTManager.types.js";
 
 const ROUTE_REGEX = /\/([a-z-]+)\/(?:[0-9]{17,20})/g;
 const ROUTE_REACTIONS_REGEX = /\/reactions\/[^/]+/g;
