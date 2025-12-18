@@ -43,12 +43,11 @@ export class Client extends ClientBase {
 	}
 
 	async init(): Promise<void> {
+		const { gateway } = this;
+
 		this.debug("Initializing the client and its dependencies...");
 
 		await super.init(this);
-
-		const { gateway } = this;
-
 		await gateway.init();
 	}
 }
