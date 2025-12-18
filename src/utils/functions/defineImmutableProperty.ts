@@ -1,6 +1,6 @@
 import { isObject, isString } from "#utils/helpers/AssertionUtils.js";
 
-export function defineImmutableProperty<Object extends object, Name extends string, Value>(
+export function defineImmutableProperty<Object extends object, Name extends ObjectProperties<Object>, Value>(
 	parent: Object,
 	name: Name,
 	value: Value,
@@ -20,3 +20,5 @@ export function defineImmutableProperty<Object extends object, Name extends stri
 		writable: false,
 	});
 }
+
+type ObjectProperties<Object extends object> = keyof Object;

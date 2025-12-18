@@ -11,8 +11,8 @@ import {
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 
 export class BaseAPI {
-	protected declare readonly client: Client;
-	protected declare readonly rest: RESTManager;
+	declare readonly client: Client;
+	declare readonly rest: RESTManager;
 
 	constructor(rest: RESTManager) {
 		const { client } = rest;

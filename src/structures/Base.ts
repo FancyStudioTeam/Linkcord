@@ -3,8 +3,8 @@ import type { RESTManager } from "#rest/index.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 
 export abstract class Base {
-	protected declare readonly client: Client;
-	protected declare readonly rest: RESTManager;
+	declare readonly client: Client;
+	declare readonly rest: RESTManager;
 
 	constructor(client: Client) {
 		const { rest } = client;
