@@ -29,6 +29,11 @@
 		"lineEnding": "lf",
 		"lineWidth": 120
 	},
+	"javascript": {
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": true
+		}
+	},
 	"linter": {
 		"domains": {
 			"project": "all",
