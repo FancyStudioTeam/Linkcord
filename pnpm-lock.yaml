@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      reflect-metadata:
-        specifier: 0.2.2
-        version: 0.2.2
       string-dedent:
         specifier: 3.0.2
         version: 3.0.2
@@ -1351,9 +1348,6 @@ packages:
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
-
-  reflect-metadata@0.2.2:
-    resolution: {integrity: sha512-urBwgfrvVP/eAyXx4hluJivBKzuEbSQs9rKWCrCkbSxNv8mxPcUZKeuoF3Uy4mJl3Lwprp6yy5/39VWigZ4K6Q==}
 
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
@@ -2798,8 +2792,6 @@ snapshots:
     optional: true
 
   punycode@2.3.1: {}
-
-  reflect-metadata@0.2.2: {}
 
   require-directory@2.1.1: {}
 

@@ -1,5 +1,3 @@
-import "reflect-metadata";
-
 import { checkIsCommonJS } from "#utils/functions/checkIsCommonJS.js";
 
 export * from "./client/index.js";
