@@ -88,7 +88,7 @@
 		"biome:check": "biome check",
 		"biome:ci": "biome ci",
 		"biome:write": "biome check --write",
-		"build": "tsc --project tsconfig.json",
+		"build": "tsc --project tsconfig.build.json",
 		"extractor:check-release-tags": "tsx scripts/checkReleaseTags.ts",
 		"prebuild": "pnpm rimraf dist",
 		"prepare": "husky",
