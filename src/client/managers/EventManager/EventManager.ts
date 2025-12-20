@@ -1,4 +1,4 @@
-import type { ClientEvents, ClientEventsMap } from "#client/structures/Client.types.js";
+import type { ClientEvents, ClientEventsMap } from "#client/structures/index.js";
 import { Collection } from "#utils/index.js";
 import type { EventListener, EventListenerCallback } from "./EventManager.types.js";
 

@@ -3,7 +3,7 @@
  * be ignored.
  */
 
-import { ClientEvents } from "#client/structures/Client.types.js";
+import { ClientEvents } from "#client/structures/index.js";
 import { EventManager } from "./EventManager.js";
 
 describe("Class: EventManager", () => {
