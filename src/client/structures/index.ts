@@ -1,3 +1,2 @@
-export * from "./Client.js";
-export * from "./Client.types.js";
+export * from "./Client/index.js";
 export * from "./ClientBase.js";
