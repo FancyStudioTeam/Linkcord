@@ -1,6 +1,4 @@
-import { CacheManager } from "#client/managers/CacheManager.js";
-import { CommandManager } from "#client/managers/CommandManager.js";
-import { EventManager } from "#client/managers/EventManager.js";
+import { CacheManager, CommandManager, EventManager } from "#client/managers/index.js";
 import { GatewayManager } from "#gateway/index.js";
 import { RESTManager } from "#rest/index.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
