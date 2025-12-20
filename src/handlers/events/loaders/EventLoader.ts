@@ -57,7 +57,9 @@ export class EventLoader {
 		const { client } = this;
 		const { events } = client;
 
-		return void events.addEventListener(name, Boolean(once), handler);
+		events.addEventListener(name, handler, {
+			once: Boolean(once),
+		});
 	}
 
 	#showDisabledEventWarning(eventFilePathString: string): void {

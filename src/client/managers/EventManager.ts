@@ -1,11 +1,11 @@
-import { ClientEvents, type ClientEventsMap } from "#client/structures/Client.types.js";
-import { isBoolean, isEnum, isFunction } from "#utils/helpers/AssertionUtils.js";
+import type { ClientEvents, ClientEventsMap } from "#client/structures/Client.types.js";
+import { Collection } from "#utils/index.js";
 import type { EventListener, EventListenerCallback } from "./EventManager.types.js";
 
 export class EventManager {
-	readonly #listeners = new Map<ClientEvents, EventListener<ClientEvents>[]>();
+	readonly #listeners = new Collection<ClientEvents, EventListener<ClientEvents>[]>();
 
-	#createListener<Event extends ClientEvents>(
+	#createEventListenerObject<Event extends ClientEvents>(
 		once: boolean,
 		callback: EventListenerCallback<Event>,
 	): EventListener<Event> {
@@ -17,7 +17,19 @@ export class EventManager {
 		return eventListener;
 	}
 
-	#getOrCreateListeners(event: ClientEvents): EventListener<ClientEvents>[] {
+	#removeEventListener<Event extends ClientEvents>(
+		eventListenersArray: EventListener<Event>[],
+		eventListener: EventListener<Event>,
+	): void {
+		const eventListenerIndex = eventListenersArray.indexOf(eventListener);
+
+		eventListenersArray.splice(eventListenerIndex, 1);
+	}
+
+	#upsertEventListeners(
+		event: ClientEvents,
+		defaultValue: EventListener<ClientEvents>[] = [],
+	): EventListener<ClientEvents>[] {
 		const listeners = this.#listeners;
 		const existingListeners = listeners.get(event);
 
@@ -25,86 +37,51 @@ export class EventManager {
 			return existingListeners;
 		}
 
-		const createdListeners: EventListener<ClientEvents>[] = [];
+		listeners.set(event, defaultValue);
 
-		listeners.set(event, createdListeners);
-
-		return createdListeners;
+		return defaultValue;
 	}
 
 	addEventListener<Event extends ClientEvents>(
 		event: Event,
-		listener: (...data: ClientEventsMap[Event]) => unknown,
-	): boolean;
-	addEventListener<Event extends ClientEvents>(
-		event: Event,
-		once: boolean,
-		listener: (...data: ClientEventsMap[Event]) => unknown,
-	): boolean;
+		callback: EventListenerCallback<Event>,
+		options?: AddEventListenerOptions,
+	): void {
+		const { once = false } = options ?? {};
 
-	addEventListener<Event extends ClientEvents>(
-		event: Event,
-		onceOrListener: boolean | EventListenerCallback<Event>,
-		possibleListener?: EventListenerCallback<Event>,
-	): boolean {
-		let once: boolean;
-		let listener: EventListenerCallback<Event>;
+		const eventListener = this.#createEventListenerObject(once, callback) as EventListener<ClientEvents>;
+		const listeners = this.#upsertEventListeners(event);
 
-		if (!isEnum(event, ClientEvents)) {
-			throw new TypeError("First parameter (event) from 'EventsManager.addEventListener' must be an enum");
-		}
-
-		if (isBoolean(onceOrListener)) {
-			if (!isFunction(possibleListener)) {
-				throw new TypeError(
-					"Third parameter (listener) from 'EventsManager.addEventListener' must be a function",
-				);
-			}
-
-			once = onceOrListener;
-			listener = possibleListener;
-		} else {
-			if (!isFunction(onceOrListener)) {
-				throw new TypeError(
-					"Second parameter (listener) from 'EventsManager.addEventListener' must be a function",
-				);
-			}
-
-			once = false;
-			listener = onceOrListener;
-		}
-
-		const eventListener = this.#createListener(once, listener);
-		const listeners = this.#getOrCreateListeners(event);
-
-		listeners.push(eventListener as EventListener<ClientEvents>);
-
-		return true;
+		listeners.push(eventListener);
 	}
 
-	emit<Event extends ClientEvents>(event: Event, ...data: ClientEventsMap[Event]): number {
+	/**
+	 * @remarks
+	 * - This method uses the `once` option from the `addEventListener` method.
+	 * - The event listener will be removed after it is invoked once.
+	 */
+	addOnceEventListener<Event extends ClientEvents>(event: Event, callback: EventListenerCallback<Event>): void {
+		this.addEventListener(event, callback, {
+			once: true,
+		});
+	}
+
+	emit<Event extends ClientEvents>(event: Event, ...data: ClientEventsMap[Event]): void {
 		const listeners = this.#listeners;
 		const existingListeners = listeners.get(event) ?? [];
-
-		let executedListeners = 0;
 
 		for (const eventListener of existingListeners) {
 			const { callback, once } = eventListener;
 
 			callback(...data);
-			++executedListeners;
 
 			if (once) {
-				const eventListenerIndex = existingListeners.indexOf(eventListener);
-
-				existingListeners.splice(eventListenerIndex, 1);
+				this.#removeEventListener(existingListeners, eventListener);
 			}
 		}
-
-		return executedListeners;
 	}
 
-	listenerCount<Event extends ClientEvents>(event: Event): number {
+	getEventListenerCount<Event extends ClientEvents>(event: Event): number {
 		const listeners = this.#listeners;
 		const existingListeners = listeners.get(event) ?? [];
 
@@ -113,9 +90,30 @@ export class EventManager {
 		return existingListenersLength;
 	}
 
-	removeListeners(event: ClientEvents): boolean {
+	/**
+	 * @remarks
+	 * - If multiple listeners are registered with the same callback, the first
+	 * occurrence will be removed.
+	 */
+	removeEventListener<Event extends ClientEvents>(event: Event, callback: EventListenerCallback<Event>): boolean {
 		const listeners = this.#listeners;
 
-		return listeners.delete(event);
+		const existingListeners = listeners.get(event) ?? [];
+		const existingListener = existingListeners.find(({ callback: listener }) => listener === callback);
+
+		if (!existingListener) {
+			return false;
+		}
+
+		this.#removeEventListener(existingListeners, existingListener);
+
+		return true;
+	}
+
+	removeEventListeners<Event extends ClientEvents>(event: Event): boolean {
+		const listeners = this.#listeners;
+		const wasDeleted = listeners.delete(event);
+
+		return wasDeleted;
 	}
 }
