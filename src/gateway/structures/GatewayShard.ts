@@ -432,11 +432,11 @@ export class GatewayShard {
 		const { token } = client;
 
 		if (!sessionId) {
-			throw new GatewayShardError("Cannot resume the shard witout a session ID.", id);
+			throw new GatewayShardError("Cannot resume the shard witout a session ID", id);
 		}
 
 		if (!sequence) {
-			throw new GatewayShardError("Cannot resume the shard witout a sequence number.", id);
+			throw new GatewayShardError("Cannot resume the shard witout a sequence number", id);
 		}
 
 		const opcodeName = getOpcodeName(GatewayOpcodes.Resume);
