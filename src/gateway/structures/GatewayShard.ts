@@ -24,9 +24,9 @@ export class GatewayShard {
 
 	readonly id: number;
 
-	#heartbeatInterval: NodeJS.Timeout | null = null;
-	#lastHeartbeatReceivedAt = 0;
-	#lastHeartbeatSentAt = 0;
+	#heartbeatInterval: HeartbeatInterval | null = null;
+	#lastHeartbeatReceivedAt: number = 0;
+	#lastHeartbeatSentAt: number = 0;
 	#ws: WebSocket | null = null;
 
 	status = GatewayShardStatus.Disconnected;
@@ -53,6 +53,16 @@ export class GatewayShard {
 		const lastHeartbeatSentAt = this.#lastHeartbeatSentAt;
 
 		return lastHeartbeatReceivedAt - lastHeartbeatSentAt;
+	}
+
+	#clearHeartbeatInterval(): void {
+		const heartbeatInterval = this.#heartbeatInterval;
+
+		if (!isNull(heartbeatInterval)) {
+			clearInterval(heartbeatInterval);
+
+			this.#heartbeatInterval = null;
+		}
 	}
 
 	#buildGatewayURL(baseURL: string = GatewayManager.GATEWAY_URL_BASE): string {
@@ -371,13 +381,8 @@ export class GatewayShard {
 		});
 	}
 
-	#setHeartbeatInterval(interval: NodeJS.Timeout): void {
-		const heartbeatInterval = this.#heartbeatInterval;
-
-		if (!isNull(heartbeatInterval)) {
-			clearInterval(heartbeatInterval);
-		}
-
+	#setHeartbeatInterval(interval: HeartbeatInterval): void {
+		this.#clearHeartbeatInterval();
 		this.#heartbeatInterval = interval;
 	}
 
@@ -443,4 +448,5 @@ export class GatewayShard {
 	}
 }
 
+type HeartbeatInterval = ReturnType<typeof setInterval>;
 type MessageData = string | Blob;
