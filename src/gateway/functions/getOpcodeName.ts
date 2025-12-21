@@ -1,6 +1,6 @@
 import { GatewayOpcodes } from "#types/index.js";
 
-const OPCODE_NAMES: Record<GatewayOpcodes, string> = {
+const OPCODE_NAMES = {
 	[GatewayOpcodes.Dispatch]: "Dispatch",
 	[GatewayOpcodes.Heartbeat]: "Heartbeat",
 	[GatewayOpcodes.HeartbeatAck]: "Heartbeat Acknowledge",
@@ -13,8 +13,8 @@ const OPCODE_NAMES: Record<GatewayOpcodes, string> = {
 	[GatewayOpcodes.RequestSoundboardSounds]: "Request Soundboard Sounds",
 	[GatewayOpcodes.Resume]: "Resume",
 	[GatewayOpcodes.VoiceStateUpdate]: "Voice State Update",
-};
+} as const;
 
-export function getOpcodeName(opcode: GatewayOpcodes): string {
+export function getOpcodeName<Opcode extends GatewayOpcodes>(opcode: Opcode): (typeof OPCODE_NAMES)[Opcode] {
 	return OPCODE_NAMES[opcode];
 }
