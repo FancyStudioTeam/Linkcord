@@ -11,6 +11,8 @@ import { isInstanceOf, isNull } from "#utils/helpers/AssertionUtils.js";
 import { GatewayManager } from "./GatewayManager.js";
 import { GatewayShardStatus, type SendableOpcodes, type SendableOpcodesMap } from "./GatewayShard.types.js";
 
+const { OPEN: OPEN_STATE } = WebSocket;
+
 const GOING_AWAY_CLOSE_EVENT_CODE = 1001;
 const GRACEFUL_CLOSE_EVENT_CODE = 1000;
 
@@ -111,7 +113,7 @@ export class GatewayShard {
 	#getWebSocket(required?: boolean): WebSocket | null {
 		const ws = this.#ws;
 
-		if (isNull(ws) && required) {
+		if ((isNull(ws) || ws.readyState !== OPEN_STATE) && required) {
 			const { id } = this;
 
 			throw new GatewayShardError("WebSocket has not been initialized yet", id);
