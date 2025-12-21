@@ -49,6 +49,7 @@ export interface ClientShardDisconnectedEventParams {
 
 export interface ClientShardHelloEventParams {
 	heartbeatInterval: number;
+	heartbeatJitter: number;
 	gatewayShard: GatewayShard;
 }
 

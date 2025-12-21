@@ -1,10 +1,17 @@
 import { emitWarning, platform } from "node:process";
+import { setTimeout } from "node:timers/promises";
 import { type Client, ClientEvents } from "#client/index.js";
 import { GatewayShardError } from "#gateway/errors/GatewayShardError.js";
 import { getOpcodeName } from "#gateway/functions/getOpcodeName.js";
 import { DispatchHooks } from "#gateway/hooks/index.js";
 import { RESUMABLE_CLOSE_EVENT_CODES, SENDABLE_OPCODES } from "#gateway/utils/Constants.js";
-import { type GatewayDispatchEvent, type GatewayEvent, type GatewayHelloEvent, GatewayOpcodes } from "#types/index.js";
+import {
+	type GatewayDispatchEvent,
+	type GatewayEvent,
+	type GatewayHelloEvent,
+	type GatewayInvalidSessionEvent,
+	GatewayOpcodes,
+} from "#types/index.js";
 import { LINKCORD_AGENT } from "#utils/Constants.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 import { isInstanceOf, isNull } from "#utils/helpers/AssertionUtils.js";
@@ -14,7 +21,7 @@ import { GatewayShardStatus, type SendableOpcodes, type SendableOpcodesMap } fro
 const { OPEN: OPEN_STATE } = WebSocket;
 
 const GOING_AWAY_CLOSE_EVENT_CODE = 1001;
-const GRACEFUL_CLOSE_EVENT_CODE = 1000;
+const NORMAL_CLOSURE_CLOSE_EVENT_CODE = 1000;
 
 export class GatewayShard {
 	declare readonly client: Client;
@@ -201,15 +208,14 @@ export class GatewayShard {
 
 		this.status = GatewayShardStatus.Disconnected;
 
-		const { resumeGatewayURL, client } = this;
+		const { client } = this;
 		const label = this.#label;
 
 		const baseMessage = `Session has been closed with code ${code} (${reason || "N/A"}).`;
-		const debugMessage = `${baseMessage} ${isReconnectable ? "Attempting to resume..." : "Attempting to re-identify..."}`;
 
 		const { events } = client;
 
-		client.debug(debugMessage, {
+		client.debug(baseMessage, {
 			label,
 		});
 		events.emit(ClientEvents.ShardDisconnected, {
@@ -219,9 +225,7 @@ export class GatewayShard {
 			reason,
 		});
 
-		const gatewayURL = isReconnectable && resumeGatewayURL ? resumeGatewayURL : undefined;
-
-		this.#initializeWebSocket(gatewayURL);
+		this.disconnect();
 	}
 
 	async #onMessage(messageEvent: MessageEvent<string>): Promise<void> {
@@ -271,35 +275,43 @@ export class GatewayShard {
 	/**
 	 * @see https://discord.com/developers/docs/events/gateway#hello-event
 	 */
-	#onMessageHello(gatewayHello: GatewayHelloEvent): void {
+	async #onMessageHello(gatewayHello: GatewayHelloEvent): Promise<void> {
 		const { d: payload } = gatewayHello;
 		const { heartbeat_interval: heartbeatInterval } = payload;
 
-		const { client, resumeGatewayURL, sessionId } = this;
+		const { client } = this;
 		const { events } = client;
+
+		const heartbeatJitter = Math.random();
+		const heartbeatFirstWait = heartbeatInterval * heartbeatJitter;
+
+		const label = this.#label;
+
+		client.debug(
+			`Waiting to send the first heartbeat with a jitter of ${heartbeatJitter}. (Waiting ${heartbeatFirstWait}ms)`,
+			{
+				label,
+			},
+		);
 
 		events.emit(ClientEvents.ShardHello, {
 			gatewayShard: this,
 			heartbeatInterval,
+			heartbeatJitter,
 		});
 
-		if (sessionId && resumeGatewayURL) {
-			this.#resume();
-		} else {
-			this.#identify();
-		}
+		await setTimeout(heartbeatFirstWait);
 
-		const heartbeatJitter = heartbeatInterval * Math.random();
+		this.#heartbeat();
 
-		setTimeout(() => {
-			const interval = setInterval(this.#heartbeat.bind(this), heartbeatInterval);
+		const interval = setInterval(this.#heartbeat.bind(this), heartbeatInterval);
 
-			this.#heartbeat();
-			this.#setHeartbeatInterval(interval);
-		}, heartbeatJitter);
+		this.#setHeartbeatInterval(interval);
 	}
 
-	#onMessageInvalidSession(isResumable: boolean): void {
+	#onMessageInvalidSession(gatewayInvalidSession: GatewayInvalidSessionEvent): void {
+		const { d: isResumable } = gatewayInvalidSession;
+
 		const { client } = this;
 		const label = this.#label;
 
@@ -346,6 +358,16 @@ export class GatewayShard {
 		const buffer = Buffer.from(data);
 
 		return buffer;
+	}
+
+	#removeWebSocketEventListeners(): void {
+		const ws = this.#getWebSocket();
+
+		if (ws) {
+			ws.onclose = null;
+			ws.onmessage = null;
+			ws.onopen = null;
+		}
 	}
 
 	#resume(): void {
@@ -399,7 +421,9 @@ export class GatewayShard {
 			case GatewayOpcodes.HeartbeatAck:
 				return this.#onMessageHeartbeatAck();
 			case GatewayOpcodes.Hello:
-				return this.#onMessageHello(gatewayEvent);
+				return await this.#onMessageHello(gatewayEvent);
+			case GatewayOpcodes.InvalidSession:
+				return this.#onMessageInvalidSession(gatewayEvent);
 			case GatewayOpcodes.Reconnect:
 				return this.#onMessageReconnect();
 			default: {
@@ -419,15 +443,14 @@ export class GatewayShard {
 	}
 
 	disconnect(): void {
-		const { client } = this;
+		this.#clearHeartbeatInterval();
 
-		const ws = this.#getWebSocket();
-		const label = this.#label;
+		const ws = this.#getWebSocket(true);
 
-		ws.close(GRACEFUL_CLOSE_EVENT_CODE, "User requested a disconnect.");
-		client.debug("Disconnecting the shard from the Discord gateway...", {
-			label,
-		});
+		ws.close(NORMAL_CLOSURE_CLOSE_EVENT_CODE, "User requested a complete disconnection");
+
+		this.#removeWebSocketEventListeners();
+		this.#ws = null;
 	}
 
 	init(): void {
@@ -440,7 +463,7 @@ export class GatewayShard {
 			return void this.#showInvalidOpcodeWarning(opcode);
 		}
 
-		const ws = this.#getWebSocket();
+		const ws = this.#getWebSocket(true);
 		const payloadString = JSON.stringify({
 			d: data,
 			op: opcode,
