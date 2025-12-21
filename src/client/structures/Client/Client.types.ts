@@ -41,11 +41,15 @@ export interface ClientMessageEventParams {
 }
 
 export interface ClientShardDisconnectedEventParams {
+	code: number;
 	gatewayShard: GatewayShard;
+	isReconnectable: boolean;
+	reason: string;
 }
 
 export interface ClientShardHelloEventParams {
 	heartbeatInterval: number;
+	heartbeatJitter: number;
 	gatewayShard: GatewayShard;
 }
 

@@ -1,17 +1,27 @@
-import { platform } from "node:process";
+import { emitWarning, platform } from "node:process";
+import { setTimeout } from "node:timers/promises";
 import { type Client, ClientEvents } from "#client/index.js";
 import { GatewayShardError } from "#gateway/errors/GatewayShardError.js";
 import { getOpcodeName } from "#gateway/functions/getOpcodeName.js";
 import { DispatchHooks } from "#gateway/hooks/index.js";
 import { RESUMABLE_CLOSE_EVENT_CODES, SENDABLE_OPCODES } from "#gateway/utils/Constants.js";
-import { type GatewayDispatchEvent, type GatewayEvent, GatewayOpcodes } from "#types/index.js";
+import {
+	type GatewayDispatchEvent,
+	type GatewayEvent,
+	type GatewayHelloEvent,
+	type GatewayInvalidSessionEvent,
+	GatewayOpcodes,
+} from "#types/index.js";
 import { LINKCORD_AGENT } from "#utils/Constants.js";
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
+import { isInstanceOf, isNull } from "#utils/helpers/AssertionUtils.js";
 import { GatewayManager } from "./GatewayManager.js";
 import { GatewayShardStatus, type SendableOpcodes, type SendableOpcodesMap } from "./GatewayShard.types.js";
 
+const { OPEN: OPEN_STATE } = WebSocket;
+
 const GOING_AWAY_CLOSE_EVENT_CODE = 1001;
-const GRACEFUL_CLOSE_EVENT_CODE = 1000;
+const NORMAL_CLOSURE_CLOSE_EVENT_CODE = 1000;
 
 export class GatewayShard {
 	declare readonly client: Client;
@@ -23,8 +33,9 @@ export class GatewayShard {
 
 	readonly id: number;
 
-	#lastHeartbeatReceivedAt = 0;
-	#lastHeartbeatSentAt = 0;
+	#heartbeatInterval: HeartbeatInterval | null = null;
+	#lastHeartbeatReceivedAt: number = 0;
+	#lastHeartbeatSentAt: number = 0;
 	#ws: WebSocket | null = null;
 
 	status = GatewayShardStatus.Disconnected;
@@ -53,12 +64,66 @@ export class GatewayShard {
 		return lastHeartbeatReceivedAt - lastHeartbeatSentAt;
 	}
 
-	#getWebSocket(): WebSocket {
-		const ws = this.#ws;
-		const { OPEN } = WebSocket;
+	#clearHeartbeatInterval(): void {
+		const heartbeatInterval = this.#heartbeatInterval;
 
-		if (!ws || ws.readyState !== OPEN) {
-			throw new GatewayShardError("WebSocket has not been opened or initialized yet", this.id);
+		if (!isNull(heartbeatInterval)) {
+			clearInterval(heartbeatInterval);
+
+			this.#heartbeatInterval = null;
+		}
+	}
+
+	#buildGatewayURL(baseURL: string = GatewayManager.GATEWAY_URL_BASE): string {
+		const urlObject = new URL(baseURL);
+		const { searchParams } = urlObject;
+
+		searchParams.append("encoding", "json");
+		searchParams.append("v", String(GatewayManager.GATEWAY_VERSION));
+
+		const urlString = urlObject.toString();
+
+		return urlString;
+	}
+
+	#checkAndUpdateSequence(gatewayEvent: GatewayEvent): void {
+		const sequence = this.#getSequence(gatewayEvent);
+
+		if (isNull(sequence)) return;
+
+		const { client, id, sequence: storedSequence } = this;
+		const expectedSequence = (storedSequence ?? 0) + 1;
+
+		if (expectedSequence < sequence || sequence !== expectedSequence) {
+			const { events } = client;
+			const warningMessage = `Some sequences were skipped or missed from shard ${id}. Expected "${expectedSequence}" but received "${sequence}".`;
+
+			events.emit(ClientEvents.Warn, {
+				message: warningMessage,
+			});
+		}
+
+		this.sequence = sequence;
+	}
+
+	#getSequence(gatewayEvent: GatewayEvent): number | null {
+		if ("s" in gatewayEvent) {
+			return gatewayEvent.s;
+		}
+
+		return null;
+	}
+
+	#getWebSocket(required?: boolean): WebSocket | null;
+	#getWebSocket(required: true): WebSocket;
+
+	#getWebSocket(required?: boolean): WebSocket | null {
+		const ws = this.#ws;
+
+		if ((isNull(ws) || ws.readyState !== OPEN_STATE) && required) {
+			const { id } = this;
+
+			throw new GatewayShardError("WebSocket has not been initialized yet", id);
 		}
 
 		return ws;
@@ -108,26 +173,18 @@ export class GatewayShard {
 		});
 	}
 
-	#initializeWebSocket(gatewayURL: string = GatewayManager.GATEWAY_URL_BASE): void {
-		const urlObject = new URL(gatewayURL);
-
-		const { searchParams } = urlObject;
+	#initializeWebSocket(baseURL: string = GatewayManager.GATEWAY_URL_BASE): void {
 		const { client } = this;
+		const gatewayURL = this.#buildGatewayURL(baseURL);
 
 		const label = this.#label;
-		const gatewayVersionString = String(GatewayManager.GATEWAY_VERSION);
-
-		searchParams.append("encoding", "json");
-		searchParams.append("v", gatewayVersionString);
-
-		const gatewayURLString = urlObject.toString();
-		const debugMessage = `Handshaking with the Discord gateway using URL "${gatewayURLString}"...`;
+		const debugMessage = `Handshaking with the Discord gateway using URL "${gatewayURL}"...`;
 
 		client.debug(debugMessage, {
 			label,
 		});
 
-		this.#ws = new WebSocket(gatewayURLString);
+		this.#ws = new WebSocket(gatewayURL);
 		this.#ws.onclose = this.#onClose.bind(this);
 		this.#ws.onmessage = this.#onMessage.bind(this);
 		this.#ws.onopen = this.#onOpen.bind(this);
@@ -151,82 +208,43 @@ export class GatewayShard {
 
 		this.status = GatewayShardStatus.Disconnected;
 
-		const { resumeGatewayURL, client } = this;
+		const { client } = this;
 		const label = this.#label;
 
 		const baseMessage = `Session has been closed with code ${code} (${reason || "N/A"}).`;
-		const debugMessage = `${baseMessage} ${isReconnectable ? "Attempting to resume..." : "Attempting to re-identify..."}`;
 
 		const { events } = client;
 
-		client.debug(debugMessage, {
+		client.debug(baseMessage, {
 			label,
 		});
-		events.emit(ClientEvents.ShardDisconnected, reason, code, isReconnectable, this);
+		events.emit(ClientEvents.ShardDisconnected, {
+			code,
+			gatewayShard: this,
+			isReconnectable,
+			reason,
+		});
 
-		const gatewayURL = isReconnectable && resumeGatewayURL ? resumeGatewayURL : undefined;
-
-		this.#initializeWebSocket(gatewayURL);
+		this.disconnect();
 	}
 
-	async #onMessage(messageEvent: MessageEvent): Promise<void> {
-		const { data } = messageEvent;
+	async #onMessage(messageEvent: MessageEvent<string>): Promise<void> {
+		const bufferData = await this.#normalizeMessageEvent(messageEvent);
+		const bufferString = String(bufferData);
 
-		const dataString = data.toString();
-		const message = JSON.parse(dataString) as GatewayEvent;
+		const gatewayEvent = JSON.parse(bufferString) as GatewayEvent;
 
-		const { op: opcode } = message;
-		const { client, id } = this;
+		this.#checkAndUpdateSequence(gatewayEvent);
+
+		const { client } = this;
 		const { events } = client;
 
-		events.emit(ClientEvents.ShardPacket, message, this);
+		events.emit(ClientEvents.ShardPacket, {
+			gatewayShard: this,
+			packet: gatewayEvent,
+		});
 
-		if ("s" in message) {
-			const { s: sequence } = message;
-
-			this.#updateSequence(sequence);
-		}
-
-		switch (opcode) {
-			case GatewayOpcodes.Dispatch: {
-				await this.#onMessageDispatch(message);
-
-				break;
-			}
-			case GatewayOpcodes.HeartbeatAck: {
-				this.#onMessageHeartbeatAck();
-
-				break;
-			}
-			case GatewayOpcodes.Hello: {
-				const { d } = message;
-				const { heartbeat_interval: heartbeatInterval } = d;
-
-				this.#onMessageHello(heartbeatInterval);
-
-				break;
-			}
-			case GatewayOpcodes.InvalidSession: {
-				const { d: isResumable } = message;
-
-				this.#onMessageInvalidSession(isResumable);
-
-				break;
-			}
-			case GatewayOpcodes.Reconnect: {
-				this.#onMessageReconnect();
-
-				break;
-			}
-			default: {
-				const opcodeName = getOpcodeName(opcode);
-				const warning = `Received an unhandled opcode (${opcode}: ${opcodeName}) from "Shard ${id}".`;
-
-				events.emit(ClientEvents.Warn, warning);
-
-				break;
-			}
-		}
+		await this.#switchGatewayEvent(gatewayEvent, client);
 	}
 
 	async #onMessageDispatch(dispatch: GatewayDispatchEvent): Promise<void> {
@@ -240,27 +258,60 @@ export class GatewayShard {
 		}
 	}
 
+	/**
+	 * @see https://discord.com/developers/docs/events/gateway#heartbeat-requests
+	 */
+	#onMessageHeartbeat(): void {
+		this.#heartbeat();
+	}
+
+	/**
+	 * @see https://discord.com/developers/docs/events/gateway#heartbeat-interval
+	 */
 	#onMessageHeartbeatAck(): void {
 		this.#lastHeartbeatReceivedAt = Date.now();
 	}
 
-	#onMessageHello(heartbeatInterval: number): void {
-		const { client, sessionId } = this;
+	/**
+	 * @see https://discord.com/developers/docs/events/gateway#hello-event
+	 */
+	async #onMessageHello(gatewayHello: GatewayHelloEvent): Promise<void> {
+		const { d: payload } = gatewayHello;
+		const { heartbeat_interval: heartbeatInterval } = payload;
+
+		const { client } = this;
 		const { events } = client;
 
-		events.emit(ClientEvents.ShardHello, heartbeatInterval, this);
+		const heartbeatJitter = Math.random();
+		const heartbeatFirstWait = heartbeatInterval * heartbeatJitter;
 
-		if (sessionId) {
-			this.#resume();
-		} else {
-			this.#identify();
-			this.#heartbeat();
-		}
+		const label = this.#label;
 
-		setInterval(this.#heartbeat.bind(this), heartbeatInterval);
+		client.debug(
+			`Waiting to send the first heartbeat with a jitter of ${heartbeatJitter}. (Waiting ${heartbeatFirstWait}ms)`,
+			{
+				label,
+			},
+		);
+
+		events.emit(ClientEvents.ShardHello, {
+			gatewayShard: this,
+			heartbeatInterval,
+			heartbeatJitter,
+		});
+
+		await setTimeout(heartbeatFirstWait);
+
+		this.#heartbeat();
+
+		const interval = setInterval(this.#heartbeat.bind(this), heartbeatInterval);
+
+		this.#setHeartbeatInterval(interval);
 	}
 
-	#onMessageInvalidSession(isResumable: boolean): void {
+	#onMessageInvalidSession(gatewayInvalidSession: GatewayInvalidSessionEvent): void {
+		const { d: isResumable } = gatewayInvalidSession;
+
 		const { client } = this;
 		const label = this.#label;
 
@@ -294,6 +345,31 @@ export class GatewayShard {
 		this.status = GatewayShardStatus.Handshaking;
 	}
 
+	async #normalizeMessageEvent(messageEvent: MessageEvent<MessageData>): Promise<Buffer> {
+		const { data } = messageEvent;
+
+		if (isInstanceOf(data, Blob)) {
+			const bufferArray = await data.arrayBuffer();
+			const buffer = Buffer.from(bufferArray);
+
+			return buffer;
+		}
+
+		const buffer = Buffer.from(data);
+
+		return buffer;
+	}
+
+	#removeWebSocketEventListeners(): void {
+		const ws = this.#getWebSocket();
+
+		if (ws) {
+			ws.onclose = null;
+			ws.onmessage = null;
+			ws.onopen = null;
+		}
+	}
+
 	#resume(): void {
 		const { sequence, sessionId, client, id } = this;
 		const label = this.#label;
@@ -319,58 +395,83 @@ export class GatewayShard {
 		});
 	}
 
-	#updateSequence(sequence: number | null): void {
-		if (sequence === null) return;
+	#showInvalidOpcodeWarning(opcode: GatewayOpcodes): void {
+		const opcodeName = getOpcodeName(opcode);
+		const warningMessage = `Cannot send a non-sendable opcode (${opcodeName}) to the Discord gateway`;
 
-		const { client, id, sequence: currentSequence } = this;
-		const { events } = client;
-
-		const expectedCurrentSequence = (currentSequence ?? 0) + 1;
-
-		if (expectedCurrentSequence < sequence || sequence !== expectedCurrentSequence) {
-			const warning = `Some sequences were skipped or missed from "Shard ${id}". Expected "${expectedCurrentSequence}" but received "${sequence}".`;
-
-			events.emit(ClientEvents.Warn, warning);
-		}
-
-		this.sequence = sequence;
-	}
-
-	disconnect(): void {
-		const { client } = this;
-
-		const ws = this.#getWebSocket();
-		const label = this.#label;
-
-		ws.close(GRACEFUL_CLOSE_EVENT_CODE, "User requested a disconnect.");
-		client.debug("Disconnecting the shard from the Discord gateway...", {
-			label,
+		emitWarning(warningMessage, {
+			code: "GATEWAY_SHARD",
+			type: "Invalid Opcode Warning",
 		});
 	}
 
+	#setHeartbeatInterval(interval: HeartbeatInterval): void {
+		this.#clearHeartbeatInterval();
+		this.#heartbeatInterval = interval;
+	}
+
+	async #switchGatewayEvent(gatewayEvent: GatewayEvent, client: Client): Promise<void> {
+		const { op: opcode } = gatewayEvent;
+
+		switch (opcode) {
+			case GatewayOpcodes.Dispatch:
+				return await this.#onMessageDispatch(gatewayEvent);
+			case GatewayOpcodes.Heartbeat:
+				return this.#onMessageHeartbeat();
+			case GatewayOpcodes.HeartbeatAck:
+				return this.#onMessageHeartbeatAck();
+			case GatewayOpcodes.Hello:
+				return await this.#onMessageHello(gatewayEvent);
+			case GatewayOpcodes.InvalidSession:
+				return this.#onMessageInvalidSession(gatewayEvent);
+			case GatewayOpcodes.Reconnect:
+				return this.#onMessageReconnect();
+			default: {
+				const { events } = client;
+				const label = this.#label;
+
+				const opcodeName = getOpcodeName(opcode);
+				const warningMessage = `Received an unhandled opcode (${opcodeName}) from ${label}.`;
+
+				events.emit(ClientEvents.Warn, {
+					message: warningMessage,
+				});
+
+				break;
+			}
+		}
+	}
+
+	disconnect(): void {
+		this.#clearHeartbeatInterval();
+
+		const ws = this.#getWebSocket(true);
+
+		ws.close(NORMAL_CLOSURE_CLOSE_EVENT_CODE, "User requested a complete disconnection");
+
+		this.#removeWebSocketEventListeners();
+		this.#ws = null;
+	}
+
 	init(): void {
-		this.status = GatewayShardStatus.Connecting;
+		this.status = GatewayShardStatus.Initializing;
 		this.#initializeWebSocket();
 	}
 
-	send<Opcode extends SendableOpcodes>(opcode: Opcode, payload: SendableOpcodesMap[Opcode]): void {
-		const { id } = this;
-
+	send<Opcode extends SendableOpcodes>(opcode: Opcode, data: SendableOpcodesMap[Opcode]): void {
 		if (!SENDABLE_OPCODES.includes(opcode)) {
-			const opcodeName = getOpcodeName(opcode);
-
-			throw new GatewayShardError(
-				`Cannot send a non-sendable opcode (${opcode}: ${opcodeName}) to the Discord gateway.`,
-				id,
-			);
+			return void this.#showInvalidOpcodeWarning(opcode);
 		}
 
-		const ws = this.#getWebSocket();
+		const ws = this.#getWebSocket(true);
 		const payloadString = JSON.stringify({
-			d: payload,
+			d: data,
 			op: opcode,
 		});
 
 		ws.send(payloadString);
 	}
 }
+
+type HeartbeatInterval = ReturnType<typeof setInterval>;
+type MessageData = string | Blob;

@@ -3,6 +3,18 @@
 import { GatewayCloseEventCodes, GatewayOpcodes } from "#types/index.js";
 
 /**
+ * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
+ */
+export const RECEIVABLE_OPCODES = [
+	GatewayOpcodes.Dispatch,
+	GatewayOpcodes.Heartbeat,
+	GatewayOpcodes.HeartbeatAck,
+	GatewayOpcodes.Hello,
+	GatewayOpcodes.InvalidSession,
+	GatewayOpcodes.Reconnect,
+] as const;
+
+/**
  * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-close-event-codes
  */
 export const RESUMABLE_CLOSE_EVENT_CODES = [
