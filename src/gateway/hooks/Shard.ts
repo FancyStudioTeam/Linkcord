@@ -12,15 +12,19 @@ import type { GatewayDispatchReadyEventPayload } from "#types/index.js";
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#ready
  */
-export function READY(client: Client, shard: GatewayShard, readyPayload: GatewayDispatchReadyEventPayload): void {
+export function READY(
+	client: Client,
+	gatewayShard: GatewayShard,
+	readyPayload: GatewayDispatchReadyEventPayload,
+): void {
 	const { cache, events } = client;
-	const { manager } = shard;
+	const { manager } = gatewayShard;
 
 	const { resume_gateway_url, session_id, user: userData } = readyPayload;
 
-	shard.status = GatewayShardStatus.Ready;
-	shard["resumeGatewayURL"] = resume_gateway_url;
-	shard["sessionId"] = session_id;
+	gatewayShard.status = GatewayShardStatus.Ready;
+	gatewayShard["resumeGatewayURL"] = resume_gateway_url;
+	gatewayShard["sessionId"] = session_id;
 
 	const user = new User(client, userData);
 	const { id: userId } = user;
@@ -30,5 +34,8 @@ export function READY(client: Client, shard: GatewayShard, readyPayload: Gateway
 	users.set(userId, user);
 	manager["triggerReady"]();
 
-	events.emit(ClientEvents.ShardReady, shard);
+	events.emit(ClientEvents.ShardReady, {
+		gatewayShard,
+		user,
+	});
 }
