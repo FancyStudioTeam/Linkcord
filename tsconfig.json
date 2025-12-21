@@ -15,7 +15,7 @@
 		"jsxImportSource": "./src",
 		"module": "nodenext",
 		"moduleResolution": "nodenext",
-		"outDir": "dist",
+		"outDir": "lib",
 		"paths": {
 			"#client/*": [
 				"client/*"

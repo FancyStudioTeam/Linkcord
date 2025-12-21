@@ -24,52 +24,23 @@
 	},
 	"exports": {
 		".": {
-			"import": "./dist/index.js",
-			"require": "./dist/index.js"
+			"import": "./lib/index.js",
+			"require": "./lib/index.js"
 		}
 	},
 	"files": [
 		"LICENSE",
 		"README.md",
-		"dist"
+		"lib"
 	],
-	"imports": {
-		"#client/*": [
-			"./dist/client/*"
-		],
-		"#configuration/*": [
-			"./dist/configuration/*"
-		],
-		"#gateway/*": [
-			"./dist/gateway/*"
-		],
-		"#handlers/*": [
-			"./dist/handlers/*"
-		],
-		"#rest/*": [
-			"./dist/rest/*"
-		],
-		"#structures/*": [
-			"./dist/structures/*"
-		],
-		"#transformers/*": [
-			"./dist/transformers/*"
-		],
-		"#types/*": [
-			"./dist/types/*"
-		],
-		"#utils/*": [
-			"./dist/utils/*"
-		]
-	},
 	"license": "MIT",
 	"lint-staged": {
 		"**/*.{js,jsx,ts,tsx,json}": [
 			"pnpm biome:write"
 		]
 	},
-	"main": "dist/index.js",
-	"module": "dist/index.js",
+	"main": "lib/index.js",
+	"module": "lib/index.js",
 	"name": "linkcord",
 	"optionalDependencies": {
 		"@discordjs/voice": "0.19.0"
@@ -90,16 +61,16 @@
 		"biome:write": "biome check --write",
 		"build": "tsc --project tsconfig.build.json",
 		"extractor:check-release-tags": "tsx scripts/checkReleaseTags.ts",
-		"prebuild": "pnpm rimraf dist",
+		"prebuild": "pnpm rimraf",
 		"prepare": "husky",
 		"pretarball": "pnpm build",
 		"release": "pnpm publish --access public --no-git-checks",
-		"rimraf": "rimraf dist",
+		"rimraf": "rimraf lib",
 		"tarball": "pnpm pack",
 		"vitest:run": "vitest --typecheck -c vitest.config.ts",
 		"vitest:watch": "vitest --typecheck --watch -c vitest.config.ts"
 	},
 	"type": "module",
-	"types": "dist/index.d.ts",
+	"types": "lib/index.d.ts",
 	"version": "0.0.0"
 }
