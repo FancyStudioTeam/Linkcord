@@ -2,7 +2,11 @@ import { join } from "node:path";
 import { cwd } from "node:process";
 import { EnsureInitialized } from "#client/decorators/EnsureInitialized.js";
 import { ClientError } from "#client/errors/ClientError.js";
-import { getOptions, loadConfigurationFile } from "#configuration/helpers/ConfigurationUtils.js";
+import {
+	getConfigurationOptions,
+	initializeConfigurationOptions,
+	isConfigurationInitialized,
+} from "#configuration/helpers/ConfigurationUtils.js";
 import { CommandLoader } from "#handlers/commands/loaders/CommandLoader.js";
 import { EventLoader } from "#handlers/events/loaders/EventLoader.js";
 import type { Snowflake } from "#types/index.js";
@@ -12,8 +16,6 @@ import type { Client } from "./Client/Client.js";
 const { cast } = SnowflakeUtils;
 
 export class ClientBase {
-	#isInitialized: boolean = false;
-
 	/**
 	 * @remarks
 	 * - This value is retrieved by decoding the first segment of the application
@@ -38,7 +40,7 @@ export class ClientBase {
 	 */
 	@EnsureInitialized()
 	get intents(): number {
-		return getOptions().intents;
+		return getConfigurationOptions().intents;
 	}
 
 	/**
@@ -48,7 +50,7 @@ export class ClientBase {
 	 */
 	@EnsureInitialized()
 	get token(): string {
-		return getOptions().token;
+		return getConfigurationOptions().token;
 	}
 
 	#createDirectoryPath(root: string, directoryName: string): string {
@@ -69,12 +71,8 @@ export class ClientBase {
 		await eventLoader.registerEvents();
 	}
 
-	#setIsInitialized(isInitialized: boolean = true) {
-		this.#isInitialized = isInitialized;
-	}
-
 	protected checkIsInitialized(): void {
-		const isInitialized = this.#isInitialized;
+		const isInitialized = isConfigurationInitialized();
 
 		if (!isInitialized) {
 			throw new ClientError("Client has not been initialized yet");
@@ -82,22 +80,20 @@ export class ClientBase {
 	}
 
 	protected async init(client: Client): Promise<void> {
-		const isInitialized = this.#isInitialized;
+		const isInitialized = isConfigurationInitialized();
 
 		if (isInitialized) {
-			throw new ClientError("Client can be only initialized once");
+			throw new ClientError("Client has already been initialized");
 		}
 
-		await loadConfigurationFile();
+		await initializeConfigurationOptions();
 
-		const { locations } = getOptions();
+		const { locations } = getConfigurationOptions();
 		const { commands, events, root } = locations;
 
 		await Promise.all([
 			this.#prepareCommands(root, commands, client),
 			this.#prepareEvents(root, events, client),
 		]);
-
-		this.#setIsInitialized();
 	}
 }
