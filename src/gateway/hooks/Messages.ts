@@ -13,11 +13,14 @@ import type { GatewayDispatchMessageCreateEventPayload } from "#types/index.js";
  */
 export function MESSAGE_CREATE(
 	client: Client,
-	_shard: GatewayShard,
+	gatewayShard: GatewayShard,
 	messagePayload: GatewayDispatchMessageCreateEventPayload,
 ): void {
 	const { events } = client;
 	const message = new Message(client, messagePayload);
 
-	events.emit(ClientEvents.MessageCreate, message);
+	events.emit(ClientEvents.MessageCreate, {
+		gatewayShard,
+		message,
+	});
 }
