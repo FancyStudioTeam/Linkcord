@@ -19,6 +19,8 @@ import { GatewayManager } from "./GatewayManager.js";
 import { GatewayShardStatus, type SendableOpcodes, type SendableOpcodesMap } from "./GatewayShard.types.js";
 
 const NORMAL_CLOSURE_CLOSE_EVENT_CODE = 1000;
+const RECONNECTION_CLOSE_EVENT_CODE = 4999;
+
 const { OPEN: OPEN_STATE } = WebSocket;
 
 export class GatewayShard {
@@ -95,19 +97,20 @@ export class GatewayShard {
 		const { client, label, sequence: storedSequence } = this;
 		const expectedSequence = (storedSequence ?? 0) + 1;
 
-		const debugMessage = `Received Sequence: ${receivedSequence} - Expected Sequence: ${expectedSequence}`;
+		const isExpectedSequence = expectedSequence === receivedSequence;
+		const debugMessage = `Expected Sequence: ${expectedSequence} - Received Sequence: ${receivedSequence}`;
 
 		client.debug(debugMessage, {
 			label,
 		});
 
-		if (expectedSequence !== receivedSequence) {
+		if (!isExpectedSequence) {
 			const { id } = this;
 			const { events } = client;
 
 			const warningMessages = [
 				`Some sequences were skipped or missed from "Shard ${id}".`,
-				`Expected sequence to be ${expectedSequence} but received ${receivedSequence}`,
+				`Expected sequence to be ${expectedSequence} but received ${receivedSequence}.`,
 			];
 			const warningMessage = warningMessages.join("\n");
 
@@ -165,7 +168,7 @@ export class GatewayShard {
 	#identify(): void {
 		const { client, id, label, manager } = this;
 
-		const opcodeName = getOpcodeName(GatewayOpcodes.Heartbeat);
+		const opcodeName = getOpcodeName(GatewayOpcodes.Identify);
 		const debugMessage = `Sending a "${opcodeName}" packet to the Discord gateway...`;
 
 		client.debug(debugMessage, {
@@ -209,25 +212,24 @@ export class GatewayShard {
 	}
 
 	#isCloseEventCodeReconnectable(code: number): boolean {
-		return RECONNECTABLE_CLOSE_EVENT_CODES.includes(code);
+		const isReconnectableCloseEventCode = RECONNECTABLE_CLOSE_EVENT_CODES.includes(code);
+		const isReconnectCloseEventCode = code === RECONNECTION_CLOSE_EVENT_CODE;
+
+		return isReconnectableCloseEventCode || isReconnectCloseEventCode;
 	}
 
 	#onClose(closeEvent: CloseEvent): void {
 		const { code, reason } = closeEvent;
 		const isReconnectable = this.#isCloseEventCodeReconnectable(code);
 
-		if (!isReconnectable) {
-			this.disconnect();
-		}
-
 		this.status = GatewayShardStatus.Disconnected;
 
 		const { client, label } = this;
-		const baseMessage = `Session has been closed with code ${code} (${reason || "N/A"}).`;
+		const debugMessage = `Session has been closed with code ${code} (${reason || "N/A"})`;
 
 		const { events } = client;
 
-		client.debug(baseMessage, {
+		client.debug(debugMessage, {
 			label,
 		});
 		events.emit(ClientEvents.ShardDisconnected, {
@@ -236,6 +238,18 @@ export class GatewayShard {
 			isReconnectable,
 			reason,
 		});
+
+		if (!isReconnectable) {
+			return void this.#reset();
+		}
+
+		const { resumeGatewayURL, sessionId } = this;
+
+		if (resumeGatewayURL && sessionId) {
+			this.#initializeWebSocket(resumeGatewayURL);
+		} else {
+			this.#initializeWebSocket();
+		}
 	}
 
 	async #onMessage(messageEvent: MessageEvent<string>): Promise<void> {
@@ -295,12 +309,12 @@ export class GatewayShard {
 		const heartbeatJitter = Math.random();
 		const heartbeatFirstWait = heartbeatInterval * heartbeatJitter;
 
-		client.debug(
-			`Waiting to send the first heartbeat with a jitter of ${heartbeatJitter}. (Waiting ${heartbeatFirstWait}ms)`,
-			{
-				label,
-			},
-		);
+		const opcodeName = getOpcodeName(GatewayOpcodes.Heartbeat);
+		const debugMessage = `Waiting to send first "${opcodeName}" packet with a jitter of ${heartbeatJitter.toFixed(2)}... (Waiting ${heartbeatFirstWait.toFixed(2)}ms)`;
+
+		client.debug(debugMessage, {
+			label,
+		});
 
 		events.emit(ClientEvents.ShardHello, {
 			gatewayShard: this,
@@ -308,9 +322,16 @@ export class GatewayShard {
 			heartbeatJitter,
 		});
 
-		await setTimeout(heartbeatFirstWait);
+		await setTimeout(heartbeatFirstWait).then(() => {
+			this.#heartbeat();
 
-		this.#heartbeat();
+			const opcodeName = getOpcodeName(GatewayOpcodes.Heartbeat);
+			const debugMessage = `First "${opcodeName}" packet has been sent. Next "${opcodeName}" packets will be sent in an interval of ${heartbeatInterval}ms`;
+
+			client.debug(debugMessage, {
+				label,
+			});
+		});
 
 		const interval = setInterval(this.#heartbeat.bind(this), heartbeatInterval);
 
@@ -348,6 +369,14 @@ export class GatewayShard {
 
 	#onOpen(): void {
 		this.status = GatewayShardStatus.Handshaking;
+
+		const { sessionId } = this;
+
+		if (sessionId) {
+			this.#resume();
+		} else {
+			this.#identify();
+		}
 	}
 
 	async #normalizeMessageEvent(messageEvent: MessageEvent<MessageData>): Promise<Buffer> {
@@ -376,9 +405,26 @@ export class GatewayShard {
 	}
 
 	#reset() {
+		this.#resetHeartbeatData();
+		this.#resetResumeData();
+		this.#resetWebSocketData();
+		this.status = GatewayShardStatus.Disconnected;
+	}
+
+	#resetHeartbeatData() {
+		this.#clearHeartbeatInterval();
+		this.#lastHeartbeatReceivedAt = 0;
+		this.#lastHeartbeatSentAt = 0;
+	}
+
+	#resetResumeData() {
 		this.resumeGatewayURL = null;
 		this.sessionId = null;
-		this.status = GatewayShardStatus.Disconnected;
+	}
+
+	#resetWebSocketData() {
+		this.#removeWebSocketEventListeners();
+		this.#ws = null;
 	}
 
 	#resume(): void {
@@ -393,7 +439,10 @@ export class GatewayShard {
 			throw new GatewayShardError("Cannot resume the shard witout a sequence number.", id);
 		}
 
-		client.debug(`Sending a "RESUME" packet to the Discord gateway...`, {
+		const opcodeName = getOpcodeName(GatewayOpcodes.Resume);
+		const debugMessage = `Sending a "${opcodeName}" packet to the Discord gateway...`;
+
+		client.debug(debugMessage, {
 			label,
 		});
 
@@ -451,15 +500,18 @@ export class GatewayShard {
 		}
 	}
 
-	disconnect(): void {
+	disconnect(reconnect: boolean = false): void {
 		this.#clearHeartbeatInterval();
 
 		const ws = this.#getWebSocket(true);
 
+		if (reconnect) {
+			return void ws.close(RECONNECTION_CLOSE_EVENT_CODE, "User requested a reconnection");
+		}
+
 		ws.close(NORMAL_CLOSURE_CLOSE_EVENT_CODE, "User requested a complete disconnection");
 
-		this.#removeWebSocketEventListeners();
-		this.#ws = null;
+		this.#reset();
 	}
 
 	init(): void {
