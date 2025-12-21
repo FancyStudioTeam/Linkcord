@@ -95,12 +95,16 @@ export class GatewayShard {
 		return null;
 	}
 
-	#getWebSocket(): WebSocket {
-		const ws = this.#ws;
-		const { OPEN } = WebSocket;
+	#getWebSocket(required?: boolean): WebSocket | null;
+	#getWebSocket(required: true): WebSocket;
 
-		if (!ws || ws.readyState !== OPEN) {
-			throw new GatewayShardError("WebSocket has not been opened or initialized yet", this.id);
+	#getWebSocket(required?: boolean): WebSocket | null {
+		const ws = this.#ws;
+
+		if (isNull(ws) && required) {
+			const { id } = this;
+
+			throw new GatewayShardError("WebSocket has not been initialized yet", id);
 		}
 
 		return ws;
