@@ -11,12 +11,10 @@ import {
 import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
 
 export class BaseAPI {
-	declare readonly client: Client;
-	declare readonly rest: RESTManager;
+	protected declare readonly client: Client;
+	protected declare readonly rest: RESTManager;
 
-	constructor(rest: RESTManager) {
-		const { client } = rest;
-
+	constructor(rest: RESTManager, client: Client) {
 		defineImmutableProperty(this, "client", client);
 		defineImmutableProperty(this, "rest", rest);
 	}

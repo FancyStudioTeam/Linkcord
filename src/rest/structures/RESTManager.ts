@@ -18,12 +18,12 @@ export class RESTManager {
 	declare readonly miscellaneous: MiscellaneousAPI;
 
 	constructor(client: Client) {
-		defineImmutableProperty(this, "applications", new ApplicationsAPI(this));
+		defineImmutableProperty(this, "applications", new ApplicationsAPI(this, client));
 		defineImmutableProperty(this, "buckets", new BucketManager());
-		defineImmutableProperty(this, "channels", new ChannelsAPI(this));
+		defineImmutableProperty(this, "channels", new ChannelsAPI(this, client));
 		defineImmutableProperty(this, "client", client);
-		defineImmutableProperty(this, "gateway", new GatewayAPI(this));
-		defineImmutableProperty(this, "miscellaneous", new MiscellaneousAPI(this));
+		defineImmutableProperty(this, "gateway", new GatewayAPI(this, client));
+		defineImmutableProperty(this, "miscellaneous", new MiscellaneousAPI(this, client));
 	}
 
 	get token(): string {

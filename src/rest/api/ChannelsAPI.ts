@@ -14,8 +14,8 @@ export class ChannelsAPI extends BaseAPI {
 	 * @see https://discord.com/developers/docs/resources/message#create-message
 	 */
 	async createMessage(channelId: Snowflake, options: CreateMessageOptions): Promise<Message> {
-		const { content, embeds, nonce, tts } = options;
 		const { client } = this;
+		const { content, embeds, nonce, tts } = options;
 
 		const body: RESTPostAPIMessageJSONParams = {};
 
