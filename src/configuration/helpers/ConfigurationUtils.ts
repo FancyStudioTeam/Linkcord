@@ -15,15 +15,15 @@ const CONFIGURATION_FILE_EXTENSIONS = [
 // @ts-expect-error
 const CONFIGURATION_OPTIONS: LinkcordOptions = {};
 
-export function freeze(): Readonly<LinkcordOptions> {
+export function freezeConfigurationOptions(): Readonly<LinkcordOptions> {
 	return Object.freeze(CONFIGURATION_OPTIONS);
 }
 
-export function getOptions(): LinkcordOptions {
+export function getConfigurationOptions(): LinkcordOptions {
 	return CONFIGURATION_OPTIONS;
 }
 
-export async function loadConfigurationFile(workingDirectory = cwd()): Promise<void> {
+export async function initializeConfigurationOptions(workingDirectory = cwd()): Promise<void> {
 	for (const extension of CONFIGURATION_FILE_EXTENSIONS) {
 		const configurationFilePath = join(workingDirectory, `linkcord.config.${extension}`);
 		const existsConfigurationFile = existsSync(configurationFilePath);
@@ -40,8 +40,8 @@ export async function loadConfigurationFile(workingDirectory = cwd()): Promise<v
 
 		const { default: linkcordOptions } = importedConfigurationFileData;
 
-		setOptions(linkcordOptions);
-		freeze();
+		setConfigurationOptions(linkcordOptions);
+		freezeConfigurationOptions();
 
 		return;
 	}
@@ -49,7 +49,14 @@ export async function loadConfigurationFile(workingDirectory = cwd()): Promise<v
 	throw new Error("Configuration file 'linkcord.config' not found");
 }
 
-export function setOptions(options: LinkcordOptions): void {
+export function isConfigurationInitialized() {
+	const isTokenOptionAvailable = Reflect.has(CONFIGURATION_OPTIONS, "token");
+	const isIntentsOptionAvailable = Reflect.has(CONFIGURATION_OPTIONS, "intents");
+
+	return isTokenOptionAvailable && isIntentsOptionAvailable;
+}
+
+export function setConfigurationOptions(options: LinkcordOptions): void {
 	Object.assign(CONFIGURATION_OPTIONS, options);
 }
 
