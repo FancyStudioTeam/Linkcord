@@ -73,7 +73,7 @@ export class ClientBase {
 		this.#isInitialized = isInitialized;
 	}
 
-	private checkIsInitialized(): void {
+	protected checkIsInitialized(): void {
 		const isInitialized = this.#isInitialized;
 
 		if (!isInitialized) {
@@ -82,7 +82,11 @@ export class ClientBase {
 	}
 
 	protected async init(client: Client): Promise<void> {
-		this.checkIsInitialized();
+		const isInitialized = this.#isInitialized;
+
+		if (isInitialized) {
+			throw new ClientError("Client can be only initialized once");
+		}
 
 		await loadConfigurationFile();
 
