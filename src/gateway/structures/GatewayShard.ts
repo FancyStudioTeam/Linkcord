@@ -178,9 +178,9 @@ export class GatewayShard {
 		});
 
 		this.#ws = new WebSocket(gatewayURL);
-		this.#ws.onclose = this.#onClose.bind(this);
-		this.#ws.onmessage = this.#onMessage.bind(this);
-		this.#ws.onopen = this.#onOpen.bind(this);
+		this.#ws.addEventListener("close", this.#onClose.bind(this));
+		this.#ws.addEventListener("message", this.#onMessage.bind(this));
+		this.#ws.addEventListener("open", this.#onOpen.bind(this));
 	}
 
 	#isCloseEventCodeResumable(code: number): boolean {
