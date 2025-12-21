@@ -38,7 +38,9 @@ export class Client extends ClientBase {
 		const normalizedLabel = this.#normalizeLabelBrackets(label);
 		const debugMessage = `${normalizedLabel} ${message}`;
 
-		events.emit(ClientEvents.Debug, debugMessage);
+		events.emit(ClientEvents.Debug, {
+			message: debugMessage,
+		});
 	}
 
 	async init(): Promise<void> {

@@ -1,39 +1,66 @@
 import type { GatewayShard } from "#gateway/index.js";
-import type { Message } from "#structures/index.js";
+import type { Message, User } from "#structures/index.js";
 import type { GatewayEvent } from "#types/index.js";
 
 export interface ClientDebugOptions {
 	label?: string;
 }
 
+export interface ClientDebugEventParams {
+	message: string;
+}
+
 export interface ClientEventsMap {
 	[ClientEvents.ClientReady]: [];
 	[ClientEvents.Debug]: [
-		message: string,
+		params: ClientDebugEventParams,
 	];
 	[ClientEvents.MessageCreate]: [
-		message: Message,
+		params: ClientMessageEventParams,
 	];
 	[ClientEvents.ShardDisconnected]: [
-		reason: string,
-		code: number,
-		resumable: boolean,
-		gatewayShard: GatewayShard,
+		params: ClientShardDisconnectedEventParams,
 	];
 	[ClientEvents.ShardHello]: [
-		heartbeatInterval: number,
-		gatewayShard: GatewayShard,
+		params: ClientShardHelloEventParams,
 	];
 	[ClientEvents.ShardPacket]: [
-		packet: GatewayEvent,
-		gatewayShard: GatewayShard,
+		params: ClientShardPacketEventParams,
 	];
 	[ClientEvents.ShardReady]: [
-		gatewayShard: GatewayShard,
+		params: ClientShardReadyEventParams,
 	];
 	[ClientEvents.Warn]: [
-		warning: string,
+		params: ClientWarningEventParams,
 	];
+}
+
+export interface ClientMessageEventParams {
+	gatewayShard: GatewayShard;
+	message: Message;
+}
+
+export interface ClientShardDisconnectedEventParams {
+	gatewayShard: GatewayShard;
+}
+
+export interface ClientShardHelloEventParams {
+	heartbeatInterval: number;
+	gatewayShard: GatewayShard;
+}
+
+export interface ClientShardPacketEventParams {
+	gatewayShard: GatewayShard;
+	packet: GatewayEvent;
+}
+
+export interface ClientShardReadyEventParams {
+	gatewayShard: GatewayShard;
+	user: User;
+}
+
+export interface ClientWarningEventParams {
+	message: string;
 }
 
 export enum ClientEvents {

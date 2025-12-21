@@ -28,21 +28,31 @@ describe("Class: EventManager", () => {
 
 	describe("Method: emit", () => {
 		it("Should emit all event listeners with specified data", () => {
-			const debugListenerFunction = vi.fn((message: string) => message);
+			const debugListenerFunction = vi.fn(({ message }: { message: string }) => message);
 
 			eventManager.addEventListener(ClientEvents.Debug, debugListenerFunction);
 			eventManager.addEventListener(ClientEvents.Debug, debugListenerFunction, {
 				once: true,
 			});
 
-			eventManager.emit(ClientEvents.Debug, "First Call");
-			eventManager.emit(ClientEvents.Debug, "Second Call");
+			eventManager.emit(ClientEvents.Debug, {
+				message: "First Call",
+			});
+			eventManager.emit(ClientEvents.Debug, {
+				message: "Second Call",
+			});
 
 			expect(debugListenerFunction).toHaveBeenCalledTimes(3);
 
-			expect(debugListenerFunction).toHaveBeenNthCalledWith(1, "First Call");
-			expect(debugListenerFunction).toHaveBeenNthCalledWith(2, "First Call");
-			expect(debugListenerFunction).toHaveBeenNthCalledWith(3, "Second Call");
+			expect(debugListenerFunction).toHaveBeenNthCalledWith(1, {
+				message: "First Call",
+			});
+			expect(debugListenerFunction).toHaveBeenNthCalledWith(2, {
+				message: "First Call",
+			});
+			expect(debugListenerFunction).toHaveBeenNthCalledWith(3, {
+				message: "Second Call",
+			});
 		});
 	});
 
