@@ -27,9 +27,9 @@ export type SendableOpcodesMap = {
 };
 
 export enum GatewayShardStatus {
+	Connecting = "CONNECTING",
 	Disconnected = "DISCONNECTED",
 	Handshaking = "HANDSHAKING",
-	Initializing = "INITIALIZING",
 	Identifying = "IDENTIFYING",
 	Ready = "READY",
 	Resuming = "RESUMING",

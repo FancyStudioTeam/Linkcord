@@ -27,7 +27,7 @@ export class GatewayManager {
 		const { shards } = this;
 		const shard = new GatewayShard(shardId, this);
 
-		shard.init();
+		shard.connect();
 		shards.set(shardId, shard);
 
 		return shard;

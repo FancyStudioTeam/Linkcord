@@ -500,6 +500,11 @@ export class GatewayShard {
 		}
 	}
 
+	connect(): void {
+		this.status = GatewayShardStatus.Connecting;
+		this.#initializeWebSocket();
+	}
+
 	disconnect(reconnect: boolean = false): void {
 		this.#clearHeartbeatInterval();
 
@@ -512,11 +517,6 @@ export class GatewayShard {
 		ws.close(NORMAL_CLOSURE_CLOSE_EVENT_CODE, "User requested a complete disconnection");
 
 		this.#reset();
-	}
-
-	init(): void {
-		this.status = GatewayShardStatus.Initializing;
-		this.#initializeWebSocket();
 	}
 
 	send<Opcode extends SendableOpcodes>(opcode: Opcode, data: SendableOpcodesMap[Opcode]): void {
