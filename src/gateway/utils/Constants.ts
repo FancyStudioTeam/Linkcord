@@ -17,7 +17,7 @@ export const RECEIVABLE_OPCODES = [
 /**
  * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-close-event-codes
  */
-export const RESUMABLE_CLOSE_EVENT_CODES = [
+export const RECONNECTABLE_CLOSE_EVENT_CODES = [
 	GatewayCloseEventCodes.AlreadyAuthenticated,
 	GatewayCloseEventCodes.DecodeError,
 	GatewayCloseEventCodes.InvalidSequence,
