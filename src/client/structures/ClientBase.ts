@@ -83,7 +83,7 @@ export class ClientBase {
 		const isInitialized = isConfigurationInitialized();
 
 		if (isInitialized) {
-			throw new ClientError("Client can be only initialized once");
+			throw new ClientError("Client has already been initialized");
 		}
 
 		await initializeConfigurationOptions();
