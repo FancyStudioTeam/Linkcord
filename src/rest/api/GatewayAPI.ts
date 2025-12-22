@@ -1,5 +1,5 @@
 import { GATEWAY_BOT_ENDPOINT, GATEWAY_ENDPOINT } from "#rest/endpoints/Endpoints.js";
-import { parseGatewayBot } from "#transformers/Gateway.js";
+import { deserializeGatewayBot } from "#transformers/Gateway/Deserializer.js";
 import type { Gateway, GatewayBot, RESTGetAPIGateway, RESTGetAPIGatewayBot } from "#types/index.js";
 import { BaseAPI } from "./BaseAPI.js";
 
@@ -20,7 +20,7 @@ export class GatewayAPI extends BaseAPI {
 	 */
 	async getGatewayBot(): Promise<GatewayBot> {
 		const gatewayBotResponseData = await super.get<RESTGetAPIGatewayBot>(GATEWAY_BOT_ENDPOINT());
-		const gatewayBotData = parseGatewayBot(gatewayBotResponseData);
+		const gatewayBotData = deserializeGatewayBot(gatewayBotResponseData);
 
 		return gatewayBotData;
 	}
