@@ -19,6 +19,20 @@ export class GatewayManager {
 	static GATEWAY_URL_BASE = "wss://gateway.discord.gg" as const;
 	static GATEWAY_VERSION = 10 as const;
 
+	get averageLatency(): number {
+		const { shards } = this;
+		const { size: shardsSize } = shards;
+
+		if (shardsSize < 1) {
+			return 0;
+		}
+
+		const shardsArray = shards.toArray();
+		const shardsLatencyAccumulator = shardsArray.reduce((accumulator, { latency }) => accumulator + latency, 0);
+
+		return shardsLatencyAccumulator / shardsSize;
+	}
+
 	get shardCount(): number {
 		return this.#shardsToSpawn;
 	}
