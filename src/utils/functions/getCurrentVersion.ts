@@ -1,11 +1,17 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { cwd } from "node:process";
 
-export function getCurrentVersion(): string {
-	const packagePath = join(cwd(), "package.json");
+const PACKAGE_JSON_PATH = join(cwd(), "package.json");
 
-	const packageDataString = readFileSync(packagePath, "utf-8");
+export function getCurrentVersion(): string {
+	const existsPackageFile = existsSync(PACKAGE_JSON_PATH);
+
+	if (!existsPackageFile) {
+		return "Invalid Version";
+	}
+
+	const packageDataString = readFileSync(PACKAGE_JSON_PATH, "utf-8");
 	const packageDataJSON = JSON.parse(packageDataString);
 
 	const { version } = packageDataJSON;
