@@ -5,9 +5,11 @@ import type {
 	GatewayBotSessionStartLimit,
 } from "#types/index.js";
 
+/**
+ * Transforms an {@link APIGatewayBot} object into a {@link GatewayBot} object.
+ */
 export function deserializeGatewayBot(serializedGatewayBot: APIGatewayBot): GatewayBot {
 	const { session_start_limit: sessionStartLimit, shards, url } = serializedGatewayBot;
-
 	const deserializedGatewayBot: GatewayBot = {
 		sessionStartLimit: deserializeGatewayBotSessionStartLimit(sessionStartLimit),
 		shards,
@@ -17,6 +19,9 @@ export function deserializeGatewayBot(serializedGatewayBot: APIGatewayBot): Gate
 	return deserializedGatewayBot;
 }
 
+/**
+ * Transforms an {@link APIGatewayBotSessionStartLimit} object into a {@link GatewayBotSessionStartLimit} object.
+ */
 export function deserializeGatewayBotSessionStartLimit(
 	serializedGatewayBotSessionStartLimit: APIGatewayBotSessionStartLimit,
 ): GatewayBotSessionStartLimit {
@@ -26,7 +31,6 @@ export function deserializeGatewayBotSessionStartLimit(
 		reset_after: resetAfter,
 		total,
 	} = serializedGatewayBotSessionStartLimit;
-
 	const deserializedGatewayBotSessionStartLimit: GatewayBotSessionStartLimit = {
 		maxConcurrency,
 		remaining,
