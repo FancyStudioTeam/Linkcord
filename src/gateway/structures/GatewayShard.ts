@@ -151,14 +151,7 @@ export class GatewayShard {
 	 * @see https://discord.com/developers/docs/events/gateway#sending-heartbeats
 	 */
 	#heartbeat(): void {
-		const { client, label, sequence } = this;
-
-		const opcodeName = getOpcodeName(GatewayOpcodes.Heartbeat);
-		const debugMessage = `Sending a "${opcodeName}" packet to the Discord gateway...`;
-
-		client.debug(debugMessage, {
-			label,
-		});
+		const { sequence } = this;
 
 		this.#lastHeartbeatSentAt = Date.now();
 		this.send(GatewayOpcodes.Heartbeat, sequence);
@@ -168,15 +161,7 @@ export class GatewayShard {
 	 * @see https://discord.com/developers/docs/events/gateway#identifying
 	 */
 	#identify(): void {
-		const { client, id, label, manager } = this;
-
-		const opcodeName = getOpcodeName(GatewayOpcodes.Identify);
-		const debugMessage = `Sending a "${opcodeName}" packet to the Discord gateway...`;
-
-		client.debug(debugMessage, {
-			label,
-		});
-
+		const { client, id, manager } = this;
 		const { intents, token } = client;
 		const { shardCount } = manager;
 
@@ -277,7 +262,7 @@ export class GatewayShard {
 			packet: gatewayEvent,
 		});
 
-		await this.#switchGatewayEvent(gatewayEvent, client);
+		await this.#switchGatewayEvent(gatewayEvent);
 	}
 
 	async #onMessageDispatch(dispatch: GatewayDispatchEvent): Promise<void> {
@@ -319,7 +304,7 @@ export class GatewayShard {
 		const heartbeatFirstWait = heartbeatInterval * heartbeatJitter;
 
 		const opcodeName = getOpcodeName(GatewayOpcodes.Heartbeat);
-		const debugMessage = `Waiting to send first "${opcodeName}" packet with a jitter of ${heartbeatJitter.toFixed(2)}... (Waiting ${heartbeatFirstWait.toFixed(2)}ms)`;
+		const debugMessage = `Waiting First "${opcodeName}" Packet. Jitter: ${heartbeatJitter.toFixed(2)} (Waiting ${heartbeatFirstWait.toFixed(2)}ms)`;
 
 		client.debug(debugMessage, {
 			label,
@@ -347,28 +332,34 @@ export class GatewayShard {
 		this.#setHeartbeatInterval(interval);
 	}
 
+	/**
+	 * @see https://discord.com/developers/docs/events/gateway-events#invalid-session
+	 */
 	#onMessageInvalidSession(gatewayInvalidSession: GatewayInvalidSessionEvent): void {
 		const { d: isResumable } = gatewayInvalidSession;
 		const { client, label } = this;
 
-		if (!isResumable) {
-			this.resumeGatewayURL = null;
-			this.sessionId = null;
-		}
+		const action = isResumable ? "Resume" : "Re-identify";
+		const debugMessage = `Session Invalidated by Discord. Gateway Shard must ${action}`;
 
-		const baseMessage = "Session has been invalidated.";
-		const message = `${baseMessage} ${isResumable ? "Attempting to resume..." : "Attempting to identify..."}`;
-
-		client.debug(message, {
+		client.debug(debugMessage, {
 			label,
 		});
 
-		isResumable ? this.#resume() : this.#identify();
+		if (isResumable) {
+			this.#resume();
+		} else {
+			this.#resetResumeData();
+			this.#identify();
+		}
 	}
 
+	/**
+	 * @see https://discord.com/developers/docs/events/gateway-events#reconnect
+	 */
 	#onMessageReconnect(): void {
 		const { client, label } = this;
-		const debugMessage = "Discord is requesting a reconnection for the shard";
+		const debugMessage = "Reconnection Requested by Discord";
 
 		client.debug(debugMessage, {
 			label,
@@ -403,13 +394,11 @@ export class GatewayShard {
 	}
 
 	#removeWebSocketEventListeners(): void {
-		const ws = this.#getWebSocket();
+		const ws = this.#getWebSocket(true);
 
-		if (ws) {
-			ws.onclose = null;
-			ws.onmessage = null;
-			ws.onopen = null;
-		}
+		ws.onclose = null;
+		ws.onmessage = null;
+		ws.onopen = null;
 	}
 
 	#reset() {
@@ -436,23 +425,12 @@ export class GatewayShard {
 	}
 
 	#resume(): void {
-		const { client, id, label, sequence, sessionId } = this;
+		const { client, id, sequence, sessionId } = this;
 		const { token } = client;
 
-		if (!sessionId) {
-			throw new GatewayShardError("Cannot resume the shard witout a session ID", id);
+		if (!(sessionId && sequence)) {
+			throw new GatewayShardError("Cannot resume without a session id or sequence number", id);
 		}
-
-		if (!sequence) {
-			throw new GatewayShardError("Cannot resume the shard witout a sequence number", id);
-		}
-
-		const opcodeName = getOpcodeName(GatewayOpcodes.Resume);
-		const debugMessage = `Sending a "${opcodeName}" packet to the Discord gateway...`;
-
-		client.debug(debugMessage, {
-			label,
-		});
 
 		this.send(GatewayOpcodes.Resume, {
 			seq: sequence,
@@ -493,7 +471,7 @@ export class GatewayShard {
 		this.#heartbeatInterval = interval;
 	}
 
-	async #switchGatewayEvent(gatewayEvent: GatewayEvent, client: Client): Promise<void> {
+	async #switchGatewayEvent(gatewayEvent: GatewayEvent): Promise<void> {
 		const { op: opcode } = gatewayEvent;
 
 		switch (opcode) {
@@ -509,19 +487,8 @@ export class GatewayShard {
 				return this.#onMessageInvalidSession(gatewayEvent);
 			case GatewayOpcodes.Reconnect:
 				return this.#onMessageReconnect();
-			default: {
-				const { label } = this;
-				const { events } = client;
-
-				const opcodeName = getOpcodeName(opcode);
-				const warningMessage = `Received an unhandled opcode (${opcodeName}) from ${label}.`;
-
-				events.emit(ClientEvents.Warn, {
-					message: warningMessage,
-				});
-
-				break;
-			}
+			default:
+				return;
 		}
 	}
 
@@ -535,10 +502,12 @@ export class GatewayShard {
 
 		const ws = this.#getWebSocket(true);
 
-		if (reconnect) {
-			ws.close(RECONNECTION_CLOSE_CODE, "User requested a reconnection");
-		} else {
-			ws.close(NORMAL_CLOSURE_CLOSE_CODE, "User requested a complete disconnection");
+		const closeCode = reconnect ? RECONNECTION_CLOSE_CODE : NORMAL_CLOSURE_CLOSE_CODE;
+		const closeReason = reconnect ? "User Requested a Reconnection" : "User Requested a Disconnection";
+
+		ws.close(closeCode, closeReason);
+
+		if (!reconnect) {
 			this.#reset();
 		}
 	}
@@ -548,13 +517,22 @@ export class GatewayShard {
 			return void this.#showInvalidOpcodeWarning(opcode);
 		}
 
+		const { client, label } = this;
 		const ws = this.#getWebSocket(true);
-		const payloadString = JSON.stringify({
-			d: data,
-			op: opcode,
+
+		const opcodeName = getOpcodeName(opcode);
+		const debugMessage = `Sending Packet "${opcodeName}"`;
+
+		client.debug(debugMessage, {
+			label,
 		});
 
-		ws.send(payloadString);
+		ws.send(
+			JSON.stringify({
+				d: data,
+				op: opcode,
+			}),
+		);
 	}
 }
 
