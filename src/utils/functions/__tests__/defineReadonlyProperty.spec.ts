@@ -12,11 +12,17 @@ describe("defineReadonlyProperty", () => {
 	});
 
 	it("Should throw an error if the specified object is not extensible", () => {
-		const DataObject = {};
+		const DataObject1 = {};
+		const DataObject2 = {};
+		const DataObject3 = {};
 
-		Reflect.preventExtensions(DataObject);
+		Object.preventExtensions(DataObject1);
+		Object.freeze(DataObject2);
+		Object.seal(DataObject3);
 
-		expect(() => defineReadonlyProperty(DataObject, "token", DISCORD_BOT_TOKEN)).toThrow(/is not extensible/);
+		expect(() => defineReadonlyProperty(DataObject1, "token", DISCORD_BOT_TOKEN)).toThrow(/is not extensible/);
+		expect(() => defineReadonlyProperty(DataObject2, "token", DISCORD_BOT_TOKEN)).toThrow(/is not extensible/);
+		expect(() => defineReadonlyProperty(DataObject3, "token", DISCORD_BOT_TOKEN)).toThrow(/is not extensible/);
 	});
 
 	it("Should throw an error if the specified property already exists on the object", () => {
