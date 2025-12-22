@@ -1,8 +1,5 @@
 import type { APITextInputComponent, TextInputComponent } from "#types/index.js";
 
-/**
- * Transforms a {@link TextInputComponent} object into an {@link APITextInputComponent} object.
- */
 export function serializeTextInputComponent(deserializedTextInputComponent: TextInputComponent): APITextInputComponent {
 	const { customId, id, maxLength, minLength, placeholder, required, style, type, value } =
 		deserializedTextInputComponent;

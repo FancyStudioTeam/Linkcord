@@ -11,9 +11,6 @@ import type {
 	PrimaryGuild,
 } from "#types/index.js";
 
-/**
- * Transforms an {@link APIAvatarDecorationData} object into a {@link AvatarDecorationData} object.
- */
 export function deserializeAvatarDecorationData(
 	serializedAvatarDecorationData?: APIAvatarDecorationData | null,
 ): AvatarDecorationData | null {
@@ -28,9 +25,6 @@ export function deserializeAvatarDecorationData(
 	return deserializedAvatarDecorationData;
 }
 
-/**
- * Transforms an {@link APICollectibles} object into a {@link Collectibles} object.
- */
 export function deserializeCollectibles(serializedCollectibles?: APICollectibles | null): Collectibles {
 	if (!serializedCollectibles) return {};
 
@@ -42,9 +36,6 @@ export function deserializeCollectibles(serializedCollectibles?: APICollectibles
 	return deserializedCollectibles;
 }
 
-/**
- * Transforms an {@link APIDisplayNameStyles} object into a {@link DisplayNameStyles} object.
- */
 export function deserializeDisplayNameStyles(
 	serializedDisplayNameStyles?: APIDisplayNameStyles | null,
 ): DisplayNameStyles | null {
@@ -60,9 +51,6 @@ export function deserializeDisplayNameStyles(
 	return deserializedDisplayNameStyles;
 }
 
-/**
- * Transforms an {@link APINameplate} object into a {@link Nameplate} object.
- */
 export function deserializeNameplate(serializedNameplate: APINameplate): Nameplate {
 	const { asset, label, palette, sku_id } = serializedNameplate;
 	const deserializedNameplate: Nameplate = {
@@ -75,9 +63,6 @@ export function deserializeNameplate(serializedNameplate: APINameplate): Namepla
 	return deserializedNameplate;
 }
 
-/**
- * Transforms an {@link APIPrimaryGuild} object into a {@link PrimaryGuild} object.
- */
 export function deserializePrimaryGuild(serializedPrimaryGuild?: APIPrimaryGuild | null): PrimaryGuild | null {
 	if (!serializedPrimaryGuild) return null;
 

@@ -5,9 +5,6 @@ import type {
 	GatewayBotSessionStartLimit,
 } from "#types/index.js";
 
-/**
- * Transforms an {@link APIGatewayBot} object into a {@link GatewayBot} object.
- */
 export function deserializeGatewayBot(serializedGatewayBot: APIGatewayBot): GatewayBot {
 	const { session_start_limit, shards, url } = serializedGatewayBot;
 	const deserializedGatewayBot: GatewayBot = {
@@ -19,9 +16,6 @@ export function deserializeGatewayBot(serializedGatewayBot: APIGatewayBot): Gate
 	return deserializedGatewayBot;
 }
 
-/**
- * Transforms an {@link APIGatewayBotSessionStartLimit} object into a {@link GatewayBotSessionStartLimit} object.
- */
 export function deserializeGatewayBotSessionStartLimit(
 	serializedGatewayBotSessionStartLimit: APIGatewayBotSessionStartLimit,
 ): GatewayBotSessionStartLimit {
