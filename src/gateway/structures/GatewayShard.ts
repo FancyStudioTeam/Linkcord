@@ -134,12 +134,17 @@ export class GatewayShard {
 
 	#getSequenceStatus(expectedSequence: number, receivedSequence: number): string {
 		const sequenceDelta = expectedSequence - receivedSequence;
+		const absoluteSequenceDelta = Math.abs(sequenceDelta);
 
 		if (sequenceDelta > 0) {
-			return `${sequenceDelta} Lost Sequence(s)`;
+			return `${absoluteSequenceDelta} Sequence(s) Missing`;
 		}
 
-		return "OK";
+		if (sequenceDelta < 0) {
+			return `${absoluteSequenceDelta} Sequence(s) Ahead`;
+		}
+
+		return "Synchronized Sequences";
 	}
 
 	#getWebSocket(required?: boolean): WebSocket | null;
