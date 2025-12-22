@@ -7,26 +7,25 @@ import type {
 
 export function parseGatewayBot(gatewayBot: APIGatewayBot): GatewayBot {
 	const { session_start_limit: sessionStartLimit, shards, url } = gatewayBot;
-	const sessionStartLimitData = parseGatewayBotSessionStartLimit(sessionStartLimit);
-	const gatewayBotData: GatewayBot = {
-		sessionStartLimit: sessionStartLimitData,
+	const parsedGatewayBot: GatewayBot = {
+		sessionStartLimit: parseGatewayBotSessionStartLimit(sessionStartLimit),
 		shards,
 		url,
 	};
 
-	return gatewayBotData;
+	return parsedGatewayBot;
 }
 
 export function parseGatewayBotSessionStartLimit(
 	sessionStartLimit: APIGatewayBotSessionStartLimit,
 ): GatewayBotSessionStartLimit {
 	const { max_concurrency: maxConcurrency, remaining, reset_after: resetAfter, total } = sessionStartLimit;
-	const sessionStartLimitData: GatewayBotSessionStartLimit = {
+	const parsedSessionStartLimit: GatewayBotSessionStartLimit = {
 		maxConcurrency,
 		remaining,
 		resetAfter,
 		total,
 	};
 
-	return sessionStartLimitData;
+	return parsedSessionStartLimit;
 }

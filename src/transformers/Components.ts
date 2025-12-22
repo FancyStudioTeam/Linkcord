@@ -7,7 +7,7 @@ import {
 	ComponentType,
 	type ContainerComponent,
 	type ContainerComponents,
-	type MessageComponent,
+	type MessageComponents,
 	type SeparatorComponent,
 	type TextDisplayComponent,
 } from "#types/index.js";
@@ -45,19 +45,19 @@ export function serializeContainerComponentsArray(
 }
 
 // @ts-expect-error
-export function serializeMessageComponent(messageComponent: MessageComponent): APIMessageComponent {
-	const { type } = messageComponent;
+export function serializeMessageComponents(messageComponents: MessageComponents): APIMessageComponent {
+	const { type } = messageComponents;
 
 	switch (type) {
 		case ComponentType.Container:
-			return serializeContainerComponent(messageComponent);
+			return serializeContainerComponent(messageComponents);
 		case ComponentType.TextDisplay:
-			return serializeTextDisplayComponent(messageComponent);
+			return serializeTextDisplayComponent(messageComponents);
 	}
 }
 
-export function serializeMessageComponents(messageComponents: MessageComponent[]): APIMessageComponent[] {
-	return messageComponents.map(serializeMessageComponent);
+export function serializeMessageComponentsArray(messageComponents: MessageComponents[]): APIMessageComponent[] {
+	return messageComponents.map(serializeMessageComponents);
 }
 
 export function serializeSeparatorComponent(separatorComponent: SeparatorComponent): APISeparatorComponent {

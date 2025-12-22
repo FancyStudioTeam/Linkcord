@@ -2,7 +2,7 @@ import type { APIVoiceRegion, VoiceRegion } from "#types/index.js";
 
 export function parseVoiceRegion(voiceRegion: APIVoiceRegion): VoiceRegion {
 	const { custom, deprecated, id, name, optimal } = voiceRegion;
-	const voiceRegionData: VoiceRegion = {
+	const parsedVoiceRegion: VoiceRegion = {
 		custom,
 		deprecated,
 		id,
@@ -10,7 +10,7 @@ export function parseVoiceRegion(voiceRegion: APIVoiceRegion): VoiceRegion {
 		optimal,
 	};
 
-	return voiceRegionData;
+	return parsedVoiceRegion;
 }
 
 export function parseVoiceRegions(voiceRegions: APIVoiceRegion[]): VoiceRegion[] {

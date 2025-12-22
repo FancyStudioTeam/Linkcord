@@ -1,5 +1,5 @@
 import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
-import type { MessageComponent } from "#types/resources/Components/index.js";
+import type { MessageComponents } from "#types/resources/Components/index.js";
 import type { MessagePoll } from "#types/resources/Polls/index.js";
 import type { BitFieldResolver } from "#utils/index.js";
 import type { MessageFlags, ReactionType } from "../enums.js";
@@ -18,7 +18,7 @@ export interface BulkMessagesOptions {
 export interface CreateMessageOptions {
 	allowedMentions?: AllowedMentions;
 	attachments?: PartialAttachment[];
-	components?: MessageComponent[];
+	components?: MessageComponents[];
 	content?: string;
 	embeds?: Embed[];
 	enforceNonce?: boolean;
@@ -36,7 +36,7 @@ export interface CreateMessageOptions {
 export interface EditMessageOptions {
 	allowedMentions?: AllowedMentions | null;
 	attachments?: Attachment[] | null;
-	components?: MessageComponent[] | null;
+	components?: MessageComponents[] | null;
 	content?: string | null;
 	embeds?: Embed[];
 	flags?: BitFieldResolver | MessageFlags;

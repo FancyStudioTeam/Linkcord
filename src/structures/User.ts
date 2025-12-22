@@ -1,6 +1,6 @@
 import type { Client } from "#client/index.js";
 import {
-	parseAvatarDecoration,
+	parseAvatarDecorationData,
 	parseCollectibles,
 	parseDisplayNameStyles,
 	parsePrimaryGuild,
@@ -75,7 +75,7 @@ export class User extends Base {
 
 		this.accentColor = accent_color ?? null;
 		this.avatar = avatar;
-		this.avatarDecorationData = parseAvatarDecoration(avatar_decoration_data ?? null);
+		this.avatarDecorationData = parseAvatarDecorationData(avatar_decoration_data ?? null);
 		this.banner = banner ?? null;
 		this.bot = Boolean(bot);
 		this.collectibles = parseCollectibles(collectibles ?? null);
@@ -122,7 +122,7 @@ export class User extends Base {
 		}
 
 		if (!isUndefined(avatar_decoration_data)) {
-			this.avatarDecorationData = parseAvatarDecoration(avatar_decoration_data);
+			this.avatarDecorationData = parseAvatarDecorationData(avatar_decoration_data);
 		}
 
 		if (!isUndefined(banner)) {

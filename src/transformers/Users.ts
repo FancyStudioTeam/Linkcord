@@ -11,64 +11,66 @@ import type {
 	PrimaryGuild,
 } from "#types/index.js";
 
-export function parseAvatarDecoration(avatarDecoration: APIAvatarDecorationData | null): AvatarDecorationData | null {
-	if (!avatarDecoration) return null;
+export function parseAvatarDecorationData(
+	avatarDecorationData: APIAvatarDecorationData | null,
+): AvatarDecorationData | null {
+	if (!avatarDecorationData) return null;
 
-	const { asset, sku_id: skuId } = avatarDecoration;
-	const avatarDecorationData: AvatarDecorationData = {
+	const { asset, sku_id: skuId } = avatarDecorationData;
+	const parsedAvatarDecorationData: AvatarDecorationData = {
 		asset,
 		skuId,
 	};
 
-	return avatarDecorationData;
+	return parsedAvatarDecorationData;
 }
 
 export function parseCollectibles(collectibles: APICollectibles | null): Collectibles {
 	if (!collectibles) return {};
 
 	const { nameplate } = collectibles;
-	const collectiblesData: Collectibles = {};
+	const parsedCollectibles: Collectibles = {};
 
-	if (nameplate) collectiblesData.nameplate = parseNameplate(nameplate);
+	if (nameplate) parsedCollectibles.nameplate = parseNameplate(nameplate);
 
-	return collectiblesData;
+	return parsedCollectibles;
 }
 
 export function parseDisplayNameStyles(displayNameStyles: APIDisplayNameStyles | null): DisplayNameStyles | null {
 	if (!displayNameStyles) return null;
 
 	const { colors, effect_id: effectId, font_id: fontId } = displayNameStyles;
-	const displayNameStylesData: DisplayNameStyles = {
+	const parsedDisplayNameStyles: DisplayNameStyles = {
 		colors,
 		effectId,
 		fontId,
 	};
 
-	return displayNameStylesData;
+	return parsedDisplayNameStyles;
 }
 
 export function parseNameplate(nameplate: APINameplate): Nameplate {
 	const { asset, label, palette, sku_id: skuId } = nameplate;
-	const nameplateData: Nameplate = {
+	const parsedNameplate: Nameplate = {
 		asset,
 		label,
 		palette,
 		skuId,
 	};
 
-	return nameplateData;
+	return parsedNameplate;
 }
 
 export function parsePrimaryGuild(primaryGuild: APIPrimaryGuild | null): PrimaryGuild | null {
 	if (!primaryGuild) return null;
 
 	const { badge, identity_enabled: identityEnabled, identity_guild_id: identityGuildId, tag } = primaryGuild;
-	const primaryGuildData: PrimaryGuild = {
+	const parsedPrimaryGuild: PrimaryGuild = {
 		badge,
 		identityEnabled,
 		identityGuildId,
 		tag,
 	};
 
-	return primaryGuildData;
+	return parsedPrimaryGuild;
 }
