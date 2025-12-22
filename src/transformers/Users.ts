@@ -12,7 +12,7 @@ import type {
 } from "#types/index.js";
 
 export function parseAvatarDecorationData(
-	avatarDecorationData: APIAvatarDecorationData | null,
+	avatarDecorationData?: APIAvatarDecorationData | null,
 ): AvatarDecorationData | null {
 	if (!avatarDecorationData) return null;
 
@@ -25,7 +25,7 @@ export function parseAvatarDecorationData(
 	return parsedAvatarDecorationData;
 }
 
-export function parseCollectibles(collectibles: APICollectibles | null): Collectibles {
+export function parseCollectibles(collectibles?: APICollectibles | null): Collectibles {
 	if (!collectibles) return {};
 
 	const { nameplate } = collectibles;
@@ -36,7 +36,7 @@ export function parseCollectibles(collectibles: APICollectibles | null): Collect
 	return parsedCollectibles;
 }
 
-export function parseDisplayNameStyles(displayNameStyles: APIDisplayNameStyles | null): DisplayNameStyles | null {
+export function parseDisplayNameStyles(displayNameStyles?: APIDisplayNameStyles | null): DisplayNameStyles | null {
 	if (!displayNameStyles) return null;
 
 	const { colors, effect_id: effectId, font_id: fontId } = displayNameStyles;
@@ -61,7 +61,7 @@ export function parseNameplate(nameplate: APINameplate): Nameplate {
 	return parsedNameplate;
 }
 
-export function parsePrimaryGuild(primaryGuild: APIPrimaryGuild | null): PrimaryGuild | null {
+export function parsePrimaryGuild(primaryGuild?: APIPrimaryGuild | null): PrimaryGuild | null {
 	if (!primaryGuild) return null;
 
 	const { badge, identity_enabled: identityEnabled, identity_guild_id: identityGuildId, tag } = primaryGuild;

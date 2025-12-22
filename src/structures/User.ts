@@ -75,16 +75,16 @@ export class User extends Base {
 
 		this.accentColor = accent_color ?? null;
 		this.avatar = avatar;
-		this.avatarDecorationData = parseAvatarDecorationData(avatar_decoration_data ?? null);
+		this.avatarDecorationData = parseAvatarDecorationData(avatar_decoration_data);
 		this.banner = banner ?? null;
 		this.bot = Boolean(bot);
-		this.collectibles = parseCollectibles(collectibles ?? null);
+		this.collectibles = parseCollectibles(collectibles);
 		this.discriminator = discriminator;
-		this.displayNameStyles = parseDisplayNameStyles(display_name_styles ?? null);
+		this.displayNameStyles = parseDisplayNameStyles(display_name_styles);
 		this.flags = new BitFieldResolver(flags);
 		this.globalName = global_name;
 		this.id = id;
-		this.primaryGuild = parsePrimaryGuild(primary_guild ?? null);
+		this.primaryGuild = parsePrimaryGuild(primary_guild);
 		this.system = Boolean(system);
 		this.username = username;
 	}
