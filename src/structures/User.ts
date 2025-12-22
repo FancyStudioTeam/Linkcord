@@ -1,10 +1,10 @@
 import type { Client } from "#client/index.js";
 import {
-	parseAvatarDecorationData,
-	parseCollectibles,
-	parseDisplayNameStyles,
-	parsePrimaryGuild,
-} from "#transformers/Users.js";
+	deserializeAvatarDecorationData,
+	deserializeCollectibles,
+	deserializeDisplayNameStyles,
+	deserializePrimaryGuild,
+} from "#transformers/Users/Deserializer.js";
 import type {
 	APIUser,
 	AvatarDecorationData,
@@ -75,16 +75,16 @@ export class User extends Base {
 
 		this.accentColor = accent_color ?? null;
 		this.avatar = avatar;
-		this.avatarDecorationData = parseAvatarDecorationData(avatar_decoration_data);
+		this.avatarDecorationData = deserializeAvatarDecorationData(avatar_decoration_data);
 		this.banner = banner ?? null;
 		this.bot = Boolean(bot);
-		this.collectibles = parseCollectibles(collectibles);
+		this.collectibles = deserializeCollectibles(collectibles);
 		this.discriminator = discriminator;
-		this.displayNameStyles = parseDisplayNameStyles(display_name_styles);
+		this.displayNameStyles = deserializeDisplayNameStyles(display_name_styles);
 		this.flags = new BitFieldResolver(flags);
 		this.globalName = global_name;
 		this.id = id;
-		this.primaryGuild = parsePrimaryGuild(primary_guild);
+		this.primaryGuild = deserializePrimaryGuild(primary_guild);
 		this.system = Boolean(system);
 		this.username = username;
 	}
@@ -122,7 +122,7 @@ export class User extends Base {
 		}
 
 		if (!isUndefined(avatar_decoration_data)) {
-			this.avatarDecorationData = parseAvatarDecorationData(avatar_decoration_data);
+			this.avatarDecorationData = deserializeAvatarDecorationData(avatar_decoration_data);
 		}
 
 		if (!isUndefined(banner)) {
@@ -130,11 +130,11 @@ export class User extends Base {
 		}
 
 		if (!isUndefined(collectibles)) {
-			this.collectibles = parseCollectibles(collectibles);
+			this.collectibles = deserializeCollectibles(collectibles);
 		}
 
 		if (!isUndefined(display_name_styles)) {
-			this.displayNameStyles = parseDisplayNameStyles(display_name_styles);
+			this.displayNameStyles = deserializeDisplayNameStyles(display_name_styles);
 		}
 
 		if (!isUndefined(flags)) {
@@ -146,7 +146,7 @@ export class User extends Base {
 		}
 
 		if (!isUndefined(primary_guild)) {
-			this.primaryGuild = parsePrimaryGuild(primary_guild);
+			this.primaryGuild = deserializePrimaryGuild(primary_guild);
 		}
 
 		if (!isUndefined(username)) {
