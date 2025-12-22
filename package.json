@@ -30,8 +30,7 @@
 		},
 		"./utils": {
 			"import": "./lib/utils/index.js",
-			"require": "./lib/utils/index.js",
-			"types": "./lib/utils/index.d.ts"
+			"require": "./lib/utils/index.js"
 		}
 	},
 	"files": [
