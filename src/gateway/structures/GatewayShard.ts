@@ -14,7 +14,7 @@ import {
 } from "#types/index.js";
 import { LINKCORD_AGENT } from "#utils/Constants.js";
 import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
-import { isInstanceOf, isNull } from "#utils/helpers/AssertionUtils.js";
+import { isInstanceOf, isNull, isNumber } from "#utils/helpers/AssertionUtils.js";
 import { GatewayManager } from "./GatewayManager.js";
 import { GatewayShardStatus, type SendableOpcodes, type SendableOpcodesMap } from "./GatewayShard.types.js";
 
@@ -85,9 +85,7 @@ export class GatewayShard {
 		searchParams.append("encoding", "json");
 		searchParams.append("v", String(GatewayManager.GATEWAY_VERSION));
 
-		const urlString = urlObject.toString();
-
-		return urlString;
+		return urlObject.toString();
 	}
 
 	#checkAndUpdateSequence(gatewayEvent: GatewayEvent): void {
@@ -105,32 +103,18 @@ export class GatewayShard {
 			label,
 		});
 
-		const isExpectedSequence = expectedSequence === receivedSequence;
-
-		if (!isExpectedSequence) {
-			const { id } = this;
-			const { events } = client;
-
-			const warningMessages = [
-				`Some sequences were skipped or missed from "Shard ${id}".`,
-				`Expected sequence to be ${expectedSequence} but received ${receivedSequence}.`,
-			];
-			const warningMessage = warningMessages.join("\n");
-
-			events.emit(ClientEvents.Warn, {
-				message: warningMessage,
-			});
+		if (expectedSequence !== receivedSequence) {
+			this.#showMissingSequencesWarning(expectedSequence, receivedSequence);
 		}
 
 		this.sequence = receivedSequence;
 	}
 
 	#getSequence(gatewayEvent: GatewayEvent): number | null {
-		if ("s" in gatewayEvent) {
-			return gatewayEvent.s;
-		}
+		const sequenceValue = Reflect.get(gatewayEvent, "s");
+		const sequence = isNumber(sequenceValue) ? sequenceValue : null;
 
-		return null;
+		return sequence;
 	}
 
 	#getSequenceStatus(expectedSequence: number, receivedSequence: number): string {
@@ -145,7 +129,7 @@ export class GatewayShard {
 			return `${absoluteSequenceDelta} Sequence(s) Ahead`;
 		}
 
-		return "Synchronized Sequences";
+		return "OK";
 	}
 
 	#getWebSocket(required?: boolean): WebSocket | null;
@@ -242,6 +226,8 @@ export class GatewayShard {
 	}
 
 	#onClose(closeEvent: CloseEvent): void {
+		this.#resetWebSocketData();
+
 		const { code, reason } = closeEvent;
 		const isReconnectable = this.#isCloseEventCodeReconnectable(code);
 
@@ -476,12 +462,29 @@ export class GatewayShard {
 	}
 
 	#showInvalidOpcodeWarning(opcode: GatewayOpcodes): void {
+		const { id } = this;
+
 		const opcodeName = getOpcodeName(opcode);
-		const warningMessage = `Cannot send a non-sendable opcode (${opcodeName}) to the Discord gateway`;
+		const warningMessage = `Cannot send a non-sendable opcode (${opcodeName}) to the Discord gateway.`;
 
 		emitWarning(warningMessage, {
-			code: "GATEWAY_SHARD",
+			code: `GATEWAY_SHARD_${id}`,
 			type: "Invalid Opcode Warning",
+		});
+	}
+
+	#showMissingSequencesWarning(expectedSequence: number, receivedSequence: number): void {
+		const { id } = this;
+
+		const warningMessages = [
+			`Some sequences were missed or skipped from shard ${id}.`,
+			`Expected Sequence: ${expectedSequence} - Received Sequence: ${receivedSequence}.`,
+		];
+		const warningMessage = warningMessages.join("\n");
+
+		emitWarning(warningMessage, {
+			code: `GATEWAY_SHARD_${id}`,
+			type: "Missing Sequences Warning",
 		});
 	}
 
@@ -534,7 +537,6 @@ export class GatewayShard {
 
 		if (reconnect) {
 			ws.close(RECONNECTION_CLOSE_CODE, "User requested a reconnection");
-			this.#resetWebSocketData();
 		} else {
 			ws.close(NORMAL_CLOSURE_CLOSE_CODE, "User requested a complete disconnection");
 			this.#reset();
