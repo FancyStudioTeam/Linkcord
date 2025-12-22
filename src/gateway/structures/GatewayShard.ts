@@ -97,12 +97,14 @@ export class GatewayShard {
 		const { client, label, sequence: storedSequence } = this;
 		const expectedSequence = (storedSequence ?? 0) + 1;
 
-		const isExpectedSequence = expectedSequence === receivedSequence;
-		const debugMessage = `Expected Sequence: ${expectedSequence} - Received Sequence: ${receivedSequence}`;
+		const sequenceStatus = this.#getSequenceStatus(expectedSequence, receivedSequence);
+		const debugMessage = `Expected Sequence: ${expectedSequence} - Received Sequence: ${receivedSequence} (${sequenceStatus})`;
 
 		client.debug(debugMessage, {
 			label,
 		});
+
+		const isExpectedSequence = expectedSequence === receivedSequence;
 
 		if (!isExpectedSequence) {
 			const { id } = this;
@@ -128,6 +130,16 @@ export class GatewayShard {
 		}
 
 		return null;
+	}
+
+	#getSequenceStatus(expectedSequence: number, receivedSequence: number): string {
+		const sequenceDelta = expectedSequence - receivedSequence;
+
+		if (sequenceDelta > 0) {
+			return `${sequenceDelta} Lost Sequence(s)`;
+		}
+
+		return "OK";
 	}
 
 	#getWebSocket(required?: boolean): WebSocket | null;
