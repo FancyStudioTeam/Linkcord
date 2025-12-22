@@ -19,7 +19,7 @@ describe("defineReadonlyProperty", () => {
 		expect(() => defineReadonlyProperty(DataObject, "token", DISCORD_BOT_TOKEN)).toThrow(/is not extensible/);
 	});
 
-	it("Should throw an error if the specified property already exists in the object", () => {
+	it("Should throw an error if the specified property already exists on the object", () => {
 		const DataObject = {
 			name: "Nelly",
 		};
