@@ -19,10 +19,10 @@ export function deserializeAvatarDecorationData(
 ): AvatarDecorationData | null {
 	if (!serializedAvatarDecorationData) return null;
 
-	const { asset, sku_id: skuId } = serializedAvatarDecorationData;
+	const { asset, sku_id } = serializedAvatarDecorationData;
 	const deserializedAvatarDecorationData: AvatarDecorationData = {
 		asset,
-		skuId,
+		skuId: sku_id,
 	};
 
 	return deserializedAvatarDecorationData;
@@ -50,11 +50,11 @@ export function deserializeDisplayNameStyles(
 ): DisplayNameStyles | null {
 	if (!serializedDisplayNameStyles) return null;
 
-	const { colors, effect_id: effectId, font_id: fontId } = serializedDisplayNameStyles;
+	const { colors, effect_id, font_id } = serializedDisplayNameStyles;
 	const deserializedDisplayNameStyles: DisplayNameStyles = {
 		colors,
-		effectId,
-		fontId,
+		effectId: effect_id,
+		fontId: font_id,
 	};
 
 	return deserializedDisplayNameStyles;
@@ -64,12 +64,12 @@ export function deserializeDisplayNameStyles(
  * Transforms an {@link APINameplate} object into a {@link Nameplate} object.
  */
 export function deserializeNameplate(serializedNameplate: APINameplate): Nameplate {
-	const { asset, label, palette, sku_id: skuId } = serializedNameplate;
+	const { asset, label, palette, sku_id } = serializedNameplate;
 	const deserializedNameplate: Nameplate = {
 		asset,
 		label,
 		palette,
-		skuId,
+		skuId: sku_id,
 	};
 
 	return deserializedNameplate;
@@ -81,16 +81,11 @@ export function deserializeNameplate(serializedNameplate: APINameplate): Namepla
 export function deserializePrimaryGuild(serializedPrimaryGuild?: APIPrimaryGuild | null): PrimaryGuild | null {
 	if (!serializedPrimaryGuild) return null;
 
-	const {
-		badge,
-		identity_enabled: identityEnabled,
-		identity_guild_id: identityGuildId,
-		tag,
-	} = serializedPrimaryGuild;
+	const { badge, identity_enabled, identity_guild_id, tag } = serializedPrimaryGuild;
 	const deserializedPrimaryGuild: PrimaryGuild = {
 		badge,
-		identityEnabled,
-		identityGuildId,
+		identityEnabled: identity_enabled,
+		identityGuildId: identity_guild_id,
 		tag,
 	};
 

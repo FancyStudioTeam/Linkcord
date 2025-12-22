@@ -9,9 +9,9 @@ import type {
  * Transforms an {@link APIGatewayBot} object into a {@link GatewayBot} object.
  */
 export function deserializeGatewayBot(serializedGatewayBot: APIGatewayBot): GatewayBot {
-	const { session_start_limit: sessionStartLimit, shards, url } = serializedGatewayBot;
+	const { session_start_limit, shards, url } = serializedGatewayBot;
 	const deserializedGatewayBot: GatewayBot = {
-		sessionStartLimit: deserializeGatewayBotSessionStartLimit(sessionStartLimit),
+		sessionStartLimit: deserializeGatewayBotSessionStartLimit(session_start_limit),
 		shards,
 		url,
 	};
@@ -25,16 +25,11 @@ export function deserializeGatewayBot(serializedGatewayBot: APIGatewayBot): Gate
 export function deserializeGatewayBotSessionStartLimit(
 	serializedGatewayBotSessionStartLimit: APIGatewayBotSessionStartLimit,
 ): GatewayBotSessionStartLimit {
-	const {
-		max_concurrency: maxConcurrency,
-		remaining,
-		reset_after: resetAfter,
-		total,
-	} = serializedGatewayBotSessionStartLimit;
+	const { max_concurrency, remaining, reset_after, total } = serializedGatewayBotSessionStartLimit;
 	const deserializedGatewayBotSessionStartLimit: GatewayBotSessionStartLimit = {
-		maxConcurrency,
+		maxConcurrency: max_concurrency,
 		remaining,
-		resetAfter,
+		resetAfter: reset_after,
 		total,
 	};
 
