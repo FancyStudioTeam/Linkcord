@@ -27,6 +27,11 @@
 		".": {
 			"import": "./lib/index.js",
 			"require": "./lib/index.js"
+		},
+		"./utils": {
+			"import": "./lib/utils/index.js",
+			"require": "./lib/utils/index.js",
+			"types": "./lib/utils/index.d.ts"
 		}
 	},
 	"files": [
