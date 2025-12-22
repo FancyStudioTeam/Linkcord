@@ -13,9 +13,6 @@ temp
 .env
 .env.*
 
-# Internal
-internal_testing
-
 # Logs
 logs
 *.log
@@ -30,6 +27,3 @@ node_modules
 
 # Tarballs
 *.tgz
-
-# Vitest
-tsconfig.vitest-temp.json
