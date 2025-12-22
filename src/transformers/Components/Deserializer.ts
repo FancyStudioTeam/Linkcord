@@ -1,8 +1,14 @@
 import type {
 	APISeparatorComponent,
+	APITextDisplayComponent,
 	APITextInputComponent,
+	APIThumbnailComponent,
+	APIUnfurledMediaItem,
 	SeparatorComponent,
+	TextDisplayComponent,
 	TextInputComponent,
+	ThumbnailComponent,
+	UnfurledMediaItem,
 } from "#types/index.js";
 
 export function deserializeSeparatorComponent(serializedSeparatorComponent: APISeparatorComponent): SeparatorComponent {
@@ -16,6 +22,20 @@ export function deserializeSeparatorComponent(serializedSeparatorComponent: APIS
 	if (spacing) deserializedSeparatorComponent.spacing = spacing;
 
 	return deserializedSeparatorComponent;
+}
+
+export function deserializeTextDisplayComponent(
+	serializedTextDisplayComponent: APITextDisplayComponent,
+): TextDisplayComponent {
+	const { content, id, type } = serializedTextDisplayComponent;
+	const deserializedTextDisplayComponent: TextDisplayComponent = {
+		content,
+		type,
+	};
+
+	if (id) deserializedTextDisplayComponent.id = id;
+
+	return deserializedTextDisplayComponent;
 }
 
 export function deserializeTextInputComponent(serializedTextInputComponent: APITextInputComponent): TextInputComponent {
@@ -35,4 +55,33 @@ export function deserializeTextInputComponent(serializedTextInputComponent: APIT
 	if (value) deserializedTextInputComponent.value = value;
 
 	return deserializedTextInputComponent;
+}
+
+export function deserializeThumbnailComponent(serializedThumbnailComponent: APIThumbnailComponent): ThumbnailComponent {
+	const { description, id, media, spoiler, type } = serializedThumbnailComponent;
+	const deserializedThumbnailComponent: ThumbnailComponent = {
+		media: deserializeUnfurledMediaItem(media),
+		type,
+	};
+
+	if (description) deserializedThumbnailComponent.description = description;
+	if (id) deserializedThumbnailComponent.id = id;
+	if (spoiler) deserializedThumbnailComponent.spoiler = spoiler;
+
+	return deserializedThumbnailComponent;
+}
+
+export function deserializeUnfurledMediaItem(serializedUnfurledMediaItem: APIUnfurledMediaItem): UnfurledMediaItem {
+	const { attachment_id, content_type, height, proxy_url, url, width } = serializedUnfurledMediaItem;
+	const deserializedUnfurledMediaItem: UnfurledMediaItem = {
+		url,
+	};
+
+	if (attachment_id) deserializedUnfurledMediaItem.attachmentId = attachment_id;
+	if (content_type) deserializedUnfurledMediaItem.contentType = content_type;
+	if (height) deserializedUnfurledMediaItem.height = height;
+	if (proxy_url) deserializedUnfurledMediaItem.proxyUrl = proxy_url;
+	if (width) deserializedUnfurledMediaItem.width = width;
+
+	return deserializedUnfurledMediaItem;
 }
