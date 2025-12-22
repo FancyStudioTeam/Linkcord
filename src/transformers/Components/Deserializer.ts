@@ -1,15 +1,32 @@
 import type {
+	APIMediaGalleryItem,
 	APISeparatorComponent,
 	APITextDisplayComponent,
 	APITextInputComponent,
 	APIThumbnailComponent,
 	APIUnfurledMediaItem,
+	MediaGalleryItem,
 	SeparatorComponent,
 	TextDisplayComponent,
 	TextInputComponent,
 	ThumbnailComponent,
 	UnfurledMediaItem,
 } from "#types/index.js";
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#media-gallery-media-gallery-item-structure
+ */
+export function deserializeMediaGalleryItem(serializedMediaGalleryItem: APIMediaGalleryItem): MediaGalleryItem {
+	const { description, media, spoiler } = serializedMediaGalleryItem;
+	const deserializedMediaGalleryItem: MediaGalleryItem = {
+		media: deserializeUnfurledMediaItem(media),
+	};
+
+	if (description) deserializedMediaGalleryItem.description = description;
+	if (spoiler) deserializedMediaGalleryItem.spoiler = spoiler;
+
+	return deserializedMediaGalleryItem;
+}
 
 export function deserializeSeparatorComponent(serializedSeparatorComponent: APISeparatorComponent): SeparatorComponent {
 	const { divider, id, spacing, type } = serializedSeparatorComponent;
