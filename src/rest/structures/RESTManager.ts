@@ -5,7 +5,7 @@ import { GatewayAPI } from "#rest/api/GatewayAPI.js";
 import { MiscellaneousAPI } from "#rest/api/MiscellaneousAPI.js";
 import { normalizeRoute } from "#rest/functions/normalizeRoute.js";
 import { REST_URL_BASE } from "#rest/utils/Constants.js";
-import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
+import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
 import { BucketManager } from "./BucketManager.js";
 import type { MakeRequestOptions } from "./RESTManager.types.js";
 
@@ -18,12 +18,12 @@ export class RESTManager {
 	declare readonly miscellaneous: MiscellaneousAPI;
 
 	constructor(client: Client) {
-		defineImmutableProperty(this, "applications", new ApplicationsAPI(this, client));
-		defineImmutableProperty(this, "buckets", new BucketManager());
-		defineImmutableProperty(this, "channels", new ChannelsAPI(this, client));
-		defineImmutableProperty(this, "client", client);
-		defineImmutableProperty(this, "gateway", new GatewayAPI(this, client));
-		defineImmutableProperty(this, "miscellaneous", new MiscellaneousAPI(this, client));
+		defineReadonlyProperty(this, "applications", new ApplicationsAPI(this, client));
+		defineReadonlyProperty(this, "buckets", new BucketManager());
+		defineReadonlyProperty(this, "channels", new ChannelsAPI(this, client));
+		defineReadonlyProperty(this, "client", client);
+		defineReadonlyProperty(this, "gateway", new GatewayAPI(this, client));
+		defineReadonlyProperty(this, "miscellaneous", new MiscellaneousAPI(this, client));
 	}
 
 	get token(): string {

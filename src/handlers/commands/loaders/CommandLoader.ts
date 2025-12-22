@@ -3,7 +3,7 @@ import { glob } from "node:fs/promises";
 import type { Client } from "#client/index.js";
 import type { DeclarableCommandConstructor } from "#handlers/decorators/Declare.types.js";
 import type { CreateApplicationCommandOptions, CreateChatInputApplicationCommandOptions } from "#types/index.js";
-import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
+import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
 import { isInstanceOf } from "#utils/helpers/AssertionUtils.js";
 import { importFile, resolvePath } from "#utils/helpers/ImportUtils.js";
 import { ChatInputCommandHandler } from "../structures/index.js";
@@ -13,8 +13,8 @@ export class CommandLoader {
 	declare readonly commandsFolderPath: string;
 
 	constructor(commandsFolderPath: string, client: Client) {
-		defineImmutableProperty(this, "client", client);
-		defineImmutableProperty(this, "commandsFolderPath", commandsFolderPath);
+		defineReadonlyProperty(this, "client", client);
+		defineReadonlyProperty(this, "commandsFolderPath", commandsFolderPath);
 	}
 
 	static COMMANDS_GLOB_PATTERNS = [

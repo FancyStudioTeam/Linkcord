@@ -1,4 +1,4 @@
-import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
+import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
 import type { DeclarableConstructor, DeclareOptions } from "./Declare.types.js";
 
 export function Declare<Target extends DeclarableConstructor>(declareOptions: DeclareOptions<Target>) {
@@ -8,7 +8,7 @@ export function Declare<Target extends DeclarableConstructor>(declareOptions: De
 			constructor(...args: unknown[]) {
 				super(...args);
 
-				defineImmutableProperty(this, "declareOptions", declareOptions);
+				defineReadonlyProperty(this, "declareOptions", declareOptions);
 			}
 		};
 	};

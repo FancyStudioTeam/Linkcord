@@ -1,7 +1,7 @@
 import { CacheManager, CommandManager, EventManager } from "#client/managers/index.js";
 import { GatewayManager } from "#gateway/index.js";
 import { RESTManager } from "#rest/index.js";
-import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
+import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
 import { isUndefined } from "#utils/helpers/AssertionUtils.js";
 import { ClientBase } from "../ClientBase.js";
 import { type ClientDebugOptions, ClientEvents } from "./Client.types.js";
@@ -18,11 +18,11 @@ export class Client extends ClientBase {
 	constructor() {
 		super();
 
-		defineImmutableProperty(this, "cache", new CacheManager());
-		defineImmutableProperty(this, "commands", new CommandManager());
-		defineImmutableProperty(this, "events", new EventManager());
-		defineImmutableProperty(this, "gateway", new GatewayManager(this));
-		defineImmutableProperty(this, "rest", new RESTManager(this));
+		defineReadonlyProperty(this, "cache", new CacheManager());
+		defineReadonlyProperty(this, "commands", new CommandManager());
+		defineReadonlyProperty(this, "events", new EventManager());
+		defineReadonlyProperty(this, "gateway", new GatewayManager(this));
+		defineReadonlyProperty(this, "rest", new RESTManager(this));
 	}
 
 	#normalizeLabelBrackets(label: string): `[${string}]` {

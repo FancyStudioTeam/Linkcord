@@ -8,15 +8,15 @@ import {
 	type MakePutRequestOptions,
 	RESTMethod,
 } from "#rest/structures/RESTManager.types.js";
-import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
+import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
 
 export class BaseAPI {
 	protected declare readonly client: Client;
 	protected declare readonly rest: RESTManager;
 
 	constructor(rest: RESTManager, client: Client) {
-		defineImmutableProperty(this, "client", client);
-		defineImmutableProperty(this, "rest", rest);
+		defineReadonlyProperty(this, "client", client);
+		defineReadonlyProperty(this, "rest", rest);
 	}
 
 	protected delete<Result>(endpoint: string, options?: Omit<MakeDeleteRequestOptions, "method">): Promise<Result> {

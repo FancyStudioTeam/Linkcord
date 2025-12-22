@@ -1,6 +1,6 @@
 import dedent from "string-dedent";
 import { type Client, ClientEvents } from "#client/index.js";
-import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
+import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
 import { Collection } from "#utils/index.js";
 import { GatewayShard } from "./GatewayShard.js";
 import { GatewayShardStatus } from "./GatewayShard.types.js";
@@ -12,8 +12,8 @@ export class GatewayManager {
 	declare readonly shards: Collection<number, GatewayShard>;
 
 	constructor(client: Client) {
-		defineImmutableProperty(this, "client", client);
-		defineImmutableProperty(this, "shards", new Collection());
+		defineReadonlyProperty(this, "client", client);
+		defineReadonlyProperty(this, "shards", new Collection());
 	}
 
 	static GATEWAY_URL_BASE = "wss://gateway.discord.gg" as const;
