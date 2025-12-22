@@ -22,7 +22,7 @@ export interface CreateMessageOptions {
 	content?: string;
 	embeds?: Embed[];
 	enforceNonce?: boolean;
-	flags?: BitFieldResolver | MessageFlags;
+	flags?: MessageFlags[];
 	messageReference?: MessageReference;
 	nonce?: number | string;
 	poll?: MessagePoll;

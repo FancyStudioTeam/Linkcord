@@ -1,12 +1,7 @@
 import { CHANNEL_MESSAGES_ENDPOINT } from "#rest/endpoints/Endpoints.js";
 import { Message } from "#structures/Message.js";
-import { normalizeEmbeds, serializeEmbeds } from "#transformers/Messages.js";
-import type {
-	CreateMessageOptions,
-	RESTPostAPIMessage,
-	RESTPostAPIMessageJSONParams,
-	Snowflake,
-} from "#types/index.js";
+import { serializeCreateMessageOptions } from "#transformers/Messages.js";
+import type { CreateMessageOptions, RESTPostAPIMessage, Snowflake } from "#types/index.js";
 import { BaseAPI } from "./BaseAPI.js";
 
 export class ChannelsAPI extends BaseAPI {
@@ -15,24 +10,10 @@ export class ChannelsAPI extends BaseAPI {
 	 */
 	async createMessage(channelId: Snowflake, options: CreateMessageOptions): Promise<Message> {
 		const { client } = this;
-		const { content, embeds, nonce, tts } = options;
-
-		const body: RESTPostAPIMessageJSONParams = {};
-
-		if (content) body.content = content;
-
-		if (embeds) {
-			const normalizedEmbeds = normalizeEmbeds(embeds);
-			const serializedEmbeds = serializeEmbeds(normalizedEmbeds);
-
-			body.embeds = serializedEmbeds;
-		}
-
-		if (nonce) body.nonce = nonce;
-		if (tts) body.tts = tts;
+		const serializedOptions = serializeCreateMessageOptions(options);
 
 		const messageResponseData = await super.post<RESTPostAPIMessage>(CHANNEL_MESSAGES_ENDPOINT(channelId), {
-			body: JSON.stringify(body),
+			body: JSON.stringify(serializedOptions),
 		});
 		const messageData = new Message(client, messageResponseData);
 

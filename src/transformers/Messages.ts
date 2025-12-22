@@ -1,5 +1,15 @@
-// import { EmbedBuilder } from "#builders/index.js";
-import type { APIEmbed, APIEmbedAuthor, APIEmbedFooter, Embed, EmbedAuthor, EmbedFooter } from "#types/index.js";
+import type {
+	APIEmbed,
+	APIEmbedAuthor,
+	APIEmbedFooter,
+	CreateMessageOptions,
+	Embed,
+	EmbedAuthor,
+	EmbedFooter,
+	RESTPostAPIMessageJSONParams,
+} from "#types/index.js";
+import { BitFieldResolver } from "#utils/index.js";
+import { serializeMessageComponents } from "./Components.js";
 
 export function normalizeEmbed(embed: Embed): Embed {
 	return embed;
@@ -131,4 +141,17 @@ export function serializeEmbedFooter(embedFooter: EmbedFooter): APIEmbedFooter {
 
 export function serializeEmbeds(embeds: Embed[]): APIEmbed[] {
 	return embeds.map(serializeEmbed);
+}
+
+export function serializeCreateMessageOptions(
+	createMessageOptions: CreateMessageOptions,
+): RESTPostAPIMessageJSONParams {
+	const { components, content, flags } = createMessageOptions;
+	const serializedCreateMessageOptions: RESTPostAPIMessageJSONParams = {};
+
+	if (components) serializedCreateMessageOptions.components = serializeMessageComponents(components);
+	if (content) serializedCreateMessageOptions.content = content;
+	if (flags) serializedCreateMessageOptions.flags = new BitFieldResolver().add(...flags);
+
+	return serializedCreateMessageOptions;
 }
