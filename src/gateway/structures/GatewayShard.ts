@@ -13,13 +13,14 @@ import {
 	GatewayOpcodes,
 } from "#types/index.js";
 import { LINKCORD_AGENT } from "#utils/Constants.js";
-import { defineImmutableProperty } from "#utils/functions/defineImmutableProperty.js";
+import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
 import { isInstanceOf, isNull } from "#utils/helpers/AssertionUtils.js";
 import { GatewayManager } from "./GatewayManager.js";
 import { GatewayShardStatus, type SendableOpcodes, type SendableOpcodesMap } from "./GatewayShard.types.js";
 
-const NORMAL_CLOSURE_CLOSE_EVENT_CODE = 1000;
-const RECONNECTION_CLOSE_EVENT_CODE = 4999;
+const ABNORMAL_CLOSURE_CLOSE_CODE = 1006;
+const NORMAL_CLOSURE_CLOSE_CODE = 1000;
+const RECONNECTION_CLOSE_CODE = 4999;
 
 const { OPEN: OPEN_STATE } = WebSocket;
 
@@ -45,8 +46,8 @@ export class GatewayShard {
 
 		this.id = id;
 
-		defineImmutableProperty(this, "client", client);
-		defineImmutableProperty(this, "manager", manager);
+		defineReadonlyProperty(this, "client", client);
+		defineReadonlyProperty(this, "manager", manager);
 	}
 
 	static DEFAULT_BROWSER = "Discord Client" as const;
@@ -223,6 +224,9 @@ export class GatewayShard {
 		});
 
 		this.#ws = new WebSocket(gatewayURL);
+
+		this.#ws.binaryType = "arraybuffer";
+
 		this.#ws.onclose = this.#onClose.bind(this);
 		this.#ws.onmessage = this.#onMessage.bind(this);
 		this.#ws.onopen = this.#onOpen.bind(this);
@@ -230,9 +234,11 @@ export class GatewayShard {
 
 	#isCloseEventCodeReconnectable(code: number): boolean {
 		const isReconnectableCloseEventCode = RECONNECTABLE_CLOSE_EVENT_CODES.includes(code);
-		const isReconnectCloseEventCode = code === RECONNECTION_CLOSE_EVENT_CODE;
 
-		return isReconnectableCloseEventCode || isReconnectCloseEventCode;
+		const isAbnormalClosureCloseCode = code === ABNORMAL_CLOSURE_CLOSE_CODE;
+		const isReconnectCloseCode = code === RECONNECTION_CLOSE_CODE;
+
+		return isReconnectableCloseEventCode || isAbnormalClosureCloseCode || isReconnectCloseCode;
 	}
 
 	#onClose(closeEvent: CloseEvent): void {
@@ -270,7 +276,7 @@ export class GatewayShard {
 	}
 
 	async #onMessage(messageEvent: MessageEvent<string>): Promise<void> {
-		const bufferData = await this.#normalizeMessageEvent(messageEvent);
+		const bufferData = this.#normalizeMessageEvent(messageEvent);
 		const bufferString = String(bufferData);
 
 		const gatewayEvent = JSON.parse(bufferString) as GatewayEvent;
@@ -397,19 +403,17 @@ export class GatewayShard {
 		}
 	}
 
-	async #normalizeMessageEvent(messageEvent: MessageEvent<MessageData>): Promise<Buffer> {
+	#normalizeMessageEvent(messageEvent: MessageEvent<MessageData>): Buffer {
 		const { data } = messageEvent;
 
-		if (isInstanceOf(data, Blob)) {
-			const bufferArray = await data.arrayBuffer();
-			const buffer = Buffer.from(bufferArray);
-
-			return buffer;
+		/**
+		 * This type-guard fixes a TypeScript issue with ArrayBuffer(s).
+		 */
+		if (isInstanceOf(data, ArrayBuffer)) {
+			return Buffer.from(data);
 		}
 
-		const buffer = Buffer.from(data);
-
-		return buffer;
+		return Buffer.from(data);
 	}
 
 	#removeWebSocketEventListeners(): void {
@@ -529,12 +533,12 @@ export class GatewayShard {
 		const ws = this.#getWebSocket(true);
 
 		if (reconnect) {
-			return void ws.close(RECONNECTION_CLOSE_EVENT_CODE, "User requested a reconnection");
+			ws.close(RECONNECTION_CLOSE_CODE, "User requested a reconnection");
+			this.#resetWebSocketData();
+		} else {
+			ws.close(NORMAL_CLOSURE_CLOSE_CODE, "User requested a complete disconnection");
+			this.#reset();
 		}
-
-		ws.close(NORMAL_CLOSURE_CLOSE_EVENT_CODE, "User requested a complete disconnection");
-
-		this.#reset();
 	}
 
 	send<Opcode extends SendableOpcodes>(opcode: Opcode, data: SendableOpcodesMap[Opcode]): void {
@@ -553,4 +557,4 @@ export class GatewayShard {
 }
 
 type HeartbeatInterval = ReturnType<typeof setInterval>;
-type MessageData = string | Blob;
+type MessageData = string | ArrayBuffer;
