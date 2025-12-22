@@ -1,7 +1,8 @@
 import type { APIVoiceRegion, VoiceRegion } from "#types/index.js";
 
-export function deserializeVoiceRegion(voiceRegion: APIVoiceRegion): VoiceRegion {
-	const { custom, deprecated, id, name, optimal } = voiceRegion;
+export function deserializeVoiceRegion(serializedVoiceRegion: APIVoiceRegion): VoiceRegion {
+	const { custom, deprecated, id, name, optimal } = serializedVoiceRegion;
+
 	const deserializedVoiceRegion: VoiceRegion = {
 		custom,
 		deprecated,
@@ -13,6 +14,6 @@ export function deserializeVoiceRegion(voiceRegion: APIVoiceRegion): VoiceRegion
 	return deserializedVoiceRegion;
 }
 
-export function deserializeVoiceRegions(voiceRegions: APIVoiceRegion[]): VoiceRegion[] {
-	return voiceRegions.map(deserializeVoiceRegion);
+export function deserializeVoiceRegions(serializedVoiceRegions: APIVoiceRegion[]): VoiceRegion[] {
+	return serializedVoiceRegions.map(deserializeVoiceRegion);
 }
