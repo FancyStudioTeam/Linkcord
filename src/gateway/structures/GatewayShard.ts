@@ -359,12 +359,13 @@ export class GatewayShard {
 
 	#onMessageReconnect(): void {
 		const { client, label } = this;
+		const debugMessage = "Discord is requesting a reconnection for the shard";
 
-		client.debug(`Discord is requesting a reconnection for the shard...`, {
+		client.debug(debugMessage, {
 			label,
 		});
 
-		this.#resume();
+		this.disconnect(true);
 	}
 
 	#onOpen(): void {
