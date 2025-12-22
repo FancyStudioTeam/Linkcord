@@ -33,10 +33,10 @@ describe("defineReadonlyProperty", () => {
 		expect(() => defineReadonlyProperty(DataObject, "name", "Nelly 2")).toThrow(/already has a property named/);
 	});
 
-	it("Should define the specified property with read-only descriptors", () => {
+	it("Should define the specified property in the specified object with read-only descriptors", () => {
 		defineReadonlyProperty(DISCORD_BOT_DATA, "token", DISCORD_BOT_TOKEN);
 
-		const tokenPropertyDescriptor = Object.getOwnPropertyDescriptor(DISCORD_BOT_DATA, "token");
+		const tokenPropertyDescriptor = Reflect.getOwnPropertyDescriptor(DISCORD_BOT_DATA, "token");
 
 		expect(tokenPropertyDescriptor).toBeDefined();
 
