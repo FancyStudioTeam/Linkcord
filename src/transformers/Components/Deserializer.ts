@@ -5,6 +5,9 @@ import {
 	type APIActionRowComponents,
 	type APIButtonComponent,
 	type APIChannelSelectMenuComponent,
+	type APIContainerComponent,
+	type APIContainerComponents,
+	type APIFileComponent,
 	type APIFileUploadComponent,
 	type APIInteractiveButtonComponent,
 	type APILabelComponent,
@@ -32,6 +35,9 @@ import {
 	ButtonStyle,
 	type ChannelSelectMenuComponent,
 	ComponentType,
+	type ContainerComponent,
+	type ContainerComponents,
+	type FileComponent,
 	type FileUploadComponent,
 	type InteractiveButtonComponent,
 	type LabelComponent,
@@ -128,6 +134,64 @@ export function deserializeChannelSelectMenuComponent(
 		placeholder: channelSelectMenuComponent.placeholder,
 		required: channelSelectMenuComponent.required,
 		type: channelSelectMenuComponent.type,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#container-container-structure
+ */
+export function deserializeContainerComponent(containerComponent: APIContainerComponent): ContainerComponent {
+	return {
+		accentColor: containerComponent.accent_color,
+		components: deserializeContainerComponentsArray(containerComponent.components),
+		id: containerComponent.id,
+		spoiler: containerComponent.spoiler,
+		type: containerComponent.type,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#container-container-child-components
+ */
+export function deserializeContainerComponents(containerComponents: APIContainerComponents): ContainerComponents {
+	const { type } = containerComponents;
+
+	switch (type) {
+		case ComponentType.ActionRow:
+			return deserializeActionRowComponent(containerComponents);
+		case ComponentType.File:
+			return deserializeFileComponent(containerComponents);
+		case ComponentType.MediaGallery:
+			return deserializeMediaGalleryComponent(containerComponents);
+		case ComponentType.Section:
+			return deserializeSectionComponent(containerComponents);
+		case ComponentType.Separator:
+			return deserializeSeparatorComponent(containerComponents);
+		case ComponentType.TextDisplay:
+			return deserializeTextDisplayComponent(containerComponents);
+	}
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#container-container-child-components
+ */
+export function deserializeContainerComponentsArray(
+	containerComponentsArray: APIContainerComponents[],
+): ContainerComponents[] {
+	return containerComponentsArray.map(deserializeContainerComponents);
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#file-file-structure
+ */
+export function deserializeFileComponent(fileComponent: APIFileComponent): FileComponent {
+	return {
+		file: deserializeUnfurledMediaItem(fileComponent.file),
+		id: fileComponent.id,
+		name: fileComponent.name,
+		size: fileComponent.size,
+		spoiler: fileComponent.spoiler,
+		type: fileComponent.type,
 	};
 }
 

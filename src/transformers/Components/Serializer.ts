@@ -5,6 +5,9 @@ import {
 	type APIActionRowComponents,
 	type APIButtonComponent,
 	type APIChannelSelectMenuComponent,
+	type APIContainerComponent,
+	type APIContainerComponents,
+	type APIFileComponent,
 	type APIFileUploadComponent,
 	type APIInteractiveButtonComponent,
 	type APILabelComponent,
@@ -32,6 +35,9 @@ import {
 	ButtonStyle,
 	type ChannelSelectMenuComponent,
 	ComponentType,
+	type ContainerComponent,
+	type ContainerComponents,
+	type FileComponent,
 	type FileUploadComponent,
 	type InteractiveButtonComponent,
 	type LabelComponent,
@@ -128,6 +134,64 @@ export function serializeChannelSelectMenuComponent(
 		placeholder: channelSelectMenuComponent.placeholder,
 		required: channelSelectMenuComponent.required,
 		type: channelSelectMenuComponent.type,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#container-container-structure
+ */
+export function serializeContainerComponent(containerComponent: ContainerComponent): APIContainerComponent {
+	return {
+		accent_color: containerComponent.accentColor,
+		components: serializeContainerComponentsArray(containerComponent.components),
+		id: containerComponent.id,
+		spoiler: containerComponent.spoiler,
+		type: containerComponent.type,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#container-container-child-components
+ */
+export function serializeContainerComponents(containerComponents: ContainerComponents): APIContainerComponents {
+	const { type } = containerComponents;
+
+	switch (type) {
+		case ComponentType.ActionRow:
+			return serializeActionRowComponent(containerComponents);
+		case ComponentType.File:
+			return serializeFileComponent(containerComponents);
+		case ComponentType.MediaGallery:
+			return serializeMediaGalleryComponent(containerComponents);
+		case ComponentType.Section:
+			return serializeSectionComponent(containerComponents);
+		case ComponentType.Separator:
+			return serializeSeparatorComponent(containerComponents);
+		case ComponentType.TextDisplay:
+			return serializeTextDisplayComponent(containerComponents);
+	}
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#container-container-child-components
+ */
+export function serializeContainerComponentsArray(
+	containerComponentsArray: ContainerComponents[],
+): APIContainerComponents[] {
+	return containerComponentsArray.map(serializeContainerComponents);
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#file-file-structure
+ */
+export function serializeFileComponent(fileComponent: FileComponent): APIFileComponent {
+	return {
+		file: serializeUnfurledMediaItem(fileComponent.file),
+		id: fileComponent.id,
+		name: fileComponent.name,
+		size: fileComponent.size,
+		spoiler: fileComponent.spoiler,
+		type: fileComponent.type,
 	};
 }
 
