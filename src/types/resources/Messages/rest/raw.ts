@@ -1,5 +1,5 @@
 import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
-import type { APIMessageComponent } from "#types/resources/Components/index.js";
+import type { APIMessageComponents } from "#types/resources/Components/index.js";
 import type { APIMessagePoll } from "#types/resources/Polls/index.js";
 import type { APIUser } from "#types/resources/Users/index.js";
 import type { MessageFlags, ReactionType } from "../enums.js";
@@ -54,7 +54,7 @@ export interface RESTGetAPIMessageReactionsQueryStringParams {
 export interface RESTPatchAPIMessageJSONParams {
 	allowed_mentions?: APIAllowedMentions | null;
 	attachments?: APIAttachment[] | null;
-	components?: APIMessageComponent[] | null;
+	components?: APIMessageComponents[] | null;
 	content?: string | null;
 	embeds?: APIEmbed[] | null;
 	flags?: MessageFlags | null;
@@ -73,7 +73,7 @@ export interface RESTPostAPIMessageBulkJSONParams {
 export interface RESTPostAPIMessageJSONParams {
 	allowed_mentions?: APIAllowedMentions;
 	attachments?: APIPartialAttachent[];
-	components?: APIMessageComponent[];
+	components?: APIMessageComponents[];
 	content?: string;
 	embeds?: APIEmbed[];
 	enforce_nonce?: boolean;
