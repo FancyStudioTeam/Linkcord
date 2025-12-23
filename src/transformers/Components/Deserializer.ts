@@ -1,7 +1,10 @@
 import type {
+	APIChannelSelectMenuComponent,
 	APIFileUploadComponent,
 	APIMediaGalleryComponent,
 	APIMediaGalleryItem,
+	APIMentionableSelectMenuComponent,
+	APIRoleSelectMenuComponent,
 	APISelectMenuDefaultValue,
 	APISeparatorComponent,
 	APITextDisplayComponent,
@@ -9,9 +12,12 @@ import type {
 	APIThumbnailComponent,
 	APIUnfurledMediaItem,
 	APIUserSelectMenuComponent,
+	ChannelSelectMenuComponent,
 	FileUploadComponent,
 	MediaGalleryComponent,
 	MediaGalleryItem,
+	MentionableSelectMenuComponent,
+	RoleSelectMenuComponent,
 	SelectMenuDefaultValue,
 	SeparatorComponent,
 	TextDisplayComponent,
@@ -20,6 +26,26 @@ import type {
 	UnfurledMediaItem,
 	UserSelectMenuComponent,
 } from "#types/index.js";
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#channel-select-channel-select-structure
+ */
+export function deserializeChannelSelectMenuComponent(
+	channelSelectMenuComponent: APIChannelSelectMenuComponent,
+): ChannelSelectMenuComponent {
+	return {
+		channelTypes: channelSelectMenuComponent.channel_types,
+		customId: channelSelectMenuComponent.custom_id,
+		defaultValues: deserializeSelectMenuDefaultValuesArray(channelSelectMenuComponent.default_values ?? []),
+		disabled: channelSelectMenuComponent.disabled,
+		id: channelSelectMenuComponent.id,
+		maxValues: channelSelectMenuComponent.max_values,
+		minValues: channelSelectMenuComponent.min_values,
+		placeholder: channelSelectMenuComponent.placeholder,
+		required: channelSelectMenuComponent.required,
+		type: channelSelectMenuComponent.type,
+	};
+}
 
 /**
  * @see https://discord.com/developers/docs/components/reference#file-upload-file-upload-structure
@@ -64,6 +90,44 @@ export function deserializeMediaGalleryItem(mediaGalleryItem: APIMediaGalleryIte
  */
 export function deserializeMediaGalleryItemsArray(mediaGalleryItemsArray: APIMediaGalleryItem[]): MediaGalleryItem[] {
 	return mediaGalleryItemsArray.map(deserializeMediaGalleryItem);
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#mentionable-select-mentionable-select-structure
+ */
+export function deserializeMentionableSelectMenuComponent(
+	mentionableSelectMenuComponent: APIMentionableSelectMenuComponent,
+): MentionableSelectMenuComponent {
+	return {
+		customId: mentionableSelectMenuComponent.custom_id,
+		defaultValues: deserializeSelectMenuDefaultValuesArray(mentionableSelectMenuComponent.default_values ?? []),
+		disabled: mentionableSelectMenuComponent.disabled,
+		id: mentionableSelectMenuComponent.id,
+		maxValues: mentionableSelectMenuComponent.max_values,
+		minValues: mentionableSelectMenuComponent.min_values,
+		placeholder: mentionableSelectMenuComponent.placeholder,
+		required: mentionableSelectMenuComponent.required,
+		type: mentionableSelectMenuComponent.type,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#role-select-role-select-structure
+ */
+export function deserializeRoleSelectMenuComponent(
+	roleSelectMenuComponent: APIRoleSelectMenuComponent,
+): RoleSelectMenuComponent {
+	return {
+		customId: roleSelectMenuComponent.custom_id,
+		defaultValues: deserializeSelectMenuDefaultValuesArray(roleSelectMenuComponent.default_values ?? []),
+		disabled: roleSelectMenuComponent.disabled,
+		id: roleSelectMenuComponent.id,
+		maxValues: roleSelectMenuComponent.max_values,
+		minValues: roleSelectMenuComponent.min_values,
+		placeholder: roleSelectMenuComponent.placeholder,
+		required: roleSelectMenuComponent.required,
+		type: roleSelectMenuComponent.type,
+	};
 }
 
 /**
