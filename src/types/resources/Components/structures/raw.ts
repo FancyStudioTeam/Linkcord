@@ -273,7 +273,7 @@ export type APIMentionableSelectMenuComponent = APIResolvableSelectMenuComponent
 /**
  * @see https://discord.com/developers/docs/components/component-object#component-object-component-types
  */
-export type APIMessageComponent =
+export type APIMessageComponents =
 	| APIActionRowComponent
 	| APIContainerComponent
 	| APIFileComponent

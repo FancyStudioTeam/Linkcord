@@ -16,7 +16,7 @@ import {
 	type APIMediaGalleryComponent,
 	type APIMediaGalleryItem,
 	type APIMentionableSelectMenuComponent,
-	type APIMessageComponent,
+	type APIMessageComponents,
 	type APIPremiumButtonComponent,
 	type APIRoleSelectMenuComponent,
 	type APISectionAccessory,
@@ -47,7 +47,7 @@ import {
 	type MediaGalleryComponent,
 	type MediaGalleryItem,
 	type MentionableSelectMenuComponent,
-	type MessageComponent,
+	type MessageComponents,
 	type PremiumButtonComponent,
 	type RoleSelectMenuComponent,
 	type SectionAccessory,
@@ -317,32 +317,32 @@ export function deserializeMentionableSelectMenuComponent(
 /**
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export function deserializeMessageComponent(messageComponent: APIMessageComponent): MessageComponent {
-	const { type } = messageComponent;
+export function deserializeMessageComponents(messageComponents: APIMessageComponents): MessageComponents {
+	const { type } = messageComponents;
 
 	switch (type) {
 		case ComponentType.ActionRow:
-			return deserializeActionRowComponent(messageComponent);
+			return deserializeActionRowComponent(messageComponents);
 		case ComponentType.Container:
-			return deserializeContainerComponent(messageComponent);
+			return deserializeContainerComponent(messageComponents);
 		case ComponentType.File:
-			return deserializeFileComponent(messageComponent);
+			return deserializeFileComponent(messageComponents);
 		case ComponentType.MediaGallery:
-			return deserializeMediaGalleryComponent(messageComponent);
+			return deserializeMediaGalleryComponent(messageComponents);
 		case ComponentType.Section:
-			return deserializeSectionComponent(messageComponent);
+			return deserializeSectionComponent(messageComponents);
 		case ComponentType.Separator:
-			return deserializeSeparatorComponent(messageComponent);
+			return deserializeSeparatorComponent(messageComponents);
 		case ComponentType.TextDisplay:
-			return deserializeTextDisplayComponent(messageComponent);
+			return deserializeTextDisplayComponent(messageComponents);
 	}
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export function deserializeMessageComponentsArray(messageComponentsArray: APIMessageComponent[]): MessageComponent[] {
-	return messageComponentsArray.map(deserializeMessageComponent);
+export function deserializeMessageComponentsArray(messageComponentsArray: APIMessageComponents[]): MessageComponents[] {
+	return messageComponentsArray.map(deserializeMessageComponents);
 }
 
 /**

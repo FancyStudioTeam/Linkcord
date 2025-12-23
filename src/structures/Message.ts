@@ -1,11 +1,10 @@
 import type { Client } from "#client/index.js";
+import { deserializeMessageComponentsArray } from "#transformers/Components/Deserializer.js";
 import { parseEmbeds } from "#transformers/Messages.js";
-import type { APIMessage, Embed, Snowflake } from "#types/index.js";
+import type { APIMessage, Embed, MessageComponents, Snowflake } from "#types/index.js";
 import { isUndefined } from "#utils/helpers/AssertionUtils.js";
-import { FormatterUtils } from "#utils/index.js";
+import { messageLink } from "#utils/index.js";
 import { Base } from "./Base.js";
-
-const { messageLink } = FormatterUtils;
 
 /**
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
@@ -16,6 +15,8 @@ export class Message extends Base {
 	/** The ID of the message. */
 	readonly id: Snowflake;
 
+	/** The components of the message. */
+	components: MessageComponents[];
 	/** The content of the message. */
 	content: string;
 	/** The embeds of the message. */
@@ -24,9 +25,10 @@ export class Message extends Base {
 	constructor(client: Client, data: APIMessage) {
 		super(client);
 
-		const { channel_id, content, embeds, id } = data;
+		const { channel_id, components, content, embeds, id } = data;
 
 		this.channelId = channel_id;
+		this.components = deserializeMessageComponentsArray(components);
 		this.content = content;
 		this.embeds = parseEmbeds(embeds);
 		this.id = id;
@@ -38,14 +40,10 @@ export class Message extends Base {
 	}
 
 	protected patch(data?: Partial<APIMessage>): void {
-		const { content, embeds } = data ?? {};
+		const { components, content, embeds } = data ?? {};
 
-		if (!isUndefined(content)) {
-			this.content = content;
-		}
-
-		if (!isUndefined(embeds)) {
-			this.embeds = parseEmbeds(embeds);
-		}
+		if (!isUndefined(components)) this.components = deserializeMessageComponentsArray(components);
+		if (!isUndefined(content)) this.content = content;
+		if (!isUndefined(embeds)) this.embeds = parseEmbeds(embeds);
 	}
 }

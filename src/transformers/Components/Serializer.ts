@@ -16,7 +16,7 @@ import {
 	type APIMediaGalleryComponent,
 	type APIMediaGalleryItem,
 	type APIMentionableSelectMenuComponent,
-	type APIMessageComponent,
+	type APIMessageComponents,
 	type APIPremiumButtonComponent,
 	type APIRoleSelectMenuComponent,
 	type APISectionAccessory,
@@ -47,7 +47,7 @@ import {
 	type MediaGalleryComponent,
 	type MediaGalleryItem,
 	type MentionableSelectMenuComponent,
-	type MessageComponent,
+	type MessageComponents,
 	type PremiumButtonComponent,
 	type RoleSelectMenuComponent,
 	type SectionAccessory,
@@ -313,32 +313,32 @@ export function serializeMentionableSelectMenuComponent(
 /**
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export function serializeMessageComponent(messageComponent: MessageComponent): APIMessageComponent {
-	const { type } = messageComponent;
+export function serializeMessageComponents(messageComponents: MessageComponents): APIMessageComponents {
+	const { type } = messageComponents;
 
 	switch (type) {
 		case ComponentType.ActionRow:
-			return serializeActionRowComponent(messageComponent);
+			return serializeActionRowComponent(messageComponents);
 		case ComponentType.Container:
-			return serializeContainerComponent(messageComponent);
+			return serializeContainerComponent(messageComponents);
 		case ComponentType.File:
-			return serializeFileComponent(messageComponent);
+			return serializeFileComponent(messageComponents);
 		case ComponentType.MediaGallery:
-			return serializeMediaGalleryComponent(messageComponent);
+			return serializeMediaGalleryComponent(messageComponents);
 		case ComponentType.Section:
-			return serializeSectionComponent(messageComponent);
+			return serializeSectionComponent(messageComponents);
 		case ComponentType.Separator:
-			return serializeSeparatorComponent(messageComponent);
+			return serializeSeparatorComponent(messageComponents);
 		case ComponentType.TextDisplay:
-			return serializeTextDisplayComponent(messageComponent);
+			return serializeTextDisplayComponent(messageComponents);
 	}
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export function serializeMessageComponentsArray(messageComponentsArray: MessageComponent[]): APIMessageComponent[] {
-	return messageComponentsArray.map(serializeMessageComponent);
+export function serializeMessageComponentsArray(messageComponentsArray: MessageComponents[]): APIMessageComponents[] {
+	return messageComponentsArray.map(serializeMessageComponents);
 }
 
 /**

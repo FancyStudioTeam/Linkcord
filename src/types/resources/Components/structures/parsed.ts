@@ -267,7 +267,7 @@ export type MentionableSelectMenuComponent = ResolvableSelectMenuComponentBase<C
 /**
  * @see https://discord.com/developers/docs/components/component-object#component-object-component-types
  */
-export type MessageComponent =
+export type MessageComponents =
 	| ActionRowComponent
 	| ContainerComponent
 	| FileComponent

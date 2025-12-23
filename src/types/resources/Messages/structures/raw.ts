@@ -1,7 +1,7 @@
 import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
 import type { ApplicationIntegrationType } from "#types/resources/Applications/enums.js";
 import type { ChannelType } from "#types/resources/Channels/enums.js";
-import type { APIMessageComponent } from "#types/resources/Components/index.js";
+import type { APIMessageComponents } from "#types/resources/Components/index.js";
 import type { APIPartialEmoji } from "#types/resources/Emojis/index.js";
 import type { InteractionType } from "#types/resources/Interactions/enums.js";
 import type { APIPoll } from "#types/resources/Polls/index.js";
@@ -171,7 +171,7 @@ export interface APIMessage {
 	author: APIUser;
 	call?: APIMessageCall;
 	channel_id: Snowflake;
-	components: APIMessageComponent[];
+	components: APIMessageComponents[];
 	content: string;
 	edited_timestamp: ISO8601Date | null;
 	embeds: APIEmbed[];
@@ -319,3 +319,8 @@ export type APIMessageInteractionMetadata =
  * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
  */
 export type APIPartialAttachent = Partial<APIAttachment>;
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
+ */
+export type APIPartialMessage = Partial<APIMessage>;
