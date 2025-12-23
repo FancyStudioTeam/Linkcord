@@ -19,6 +19,6 @@ export function deserializeVoiceRegion(serializedVoiceRegion: APIVoiceRegion): V
 /**
  * @see https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure
  */
-export function deserializeVoiceRegions(serializedVoiceRegions: APIVoiceRegion[]): VoiceRegion[] {
-	return serializedVoiceRegions.map(deserializeVoiceRegion);
+export function deserializeVoiceRegionsArray(serializedVoiceRegionsArray: APIVoiceRegion[]): VoiceRegion[] {
+	return serializedVoiceRegionsArray.map(deserializeVoiceRegion);
 }
