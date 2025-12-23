@@ -1,41 +1,60 @@
-import type {
-	APIChannelSelectMenuComponent,
-	APIFileUploadComponent,
-	APIInteractiveButtonComponent,
-	APILinkButtonComponent,
-	APIMediaGalleryComponent,
-	APIMediaGalleryItem,
-	APIMentionableSelectMenuComponent,
-	APIPremiumButtonComponent,
-	APIRoleSelectMenuComponent,
-	APISelectMenuDefaultValue,
-	APISeparatorComponent,
-	APITextDisplayComponent,
-	APITextInputComponent,
-	APIThumbnailComponent,
-	APIUnfurledMediaItem,
-	APIUserSelectMenuComponent,
-	ChannelSelectMenuComponent,
-	FileUploadComponent,
-	InteractiveButtonComponent,
-	LinkButtonComponent,
-	MediaGalleryComponent,
-	MediaGalleryItem,
-	MentionableSelectMenuComponent,
-	PremiumButtonComponent,
-	RoleSelectMenuComponent,
-	SelectMenuDefaultValue,
-	SeparatorComponent,
-	TextDisplayComponent,
-	TextInputComponent,
-	ThumbnailComponent,
-	UnfurledMediaItem,
-	UserSelectMenuComponent,
+import {
+	type APIButtonComponent,
+	type APIChannelSelectMenuComponent,
+	type APIFileUploadComponent,
+	type APIInteractiveButtonComponent,
+	type APILinkButtonComponent,
+	type APIMediaGalleryComponent,
+	type APIMediaGalleryItem,
+	type APIMentionableSelectMenuComponent,
+	type APIPremiumButtonComponent,
+	type APIRoleSelectMenuComponent,
+	type APISelectMenuDefaultValue,
+	type APISeparatorComponent,
+	type APITextDisplayComponent,
+	type APITextInputComponent,
+	type APIThumbnailComponent,
+	type APIUnfurledMediaItem,
+	type APIUserSelectMenuComponent,
+	type ButtonComponent,
+	ButtonStyle,
+	type ChannelSelectMenuComponent,
+	type FileUploadComponent,
+	type InteractiveButtonComponent,
+	type LinkButtonComponent,
+	type MediaGalleryComponent,
+	type MediaGalleryItem,
+	type MentionableSelectMenuComponent,
+	type PremiumButtonComponent,
+	type RoleSelectMenuComponent,
+	type SelectMenuDefaultValue,
+	type SeparatorComponent,
+	type TextDisplayComponent,
+	type TextInputComponent,
+	type ThumbnailComponent,
+	type UnfurledMediaItem,
+	type UserSelectMenuComponent,
 } from "#types/index.js";
 
 /*
  * TODO: Add "emoji" for component transformers.
  */
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#button-button-structure
+ */
+export function serializeButtonComponent(buttonComponent: ButtonComponent): APIButtonComponent {
+	const { style } = buttonComponent;
+
+	switch (style) {
+		case ButtonStyle.Link:
+			return serializeLinkButtonComponent(buttonComponent);
+		case ButtonStyle.Premium:
+			return serializePremiumButtonComponent(buttonComponent);
+		default:
+			return serializeInteractiveButtonComponent(buttonComponent);
+	}
+}
 
 /**
  * @see https://discord.com/developers/docs/components/reference#channel-select-channel-select-structure
