@@ -42,7 +42,13 @@
 			},
 			"correctness": {
 				"noNodejsModules": "off",
-				"noUndeclaredDependencies": "warn",
+				"noUndeclaredDependencies": {
+					"level": "warn",
+					"options": {
+						"devDependencies": true,
+						"optionalDependencies": true
+					}
+				},
 				"noUnusedImports": "error",
 				"noUnusedVariables": "error",
 				"useImportExtensions": {
