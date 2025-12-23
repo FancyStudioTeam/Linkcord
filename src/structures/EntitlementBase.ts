@@ -34,12 +34,7 @@ export abstract class EntitlementBase extends Base {
 	protected patch(data?: Partial<APIEntitlement>): void {
 		const { consumed, deleted } = data ?? {};
 
-		if (!isUndefined(consumed)) {
-			this.consumed = Boolean(consumed);
-		}
-
-		if (!isUndefined(deleted)) {
-			this.deleted = Boolean(deleted);
-		}
+		if (!isUndefined(consumed)) this.consumed = Boolean(consumed);
+		if (!isUndefined(deleted)) this.deleted = Boolean(deleted);
 	}
 }

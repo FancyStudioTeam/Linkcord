@@ -7,10 +7,8 @@ import {
 } from "#transformers/Users/Deserializer.js";
 import type { APIUser, AvatarDecorationData, Collectibles, DisplayNameStyles, PrimaryGuild, Snowflake } from "#types/index.js";
 import { isUndefined } from "#utils/helpers/AssertionUtils.js";
-import { BitFieldResolver, FormatterUtils } from "#utils/index.js";
+import { BitFieldResolver, hexColor, userMention } from "#utils/index.js";
 import { Base } from "./Base.js";
-
-const { hexColor, userMention } = FormatterUtils;
 
 /**
  * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
@@ -106,44 +104,15 @@ export class User extends Base {
 			username,
 		} = data ?? {};
 
-		if (!isUndefined(accent_color)) {
-			this.accentColor = accent_color;
-		}
-
-		if (!isUndefined(avatar)) {
-			this.avatar = avatar;
-		}
-
-		if (!isUndefined(avatar_decoration_data)) {
-			this.avatarDecorationData = deserializeAvatarDecorationData(avatar_decoration_data);
-		}
-
-		if (!isUndefined(banner)) {
-			this.banner = banner;
-		}
-
-		if (!isUndefined(collectibles)) {
-			this.collectibles = deserializeCollectibles(collectibles);
-		}
-
-		if (!isUndefined(display_name_styles)) {
-			this.displayNameStyles = deserializeDisplayNameStyles(display_name_styles);
-		}
-
-		if (!isUndefined(flags)) {
-			this.flags = new BitFieldResolver(flags);
-		}
-
-		if (!isUndefined(global_name)) {
-			this.globalName = global_name;
-		}
-
-		if (!isUndefined(primary_guild)) {
-			this.primaryGuild = deserializePrimaryGuild(primary_guild);
-		}
-
-		if (!isUndefined(username)) {
-			this.username = username;
-		}
+		if (!isUndefined(accent_color)) this.accentColor = accent_color;
+		if (!isUndefined(avatar)) this.avatar = avatar;
+		if (!isUndefined(avatar_decoration_data)) this.avatarDecorationData = deserializeAvatarDecorationData(avatar_decoration_data);
+		if (!isUndefined(banner)) this.banner = banner;
+		if (!isUndefined(collectibles)) this.collectibles = deserializeCollectibles(collectibles);
+		if (!isUndefined(display_name_styles)) this.displayNameStyles = deserializeDisplayNameStyles(display_name_styles);
+		if (!isUndefined(flags)) this.flags = new BitFieldResolver(flags);
+		if (!isUndefined(global_name)) this.globalName = global_name;
+		if (!isUndefined(primary_guild)) this.primaryGuild = deserializePrimaryGuild(primary_guild);
+		if (!isUndefined(username)) this.username = username;
 	}
 }
