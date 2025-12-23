@@ -1,6 +1,6 @@
 import type { Client } from "#client/index.js";
 import { deserializeMessageComponentsArray } from "#transformers/Components/Deserializer.js";
-import { parseEmbeds } from "#transformers/Messages.js";
+import { deserializeEmbedsArray } from "#transformers/Messages/Deserializer.js";
 import type { APIMessage, Embed, MessageComponents, Snowflake } from "#types/index.js";
 import { isUndefined } from "#utils/helpers/AssertionUtils.js";
 import { messageLink } from "#utils/index.js";
@@ -30,7 +30,7 @@ export class Message extends Base {
 		this.channelId = channel_id;
 		this.components = deserializeMessageComponentsArray(components);
 		this.content = content;
-		this.embeds = parseEmbeds(embeds);
+		this.embeds = deserializeEmbedsArray(embeds);
 		this.id = id;
 	}
 
@@ -44,6 +44,6 @@ export class Message extends Base {
 
 		if (!isUndefined(components)) this.components = deserializeMessageComponentsArray(components);
 		if (!isUndefined(content)) this.content = content;
-		if (!isUndefined(embeds)) this.embeds = parseEmbeds(embeds);
+		if (!isUndefined(embeds)) this.embeds = deserializeEmbedsArray(embeds);
 	}
 }
