@@ -9,7 +9,7 @@
 	"dtsRollup": {
 		"enabled": false
 	},
-	"mainEntryPointFilePath": "./dist/index.d.ts",
+	"mainEntryPointFilePath": "./lib/index.d.ts",
 	"messages": {
 		"extractorMessageReporting": {
 			"ae-missing-release-tag": {
