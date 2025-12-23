@@ -1,16 +1,20 @@
 import type {
 	APIMediaGalleryItem,
+	APISelectMenuDefaultValue,
 	APISeparatorComponent,
 	APITextDisplayComponent,
 	APITextInputComponent,
 	APIThumbnailComponent,
 	APIUnfurledMediaItem,
+	APIUserSelectMenuComponent,
 	MediaGalleryItem,
+	SelectMenuDefaultValue,
 	SeparatorComponent,
 	TextDisplayComponent,
 	TextInputComponent,
 	ThumbnailComponent,
 	UnfurledMediaItem,
+	UserSelectMenuComponent,
 } from "#types/index.js";
 
 /**
@@ -26,6 +30,30 @@ export function deserializeMediaGalleryItem(serializedMediaGalleryItem: APIMedia
 	if (spoiler) deserializedMediaGalleryItem.spoiler = spoiler;
 
 	return deserializedMediaGalleryItem;
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
+ */
+export function deserializeSelectMenuDefaultValue(
+	serializedSelectMenuDefaultValue: APISelectMenuDefaultValue,
+): SelectMenuDefaultValue {
+	const { id, type } = serializedSelectMenuDefaultValue;
+	const deserializedSelectMenuDefaultValue: SelectMenuDefaultValue = {
+		id,
+		type,
+	};
+
+	return deserializedSelectMenuDefaultValue;
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
+ */
+export function deserializeSelectMenuDefaultValuesArray(
+	serializedSelectMenuDefaultValueArray: APISelectMenuDefaultValue[],
+): SelectMenuDefaultValue[] {
+	return serializedSelectMenuDefaultValueArray.map(deserializeSelectMenuDefaultValue);
 }
 
 /**
@@ -116,4 +144,23 @@ export function deserializeUnfurledMediaItem(serializedUnfurledMediaItem: APIUnf
 	if (width) deserializedUnfurledMediaItem.width = width;
 
 	return deserializedUnfurledMediaItem;
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#user-select-user-select-structure
+ */
+export function deserializeUserSelectMenuComponent(
+	userSelectMenuComponent: APIUserSelectMenuComponent,
+): UserSelectMenuComponent {
+	return {
+		customId: userSelectMenuComponent.custom_id,
+		defaultValues: deserializeSelectMenuDefaultValuesArray(userSelectMenuComponent.default_values ?? []),
+		disabled: userSelectMenuComponent.disabled,
+		id: userSelectMenuComponent.id,
+		maxValues: userSelectMenuComponent.max_values,
+		minValues: userSelectMenuComponent.min_values,
+		placeholder: userSelectMenuComponent.placeholder,
+		required: userSelectMenuComponent.required,
+		type: userSelectMenuComponent.type,
+	};
 }

@@ -1,17 +1,43 @@
 import type {
+	APIFileUploadComponent,
 	APIMediaGalleryItem,
+	APISelectMenuDefaultValue,
 	APISeparatorComponent,
 	APITextDisplayComponent,
 	APITextInputComponent,
 	APIThumbnailComponent,
 	APIUnfurledMediaItem,
+	APIUserSelectMenuComponent,
+	FileUploadComponent,
 	MediaGalleryItem,
+	SelectMenuDefaultValue,
 	SeparatorComponent,
 	TextDisplayComponent,
 	TextInputComponent,
 	ThumbnailComponent,
 	UnfurledMediaItem,
+	UserSelectMenuComponent,
 } from "#types/index.js";
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#file-upload-file-upload-structure
+ */
+export function serializeFileUploadComponent(
+	deserializedFileUploadComponent: FileUploadComponent,
+): APIFileUploadComponent {
+	const { customId, id, maxValues, minValues, required, type } = deserializedFileUploadComponent;
+	const serializedFileUploadComponent: APIFileUploadComponent = {
+		custom_id: customId,
+		type,
+	};
+
+	if (id) serializedFileUploadComponent.id = id;
+	if (maxValues) serializedFileUploadComponent.max_values = maxValues;
+	if (minValues) serializedFileUploadComponent.min_values = minValues;
+	if (required) serializedFileUploadComponent.required = required;
+
+	return serializedFileUploadComponent;
+}
 
 /**
  * @see https://discord.com/developers/docs/components/reference#media-gallery-media-gallery-item-structure
@@ -26,6 +52,30 @@ export function serializeMediaGalleryItem(deserializedMediaGalleryItem: MediaGal
 	if (spoiler) serializedMediaGalleryItem.spoiler = spoiler;
 
 	return serializedMediaGalleryItem;
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
+ */
+export function serializeSelectMenuDefaultValue(
+	deserializedSelectMenuDefaultValue: SelectMenuDefaultValue,
+): APISelectMenuDefaultValue {
+	const { id, type } = deserializedSelectMenuDefaultValue;
+	const serializedSelectMenuDefaultValue: APISelectMenuDefaultValue = {
+		id,
+		type,
+	};
+
+	return serializedSelectMenuDefaultValue;
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
+ */
+export function serializeSelectMenuDefaultValuesArray(
+	deserializedSelectMenuDefaultValueArray: SelectMenuDefaultValue[],
+): APISelectMenuDefaultValue[] {
+	return deserializedSelectMenuDefaultValueArray.map(serializeSelectMenuDefaultValue);
 }
 
 /**
@@ -116,4 +166,23 @@ export function serializeUnfurledMediaItem(deserializedUnfurledMediaItem: Unfurl
 	if (width) serializedUnfurledMediaItem.width = width;
 
 	return serializedUnfurledMediaItem;
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#user-select-user-select-structure
+ */
+export function serializeUserSelectMenuComponent(
+	userSelectMenuComponent: UserSelectMenuComponent,
+): APIUserSelectMenuComponent {
+	return {
+		custom_id: userSelectMenuComponent.customId,
+		default_values: serializeSelectMenuDefaultValuesArray(userSelectMenuComponent.defaultValues ?? []),
+		disabled: userSelectMenuComponent.disabled,
+		id: userSelectMenuComponent.id,
+		max_values: userSelectMenuComponent.maxValues,
+		min_values: userSelectMenuComponent.minValues,
+		placeholder: userSelectMenuComponent.placeholder,
+		required: userSelectMenuComponent.required,
+		type: userSelectMenuComponent.type,
+	};
 }
