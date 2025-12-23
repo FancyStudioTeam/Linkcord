@@ -15,79 +15,66 @@ import type {
  * @see https://discord.com/developers/docs/resources/user#avatar-decoration-data-object-avatar-decoration-data-structure
  */
 export function deserializeAvatarDecorationData(
-	serializedAvatarDecorationData?: APIAvatarDecorationData | null,
+	avatarDecorationData?: APIAvatarDecorationData | null,
 ): AvatarDecorationData | null {
-	if (!serializedAvatarDecorationData) return null;
+	if (!avatarDecorationData) return null;
 
-	const { asset, sku_id } = serializedAvatarDecorationData;
-	const deserializedAvatarDecorationData: AvatarDecorationData = {
-		asset,
-		skuId: sku_id,
+	return {
+		asset: avatarDecorationData.asset,
+		skuId: avatarDecorationData.sku_id,
 	};
-
-	return deserializedAvatarDecorationData;
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/user#collectibles-collectible-structure
  */
-export function deserializeCollectibles(serializedCollectibles?: APICollectibles | null): Collectibles {
-	if (!serializedCollectibles) return {};
+export function deserializeCollectibles(collectibles?: APICollectibles | null): Collectibles | null {
+	if (!collectibles) return null;
 
-	const { nameplate } = serializedCollectibles;
-	const deserializedCollectibles: Collectibles = {};
-
-	if (nameplate) deserializedCollectibles.nameplate = deserializeNameplate(nameplate);
-
-	return deserializedCollectibles;
+	return {
+		nameplate: deserializeNameplate(collectibles.nameplate),
+	};
 }
 
 /**
  * @undocumented
  */
 export function deserializeDisplayNameStyles(
-	serializedDisplayNameStyles?: APIDisplayNameStyles | null,
+	displayNameStyles?: APIDisplayNameStyles | null,
 ): DisplayNameStyles | null {
-	if (!serializedDisplayNameStyles) return null;
+	if (!displayNameStyles) return null;
 
-	const { colors, effect_id, font_id } = serializedDisplayNameStyles;
-	const deserializedDisplayNameStyles: DisplayNameStyles = {
-		colors,
-		effectId: effect_id,
-		fontId: font_id,
+	return {
+		colors: displayNameStyles.colors,
+		effectId: displayNameStyles.effect_id,
+		fontId: displayNameStyles.font_id,
 	};
-
-	return deserializedDisplayNameStyles;
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/user#nameplate-nameplate-structure
  */
-export function deserializeNameplate(serializedNameplate: APINameplate): Nameplate {
-	const { asset, label, palette, sku_id } = serializedNameplate;
-	const deserializedNameplate: Nameplate = {
-		asset,
-		label,
-		palette,
-		skuId: sku_id,
-	};
+export function deserializeNameplate(nameplate?: APINameplate): Nameplate | null {
+	if (!nameplate) return null;
 
-	return deserializedNameplate;
+	return {
+		asset: nameplate.asset,
+		label: nameplate.label,
+		palette: nameplate.palette,
+		skuId: nameplate.sku_id,
+	};
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/user#user-object-user-primary-guild
  */
-export function deserializePrimaryGuild(serializedPrimaryGuild?: APIPrimaryGuild | null): PrimaryGuild | null {
-	if (!serializedPrimaryGuild) return null;
+export function deserializePrimaryGuild(primaryGuild?: APIPrimaryGuild | null): PrimaryGuild | null {
+	if (!primaryGuild) return null;
 
-	const { badge, identity_enabled, identity_guild_id, tag } = serializedPrimaryGuild;
-	const deserializedPrimaryGuild: PrimaryGuild = {
-		badge,
-		identityEnabled: identity_enabled,
-		identityGuildId: identity_guild_id,
-		tag,
+	return {
+		badge: primaryGuild.badge,
+		identityEnabled: primaryGuild.identity_enabled,
+		identityGuildId: primaryGuild.identity_guild_id,
+		tag: primaryGuild.tag,
 	};
-
-	return deserializedPrimaryGuild;
 }

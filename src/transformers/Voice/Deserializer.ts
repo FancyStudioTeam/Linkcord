@@ -3,22 +3,19 @@ import type { APIVoiceRegion, VoiceRegion } from "#types/index.js";
 /**
  * @see https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure
  */
-export function deserializeVoiceRegion(serializedVoiceRegion: APIVoiceRegion): VoiceRegion {
-	const { custom, deprecated, id, name, optimal } = serializedVoiceRegion;
-	const deserializedVoiceRegion: VoiceRegion = {
-		custom,
-		deprecated,
-		id,
-		name,
-		optimal,
+export function deserializeVoiceRegion(voiceRegion: APIVoiceRegion): VoiceRegion {
+	return {
+		custom: voiceRegion.custom,
+		deprecated: voiceRegion.deprecated,
+		id: voiceRegion.id,
+		name: voiceRegion.name,
+		optimal: voiceRegion.optimal,
 	};
-
-	return deserializedVoiceRegion;
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure
  */
-export function deserializeVoiceRegionsArray(serializedVoiceRegionsArray: APIVoiceRegion[]): VoiceRegion[] {
-	return serializedVoiceRegionsArray.map(deserializeVoiceRegion);
+export function deserializeVoiceRegionsArray(voiceRegionsArray: APIVoiceRegion[]): VoiceRegion[] {
+	return voiceRegionsArray.map(deserializeVoiceRegion);
 }

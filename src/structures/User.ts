@@ -41,7 +41,7 @@ export class User extends Base {
 	/** The banner hash of the user, if any. */
 	banner: string | null;
 	/** The collectibles data of the user. */
-	collectibles: Collectibles;
+	collectibles: Collectibles | null;
 	/** The display name styles data of the user, if any. */
 	displayNameStyles: DisplayNameStyles | null;
 	/** The flags of the user. */
