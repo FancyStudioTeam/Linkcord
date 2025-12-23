@@ -285,7 +285,7 @@ export type APIMessageComponent =
 /**
  * @see https://discord.com/developers/docs/components/component-object#component-object-component-types
  */
-export type APIModalComponent = APILabelComponent | APITextDisplayComponent;
+export type APIModalComponents = APILabelComponent | APITextDisplayComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure

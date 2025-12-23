@@ -279,7 +279,7 @@ export type MessageComponent =
 /**
  * @see https://discord.com/developers/docs/components/component-object#component-object-component-types
  */
-export type ModalComponent = LabelComponent | TextDisplayComponent;
+export type ModalComponents = LabelComponent | TextDisplayComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
