@@ -16,6 +16,7 @@ import {
 	type APIMediaGalleryComponent,
 	type APIMediaGalleryItem,
 	type APIMentionableSelectMenuComponent,
+	type APIMessageComponent,
 	type APIPremiumButtonComponent,
 	type APIRoleSelectMenuComponent,
 	type APISectionAccessory,
@@ -46,6 +47,7 @@ import {
 	type MediaGalleryComponent,
 	type MediaGalleryItem,
 	type MentionableSelectMenuComponent,
+	type MessageComponent,
 	type PremiumButtonComponent,
 	type RoleSelectMenuComponent,
 	type SectionAccessory,
@@ -316,6 +318,37 @@ export function deserializeMentionableSelectMenuComponent(
 		required: mentionableSelectMenuComponent.required,
 		type: mentionableSelectMenuComponent.type,
 	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#component-object-component-types
+ */
+export function deserializeMessageComponent(messageComponent: APIMessageComponent): MessageComponent {
+	const { type } = messageComponent;
+
+	switch (type) {
+		case ComponentType.ActionRow:
+			return deserializeActionRowComponent(messageComponent);
+		case ComponentType.Container:
+			return deserializeContainerComponent(messageComponent);
+		case ComponentType.File:
+			return deserializeFileComponent(messageComponent);
+		case ComponentType.MediaGallery:
+			return deserializeMediaGalleryComponent(messageComponent);
+		case ComponentType.Section:
+			return deserializeSectionComponent(messageComponent);
+		case ComponentType.Separator:
+			return deserializeSeparatorComponent(messageComponent);
+		case ComponentType.TextDisplay:
+			return deserializeTextDisplayComponent(messageComponent);
+	}
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#component-object-component-types
+ */
+export function deserializeMessageComponentsArray(messageComponentsArray: APIMessageComponent[]): MessageComponent[] {
+	return messageComponentsArray.map(deserializeMessageComponent);
 }
 
 /**
