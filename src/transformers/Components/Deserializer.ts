@@ -1,4 +1,8 @@
 import {
+	type ActionRowComponent,
+	type ActionRowComponents,
+	type APIActionRowComponent,
+	type APIActionRowComponents,
 	type APIButtonComponent,
 	type APIChannelSelectMenuComponent,
 	type APIFileUploadComponent,
@@ -52,6 +56,40 @@ import {
 /*
  * TODO: Add "emoji" for component transformers.
  */
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#action-row-action-row-structure
+ */
+export function deserializeActionRowComponent(actionRowComponent: APIActionRowComponent): ActionRowComponent {
+	return {
+		components: deserializeActionRowComponentsArray(actionRowComponent.components),
+		id: actionRowComponent.id,
+		type: actionRowComponent.type,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#action-row-action-row-child-components
+ */
+export function deserializeActionRowComponents(actionRowComponents: APIActionRowComponents): ActionRowComponents {
+	const { type } = actionRowComponents;
+
+	switch (type) {
+		case ComponentType.Button:
+			return deserializeButtonComponent(actionRowComponents);
+		default:
+			return deserializeSelectMenuComponent(actionRowComponents);
+	}
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#action-row-action-row-child-components
+ */
+export function deserializeActionRowComponentsArray(
+	actionRowComponentsArray: APIActionRowComponents[],
+): ActionRowComponents[] {
+	return actionRowComponentsArray.map(deserializeActionRowComponents);
+}
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
