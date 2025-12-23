@@ -5,7 +5,7 @@ import type { AutoArchiveDuration, ChannelFlags, ChannelOverwriteType, ChannelTy
 /**
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
  */
-export interface APIBaseChannel<Type extends ChannelType> {
+export interface APIChannelBase<Type extends ChannelType> {
 	flags?: ChannelFlags;
 	id: Snowflake;
 	type: Type;
@@ -14,14 +14,14 @@ export interface APIBaseChannel<Type extends ChannelType> {
 /**
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
  */
-export interface APIBaseDMChannel<Type extends APIDMChannelType> extends APIBaseTextableChannel<Type> {
+export interface APIDMChannelBase<Type extends APIDMChannelType> extends APITextableChannelBase<Type> {
 	recipients: APIUser[];
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
  */
-export interface APIBaseGuildChannel<Type extends APIGuildChannelType> extends APIBaseChannel<Type> {
+export interface APIGuildChannelBase<Type extends APIGuildChannelType> extends APIChannelBase<Type> {
 	guild_id: Snowflake;
 	name: string;
 	nsfw?: boolean;
@@ -33,7 +33,7 @@ export interface APIBaseGuildChannel<Type extends APIGuildChannelType> extends A
 /**
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
  */
-export interface APIBaseGuildTextableChannel<Type extends APIGuildTextableChannelType> extends APIBaseGuildChannel<Type> {
+export interface APIGuildTextableChannelBase<Type extends APIGuildTextableChannelType> extends APIGuildChannelBase<Type> {
 	default_auto_archive_duration?: AutoArchiveDuration;
 	last_message_id: Snowflake | null;
 	last_pin_timestamp?: ISO8601Date | null;
@@ -44,7 +44,7 @@ export interface APIBaseGuildTextableChannel<Type extends APIGuildTextableChanne
 /**
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
  */
-export interface APIBaseTextableChannel<Type extends APITextableChannelType> extends APIBaseChannel<Type> {
+export interface APITextableChannelBase<Type extends APITextableChannelType> extends APIChannelBase<Type> {
 	last_message_id: Snowflake | null;
 	last_pin_timestamp?: ISO8601Date | null;
 }
@@ -70,7 +70,7 @@ export interface APIFollowedChannel {
 /**
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
  */
-export interface APIGroupDMChannel extends APIBaseDMChannel<ChannelType.GroupDM> {
+export interface APIGroupDMChannel extends APIDMChannelBase<ChannelType.GroupDM> {
 	application_id?: Snowflake;
 	icon: string | null;
 	managed?: boolean;
@@ -81,7 +81,7 @@ export interface APIGroupDMChannel extends APIBaseDMChannel<ChannelType.GroupDM>
 /**
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
  */
-export interface APIGuildCategoryChannel extends APIBaseGuildChannel<ChannelType.GuildCategory> {
+export interface APIGuildCategoryChannel extends APIGuildChannelBase<ChannelType.GuildCategory> {
 	parent_id?: null;
 }
 
@@ -93,7 +93,7 @@ export type APIChannel = APIDMChannel | APIGroupDMChannel | APIGuildCategoryChan
 /**
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
  */
-export type APIDMChannel = APIBaseDMChannel<ChannelType.DirectMessage>;
+export type APIDMChannel = APIDMChannelBase<ChannelType.DirectMessage>;
 
 /**
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-types
