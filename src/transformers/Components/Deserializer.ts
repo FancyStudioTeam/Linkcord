@@ -12,8 +12,11 @@ import {
 	type APISectionAccessory,
 	type APISectionComponent,
 	type APISectionComponents,
+	type APISelectMenuComponent,
 	type APISelectMenuDefaultValue,
 	type APISeparatorComponent,
+	type APIStringSelectMenuComponent,
+	type APIStringSelectMenuOption,
 	type APITextDisplayComponent,
 	type APITextInputComponent,
 	type APIThumbnailComponent,
@@ -34,8 +37,11 @@ import {
 	type SectionAccessory,
 	type SectionComponent,
 	type SectionComponents,
+	type SelectMenuComponent,
 	type SelectMenuDefaultValue,
 	type SeparatorComponent,
+	type StringSelectMenuComponent,
+	type StringSelectMenuOption,
 	type TextDisplayComponent,
 	type TextInputComponent,
 	type ThumbnailComponent,
@@ -178,6 +184,21 @@ export function deserializeMentionableSelectMenuComponent(
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#button-button-structure
+ */
+export function deserializePremiumButtonComponent(
+	premiumButtonComponent: APIPremiumButtonComponent,
+): PremiumButtonComponent {
+	return {
+		disabled: premiumButtonComponent.disabled,
+		id: premiumButtonComponent.id,
+		skuId: premiumButtonComponent.sku_id,
+		style: premiumButtonComponent.style,
+		type: premiumButtonComponent.type,
+	};
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#role-select-role-select-structure
  */
 export function deserializeRoleSelectMenuComponent(
@@ -242,6 +263,26 @@ export function deserializeSectionComponentsArray(sectionComponentsArray: APISec
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
+ */
+export function deserializeSelectMenuComponent(selectMenuComponent: APISelectMenuComponent): SelectMenuComponent {
+	const { type } = selectMenuComponent;
+
+	switch (type) {
+		case ComponentType.ChannelSelect:
+			return deserializeChannelSelectMenuComponent(selectMenuComponent);
+		case ComponentType.MentionableSelect:
+			return deserializeMentionableSelectMenuComponent(selectMenuComponent);
+		case ComponentType.RoleSelect:
+			return deserializeRoleSelectMenuComponent(selectMenuComponent);
+		case ComponentType.StringSelect:
+			return deserializeStringSelectMenuComponent(selectMenuComponent);
+		case ComponentType.UserSelect:
+			return deserializeUserSelectMenuComponent(selectMenuComponent);
+	}
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
 export function deserializeSelectMenuDefaultValue(
@@ -263,18 +304,45 @@ export function deserializeSelectMenuDefaultValuesArray(
 }
 
 /**
- * @see https://discord.com/developers/docs/components/reference#button-button-structure
+ * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
  */
-export function deserializePremiumButtonComponent(
-	premiumButtonComponent: APIPremiumButtonComponent,
-): PremiumButtonComponent {
+export function deserializeStringSelectMenuComponent(
+	stringSelectMenuComponent: APIStringSelectMenuComponent,
+): StringSelectMenuComponent {
 	return {
-		disabled: premiumButtonComponent.disabled,
-		id: premiumButtonComponent.id,
-		skuId: premiumButtonComponent.sku_id,
-		style: premiumButtonComponent.style,
-		type: premiumButtonComponent.type,
+		customId: stringSelectMenuComponent.custom_id,
+		disabled: stringSelectMenuComponent.disabled,
+		id: stringSelectMenuComponent.id,
+		maxValues: stringSelectMenuComponent.max_values,
+		minValues: stringSelectMenuComponent.min_values,
+		options: deserializeStringSelectMenuOptionsArray(stringSelectMenuComponent.options),
+		placeholder: stringSelectMenuComponent.placeholder,
+		required: stringSelectMenuComponent.required,
+		type: stringSelectMenuComponent.type,
 	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
+ */
+export function deserializeStringSelectMenuOption(
+	stringSelectMenuOption: APIStringSelectMenuOption,
+): StringSelectMenuOption {
+	return {
+		default: stringSelectMenuOption.default,
+		description: stringSelectMenuOption.description,
+		label: stringSelectMenuOption.label,
+		value: stringSelectMenuOption.value,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
+ */
+export function deserializeStringSelectMenuOptionsArray(
+	stringSelectMenuOptionsArray: StringSelectMenuOption[],
+): APIStringSelectMenuOption[] {
+	return stringSelectMenuOptionsArray.map(deserializeStringSelectMenuOption);
 }
 
 /**

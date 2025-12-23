@@ -12,8 +12,11 @@ import {
 	type APISectionAccessory,
 	type APISectionComponent,
 	type APISectionComponents,
+	type APISelectMenuComponent,
 	type APISelectMenuDefaultValue,
 	type APISeparatorComponent,
+	type APIStringSelectMenuComponent,
+	type APIStringSelectMenuOption,
 	type APITextDisplayComponent,
 	type APITextInputComponent,
 	type APIThumbnailComponent,
@@ -34,8 +37,11 @@ import {
 	type SectionAccessory,
 	type SectionComponent,
 	type SectionComponents,
+	type SelectMenuComponent,
 	type SelectMenuDefaultValue,
 	type SeparatorComponent,
+	type StringSelectMenuComponent,
+	type StringSelectMenuOption,
 	type TextDisplayComponent,
 	type TextInputComponent,
 	type ThumbnailComponent,
@@ -255,6 +261,26 @@ export function serializeSectionComponentsArray(sectionComponentsArray: APISecti
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
+ */
+export function serializeSelectMenuComponent(selectMenuComponent: SelectMenuComponent): APISelectMenuComponent {
+	const { type } = selectMenuComponent;
+
+	switch (type) {
+		case ComponentType.ChannelSelect:
+			return serializeChannelSelectMenuComponent(selectMenuComponent);
+		case ComponentType.MentionableSelect:
+			return serializeMentionableSelectMenuComponent(selectMenuComponent);
+		case ComponentType.RoleSelect:
+			return serializeRoleSelectMenuComponent(selectMenuComponent);
+		case ComponentType.StringSelect:
+			return serializeStringSelectMenuComponent(selectMenuComponent);
+		case ComponentType.UserSelect:
+			return serializeUserSelectMenuComponent(selectMenuComponent);
+	}
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
 export function serializeSelectMenuDefaultValue(
@@ -285,6 +311,48 @@ export function serializeSeparatorComponent(separatorComponent: SeparatorCompone
 		spacing: separatorComponent.spacing,
 		type: separatorComponent.type,
 	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
+ */
+export function serializeStringSelectMenuComponent(
+	stringSelectMenuComponent: StringSelectMenuComponent,
+): APIStringSelectMenuComponent {
+	return {
+		custom_id: stringSelectMenuComponent.customId,
+		disabled: stringSelectMenuComponent.disabled,
+		id: stringSelectMenuComponent.id,
+		max_values: stringSelectMenuComponent.maxValues,
+		min_values: stringSelectMenuComponent.minValues,
+		options: serializeStringSelectMenuOptionsArray(stringSelectMenuComponent.options),
+		placeholder: stringSelectMenuComponent.placeholder,
+		required: stringSelectMenuComponent.required,
+		type: stringSelectMenuComponent.type,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
+ */
+export function serializeStringSelectMenuOption(
+	stringSelectMenuOption: StringSelectMenuOption,
+): APIStringSelectMenuOption {
+	return {
+		default: stringSelectMenuOption.default,
+		description: stringSelectMenuOption.description,
+		label: stringSelectMenuOption.label,
+		value: stringSelectMenuOption.value,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
+ */
+export function serializeStringSelectMenuOptionsArray(
+	stringSelectMenuOptionsArray: StringSelectMenuOption[],
+): APIStringSelectMenuOption[] {
+	return stringSelectMenuOptionsArray.map(serializeStringSelectMenuOption);
 }
 
 /**
