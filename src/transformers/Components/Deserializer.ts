@@ -1,9 +1,12 @@
 import type {
 	APIChannelSelectMenuComponent,
 	APIFileUploadComponent,
+	APIInteractiveButtonComponent,
+	APILinkButtonComponent,
 	APIMediaGalleryComponent,
 	APIMediaGalleryItem,
 	APIMentionableSelectMenuComponent,
+	APIPremiumButtonComponent,
 	APIRoleSelectMenuComponent,
 	APISelectMenuDefaultValue,
 	APISeparatorComponent,
@@ -14,9 +17,12 @@ import type {
 	APIUserSelectMenuComponent,
 	ChannelSelectMenuComponent,
 	FileUploadComponent,
+	InteractiveButtonComponent,
+	LinkButtonComponent,
 	MediaGalleryComponent,
 	MediaGalleryItem,
 	MentionableSelectMenuComponent,
+	PremiumButtonComponent,
 	RoleSelectMenuComponent,
 	SelectMenuDefaultValue,
 	SeparatorComponent,
@@ -58,6 +64,36 @@ export function deserializeFileUploadComponent(fileUploadComponent: APIFileUploa
 		minValues: fileUploadComponent.min_values,
 		required: fileUploadComponent.required,
 		type: fileUploadComponent.type,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#button-button-structure
+ */
+export function deserializeInteractiveButtonComponent(
+	interactiveButtonComponent: APIInteractiveButtonComponent,
+): InteractiveButtonComponent {
+	return {
+		customId: interactiveButtonComponent.custom_id,
+		disabled: interactiveButtonComponent.disabled,
+		id: interactiveButtonComponent.id,
+		label: interactiveButtonComponent.label,
+		style: interactiveButtonComponent.style,
+		type: interactiveButtonComponent.type,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#button-button-structure
+ */
+export function deserializeLinkButtonComponent(linkButtonComponent: APILinkButtonComponent): LinkButtonComponent {
+	return {
+		disabled: linkButtonComponent.disabled,
+		id: linkButtonComponent.id,
+		label: linkButtonComponent.label,
+		style: linkButtonComponent.style,
+		type: linkButtonComponent.type,
+		url: linkButtonComponent.url,
 	};
 }
 
@@ -149,6 +185,21 @@ export function deserializeSelectMenuDefaultValuesArray(
 	selectMenuDefaultValuesArray: APISelectMenuDefaultValue[],
 ): SelectMenuDefaultValue[] {
 	return selectMenuDefaultValuesArray.map(deserializeSelectMenuDefaultValue);
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#button-button-structure
+ */
+export function deserializePremiumButtonComponent(
+	premiumButtonComponent: APIPremiumButtonComponent,
+): PremiumButtonComponent {
+	return {
+		disabled: premiumButtonComponent.disabled,
+		id: premiumButtonComponent.id,
+		skuId: premiumButtonComponent.sku_id,
+		style: premiumButtonComponent.style,
+		type: premiumButtonComponent.type,
+	};
 }
 
 /**

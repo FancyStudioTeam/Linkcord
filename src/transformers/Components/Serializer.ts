@@ -1,9 +1,12 @@
 import type {
 	APIChannelSelectMenuComponent,
 	APIFileUploadComponent,
+	APIInteractiveButtonComponent,
+	APILinkButtonComponent,
 	APIMediaGalleryComponent,
 	APIMediaGalleryItem,
 	APIMentionableSelectMenuComponent,
+	APIPremiumButtonComponent,
 	APIRoleSelectMenuComponent,
 	APISelectMenuDefaultValue,
 	APISeparatorComponent,
@@ -14,9 +17,12 @@ import type {
 	APIUserSelectMenuComponent,
 	ChannelSelectMenuComponent,
 	FileUploadComponent,
+	InteractiveButtonComponent,
+	LinkButtonComponent,
 	MediaGalleryComponent,
 	MediaGalleryItem,
 	MentionableSelectMenuComponent,
+	PremiumButtonComponent,
 	RoleSelectMenuComponent,
 	SelectMenuDefaultValue,
 	SeparatorComponent,
@@ -26,6 +32,10 @@ import type {
 	UnfurledMediaItem,
 	UserSelectMenuComponent,
 } from "#types/index.js";
+
+/*
+ * TODO: Add "emoji" for component transformers.
+ */
 
 /**
  * @see https://discord.com/developers/docs/components/reference#channel-select-channel-select-structure
@@ -58,6 +68,36 @@ export function serializeFileUploadComponent(fileUploadComponent: FileUploadComp
 		min_values: fileUploadComponent.minValues,
 		required: fileUploadComponent.required,
 		type: fileUploadComponent.type,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#button-button-structure
+ */
+export function serializeInteractiveButtonComponent(
+	interactiveButtonComponent: InteractiveButtonComponent,
+): APIInteractiveButtonComponent {
+	return {
+		custom_id: interactiveButtonComponent.customId,
+		disabled: interactiveButtonComponent.disabled,
+		id: interactiveButtonComponent.id,
+		label: interactiveButtonComponent.label,
+		style: interactiveButtonComponent.style,
+		type: interactiveButtonComponent.type,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#button-button-structure
+ */
+export function serializeLinkButtonComponent(linkButtonComponent: LinkButtonComponent): APILinkButtonComponent {
+	return {
+		disabled: linkButtonComponent.disabled,
+		id: linkButtonComponent.id,
+		label: linkButtonComponent.label,
+		style: linkButtonComponent.style,
+		type: linkButtonComponent.type,
+		url: linkButtonComponent.url,
 	};
 }
 
@@ -106,6 +146,21 @@ export function serializeMentionableSelectMenuComponent(
 		placeholder: mentionableSelectMenuComponent.placeholder,
 		required: mentionableSelectMenuComponent.required,
 		type: mentionableSelectMenuComponent.type,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#button-button-structure
+ */
+export function serializePremiumButtonComponent(
+	premiumButtonComponent: PremiumButtonComponent,
+): APIPremiumButtonComponent {
+	return {
+		disabled: premiumButtonComponent.disabled,
+		id: premiumButtonComponent.id,
+		sku_id: premiumButtonComponent.skuId,
+		style: premiumButtonComponent.style,
+		type: premiumButtonComponent.type,
 	};
 }
 
