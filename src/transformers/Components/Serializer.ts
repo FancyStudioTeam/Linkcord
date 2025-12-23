@@ -22,21 +22,15 @@ import type {
 /**
  * @see https://discord.com/developers/docs/components/reference#file-upload-file-upload-structure
  */
-export function serializeFileUploadComponent(
-	deserializedFileUploadComponent: FileUploadComponent,
-): APIFileUploadComponent {
-	const { customId, id, maxValues, minValues, required, type } = deserializedFileUploadComponent;
-	const serializedFileUploadComponent: APIFileUploadComponent = {
-		custom_id: customId,
-		type,
+export function serializeFileUploadComponent(fileUploadComponent: FileUploadComponent): APIFileUploadComponent {
+	return {
+		custom_id: fileUploadComponent.customId,
+		id: fileUploadComponent.id,
+		max_values: fileUploadComponent.maxValues,
+		min_values: fileUploadComponent.minValues,
+		required: fileUploadComponent.required,
+		type: fileUploadComponent.type,
 	};
-
-	if (id) serializedFileUploadComponent.id = id;
-	if (maxValues) serializedFileUploadComponent.max_values = maxValues;
-	if (minValues) serializedFileUploadComponent.min_values = minValues;
-	if (required) serializedFileUploadComponent.required = required;
-
-	return serializedFileUploadComponent;
 }
 
 /**
@@ -58,24 +52,21 @@ export function serializeMediaGalleryItem(deserializedMediaGalleryItem: MediaGal
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
 export function serializeSelectMenuDefaultValue(
-	deserializedSelectMenuDefaultValue: SelectMenuDefaultValue,
+	selectMenuDefaultValue: SelectMenuDefaultValue,
 ): APISelectMenuDefaultValue {
-	const { id, type } = deserializedSelectMenuDefaultValue;
-	const serializedSelectMenuDefaultValue: APISelectMenuDefaultValue = {
-		id,
-		type,
+	return {
+		id: selectMenuDefaultValue.id,
+		type: selectMenuDefaultValue.type,
 	};
-
-	return serializedSelectMenuDefaultValue;
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
 export function serializeSelectMenuDefaultValuesArray(
-	deserializedSelectMenuDefaultValueArray: SelectMenuDefaultValue[],
+	selectMenuDefaultValuesArray: SelectMenuDefaultValue[],
 ): APISelectMenuDefaultValue[] {
-	return deserializedSelectMenuDefaultValueArray.map(serializeSelectMenuDefaultValue);
+	return selectMenuDefaultValuesArray.map(serializeSelectMenuDefaultValue);
 }
 
 /**

@@ -1,4 +1,5 @@
 import type {
+	APIFileUploadComponent,
 	APIMediaGalleryItem,
 	APISelectMenuDefaultValue,
 	APISeparatorComponent,
@@ -7,6 +8,7 @@ import type {
 	APIThumbnailComponent,
 	APIUnfurledMediaItem,
 	APIUserSelectMenuComponent,
+	FileUploadComponent,
 	MediaGalleryItem,
 	SelectMenuDefaultValue,
 	SeparatorComponent,
@@ -16,6 +18,20 @@ import type {
 	UnfurledMediaItem,
 	UserSelectMenuComponent,
 } from "#types/index.js";
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#file-upload-file-upload-structure
+ */
+export function deserializeFileUploadComponent(fileUploadComponent: APIFileUploadComponent): FileUploadComponent {
+	return {
+		customId: fileUploadComponent.custom_id,
+		id: fileUploadComponent.id,
+		maxValues: fileUploadComponent.max_values,
+		minValues: fileUploadComponent.min_values,
+		required: fileUploadComponent.required,
+		type: fileUploadComponent.type,
+	};
+}
 
 /**
  * @see https://discord.com/developers/docs/components/reference#media-gallery-media-gallery-item-structure
@@ -36,24 +52,21 @@ export function deserializeMediaGalleryItem(serializedMediaGalleryItem: APIMedia
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
 export function deserializeSelectMenuDefaultValue(
-	serializedSelectMenuDefaultValue: APISelectMenuDefaultValue,
+	selectMenuDefaultValue: APISelectMenuDefaultValue,
 ): SelectMenuDefaultValue {
-	const { id, type } = serializedSelectMenuDefaultValue;
-	const deserializedSelectMenuDefaultValue: SelectMenuDefaultValue = {
-		id,
-		type,
+	return {
+		id: selectMenuDefaultValue.id,
+		type: selectMenuDefaultValue.type,
 	};
-
-	return deserializedSelectMenuDefaultValue;
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
 export function deserializeSelectMenuDefaultValuesArray(
-	serializedSelectMenuDefaultValueArray: APISelectMenuDefaultValue[],
+	selectMenuDefaultValuesArray: APISelectMenuDefaultValue[],
 ): SelectMenuDefaultValue[] {
-	return serializedSelectMenuDefaultValueArray.map(deserializeSelectMenuDefaultValue);
+	return selectMenuDefaultValuesArray.map(deserializeSelectMenuDefaultValue);
 }
 
 /**
