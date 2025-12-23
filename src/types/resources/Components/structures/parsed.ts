@@ -71,7 +71,7 @@ export interface FileUploadComponent extends ComponentBase<ComponentType.FileUpl
 /**
  * @see https://discord.com/developers/docs/components/reference#button
  */
-export interface InteractableButtonComponentBase<Type extends InteractableButtonComponentStyle>
+export interface InteractiveButtonComponentBase<Type extends InteractiveButtonComponentStyle>
 	extends TextableButtonComponentBase<Type> {
 	customId: string;
 }
@@ -235,7 +235,7 @@ export type ActionRowComponents = ButtonComponent | SelectMenuComponent;
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type ButtonComponent = InteractableButtonComponent | LinkButtonComponent | PremiumButtonComponent;
+export type ButtonComponent = InteractiveButtonComponent | LinkButtonComponent | PremiumButtonComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#container-container-child-components
@@ -251,12 +251,12 @@ export type ContainerComponents =
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type DangerButtonComponent = InteractableButtonComponentBase<ButtonStyle.Danger>;
+export type DangerButtonComponent = InteractiveButtonComponentBase<ButtonStyle.Danger>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button
  */
-export type InteractableButtonComponent =
+export type InteractiveButtonComponent =
 	| DangerButtonComponent
 	| PrimaryButtonComponent
 	| SecondaryButtonComponent
@@ -265,7 +265,7 @@ export type InteractableButtonComponent =
 /**
  * @see https://discord.com/developers/docs/components/reference#button
  */
-export type InteractableButtonComponentStyle = Exclude<TextableButtonComponentStyle, ButtonStyle.Link>;
+export type InteractiveButtonComponentStyle = Exclude<TextableButtonComponentStyle, ButtonStyle.Link>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#label-label-child-components
@@ -297,7 +297,7 @@ export type ModalComponent = LabelComponent | TextDisplayComponent;
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type PrimaryButtonComponent = InteractableButtonComponentBase<ButtonStyle.Primary>;
+export type PrimaryButtonComponent = InteractiveButtonComponentBase<ButtonStyle.Primary>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
@@ -321,7 +321,7 @@ export type RoleSelectMenuComponent = ResolvableSelectMenuComponentBase<Componen
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type SecondaryButtonComponent = InteractableButtonComponentBase<ButtonStyle.Secondary>;
+export type SecondaryButtonComponent = InteractiveButtonComponentBase<ButtonStyle.Secondary>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#section-section-accessory-components
@@ -351,7 +351,7 @@ export type SelectMenuComponentType =
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type SuccessButtonComponent = InteractableButtonComponentBase<ButtonStyle.Success>;
+export type SuccessButtonComponent = InteractiveButtonComponentBase<ButtonStyle.Success>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button

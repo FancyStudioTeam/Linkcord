@@ -72,7 +72,7 @@ export interface APIFileUploadComponent extends APIComponentBase<ComponentType.F
 /**
  * @see https://discord.com/developers/docs/components/reference#button
  */
-export interface APIInteractableButtonComponentBase<Type extends APIInteractableButtonComponentStyle>
+export interface APIInteractiveButtonComponentBase<Type extends APIInteractiveButtonComponentStyle>
 	extends APITextableButtonComponentBase<Type> {
 	custom_id: string;
 }
@@ -236,7 +236,7 @@ export type APIActionRowComponents = APIButtonComponent | APISelectMenuComponent
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APIButtonComponent = APIInteractableButtonComponent | APILinkButtonComponent | APIPremiumButtonComponent;
+export type APIButtonComponent = APIInteractiveButtonComponent | APILinkButtonComponent | APIPremiumButtonComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#container-container-child-components
@@ -252,12 +252,12 @@ export type APIContainerComponents =
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APIDangerButtonComponent = APIInteractableButtonComponentBase<ButtonStyle.Danger>;
+export type APIDangerButtonComponent = APIInteractiveButtonComponentBase<ButtonStyle.Danger>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button
  */
-export type APIInteractableButtonComponent =
+export type APIInteractiveButtonComponent =
 	| APIDangerButtonComponent
 	| APIPrimaryButtonComponent
 	| APISecondaryButtonComponent
@@ -266,7 +266,7 @@ export type APIInteractableButtonComponent =
 /**
  * @see https://discord.com/developers/docs/components/reference#button
  */
-export type APIInteractableButtonComponentStyle = Exclude<APITextableButtonComponentStyle, ButtonStyle.Link>;
+export type APIInteractiveButtonComponentStyle = Exclude<APITextableButtonComponentStyle, ButtonStyle.Link>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#label-label-child-components
@@ -298,7 +298,7 @@ export type APIModalComponent = APILabelComponent | APITextDisplayComponent;
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APIPrimaryButtonComponent = APIInteractableButtonComponentBase<ButtonStyle.Primary>;
+export type APIPrimaryButtonComponent = APIInteractiveButtonComponentBase<ButtonStyle.Primary>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
@@ -322,7 +322,7 @@ export type APIRoleSelectMenuComponent = APIResolvableSelectMenuComponentBase<Co
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APISecondaryButtonComponent = APIInteractableButtonComponentBase<ButtonStyle.Secondary>;
+export type APISecondaryButtonComponent = APIInteractiveButtonComponentBase<ButtonStyle.Secondary>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#section-section-accessory-components
@@ -352,7 +352,7 @@ export type APISelectMenuComponentType =
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APISuccessButtonComponent = APIInteractableButtonComponentBase<ButtonStyle.Success>;
+export type APISuccessButtonComponent = APIInteractiveButtonComponentBase<ButtonStyle.Success>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button
