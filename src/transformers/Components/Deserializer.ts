@@ -7,6 +7,8 @@ import {
 	type APIChannelSelectMenuComponent,
 	type APIFileUploadComponent,
 	type APIInteractiveButtonComponent,
+	type APILabelComponent,
+	type APILabelComponents,
 	type APILinkButtonComponent,
 	type APIMediaGalleryComponent,
 	type APIMediaGalleryItem,
@@ -32,6 +34,8 @@ import {
 	ComponentType,
 	type FileUploadComponent,
 	type InteractiveButtonComponent,
+	type LabelComponent,
+	type LabelComponents,
 	type LinkButtonComponent,
 	type MediaGalleryComponent,
 	type MediaGalleryItem,
@@ -158,6 +162,35 @@ export function deserializeInteractiveButtonComponent(
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#label-label-structure
+ */
+export function deserializeLabelComponent(labelComponent: APILabelComponent): LabelComponent {
+	return {
+		component: deserializeLabelComponents(labelComponent.component),
+		description: labelComponent.description,
+		id: labelComponent.id,
+		label: labelComponent.label,
+		type: labelComponent.type,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#label-label-child-components
+ */
+export function deserializeLabelComponents(labelComponents: APILabelComponents): LabelComponents {
+	const { type } = labelComponents;
+
+	switch (type) {
+		case ComponentType.FileUpload:
+			return deserializeFileUploadComponent(labelComponents);
+		case ComponentType.TextInput:
+			return deserializeTextInputComponent(labelComponents);
+		default:
+			return deserializeSelectMenuComponent(labelComponents);
+	}
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
 export function deserializeLinkButtonComponent(linkButtonComponent: APILinkButtonComponent): LinkButtonComponent {
@@ -256,18 +289,6 @@ export function deserializeRoleSelectMenuComponent(
 }
 
 /**
- * @see https://discord.com/developers/docs/components/reference#section-section-structure
- */
-export function deserializeSectionComponent(sectionComponent: APISectionComponent): SectionComponent {
-	return {
-		accessory: deserializeSectionAccessory(sectionComponent.accessory),
-		components: deserializeSectionComponentsArray(sectionComponent.components),
-		id: sectionComponent.id,
-		type: sectionComponent.type,
-	};
-}
-
-/**
  * @see https://discord.com/developers/docs/components/reference#section-section-accessory-components
  */
 export function deserializeSectionAccessory(sectionAccessory: APISectionAccessory): SectionAccessory {
@@ -279,6 +300,18 @@ export function deserializeSectionAccessory(sectionAccessory: APISectionAccessor
 		case ComponentType.Thumbnail:
 			return deserializeThumbnailComponent(sectionAccessory);
 	}
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#section-section-structure
+ */
+export function deserializeSectionComponent(sectionComponent: APISectionComponent): SectionComponent {
+	return {
+		accessory: deserializeSectionAccessory(sectionComponent.accessory),
+		components: deserializeSectionComponentsArray(sectionComponent.components),
+		id: sectionComponent.id,
+		type: sectionComponent.type,
+	};
 }
 
 /**

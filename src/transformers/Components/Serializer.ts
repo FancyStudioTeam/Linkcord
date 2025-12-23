@@ -7,6 +7,8 @@ import {
 	type APIChannelSelectMenuComponent,
 	type APIFileUploadComponent,
 	type APIInteractiveButtonComponent,
+	type APILabelComponent,
+	type APILabelComponents,
 	type APILinkButtonComponent,
 	type APIMediaGalleryComponent,
 	type APIMediaGalleryItem,
@@ -32,6 +34,8 @@ import {
 	ComponentType,
 	type FileUploadComponent,
 	type InteractiveButtonComponent,
+	type LabelComponent,
+	type LabelComponents,
 	type LinkButtonComponent,
 	type MediaGalleryComponent,
 	type MediaGalleryItem,
@@ -158,6 +162,35 @@ export function serializeInteractiveButtonComponent(
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#label-label-structure
+ */
+export function serializeLabelComponent(labelComponent: LabelComponent): APILabelComponent {
+	return {
+		component: serializeLabelComponents(labelComponent.component),
+		description: labelComponent.description,
+		id: labelComponent.id,
+		label: labelComponent.label,
+		type: labelComponent.type,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#label-label-child-components
+ */
+export function serializeLabelComponents(labelComponents: LabelComponents): APILabelComponents {
+	const { type } = labelComponents;
+
+	switch (type) {
+		case ComponentType.FileUpload:
+			return serializeFileUploadComponent(labelComponents);
+		case ComponentType.TextInput:
+			return serializeTextInputComponent(labelComponents);
+		default:
+			return serializeSelectMenuComponent(labelComponents);
+	}
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
 export function serializeLinkButtonComponent(linkButtonComponent: LinkButtonComponent): APILinkButtonComponent {
@@ -254,18 +287,6 @@ export function serializeRoleSelectMenuComponent(
 }
 
 /**
- * @see https://discord.com/developers/docs/components/reference#section-section-structure
- */
-export function serializeSectionComponent(sectionComponent: SectionComponent): APISectionComponent {
-	return {
-		accessory: serializeSectionAccessory(sectionComponent.accessory),
-		components: serializeSectionComponentsArray(sectionComponent.components),
-		id: sectionComponent.id,
-		type: sectionComponent.type,
-	};
-}
-
-/**
  * @see https://discord.com/developers/docs/components/reference#section-section-accessory-components
  */
 export function serializeSectionAccessory(sectionAccessory: SectionAccessory): APISectionAccessory {
@@ -277,6 +298,18 @@ export function serializeSectionAccessory(sectionAccessory: SectionAccessory): A
 		case ComponentType.Thumbnail:
 			return serializeThumbnailComponent(sectionAccessory);
 	}
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#section-section-structure
+ */
+export function serializeSectionComponent(sectionComponent: SectionComponent): APISectionComponent {
+	return {
+		accessory: serializeSectionAccessory(sectionComponent.accessory),
+		components: serializeSectionComponentsArray(sectionComponent.components),
+		id: sectionComponent.id,
+		type: sectionComponent.type,
+	};
 }
 
 /**
