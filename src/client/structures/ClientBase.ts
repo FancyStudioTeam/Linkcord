@@ -10,10 +10,8 @@ import {
 import { CommandLoader } from "#handlers/commands/loaders/CommandLoader.js";
 import { EventLoader } from "#handlers/events/loaders/EventLoader.js";
 import type { Snowflake } from "#types/index.js";
-import { SnowflakeUtils } from "#utils/index.js";
+import { castSnowflake } from "#utils/index.js";
 import type { Client } from "./Client/Client.js";
-
-const { cast } = SnowflakeUtils;
 
 export class ClientBase {
 	/**
@@ -30,7 +28,7 @@ export class ClientBase {
 		const [encodedApplicationId] = token.split(".");
 		const decodedApplicationId = atob(encodedApplicationId);
 
-		return cast(decodedApplicationId);
+		return castSnowflake(decodedApplicationId);
 	}
 
 	/**
