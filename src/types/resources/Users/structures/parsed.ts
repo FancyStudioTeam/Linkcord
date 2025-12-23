@@ -30,7 +30,7 @@ export interface AvatarDecorationData {
  * @see https://discord.com/developers/docs/resources/user#collectibles-collectible-structure
  */
 export interface Collectibles {
-	nameplate?: Nameplate;
+	nameplate: Nameplate | null;
 }
 
 /**
