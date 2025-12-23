@@ -15,9 +15,8 @@
 	"files": {
 		"includes": [
 			"**",
-			"!**/.turbo",
-			"!**/.typedoc",
-			"!**/dist"
+			"!**/lib",
+			"!**/node_modules"
 		]
 	},
 	"formatter": {
@@ -28,11 +27,6 @@
 		"indentWidth": 4,
 		"lineEnding": "lf",
 		"lineWidth": 140
-	},
-	"javascript": {
-		"parser": {
-			"unsafeParameterDecoratorsEnabled": true
-		}
 	},
 	"linter": {
 		"domains": {
@@ -69,6 +63,7 @@
 			"style": {
 				"noDefaultExport": "off",
 				"noMagicNumbers": "error",
+				"noUnusedTemplateLiteral": "error",
 				"useImportType": "error",
 				"useNamingConvention": {
 					"level": "error",

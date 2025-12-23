@@ -28,7 +28,7 @@ export class Client extends ClientBase {
 	#normalizeLabelBrackets(label: string): `[${string}]` {
 		const [_, content] = label.match(BRACKETS_REGEX) ?? [];
 
-		return !isUndefined(content) ? `[${content}]` : `[Unknown]`;
+		return !isUndefined(content) ? `[${content}]` : "[Unknown]";
 	}
 
 	debug(message: string, options?: ClientDebugOptions): void {
