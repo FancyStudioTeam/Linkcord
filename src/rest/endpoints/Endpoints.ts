@@ -1,17 +1,17 @@
-/** biome-ignore-all lint/style/useNamingConvention: (x) */
+/**
+ * biome-ignore-all lint/style/useNamingConvention: These functions
+ * intentionally use upper snake case because they represent Discord API
+ * endpoints, not conventional camel case functions.
+ */
 
 import type { Snowflake } from "#types/index.js";
 
 export function APPLICATION_COMMANDS_ENDPOINT<ApplicationId extends Snowflake>(applicationId: ApplicationId) {
-	const encodedApplicationId = encodeURIComponent(applicationId);
-
-	return `applications/${encodedApplicationId}/commands` as const;
+	return `applications/${encodeURIComponent(applicationId)}/commands` as const;
 }
 
 export function CHANNEL_MESSAGES_ENDPOINT<ChannelId extends Snowflake>(channelId: ChannelId) {
-	const encodedChannelId = encodeURIComponent(channelId);
-
-	return `channels/${encodedChannelId}/messages` as const;
+	return `channels/${encodeURIComponent(channelId)}/messages` as const;
 }
 
 export function GATEWAY_BOT_ENDPOINT() {

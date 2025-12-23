@@ -1,4 +1,8 @@
-/** biome-ignore-all lint/style/useNamingConvention: (x) */
+/**
+ * biome-ignore-all lint/style/useNamingConvention: These functions
+ * intentionally use upper snake case because they represent Discord API
+ * endpoints, not conventional camel case functions.
+ */
 
 import type { Snowflake } from "#types/index.js";
 
@@ -7,108 +11,72 @@ export function APPLICATION_ASSET_ACHIEVEMENT_ICON_ENDPOINT<
 	AchievementId extends Snowflake,
 	AchievementIcon extends string,
 >(applicationId: ApplicationId, achievementId: AchievementId, achievementIcon: AchievementIcon) {
-	const encodedApplicationId = encodeURIComponent(applicationId);
-	const encodedAchievementId = encodeURIComponent(achievementId);
-	const encodedAchievementIcon = encodeURIComponent(achievementIcon);
-
-	return `app-assets/${encodedApplicationId}/achievements/${encodedAchievementId}/icons/${encodedAchievementIcon}` as const;
+	return `app-assets/${encodeURIComponent(applicationId)}/achievements/${encodeURIComponent(achievementId)}/icons/${encodeURIComponent(achievementIcon)}` as const;
 }
 
 export function APPLICATION_ASSET_ENDPOINT<ApplicationId extends Snowflake, ApplicationAsset extends string>(
 	applicationId: ApplicationId,
 	applicationAsset: ApplicationAsset,
 ) {
-	const encodedApplicationId = encodeURIComponent(applicationId);
-	const encodedApplicationAsset = encodeURIComponent(applicationAsset);
-
-	return `app-assets/${encodedApplicationId}/${encodedApplicationAsset}` as const;
+	return `app-assets/${encodeURIComponent(applicationId)}/${encodeURIComponent(applicationAsset)}` as const;
 }
 
 export function APPLICATION_ASSET_STORE_ASSET_ENDPOINT<ApplicationId extends Snowflake, AssetId extends Snowflake>(
 	applicationId: ApplicationId,
 	assetId: AssetId,
 ) {
-	const encodedApplicationId = encodeURIComponent(applicationId);
-	const encodedAssetId = encodeURIComponent(assetId);
-
-	return `app-assets/${encodedApplicationId}/store/${encodedAssetId}` as const;
+	return `app-assets/${encodeURIComponent(applicationId)}/store/${encodeURIComponent(assetId)}` as const;
 }
 
 export function APPLICATION_STORE_STICKER_PACK_BANNER_ENDPOINT<StickerPackBannerAssetId extends Snowflake>(
 	stickerPackBannerAssetId: StickerPackBannerAssetId,
 ) {
-	const encodedStickerPackBannerAssetId = encodeURIComponent(stickerPackBannerAssetId);
-
-	return `app-assets/710982414301790216/store/${encodedStickerPackBannerAssetId}` as const;
+	return `app-assets/710982414301790216/store/${encodeURIComponent(stickerPackBannerAssetId)}` as const;
 }
 
 export function APPLICATION_ICON_ENDPOINT<ApplicationId extends Snowflake, EntityImage extends string>(
 	applicationId: ApplicationId,
 	entityImage: EntityImage,
 ) {
-	const encodedApplicationId = encodeURIComponent(applicationId);
-	const encodedEntityImage = encodeURIComponent(entityImage);
-
-	return `app-icons/${encodedApplicationId}/${encodedEntityImage}` as const;
+	return `app-icons/${encodeURIComponent(applicationId)}/${encodeURIComponent(entityImage)}` as const;
 }
 
 export function AVATAR_DECORATION_PRESET_ENDPOINT<AvatarDecorationAsset extends string>(avatarDecorationAsset: AvatarDecorationAsset) {
-	const encodedAvatarDecorationAsset = encodeURIComponent(avatarDecorationAsset);
-
-	return `avatar-decorations-presets/${encodedAvatarDecorationAsset}` as const;
+	return `avatar-decorations-presets/${encodeURIComponent(avatarDecorationAsset)}` as const;
 }
 
 export function AVATAR_ENDPOINT<UserId extends Snowflake, UserAvatar extends string>(userId: UserId, userAvatar: UserAvatar) {
-	const encodedUserId = encodeURIComponent(userId);
-	const encodedUserAvatar = encodeURIComponent(userAvatar);
-
-	return `avatars/${encodedUserId}/${encodedUserAvatar}` as const;
+	return `avatars/${encodeURIComponent(userId)}/${encodeURIComponent(userAvatar)}` as const;
 }
 
 export function BANNER_ENDPOINT<EntityId extends Snowflake, EntityBanner extends string>(entityId: EntityId, entityBanner: EntityBanner) {
-	const encodedEntityId = encodeURIComponent(entityId);
-	const encodedEntityBanner = encodeURIComponent(entityBanner);
-
-	return `banners/${encodedEntityId}/${encodedEntityBanner}` as const;
+	return `banners/${encodeURIComponent(entityId)}/${encodeURIComponent(entityBanner)}` as const;
 }
 
 export function DISCOVERY_SPLASH_ENDPOINT<GuildId extends Snowflake, GuildDiscoverySplash extends string>(
 	guildId: GuildId,
 	guildDiscoverySplash: GuildDiscoverySplash,
 ) {
-	const encodedGuildId = encodeURIComponent(guildId);
-	const encodedGuildDiscoverySplash = encodeURIComponent(guildDiscoverySplash);
-
-	return `discovery-splashes/${encodedGuildId}/${encodedGuildDiscoverySplash}` as const;
+	return `discovery-splashes/${encodeURIComponent(guildId)}/${encodeURIComponent(guildDiscoverySplash)}` as const;
 }
 
 export function EMBED_AVATAR_ENDPOINT<Index extends number>(index: Index) {
-	const encodedIndex = encodeURIComponent(index);
-
-	return `embed/avatars/${encodedIndex}` as const;
+	return `embed/avatars/${encodeURIComponent(index)}` as const;
 }
 
 export function EMOJI_ENDPOINT<EmojiId extends Snowflake>(emojiId: EmojiId) {
-	const encodedEmojiId = encodeURIComponent(emojiId);
-
-	return `emojis/${encodedEmojiId}` as const;
+	return `emojis/${encodeURIComponent(emojiId)}` as const;
 }
 
 export function GUILD_SCHEDULED_EVENT_COVER_ENDPOINT<ScheduledEventId extends Snowflake, ScheduledEventImage extends string>(
 	scheduledEventId: ScheduledEventId,
 	scheduledEventImage: ScheduledEventImage,
 ) {
-	const encodedScheduledEventId = encodeURIComponent(scheduledEventId);
-	const encodedScheduledEventImage = encodeURIComponent(scheduledEventImage);
-
-	return `guild-events/${encodedScheduledEventId}/${encodedScheduledEventImage}` as const;
+	return `guild-events/${encodeURIComponent(scheduledEventId)}/${encodeURIComponent(scheduledEventImage)}` as const;
 }
 
 export function GUILD_TAG_BADGE_ENDPOINT<GuildId extends Snowflake, GuildBadge extends string>(guildId: GuildId, guildBadge: GuildBadge) {
-	const encodedGuildId = encodeURIComponent(guildId);
-	const encodedGuildBadge = encodeURIComponent(guildBadge);
-
-	return `guild-tag-badges/${encodedGuildId}/${encodedGuildBadge}` as const;
+	return `guild-tag-badges/${encodeURIComponent(guildId)}/${encodeURIComponent(guildBadge)}` as const;
 }
 
 export function GUILD_USER_AVATAR_ENDPOINT<GuildId extends Snowflake, UserId extends Snowflake, UserAvatar extends string>(
@@ -116,11 +84,7 @@ export function GUILD_USER_AVATAR_ENDPOINT<GuildId extends Snowflake, UserId ext
 	userId: UserId,
 	userAvatar: UserAvatar,
 ) {
-	const encodedGuildId = encodeURIComponent(guildId);
-	const encodedUserId = encodeURIComponent(userId);
-	const encodedUserAvatar = encodeURIComponent(userAvatar);
-
-	return `guilds/${encodedGuildId}/users/${encodedUserId}/avatars/${encodedUserAvatar}` as const;
+	return `guilds/${encodeURIComponent(guildId)}/users/${encodeURIComponent(userId)}/avatars/${encodeURIComponent(userAvatar)}` as const;
 }
 
 export function GUILD_USER_BANNER_ENDPOINT<GuildId extends Snowflake, UserId extends Snowflake, UserBanner extends string>(
@@ -128,49 +92,29 @@ export function GUILD_USER_BANNER_ENDPOINT<GuildId extends Snowflake, UserId ext
 	userId: UserId,
 	userBanner: UserBanner,
 ) {
-	const encodedGuildId = encodeURIComponent(guildId);
-	const encodedUserId = encodeURIComponent(userId);
-	const encodedUserBanner = encodeURIComponent(userBanner);
-
-	return `guilds/${encodedGuildId}/users/${encodedUserId}/banners/${encodedUserBanner}` as const;
+	return `guilds/${encodeURIComponent(guildId)}/users/${encodeURIComponent(userId)}/banners/${encodeURIComponent(userBanner)}` as const;
 }
 
 export function ICON_ENDPOINT<GuildId extends Snowflake, GuildIcon extends string>(guildId: GuildId, guildIcon: GuildIcon) {
-	const encodedGuildId = encodeURIComponent(guildId);
-	const encodedGuildIcon = encodeURIComponent(guildIcon);
-
-	return `icons/${encodedGuildId}/${encodedGuildIcon}` as const;
+	return `icons/${encodeURIComponent(guildId)}/${encodeURIComponent(guildIcon)}` as const;
 }
 
 export function ROLE_ICON_ENDPOINT<RoleId extends Snowflake, RoleIcon extends string>(roleId: RoleId, roleIcon: RoleIcon) {
-	const encodedRoleId = encodeURIComponent(roleId);
-	const encodedRoleIcon = encodeURIComponent(roleIcon);
-
-	return `role-icons/${encodedRoleId}/${encodedRoleIcon}` as const;
+	return `role-icons/${encodeURIComponent(roleId)}/${encodeURIComponent(roleIcon)}` as const;
 }
 
 export function SOUNDBOARD_SOUND_ENDPOINT<SoundboardSoundId extends Snowflake>(soundboardSoundId: SoundboardSoundId) {
-	const encodedSoundboardSoundId = encodeURIComponent(soundboardSoundId);
-
-	return `soundboard-sounds/${encodedSoundboardSoundId}` as const;
+	return `soundboard-sounds/${encodeURIComponent(soundboardSoundId)}` as const;
 }
 
 export function SPLASH_ENDPOINT<GuildId extends Snowflake, GuildSplash extends string>(guildId: GuildId, guildSplash: GuildSplash) {
-	const encodedGuildId = encodeURIComponent(guildId);
-	const encodedGuildSplash = encodeURIComponent(guildSplash);
-
-	return `splashes/${encodedGuildId}/${encodedGuildSplash}` as const;
+	return `splashes/${encodeURIComponent(guildId)}/${encodeURIComponent(guildSplash)}` as const;
 }
 
 export function STICKER_ENDPOINT<StickerId extends Snowflake>(stickerId: StickerId) {
-	const encodedStickerId = encodeURIComponent(stickerId);
-
-	return `stickers/${encodedStickerId}` as const;
+	return `stickers/${encodeURIComponent(stickerId)}` as const;
 }
 
 export function TEAM_ICON_ENDPOINT<TeamId extends Snowflake, TeamIcon extends string>(teamId: TeamId, teamIcon: TeamIcon) {
-	const encodedTeamId = encodeURIComponent(teamId);
-	const encodedTeamIcon = encodeURIComponent(teamIcon);
-
-	return `team-icons/${encodedTeamId}/${encodedTeamIcon}` as const;
+	return `team-icons/${encodeURIComponent(teamId)}/${encodeURIComponent(teamIcon)}` as const;
 }
