@@ -23,7 +23,7 @@ export function defineReadonlyProperty<Parent extends object, Property extends s
 
 	Reflect.defineProperty(parent, property, {
 		configurable: false,
-		enumerable: true,
+		enumerable: false,
 		value,
 		writable: false,
 	});
