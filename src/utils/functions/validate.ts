@@ -22,14 +22,16 @@ const ZOD_ISSUE_INVALID_STRING_FORMAT_STRINGS_MAP: ZodIssueInvalidStringFormatSt
 	url: () => "Expected input to be an URL",
 };
 const ZOD_ISSUE_TOO_BIG_STRINGS_MAP: ZodIssueTooBigStringsMap = {
-	array: ({ maximum }) => `Expected input to be an array with a maximum of ${maximum} item(s)`,
-	int: ({ maximum }) => `Expected input to be an integer greater than or equal to ${maximum}`,
-	number: ({ maximum }) => `Expected input to be a number greater than or equal to ${maximum}`,
+	array: ({ maximum }) => `Expected input to be an array with a maximum length of ${maximum} item(s)`,
+	int: ({ maximum }) => `Expected input to be an integer less than or equal to ${maximum}`,
+	number: ({ maximum }) => `Expected input to be a number less than or equal to ${maximum}`,
+	string: ({ maximum }) => `Expected input to be a string with a maximum length of ${maximum} character(s)`,
 };
 const ZOD_ISSUE_TOO_SMALL_STRINGS_MAP: ZodIssueTooSmallStringsMap = {
-	array: ({ minimum }) => `Expected input to be an array with a minimum of ${minimum} item(s)`,
-	int: ({ minimum }) => `Expected input to be an integer less than or equal to ${minimum}`,
-	number: ({ minimum }) => `Expected input to be a number less than or equal to ${minimum}`,
+	array: ({ minimum }) => `Expected input to be an array with a minimum length of ${minimum} item(s)`,
+	int: ({ minimum }) => `Expected input to be an integer greater than or equal to ${minimum}`,
+	number: ({ minimum }) => `Expected input to be a number greater than or equal to ${minimum}`,
+	string: ({ minimum }) => `Expected input to be a string with a minimum length of ${minimum} character(s)`,
 };
 
 export function validate<Schema extends core.$ZodType>(schema: Schema, input: unknown): core.output<Schema> {
