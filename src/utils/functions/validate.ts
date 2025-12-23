@@ -1,4 +1,4 @@
-import { type core, parse, ZodError, ZodType } from "zod";
+import { type core, safeParse, ZodType } from "zod";
 import { ValidationError } from "#utils/errors/ValidationError.js";
 import type { ValidationErrorIssue } from "#utils/errors/ValidationError.types.js";
 import { isInstanceOf } from "#utils/helpers/AssertionUtils.js";
@@ -36,21 +36,19 @@ const ZOD_ISSUE_TOO_SMALL_STRINGS_MAP: ZodIssueTooSmallStringsMap = {
 
 export function validate<Schema extends core.$ZodType>(schema: Schema, input: unknown): core.output<Schema> {
 	if (!isInstanceOf(schema, ZodType)) {
-		throw new TypeError("First parameter (schema) from 'validate' must be an instance of 'ZodType'");
+		throw new TypeError("First parameter (schema) from validate must be an instance of 'ZodType'");
 	}
 
-	try {
-		return parse(schema, input);
-	} catch (error) {
-		if (!isInstanceOf(error, ZodError)) {
-			throw new Error("Exception thrown from 'validate' is not a 'ZodError' instance");
-		}
+	const { data, error, success } = safeParse(schema, input);
 
+	if (!success && error) {
 		const { issues } = error;
 		const validationIssues = handleZodIssues(issues);
 
 		throw new ValidationError(validationIssues);
 	}
+
+	return data;
 }
 
 function handleZodIssues(issues: core.$ZodIssue[]): ValidationErrorIssue[] {
@@ -62,7 +60,7 @@ function handleZodIssue(issue: core.$ZodIssue): ValidationErrorIssue {
 	const handler = ZOD_ISSUE_HANDLERS_MAP[code];
 
 	if (!handler) {
-		throw new Error(`Unhandled issue code from Zod: ${code}`);
+		throw new Error(`Unhandled Zod issue code '${code}'`);
 	}
 
 	return handler(issue as never);
@@ -83,7 +81,7 @@ function handleZodInvalidFormatIssue(issue: core.$ZodIssueInvalidStringFormat): 
 	const message = ZOD_ISSUE_INVALID_STRING_FORMAT_STRINGS_MAP[format];
 
 	if (!message) {
-		throw new Error(`Unhandled format from Zod: ${origin}`);
+		throw new Error(`Unhandled Zod issue format '${origin}'`);
 	}
 
 	return {
@@ -137,7 +135,7 @@ function handleZodTooBigIssue(issue: core.$ZodIssueTooBig): ValidationErrorIssue
 	const message = ZOD_ISSUE_TOO_BIG_STRINGS_MAP[origin];
 
 	if (!message) {
-		throw new Error(`Unhandled maximum origin from Zod: ${origin}`);
+		throw new Error(`Unhandled Zod maximum origin '${origin}'`);
 	}
 
 	return {
@@ -152,7 +150,7 @@ function handleZodTooSmallIssue(issue: core.$ZodIssueTooSmall): ValidationErrorI
 	const message = ZOD_ISSUE_TOO_SMALL_STRINGS_MAP[origin];
 
 	if (!message) {
-		throw new Error(`Unhandled minimum origin from Zod: ${origin}`);
+		throw new Error(`Unhandled Zod minimum origin '${origin}'`);
 	}
 
 	return {
