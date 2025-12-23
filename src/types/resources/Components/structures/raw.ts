@@ -54,7 +54,7 @@ export interface APIContainerComponent extends APIComponentBase<ComponentType.Co
  */
 export interface APIFileComponent extends APIComponentBase<ComponentType.File> {
 	file: APIUnfurledMediaItem;
-	name: string;
+	name?: string;
 	size?: number;
 	spoiler?: boolean;
 }
