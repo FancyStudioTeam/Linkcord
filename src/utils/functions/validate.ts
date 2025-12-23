@@ -39,9 +39,9 @@ export function validate<Schema extends core.$ZodType>(schema: Schema, input: un
 		throw new TypeError("First parameter (schema) from validate must be an instance of 'ZodType'");
 	}
 
-	const { data, error, success } = safeParse(schema, input);
+	const { data, error } = safeParse(schema, input);
 
-	if (!success && error) {
+	if (error) {
 		const { issues } = error;
 		const validationIssues = handleZodIssues(issues);
 
