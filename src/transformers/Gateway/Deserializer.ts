@@ -5,6 +5,9 @@ import type {
 	GatewayBotSessionStartLimit,
 } from "#types/index.js";
 
+/**
+ * @see https://discord.com/developers/docs/events/gateway#get-gateway-bot-json-response
+ */
 export function deserializeGatewayBot(serializedGatewayBot: APIGatewayBot): GatewayBot {
 	const { session_start_limit, shards, url } = serializedGatewayBot;
 	const deserializedGatewayBot: GatewayBot = {
@@ -16,6 +19,9 @@ export function deserializeGatewayBot(serializedGatewayBot: APIGatewayBot): Gate
 	return deserializedGatewayBot;
 }
 
+/**
+ * @see https://discord.com/developers/docs/events/gateway#session-start-limit-object-session-start-limit-structure
+ */
 export function deserializeGatewayBotSessionStartLimit(
 	serializedGatewayBotSessionStartLimit: APIGatewayBotSessionStartLimit,
 ): GatewayBotSessionStartLimit {

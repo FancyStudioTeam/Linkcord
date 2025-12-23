@@ -28,6 +28,9 @@ export function serializeMediaGalleryItem(deserializedMediaGalleryItem: MediaGal
 	return serializedMediaGalleryItem;
 }
 
+/**
+ * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
+ */
 export function serializeSeparatorComponent(deserializedSeparatorComponent: SeparatorComponent): APISeparatorComponent {
 	const { divider, id, spacing, type } = deserializedSeparatorComponent;
 	const serializedSeparatorComponent: APISeparatorComponent = {
@@ -41,6 +44,9 @@ export function serializeSeparatorComponent(deserializedSeparatorComponent: Sepa
 	return serializedSeparatorComponent;
 }
 
+/**
+ * @see https://discord.com/developers/docs/components/reference#text-display-text-display-structure
+ */
 export function serializeTextDisplayComponent(
 	deserializedTextDisplayComponent: TextDisplayComponent,
 ): APITextDisplayComponent {
@@ -55,6 +61,9 @@ export function serializeTextDisplayComponent(
 	return serializedTextDisplayComponent;
 }
 
+/**
+ * @see https://discord.com/developers/docs/components/reference#text-input-text-input-structure
+ */
 export function serializeTextInputComponent(deserializedTextInputComponent: TextInputComponent): APITextInputComponent {
 	const { customId, id, maxLength, minLength, placeholder, required, style, type, value } =
 		deserializedTextInputComponent;
@@ -74,6 +83,9 @@ export function serializeTextInputComponent(deserializedTextInputComponent: Text
 	return serializedTextInputComponent;
 }
 
+/**
+ * @see https://discord.com/developers/docs/components/reference#thumbnail-thumbnail-structure
+ */
 export function serializeThumbnailComponent(deserializedThumbnailComponent: ThumbnailComponent): APIThumbnailComponent {
 	const { description, id, media, spoiler, type } = deserializedThumbnailComponent;
 	const serializedThumbnailComponent: APIThumbnailComponent = {
@@ -88,6 +100,9 @@ export function serializeThumbnailComponent(deserializedThumbnailComponent: Thum
 	return serializedThumbnailComponent;
 }
 
+/**
+ * @see https://discord.com/developers/docs/components/reference#unfurled-media-item-unfurled-media-item-structure
+ */
 export function serializeUnfurledMediaItem(deserializedUnfurledMediaItem: UnfurledMediaItem): APIUnfurledMediaItem {
 	const { attachmentId, contentType, height, proxyUrl, url, width } = deserializedUnfurledMediaItem;
 	const serializedUnfurledMediaItem: APIUnfurledMediaItem = {

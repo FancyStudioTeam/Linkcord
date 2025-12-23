@@ -11,6 +11,9 @@ import type {
 	PrimaryGuild,
 } from "#types/index.js";
 
+/**
+ * @see https://discord.com/developers/docs/resources/user#avatar-decoration-data-object-avatar-decoration-data-structure
+ */
 export function deserializeAvatarDecorationData(
 	serializedAvatarDecorationData?: APIAvatarDecorationData | null,
 ): AvatarDecorationData | null {
@@ -25,6 +28,9 @@ export function deserializeAvatarDecorationData(
 	return deserializedAvatarDecorationData;
 }
 
+/**
+ * @see https://discord.com/developers/docs/resources/user#collectibles-collectible-structure
+ */
 export function deserializeCollectibles(serializedCollectibles?: APICollectibles | null): Collectibles {
 	if (!serializedCollectibles) return {};
 
@@ -36,6 +42,9 @@ export function deserializeCollectibles(serializedCollectibles?: APICollectibles
 	return deserializedCollectibles;
 }
 
+/**
+ * @undocumented
+ */
 export function deserializeDisplayNameStyles(
 	serializedDisplayNameStyles?: APIDisplayNameStyles | null,
 ): DisplayNameStyles | null {
@@ -51,6 +60,9 @@ export function deserializeDisplayNameStyles(
 	return deserializedDisplayNameStyles;
 }
 
+/**
+ * @see https://discord.com/developers/docs/resources/user#nameplate-nameplate-structure
+ */
 export function deserializeNameplate(serializedNameplate: APINameplate): Nameplate {
 	const { asset, label, palette, sku_id } = serializedNameplate;
 	const deserializedNameplate: Nameplate = {
@@ -63,6 +75,9 @@ export function deserializeNameplate(serializedNameplate: APINameplate): Namepla
 	return deserializedNameplate;
 }
 
+/**
+ * @see https://discord.com/developers/docs/resources/user#user-object-user-primary-guild
+ */
 export function deserializePrimaryGuild(serializedPrimaryGuild?: APIPrimaryGuild | null): PrimaryGuild | null {
 	if (!serializedPrimaryGuild) return null;
 
