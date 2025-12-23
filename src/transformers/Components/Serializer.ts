@@ -9,6 +9,9 @@ import {
 	type APIMentionableSelectMenuComponent,
 	type APIPremiumButtonComponent,
 	type APIRoleSelectMenuComponent,
+	type APISectionAccessory,
+	type APISectionComponent,
+	type APISectionComponents,
 	type APISelectMenuDefaultValue,
 	type APISeparatorComponent,
 	type APITextDisplayComponent,
@@ -19,6 +22,7 @@ import {
 	type ButtonComponent,
 	ButtonStyle,
 	type ChannelSelectMenuComponent,
+	ComponentType,
 	type FileUploadComponent,
 	type InteractiveButtonComponent,
 	type LinkButtonComponent,
@@ -27,6 +31,9 @@ import {
 	type MentionableSelectMenuComponent,
 	type PremiumButtonComponent,
 	type RoleSelectMenuComponent,
+	type SectionAccessory,
+	type SectionComponent,
+	type SectionComponents,
 	type SelectMenuDefaultValue,
 	type SeparatorComponent,
 	type TextDisplayComponent,
@@ -200,6 +207,51 @@ export function serializeRoleSelectMenuComponent(
 		required: roleSelectMenuComponent.required,
 		type: roleSelectMenuComponent.type,
 	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#section-section-structure
+ */
+export function serializeSectionComponent(sectionComponent: SectionComponent): APISectionComponent {
+	return {
+		accessory: serializeSectionAccessory(sectionComponent.accessory),
+		components: serializeSectionComponentsArray(sectionComponent.components),
+		id: sectionComponent.id,
+		type: sectionComponent.type,
+	};
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#section-section-accessory-components
+ */
+export function serializeSectionAccessory(sectionAccessory: SectionAccessory): APISectionAccessory {
+	const { type } = sectionAccessory;
+
+	switch (type) {
+		case ComponentType.Button:
+			return serializeButtonComponent(sectionAccessory);
+		case ComponentType.Thumbnail:
+			return serializeThumbnailComponent(sectionAccessory);
+	}
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#section-section-child-components
+ */
+export function serializeSectionComponents(sectionComponents: SectionComponents): APISectionComponents {
+	const { type } = sectionComponents;
+
+	switch (type) {
+		case ComponentType.TextDisplay:
+			return serializeTextDisplayComponent(sectionComponents);
+	}
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#section-section-child-components
+ */
+export function serializeSectionComponentsArray(sectionComponentsArray: APISectionComponents[]): SectionComponents[] {
+	return sectionComponentsArray.map(serializeSectionComponents);
 }
 
 /**
