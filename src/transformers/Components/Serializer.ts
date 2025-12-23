@@ -1,5 +1,6 @@
 import type {
 	APIFileUploadComponent,
+	APIMediaGalleryComponent,
 	APIMediaGalleryItem,
 	APISelectMenuDefaultValue,
 	APISeparatorComponent,
@@ -9,6 +10,7 @@ import type {
 	APIUnfurledMediaItem,
 	APIUserSelectMenuComponent,
 	FileUploadComponent,
+	MediaGalleryComponent,
 	MediaGalleryItem,
 	SelectMenuDefaultValue,
 	SeparatorComponent,
@@ -34,18 +36,32 @@ export function serializeFileUploadComponent(fileUploadComponent: FileUploadComp
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#media-gallery-media-gallery-structure
+ */
+export function serializeMediaGalleryComponent(mediaGalleryComponent: MediaGalleryComponent): APIMediaGalleryComponent {
+	return {
+		id: mediaGalleryComponent.id,
+		items: serializeMediaGalleryItemsArray(mediaGalleryComponent.items),
+		type: mediaGalleryComponent.type,
+	};
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#media-gallery-media-gallery-item-structure
  */
-export function serializeMediaGalleryItem(deserializedMediaGalleryItem: MediaGalleryItem): APIMediaGalleryItem {
-	const { description, media, spoiler } = deserializedMediaGalleryItem;
-	const serializedMediaGalleryItem: APIMediaGalleryItem = {
-		media: serializeUnfurledMediaItem(media),
+export function serializeMediaGalleryItem(mediaGalleryItem: MediaGalleryItem): APIMediaGalleryItem {
+	return {
+		description: mediaGalleryItem.description,
+		media: serializeUnfurledMediaItem(mediaGalleryItem.media),
+		spoiler: mediaGalleryItem.spoiler,
 	};
+}
 
-	if (description) serializedMediaGalleryItem.description = description;
-	if (spoiler) serializedMediaGalleryItem.spoiler = spoiler;
-
-	return serializedMediaGalleryItem;
+/**
+ * @see https://discord.com/developers/docs/components/reference#media-gallery-media-gallery-item-structure
+ */
+export function serializeMediaGalleryItemsArray(mediaGalleryItemsArray: MediaGalleryItem[]): APIMediaGalleryItem[] {
+	return mediaGalleryItemsArray.map(serializeMediaGalleryItem);
 }
 
 /**
@@ -72,91 +88,68 @@ export function serializeSelectMenuDefaultValuesArray(
 /**
  * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
  */
-export function serializeSeparatorComponent(deserializedSeparatorComponent: SeparatorComponent): APISeparatorComponent {
-	const { divider, id, spacing, type } = deserializedSeparatorComponent;
-	const serializedSeparatorComponent: APISeparatorComponent = {
-		type,
+export function serializeSeparatorComponent(separatorComponent: SeparatorComponent): APISeparatorComponent {
+	return {
+		divider: separatorComponent.divider,
+		id: separatorComponent.id,
+		spacing: separatorComponent.spacing,
+		type: separatorComponent.type,
 	};
-
-	if (divider) serializedSeparatorComponent.divider = divider;
-	if (id) serializedSeparatorComponent.id = id;
-	if (spacing) serializedSeparatorComponent.spacing = spacing;
-
-	return serializedSeparatorComponent;
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#text-display-text-display-structure
  */
-export function serializeTextDisplayComponent(
-	deserializedTextDisplayComponent: TextDisplayComponent,
-): APITextDisplayComponent {
-	const { content, id, type } = deserializedTextDisplayComponent;
-	const serializedTextDisplayComponent: TextDisplayComponent = {
-		content,
-		type,
+export function serializeTextDisplayComponent(textDisplayComponent: TextDisplayComponent): APITextDisplayComponent {
+	return {
+		content: textDisplayComponent.content,
+		id: textDisplayComponent.id,
+		type: textDisplayComponent.type,
 	};
-
-	if (id) serializedTextDisplayComponent.id = id;
-
-	return serializedTextDisplayComponent;
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#text-input-text-input-structure
  */
-export function serializeTextInputComponent(deserializedTextInputComponent: TextInputComponent): APITextInputComponent {
-	const { customId, id, maxLength, minLength, placeholder, required, style, type, value } =
-		deserializedTextInputComponent;
-	const serializedTextInputComponent: APITextInputComponent = {
-		custom_id: customId,
-		style,
-		type,
+export function serializeTextInputComponent(textInputComponent: TextInputComponent): APITextInputComponent {
+	return {
+		custom_id: textInputComponent.customId,
+		id: textInputComponent.id,
+		max_length: textInputComponent.maxLength,
+		min_length: textInputComponent.minLength,
+		placeholder: textInputComponent.placeholder,
+		required: textInputComponent.required,
+		style: textInputComponent.style,
+		type: textInputComponent.type,
+		value: textInputComponent.value,
 	};
-
-	if (id) serializedTextInputComponent.id = id;
-	if (maxLength) serializedTextInputComponent.max_length = maxLength;
-	if (minLength) serializedTextInputComponent.min_length = minLength;
-	if (placeholder) serializedTextInputComponent.placeholder = placeholder;
-	if (required) serializedTextInputComponent.required = required;
-	if (value) serializedTextInputComponent.value = value;
-
-	return serializedTextInputComponent;
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#thumbnail-thumbnail-structure
  */
-export function serializeThumbnailComponent(deserializedThumbnailComponent: ThumbnailComponent): APIThumbnailComponent {
-	const { description, id, media, spoiler, type } = deserializedThumbnailComponent;
-	const serializedThumbnailComponent: APIThumbnailComponent = {
-		media: serializeUnfurledMediaItem(media),
-		type,
+export function serializeThumbnailComponent(thumbnailComponent: ThumbnailComponent): APIThumbnailComponent {
+	return {
+		description: thumbnailComponent.description,
+		id: thumbnailComponent.id,
+		media: serializeUnfurledMediaItem(thumbnailComponent.media),
+		spoiler: thumbnailComponent.spoiler,
+		type: thumbnailComponent.type,
 	};
-
-	if (description) serializedThumbnailComponent.description = description;
-	if (id) serializedThumbnailComponent.id = id;
-	if (spoiler) serializedThumbnailComponent.spoiler = spoiler;
-
-	return serializedThumbnailComponent;
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#unfurled-media-item-unfurled-media-item-structure
  */
-export function serializeUnfurledMediaItem(deserializedUnfurledMediaItem: UnfurledMediaItem): APIUnfurledMediaItem {
-	const { attachmentId, contentType, height, proxyUrl, url, width } = deserializedUnfurledMediaItem;
-	const serializedUnfurledMediaItem: APIUnfurledMediaItem = {
-		url,
+export function serializeUnfurledMediaItem(unfurledMediaItem: UnfurledMediaItem): APIUnfurledMediaItem {
+	return {
+		attachment_id: unfurledMediaItem.attachmentId,
+		content_type: unfurledMediaItem.contentType,
+		height: unfurledMediaItem.height,
+		proxy_url: unfurledMediaItem.proxyUrl,
+		url: unfurledMediaItem.url,
+		width: unfurledMediaItem.width,
 	};
-
-	if (attachmentId) serializedUnfurledMediaItem.attachment_id = attachmentId;
-	if (contentType) serializedUnfurledMediaItem.content_type = contentType;
-	if (height) serializedUnfurledMediaItem.height = height;
-	if (proxyUrl) serializedUnfurledMediaItem.proxy_url = proxyUrl;
-	if (width) serializedUnfurledMediaItem.width = width;
-
-	return serializedUnfurledMediaItem;
 }
 
 /**
