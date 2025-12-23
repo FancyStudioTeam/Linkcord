@@ -3,7 +3,7 @@
  * be ignored.
  */
 
-import { castSnowflake, getSnowflakeTimestamp, isSnowflake } from "../SnowflakeUtils.js";
+import { castSnowflake, deconstructSnowflake, getSnowflakeTimestamp, isSnowflake } from "../SnowflakeUtils.js";
 
 const SNOWFLAKE_BIGINT = 80351110224678912n;
 const SNOWFLAKE_STRING = "80351110224678912";
@@ -22,6 +22,22 @@ describe("SnowflakeUtils", () => {
 		it("Should cast the provided input into a Discord Snowflake", () => {
 			expect(castSnowflake(SNOWFLAKE_BIGINT)).toBe("80351110224678912");
 			expect(castSnowflake(SNOWFLAKE_STRING)).toBe("80351110224678912");
+		});
+	});
+
+	describe("deconstructSnowflake", () => {
+		it("Should throw an error if the provided parameters are invalid", () => {
+			// @ts-expect-error;
+			expect(() => deconstructSnowflake(null)).toThrow(/must be a Discord Snowflake/);
+		});
+
+		it("Should deconstruct the provided Discord Snowflake", () => {
+			const { increment, timestamp, processId, workerId } = deconstructSnowflake(castSnowflake(SNOWFLAKE_STRING));
+
+			expect(increment).toBe(0n);
+			expect(timestamp).toBe(1439227597529n);
+			expect(processId).toBe(1n);
+			expect(workerId).toBe(0n);
 		});
 	});
 

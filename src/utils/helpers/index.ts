@@ -1,3 +1,4 @@
 export * from "./FormatterUtils.js";
 export * from "./FormatterUtils.types.js";
 export * from "./SnowflakeUtils.js";
+export * from "./SnowflakeUtils.types.js";
