@@ -12,11 +12,7 @@ import type { GatewayDispatchReadyEventPayload } from "#types/index.js";
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#ready
  */
-export function READY(
-	client: Client,
-	gatewayShard: GatewayShard,
-	readyPayload: GatewayDispatchReadyEventPayload,
-): void {
+export function READY(client: Client, gatewayShard: GatewayShard, readyPayload: GatewayDispatchReadyEventPayload): void {
 	const { cache, events } = client;
 	const { manager } = gatewayShard;
 

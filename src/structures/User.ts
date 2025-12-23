@@ -5,14 +5,7 @@ import {
 	deserializeDisplayNameStyles,
 	deserializePrimaryGuild,
 } from "#transformers/Users/Deserializer.js";
-import type {
-	APIUser,
-	AvatarDecorationData,
-	Collectibles,
-	DisplayNameStyles,
-	PrimaryGuild,
-	Snowflake,
-} from "#types/index.js";
+import type { APIUser, AvatarDecorationData, Collectibles, DisplayNameStyles, PrimaryGuild, Snowflake } from "#types/index.js";
 import { isUndefined } from "#utils/helpers/AssertionUtils.js";
 import { BitFieldResolver, FormatterUtils } from "#utils/index.js";
 import { Base } from "./Base.js";

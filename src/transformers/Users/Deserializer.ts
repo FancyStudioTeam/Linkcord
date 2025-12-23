@@ -14,9 +14,7 @@ import type {
 /**
  * @see https://discord.com/developers/docs/resources/user#avatar-decoration-data-object-avatar-decoration-data-structure
  */
-export function deserializeAvatarDecorationData(
-	avatarDecorationData?: APIAvatarDecorationData | null,
-): AvatarDecorationData | null {
+export function deserializeAvatarDecorationData(avatarDecorationData?: APIAvatarDecorationData | null): AvatarDecorationData | null {
 	if (!avatarDecorationData) return null;
 
 	return {
@@ -39,9 +37,7 @@ export function deserializeCollectibles(collectibles?: APICollectibles | null): 
 /**
  * @undocumented
  */
-export function deserializeDisplayNameStyles(
-	displayNameStyles?: APIDisplayNameStyles | null,
-): DisplayNameStyles | null {
+export function deserializeDisplayNameStyles(displayNameStyles?: APIDisplayNameStyles | null): DisplayNameStyles | null {
 	if (!displayNameStyles) return null;
 
 	return {

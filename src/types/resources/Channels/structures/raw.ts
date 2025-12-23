@@ -33,8 +33,7 @@ export interface APIBaseGuildChannel<Type extends APIGuildChannelType> extends A
 /**
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
  */
-export interface APIBaseGuildTextableChannel<Type extends APIGuildTextableChannelType>
-	extends APIBaseGuildChannel<Type> {
+export interface APIBaseGuildTextableChannel<Type extends APIGuildTextableChannelType> extends APIBaseGuildChannel<Type> {
 	default_auto_archive_duration?: AutoArchiveDuration;
 	last_message_id: Snowflake | null;
 	last_pin_timestamp?: ISO8601Date | null;
@@ -109,10 +108,7 @@ export type APIGuildChannelType = Exclude<ChannelType, APIDMChannelType>;
 /**
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-types
  */
-export type APIGuildTextableChannelType = Exclude<
-	APIGuildChannelType,
-	ChannelType.GuildStageVoice | ChannelType.GuildVoice
->;
+export type APIGuildTextableChannelType = Exclude<APIGuildChannelType, ChannelType.GuildStageVoice | ChannelType.GuildVoice>;
 
 /**
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-types

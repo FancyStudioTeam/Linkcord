@@ -5,10 +5,7 @@ import type { EventListener, EventListenerCallback } from "./EventManager.types.
 export class EventManager {
 	readonly #listeners = new Collection<ClientEvents, EventListener<ClientEvents>[]>();
 
-	#createEventListenerObject<Event extends ClientEvents>(
-		once: boolean,
-		callback: EventListenerCallback<Event>,
-	): EventListener<Event> {
+	#createEventListenerObject<Event extends ClientEvents>(once: boolean, callback: EventListenerCallback<Event>): EventListener<Event> {
 		const eventListener: EventListener<Event> = {
 			callback,
 			once,
@@ -26,10 +23,7 @@ export class EventManager {
 		eventListenersArray.splice(eventListenerIndex, 1);
 	}
 
-	#upsertEventListeners(
-		event: ClientEvents,
-		defaultValue: EventListener<ClientEvents>[] = [],
-	): EventListener<ClientEvents>[] {
+	#upsertEventListeners(event: ClientEvents, defaultValue: EventListener<ClientEvents>[] = []): EventListener<ClientEvents>[] {
 		const listeners = this.#listeners;
 		const existingListeners = listeners.get(event);
 

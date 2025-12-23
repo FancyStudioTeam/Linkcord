@@ -5,13 +5,7 @@ import type { ApplicationIntegrationType } from "#types/resources/Applications/e
 import type { ChannelType } from "#types/resources/Channels/enums.js";
 import type { PartialEmoji } from "#types/resources/Emojis/index.js";
 import type { InteractionType } from "#types/resources/Interactions/enums.js";
-import type {
-	AllowedMentionType,
-	AttachmentFlags,
-	EmbedType,
-	MessageActivityType,
-	MessageReferenceType,
-} from "../enums.js";
+import type { AllowedMentionType, AttachmentFlags, EmbedType, MessageActivityType, MessageReferenceType } from "../enums.js";
 
 // TODO: Add `MessageSnapshot`
 

@@ -29,9 +29,7 @@ export class CommandLoader {
 		await applications.bulkOverwriteApplicationCommands(applicationId, applicationCommands);
 	}
 
-	#handleChatInputCommandHandler(
-		chatInputCommandHandler: ChatInputCommandHandler,
-	): CreateChatInputApplicationCommandOptions {
+	#handleChatInputCommandHandler(chatInputCommandHandler: ChatInputCommandHandler): CreateChatInputApplicationCommandOptions {
 		const chatInputApplicationCommand = chatInputCommandHandler.toJSON();
 		const { name } = chatInputApplicationCommand;
 
@@ -86,9 +84,7 @@ export class CommandLoader {
 
 	async registerCommands(): Promise<void> {
 		const commandFilePaths = await this.#getCommandFilePaths();
-		const commandFileImportPromises = commandFilePaths.map((commandFilePath) =>
-			this.#importCommandFile(commandFilePath),
-		);
+		const commandFileImportPromises = commandFilePaths.map((commandFilePath) => this.#importCommandFile(commandFilePath));
 
 		const applicationCommands = await Promise.all(commandFileImportPromises);
 

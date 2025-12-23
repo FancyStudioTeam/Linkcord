@@ -97,9 +97,7 @@ export function deserializeActionRowComponents(actionRowComponents: APIActionRow
 /**
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-child-components
  */
-export function deserializeActionRowComponentsArray(
-	actionRowComponentsArray: APIActionRowComponents[],
-): ActionRowComponents[] {
+export function deserializeActionRowComponentsArray(actionRowComponentsArray: APIActionRowComponents[]): ActionRowComponents[] {
 	return actionRowComponentsArray.map(deserializeActionRowComponents);
 }
 
@@ -177,9 +175,7 @@ export function deserializeContainerComponents(containerComponents: APIContainer
 /**
  * @see https://discord.com/developers/docs/components/reference#container-container-child-components
  */
-export function deserializeContainerComponentsArray(
-	containerComponentsArray: APIContainerComponents[],
-): ContainerComponents[] {
+export function deserializeContainerComponentsArray(containerComponentsArray: APIContainerComponents[]): ContainerComponents[] {
 	return containerComponentsArray.map(deserializeContainerComponents);
 }
 
@@ -273,9 +269,7 @@ export function deserializeLinkButtonComponent(linkButtonComponent: APILinkButto
 /**
  * @see https://discord.com/developers/docs/components/reference#media-gallery-media-gallery-structure
  */
-export function deserializeMediaGalleryComponent(
-	mediaGalleryComponent: APIMediaGalleryComponent,
-): MediaGalleryComponent {
+export function deserializeMediaGalleryComponent(mediaGalleryComponent: APIMediaGalleryComponent): MediaGalleryComponent {
 	return {
 		id: mediaGalleryComponent.id,
 		items: deserializeMediaGalleryItemsArray(mediaGalleryComponent.items),
@@ -354,9 +348,7 @@ export function deserializeMessageComponentsArray(messageComponentsArray: APIMes
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export function deserializePremiumButtonComponent(
-	premiumButtonComponent: APIPremiumButtonComponent,
-): PremiumButtonComponent {
+export function deserializePremiumButtonComponent(premiumButtonComponent: APIPremiumButtonComponent): PremiumButtonComponent {
 	return {
 		disabled: premiumButtonComponent.disabled,
 		id: premiumButtonComponent.id,
@@ -369,9 +361,7 @@ export function deserializePremiumButtonComponent(
 /**
  * @see https://discord.com/developers/docs/components/reference#role-select-role-select-structure
  */
-export function deserializeRoleSelectMenuComponent(
-	roleSelectMenuComponent: APIRoleSelectMenuComponent,
-): RoleSelectMenuComponent {
+export function deserializeRoleSelectMenuComponent(roleSelectMenuComponent: APIRoleSelectMenuComponent): RoleSelectMenuComponent {
 	return {
 		customId: roleSelectMenuComponent.custom_id,
 		defaultValues: deserializeSelectMenuDefaultValuesArray(roleSelectMenuComponent.default_values ?? []),
@@ -453,9 +443,7 @@ export function deserializeSelectMenuComponent(selectMenuComponent: APISelectMen
 /**
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
-export function deserializeSelectMenuDefaultValue(
-	selectMenuDefaultValue: APISelectMenuDefaultValue,
-): SelectMenuDefaultValue {
+export function deserializeSelectMenuDefaultValue(selectMenuDefaultValue: APISelectMenuDefaultValue): SelectMenuDefaultValue {
 	return {
 		id: selectMenuDefaultValue.id,
 		type: selectMenuDefaultValue.type,
@@ -474,9 +462,7 @@ export function deserializeSelectMenuDefaultValuesArray(
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
  */
-export function deserializeStringSelectMenuComponent(
-	stringSelectMenuComponent: APIStringSelectMenuComponent,
-): StringSelectMenuComponent {
+export function deserializeStringSelectMenuComponent(stringSelectMenuComponent: APIStringSelectMenuComponent): StringSelectMenuComponent {
 	return {
 		customId: stringSelectMenuComponent.custom_id,
 		disabled: stringSelectMenuComponent.disabled,
@@ -493,9 +479,7 @@ export function deserializeStringSelectMenuComponent(
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
  */
-export function deserializeStringSelectMenuOption(
-	stringSelectMenuOption: APIStringSelectMenuOption,
-): StringSelectMenuOption {
+export function deserializeStringSelectMenuOption(stringSelectMenuOption: APIStringSelectMenuOption): StringSelectMenuOption {
 	return {
 		default: stringSelectMenuOption.default,
 		description: stringSelectMenuOption.description,
@@ -583,9 +567,7 @@ export function deserializeUnfurledMediaItem(unfurledMediaItem: APIUnfurledMedia
 /**
  * @see https://discord.com/developers/docs/components/reference#user-select-user-select-structure
  */
-export function deserializeUserSelectMenuComponent(
-	userSelectMenuComponent: APIUserSelectMenuComponent,
-): UserSelectMenuComponent {
+export function deserializeUserSelectMenuComponent(userSelectMenuComponent: APIUserSelectMenuComponent): UserSelectMenuComponent {
 	return {
 		customId: userSelectMenuComponent.custom_id,
 		defaultValues: deserializeSelectMenuDefaultValuesArray(userSelectMenuComponent.default_values ?? []),

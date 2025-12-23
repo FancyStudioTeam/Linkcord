@@ -31,12 +31,9 @@ export async function initializeConfigurationOptions(workingDirectory = cwd()): 
 		if (!existsConfigurationFile) continue;
 
 		const resolvedConfigurationFilePath = resolvePath(configurationFilePath);
-		const importedConfigurationFileData = await importFile<ImportedConfigurationFileData>(
-			resolvedConfigurationFilePath,
-			{
-				requireDefault: true,
-			},
-		);
+		const importedConfigurationFileData = await importFile<ImportedConfigurationFileData>(resolvedConfigurationFilePath, {
+			requireDefault: true,
+		});
 
 		const { default: linkcordOptions } = importedConfigurationFileData;
 

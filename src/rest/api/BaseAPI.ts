@@ -37,10 +37,7 @@ export class BaseAPI {
 		});
 	}
 
-	protected async patch<Result>(
-		endpoint: string,
-		options?: Omit<MakePatchRequestOptions, "method">,
-	): Promise<Result> {
+	protected async patch<Result>(endpoint: string, options?: Omit<MakePatchRequestOptions, "method">): Promise<Result> {
 		const { rest } = this;
 
 		return await rest.makeRequest<Result>(endpoint, {

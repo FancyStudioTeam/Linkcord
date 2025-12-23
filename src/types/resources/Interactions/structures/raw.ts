@@ -82,11 +82,9 @@ export type APIPingInteraction = Omit<APIInteractionBase<InteractionType.Ping, n
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
  */
-export type APIMessageApplicationCommandInteractionData =
-	APIContextApplicationCommandDataBase<ApplicationCommandType.Message>;
+export type APIMessageApplicationCommandInteractionData = APIContextApplicationCommandDataBase<ApplicationCommandType.Message>;
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
  */
-export type APIUserApplicationCommandInteractionData =
-	APIContextApplicationCommandDataBase<ApplicationCommandType.User>;
+export type APIUserApplicationCommandInteractionData = APIContextApplicationCommandDataBase<ApplicationCommandType.User>;

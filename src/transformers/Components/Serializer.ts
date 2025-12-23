@@ -97,9 +97,7 @@ export function serializeActionRowComponents(actionRowComponents: ActionRowCompo
 /**
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-child-components
  */
-export function serializeActionRowComponentsArray(
-	actionRowComponentsArray: ActionRowComponents[],
-): APIActionRowComponents[] {
+export function serializeActionRowComponentsArray(actionRowComponentsArray: ActionRowComponents[]): APIActionRowComponents[] {
 	return actionRowComponentsArray.map(serializeActionRowComponents);
 }
 
@@ -122,9 +120,7 @@ export function serializeButtonComponent(buttonComponent: ButtonComponent): APIB
 /**
  * @see https://discord.com/developers/docs/components/reference#channel-select-channel-select-structure
  */
-export function serializeChannelSelectMenuComponent(
-	channelSelectMenuComponent: ChannelSelectMenuComponent,
-): APIChannelSelectMenuComponent {
+export function serializeChannelSelectMenuComponent(channelSelectMenuComponent: ChannelSelectMenuComponent): APIChannelSelectMenuComponent {
 	return {
 		channel_types: channelSelectMenuComponent.channelTypes,
 		custom_id: channelSelectMenuComponent.customId,
@@ -177,9 +173,7 @@ export function serializeContainerComponents(containerComponents: ContainerCompo
 /**
  * @see https://discord.com/developers/docs/components/reference#container-container-child-components
  */
-export function serializeContainerComponentsArray(
-	containerComponentsArray: ContainerComponents[],
-): APIContainerComponents[] {
+export function serializeContainerComponentsArray(containerComponentsArray: ContainerComponents[]): APIContainerComponents[] {
 	return containerComponentsArray.map(serializeContainerComponents);
 }
 
@@ -214,9 +208,7 @@ export function serializeFileUploadComponent(fileUploadComponent: FileUploadComp
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export function serializeInteractiveButtonComponent(
-	interactiveButtonComponent: InteractiveButtonComponent,
-): APIInteractiveButtonComponent {
+export function serializeInteractiveButtonComponent(interactiveButtonComponent: InteractiveButtonComponent): APIInteractiveButtonComponent {
 	return {
 		custom_id: interactiveButtonComponent.customId,
 		disabled: interactiveButtonComponent.disabled,
@@ -352,9 +344,7 @@ export function serializeMessageComponentsArray(messageComponentsArray: MessageC
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export function serializePremiumButtonComponent(
-	premiumButtonComponent: PremiumButtonComponent,
-): APIPremiumButtonComponent {
+export function serializePremiumButtonComponent(premiumButtonComponent: PremiumButtonComponent): APIPremiumButtonComponent {
 	return {
 		disabled: premiumButtonComponent.disabled,
 		id: premiumButtonComponent.id,
@@ -367,9 +357,7 @@ export function serializePremiumButtonComponent(
 /**
  * @see https://discord.com/developers/docs/components/reference#role-select-role-select-structure
  */
-export function serializeRoleSelectMenuComponent(
-	roleSelectMenuComponent: RoleSelectMenuComponent,
-): APIRoleSelectMenuComponent {
+export function serializeRoleSelectMenuComponent(roleSelectMenuComponent: RoleSelectMenuComponent): APIRoleSelectMenuComponent {
 	return {
 		custom_id: roleSelectMenuComponent.customId,
 		default_values: serializeSelectMenuDefaultValuesArray(roleSelectMenuComponent.defaultValues ?? []),
@@ -451,9 +439,7 @@ export function serializeSelectMenuComponent(selectMenuComponent: SelectMenuComp
 /**
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
-export function serializeSelectMenuDefaultValue(
-	selectMenuDefaultValue: SelectMenuDefaultValue,
-): APISelectMenuDefaultValue {
+export function serializeSelectMenuDefaultValue(selectMenuDefaultValue: SelectMenuDefaultValue): APISelectMenuDefaultValue {
 	return {
 		id: selectMenuDefaultValue.id,
 		type: selectMenuDefaultValue.type,
@@ -463,9 +449,7 @@ export function serializeSelectMenuDefaultValue(
 /**
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
-export function serializeSelectMenuDefaultValuesArray(
-	selectMenuDefaultValuesArray: SelectMenuDefaultValue[],
-): APISelectMenuDefaultValue[] {
+export function serializeSelectMenuDefaultValuesArray(selectMenuDefaultValuesArray: SelectMenuDefaultValue[]): APISelectMenuDefaultValue[] {
 	return selectMenuDefaultValuesArray.map(serializeSelectMenuDefaultValue);
 }
 
@@ -484,9 +468,7 @@ export function serializeSeparatorComponent(separatorComponent: SeparatorCompone
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
  */
-export function serializeStringSelectMenuComponent(
-	stringSelectMenuComponent: StringSelectMenuComponent,
-): APIStringSelectMenuComponent {
+export function serializeStringSelectMenuComponent(stringSelectMenuComponent: StringSelectMenuComponent): APIStringSelectMenuComponent {
 	return {
 		custom_id: stringSelectMenuComponent.customId,
 		disabled: stringSelectMenuComponent.disabled,
@@ -503,9 +485,7 @@ export function serializeStringSelectMenuComponent(
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
  */
-export function serializeStringSelectMenuOption(
-	stringSelectMenuOption: StringSelectMenuOption,
-): APIStringSelectMenuOption {
+export function serializeStringSelectMenuOption(stringSelectMenuOption: StringSelectMenuOption): APIStringSelectMenuOption {
 	return {
 		default: stringSelectMenuOption.default,
 		description: stringSelectMenuOption.description,
@@ -517,9 +497,7 @@ export function serializeStringSelectMenuOption(
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
  */
-export function serializeStringSelectMenuOptionsArray(
-	stringSelectMenuOptionsArray: StringSelectMenuOption[],
-): APIStringSelectMenuOption[] {
+export function serializeStringSelectMenuOptionsArray(stringSelectMenuOptionsArray: StringSelectMenuOption[]): APIStringSelectMenuOption[] {
 	return stringSelectMenuOptionsArray.map(serializeStringSelectMenuOption);
 }
 
@@ -581,9 +559,7 @@ export function serializeUnfurledMediaItem(unfurledMediaItem: UnfurledMediaItem)
 /**
  * @see https://discord.com/developers/docs/components/reference#user-select-user-select-structure
  */
-export function serializeUserSelectMenuComponent(
-	userSelectMenuComponent: UserSelectMenuComponent,
-): APIUserSelectMenuComponent {
+export function serializeUserSelectMenuComponent(userSelectMenuComponent: UserSelectMenuComponent): APIUserSelectMenuComponent {
 	return {
 		custom_id: userSelectMenuComponent.customId,
 		default_values: serializeSelectMenuDefaultValuesArray(userSelectMenuComponent.defaultValues ?? []),

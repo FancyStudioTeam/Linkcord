@@ -20,21 +20,7 @@ export function normalizeEmbeds(embeds: Embed[]): Embed[] {
 }
 
 export function parseEmbed(embed: APIEmbed): Embed {
-	const {
-		author,
-		color,
-		description,
-		fields,
-		footer,
-		image,
-		provider,
-		thumbnail,
-		timestamp,
-		title,
-		type,
-		url,
-		video,
-	} = embed;
+	const { author, color, description, fields, footer, image, provider, thumbnail, timestamp, title, type, url, video } = embed;
 	const parsedEmbed: Embed = {};
 
 	if (author) parsedEmbed.author = parseEmbedAuthor(author);
@@ -82,21 +68,7 @@ export function parseEmbeds(embeds: APIEmbed[]): Embed[] {
 }
 
 export function serializeEmbed(embed: Embed): APIEmbed {
-	const {
-		author,
-		color,
-		description,
-		fields,
-		footer,
-		image,
-		provider,
-		thumbnail,
-		timestamp,
-		title,
-		type,
-		url,
-		video,
-	} = embed;
+	const { author, color, description, fields, footer, image, provider, thumbnail, timestamp, title, type, url, video } = embed;
 	const serializedEmbed: APIEmbed = {};
 
 	if (author) serializedEmbed.author = serializeEmbedAuthor(author);
@@ -143,9 +115,7 @@ export function serializeEmbeds(embeds: Embed[]): APIEmbed[] {
 	return embeds.map(serializeEmbed);
 }
 
-export function serializeCreateMessageOptions(
-	createMessageOptions: CreateMessageOptions,
-): RESTPostAPIMessageJSONParams {
+export function serializeCreateMessageOptions(createMessageOptions: CreateMessageOptions): RESTPostAPIMessageJSONParams {
 	const { components, content, flags } = createMessageOptions;
 	const serializedCreateMessageOptions: RESTPostAPIMessageJSONParams = {};
 

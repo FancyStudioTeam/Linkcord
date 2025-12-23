@@ -35,8 +35,7 @@ export interface APIApplicationCommandOptionChoice {
  * Represents an application command option for channels.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export interface APIApplicationCommandOptionChannel
-	extends APIBaseApplicationCommandOption<ApplicationCommandOptionType.Channel> {
+export interface APIApplicationCommandOptionChannel extends APIBaseApplicationCommandOption<ApplicationCommandOptionType.Channel> {
 	channel_types?: ChannelType[];
 }
 
@@ -45,9 +44,7 @@ export interface APIApplicationCommandOptionChannel
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
 export interface APIApplicationCommandOptionNumber
-	extends APIBaseApplicationCommandOption<
-		ApplicationCommandOptionType.Integer | ApplicationCommandOptionType.Number
-	> {
+	extends APIBaseApplicationCommandOption<ApplicationCommandOptionType.Integer | ApplicationCommandOptionType.Number> {
 	/** Whether to autocomplete the choices of the application command option. */
 	autocomplete?: boolean;
 	/** The choices of the application command option. */
@@ -62,8 +59,7 @@ export interface APIApplicationCommandOptionNumber
  * Represents an application command option for strings.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export interface APIApplicationCommandOptionString
-	extends APIBaseApplicationCommandOption<ApplicationCommandOptionType.String> {
+export interface APIApplicationCommandOptionString extends APIBaseApplicationCommandOption<ApplicationCommandOptionType.String> {
 	/** Whether to autocomplete the choices of the application command option. */
 	autocomplete?: boolean;
 	/** The choices of the application command option. */
@@ -79,9 +75,7 @@ export interface APIApplicationCommandOptionString
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
 export interface APIApplicationCommandOptionSubCommand
-	extends APIBaseApplicationCommandOption<
-		ApplicationCommandOptionType.SubCommand | ApplicationCommandOptionType.SubCommandGroup
-	> {
+	extends APIBaseApplicationCommandOption<ApplicationCommandOptionType.SubCommand | ApplicationCommandOptionType.SubCommandGroup> {
 	/** The options of the application command option. */
 	options?: APIApplicationCommandOption[];
 }
@@ -103,8 +97,7 @@ export interface APIApplicationCommandPermissions {
  * Represents an application command for primary entry points.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
  */
-export interface APIApplicationCommandPrimaryEntryPoint
-	extends APIBaseApplicationCommand<ApplicationCommandType.PrimaryEntryPoint> {
+export interface APIApplicationCommandPrimaryEntryPoint extends APIBaseApplicationCommand<ApplicationCommandType.PrimaryEntryPoint> {
 	/** The handler of the application command. */
 	handler: EntryPointCommandHandlerType;
 }
@@ -226,8 +219,7 @@ export type APIApplicationCommand =
  * Represents an application command option for attachments.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type APIApplicationCommandOptionAttachment =
-	APIBaseApplicationCommandOption<ApplicationCommandOptionType.Attachment>;
+export type APIApplicationCommandOptionAttachment = APIBaseApplicationCommandOption<ApplicationCommandOptionType.Attachment>;
 
 /**
  * Represents an application command option for booleans.
@@ -239,8 +231,7 @@ export type APIApplicationCommandOptionBoolean = APIBaseApplicationCommandOption
  * Represents an application command option for mentionables.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type APIApplicationCommandOptionMentionable =
-	APIBaseApplicationCommandOption<ApplicationCommandOptionType.Mentionable>;
+export type APIApplicationCommandOptionMentionable = APIBaseApplicationCommandOption<ApplicationCommandOptionType.Mentionable>;
 
 /**
  * Represents an application command option for roles.

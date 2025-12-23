@@ -15,11 +15,7 @@ export const DispatchHooks: Partial<DispatchHooksMap> = {
 	READY,
 };
 
-type DispatchHookFunction<Event extends GatewayDispatchEvent> = (
-	client: Client,
-	shard: GatewayShard,
-	data: Event["d"],
-) => Awaitable<void>;
+type DispatchHookFunction<Event extends GatewayDispatchEvent> = (client: Client, shard: GatewayShard, data: Event["d"]) => Awaitable<void>;
 
 type DispatchHooksMap = {
 	[Dispatch in GatewayDispatchEvent as Dispatch["t"]]: DispatchHookFunction<Dispatch>;

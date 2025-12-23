@@ -25,9 +25,7 @@ describe("Function: validate", () => {
 		describe("WHEN calling validate", () => {
 			it("THEN a TypeError is thrown", () => {
 				// @ts-expect-error
-				expect(() => validate(null)).toThrow(
-					"First parameter (schema) from 'validate' must be an instance of 'ZodType'",
-				);
+				expect(() => validate(null)).toThrow("First parameter (schema) from 'validate' must be an instance of 'ZodType'");
 			});
 		});
 	});

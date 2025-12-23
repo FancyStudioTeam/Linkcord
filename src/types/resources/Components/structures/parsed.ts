@@ -1,13 +1,7 @@
 import type { Snowflake } from "#types/miscellaneous/discord.js";
 import type { ChannelType } from "#types/resources/Channels/enums.js";
 import type { PartialEmoji } from "#types/resources/Emojis/index.js";
-import type {
-	ButtonStyle,
-	ComponentType,
-	SelectMenuDefaultValueType,
-	SeparatorSpacingSize,
-	TextInputStyle,
-} from "../enums.js";
+import type { ButtonStyle, ComponentType, SelectMenuDefaultValueType, SeparatorSpacingSize, TextInputStyle } from "../enums.js";
 
 /**
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-structure
@@ -71,8 +65,7 @@ export interface FileUploadComponent extends ComponentBase<ComponentType.FileUpl
 /**
  * @see https://discord.com/developers/docs/components/reference#button
  */
-export interface InteractiveButtonComponentBase<Type extends InteractiveButtonComponentStyle>
-	extends TextableButtonComponentBase<Type> {
+export interface InteractiveButtonComponentBase<Type extends InteractiveButtonComponentStyle> extends TextableButtonComponentBase<Type> {
 	customId: string;
 }
 
@@ -118,8 +111,7 @@ export interface PremiumButtonComponent extends ButtonComponentBase<ButtonStyle.
 /**
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export interface ResolvableSelectMenuComponentBase<Type extends ResolvableSelectMenuComponentType>
-	extends SelectMenuComponentBase<Type> {
+export interface ResolvableSelectMenuComponentBase<Type extends ResolvableSelectMenuComponentType> extends SelectMenuComponentBase<Type> {
 	defaultValues?: SelectMenuDefaultValue[];
 }
 
@@ -200,8 +192,7 @@ export interface TextInputComponent extends ComponentBase<ComponentType.TextInpu
 /**
  * @see https://discord.com/developers/docs/components/reference#button
  */
-export interface TextableButtonComponentBase<Style extends TextableButtonComponentStyle>
-	extends ButtonComponentBase<Style> {
+export interface TextableButtonComponentBase<Style extends TextableButtonComponentStyle> extends ButtonComponentBase<Style> {
 	emoji?: PartialEmoji;
 	label?: string;
 }
@@ -256,11 +247,7 @@ export type DangerButtonComponent = InteractiveButtonComponentBase<ButtonStyle.D
 /**
  * @see https://discord.com/developers/docs/components/reference#button
  */
-export type InteractiveButtonComponent =
-	| DangerButtonComponent
-	| PrimaryButtonComponent
-	| SecondaryButtonComponent
-	| SuccessButtonComponent;
+export type InteractiveButtonComponent = DangerButtonComponent | PrimaryButtonComponent | SecondaryButtonComponent | SuccessButtonComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button

@@ -14,10 +14,7 @@ export type AudioDataURI = `data:audio/mpeg;base64,${string}` | `data:audio/ogg;
 /**
  * @see https://discord.com/developers/docs/reference#image-data
  */
-export type ImageDataURI =
-	| `data:image/jpeg;base64,${string}`
-	| `data:image/png;base64,${string}`
-	| `data:image/gif;base64,${string}`;
+export type ImageDataURI = `data:image/jpeg;base64,${string}` | `data:image/png;base64,${string}` | `data:image/gif;base64,${string}`;
 
 /**
  * @see https://discord.com/developers/docs/reference#iso8601-datetime

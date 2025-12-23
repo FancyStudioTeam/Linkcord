@@ -20,8 +20,7 @@ export interface CreateApplicationCommandOptionsBase<Type extends ApplicationCom
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
  */
-export interface CreateChatInputApplicationCommandOptions
-	extends CreateApplicationCommandOptionsBase<ApplicationCommandType.ChatInput> {
+export interface CreateChatInputApplicationCommandOptions extends CreateApplicationCommandOptionsBase<ApplicationCommandType.ChatInput> {
 	description: string;
 	descriptionLocalizations?: Localizations | null;
 	options?: ApplicationCommandOption[];
@@ -110,8 +109,7 @@ export type CreateApplicationCommandOptions =
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
  */
-export type CreateMessageApplicationCommandOptions =
-	CreateApplicationCommandOptionsBase<ApplicationCommandType.Message>;
+export type CreateMessageApplicationCommandOptions = CreateApplicationCommandOptionsBase<ApplicationCommandType.Message>;
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params

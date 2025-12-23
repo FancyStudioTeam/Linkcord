@@ -22,9 +22,7 @@ describe("Method: SnowflakeUtils.cast", () => {
 		const result1 = () => cast(null);
 		const result2 = () => cast("NOT_A_VALID_SNOWFLAKE_STRING");
 
-		const expectedErrorResult1 = new TypeError(
-			"First parameter (input) from 'SnowflakeUtils.cast' must be a bigint or string",
-		);
+		const expectedErrorResult1 = new TypeError("First parameter (input) from 'SnowflakeUtils.cast' must be a bigint or string");
 		const expectedErrorResult2 = new TypeError(
 			"First parameter (input) from 'SnowflakeUtils.cast' does not match Discord snowflake regex",
 		);

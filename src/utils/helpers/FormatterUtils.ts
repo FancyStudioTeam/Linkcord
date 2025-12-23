@@ -1,13 +1,7 @@
 import type { Snowflake } from "#types/index.js";
 import { ONE_SECOND_MILLISECONDS } from "#utils/Constants.js";
 import { isArray, isEnum, isInstanceOf, isNumber, isString } from "./AssertionUtils.js";
-import {
-	CodeBlockLanguage,
-	HeadingLevel,
-	type HeadingLevelsMap,
-	type RecursiveArray,
-	TimestampStyle,
-} from "./FormatterUtils.types.js";
+import { CodeBlockLanguage, HeadingLevel, type HeadingLevelsMap, type RecursiveArray, TimestampStyle } from "./FormatterUtils.types.js";
 
 const HEX_COLOR_DIGITS = 6;
 const HEXADECIMAL_BASE = 16;
@@ -122,10 +116,7 @@ function codeBlock(languageOrContent: CodeBlockLanguage | string, possibleConten
 	return `\`\`\`\n${languageOrContent}\n\`\`\``;
 }
 
-function email<Username extends string, Domain extends string>(
-	username: Username,
-	domain: Domain,
-): `<${Username}@${Domain}>`;
+function email<Username extends string, Domain extends string>(username: Username, domain: Domain): `<${Username}@${Domain}>`;
 function email<Username extends string, Domain extends string>(
 	username: Username,
 	domain: Domain,
@@ -155,10 +146,7 @@ function everyone() {
 }
 
 function header<Content extends string>(content: Content): `# ${Content}`;
-function header<Level extends HeadingLevel, Content extends string>(
-	level: Level,
-	content: Content,
-): HeadingLevelsMap<Content>[Level];
+function header<Level extends HeadingLevel, Content extends string>(level: Level, content: Content): HeadingLevelsMap<Content>[Level];
 
 function header(levelOrContent: HeadingLevel | string, possibleContent?: string): string {
 	if (possibleContent) {
@@ -235,11 +223,7 @@ function messageLink<GuildId extends Snowflake, ChannelId extends Snowflake, Mes
 	messageId: MessageId,
 ): `https://discord.com/channels/${GuildId}/${ChannelId}/${MessageId}`;
 
-function messageLink(
-	channelOrGuildId: Snowflake,
-	channelOrMessageId: Snowflake,
-	possibleMessageId?: Snowflake,
-): string {
+function messageLink(channelOrGuildId: Snowflake, channelOrMessageId: Snowflake, possibleMessageId?: Snowflake): string {
 	if (possibleMessageId) {
 		return `https://discord.com/channels/${channelOrGuildId}/${channelOrMessageId}/${possibleMessageId}`;
 	}
@@ -298,10 +282,7 @@ function unflip() {
 function unixTimestamp(date?: Date): `<t:${string}>`;
 function unixTimestamp<Style extends TimestampStyle>(date: Date, style: Style): `<t:${string}:${Style}>`;
 function unixTimestamp<Seconds extends number>(seconds: Seconds): `<t:${Seconds}>`;
-function unixTimestamp<Seconds extends number, Style extends TimestampStyle>(
-	seconds: Seconds,
-	style: Style,
-): `<t:${Seconds}:${Style}>`;
+function unixTimestamp<Seconds extends number, Style extends TimestampStyle>(seconds: Seconds, style: Style): `<t:${Seconds}:${Style}>`;
 
 function unixTimestamp(dateOrSeconds?: Date | number, possibleStyle?: TimestampStyle): string {
 	if (isInstanceOf(dateOrSeconds, Date)) {

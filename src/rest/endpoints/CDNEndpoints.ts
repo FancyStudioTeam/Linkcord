@@ -52,28 +52,20 @@ export function APPLICATION_ICON_ENDPOINT<ApplicationId extends Snowflake, Entit
 	return `app-icons/${encodedApplicationId}/${encodedEntityImage}` as const;
 }
 
-export function AVATAR_DECORATION_PRESET_ENDPOINT<AvatarDecorationAsset extends string>(
-	avatarDecorationAsset: AvatarDecorationAsset,
-) {
+export function AVATAR_DECORATION_PRESET_ENDPOINT<AvatarDecorationAsset extends string>(avatarDecorationAsset: AvatarDecorationAsset) {
 	const encodedAvatarDecorationAsset = encodeURIComponent(avatarDecorationAsset);
 
 	return `avatar-decorations-presets/${encodedAvatarDecorationAsset}` as const;
 }
 
-export function AVATAR_ENDPOINT<UserId extends Snowflake, UserAvatar extends string>(
-	userId: UserId,
-	userAvatar: UserAvatar,
-) {
+export function AVATAR_ENDPOINT<UserId extends Snowflake, UserAvatar extends string>(userId: UserId, userAvatar: UserAvatar) {
 	const encodedUserId = encodeURIComponent(userId);
 	const encodedUserAvatar = encodeURIComponent(userAvatar);
 
 	return `avatars/${encodedUserId}/${encodedUserAvatar}` as const;
 }
 
-export function BANNER_ENDPOINT<EntityId extends Snowflake, EntityBanner extends string>(
-	entityId: EntityId,
-	entityBanner: EntityBanner,
-) {
+export function BANNER_ENDPOINT<EntityId extends Snowflake, EntityBanner extends string>(entityId: EntityId, entityBanner: EntityBanner) {
 	const encodedEntityId = encodeURIComponent(entityId);
 	const encodedEntityBanner = encodeURIComponent(entityBanner);
 
@@ -102,31 +94,28 @@ export function EMOJI_ENDPOINT<EmojiId extends Snowflake>(emojiId: EmojiId) {
 	return `emojis/${encodedEmojiId}` as const;
 }
 
-export function GUILD_SCHEDULED_EVENT_COVER_ENDPOINT<
-	ScheduledEventId extends Snowflake,
-	ScheduledEventImage extends string,
->(scheduledEventId: ScheduledEventId, scheduledEventImage: ScheduledEventImage) {
+export function GUILD_SCHEDULED_EVENT_COVER_ENDPOINT<ScheduledEventId extends Snowflake, ScheduledEventImage extends string>(
+	scheduledEventId: ScheduledEventId,
+	scheduledEventImage: ScheduledEventImage,
+) {
 	const encodedScheduledEventId = encodeURIComponent(scheduledEventId);
 	const encodedScheduledEventImage = encodeURIComponent(scheduledEventImage);
 
 	return `guild-events/${encodedScheduledEventId}/${encodedScheduledEventImage}` as const;
 }
 
-export function GUILD_TAG_BADGE_ENDPOINT<GuildId extends Snowflake, GuildBadge extends string>(
-	guildId: GuildId,
-	guildBadge: GuildBadge,
-) {
+export function GUILD_TAG_BADGE_ENDPOINT<GuildId extends Snowflake, GuildBadge extends string>(guildId: GuildId, guildBadge: GuildBadge) {
 	const encodedGuildId = encodeURIComponent(guildId);
 	const encodedGuildBadge = encodeURIComponent(guildBadge);
 
 	return `guild-tag-badges/${encodedGuildId}/${encodedGuildBadge}` as const;
 }
 
-export function GUILD_USER_AVATAR_ENDPOINT<
-	GuildId extends Snowflake,
-	UserId extends Snowflake,
-	UserAvatar extends string,
->(guildId: GuildId, userId: UserId, userAvatar: UserAvatar) {
+export function GUILD_USER_AVATAR_ENDPOINT<GuildId extends Snowflake, UserId extends Snowflake, UserAvatar extends string>(
+	guildId: GuildId,
+	userId: UserId,
+	userAvatar: UserAvatar,
+) {
 	const encodedGuildId = encodeURIComponent(guildId);
 	const encodedUserId = encodeURIComponent(userId);
 	const encodedUserAvatar = encodeURIComponent(userAvatar);
@@ -134,11 +123,11 @@ export function GUILD_USER_AVATAR_ENDPOINT<
 	return `guilds/${encodedGuildId}/users/${encodedUserId}/avatars/${encodedUserAvatar}` as const;
 }
 
-export function GUILD_USER_BANNER_ENDPOINT<
-	GuildId extends Snowflake,
-	UserId extends Snowflake,
-	UserBanner extends string,
->(guildId: GuildId, userId: UserId, userBanner: UserBanner) {
+export function GUILD_USER_BANNER_ENDPOINT<GuildId extends Snowflake, UserId extends Snowflake, UserBanner extends string>(
+	guildId: GuildId,
+	userId: UserId,
+	userBanner: UserBanner,
+) {
 	const encodedGuildId = encodeURIComponent(guildId);
 	const encodedUserId = encodeURIComponent(userId);
 	const encodedUserBanner = encodeURIComponent(userBanner);
@@ -146,20 +135,14 @@ export function GUILD_USER_BANNER_ENDPOINT<
 	return `guilds/${encodedGuildId}/users/${encodedUserId}/banners/${encodedUserBanner}` as const;
 }
 
-export function ICON_ENDPOINT<GuildId extends Snowflake, GuildIcon extends string>(
-	guildId: GuildId,
-	guildIcon: GuildIcon,
-) {
+export function ICON_ENDPOINT<GuildId extends Snowflake, GuildIcon extends string>(guildId: GuildId, guildIcon: GuildIcon) {
 	const encodedGuildId = encodeURIComponent(guildId);
 	const encodedGuildIcon = encodeURIComponent(guildIcon);
 
 	return `icons/${encodedGuildId}/${encodedGuildIcon}` as const;
 }
 
-export function ROLE_ICON_ENDPOINT<RoleId extends Snowflake, RoleIcon extends string>(
-	roleId: RoleId,
-	roleIcon: RoleIcon,
-) {
+export function ROLE_ICON_ENDPOINT<RoleId extends Snowflake, RoleIcon extends string>(roleId: RoleId, roleIcon: RoleIcon) {
 	const encodedRoleId = encodeURIComponent(roleId);
 	const encodedRoleIcon = encodeURIComponent(roleIcon);
 
@@ -172,10 +155,7 @@ export function SOUNDBOARD_SOUND_ENDPOINT<SoundboardSoundId extends Snowflake>(s
 	return `soundboard-sounds/${encodedSoundboardSoundId}` as const;
 }
 
-export function SPLASH_ENDPOINT<GuildId extends Snowflake, GuildSplash extends string>(
-	guildId: GuildId,
-	guildSplash: GuildSplash,
-) {
+export function SPLASH_ENDPOINT<GuildId extends Snowflake, GuildSplash extends string>(guildId: GuildId, guildSplash: GuildSplash) {
 	const encodedGuildId = encodeURIComponent(guildId);
 	const encodedGuildSplash = encodeURIComponent(guildSplash);
 
@@ -188,10 +168,7 @@ export function STICKER_ENDPOINT<StickerId extends Snowflake>(stickerId: Sticker
 	return `stickers/${encodedStickerId}` as const;
 }
 
-export function TEAM_ICON_ENDPOINT<TeamId extends Snowflake, TeamIcon extends string>(
-	teamId: TeamId,
-	teamIcon: TeamIcon,
-) {
+export function TEAM_ICON_ENDPOINT<TeamId extends Snowflake, TeamIcon extends string>(teamId: TeamId, teamIcon: TeamIcon) {
 	const encodedTeamId = encodeURIComponent(teamId);
 	const encodedTeamIcon = encodeURIComponent(teamIcon);
 

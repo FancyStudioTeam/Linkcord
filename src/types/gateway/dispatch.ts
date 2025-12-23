@@ -37,7 +37,4 @@ export type GatewayDispatchMessageCreateEvent = GatewayEventDispatchBase<
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#ready
  */
-export type GatewayDispatchReadyEvent = GatewayEventDispatchBase<
-	GatewayDispatchEvents.Ready,
-	GatewayDispatchReadyEventPayload
->;
+export type GatewayDispatchReadyEvent = GatewayEventDispatchBase<GatewayDispatchEvents.Ready, GatewayDispatchReadyEventPayload>;

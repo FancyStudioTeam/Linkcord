@@ -11,11 +11,7 @@ import type { GatewayDispatchMessageCreateEventPayload } from "#types/index.js";
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#message-create
  */
-export function MESSAGE_CREATE(
-	client: Client,
-	gatewayShard: GatewayShard,
-	messagePayload: GatewayDispatchMessageCreateEventPayload,
-): void {
+export function MESSAGE_CREATE(client: Client, gatewayShard: GatewayShard, messagePayload: GatewayDispatchMessageCreateEventPayload): void {
 	const { events } = client;
 	const message = new Message(client, messagePayload);
 

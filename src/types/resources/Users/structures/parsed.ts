@@ -1,13 +1,7 @@
 import type { Snowflake } from "#types/miscellaneous/discord.js";
 import type { GuildFeatures } from "#types/resources/Guilds/enums.js";
 // import type { PartialIntegration } from "#types/resources/Guilds/index.js";
-import type {
-	ConnectionService,
-	ConnectionVisibilityType,
-	DisplayNameEffect,
-	DisplayNameFont,
-	NameplatePalette,
-} from "../enums.js";
+import type { ConnectionService, ConnectionVisibilityType, DisplayNameEffect, DisplayNameFont, NameplatePalette } from "../enums.js";
 
 /**
  * @see https://discord.com/developers/docs/resources/user#application-role-connection-object-application-role-connection-structure

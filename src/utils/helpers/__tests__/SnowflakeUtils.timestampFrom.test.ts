@@ -19,9 +19,7 @@ describe("Method: SnowflakeUtils.timestampFrom", () => {
 		// @ts-expect-error
 		const result2 = () => timestampFrom("NOT_A_VALID_SNOWFLAKE_STRING");
 
-		const expectedErrorResult = new TypeError(
-			"First parameter (snowflake) from 'SnowflakeUtils.timestampFrom' must be a snowflake",
-		);
+		const expectedErrorResult = new TypeError("First parameter (snowflake) from 'SnowflakeUtils.timestampFrom' must be a snowflake");
 
 		expect(result1).toThrow(expectedErrorResult);
 		expect(result2).toThrow(expectedErrorResult);

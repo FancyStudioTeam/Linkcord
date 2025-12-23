@@ -19,8 +19,7 @@ export interface ApplicationCommandOptionChoice {
  * Represents an application command option for channels.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export interface ApplicationCommandOptionChannel
-	extends BaseApplicationCommandOption<ApplicationCommandOptionType.Channel> {
+export interface ApplicationCommandOptionChannel extends BaseApplicationCommandOption<ApplicationCommandOptionType.Channel> {
 	channelTypes?: ChannelType[];
 }
 
@@ -44,8 +43,7 @@ export interface ApplicationCommandOptionNumber
  * Represents an application command option for strings.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export interface ApplicationCommandOptionString
-	extends BaseApplicationCommandOption<ApplicationCommandOptionType.String> {
+export interface ApplicationCommandOptionString extends BaseApplicationCommandOption<ApplicationCommandOptionType.String> {
 	/** Whether to autocomplete the choices of the application command option. */
 	autocomplete?: boolean;
 	/** The choices of the application command option. */
@@ -61,9 +59,7 @@ export interface ApplicationCommandOptionString
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
 export interface ApplicationCommandOptionSubCommand
-	extends BaseApplicationCommandOption<
-		ApplicationCommandOptionType.SubCommand | ApplicationCommandOptionType.SubCommandGroup
-	> {
+	extends BaseApplicationCommandOption<ApplicationCommandOptionType.SubCommand | ApplicationCommandOptionType.SubCommandGroup> {
 	/** The options of the application command option. */
 	options?: ApplicationCommandOption[];
 }
@@ -131,8 +127,7 @@ export type ApplicationCommandOptionBoolean = BaseApplicationCommandOption<Appli
  * Represents an application command option for mentionables.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type ApplicationCommandOptionMentionable =
-	BaseApplicationCommandOption<ApplicationCommandOptionType.Mentionable>;
+export type ApplicationCommandOptionMentionable = BaseApplicationCommandOption<ApplicationCommandOptionType.Mentionable>;
 
 /**
  * Represents an application command option for roles.

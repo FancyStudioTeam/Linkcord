@@ -12,9 +12,7 @@ function cast<Input extends bigint | number | string>(input: Input): Snowflake {
 	const snowflakeString = String(input);
 
 	if (!isSnowflake(snowflakeString)) {
-		throw new TypeError(
-			"First parameter (input) from 'SnowflakeUtils.cast' does not match Discord snowflake regex",
-		);
+		throw new TypeError("First parameter (input) from 'SnowflakeUtils.cast' does not match Discord snowflake regex");
 	}
 
 	return snowflakeString;

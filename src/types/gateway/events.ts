@@ -71,10 +71,7 @@ export type GatewayEvent = GatewayReceiveEvent | GatewaySendEvent;
 /**
  * @see https://discord.com/developers/docs/events/gateway#heartbeat-interval-example-heartbeat-ack
  */
-export type GatewayHeartbeatAckEvent = Omit<
-	GatewayEventBase<GatewayOpcodes.HeartbeatAck, GatewayHeartbeatAckEventPayload>,
-	"d"
->;
+export type GatewayHeartbeatAckEvent = Omit<GatewayEventBase<GatewayOpcodes.HeartbeatAck, GatewayHeartbeatAckEventPayload>, "d">;
 
 /**
  * @see https://discord.com/developers/docs/events/gateway#heartbeat-interval-example-heartbeat-ack
@@ -104,10 +101,7 @@ export type GatewayIdentifyEvent = GatewayEventBase<GatewayOpcodes.Identify, Gat
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#invalid-session
  */
-export type GatewayInvalidSessionEvent = GatewayEventBase<
-	GatewayOpcodes.InvalidSession,
-	GatewayInvalidSessionEventPayload
->;
+export type GatewayInvalidSessionEvent = GatewayEventBase<GatewayOpcodes.InvalidSession, GatewayInvalidSessionEventPayload>;
 
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#invalid-session-example-gateway-invalid-session
