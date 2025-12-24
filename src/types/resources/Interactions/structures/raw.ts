@@ -1,10 +1,25 @@
 import type { Snowflake } from "#types/miscellaneous/discord.js";
 import type { Locales } from "#types/miscellaneous/enums.js";
 import type { ApplicationCommandType } from "#types/resources/ApplicationCommands/enums.js";
-import type { APIPartialChannel } from "#types/resources/Channels/index.js";
+import type { APIChannel, APIPartialChannel } from "#types/resources/Channels/index.js";
+import type { ComponentType } from "#types/resources/Components/enums.js";
+import type {
+	APIMessageComponents,
+	APIModalComponents,
+	APISelectMenuComponentType,
+	APIStringSelectMenuOption,
+} from "#types/resources/Components/index.js";
 import type { APIEntitlement } from "#types/resources/Entitlements/index.js";
-import type { APIGuildMember, APIInteractionGuild } from "#types/resources/Guilds/index.js";
-import type { APIAuthorizingIntegrationOwners, APIMessage } from "#types/resources/Messages/index.js";
+import type { APIGuildMember, GuildFeatures } from "#types/resources/Guilds/index.js";
+import type {
+	APIAllowedMentions,
+	APIAttachment,
+	APIAuthorizingIntegrationOwners,
+	APIEmbed,
+	APIMessage,
+	APIPartialMessage,
+} from "#types/resources/Messages/index.js";
+import type { APIRole } from "#types/resources/Permissions/index.js";
 import type { APIUser } from "#types/resources/Users/index.js";
 import type { InteractionContextType, InteractionType } from "../enums.js";
 
@@ -22,7 +37,7 @@ export interface APIInteractionBase<Type extends InteractionType, Data> {
 	data?: Data;
 	entitlements: APIEntitlement[];
 	guild_id?: Snowflake;
-	guild?: APIInteractionGuild;
+	guild?: APIPartialInteractionGuild;
 	guild_locale?: Locales;
 	id: Snowflake;
 	locale: Locales;
@@ -32,6 +47,17 @@ export interface APIInteractionBase<Type extends InteractionType, Data> {
 	type: Type;
 	user?: APIUser;
 	version: 1;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-messages
+ */
+export interface APIMessageInteractionCallbackData {
+	allowed_mentions?: APIAllowedMentions;
+	components?: APIMessageComponents[];
+	content?: string;
+	embeds?: APIEmbed[];
+	tts?: boolean;
 }
 
 /**
@@ -53,9 +79,65 @@ export interface APIContextApplicationCommandDataBase<Type extends APIContextApp
 }
 
 /**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
+ */
+export interface APIInteractionResolvedData {
+	attachments?: Record<Snowflake, APIAttachment>;
+	channels?: Record<Snowflake, APIPartialInteractionChannel>;
+	members?: Record<Snowflake, APIPartialInteractionMember>;
+	messages?: Record<Snowflake, APIPartialMessage>;
+	roles?: Record<Snowflake, APIRole>;
+	users?: Record<Snowflake, APIUser>;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
+ */
+export interface APIMessageComponentInteractionDataBase<Type extends ComponentType> {
+	component_type: Type;
+	custom_id: string;
+	resolved?: APIInteractionResolvedData;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-modal-submit-data-structure
+ */
+export interface APIModalSubmitInteractionData {
+	components: APIModalComponents;
+	custom_id: string;
+	resolved?: APIInteractionResolvedData;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
+ */
+export interface APISelectMenuComponentInteractionData extends APIMessageComponentInteractionDataBase<APISelectMenuComponentType> {
+	values: APIStringSelectMenuOption[];
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-structure
+ */
+export interface APIPartialInteractionGuild {
+	features: GuildFeatures[];
+	id: Snowflake;
+	locale: Locales;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ */
+export type APIApplicationCommandInteraction = APIInteractionBase<InteractionType.ApplicationCommand, APIApplicationCommandInteractionData>;
+
+/**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
  */
 export type APIApplicationCommandInteractionData = APIContextApplicationCommandInteractionData;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
+ */
+export type APIButtonComponentInteractionData = APIMessageComponentInteractionDataBase<ComponentType.Button>;
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
@@ -72,17 +154,67 @@ export type APIContextApplicationCommandType = ApplicationCommandType.Message | 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
  */
-export type APIInteraction = APIPingInteraction;
+export type APIInteraction =
+	| APIApplicationCommandInteraction
+	| APIMessageComponentInteraction
+	| APIModalSubmitInteraction
+	| APIPingInteraction;
 
 /**
- * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-data
  */
-export type APIPingInteraction = Omit<APIInteractionBase<InteractionType.Ping, never>, "locale">;
+export type APIInteractionData = APIApplicationCommandInteractionData | APIMessageComponentInteractionData | APIModalSubmitInteractionData;
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
  */
 export type APIMessageApplicationCommandInteractionData = APIContextApplicationCommandDataBase<ApplicationCommandType.Message>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ */
+export type APIMessageComponentInteraction = APIInteractionBase<InteractionType.MessageComponent, APIMessageComponentInteractionData>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
+ */
+export type APIMessageComponentInteractionData = APIButtonComponentInteractionData | APISelectMenuComponentInteractionData;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ */
+export type APIModalSubmitInteraction = APIInteractionBase<InteractionType.ModalSubmit, APIModalSubmitInteractionData>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
+ */
+export type APIPartialInteractionChannel = Pick<
+	APIChannel,
+	// @ts-expect-error
+	| "flags"
+	| "guild_id"
+	| "id"
+	| "last_message_id"
+	| "last_ping_timestamp"
+	| "name"
+	| "nsfw"
+	| "parent_id"
+	| "permissions"
+	| "position"
+	| "rate_limit_per_user"
+	| "topic"
+	| "type"
+>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
+ */
+export type APIPartialInteractionMember = Omit<APIGuildMember, "deaf" | "mute" | "user">;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ */
+export type APIPingInteraction = Omit<APIInteractionBase<InteractionType.Ping, never>, "locale">;
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure

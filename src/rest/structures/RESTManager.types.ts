@@ -1,4 +1,12 @@
-export interface BaseMakeRequestOptions<Method extends RESTMethod> {
+export interface MakeMutableRequestOptions<Method extends MutableMethod>
+	extends MakeRequestOptionsBase<Method>,
+		MakeRequestOptionsWithReason {
+	body?: BodyInit;
+	form?: FormData;
+}
+
+export interface MakeRequestOptionsBase<Method extends RESTMethod> {
+	contentType?: RESTContentType;
 	method: Method;
 	withAuthorization?: boolean;
 }
@@ -7,22 +15,18 @@ export interface MakeRequestOptionsWithReason {
 	reason?: string;
 }
 
-export interface MakeBaseMutableRequestOptions<Method extends MutableMethod> extends BaseMakeRequestOptions<Method> {
-	body?: BodyInit;
-	form?: FormData;
-}
-
-export type MakeDeleteRequestOptions = BaseMakeRequestOptions<RESTMethod.Delete> & MakeRequestOptionsWithReason;
-export type MakeGetRequestOptions = BaseMakeRequestOptions<RESTMethod.Get>;
 export type MakeRequestOptions =
 	| MakeDeleteRequestOptions
 	| MakeGetRequestOptions
 	| MakePatchRequestOptions
 	| MakePostRequestOptions
 	| MakePutRequestOptions;
-export type MakePatchRequestOptions = MakeBaseMutableRequestOptions<RESTMethod.Patch>;
-export type MakePostRequestOptions = MakeBaseMutableRequestOptions<RESTMethod.Post>;
-export type MakePutRequestOptions = MakeBaseMutableRequestOptions<RESTMethod.Put>;
+
+export type MakeDeleteRequestOptions = MakeRequestOptionsBase<RESTMethod.Delete> & MakeRequestOptionsWithReason;
+export type MakeGetRequestOptions = MakeRequestOptionsBase<RESTMethod.Get>;
+export type MakePatchRequestOptions = MakeMutableRequestOptions<RESTMethod.Patch>;
+export type MakePostRequestOptions = MakeMutableRequestOptions<RESTMethod.Post>;
+export type MakePutRequestOptions = MakeMutableRequestOptions<RESTMethod.Put>;
 
 export type MutableMethod = RESTMethod.Patch | RESTMethod.Post | RESTMethod.Put;
 

@@ -4,10 +4,11 @@ import { ChannelsAPI } from "#rest/api/ChannelsAPI.js";
 import { GatewayAPI } from "#rest/api/GatewayAPI.js";
 import { MiscellaneousAPI } from "#rest/api/MiscellaneousAPI.js";
 import { normalizeRoute } from "#rest/functions/normalizeRoute.js";
-import { REST_URL_BASE } from "#rest/utils/Constants.js";
 import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
 import { BucketManager } from "./BucketManager.js";
-import type { MakeRequestOptions } from "./RESTManager.types.js";
+import { type MakeRequestOptions, RESTContentType } from "./RESTManager.types.js";
+
+const NO_CONTENT_STATUS_CODE = 204;
 
 export class RESTManager {
 	declare readonly applications: ApplicationsAPI;
@@ -26,39 +27,56 @@ export class RESTManager {
 		defineReadonlyProperty(this, "miscellaneous", new MiscellaneousAPI(this, client));
 	}
 
-	get token(): string {
-		const { client } = this;
-		const { token } = client;
+	static REST_URL_BASE = "https://discord.com/api" as const;
+	static REST_VERSION = 10 as const;
 
-		return token;
+	#createRequestHeaders(options?: CreateRequestHeadersOptions): Headers {
+		const { contentType = RESTContentType.ApplicationJSON, withAuthorization = true } = options ?? {};
+		const headers = new Headers();
+
+		headers.set("Content-Type", contentType);
+
+		if (withAuthorization) {
+			const { client } = this;
+			const { token } = client;
+
+			headers.set("Authorization", `Bot ${token}`);
+		}
+
+		return headers;
+	}
+
+	#createRequestUrl(endpoint: string): string {
+		const { REST_URL_BASE, REST_VERSION } = RESTManager;
+		const requestUrl = `${REST_URL_BASE}/v${REST_VERSION}/${endpoint}`;
+
+		return requestUrl;
 	}
 
 	makeRequest<Result>(endpoint: string, options: MakeRequestOptions): Promise<Result> {
 		const { method } = options;
-		const { buckets, token } = this;
+		const { buckets } = this;
+
+		const headers = this.#createRequestHeaders(options);
+		const requestUrl = this.#createRequestUrl(endpoint);
 
 		const normalizedRoute = normalizeRoute(method, endpoint);
+		const bucket = buckets.getBucket(normalizedRoute);
 
-		const promise = new Promise<Result>((resolve, reject) => {
-			const bucket = buckets.getBucket(normalizedRoute);
-			const requestFunction = async () => {
+		const promise = new Promise<Result>((resolve, reject) =>
+			bucket.enqueue(async () => {
 				try {
-					const response = await fetch(`${REST_URL_BASE}/${endpoint}`, {
-						// @ts-expect-error
-						body: options.body ?? undefined,
-						headers: {
-							authorization: `Bot ${token}`,
-							"content-type": "application/json",
-						},
-						method,
+					const response = await fetch(requestUrl, {
+						headers,
 					});
 
-					const { headers } = response;
+					const { headers: responseHeaders, status: responseStatus } = response;
 
-					const bucketId = headers.get("X-RateLimit-Bucket") ?? undefined;
-					const bucket = buckets.getBucket(normalizedRoute, bucketId);
+					bucket.update(responseHeaders);
 
-					bucket.update(headers);
+					if (responseStatus === NO_CONTENT_STATUS_CODE) {
+						return void resolve(undefined as Result);
+					}
 
 					const data = await response.json();
 
@@ -66,11 +84,11 @@ export class RESTManager {
 				} catch (error) {
 					reject(error);
 				}
-			};
-
-			bucket.enqueue(requestFunction);
-		});
+			}),
+		);
 
 		return promise;
 	}
 }
+
+type CreateRequestHeadersOptions = Pick<MakeRequestOptions, "contentType" | "withAuthorization">;

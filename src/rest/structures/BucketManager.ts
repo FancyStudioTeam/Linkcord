@@ -4,8 +4,22 @@ export class BucketManager {
 	readonly #buckets = new Map<string, Bucket>();
 	readonly #routeBuckets = new Map<string, string>();
 
-	getBucket(normalizedRoute: string, bucketId?: string): Bucket {
+	#upsertBucket(bucketId: string) {
 		const buckets = this.#buckets;
+		const existingBucket = buckets.get(bucketId);
+
+		if (existingBucket) {
+			return existingBucket;
+		}
+
+		const bucket = new Bucket();
+
+		buckets.set(bucketId, bucket);
+
+		return bucket;
+	}
+
+	getBucket(normalizedRoute: string, bucketId?: string): Bucket {
 		const routeBuckets = this.#routeBuckets;
 
 		if (bucketId) {
@@ -13,16 +27,8 @@ export class BucketManager {
 		}
 
 		const id = bucketId ?? routeBuckets.get(normalizedRoute) ?? normalizedRoute;
-		const existingBucket = buckets.get(id);
+		const bucket = this.#upsertBucket(id);
 
-		if (!existingBucket) {
-			const bucket = new Bucket();
-
-			buckets.set(id, bucket);
-
-			return bucket;
-		}
-
-		return existingBucket;
+		return bucket;
 	}
 }
