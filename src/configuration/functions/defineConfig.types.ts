@@ -9,7 +9,7 @@ export interface DefineConfigLocationsOptions {
 export interface DefineConfigOptions {
 	intents: GatewayIntents[];
 	locations?: DefineConfigLocationsOptions;
-	token: string;
+	token: `Bot ${string}`;
 }
 
 export interface LinkcordOptions {

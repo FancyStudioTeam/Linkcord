@@ -4,7 +4,7 @@ import { transformToken } from "#configuration/functions/transformToken.js";
 import { GatewayIntents } from "#types/index.js";
 
 export const ConfigurationIntentsEnumSchema = enum_(GatewayIntents);
-export const ConfigurationIntentsSchema = array(ConfigurationIntentsEnumSchema).min(1).transform(transformIntents);
+export const ConfigurationIntentsSchema = array(ConfigurationIntentsEnumSchema).transform(transformIntents);
 
 export const ConfigurationLocationsCommandsSchema = string();
 export const ConfigurationLocationsEventsSchema = string();

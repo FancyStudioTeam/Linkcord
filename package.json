@@ -35,9 +35,9 @@
 		}
 	},
 	"files": [
+		"lib",
 		"LICENSE",
-		"README.md",
-		"lib"
+		"README.md"
 	],
 	"license": "MIT",
 	"lint-staged": {

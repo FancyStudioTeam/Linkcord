@@ -1,26 +1,21 @@
 import { GatewayIntents } from "#types/index.js";
 import { transformIntents } from "../transformIntents.js";
 
-const GATEWAY_INTENTS_ARRAY = [
-	GatewayIntents.Guilds,
-	GatewayIntents.MessageContent,
-];
-
-describe("Function: transformIntents", () => {
-	it("Should reduce the provided array of intents into a bit field", () => {
-		const result = transformIntents(GATEWAY_INTENTS_ARRAY);
-		const expectedResult = GatewayIntents.Guilds | GatewayIntents.MessageContent;
-
-		expect(result).toBe(expectedResult);
-	});
-
-	it("Should remove the duplicated items from the array", () => {
-		const result = transformIntents([
-			...GATEWAY_INTENTS_ARRAY,
-			GatewayIntents.Guilds,
-		]);
-		const expectedResult = GatewayIntents.Guilds | GatewayIntents.MessageContent;
-
-		expect(result).toBe(expectedResult);
+describe("transformIntents", () => {
+	it("Should reduce the provided array of intents into a bitfield", () => {
+		expect(transformIntents([])).toBe(0);
+		expect(
+			transformIntents([
+				GatewayIntents.Guilds,
+				GatewayIntents.MessageContent,
+			]),
+		).toBe(GatewayIntents.Guilds | GatewayIntents.MessageContent);
+		expect(
+			transformIntents([
+				GatewayIntents.Guilds,
+				GatewayIntents.MessageContent,
+				GatewayIntents.MessageContent, // -> Duplicated
+			]),
+		).toBe(GatewayIntents.Guilds | GatewayIntents.MessageContent);
 	});
 });
