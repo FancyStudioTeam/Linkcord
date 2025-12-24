@@ -25,7 +25,6 @@ export enum ConnectionService {
 	Steam = "steam",
 	TikTok = "tiktok",
 	Twitter = "twitter",
-	X = "twitter",
 	Xbox = "xbox",
 	YouTube = "youtube",
 }
@@ -92,7 +91,7 @@ export enum UserPremiumType {
 	Nitro = 2,
 	NitroBasic = 3,
 	NitroClassic = 1,
-	None = 1,
+	None = 0,
 }
 
 /**

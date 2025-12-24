@@ -60,7 +60,7 @@ export enum MessageFlags {
  * @see https://discord.com/developers/docs/resources/message#message-reference-types
  */
 export enum MessageReferenceType {
-	Default = 1,
+	Default = 0,
 	Forward = 1,
 }
 
@@ -104,7 +104,7 @@ export enum MessageType {
 	StageTopic = 31,
 	ThreadCreated = 18,
 	ThreadStarterMessage = 21,
-	UserJoin = 6,
+	UserJoin = 7,
 }
 
 /**
