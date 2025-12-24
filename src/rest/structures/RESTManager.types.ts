@@ -1,3 +1,8 @@
+export interface File {
+	data: Buffer<ArrayBuffer>;
+	name: string;
+}
+
 export interface MakeMutableRequestOptions<Method extends MutableMethod>
 	extends MakeRequestOptionsBase<Method>,
 		MakeRequestOptionsWithReason {
