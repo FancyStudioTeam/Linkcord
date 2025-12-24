@@ -1,6 +1,7 @@
 {
 	"dependencies": {
 		"string-dedent": "3.0.2",
+		"ts-mixer": "6.0.4",
 		"zod": "4.2.1"
 	},
 	"description": "An opinionated framework made in TypeScript for building Discord bots.",

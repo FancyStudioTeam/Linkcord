@@ -1,30 +1,21 @@
 import type { Client } from "#client/index.js";
-import { ApplicationsAPI } from "#rest/api/ApplicationsAPI.js";
-import { ChannelsAPI } from "#rest/api/ChannelsAPI.js";
-import { GatewayAPI } from "#rest/api/GatewayAPI.js";
-import { MiscellaneousAPI } from "#rest/api/MiscellaneousAPI.js";
 import { normalizeRoute } from "#rest/functions/normalizeRoute.js";
 import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
+import { APIManager } from "./APIManager.js";
 import { BucketManager } from "./BucketManager.js";
 import { type MakeRequestOptions, RESTContentType } from "./RESTManager.types.js";
 
 const NO_CONTENT_STATUS_CODE = 204;
 
 export class RESTManager {
-	declare readonly applications: ApplicationsAPI;
+	declare readonly api: APIManager;
 	declare readonly buckets: BucketManager;
-	declare readonly channels: ChannelsAPI;
 	declare readonly client: Client;
-	declare readonly gateway: GatewayAPI;
-	declare readonly miscellaneous: MiscellaneousAPI;
 
 	constructor(client: Client) {
-		defineReadonlyProperty(this, "applications", new ApplicationsAPI(this, client));
+		defineReadonlyProperty(this, "api", new APIManager(this, client));
 		defineReadonlyProperty(this, "buckets", new BucketManager());
-		defineReadonlyProperty(this, "channels", new ChannelsAPI(this, client));
 		defineReadonlyProperty(this, "client", client);
-		defineReadonlyProperty(this, "gateway", new GatewayAPI(this, client));
-		defineReadonlyProperty(this, "miscellaneous", new MiscellaneousAPI(this, client));
 	}
 
 	static REST_URL_BASE = "https://discord.com/api" as const;
