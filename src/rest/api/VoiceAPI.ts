@@ -4,7 +4,7 @@ import { deserializeVoiceRegionsArray } from "#transformers/Voice/Deserializer.j
 import type { RESTGetAPIVoiceRegions, VoiceRegion } from "#types/index.js";
 import { BaseAPI } from "./BaseAPI.js";
 
-export class MiscellaneousAPI extends BaseAPI {
+export class VoiceAPI extends BaseAPI {
 	/**
 	 * @see https://discord.com/developers/docs/resources/voice#list-voice-regions
 	 */
