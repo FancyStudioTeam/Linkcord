@@ -156,7 +156,7 @@ export interface APIEmbedThumbnail {
 export interface APIEmbedVideo {
 	height?: number;
 	proxy_url?: string;
-	url: string;
+	url?: string;
 	width?: number;
 }
 
