@@ -6,8 +6,7 @@ export interface File {
 export interface MakeMutableRequestOptions<Method extends MutableMethod>
 	extends MakeRequestOptionsBase<Method>,
 		MakeRequestOptionsWithReason {
-	body?: BodyInit;
-	form?: FormData;
+	body: BodyInit;
 }
 
 export interface MakeRequestOptionsBase<Method extends RESTMethod> {
