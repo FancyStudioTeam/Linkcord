@@ -1,74 +1,68 @@
-import { setTimeout as wait } from "node:timers/promises";
+import { setTimeout } from "node:timers/promises";
 import { ONE_SECOND_MILLISECONDS } from "#utils/Constants.js";
 
 export class Bucket {
 	readonly #queue: RequestFunction[] = [];
 
+	#isProcessing = false;
 	#remaining = Infinity;
-	#resetAfter = Infinity;
-	#running = false;
+	#resetAfter = 0;
 
-	get #resetAt(): number {
-		return Date.now() + this.#resetAfter * ONE_SECOND_MILLISECONDS;
+	get #isRateLimited(): boolean {
+		return this.#remaining === 0;
 	}
 
-	#decreaseRemaining(): void {
-		this.#remaining--;
+	get #millisecondsUntilReset(): number {
+		return this.#resetAfter * ONE_SECOND_MILLISECONDS;
 	}
 
-	async #run(): Promise<void> {
-		const running = this.#running;
+	async #processQueue(): Promise<void> {
+		const isProcessing = this.#isProcessing;
+
+		if (isProcessing) return;
+
+		this.#setIsProcessing(true);
+
 		const queue = this.#queue;
 
-		if (running) return;
+		try {
+			while (queue.length > 0) {
+				const isRateLimited = this.#isRateLimited;
 
-		this.#setIsRunning();
+				if (isRateLimited) {
+					const millisecondsToWait = this.#millisecondsUntilReset;
 
-		while (queue.length > 0) {
-			const now = Date.now();
+					await setTimeout(millisecondsToWait);
+				}
 
-			const remaining = this.#remaining;
-			const resetAt = this.#resetAt;
+				const request = queue.shift();
 
-			if (remaining <= 0 && resetAt > now) {
-				await wait(resetAt - now);
+				if (!request) continue;
+
+				await request();
 			}
-
-			const func = queue.shift();
-
-			this.#decreaseRemaining();
-
-			if (!func) continue;
-
-			await func();
+		} finally {
+			this.#setIsProcessing(false);
 		}
-
-		this.#setIsRunning(false);
 	}
 
-	#setIsRunning(running = true): void {
-		this.#running = running;
+	#setIsProcessing(isProcessing: boolean = true) {
+		this.#isProcessing = isProcessing;
 	}
 
-	async enqueue(requestFunction: RequestFunction): Promise<void> {
+	enqueue(requestFunction: RequestFunction): void {
 		const queue = this.#queue;
 
 		queue.push(requestFunction);
-
-		await this.#run();
+		void this.#processQueue();
 	}
 
 	update(headers: Headers): void {
 		const remaining = headers.get("X-RateLimit-Remaining");
 		const resetAfter = headers.get("X-RateLimit-Reset-After");
 
-		if (remaining) {
-			this.#remaining = Number(remaining);
-		}
-
-		if (resetAfter) {
-			this.#resetAfter = Number(resetAfter);
-		}
+		this.#remaining = Number(remaining);
+		this.#resetAfter = Number(resetAfter);
 	}
 }
 
