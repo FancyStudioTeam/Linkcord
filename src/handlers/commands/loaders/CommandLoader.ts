@@ -24,9 +24,11 @@ export class CommandLoader {
 	async #bulkOverwriteApplicationCommands(applicationCommands: CreateApplicationCommandOptions[]): Promise<void> {
 		const { client } = this;
 		const { applicationId, rest } = client;
-		const { api } = rest;
+		const {
+			api: { applications },
+		} = rest;
 
-		await api.bulkOverwriteApplicationCommands(applicationId, applicationCommands);
+		await applications.bulkOverwriteApplicationCommands(applicationId, applicationCommands);
 	}
 
 	#handleChatInputCommandHandler(chatInputCommandHandler: ChatInputCommandHandler): CreateChatInputApplicationCommandOptions {

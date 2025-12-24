@@ -8,7 +8,7 @@ export class GatewayAPI extends BaseAPI {
 	/**
 	 * @see https://discord.com/developers/docs/events/gateway#get-gateway
 	 */
-	async getGateway(): Promise<Gateway> {
+	async get(): Promise<Gateway> {
 		const { rest } = this;
 		const gatewayResponseData = await rest.makeRequest<RESTGetAPIGateway>(GATEWAY_ENDPOINT(), {
 			method: RESTMethod.Get,
@@ -21,7 +21,7 @@ export class GatewayAPI extends BaseAPI {
 	/**
 	 * @see https://discord.com/developers/docs/events/gateway#get-gateway-bot
 	 */
-	async getGatewayBot(): Promise<GatewayBot> {
+	async getBot(): Promise<GatewayBot> {
 		const { rest } = this;
 
 		const gatewayBotResponseData = await rest.makeRequest<RESTGetAPIGatewayBot>(GATEWAY_BOT_ENDPOINT(), {
