@@ -2,13 +2,7 @@ import { CHANNEL_MESSAGES_ENDPOINT } from "#rest/endpoints/Endpoints.js";
 import { type File, type MakeRequestOptions, RESTMethod } from "#rest/structures/RESTManager.types.js";
 import { Message } from "#structures/Message.js";
 import { serializeCreateMessageOptions } from "#transformers/Messages/REST.js";
-import type {
-	APIPartialAttachent,
-	CreateMessageOptions,
-	RESTPostAPIMessage,
-	RESTPostAPIMessageJSONParams,
-	Snowflake,
-} from "#types/index.js";
+import type { CreateMessageOptions, RESTPostAPIMessage, RESTPostAPIMessageJSONParams, Snowflake } from "#types/index.js";
 import { BaseAPI } from "./BaseAPI.js";
 
 export class ChannelsAPI extends BaseAPI {
@@ -18,32 +12,27 @@ export class ChannelsAPI extends BaseAPI {
 	#appendToForm(options: RESTPostAPIMessageJSONParams, files: File[]): FormData {
 		const formData = new FormData();
 
-		const { length: filesLength } = files;
-		const attachments: APIPartialAttachent[] = [];
+		let fileIndex = 0;
 
-		for (let index = 0; index < filesLength; index++) {
-			const file = files[index];
+		for (const file of files) {
+			fileIndex++;
+
 			const { data, name } = file;
-
 			const blob = new Blob([
 				data,
 			]);
 
-			formData.append(`files[${index}]`, blob, name);
-			attachments.push({
+			formData.append(`files[${fileIndex}]`, blob, name);
+
+			options.attachments ??= [];
+			options.attachments.push({
 				filename: name,
 				// @ts-expect-error
-				id: index,
+				id: fileIndex,
 			});
 		}
 
-		formData.append(
-			"payload_json",
-			JSON.stringify({
-				...options,
-				attachments,
-			}),
-		);
+		formData.append("payload_json", JSON.stringify(options));
 
 		return formData;
 	}
