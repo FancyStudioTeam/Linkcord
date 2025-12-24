@@ -74,9 +74,9 @@ export class GatewayManager {
 	async init(): Promise<void> {
 		const { client } = this;
 		const { rest } = client;
-		const { gateway } = rest;
+		const { api } = rest;
 
-		const { sessionStartLimit, shards: shardCount, url } = await gateway.getGatewayBot();
+		const { sessionStartLimit, shards: shardCount, url } = await api.getGatewayBot();
 		const { remaining, total } = sessionStartLimit;
 
 		this.#shardsToSpawn = shardCount;
