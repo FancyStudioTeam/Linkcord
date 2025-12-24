@@ -23,11 +23,11 @@ export interface CreateMessageOptions {
 	embeds?: Embed[];
 	enforceNonce?: boolean;
 	files?: File[];
-	flags?: MessageFlags[];
+	flags?: MessageFlagsResolvable;
 	messageReference?: MessageReference;
 	nonce?: number | string;
 	poll?: MessagePoll;
-	stickers?: Snowflake[];
+	stickers?: StickerResolvable[];
 	tts?: boolean;
 }
 
@@ -69,3 +69,13 @@ export interface GetMessageReactionsOptions {
 	limit?: number;
 	type?: ReactionType;
 }
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#create-message-jsonform-params
+ */
+export type MessageFlagsResolvable = MessageFlags[] | number;
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#create-message-jsonform-params
+ */
+export type StickerResolvable = Snowflake;
