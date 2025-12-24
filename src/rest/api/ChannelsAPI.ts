@@ -1,5 +1,5 @@
 import { CHANNEL_MESSAGES_ENDPOINT } from "#rest/endpoints/Endpoints.js";
-import { type File, type MakeRequestOptions, RESTContentType, RESTMethod } from "#rest/structures/RESTManager.types.js";
+import { type File, type MakeRequestOptions, RESTMethod } from "#rest/structures/RESTManager.types.js";
 import { Message } from "#structures/Message.js";
 import { serializeCreateMessageOptions } from "#transformers/Messages/REST.js";
 import type {
@@ -12,8 +12,11 @@ import type {
 import { BaseAPI } from "./BaseAPI.js";
 
 export class ChannelsAPI extends BaseAPI {
+	/**
+	 * @see https://discord.com/developers/docs/reference#uploading-files
+	 */
 	#appendToForm(options: RESTPostAPIMessageJSONParams, files: File[]): FormData {
-		const form = new FormData();
+		const formData = new FormData();
 
 		const { length: filesLength } = files;
 		const attachments: APIPartialAttachent[] = [];
@@ -26,7 +29,7 @@ export class ChannelsAPI extends BaseAPI {
 				data,
 			]);
 
-			form.append(`files[${index}]`, blob, name);
+			formData.append(`files[${index}]`, blob, name);
 			attachments.push({
 				filename: name,
 				// @ts-expect-error
@@ -34,7 +37,7 @@ export class ChannelsAPI extends BaseAPI {
 			});
 		}
 
-		form.append(
+		formData.append(
 			"payload_json",
 			JSON.stringify({
 				...options,
@@ -42,7 +45,7 @@ export class ChannelsAPI extends BaseAPI {
 			}),
 		);
 
-		return form;
+		return formData;
 	}
 
 	/**
@@ -57,18 +60,9 @@ export class ChannelsAPI extends BaseAPI {
 		const serializedOptions = serializeCreateMessageOptions(options);
 
 		const requestOptions: MakeRequestOptions = {
+			body: files && filesLength ? this.#appendToForm(serializedOptions, files) : JSON.stringify(serializedOptions),
 			method: RESTMethod.Post,
 		};
-
-		if (files && filesLength) {
-			const form = this.#appendToForm(serializedOptions, files);
-
-			requestOptions.body = form;
-			requestOptions.contentType = RESTContentType.MultipartFormData;
-		} else {
-			requestOptions.body = JSON.stringify(serializeCreateMessageOptions);
-			requestOptions.contentType = RESTContentType.ApplicationJSON;
-		}
 
 		const messageResponseData = await rest.makeRequest<RESTPostAPIMessage>(CHANNEL_MESSAGES_ENDPOINT(channelId), requestOptions);
 		const messageData = new Message(client, messageResponseData);

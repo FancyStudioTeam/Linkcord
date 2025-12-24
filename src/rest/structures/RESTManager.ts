@@ -3,7 +3,7 @@ import { normalizeRoute } from "#rest/functions/normalizeRoute.js";
 import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
 import { APIManager } from "./APIManager.js";
 import { BucketManager } from "./BucketManager.js";
-import { type MakeRequestOptions, RESTContentType } from "./RESTManager.types.js";
+import { type MakeRequestOptions, RESTMethod } from "./RESTManager.types.js";
 
 const NO_CONTENT_STATUS_CODE = 204;
 
@@ -22,10 +22,8 @@ export class RESTManager {
 	static REST_VERSION = 10 as const;
 
 	#createRequestHeaders(options?: CreateRequestHeadersOptions): Headers {
-		const { contentType = RESTContentType.ApplicationJSON, withAuthorization = true } = options ?? {};
+		const { withAuthorization = true } = options ?? {};
 		const headers = new Headers();
-
-		headers.set("Content-Type", contentType);
 
 		if (withAuthorization) {
 			const { client } = this;
@@ -44,10 +42,24 @@ export class RESTManager {
 		return requestUrl;
 	}
 
+	#getRequestBody(options: MakeRequestOptions): BodyInit | undefined {
+		const { method } = options;
+
+		const isDeleteMethod = method === RESTMethod.Delete;
+		const isGetMethod = method === RESTMethod.Get;
+
+		if (isDeleteMethod || isGetMethod) return;
+
+		const { body } = options;
+
+		return body;
+	}
+
 	makeRequest<Result>(endpoint: string, options: MakeRequestOptions): Promise<Result> {
 		const { method } = options;
 		const { buckets } = this;
 
+		const body = this.#getRequestBody(options);
 		const headers = this.#createRequestHeaders(options);
 		const requestUrl = this.#createRequestUrl(endpoint);
 
@@ -58,7 +70,9 @@ export class RESTManager {
 			bucket.enqueue(async () => {
 				try {
 					const response = await fetch(requestUrl, {
+						body,
 						headers,
+						method,
 					});
 
 					const { headers: responseHeaders, status: responseStatus } = response;
@@ -82,4 +96,4 @@ export class RESTManager {
 	}
 }
 
-type CreateRequestHeadersOptions = Pick<MakeRequestOptions, "contentType" | "withAuthorization">;
+type CreateRequestHeadersOptions = Pick<MakeRequestOptions, "withAuthorization">;
