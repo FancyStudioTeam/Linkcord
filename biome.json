@@ -93,7 +93,7 @@
 								}
 							}
 						],
-						"strictCase": true
+						"strictCase": false
 					}
 				},
 				"useNodejsImportProtocol": "error",
