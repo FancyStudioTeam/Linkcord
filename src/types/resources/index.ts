@@ -14,3 +14,4 @@ export * from './Polls/index.js';
 export * from './Stickers/index.js';
 export * from './Users/index.js';
 export * from './Voice/index.js';
+export * from './Webhooks/index.js';
