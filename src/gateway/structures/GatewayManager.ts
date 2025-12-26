@@ -1,9 +1,9 @@
-import dedent from "string-dedent";
-import { type Client, ClientEvents } from "#client/index.js";
-import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
-import { Collection } from "#utils/index.js";
-import { GatewayShard } from "./GatewayShard.js";
-import { GatewayShardStatus } from "./GatewayShard.types.js";
+import dedent from 'string-dedent';
+import { type Client, ClientEvents } from '#client/index.js';
+import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
+import { Collection } from '#utils/index.js';
+import { GatewayShard } from './GatewayShard.js';
+import { GatewayShardStatus } from './GatewayShard.types.js';
 
 export class GatewayManager {
 	#shardsToSpawn = 0;
@@ -12,11 +12,11 @@ export class GatewayManager {
 	declare readonly shards: Collection<number, GatewayShard>;
 
 	constructor(client: Client) {
-		defineReadonlyProperty(this, "client", client);
-		defineReadonlyProperty(this, "shards", new Collection());
+		defineReadonlyProperty(this, 'client', client);
+		defineReadonlyProperty(this, 'shards', new Collection());
 	}
 
-	static GATEWAY_URL_BASE = "wss://gateway.discord.gg" as const;
+	static GATEWAY_URL_BASE = 'wss://gateway.discord.gg' as const;
 	static GATEWAY_VERSION = 10 as const;
 
 	get averageLatency(): number {
@@ -95,10 +95,10 @@ export class GatewayManager {
 		`;
 
 		client.debug(gatewayInformation, {
-			label: "Gateway Manager",
+			label: 'Gateway Manager',
 		});
 		client.debug(sessionStartLimitInformation, {
-			label: "Gateway Manager",
+			label: 'Gateway Manager',
 		});
 
 		for (let shardId = 0; shardId < shardCount; shardId++) {

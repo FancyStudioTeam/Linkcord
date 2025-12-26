@@ -1,1 +1,1 @@
-export * from "./Collection.js";
+export * from './Collection.js';

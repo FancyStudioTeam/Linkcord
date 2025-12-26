@@ -1,7 +1,7 @@
-import type { Snowflake } from "#types/miscellaneous/discord.js";
-import type { ChannelType } from "#types/resources/Channels/enums.js";
-import type { PartialEmoji } from "#types/resources/Emojis/index.js";
-import type { ButtonStyle, ComponentType, SelectMenuDefaultValueType, SeparatorSpacingSize, TextInputStyle } from "../enums.js";
+import type { Snowflake } from '#types/miscellaneous/discord.js';
+import type { ChannelType } from '#types/resources/Channels/enums.js';
+import type { PartialEmoji } from '#types/resources/Emojis/index.js';
+import type { ButtonStyle, ComponentType, SelectMenuDefaultValueType, SeparatorSpacingSize, TextInputStyle } from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-structure

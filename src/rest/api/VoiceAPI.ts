@@ -1,8 +1,8 @@
-import { VOICE_REGIONS_ENDPOINT } from "#rest/endpoints/Endpoints.js";
-import { RESTMethod } from "#rest/structures/RESTManager.types.js";
-import { deserializeVoiceRegionsArray } from "#transformers/Voice/Deserializer.js";
-import type { RESTGetAPIVoiceRegions, VoiceRegion } from "#types/index.js";
-import { BaseAPI } from "./BaseAPI.js";
+import { VOICE_REGIONS_ENDPOINT } from '#rest/endpoints/Endpoints.js';
+import { RESTMethod } from '#rest/structures/RESTManager.types.js';
+import { deserializeVoiceRegionsArray } from '#transformers/Voice/Deserializer.js';
+import type { RESTGetAPIVoiceRegions, VoiceRegion } from '#types/index.js';
+import { BaseAPI } from './BaseAPI.js';
 
 export class VoiceAPI extends BaseAPI {
 	/**

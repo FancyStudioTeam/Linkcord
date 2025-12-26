@@ -1,13 +1,13 @@
-import type { Localizations, Snowflake } from "#types/miscellaneous/discord.js";
-import type { ApplicationIntegrationType } from "#types/resources/Applications/enums.js";
-import type { ChannelType } from "#types/resources/Channels/enums.js";
-import type { InteractionContextType } from "#types/resources/Interactions/enums.js";
+import type { Localizations, Snowflake } from '#types/miscellaneous/discord.js';
+import type { ApplicationIntegrationType } from '#types/resources/Applications/enums.js';
+import type { ChannelType } from '#types/resources/Channels/enums.js';
+import type { InteractionContextType } from '#types/resources/Interactions/enums.js';
 import type {
 	ApplicationCommandOptionType,
 	ApplicationCommandPermissionType,
 	ApplicationCommandType,
 	EntryPointCommandHandlerType,
-} from "../enums.js";
+} from '../enums.js';
 
 /**
  * Represents an application command for chat inputs.

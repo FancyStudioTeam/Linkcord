@@ -2,9 +2,9 @@
  * @see https://discord.com/developers/docs/resources/message#allowed-mentions-object-allowed-mention-types
  */
 export enum AllowedMentionType {
-	Everyone = "everyone",
-	Roles = "roles",
-	Users = "users",
+	Everyone = 'everyone',
+	Roles = 'roles',
+	Users = 'users',
 }
 
 /**
@@ -18,13 +18,13 @@ export enum AttachmentFlags {
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-types
  */
 export enum EmbedType {
-	Article = "article",
-	GifV = "gifv",
-	Image = "image",
-	Link = "link",
-	PollResult = "poll_result",
-	Rich = "rich",
-	Video = "video",
+	Article = 'article',
+	GifV = 'gifv',
+	Image = 'image',
+	Link = 'link',
+	PollResult = 'poll_result',
+	Rich = 'rich',
+	Video = 'video',
 }
 
 /**

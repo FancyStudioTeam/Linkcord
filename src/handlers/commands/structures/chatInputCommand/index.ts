@@ -1,2 +1,2 @@
-export * from "./ChatInputCommandHandler.js";
-export * from "./ChatInputCommandHandler.types.js";
+export * from './ChatInputCommandHandler.js';
+export * from './ChatInputCommandHandler.types.js';

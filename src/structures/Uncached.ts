@@ -1,4 +1,4 @@
-import type { Snowflake } from "#types/index.js";
+import type { Snowflake } from '#types/index.js';
 
 export class Uncached {
 	/** The ID of the uncached entity. */

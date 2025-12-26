@@ -1,8 +1,8 @@
-import { UserFlags } from "#types/index.js";
-import { BitFieldResolver } from "../BitFieldResolver.js";
+import { UserFlags } from '#types/index.js';
+import { BitFieldResolver } from '../BitFieldResolver.js';
 
-describe("Method: BitFieldResolver.remove", () => {
-	it("Should remove the provided bits from the bit field", () => {
+describe('Method: BitFieldResolver.remove', () => {
+	it('Should remove the provided bits from the bit field', () => {
 		const bitFieldResolver1 = new BitFieldResolver();
 		const bitFieldResolver2 = new BitFieldResolver(UserFlags.ActiveDeveloper);
 		const bitFieldResolver3 = new BitFieldResolver(UserFlags.ActiveDeveloper | UserFlags.Staff);

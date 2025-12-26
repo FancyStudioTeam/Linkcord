@@ -1,4 +1,4 @@
-import type { ClientEvents, ClientEventsMap } from "#client/structures/index.js";
+import type { ClientEvents, ClientEventsMap } from '#client/structures/index.js';
 
 export interface AddEventListenerOptions {
 	once?: boolean;

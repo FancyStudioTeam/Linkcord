@@ -1,6 +1,6 @@
-import type { Snowflake } from "#types/miscellaneous/discord.js";
-import type { OAuth2Scopes } from "#types/resources/OAuth2/enums.js";
-import type { ActivityLocationKind, ApplicationIntegrationType } from "../enums.js";
+import type { Snowflake } from '#types/miscellaneous/discord.js';
+import type { OAuth2Scopes } from '#types/resources/OAuth2/enums.js';
+import type { ActivityLocationKind, ApplicationIntegrationType } from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/application#get-application-activity-instance-activity-location-object

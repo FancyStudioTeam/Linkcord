@@ -1,6 +1,6 @@
-import type { Snowflake } from "#types/miscellaneous/discord.js";
-import type { APIUser } from "#types/resources/Users/index.js";
-import type { StickerFormatType, StickerType } from "../enums.js";
+import type { Snowflake } from '#types/miscellaneous/discord.js';
+import type { APIUser } from '#types/resources/Users/index.js';
+import type { StickerFormatType, StickerType } from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-structure

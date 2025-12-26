@@ -1,14 +1,14 @@
-import { serializeMessageComponentsArray } from "#transformers/Components/Serializer.js";
+import { serializeMessageComponentsArray } from '#transformers/Components/Serializer.js';
 import type {
 	CreateMessageOptions,
 	MessageFlagsResolvable,
 	RESTPostAPIMessageJSONParams,
 	Snowflake,
 	StickerResolvable,
-} from "#types/index.js";
-import { isArray } from "#utils/helpers/AssertionUtils.js";
-import { BitFieldResolver } from "#utils/index.js";
-import { serializeEmbedsArray } from "./Serializer.js";
+} from '#types/index.js';
+import { isArray } from '#utils/helpers/AssertionUtils.js';
+import { BitFieldResolver } from '#utils/index.js';
+import { serializeEmbedsArray } from './Serializer.js';
 
 export function normalizeMessageFlags(messageFlags: MessageFlagsResolvable): number {
 	if (isArray(messageFlags)) {

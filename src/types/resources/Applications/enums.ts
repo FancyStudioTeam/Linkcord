@@ -2,8 +2,8 @@
  * @see https://discord.com/developers/docs/resources/application#get-application-activity-instance-activity-location-kind-enum
  */
 export enum ActivityLocationKind {
-	GuildChannel = "gc",
-	PrivateChannel = "pc",
+	GuildChannel = 'gc',
+	PrivateChannel = 'pc',
 }
 
 /**
@@ -27,16 +27,16 @@ export enum ApplicationEventWebhookStatus {
  * @see https://discord.com/developers/docs/events/webhook-events#event-types
  */
 export enum ApplicationEventWebhookType {
-	ApplicationAuthorized = "APPLICATION_AUTHORIZED",
-	ApplicationDeauthorized = "APPLICATION_DEAUTHORIZED",
-	EntitlementCreate = "ENTITLEMENT_CREATE",
-	GameDirectMessageCreate = "GAME_DIRECT_MESSAGE_CREATE",
-	GameDirectMessageDelete = "GAME_DIRECT_MESSAGE_DELETE",
-	GameDirectMessageUpdate = "GAME_DIRECT_MESSAGE_UPDATE",
-	LobbyMessageCreate = "LOBBY_MESSAGE_CREATE",
-	LobbyMessageDelete = "LOBBY_MESSAGE_DELETE",
-	LobbyMessageUpdate = "LOBBY_MESSAGE_UPDATE",
-	QuestUserEnrollment = "QUEST_USER_ENROLLMENT",
+	ApplicationAuthorized = 'APPLICATION_AUTHORIZED',
+	ApplicationDeauthorized = 'APPLICATION_DEAUTHORIZED',
+	EntitlementCreate = 'ENTITLEMENT_CREATE',
+	GameDirectMessageCreate = 'GAME_DIRECT_MESSAGE_CREATE',
+	GameDirectMessageDelete = 'GAME_DIRECT_MESSAGE_DELETE',
+	GameDirectMessageUpdate = 'GAME_DIRECT_MESSAGE_UPDATE',
+	LobbyMessageCreate = 'LOBBY_MESSAGE_CREATE',
+	LobbyMessageDelete = 'LOBBY_MESSAGE_DELETE',
+	LobbyMessageUpdate = 'LOBBY_MESSAGE_UPDATE',
+	QuestUserEnrollment = 'QUEST_USER_ENROLLMENT',
 }
 
 /**

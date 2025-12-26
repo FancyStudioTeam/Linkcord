@@ -1,9 +1,9 @@
-import type { Client } from "#client/index.js";
-import { normalizeRoute } from "#rest/functions/normalizeRoute.js";
-import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
-import { APIManager } from "./APIManager.js";
-import { BucketManager } from "./BucketManager.js";
-import { type MakeRequestOptions, RESTMethod } from "./RESTManager.types.js";
+import type { Client } from '#client/index.js';
+import { normalizeRoute } from '#rest/functions/normalizeRoute.js';
+import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
+import { APIManager } from './APIManager.js';
+import { BucketManager } from './BucketManager.js';
+import { type MakeRequestOptions, RESTMethod } from './RESTManager.types.js';
 
 const NO_CONTENT_STATUS_CODE = 204;
 
@@ -13,12 +13,12 @@ export class RESTManager {
 	declare readonly client: Client;
 
 	constructor(client: Client) {
-		defineReadonlyProperty(this, "api", new APIManager(this, client));
-		defineReadonlyProperty(this, "buckets", new BucketManager());
-		defineReadonlyProperty(this, "client", client);
+		defineReadonlyProperty(this, 'api', new APIManager(this, client));
+		defineReadonlyProperty(this, 'buckets', new BucketManager());
+		defineReadonlyProperty(this, 'client', client);
 	}
 
-	static REST_URL_BASE = "https://discord.com/api" as const;
+	static REST_URL_BASE = 'https://discord.com/api' as const;
 	static REST_VERSION = 10 as const;
 
 	#createRequestHeaders(options?: CreateRequestHeadersOptions): Headers {
@@ -29,7 +29,7 @@ export class RESTManager {
 			const { client } = this;
 			const { token } = client;
 
-			headers.set("Authorization", `Bot ${token}`);
+			headers.set('Authorization', `Bot ${token}`);
 		}
 
 		return headers;
@@ -96,4 +96,4 @@ export class RESTManager {
 	}
 }
 
-type CreateRequestHeadersOptions = Pick<MakeRequestOptions, "withAuthorization">;
+type CreateRequestHeadersOptions = Pick<MakeRequestOptions, 'withAuthorization'>;

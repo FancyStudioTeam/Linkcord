@@ -1,17 +1,17 @@
-import { join } from "node:path";
-import { cwd } from "node:process";
-import { EnsureInitialized } from "#client/decorators/EnsureInitialized.js";
-import { ClientError } from "#client/errors/ClientError.js";
+import { join } from 'node:path';
+import { cwd } from 'node:process';
+import { EnsureInitialized } from '#client/decorators/EnsureInitialized.js';
+import { ClientError } from '#client/errors/ClientError.js';
 import {
 	getConfigurationOptions,
 	initializeConfigurationOptions,
 	isConfigurationInitialized,
-} from "#configuration/helpers/ConfigurationUtils.js";
-import { CommandLoader } from "#handlers/commands/loaders/CommandLoader.js";
-import { EventLoader } from "#handlers/events/loaders/EventLoader.js";
-import type { Snowflake } from "#types/index.js";
-import { castSnowflake } from "#utils/index.js";
-import type { Client } from "./Client/Client.js";
+} from '#configuration/helpers/ConfigurationUtils.js';
+import { CommandLoader } from '#handlers/commands/loaders/CommandLoader.js';
+import { EventLoader } from '#handlers/events/loaders/EventLoader.js';
+import type { Snowflake } from '#types/index.js';
+import { castSnowflake } from '#utils/index.js';
+import type { Client } from './Client/Client.js';
 
 export class ClientBase {
 	/**
@@ -25,7 +25,7 @@ export class ClientBase {
 	get applicationId(): Snowflake {
 		const { token } = this;
 
-		const [encodedApplicationId] = token.split(".");
+		const [encodedApplicationId] = token.split('.');
 		const decodedApplicationId = atob(encodedApplicationId);
 
 		return castSnowflake(decodedApplicationId);
@@ -73,7 +73,7 @@ export class ClientBase {
 		const isInitialized = isConfigurationInitialized();
 
 		if (!isInitialized) {
-			throw new ClientError("Client has not been initialized yet");
+			throw new ClientError('Client has not been initialized yet');
 		}
 	}
 
@@ -81,7 +81,7 @@ export class ClientBase {
 		const isInitialized = isConfigurationInitialized();
 
 		if (isInitialized) {
-			throw new ClientError("Client has already been initialized");
+			throw new ClientError('Client has already been initialized');
 		}
 
 		await initializeConfigurationOptions();

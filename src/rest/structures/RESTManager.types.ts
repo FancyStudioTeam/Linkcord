@@ -35,15 +35,15 @@ export type MakePutRequestOptions = MakeMutableRequestOptions<RESTMethod.Put>;
 export type MutableMethod = RESTMethod.Patch | RESTMethod.Post | RESTMethod.Put;
 
 export enum RESTContentType {
-	ApplicationJSON = "application/json",
-	ApplicationXWWWFormURLEncoded = "application/x-www-form-urlencoded",
-	MultipartFormData = "multipart/form-data",
+	ApplicationJSON = 'application/json',
+	ApplicationXWWWFormURLEncoded = 'application/x-www-form-urlencoded',
+	MultipartFormData = 'multipart/form-data',
 }
 
 export enum RESTMethod {
-	Delete = "DELETE",
-	Get = "GET",
-	Patch = "PATCH",
-	Post = "POST",
-	Put = "PUT",
+	Delete = 'DELETE',
+	Get = 'GET',
+	Patch = 'PATCH',
+	Post = 'POST',
+	Put = 'PUT',
 }

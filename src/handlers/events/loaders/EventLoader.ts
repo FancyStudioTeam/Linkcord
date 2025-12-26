@@ -1,23 +1,23 @@
-import type { Dirent } from "node:fs";
-import { glob } from "node:fs/promises";
-import { basename } from "node:path";
-import { emitWarning } from "node:process";
-import type { Client, ClientEvents } from "#client/index.js";
-import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
-import { importFile, resolvePath } from "#utils/helpers/ImportUtils.js";
-import type { EventConfig, EventHandler } from "./EventLoader.types.js";
+import type { Dirent } from 'node:fs';
+import { glob } from 'node:fs/promises';
+import { basename } from 'node:path';
+import { emitWarning } from 'node:process';
+import type { Client, ClientEvents } from '#client/index.js';
+import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
+import { importFile, resolvePath } from '#utils/helpers/ImportUtils.js';
+import type { EventConfig, EventHandler } from './EventLoader.types.js';
 
 export class EventLoader {
 	declare readonly client: Client;
 	declare readonly eventsFolderPath: string;
 
 	constructor(eventsFolderPath: string, client: Client) {
-		defineReadonlyProperty(this, "client", client);
-		defineReadonlyProperty(this, "eventsFolderPath", eventsFolderPath);
+		defineReadonlyProperty(this, 'client', client);
+		defineReadonlyProperty(this, 'eventsFolderPath', eventsFolderPath);
 	}
 
 	static EVENTS_GLOB_PATTERNS = [
-		"**/*.event.{js,mjs,cjs,jsx,ts,mts,cts,tsx}",
+		'**/*.event.{js,mjs,cjs,jsx,ts,mts,cts,tsx}',
 	] as const;
 
 	async #getEventFilePaths(): Promise<Dirent<string>[]> {
@@ -27,7 +27,7 @@ export class EventLoader {
 		const filePathsAsyncGenerator = glob(EVENTS_GLOB_PATTERNS, {
 			cwd: eventsFolderPath,
 			exclude: [
-				"node_modules",
+				'node_modules',
 			],
 			withFileTypes: true,
 		});
@@ -42,8 +42,8 @@ export class EventLoader {
 		const resolvedEventFilePath = resolvePath(eventFileParentPath, eventFileName);
 		const importedEventFileData = await importFile<ImportedEventFileData>(resolvedEventFilePath, {
 			requiredExports: [
-				"config",
-				"handler",
+				'config',
+				'handler',
 			],
 		});
 
@@ -67,8 +67,8 @@ export class EventLoader {
 		const warningMessage = `Event file '${fileName}' is disabled and will be ignored from the event handler`;
 
 		emitWarning(warningMessage, {
-			code: "EVENT_HANDLER",
-			type: "Disabled Event Warning",
+			code: 'EVENT_HANDLER',
+			type: 'Disabled Event Warning',
 		});
 	}
 

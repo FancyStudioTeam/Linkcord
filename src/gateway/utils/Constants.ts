@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/style/noMagicNumbers: (x) */
 
-import { GatewayCloseEventCodes, GatewayOpcodes } from "#types/index.js";
+import { GatewayCloseEventCodes, GatewayOpcodes } from '#types/index.js';
 
 /**
  * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes

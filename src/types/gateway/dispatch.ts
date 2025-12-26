@@ -1,7 +1,7 @@
-import type { APIVersion, Snowflake } from "#types/miscellaneous/discord.js";
-import type { APIGatewayApplication, APIMessage, APIUnavailableGuild, APIUser } from "#types/resources/index.js";
-import type { GatewayDispatchEvents } from "./enums.js";
-import type { GatewayEventDispatchBase } from "./events.js";
+import type { APIVersion, Snowflake } from '#types/miscellaneous/discord.js';
+import type { APIGatewayApplication, APIMessage, APIUnavailableGuild, APIUser } from '#types/resources/index.js';
+import type { GatewayDispatchEvents } from './enums.js';
+import type { GatewayEventDispatchBase } from './events.js';
 
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#message-create-message-create-extra-fields

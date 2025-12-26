@@ -1,5 +1,5 @@
-import type { GatewayDispatchMessageCreateEvent, GatewayDispatchReadyEvent } from "./dispatch.js";
-import type { GatewayDispatchEvents, GatewayOpcodes } from "./enums.js";
+import type { GatewayDispatchMessageCreateEvent, GatewayDispatchReadyEvent } from './dispatch.js';
+import type { GatewayDispatchEvents, GatewayOpcodes } from './enums.js';
 
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#payload-structure
@@ -71,7 +71,7 @@ export type GatewayEvent = GatewayReceiveEvent | GatewaySendEvent;
 /**
  * @see https://discord.com/developers/docs/events/gateway#heartbeat-interval-example-heartbeat-ack
  */
-export type GatewayHeartbeatAckEvent = Omit<GatewayEventBase<GatewayOpcodes.HeartbeatAck, GatewayHeartbeatAckEventPayload>, "d">;
+export type GatewayHeartbeatAckEvent = Omit<GatewayEventBase<GatewayOpcodes.HeartbeatAck, GatewayHeartbeatAckEventPayload>, 'd'>;
 
 /**
  * @see https://discord.com/developers/docs/events/gateway#heartbeat-interval-example-heartbeat-ack

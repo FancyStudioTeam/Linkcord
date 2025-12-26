@@ -1,5 +1,5 @@
-import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
-import type { APIVoiceRegion, APIVoiceState } from "../structures/raw.js";
+import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
+import type { APIVoiceRegion, APIVoiceState } from '../structures/raw.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/voice#modify-current-user-voice-state-json-params

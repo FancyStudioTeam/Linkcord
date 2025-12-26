@@ -1,5 +1,5 @@
-import type { Snowflake } from "#types/miscellaneous/discord.js";
-import type { RoleFlags } from "../enums.js";
+import type { Snowflake } from '#types/miscellaneous/discord.js';
+import type { RoleFlags } from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/topics/permissions#role-object-role-structure

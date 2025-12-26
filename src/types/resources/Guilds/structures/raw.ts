@@ -1,7 +1,7 @@
-import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
-import type { OAuth2Scopes } from "#types/resources/OAuth2/enums.js";
-import type { APIAvatarDecorationData, APIUser } from "#types/resources/Users/index.js";
-import type { GuildMemberFlags, IntegrationExpireBehavior, IntegrationType } from "../enums.js";
+import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
+import type { OAuth2Scopes } from '#types/resources/OAuth2/enums.js';
+import type { APIAvatarDecorationData, APIUser } from '#types/resources/Users/index.js';
+import type { GuildMemberFlags, IntegrationExpireBehavior, IntegrationType } from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-structure

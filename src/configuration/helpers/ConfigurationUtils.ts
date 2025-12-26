@@ -1,16 +1,16 @@
-import { existsSync } from "node:fs";
-import { join } from "node:path";
-import { cwd } from "node:process";
-import type { LinkcordOptions } from "#configuration/functions/defineConfig.types.js";
-import { importFile, resolvePath } from "#utils/helpers/ImportUtils.js";
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { cwd } from 'node:process';
+import type { LinkcordOptions } from '#configuration/functions/defineConfig.types.js';
+import { importFile, resolvePath } from '#utils/helpers/ImportUtils.js';
 
 const CONFIGURATION_FILE_EXTENSIONS = [
-	"js",
-	"cjs",
-	"mjs",
-	"ts",
-	"cts",
-	"mts",
+	'js',
+	'cjs',
+	'mjs',
+	'ts',
+	'cts',
+	'mts',
 ] as const;
 // @ts-expect-error
 const CONFIGURATION_OPTIONS: LinkcordOptions = {};
@@ -47,8 +47,8 @@ export async function initializeConfigurationOptions(workingDirectory = cwd()): 
 }
 
 export function isConfigurationInitialized() {
-	const isTokenOptionAvailable = Reflect.has(CONFIGURATION_OPTIONS, "token");
-	const isIntentsOptionAvailable = Reflect.has(CONFIGURATION_OPTIONS, "intents");
+	const isTokenOptionAvailable = Reflect.has(CONFIGURATION_OPTIONS, 'token');
+	const isIntentsOptionAvailable = Reflect.has(CONFIGURATION_OPTIONS, 'intents');
 
 	return isTokenOptionAvailable && isIntentsOptionAvailable;
 }

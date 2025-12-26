@@ -1,2 +1,2 @@
-export * from "./defineEventConfig.js";
-export * from "./defineEventConfig.types.js";
+export * from './defineEventConfig.js';
+export * from './defineEventConfig.types.js';

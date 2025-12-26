@@ -1,5 +1,5 @@
-import { setTimeout } from "node:timers/promises";
-import { ONE_SECOND_MILLISECONDS } from "#utils/Constants.js";
+import { setTimeout } from 'node:timers/promises';
+import { ONE_SECOND_MILLISECONDS } from '#utils/Constants.js';
 
 export class Bucket {
 	readonly #queue: RequestFunction[] = [];
@@ -58,8 +58,8 @@ export class Bucket {
 	}
 
 	update(headers: Headers): void {
-		const remaining = headers.get("X-RateLimit-Remaining");
-		const resetAfter = headers.get("X-RateLimit-Reset-After");
+		const remaining = headers.get('X-RateLimit-Remaining');
+		const resetAfter = headers.get('X-RateLimit-Reset-After');
 
 		this.#remaining = Number(remaining);
 		this.#resetAfter = Number(resetAfter);

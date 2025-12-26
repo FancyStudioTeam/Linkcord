@@ -1,5 +1,5 @@
-import type { Snowflake } from "#types/miscellaneous/discord.js";
-import type { ChannelOverwriteType } from "../enums.js";
+import type { Snowflake } from '#types/miscellaneous/discord.js';
+import type { ChannelOverwriteType } from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure

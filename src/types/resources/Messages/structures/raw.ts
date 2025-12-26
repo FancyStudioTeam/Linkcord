@@ -1,12 +1,12 @@
-import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
-import type { ApplicationIntegrationType } from "#types/resources/Applications/enums.js";
-import type { ChannelType } from "#types/resources/Channels/enums.js";
-import type { APIMessageComponents } from "#types/resources/Components/index.js";
-import type { APIPartialEmoji } from "#types/resources/Emojis/index.js";
-import type { InteractionType } from "#types/resources/Interactions/enums.js";
-import type { APIPoll } from "#types/resources/Polls/index.js";
-import type { APIStickerItem } from "#types/resources/Stickers/structures/raw.js";
-import type { APIUser } from "#types/resources/Users/index.js";
+import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
+import type { ApplicationIntegrationType } from '#types/resources/Applications/enums.js';
+import type { ChannelType } from '#types/resources/Channels/enums.js';
+import type { APIMessageComponents } from '#types/resources/Components/index.js';
+import type { APIPartialEmoji } from '#types/resources/Emojis/index.js';
+import type { InteractionType } from '#types/resources/Interactions/enums.js';
+import type { APIPoll } from '#types/resources/Polls/index.js';
+import type { APIStickerItem } from '#types/resources/Stickers/structures/raw.js';
+import type { APIUser } from '#types/resources/Users/index.js';
 import type {
 	AllowedMentionType,
 	AttachmentFlags,
@@ -15,7 +15,7 @@ import type {
 	MessageFlags,
 	MessageReferenceType,
 	MessageType,
-} from "../enums.js";
+} from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/message#allowed-mentions-object
@@ -248,17 +248,17 @@ export interface APIMessageReference {
 export interface APIMessageSnapshot {
 	message: Pick<
 		APIMessage,
-		| "attachments"
-		| "components"
-		| "content"
-		| "edited_timestamp"
-		| "embeds"
-		| "flags"
-		| "mention_roles"
-		| "mentions"
-		| "sticker_items"
-		| "timestamp"
-		| "type"
+		| 'attachments'
+		| 'components'
+		| 'content'
+		| 'edited_timestamp'
+		| 'embeds'
+		| 'flags'
+		| 'mention_roles'
+		| 'mentions'
+		| 'sticker_items'
+		| 'timestamp'
+		| 'type'
 	>;
 }
 

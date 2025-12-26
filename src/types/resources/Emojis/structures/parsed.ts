@@ -1,4 +1,4 @@
-import type { Snowflake } from "#types/miscellaneous/discord.js";
+import type { Snowflake } from '#types/miscellaneous/discord.js';
 
 /**
  * Represents a partial emoji.

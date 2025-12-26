@@ -2,9 +2,9 @@
  * @see https://discord.com/developers/docs/topics/teams#team-member-roles-team-member-role-types
  */
 export enum TeamMemberRoleType {
-	Admin = "admin",
-	Developer = "developer",
-	ReadOnly = "read_only",
+	Admin = 'admin',
+	Developer = 'developer',
+	ReadOnly = 'read_only',
 }
 
 /**

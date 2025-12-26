@@ -1,4 +1,4 @@
-import type { Snowflake } from "#types/miscellaneous/discord.js";
+import type { Snowflake } from '#types/miscellaneous/discord.js';
 
 /**
  * @see https://discord.com/developers/docs/topics/permissions#role-object-role-colors-object

@@ -1,2 +1,2 @@
-export * from "./CDNEndpoints.js";
-export * from "./Endpoints.js";
+export * from './CDNEndpoints.js';
+export * from './Endpoints.js';

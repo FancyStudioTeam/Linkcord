@@ -1,4 +1,4 @@
-import type { APIGateway, APIGatewayBot } from "../structures/raw.js";
+import type { APIGateway, APIGatewayBot } from '../structures/raw.js';
 
 /**
  * @see https://discord.com/developers/docs/events/gateway#get-gateway

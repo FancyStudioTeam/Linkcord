@@ -1,7 +1,7 @@
-import type { Client } from "#client/index.js";
-import type { APIEntitlement, APIEntitlementBase, EntitlementType, Snowflake } from "#types/index.js";
-import { isUndefined } from "#utils/helpers/AssertionUtils.js";
-import { Base } from "./Base.js";
+import type { Client } from '#client/index.js';
+import type { APIEntitlement, APIEntitlementBase, EntitlementType, Snowflake } from '#types/index.js';
+import { isUndefined } from '#utils/helpers/AssertionUtils.js';
+import { Base } from './Base.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/entitlement#entitlement-object-entitlement-structure

@@ -1,6 +1,6 @@
-import type { GatewayShard } from "#gateway/index.js";
-import type { Message, User } from "#structures/index.js";
-import type { GatewayEvent } from "#types/index.js";
+import type { GatewayShard } from '#gateway/index.js';
+import type { Message, User } from '#structures/index.js';
+import type { GatewayEvent } from '#types/index.js';
 
 export interface ClientDebugOptions {
 	label?: string;
@@ -68,12 +68,12 @@ export interface ClientWarningEventParams {
 }
 
 export enum ClientEvents {
-	ClientReady = "clientReady",
-	Debug = "debug",
-	MessageCreate = "messageCreate",
-	ShardDisconnected = "shardDisconnected",
-	ShardHello = "shardHello",
-	ShardPacket = "shardPacket",
-	ShardReady = "shardReady",
-	Warn = "warn",
+	ClientReady = 'clientReady',
+	Debug = 'debug',
+	MessageCreate = 'messageCreate',
+	ShardDisconnected = 'shardDisconnected',
+	ShardHello = 'shardHello',
+	ShardPacket = 'shardPacket',
+	ShardReady = 'shardReady',
+	Warn = 'warn',
 }

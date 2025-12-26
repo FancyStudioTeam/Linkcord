@@ -1,6 +1,6 @@
-import type { Snowflake } from "#types/miscellaneous/discord.js";
-import type { EntitlementOwnerType } from "../enums.js";
-import type { APIEntitlement, APITestEntitlement } from "../structures/raw.js";
+import type { Snowflake } from '#types/miscellaneous/discord.js';
+import type { EntitlementOwnerType } from '../enums.js';
+import type { APIEntitlement, APITestEntitlement } from '../structures/raw.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/entitlement#list-entitlements-query-string-params

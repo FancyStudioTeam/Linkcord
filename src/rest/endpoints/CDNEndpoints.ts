@@ -4,7 +4,7 @@
  * endpoints, not conventional camel case functions.
  */
 
-import type { Snowflake } from "#types/index.js";
+import type { Snowflake } from '#types/index.js';
 
 export function APPLICATION_ASSET_ACHIEVEMENT_ICON_ENDPOINT<
 	ApplicationId extends Snowflake,

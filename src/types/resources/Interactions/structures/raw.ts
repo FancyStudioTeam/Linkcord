@@ -1,16 +1,16 @@
-import type { Snowflake } from "#types/miscellaneous/discord.js";
-import type { Locales } from "#types/miscellaneous/enums.js";
-import type { ApplicationCommandType } from "#types/resources/ApplicationCommands/enums.js";
-import type { APIChannel, APIPartialChannel } from "#types/resources/Channels/index.js";
-import type { ComponentType } from "#types/resources/Components/enums.js";
+import type { Snowflake } from '#types/miscellaneous/discord.js';
+import type { Locales } from '#types/miscellaneous/enums.js';
+import type { ApplicationCommandType } from '#types/resources/ApplicationCommands/enums.js';
+import type { APIChannel, APIPartialChannel } from '#types/resources/Channels/index.js';
+import type { ComponentType } from '#types/resources/Components/enums.js';
 import type {
 	APIMessageComponents,
 	APIModalComponents,
 	APISelectMenuComponentType,
 	APIStringSelectMenuOption,
-} from "#types/resources/Components/index.js";
-import type { APIEntitlement } from "#types/resources/Entitlements/index.js";
-import type { APIGuildMember, GuildFeatures } from "#types/resources/Guilds/index.js";
+} from '#types/resources/Components/index.js';
+import type { APIEntitlement } from '#types/resources/Entitlements/index.js';
+import type { APIGuildMember, GuildFeatures } from '#types/resources/Guilds/index.js';
 import type {
 	APIAllowedMentions,
 	APIAttachment,
@@ -18,10 +18,10 @@ import type {
 	APIEmbed,
 	APIMessage,
 	APIPartialMessage,
-} from "#types/resources/Messages/index.js";
-import type { APIRole } from "#types/resources/Permissions/index.js";
-import type { APIUser } from "#types/resources/Users/index.js";
-import type { InteractionContextType, InteractionType } from "../enums.js";
+} from '#types/resources/Messages/index.js';
+import type { APIRole } from '#types/resources/Permissions/index.js';
+import type { APIUser } from '#types/resources/Users/index.js';
+import type { InteractionContextType, InteractionType } from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
@@ -191,30 +191,30 @@ export type APIModalSubmitInteraction = APIInteractionBase<InteractionType.Modal
 export type APIPartialInteractionChannel = Pick<
 	APIChannel,
 	// @ts-expect-error
-	| "flags"
-	| "guild_id"
-	| "id"
-	| "last_message_id"
-	| "last_ping_timestamp"
-	| "name"
-	| "nsfw"
-	| "parent_id"
-	| "permissions"
-	| "position"
-	| "rate_limit_per_user"
-	| "topic"
-	| "type"
+	| 'flags'
+	| 'guild_id'
+	| 'id'
+	| 'last_message_id'
+	| 'last_ping_timestamp'
+	| 'name'
+	| 'nsfw'
+	| 'parent_id'
+	| 'permissions'
+	| 'position'
+	| 'rate_limit_per_user'
+	| 'topic'
+	| 'type'
 >;
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
  */
-export type APIPartialInteractionMember = Omit<APIGuildMember, "deaf" | "mute" | "user">;
+export type APIPartialInteractionMember = Omit<APIGuildMember, 'deaf' | 'mute' | 'user'>;
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
  */
-export type APIPingInteraction = Omit<APIInteractionBase<InteractionType.Ping, never>, "locale">;
+export type APIPingInteraction = Omit<APIInteractionBase<InteractionType.Ping, never>, 'locale'>;
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure

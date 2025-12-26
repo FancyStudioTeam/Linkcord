@@ -1,8 +1,8 @@
-import { UserFlags } from "#types/index.js";
-import { BitFieldResolver } from "../BitFieldResolver.js";
+import { UserFlags } from '#types/index.js';
+import { BitFieldResolver } from '../BitFieldResolver.js';
 
-describe("Method: BitFieldResolver.has", () => {
-	it("Should check whether the provided bit is present in the bit field", () => {
+describe('Method: BitFieldResolver.has', () => {
+	it('Should check whether the provided bit is present in the bit field', () => {
 		const bitFieldResolver = new BitFieldResolver(UserFlags.Staff);
 
 		const result1 = bitFieldResolver.has(UserFlags.Staff);

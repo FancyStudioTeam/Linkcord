@@ -27,6 +27,12 @@
 		"lineEnding": "lf",
 		"lineWidth": 140
 	},
+	"javascript": {
+		"formatter": {
+			"jsxQuoteStyle": "single",
+			"quoteStyle": "single"
+		}
+	},
 	"linter": {
 		"domains": {
 			"project": "all",

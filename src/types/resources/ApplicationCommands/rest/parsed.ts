@@ -1,8 +1,8 @@
-import type { Localizations } from "#types/miscellaneous/discord.js";
-import type { ApplicationIntegrationType } from "#types/resources/Applications/enums.js";
-import type { InteractionContextType } from "#types/resources/Interactions/enums.js";
-import type { ApplicationCommandType, EntryPointCommandHandlerType } from "../enums.js";
-import type { ApplicationCommandOption, ApplicationCommandPermissions } from "../structures/parsed.js";
+import type { Localizations } from '#types/miscellaneous/discord.js';
+import type { ApplicationIntegrationType } from '#types/resources/Applications/enums.js';
+import type { InteractionContextType } from '#types/resources/Interactions/enums.js';
+import type { ApplicationCommandType, EntryPointCommandHandlerType } from '../enums.js';
+import type { ApplicationCommandOption, ApplicationCommandPermissions } from '../structures/parsed.js';
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params

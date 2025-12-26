@@ -1,4 +1,4 @@
-import { isFunction } from "#utils/helpers/AssertionUtils.js";
+import { isFunction } from '#utils/helpers/AssertionUtils.js';
 
 export function EnsureInitialized() {
 	return (_target: object, _propertyKey: string, propertyDescriptor: PropertyDescriptor) => {

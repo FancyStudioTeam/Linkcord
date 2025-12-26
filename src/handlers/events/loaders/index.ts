@@ -1,1 +1,1 @@
-export * from "./EventLoader.types.js";
+export * from './EventLoader.types.js';

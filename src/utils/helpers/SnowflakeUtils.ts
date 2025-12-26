@@ -1,19 +1,19 @@
-import type { Snowflake } from "#types/index.js";
-import { isBigInt, isString } from "./AssertionUtils.js";
-import type { DeconstructedSnowflake } from "./SnowflakeUtils.types.js";
+import type { Snowflake } from '#types/index.js';
+import { isBigInt, isString } from './AssertionUtils.js';
+import type { DeconstructedSnowflake } from './SnowflakeUtils.types.js';
 
 const DISCORD_EPOCH_BIGINT = 1420070400000n;
 const DISCORD_SNOWFLAKE_REGEX = /^(?<id>\d{17,20})$/;
 
 export function castSnowflake<Input extends bigint | number | string>(input: Input): Snowflake {
 	if (!(isBigInt(input) || isString(input))) {
-		throw new TypeError("First parameter (input) from castSnowflake must be a bigint or string");
+		throw new TypeError('First parameter (input) from castSnowflake must be a bigint or string');
 	}
 
 	const snowflakeString = String(input);
 
 	if (!isSnowflake(snowflakeString)) {
-		throw new TypeError("First parameter (input) from castSnowflake does not match Discord Snowflake regex");
+		throw new TypeError('First parameter (input) from castSnowflake does not match Discord Snowflake regex');
 	}
 
 	return snowflakeString;
@@ -24,7 +24,7 @@ export function castSnowflake<Input extends bigint | number | string>(input: Inp
  */
 export function deconstructSnowflake(snowflake: Snowflake): DeconstructedSnowflake {
 	if (!isSnowflake(snowflake)) {
-		throw new TypeError("First parameter (snowflake) from deconstructSnowflake must be a Discord Snowflake");
+		throw new TypeError('First parameter (snowflake) from deconstructSnowflake must be a Discord Snowflake');
 	}
 
 	const snowflakeBigInt = BigInt(snowflake);

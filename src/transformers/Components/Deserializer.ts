@@ -63,7 +63,7 @@ import {
 	type ThumbnailComponent,
 	type UnfurledMediaItem,
 	type UserSelectMenuComponent,
-} from "#types/index.js";
+} from '#types/index.js';
 
 /*
  * TODO: Add "emoji" for component transformers.

@@ -1,2 +1,2 @@
-export * from "./enums.js";
-export * from "./structures/index.js";
+export * from './enums.js';
+export * from './structures/index.js';

@@ -1,22 +1,22 @@
-import { emitWarning, platform } from "node:process";
-import { setTimeout } from "node:timers/promises";
-import { type Client, ClientEvents } from "#client/index.js";
-import { GatewayShardError } from "#gateway/errors/GatewayShardError.js";
-import { getOpcodeName } from "#gateway/functions/getOpcodeName.js";
-import { DispatchHooks } from "#gateway/hooks/index.js";
-import { RECONNECTABLE_CLOSE_EVENT_CODES, SENDABLE_OPCODES } from "#gateway/utils/Constants.js";
+import { emitWarning, platform } from 'node:process';
+import { setTimeout } from 'node:timers/promises';
+import { type Client, ClientEvents } from '#client/index.js';
+import { GatewayShardError } from '#gateway/errors/GatewayShardError.js';
+import { getOpcodeName } from '#gateway/functions/getOpcodeName.js';
+import { DispatchHooks } from '#gateway/hooks/index.js';
+import { RECONNECTABLE_CLOSE_EVENT_CODES, SENDABLE_OPCODES } from '#gateway/utils/Constants.js';
 import {
 	type GatewayDispatchEvent,
 	type GatewayEvent,
 	type GatewayHelloEvent,
 	type GatewayInvalidSessionEvent,
 	GatewayOpcodes,
-} from "#types/index.js";
-import { LINKCORD_AGENT } from "#utils/Constants.js";
-import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
-import { isInstanceOf, isNull, isNumber } from "#utils/helpers/AssertionUtils.js";
-import { GatewayManager } from "./GatewayManager.js";
-import { GatewayShardStatus, type SendableOpcodes, type SendableOpcodesMap } from "./GatewayShard.types.js";
+} from '#types/index.js';
+import { LINKCORD_AGENT } from '#utils/Constants.js';
+import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
+import { isInstanceOf, isNull, isNumber } from '#utils/helpers/AssertionUtils.js';
+import { GatewayManager } from './GatewayManager.js';
+import { GatewayShardStatus, type SendableOpcodes, type SendableOpcodesMap } from './GatewayShard.types.js';
 
 const ABNORMAL_CLOSURE_CLOSE_CODE = 1006;
 const NORMAL_CLOSURE_CLOSE_CODE = 1000;
@@ -46,11 +46,11 @@ export class GatewayShard {
 
 		this.id = id;
 
-		defineReadonlyProperty(this, "client", client);
-		defineReadonlyProperty(this, "manager", manager);
+		defineReadonlyProperty(this, 'client', client);
+		defineReadonlyProperty(this, 'manager', manager);
 	}
 
-	static DEFAULT_BROWSER = "Discord Client" as const;
+	static DEFAULT_BROWSER = 'Discord Client' as const;
 	static DEFAULT_DEVICE = LINKCORD_AGENT;
 	static DEFAULT_OPERATING_SYSTEM = platform;
 
@@ -82,8 +82,8 @@ export class GatewayShard {
 		const urlObject = new URL(baseURL);
 		const { searchParams } = urlObject;
 
-		searchParams.append("encoding", "json");
-		searchParams.append("v", String(GatewayManager.GATEWAY_VERSION));
+		searchParams.append('encoding', 'json');
+		searchParams.append('v', String(GatewayManager.GATEWAY_VERSION));
 
 		return urlObject.toString();
 	}
@@ -111,7 +111,7 @@ export class GatewayShard {
 	}
 
 	#getSequence(gatewayEvent: GatewayEvent): number | null {
-		const sequenceValue = Reflect.get(gatewayEvent, "s");
+		const sequenceValue = Reflect.get(gatewayEvent, 's');
 		const sequence = isNumber(sequenceValue) ? sequenceValue : null;
 
 		return sequence;
@@ -129,7 +129,7 @@ export class GatewayShard {
 			return `${absoluteSequenceDelta} Sequence(s) Ahead`;
 		}
 
-		return "OK";
+		return 'OK';
 	}
 
 	#getWebSocket(required?: boolean): WebSocket | null;
@@ -141,7 +141,7 @@ export class GatewayShard {
 		if ((isNull(ws) || ws.readyState !== OPEN_STATE) && required) {
 			const { id } = this;
 
-			throw new GatewayShardError("WebSocket has not been initialized yet", id);
+			throw new GatewayShardError('WebSocket has not been initialized yet', id);
 		}
 
 		return ws;
@@ -194,7 +194,7 @@ export class GatewayShard {
 
 		this.#ws = new WebSocket(gatewayURL);
 
-		this.#ws.binaryType = "arraybuffer";
+		this.#ws.binaryType = 'arraybuffer';
 
 		this.#ws.onclose = this.#onClose.bind(this);
 		this.#ws.onmessage = this.#onMessage.bind(this);
@@ -219,7 +219,7 @@ export class GatewayShard {
 		this.status = GatewayShardStatus.Disconnected;
 
 		const { client, label } = this;
-		const debugMessage = `Session has been closed with code ${code} (${reason || "N/A"})`;
+		const debugMessage = `Session has been closed with code ${code} (${reason || 'N/A'})`;
 
 		const { events } = client;
 
@@ -339,7 +339,7 @@ export class GatewayShard {
 		const { d: isResumable } = gatewayInvalidSession;
 		const { client, label } = this;
 
-		const action = isResumable ? "Resume" : "Re-identify";
+		const action = isResumable ? 'Resume' : 'Re-identify';
 		const debugMessage = `Session Invalidated by Discord. Gateway Shard must ${action}`;
 
 		client.debug(debugMessage, {
@@ -359,7 +359,7 @@ export class GatewayShard {
 	 */
 	#onMessageReconnect(): void {
 		const { client, label } = this;
-		const debugMessage = "Reconnection Requested by Discord";
+		const debugMessage = 'Reconnection Requested by Discord';
 
 		client.debug(debugMessage, {
 			label,
@@ -429,7 +429,7 @@ export class GatewayShard {
 		const { token } = client;
 
 		if (!(sessionId && sequence)) {
-			throw new GatewayShardError("Cannot resume without a session id or sequence number", id);
+			throw new GatewayShardError('Cannot resume without a session id or sequence number', id);
 		}
 
 		this.send(GatewayOpcodes.Resume, {
@@ -447,7 +447,7 @@ export class GatewayShard {
 
 		emitWarning(warningMessage, {
 			code: `GATEWAY_SHARD_${id}`,
-			type: "Invalid Opcode Warning",
+			type: 'Invalid Opcode Warning',
 		});
 	}
 
@@ -458,11 +458,11 @@ export class GatewayShard {
 			`Some sequences were missed or skipped from shard ${id}.`,
 			`Expected Sequence: ${expectedSequence} - Received Sequence: ${receivedSequence}.`,
 		];
-		const warningMessage = warningMessages.join("\n");
+		const warningMessage = warningMessages.join('\n');
 
 		emitWarning(warningMessage, {
 			code: `GATEWAY_SHARD_${id}`,
-			type: "Missing Sequences Warning",
+			type: 'Missing Sequences Warning',
 		});
 	}
 
@@ -503,7 +503,7 @@ export class GatewayShard {
 		const ws = this.#getWebSocket(true);
 
 		const closeCode = reconnect ? RECONNECTION_CLOSE_CODE : NORMAL_CLOSURE_CLOSE_CODE;
-		const closeReason = reconnect ? "User Requested a Reconnection" : "User Requested a Disconnection";
+		const closeReason = reconnect ? 'User Requested a Reconnection' : 'User Requested a Disconnection';
 
 		ws.close(closeCode, closeReason);
 

@@ -1,6 +1,6 @@
-import { styleText } from "node:util";
-import { isNumber, isSymbol } from "#utils/helpers/AssertionUtils.js";
-import type { ValidationErrorIssue } from "./ValidationError.types.js";
+import { styleText } from 'node:util';
+import { isNumber, isSymbol } from '#utils/helpers/AssertionUtils.js';
+import type { ValidationErrorIssue } from './ValidationError.types.js';
 
 export class ValidationError extends Error {
 	constructor(issues: ValidationErrorIssue[]) {
@@ -9,7 +9,7 @@ export class ValidationError extends Error {
 		const prettifiedIssues = this.#prettifyIssues(issues);
 
 		this.message = `Validation has failed with the following issues:\n${prettifiedIssues}`;
-		this.name = "ValidationError";
+		this.name = 'ValidationError';
 	}
 
 	#formatIssuePath(propertyKeys: PropertyKey[]): string {
@@ -27,10 +27,10 @@ export class ValidationError extends Error {
 		const { issues, message, path } = issue;
 		const { length: pathLength } = path;
 
-		const icon = isMainIssue ? "🞬" : "└──";
-		const indent = "\t".repeat(indentLevel);
+		const icon = isMainIssue ? '🞬' : '└──';
+		const indent = '\t'.repeat(indentLevel);
 
-		let prettifiedMessage = "";
+		let prettifiedMessage = '';
 
 		if (isMainIssue && pathLength > 0) {
 			const flattenedPath = this.#formatIssuePath(path);
@@ -47,8 +47,8 @@ export class ValidationError extends Error {
 
 		const styledIssue = styleText(
 			[
-				"bold",
-				"red",
+				'bold',
+				'red',
 			],
 			prettifiedMessage,
 		);
@@ -58,7 +58,7 @@ export class ValidationError extends Error {
 
 	#prettifyIssues(issues: ValidationErrorIssue[]): string {
 		const prettifiedIssues = issues.map((issue) => this.#prettifyIssue(issue));
-		const joinedIssueMessages = prettifiedIssues.join("\n\n");
+		const joinedIssueMessages = prettifiedIssues.join('\n\n');
 
 		return joinedIssueMessages;
 	}

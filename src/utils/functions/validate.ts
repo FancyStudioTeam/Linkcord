@@ -1,11 +1,11 @@
-import { type core, safeParse, ZodType } from "zod";
-import { ValidationError } from "#utils/errors/ValidationError.js";
-import type { ValidationErrorIssue } from "#utils/errors/ValidationError.types.js";
-import { isInstanceOf } from "#utils/helpers/AssertionUtils.js";
+import { type core, safeParse, ZodType } from 'zod';
+import { ValidationError } from '#utils/errors/ValidationError.js';
+import type { ValidationErrorIssue } from '#utils/errors/ValidationError.types.js';
+import { isInstanceOf } from '#utils/helpers/AssertionUtils.js';
 
-const STRING_CONJUNCTION_FORMATTER = new Intl.ListFormat("en", {
-	style: "long",
-	type: "conjunction",
+const STRING_CONJUNCTION_FORMATTER = new Intl.ListFormat('en', {
+	style: 'long',
+	type: 'conjunction',
 });
 const STRING_VOWEL_REGEX = /^[aeiouAEIOU]/;
 
@@ -19,7 +19,7 @@ const ZOD_ISSUE_HANDLERS_MAP: ZodIssueHandlersMap = {
 	too_small: handleZodTooSmallIssue,
 };
 const ZOD_ISSUE_INVALID_STRING_FORMAT_STRINGS_MAP: ZodIssueInvalidStringFormatStringsMap = {
-	url: () => "Expected input to be an URL",
+	url: () => 'Expected input to be an URL',
 };
 const ZOD_ISSUE_TOO_BIG_STRINGS_MAP: ZodIssueTooBigStringsMap = {
 	array: ({ maximum }) => `Expected input to be an array with a maximum length of ${maximum} item(s)`,
@@ -92,7 +92,7 @@ function handleZodInvalidFormatIssue(issue: core.$ZodIssueInvalidStringFormat): 
 }
 
 function handleZodInvalidTypeIssue(issue: core.$ZodIssueInvalidType): ValidationErrorIssue {
-	const wordArticle = (word: string) => (STRING_VOWEL_REGEX.test(word) ? "an" : "a");
+	const wordArticle = (word: string) => (STRING_VOWEL_REGEX.test(word) ? 'an' : 'a');
 
 	const { expected, path } = issue;
 	const article = wordArticle(expected);
@@ -112,7 +112,7 @@ function handleZodInvalidUnionIssue(issue: core.$ZodIssueInvalidUnion): Validati
 
 	return {
 		issues,
-		message: "Expected input to be a valid union",
+		message: 'Expected input to be a valid union',
 		path,
 	};
 }
@@ -161,17 +161,17 @@ function handleZodTooSmallIssue(issue: core.$ZodIssueTooSmall): ValidationErrorI
 }
 
 type ZodIssueHandlersMap = Partial<{
-	[Issue in core.$ZodIssue as Issue["code"]]: (issue: Issue) => ValidationErrorIssue;
+	[Issue in core.$ZodIssue as Issue['code']]: (issue: Issue) => ValidationErrorIssue;
 }>;
 
 type ZodIssueInvalidStringFormatStringsMap = Partial<{
-	[Issue in core.$ZodIssueInvalidStringFormat as Issue["format"]]: (issue: Issue) => string;
+	[Issue in core.$ZodIssueInvalidStringFormat as Issue['format']]: (issue: Issue) => string;
 }>;
 
 type ZodIssueTooBigStringsMap = Partial<{
-	[Issue in core.$ZodIssueTooBig as Issue["origin"]]: (issue: Issue) => string;
+	[Issue in core.$ZodIssueTooBig as Issue['origin']]: (issue: Issue) => string;
 }>;
 
 type ZodIssueTooSmallStringsMap = Partial<{
-	[Issue in core.$ZodIssueTooSmall as Issue["origin"]]: (issue: Issue) => string;
+	[Issue in core.$ZodIssueTooSmall as Issue['origin']]: (issue: Issue) => string;
 }>;

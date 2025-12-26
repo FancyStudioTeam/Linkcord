@@ -37,9 +37,9 @@ export enum ComponentType {
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
 export enum SelectMenuDefaultValueType {
-	Channel = "channel",
-	Role = "role",
-	User = "user",
+	Channel = 'channel',
+	Role = 'role',
+	User = 'user',
 }
 
 /**

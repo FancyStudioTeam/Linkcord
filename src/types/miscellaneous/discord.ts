@@ -1,5 +1,5 @@
-import type { Brand } from "#utils/index.js";
-import type { Locales } from "./enums.js";
+import type { Brand } from '#utils/index.js';
+import type { Locales } from './enums.js';
 
 /**
  * @see https://discord.com/developers/docs/reference#api-versioning-api-versions
@@ -31,7 +31,7 @@ export type Localizations = Partial<{
 /**
  * @see https://discord.com/developers/docs/reference#snowflakes
  */
-export type Snowflake = Brand<string, "Snowflake">;
+export type Snowflake = Brand<string, 'Snowflake'>;
 
 /**
  * @see https://discord.com/developers/docs/topics/voice-connections#voice-gateway-versioning-gateway-versions

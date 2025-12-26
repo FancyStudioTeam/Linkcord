@@ -1,14 +1,14 @@
-import type { Snowflake } from "#types/miscellaneous/discord.js";
-import type { OAuth2Scopes } from "#types/resources/OAuth2/enums.js";
-import type { APITeam } from "#types/resources/Teams/structures/raw.js";
-import type { APIPartialUser } from "#types/resources/Users/index.js";
+import type { Snowflake } from '#types/miscellaneous/discord.js';
+import type { OAuth2Scopes } from '#types/resources/OAuth2/enums.js';
+import type { APITeam } from '#types/resources/Teams/structures/raw.js';
+import type { APIPartialUser } from '#types/resources/Users/index.js';
 import type {
 	ActivityLocationKind,
 	ApplicationEventWebhookStatus,
 	ApplicationEventWebhookType,
 	ApplicationFlags,
 	ApplicationIntegrationType,
-} from "../enums.js";
+} from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/application#get-application-activity-instance-activity-location-object

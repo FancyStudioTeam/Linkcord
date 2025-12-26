@@ -1,4 +1,4 @@
-import { isObject, isString } from "#utils/helpers/AssertionUtils.js";
+import { isObject, isString } from '#utils/helpers/AssertionUtils.js';
 
 export function defineReadonlyProperty<Parent extends object, Property extends string, Value>(
 	parent: Parent,
@@ -6,15 +6,15 @@ export function defineReadonlyProperty<Parent extends object, Property extends s
 	value: Value,
 ): void {
 	if (!isObject(parent)) {
-		throw new TypeError("First parameter (parent) from defineReadonlyProperty must be an object");
+		throw new TypeError('First parameter (parent) from defineReadonlyProperty must be an object');
 	}
 
 	if (!isString(property)) {
-		throw new TypeError("Second parameter (property) from defineReadonlyProperty must be a string");
+		throw new TypeError('Second parameter (property) from defineReadonlyProperty must be a string');
 	}
 
 	if (!Reflect.isExtensible(parent)) {
-		throw new TypeError("Provided parent is not extensible");
+		throw new TypeError('Provided parent is not extensible');
 	}
 
 	if (Reflect.has(parent, property)) {

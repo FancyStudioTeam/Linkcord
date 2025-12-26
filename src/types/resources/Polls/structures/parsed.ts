@@ -1,5 +1,5 @@
-import type { PartialEmoji } from "#types/resources/Emojis/index.js";
-import type { PollLayoutType } from "../enums.js";
+import type { PartialEmoji } from '#types/resources/Emojis/index.js';
+import type { PollLayoutType } from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/poll#poll-create-request-object-poll-create-request-object-structure
@@ -48,4 +48,4 @@ export interface PollResults {
 /**
  * @see https://discord.com/developers/docs/resources/poll#poll-media-object
  */
-export type PollQuestion = Pick<PollMedia, "text">;
+export type PollQuestion = Pick<PollMedia, 'text'>;

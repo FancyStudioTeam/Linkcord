@@ -1,2 +1,2 @@
-export * from "./EventManager.js";
-export * from "./EventManager.types.js";
+export * from './EventManager.js';
+export * from './EventManager.types.js';

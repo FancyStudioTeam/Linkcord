@@ -1,4 +1,4 @@
-import { Bucket } from "./Bucket.js";
+import { Bucket } from './Bucket.js';
 
 export class BucketManager {
 	readonly #buckets = new Map<string, Bucket>();

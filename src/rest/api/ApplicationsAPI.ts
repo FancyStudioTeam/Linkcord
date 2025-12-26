@@ -1,7 +1,7 @@
-import { APPLICATION_COMMANDS_ENDPOINT } from "#rest/endpoints/Endpoints.js";
-import { RESTMethod } from "#rest/structures/RESTManager.types.js";
-import type { CreateApplicationCommandOptions, RESTPutAPIApplicationCommandsJSONParams, Snowflake } from "#types/index.js";
-import { BaseAPI } from "./BaseAPI.js";
+import { APPLICATION_COMMANDS_ENDPOINT } from '#rest/endpoints/Endpoints.js';
+import { RESTMethod } from '#rest/structures/RESTManager.types.js';
+import type { CreateApplicationCommandOptions, RESTPutAPIApplicationCommandsJSONParams, Snowflake } from '#types/index.js';
+import { BaseAPI } from './BaseAPI.js';
 
 export class ApplicationsAPI extends BaseAPI {
 	/**

@@ -1,4 +1,4 @@
-import type { GatewayIntents } from "#types/index.js";
+import type { GatewayIntents } from '#types/index.js';
 
 export interface DefineConfigLocationsOptions {
 	commands?: string;

@@ -3,18 +3,18 @@
  * be ignored.
  */
 
-import { ClientEvents } from "#client/structures/index.js";
-import { EventManager } from "./EventManager.js";
+import { ClientEvents } from '#client/structures/index.js';
+import { EventManager } from './EventManager.js';
 
-describe("Class: EventManager", () => {
+describe('Class: EventManager', () => {
 	let eventManager: EventManager;
 
 	beforeEach(() => {
 		eventManager = new EventManager();
 	});
 
-	describe("Method: addEventListener", () => {
-		it("Should have count 2 after adding two event listeners", () => {
+	describe('Method: addEventListener', () => {
+		it('Should have count 2 after adding two event listeners', () => {
 			const debugListenerFunction = () => undefined;
 
 			eventManager.addEventListener(ClientEvents.Debug, debugListenerFunction);
@@ -26,8 +26,8 @@ describe("Class: EventManager", () => {
 		});
 	});
 
-	describe("Method: emit", () => {
-		it("Should emit all event listeners with specified data", () => {
+	describe('Method: emit', () => {
+		it('Should emit all event listeners with specified data', () => {
 			const debugListenerFunction = vi.fn(({ message }: { message: string }) => message);
 
 			eventManager.addEventListener(ClientEvents.Debug, debugListenerFunction);
@@ -36,28 +36,28 @@ describe("Class: EventManager", () => {
 			});
 
 			eventManager.emit(ClientEvents.Debug, {
-				message: "First Call",
+				message: 'First Call',
 			});
 			eventManager.emit(ClientEvents.Debug, {
-				message: "Second Call",
+				message: 'Second Call',
 			});
 
 			expect(debugListenerFunction).toHaveBeenCalledTimes(3);
 
 			expect(debugListenerFunction).toHaveBeenNthCalledWith(1, {
-				message: "First Call",
+				message: 'First Call',
 			});
 			expect(debugListenerFunction).toHaveBeenNthCalledWith(2, {
-				message: "First Call",
+				message: 'First Call',
 			});
 			expect(debugListenerFunction).toHaveBeenNthCalledWith(3, {
-				message: "Second Call",
+				message: 'Second Call',
 			});
 		});
 	});
 
-	describe("Method: removeEventListener", () => {
-		it("Should remove an event listener with an specified callback", () => {
+	describe('Method: removeEventListener', () => {
+		it('Should remove an event listener with an specified callback', () => {
 			const debugListenerFunction = () => undefined;
 
 			eventManager.addEventListener(ClientEvents.Debug, debugListenerFunction);
@@ -71,8 +71,8 @@ describe("Class: EventManager", () => {
 		});
 	});
 
-	describe("Method: removeEventListeners", () => {
-		it("Should remove all event listeners", () => {
+	describe('Method: removeEventListeners', () => {
+		it('Should remove all event listeners', () => {
 			const debugListenerFunction = () => undefined;
 
 			eventManager.addEventListener(ClientEvents.Debug, () => debugListenerFunction);

@@ -1,9 +1,9 @@
-import { CHANNEL_MESSAGES_ENDPOINT } from "#rest/endpoints/Endpoints.js";
-import { type File, type MakeRequestOptions, RESTMethod } from "#rest/structures/RESTManager.types.js";
-import { Message } from "#structures/Message.js";
-import { serializeCreateMessageOptions } from "#transformers/Messages/REST.js";
-import type { CreateMessageOptions, RESTPostAPIMessage, RESTPostAPIMessageJSONParams, Snowflake } from "#types/index.js";
-import { BaseAPI } from "./BaseAPI.js";
+import { CHANNEL_MESSAGES_ENDPOINT } from '#rest/endpoints/Endpoints.js';
+import { type File, type MakeRequestOptions, RESTMethod } from '#rest/structures/RESTManager.types.js';
+import { Message } from '#structures/Message.js';
+import { serializeCreateMessageOptions } from '#transformers/Messages/REST.js';
+import type { CreateMessageOptions, RESTPostAPIMessage, RESTPostAPIMessageJSONParams, Snowflake } from '#types/index.js';
+import { BaseAPI } from './BaseAPI.js';
 
 export class ChannelsAPI extends BaseAPI {
 	/**
@@ -32,7 +32,7 @@ export class ChannelsAPI extends BaseAPI {
 			});
 		}
 
-		formData.append("payload_json", JSON.stringify(options));
+		formData.append('payload_json', JSON.stringify(options));
 
 		return formData;
 	}

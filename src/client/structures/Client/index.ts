@@ -1,2 +1,2 @@
-export * from "./Client.js";
-export * from "./Client.types.js";
+export * from './Client.js';
+export * from './Client.types.js';

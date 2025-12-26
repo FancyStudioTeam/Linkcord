@@ -1,6 +1,6 @@
-import type { Client } from "#client/index.js";
-import type { RESTManager } from "#rest/index.js";
-import { defineReadonlyProperty } from "#utils/functions/defineReadonlyProperty.js";
+import type { Client } from '#client/index.js';
+import type { RESTManager } from '#rest/index.js';
+import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
 
 export abstract class Base {
 	declare readonly client: Client;
@@ -9,8 +9,8 @@ export abstract class Base {
 	constructor(client: Client) {
 		const { rest } = client;
 
-		defineReadonlyProperty(this, "client", client);
-		defineReadonlyProperty(this, "rest", rest);
+		defineReadonlyProperty(this, 'client', client);
+		defineReadonlyProperty(this, 'rest', rest);
 	}
 
 	protected clone(): this {

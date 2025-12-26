@@ -1,7 +1,7 @@
-import type { Client } from "#client/index.js";
-import type { InteractionType, Snowflake } from "#types/index.js";
-import type { APIInteraction } from "#types/resources/Interactions/structures/raw.js";
-import { Base } from "./Base.js";
+import type { Client } from '#client/index.js';
+import type { InteractionType, Snowflake } from '#types/index.js';
+import type { APIInteraction } from '#types/resources/Interactions/structures/raw.js';
+import { Base } from './Base.js';
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure

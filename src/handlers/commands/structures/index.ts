@@ -1,1 +1,1 @@
-export * from "./chatInputCommand/index.js";
+export * from './chatInputCommand/index.js';

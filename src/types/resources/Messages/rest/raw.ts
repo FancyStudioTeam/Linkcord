@@ -1,8 +1,8 @@
-import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
-import type { APIMessageComponents } from "#types/resources/Components/index.js";
-import type { APIMessagePoll } from "#types/resources/Polls/index.js";
-import type { APIUser } from "#types/resources/Users/index.js";
-import type { MessageFlags, ReactionType } from "../enums.js";
+import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
+import type { APIMessageComponents } from '#types/resources/Components/index.js';
+import type { APIMessagePoll } from '#types/resources/Polls/index.js';
+import type { APIUser } from '#types/resources/Users/index.js';
+import type { MessageFlags, ReactionType } from '../enums.js';
 import type {
 	APIAllowedMentions,
 	APIAttachment,
@@ -11,7 +11,7 @@ import type {
 	APIMessagePin,
 	APIMessageReference,
 	APIPartialAttachent,
-} from "../structures/raw.js";
+} from '../structures/raw.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/message#get-channel-messages-query-string-params

@@ -1,5 +1,5 @@
-import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
-import type { EntitlementType } from "../enums.js";
+import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
+import type { EntitlementType } from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/entitlement#entitlement-object-entitlement-structure
@@ -37,4 +37,4 @@ export type APIEntitlement = APIGuildEntitlement | APIUserEntitlement;
 /**
  * @see https://discord.com/developers/docs/resources/entitlement#create-test-entitlement
  */
-export type APITestEntitlement = Omit<APIEntitlement, "ends_at" | "starts_at" | "subscription_id">;
+export type APITestEntitlement = Omit<APIEntitlement, 'ends_at' | 'starts_at' | 'subscription_id'>;

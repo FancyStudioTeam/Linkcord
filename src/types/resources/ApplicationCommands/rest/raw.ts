@@ -1,14 +1,14 @@
-import type { Localizations } from "#types/miscellaneous/discord.js";
-import type { ApplicationIntegrationType } from "#types/resources/Applications/enums.js";
-import type { InteractionContextType } from "#types/resources/Interactions/enums.js";
-import type { ApplicationCommandType } from "../enums.js";
+import type { Localizations } from '#types/miscellaneous/discord.js';
+import type { ApplicationIntegrationType } from '#types/resources/Applications/enums.js';
+import type { InteractionContextType } from '#types/resources/Interactions/enums.js';
+import type { ApplicationCommandType } from '../enums.js';
 import type {
 	APIApplicationCommand,
 	APIApplicationCommandOption,
 	APIApplicationCommandPermissions,
 	APIGuildApplicationCommand,
 	APIGuildApplicationCommandPermissions,
-} from "../structures/raw.js";
+} from '../structures/raw.js';
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#get-global-application-commands-query-string-params

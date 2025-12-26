@@ -9,7 +9,7 @@ import type {
 	DisplayNameStyles,
 	Nameplate,
 	PrimaryGuild,
-} from "#types/index.js";
+} from '#types/index.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/user#avatar-decoration-data-object-avatar-decoration-data-structure

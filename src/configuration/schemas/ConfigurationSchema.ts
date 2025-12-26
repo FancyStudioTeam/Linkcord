@@ -1,7 +1,7 @@
-import { array, enum as enum_, object, string } from "zod";
-import { transformIntents } from "#configuration/functions/transformIntents.js";
-import { transformToken } from "#configuration/functions/transformToken.js";
-import { GatewayIntents } from "#types/index.js";
+import { array, enum as enum_, object, string } from 'zod';
+import { transformIntents } from '#configuration/functions/transformIntents.js';
+import { transformToken } from '#configuration/functions/transformToken.js';
+import { GatewayIntents } from '#types/index.js';
 
 export const ConfigurationIntentsEnumSchema = enum_(GatewayIntents);
 export const ConfigurationIntentsSchema = array(ConfigurationIntentsEnumSchema).transform(transformIntents);

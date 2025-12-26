@@ -1,6 +1,6 @@
-import type { ClientEvents, ClientEventsMap } from "#client/structures/index.js";
-import { Collection } from "#utils/index.js";
-import type { EventListener, EventListenerCallback } from "./EventManager.types.js";
+import type { ClientEvents, ClientEventsMap } from '#client/structures/index.js';
+import { Collection } from '#utils/index.js';
+import type { EventListener, EventListenerCallback } from './EventManager.types.js';
 
 export class EventManager {
 	readonly #listeners = new Collection<ClientEvents, EventListener<ClientEvents>[]>();

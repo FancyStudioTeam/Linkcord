@@ -1,6 +1,6 @@
-import type { Localizations, Snowflake } from "#types/miscellaneous/discord.js";
-import type { ChannelType } from "#types/resources/Channels/enums.js";
-import type { ApplicationCommandOptionType, ApplicationCommandPermissionType } from "../enums.js";
+import type { Localizations, Snowflake } from '#types/miscellaneous/discord.js';
+import type { ChannelType } from '#types/resources/Channels/enums.js';
+import type { ApplicationCommandOptionType, ApplicationCommandPermissionType } from '../enums.js';
 
 /**
  * Represents an application command option choice.

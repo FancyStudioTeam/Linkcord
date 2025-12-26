@@ -1,4 +1,4 @@
-import type { ImageDataURI, Snowflake } from "#types/miscellaneous/discord.js";
+import type { ImageDataURI, Snowflake } from '#types/miscellaneous/discord.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/user#create-dm-json-params

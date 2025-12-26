@@ -15,7 +15,7 @@ import type {
 	EmbedProvider,
 	EmbedThumbnail,
 	EmbedVideo,
-} from "#types/index.js";
+} from '#types/index.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-structure

@@ -1,2 +1,2 @@
-export * from "./discord.js";
-export * from "./enums.js";
+export * from './discord.js';
+export * from './enums.js';

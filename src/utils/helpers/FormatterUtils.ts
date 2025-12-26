@@ -1,13 +1,13 @@
-import type { Snowflake } from "#types/index.js";
-import { ONE_SECOND_MILLISECONDS } from "#utils/Constants.js";
-import { isArray, isEnum, isInstanceOf, isNumber, isString } from "./AssertionUtils.js";
+import type { Snowflake } from '#types/index.js';
+import { ONE_SECOND_MILLISECONDS } from '#utils/Constants.js';
+import { isArray, isEnum, isInstanceOf, isNumber, isString } from './AssertionUtils.js';
 import {
 	type CodeBlockLanguage,
 	HeadingLevel,
 	type HeadingLevelsMap,
 	type RecursiveArray,
 	TimestampStyle,
-} from "./FormatterUtils.types.js";
+} from './FormatterUtils.types.js';
 
 const HEX_COLOR_DIGITS = 6;
 const HEXADECIMAL_BASE = 16;
@@ -40,12 +40,12 @@ function isHeadingLevel(input: unknown): input is HeadingLevel {
  * @internal
  */
 function listCallback(items: RecursiveArray<string>, startNumber = 1, isMainList = true, indentLevel = 0): string {
-	const indent = " ".repeat(indentLevel);
-	const mark = startNumber ? `${startNumber}.` : "-";
+	const indent = ' '.repeat(indentLevel);
+	const mark = startNumber ? `${startNumber}.` : '-';
 
 	if (Array.isArray(items)) {
 		const spacesToPrepend = isMainList ? 0 : indentLevel + 2;
-		const formattedList = items.map((item) => listCallback(item, startNumber, false, spacesToPrepend)).join("\n");
+		const formattedList = items.map((item) => listCallback(item, startNumber, false, spacesToPrepend)).join('\n');
 
 		return formattedList;
 	}
@@ -57,7 +57,7 @@ function listCallback(items: RecursiveArray<string>, startNumber = 1, isMainList
  * @internal
  */
 function normalizeChatInputCommandName(commandName: string | string[]): string {
-	return isChatInputCommandTuple(commandName) ? commandName.join(" ") : commandName;
+	return isChatInputCommandTuple(commandName) ? commandName.join(' ') : commandName;
 }
 
 export function blockQuote<Content extends string>(content: Content) {
@@ -139,7 +139,7 @@ export function email(username: string, domain: string, headersInit?: HeadersIni
 		const headersEntries = headersObject.entries();
 
 		const headersArray = Array.from(headersEntries).map(([key, value]) => `${key}=${value}`);
-		const headersString = headersArray.join("&");
+		const headersString = headersArray.join('&');
 
 		const encodedHeadersParams = encodeURIComponent(headersString);
 
@@ -150,7 +150,7 @@ export function email(username: string, domain: string, headersInit?: HeadersIni
 }
 
 export function everyone() {
-	return "@everyone" as const;
+	return '@everyone' as const;
 }
 
 export function header<Content extends string>(content: Content): `# ${Content}`;
@@ -161,19 +161,19 @@ export function header<Level extends HeadingLevel, Content extends string>(
 
 export function header(levelOrContent: HeadingLevel | string, possibleContent?: string): string {
 	if (isHeadingLevel(levelOrContent)) {
-		return `${"#".repeat(levelOrContent)} ${possibleContent}`;
+		return `${'#'.repeat(levelOrContent)} ${possibleContent}`;
 	}
 
 	return `# ${levelOrContent}`;
 }
 
 export function here() {
-	return "@here" as const;
+	return '@here' as const;
 }
 
 export function hexColor(color: number) {
 	const hexadecimal = color.toString(HEXADECIMAL_BASE);
-	const hexColor = `#${hexadecimal.padEnd(HEX_COLOR_DIGITS, "0")}` as const;
+	const hexColor = `#${hexadecimal.padEnd(HEX_COLOR_DIGITS, '0')}` as const;
 
 	return hexColor;
 }
@@ -243,7 +243,7 @@ export function orderedList(items: RecursiveArray<string>, startNumber = 1): str
 }
 
 export function phoneNumber<Number extends `+${string}`>(number: Number) {
-	if (!number.startsWith("+")) {
+	if (!number.startsWith('+')) {
 		throw new TypeError("First parameter (number) from phoneNumber must start with '+'");
 	}
 
@@ -259,7 +259,7 @@ export function roleMention<RoleId extends Snowflake>(roleId: RoleId) {
 }
 
 export function shrug() {
-	return "¯\\_(ツ)_/¯" as const;
+	return '¯\\_(ツ)_/¯' as const;
 }
 
 export function spoiler<Content extends string>(content: Content) {
@@ -275,7 +275,7 @@ export function subtext<Content extends string>(content: Content) {
 }
 
 export function tableFlip() {
-	return "(╯°□°)╯︵ ┻━┻" as const;
+	return '(╯°□°)╯︵ ┻━┻' as const;
 }
 
 export function underline<Content extends string>(content: Content) {
@@ -283,7 +283,7 @@ export function underline<Content extends string>(content: Content) {
 }
 
 export function unflip() {
-	return "┬─┬ノ( º _ ºノ)" as const;
+	return '┬─┬ノ( º _ ºノ)' as const;
 }
 
 export function unixTimestamp(date?: Date): `<t:${string}>`;
@@ -301,7 +301,7 @@ export function unixTimestamp(dateOrSeconds?: Date | number, possibleStyle?: Tim
 
 		if (possibleStyle) {
 			if (!isEnum(possibleStyle, TimestampStyle)) {
-				throw new TypeError("Second parameter (style) from unixTimestamp must be an enum");
+				throw new TypeError('Second parameter (style) from unixTimestamp must be an enum');
 			}
 
 			return `<t:${unixTimestamp}:${possibleStyle}>`;
@@ -312,7 +312,7 @@ export function unixTimestamp(dateOrSeconds?: Date | number, possibleStyle?: Tim
 
 	if (possibleStyle) {
 		if (!isEnum(possibleStyle, TimestampStyle)) {
-			throw new TypeError("Second parameter (style) from unixTimestamp must be an enum");
+			throw new TypeError('Second parameter (style) from unixTimestamp must be an enum');
 		}
 
 		return `<t:${dateOrSeconds}:${possibleStyle}>`;

@@ -1,5 +1,5 @@
-import { boolean, enum as enum_, object } from "zod";
-import { ClientEvents } from "#client/index.js";
+import { boolean, enum as enum_, object } from 'zod';
+import { ClientEvents } from '#client/index.js';
 
 export const EventDisabledSchema = boolean();
 export const EventNameSchema = enum_(ClientEvents);

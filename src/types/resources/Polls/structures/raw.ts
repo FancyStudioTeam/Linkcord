@@ -1,6 +1,6 @@
-import type { ISO8601Date } from "#types/miscellaneous/discord.js";
-import type { APIPartialEmoji } from "#types/resources/Emojis/index.js";
-import type { PollLayoutType } from "../enums.js";
+import type { ISO8601Date } from '#types/miscellaneous/discord.js';
+import type { APIPartialEmoji } from '#types/resources/Emojis/index.js';
+import type { PollLayoutType } from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/poll#poll-create-request-object-poll-create-request-object-structure
@@ -61,4 +61,4 @@ export interface APIPollResults {
 /**
  * @see https://discord.com/developers/docs/resources/poll#poll-media-object
  */
-export type APIPollQuestion = Pick<APIPollMedia, "text">;
+export type APIPollQuestion = Pick<APIPollMedia, 'text'>;

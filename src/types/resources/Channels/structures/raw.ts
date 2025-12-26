@@ -1,6 +1,6 @@
-import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
-import type { APIUser } from "#types/resources/Users/index.js";
-import type { AutoArchiveDuration, ChannelFlags, ChannelOverwriteType, ChannelType } from "../enums.js";
+import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
+import type { APIUser } from '#types/resources/Users/index.js';
+import type { AutoArchiveDuration, ChannelFlags, ChannelOverwriteType, ChannelType } from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure

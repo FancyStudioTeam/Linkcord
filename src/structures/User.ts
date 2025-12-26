@@ -1,14 +1,14 @@
-import type { Client } from "#client/index.js";
+import type { Client } from '#client/index.js';
 import {
 	deserializeAvatarDecorationData,
 	deserializeCollectibles,
 	deserializeDisplayNameStyles,
 	deserializePrimaryGuild,
-} from "#transformers/Users/Deserializer.js";
-import type { APIUser, AvatarDecorationData, Collectibles, DisplayNameStyles, PrimaryGuild, Snowflake } from "#types/index.js";
-import { isUndefined } from "#utils/helpers/AssertionUtils.js";
-import { BitFieldResolver, hexColor, userMention } from "#utils/index.js";
-import { Base } from "./Base.js";
+} from '#transformers/Users/Deserializer.js';
+import type { APIUser, AvatarDecorationData, Collectibles, DisplayNameStyles, PrimaryGuild, Snowflake } from '#types/index.js';
+import { isUndefined } from '#utils/helpers/AssertionUtils.js';
+import { BitFieldResolver, hexColor, userMention } from '#utils/index.js';
+import { Base } from './Base.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/user#user-object-user-structure

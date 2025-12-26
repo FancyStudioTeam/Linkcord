@@ -1,5 +1,5 @@
-import type { ISO8601Date, Snowflake } from "#types/miscellaneous/discord.js";
-import type { APIGuildMember } from "#types/resources/Guilds/index.js";
+import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
+import type { APIGuildMember } from '#types/resources/Guilds/index.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure

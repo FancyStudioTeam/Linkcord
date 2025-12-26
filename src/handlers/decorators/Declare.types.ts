@@ -1,4 +1,4 @@
-import type { ChatInputCommandHandlerConstructor, ChatInputCommandHandlerDeclareOptions } from "#handlers/commands/index.js";
+import type { ChatInputCommandHandlerConstructor, ChatInputCommandHandlerDeclareOptions } from '#handlers/commands/index.js';
 
 export type DeclarableCommandConstructor = ChatInputCommandHandlerConstructor;
 export type DeclarableConstructor = DeclarableCommandConstructor;

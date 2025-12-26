@@ -1,6 +1,6 @@
-import type { ImageDataURI, Snowflake } from "#types/miscellaneous/discord.js";
-import type { APIDMChannel } from "#types/resources/Channels/index.js";
-import type { APIApplicationRoleConnection, APIConnection, APIUser } from "../structures/raw.js";
+import type { ImageDataURI, Snowflake } from '#types/miscellaneous/discord.js';
+import type { APIDMChannel } from '#types/resources/Channels/index.js';
+import type { APIApplicationRoleConnection, APIConnection, APIUser } from '../structures/raw.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/user#modify-current-user-json-params

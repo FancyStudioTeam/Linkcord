@@ -1,4 +1,4 @@
-import type { APIGatewayBot, APIGatewayBotSessionStartLimit, GatewayBot, GatewayBotSessionStartLimit } from "#types/index.js";
+import type { APIGatewayBot, APIGatewayBotSessionStartLimit, GatewayBot, GatewayBotSessionStartLimit } from '#types/index.js';
 
 /**
  * @see https://discord.com/developers/docs/events/gateway#get-gateway-bot-json-response

@@ -1,1 +1,1 @@
-export * from "./GatewayShardError.js";
+export * from './GatewayShardError.js';

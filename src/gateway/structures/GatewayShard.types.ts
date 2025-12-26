@@ -1,10 +1,10 @@
-import type { RECEIVABLE_OPCODES, SENDABLE_OPCODES } from "#gateway/utils/Constants.js";
+import type { RECEIVABLE_OPCODES, SENDABLE_OPCODES } from '#gateway/utils/Constants.js';
 import {
 	type GatewayHeartbeatEventPayload,
 	type GatewayIdentifyEventPayload,
 	GatewayOpcodes,
 	type GatewayResumeEventPayload,
-} from "#types/index.js";
+} from '#types/index.js';
 
 /**
  * @see https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
@@ -27,10 +27,10 @@ export type SendableOpcodesMap = {
 };
 
 export enum GatewayShardStatus {
-	Connecting = "CONNECTING",
-	Disconnected = "DISCONNECTED",
-	Handshaking = "HANDSHAKING",
-	Identifying = "IDENTIFYING",
-	Ready = "READY",
-	Resuming = "RESUMING",
+	Connecting = 'CONNECTING',
+	Disconnected = 'DISCONNECTED',
+	Handshaking = 'HANDSHAKING',
+	Identifying = 'IDENTIFYING',
+	Ready = 'READY',
+	Resuming = 'RESUMING',
 }

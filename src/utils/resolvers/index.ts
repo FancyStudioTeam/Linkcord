@@ -1,1 +1,1 @@
-export * from "./BitFieldResolver.js";
+export * from './BitFieldResolver.js';
