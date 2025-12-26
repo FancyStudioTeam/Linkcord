@@ -1,10 +1,11 @@
 {
+	"author": "Linkcord Team",
 	"dependencies": {
 		"string-dedent": "3.0.2",
 		"ts-mixer": "6.0.4",
 		"zod": "4.2.1"
 	},
-	"description": "An opinionated framework made in TypeScript for building Discord bots.",
+	"description": "An opinionated framework for building Discord bots using TypeScript",
 	"devDependencies": {
 		"@biomejs/biome": "2.3.10",
 		"@commitlint/cli": "20.2.0",
@@ -38,6 +39,12 @@
 		"lib",
 		"LICENSE",
 		"README.md"
+	],
+	"keywords": [
+		"discord",
+		"framework",
+		"linkcord",
+		"typescript"
 	],
 	"license": "MIT",
 	"lint-staged": {

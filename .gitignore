@@ -3,12 +3,6 @@
 dist
 lib
 
-# Docs
-.typedoc
-apps/docs/extractor/schemas
-apps/docs/public/api
-temp
-
 # Environment
 .env
 .env.*
