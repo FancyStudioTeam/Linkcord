@@ -12,9 +12,9 @@ export function getCurrentVersion(): string {
 	}
 
 	const packageDataString = readFileSync(PACKAGE_JSON_PATH, "utf-8");
-	const packageDataJSON = JSON.parse(packageDataString);
+	const packageDataJson = JSON.parse(packageDataString);
 
-	const { version } = packageDataJSON;
+	const { version } = packageDataJson;
 
 	return String(version);
 }

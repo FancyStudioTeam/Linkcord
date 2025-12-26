@@ -15,8 +15,7 @@
 	"files": {
 		"includes": [
 			"**",
-			"!**/lib",
-			"!**/node_modules"
+			"!!**/lib"
 		]
 	},
 	"formatter": {
@@ -43,7 +42,7 @@
 			"correctness": {
 				"noNodejsModules": "off",
 				"noUndeclaredDependencies": {
-					"level": "warn",
+					"level": "error",
 					"options": {
 						"devDependencies": true,
 						"optionalDependencies": true
@@ -94,7 +93,7 @@
 								}
 							}
 						],
-						"strictCase": false
+						"strictCase": true
 					}
 				},
 				"useNodejsImportProtocol": "error",
@@ -108,7 +107,7 @@
 			},
 			"suspicious": {
 				"noUnassignedVariables": "error",
-				"useAwait": "warn"
+				"useAwait": "error"
 			}
 		}
 	}
