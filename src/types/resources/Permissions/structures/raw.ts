@@ -4,8 +4,8 @@ import type { RoleFlags } from '../enums.js';
 /**
  * @see https://discord.com/developers/docs/topics/permissions#role-object-role-structure
  */
-export interface APIRole {
-	colors: APIRoleColors;
+export interface RawRole {
+	colors: RawRoleColors;
 	flags: RoleFlags;
 	hoist: boolean;
 	icon?: string | null;
@@ -15,14 +15,14 @@ export interface APIRole {
 	name: string;
 	permissions: string;
 	position: number;
-	tags?: APIRoleTags;
+	tags?: RawRoleTags;
 	unicode_emoji?: string | null;
 }
 
 /**
  * @see https://discord.com/developers/docs/topics/permissions#role-object-role-colors-object
  */
-export interface APIRoleColors {
+export interface RawRoleColors {
 	primary_color: number;
 	secondary_color: number | null;
 	tertiary_color: number | null;
@@ -31,7 +31,7 @@ export interface APIRoleColors {
 /**
  * @see https://discord.com/developers/docs/topics/permissions#role-object-role-tags-structure
  */
-export interface APIRoleTags {
+export interface RawRoleTags {
 	available_for_purchase?: null;
 	bot_id?: Snowflake;
 	guild_connections?: null;
