@@ -22,6 +22,14 @@ export function GATEWAY_ENDPOINT() {
 	return 'gateway' as const;
 }
 
+export function GUILD_MEMBER_ROLE<GuildId extends Snowflake, MemberId extends Snowflake, RoleId extends Snowflake>(
+	guildId: GuildId,
+	memberId: MemberId,
+	roleId: RoleId,
+) {
+	return `/guilds/${encodeURIComponent(guildId)}/members/${encodeURIComponent(memberId)}/roles/${encodeURIComponent(roleId)}` as const;
+}
+
 export function VOICE_REGIONS_ENDPOINT() {
 	return 'voice/regions' as const;
 }
