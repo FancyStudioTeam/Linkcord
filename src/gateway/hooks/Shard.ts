@@ -30,7 +30,7 @@ export function READY(client: Client, gatewayShard: GatewayShard, readyPayload: 
 	users.set(userId, user);
 	manager['triggerReady']();
 
-	events.emit(ClientEvents.ShardReady, {
+	events.emit(ClientEvents.GatewayShardReady, {
 		gatewayShard,
 		user,
 	});

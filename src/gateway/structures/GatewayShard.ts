@@ -221,7 +221,7 @@ export class GatewayShard {
 		client.debug(debugMessage, {
 			label,
 		});
-		events.emit(ClientEvents.ShardDisconnected, {
+		events.emit(ClientEvents.GatewayShardDisconnected, {
 			code,
 			gatewayShard: this,
 			isReconnectable,
@@ -255,7 +255,7 @@ export class GatewayShard {
 		const { client } = this;
 		const { events } = client;
 
-		events.emit(ClientEvents.ShardPacket, {
+		events.emit(ClientEvents.GatewayShardPacket, {
 			gatewayShard: this,
 			packet: gatewayEvent,
 		});
@@ -308,7 +308,7 @@ export class GatewayShard {
 			label,
 		});
 
-		events.emit(ClientEvents.ShardHello, {
+		events.emit(ClientEvents.GatewayShardHello, {
 			gatewayShard: this,
 			heartbeatInterval,
 			heartbeatJitter,

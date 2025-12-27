@@ -18,49 +18,49 @@ export interface ClientEventsMap {
 	[ClientEvents.MessageCreate]: [
 		params: ClientMessageEventParams,
 	];
-	[ClientEvents.ShardDisconnected]: [
-		params: ClientShardDisconnectedEventParams,
+	[ClientEvents.GatewayShardDisconnected]: [
+		params: ClientGatewayShardDisconnectedEventParams,
 	];
-	[ClientEvents.ShardHello]: [
-		params: ClientShardHelloEventParams,
+	[ClientEvents.GatewayShardHello]: [
+		params: ClientGatewayShardHelloEventParams,
 	];
-	[ClientEvents.ShardPacket]: [
-		params: ClientShardPacketEventParams,
+	[ClientEvents.GatewayShardPacket]: [
+		params: ClientGatewayShardPacketEventParams,
 	];
-	[ClientEvents.ShardReady]: [
-		params: ClientShardReadyEventParams,
+	[ClientEvents.GatewayShardReady]: [
+		params: ClientGatewayShardReadyEventParams,
 	];
 	[ClientEvents.Warn]: [
 		params: ClientWarningEventParams,
 	];
 }
 
-export interface ClientMessageEventParams {
-	gatewayShard: GatewayShard;
-	message: Message;
-}
-
-export interface ClientShardDisconnectedEventParams {
+export interface ClientGatewayShardDisconnectedEventParams {
 	code: number;
 	gatewayShard: GatewayShard;
 	isReconnectable: boolean;
 	reason: string;
 }
 
-export interface ClientShardHelloEventParams {
+export interface ClientGatewayShardHelloEventParams {
 	heartbeatInterval: number;
 	heartbeatJitter: number;
 	gatewayShard: GatewayShard;
 }
 
-export interface ClientShardPacketEventParams {
+export interface ClientGatewayShardPacketEventParams {
 	gatewayShard: GatewayShard;
 	packet: GatewayEvent;
 }
 
-export interface ClientShardReadyEventParams {
+export interface ClientGatewayShardReadyEventParams {
 	gatewayShard: GatewayShard;
 	user: User;
+}
+
+export interface ClientMessageEventParams {
+	gatewayShard: GatewayShard;
+	message: Message;
 }
 
 export interface ClientWarningEventParams {
@@ -70,10 +70,10 @@ export interface ClientWarningEventParams {
 export enum ClientEvents {
 	ClientReady = 'clientReady',
 	Debug = 'debug',
+	GatewayShardDisconnected = 'shardDisconnected',
+	GatewayShardHello = 'shardHello',
+	GatewayShardPacket = 'shardPacket',
+	GatewayShardReady = 'shardReady',
 	MessageCreate = 'messageCreate',
-	ShardDisconnected = 'shardDisconnected',
-	ShardHello = 'shardHello',
-	ShardPacket = 'shardPacket',
-	ShardReady = 'shardReady',
 	Warn = 'warn',
 }

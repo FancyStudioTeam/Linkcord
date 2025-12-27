@@ -3,8 +3,8 @@ import { GatewayManager } from '#gateway/index.js';
 import { RESTManager } from '#rest/index.js';
 import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
 import { isUndefined } from '#utils/helpers/AssertionUtils.js';
-import { ClientBase } from '../ClientBase.js';
 import { type ClientDebugOptions, ClientEvents } from './Client.types.js';
+import { ClientBase } from './ClientBase.js';
 
 const BRACKETS_REGEX = /^\[*(.*?)\]*$/;
 
