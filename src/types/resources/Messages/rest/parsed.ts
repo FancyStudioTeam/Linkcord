@@ -2,7 +2,7 @@ import type { File } from '#rest/index.js';
 import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
 import type { MessageComponents } from '#types/resources/Components/index.js';
 import type { MessagePoll } from '#types/resources/Polls/index.js';
-import type { BitFieldResolver } from '#utils/index.js';
+import type { BitField } from '#utils/index.js';
 import type { MessageFlags, ReactionType } from '../enums.js';
 import type { AllowedMentions, Attachment, Embed, MessageReference } from '../structures/parsed.js';
 
@@ -40,7 +40,7 @@ export interface EditMessageOptions {
 	components?: MessageComponents[] | null;
 	content?: string | null;
 	embeds?: Embed[];
-	flags?: BitFieldResolver | MessageFlags;
+	flags?: BitField | MessageFlags;
 }
 
 /**

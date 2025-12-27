@@ -7,12 +7,12 @@ import type {
 	StickerResolvable,
 } from '#types/index.js';
 import { isArray } from '#utils/helpers/AssertionUtils.js';
-import { BitFieldResolver } from '#utils/index.js';
+import { BitField } from '#utils/index.js';
 import { serializeEmbedsArray } from './Serializer.js';
 
 export function normalizeMessageFlags(messageFlags: MessageFlagsResolvable): number {
 	if (isArray(messageFlags)) {
-		return new BitFieldResolver().add(...messageFlags);
+		return new BitField().add(...messageFlags);
 	}
 
 	return messageFlags;

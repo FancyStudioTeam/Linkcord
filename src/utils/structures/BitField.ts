@@ -1,4 +1,4 @@
-export class BitFieldResolver {
+export class BitField {
 	bitField: number;
 
 	constructor(bitField = 0) {

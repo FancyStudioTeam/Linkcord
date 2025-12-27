@@ -7,7 +7,7 @@ import {
 } from '#transformers/Users/Deserializer.js';
 import type { APIUser, AvatarDecorationData, Collectibles, DisplayNameStyles, PrimaryGuild, Snowflake } from '#types/index.js';
 import { isUndefined } from '#utils/helpers/AssertionUtils.js';
-import { BitFieldResolver, hexColor, userMention } from '#utils/index.js';
+import { BitField, hexColor, userMention } from '#utils/index.js';
 import { Base } from './Base.js';
 
 /**
@@ -36,7 +36,7 @@ export class User extends Base {
 	/** The display name styles data of the user, if any. */
 	displayNameStyles: DisplayNameStyles | null;
 	/** The flags of the user. */
-	flags: BitFieldResolver;
+	flags: BitField;
 	/** The display name of the user, if any. */
 	globalName: string | null;
 	/** The primary guild data of the user, if any. */
@@ -72,7 +72,7 @@ export class User extends Base {
 		this.collectibles = deserializeCollectibles(collectibles);
 		this.discriminator = discriminator;
 		this.displayNameStyles = deserializeDisplayNameStyles(display_name_styles);
-		this.flags = new BitFieldResolver(flags);
+		this.flags = new BitField(flags);
 		this.globalName = global_name;
 		this.id = id;
 		this.primaryGuild = deserializePrimaryGuild(primary_guild);
@@ -110,7 +110,7 @@ export class User extends Base {
 		if (!isUndefined(banner)) this.banner = banner;
 		if (!isUndefined(collectibles)) this.collectibles = deserializeCollectibles(collectibles);
 		if (!isUndefined(display_name_styles)) this.displayNameStyles = deserializeDisplayNameStyles(display_name_styles);
-		if (!isUndefined(flags)) this.flags = new BitFieldResolver(flags);
+		if (!isUndefined(flags)) this.flags = new BitField(flags);
 		if (!isUndefined(global_name)) this.globalName = global_name;
 		if (!isUndefined(primary_guild)) this.primaryGuild = deserializePrimaryGuild(primary_guild);
 		if (!isUndefined(username)) this.username = username;
