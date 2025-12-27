@@ -1,5 +1,6 @@
 import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
 import type { OAuth2Scopes } from '#types/resources/OAuth2/enums.js';
+import type { RawRole } from '#types/resources/Permissions/index.js';
 import type { RawAvatarDecorationData, RawUser } from '#types/resources/Users/index.js';
 import type { GuildMemberFlags, IntegrationExpireBehavior, IntegrationType } from '../enums.js';
 
@@ -16,6 +17,7 @@ export interface APIGuild {
 	id: Snowflake;
 	name: string;
 	owner_id: Snowflake;
+	roles: RawRole[];
 	splash: string | null;
 }
 
