@@ -3,8 +3,11 @@ declare const Brand: unique symbol;
 export type AbstractConstructor<Class> = abstract new (...args: Any[]) => Class;
 
 /*
- * biome-ignore lint/suspicious/noExplicitAny: This utility type intentionally exposes `any` as `Any`.
- * This avoids globally disabling or repeatedly suppressing Biome's `noExplicitAny` rule.
+ * biome-ignore lint/suspicious/noExplicitAny: This utility type intentionally
+ * exposes `any` as `Any`.
+ *
+ * This avoids globally disabling or repeatedly suppressing Biome's
+ * `noExplicitAny` rule.
  */
 export type Any = any;
 
@@ -14,7 +17,7 @@ export type Brand<Type, Brand extends string> = Type & {
 	readonly [Brand]: Brand;
 };
 
-export type Constructor<Class> = AbstractConstructor<Class> | NonAbstractConstructor<Class>;
+export type Constructor<Class> = NonAbstractConstructor<Class> | AbstractConstructor<Class>;
 
 export type NonAbstractConstructor<Class> = new (...args: Any[]) => Class;
 
