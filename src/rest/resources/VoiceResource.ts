@@ -1,7 +1,7 @@
 import { VOICE_REGIONS_ENDPOINT } from '#rest/endpoints/Endpoints.js';
 import { RESTMethod } from '#rest/structures/RESTManager.types.js';
 import { deserializeVoiceRegionsArray } from '#transformers/Voice/Deserializer.js';
-import type { RESTGetAPIVoiceRegions, VoiceRegion } from '#types/index.js';
+import type { APIVoiceRegion, VoiceRegion } from '#types/index.js';
 import { ResourceBase } from './ResourceBase.js';
 
 export class VoiceResource extends ResourceBase {
@@ -11,7 +11,7 @@ export class VoiceResource extends ResourceBase {
 	async getVoiceRegions(): Promise<VoiceRegion[]> {
 		const { rest } = this;
 
-		const voiceRegionsResponseData = await rest.makeRequest<RESTGetAPIVoiceRegions>(VOICE_REGIONS_ENDPOINT(), {
+		const voiceRegionsResponseData = await rest.makeRequest<APIVoiceRegion[]>(VOICE_REGIONS_ENDPOINT(), {
 			method: RESTMethod.Get,
 		});
 		const voiceRegionsData = deserializeVoiceRegionsArray(voiceRegionsResponseData);
