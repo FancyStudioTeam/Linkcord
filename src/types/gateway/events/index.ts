@@ -1,5 +1,6 @@
 export * from './Base.js';
 export * from './Dispatch.js';
+export * from './GuildMemberUpdate.js';
 export * from './Heartbeat.js';
 export * from './HeartbeatAck.js';
 export * from './Hello.js';
@@ -9,3 +10,4 @@ export * from './MessageCreate.js';
 export * from './Ready.js';
 export * from './Reconnect.js';
 export * from './Resume.js';
+export * from './UserUpdate.js';
