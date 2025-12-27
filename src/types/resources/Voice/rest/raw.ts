@@ -3,7 +3,7 @@ import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
 /**
  * @see https://discord.com/developers/docs/resources/voice#modify-current-user-voice-state-json-params
  */
-export interface RESTPatchAPICurrentVoiceStateJSONParams {
+export interface RawEditCurrentVoiceStateOptions {
 	channel_id?: Snowflake;
 	request_to_speak_timestamp?: ISO8601Date | null;
 	supress?: boolean;
@@ -12,7 +12,7 @@ export interface RESTPatchAPICurrentVoiceStateJSONParams {
 /**
  * @see https://discord.com/developers/docs/resources/voice#modify-user-voice-state-json-params
  */
-export interface RESTPatchAPIVoiceStateJSONParams {
+export interface RawEditVoiceStateOptions {
 	channel_id?: Snowflake;
 	supress?: boolean;
 }

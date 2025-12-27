@@ -1,9 +1,9 @@
-import type { APIVoiceRegion, VoiceRegion } from '#types/index.js';
+import type { RawVoiceRegion, VoiceRegion } from '#types/index.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure
  */
-export function deserializeVoiceRegion(voiceRegion: APIVoiceRegion): VoiceRegion {
+export function deserializeVoiceRegion(voiceRegion: RawVoiceRegion): VoiceRegion {
 	return {
 		custom: voiceRegion.custom,
 		deprecated: voiceRegion.deprecated,
@@ -16,6 +16,6 @@ export function deserializeVoiceRegion(voiceRegion: APIVoiceRegion): VoiceRegion
 /**
  * @see https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure
  */
-export function deserializeVoiceRegionsArray(voiceRegionsArray: APIVoiceRegion[]): VoiceRegion[] {
+export function deserializeVoiceRegionsArray(voiceRegionsArray: RawVoiceRegion[]): VoiceRegion[] {
 	return voiceRegionsArray.map(deserializeVoiceRegion);
 }

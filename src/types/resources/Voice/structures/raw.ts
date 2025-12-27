@@ -4,7 +4,7 @@ import type { APIGuildMember } from '#types/resources/Guilds/index.js';
 /**
  * @see https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure
  */
-export interface APIVoiceRegion {
+export interface RawVoiceRegion {
 	custom: boolean;
 	deprecated: boolean;
 	id: string;
@@ -15,7 +15,7 @@ export interface APIVoiceRegion {
 /**
  * @see https://discord.com/developers/docs/resources/voice#voice-state-object-voice-state-structure
  */
-export interface APIVoiceState {
+export interface RawVoiceState {
 	channel_id: Snowflake | null;
 	deaf: boolean;
 	guild_id?: Snowflake;
