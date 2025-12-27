@@ -25,17 +25,18 @@ export class Message<InGuild extends boolean = boolean> extends Base {
 	/** The ID of the guild, if any. */
 	guildId: If<InGuild, Snowflake>;
 
-	constructor(client: Client, data: APIMessage & GatewayDispatchMessageCreateEventPayload) {
+	constructor(client: Client, data: APIMessage) {
 		super(client);
 
-		const { channel_id, components, content, embeds, guild_id, id } = data;
+		const { channel_id, components, content, embeds, id } = data;
 
 		this.channelId = channel_id;
 		this.components = deserializeMessageComponentsArray(components);
 		this.content = content;
 		this.embeds = deserializeEmbedsArray(embeds);
-		this.guildId = (guild_id ?? null) as If<InGuild, Snowflake>;
+		this.guildId = null as If<InGuild, Snowflake>;
 		this.id = id;
+		this.patch(data);
 	}
 
 	/** The guild where the message was sent, if any. */

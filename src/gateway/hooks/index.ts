@@ -7,10 +7,13 @@ import type { Client } from '#client/index.js';
 import type { GatewayShard } from '#gateway/structures/GatewayShard.js';
 import type { GatewayDispatchEvent } from '#types/index.js';
 import type { Awaitable } from '#utils/index.js';
+import { GUILD_CREATE, GUILD_UPDATE } from './Guilds.js';
 import { MESSAGE_CREATE } from './Messages.js';
 import { READY } from './Shard.js';
 
 export const DispatchHooks: Partial<DispatchHooksMap> = {
+	GUILD_CREATE,
+	GUILD_UPDATE,
 	MESSAGE_CREATE,
 	READY,
 };

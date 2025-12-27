@@ -1,5 +1,5 @@
 import type { Client } from '#client/index.js';
-import type { APIGuild, RawRole, Snowflake } from '#types/index.js';
+import type { APIGuild, GatewayDispatchGuildCreateEventPayload, RawRole, Snowflake } from '#types/index.js';
 import { isUndefined } from '#utils/helpers/AssertionUtils.js';
 import { Collection } from '#utils/index.js';
 import { Base } from './Base.js';
@@ -25,6 +25,7 @@ export class Guild extends Base {
 		this.id = id;
 		this.name = name;
 		this.roles = this.#rolesArrayToCollection(roles);
+		this.patch(data);
 	}
 
 	#rolesArrayToCollection(rawRolesArray: RawRole[]): Collection<Snowflake, Role> {
@@ -41,9 +42,11 @@ export class Guild extends Base {
 		return rolesCollection;
 	}
 
-	protected patch(data?: Partial<APIGuild>): void {
+	protected patch(data?: Partial<APIGuild & GatewayDispatchGuildCreateEventPayload>): void {
 		const { name } = data ?? {};
 
-		if (!isUndefined(name)) this.name = name;
+		if (!isUndefined(name)) {
+			this.name = name;
+		}
 	}
 }
