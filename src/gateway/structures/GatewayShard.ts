@@ -65,16 +65,6 @@ export class GatewayShard {
 		return lastHeartbeatReceivedAt - lastHeartbeatSentAt;
 	}
 
-	#clearHeartbeatInterval(): void {
-		const heartbeatInterval = this.#heartbeatInterval;
-
-		if (!isNull(heartbeatInterval)) {
-			clearInterval(heartbeatInterval);
-
-			this.#heartbeatInterval = null;
-		}
-	}
-
 	/**
 	 * @see https://discord.com/developers/docs/events/gateway#connecting
 	 */
@@ -108,6 +98,15 @@ export class GatewayShard {
 		}
 
 		this.sequence = receivedSequence;
+	}
+
+	#clearHeartbeatInterval(): void {
+		const heartbeatInterval = this.#heartbeatInterval;
+
+		if (!isNull(heartbeatInterval)) {
+			clearInterval(heartbeatInterval);
+			this.#heartbeatInterval = null;
+		}
 	}
 
 	#getSequence(gatewayEvent: GatewayEvent): number | null {
@@ -211,12 +210,8 @@ export class GatewayShard {
 	}
 
 	#onClose(closeEvent: CloseEvent): void {
-		this.#resetWebSocketData();
-
 		const { code, reason } = closeEvent;
 		const isReconnectable = this.#isCloseEventCodeReconnectable(code);
-
-		this.status = GatewayShardStatus.Disconnected;
 
 		const { client, label } = this;
 		const debugMessage = `Session has been closed with code ${code} (${reason || 'N/A'})`;
@@ -232,6 +227,9 @@ export class GatewayShard {
 			isReconnectable,
 			reason,
 		});
+
+		this.status = GatewayShardStatus.Disconnected;
+		this.#resetWebSocketData();
 
 		if (!isReconnectable) {
 			return void this.#reset();
