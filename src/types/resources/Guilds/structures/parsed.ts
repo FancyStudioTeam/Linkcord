@@ -1,7 +1,16 @@
 import type { Snowflake } from '#types/miscellaneous/discord.js';
 
 /**
- * Represents an unavailable guild.
+ * @see https://discord.com/developers/docs/resources/guild#incidents-data-object-incidents-data-structure
+ */
+export interface GuildIncidentsData {
+	dmSpamDetectedAt: Date | null;
+	dmsDisabledUntil: Date | null;
+	invitesDisabledUntil: Date | null;
+	raidDetectedAt: Date | null;
+}
+
+/**
  * @see https://discord.com/developers/docs/resources/guild#unavailable-guild-object-example-unavailable-guild
  */
 export interface UnavailableGuild {

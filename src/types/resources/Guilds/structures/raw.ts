@@ -7,8 +7,26 @@ import type { GuildMemberFlags, IntegrationExpireBehavior, IntegrationType } fro
  * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-structure
  */
 export interface APIGuild {
+	afk_channel_id: Snowflake | null;
+	afk_timeout: number;
+	discovery_splash: string | null;
+	icon: string | null;
+	icon_hash?: string | null;
+	incidents_data: APIGuildIncidentsData | null;
 	id: Snowflake;
 	name: string;
+	owner_id: Snowflake;
+	splash: string | null;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/guild#incidents-data-object-incidents-data-structure
+ */
+export interface APIGuildIncidentsData {
+	dm_spam_detected_at?: ISO8601Date | null;
+	dms_disabled_until: ISO8601Date | null;
+	invites_disabled_until: ISO8601Date | null;
+	raid_detected_at?: ISO8601Date | null;
 }
 
 /**
