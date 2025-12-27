@@ -2,7 +2,7 @@ import type { Client } from '#client/index.js';
 import type { RESTManager } from '#rest/structures/RESTManager.js';
 import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
 
-export class BaseAPI {
+export class ResourceBase {
 	protected declare readonly client: Client;
 	protected declare readonly rest: RESTManager;
 

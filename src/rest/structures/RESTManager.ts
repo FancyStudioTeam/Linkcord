@@ -1,21 +1,22 @@
 import type { Client } from '#client/index.js';
 import { normalizeRoute } from '#rest/functions/normalizeRoute.js';
 import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
-import { APIManager } from './APIManager.js';
 import { BucketManager } from './BucketManager.js';
 import { type MakeRequestOptions, RESTMethod } from './RESTManager.types.js';
+import { ResourceManager } from './ResourceManager.js';
 
 const NO_CONTENT_STATUS_CODE = 204;
+// const OK_STATUS_CODE = 200;
 
 export class RESTManager {
-	declare readonly api: APIManager;
 	declare readonly buckets: BucketManager;
 	declare readonly client: Client;
+	declare readonly resources: ResourceManager;
 
 	constructor(client: Client) {
-		defineReadonlyProperty(this, 'api', new APIManager(this, client));
 		defineReadonlyProperty(this, 'buckets', new BucketManager());
 		defineReadonlyProperty(this, 'client', client);
+		defineReadonlyProperty(this, 'resources', new ResourceManager(this, client));
 	}
 
 	static REST_URL_BASE = 'https://discord.com/api' as const;

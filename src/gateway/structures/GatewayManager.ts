@@ -75,7 +75,7 @@ export class GatewayManager {
 		const { client } = this;
 		const { rest } = client;
 		const {
-			api: { gateway },
+			resources: { gateway },
 		} = rest;
 
 		const { sessionStartLimit, shards: shardCount, url } = await gateway.getBot();

@@ -3,9 +3,9 @@ import { type File, type MakeRequestOptions, RESTMethod } from '#rest/structures
 import { Message } from '#structures/Message.js';
 import { serializeCreateMessageOptions } from '#transformers/Messages/REST.js';
 import type { CreateMessageOptions, RESTPostAPIMessage, RESTPostAPIMessageJSONParams, Snowflake } from '#types/index.js';
-import { BaseAPI } from './BaseAPI.js';
+import { ResourceBase } from './ResourceBase.js';
 
-export class ChannelsAPI extends BaseAPI {
+export class ChannelsResource extends ResourceBase {
 	/**
 	 * @see https://discord.com/developers/docs/reference#uploading-files
 	 */

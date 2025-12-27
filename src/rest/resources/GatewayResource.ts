@@ -2,9 +2,9 @@ import { GATEWAY_BOT_ENDPOINT, GATEWAY_ENDPOINT } from '#rest/endpoints/Endpoint
 import { RESTMethod } from '#rest/structures/RESTManager.types.js';
 import { deserializeGatewayBot } from '#transformers/Gateway/Deserializer.js';
 import type { Gateway, GatewayBot, RESTGetAPIGateway, RESTGetAPIGatewayBot } from '#types/index.js';
-import { BaseAPI } from './BaseAPI.js';
+import { ResourceBase } from './ResourceBase.js';
 
-export class GatewayAPI extends BaseAPI {
+export class GatewayResource extends ResourceBase {
 	/**
 	 * @see https://discord.com/developers/docs/events/gateway#get-gateway
 	 */

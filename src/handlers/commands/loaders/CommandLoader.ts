@@ -25,7 +25,7 @@ export class CommandLoader {
 		const { client } = this;
 		const { applicationId, rest } = client;
 		const {
-			api: { applications },
+			resources: { applications },
 		} = rest;
 
 		await applications.bulkOverwriteApplicationCommands(applicationId, applicationCommands);

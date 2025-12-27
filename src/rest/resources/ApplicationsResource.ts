@@ -1,9 +1,9 @@
 import { APPLICATION_COMMANDS_ENDPOINT } from '#rest/endpoints/Endpoints.js';
 import { RESTMethod } from '#rest/structures/RESTManager.types.js';
 import type { CreateApplicationCommandOptions, RESTPutAPIApplicationCommandsJSONParams, Snowflake } from '#types/index.js';
-import { BaseAPI } from './BaseAPI.js';
+import { ResourceBase } from './ResourceBase.js';
 
-export class ApplicationsAPI extends BaseAPI {
+export class ApplicationsResource extends ResourceBase {
 	/**
 	 * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command
 	 */
