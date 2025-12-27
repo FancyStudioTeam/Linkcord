@@ -11,7 +11,7 @@ import { CommandLoader } from '#handlers/commands/loaders/CommandLoader.js';
 import { EventLoader } from '#handlers/events/loaders/EventLoader.js';
 import type { Snowflake } from '#types/index.js';
 import { castSnowflake } from '#utils/index.js';
-import type { Client } from './Client/Client.js';
+import type { Client } from './Client.js';
 
 export class ClientBase {
 	/**
