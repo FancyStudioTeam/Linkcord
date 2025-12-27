@@ -20,7 +20,7 @@ import type {
 	APIPartialMessage,
 } from '#types/resources/Messages/index.js';
 import type { APIRole } from '#types/resources/Permissions/index.js';
-import type { APIUser } from '#types/resources/Users/index.js';
+import type { RawUser } from '#types/resources/Users/index.js';
 import type { InteractionContextType, InteractionType } from '../enums.js';
 
 /**
@@ -45,7 +45,7 @@ export interface APIInteractionBase<Type extends InteractionType, Data> {
 	message?: APIMessage;
 	token: string;
 	type: Type;
-	user?: APIUser;
+	user?: RawUser;
 	version: 1;
 }
 
@@ -87,7 +87,7 @@ export interface APIInteractionResolvedData {
 	members?: Record<Snowflake, APIPartialInteractionMember>;
 	messages?: Record<Snowflake, APIPartialMessage>;
 	roles?: Record<Snowflake, APIRole>;
-	users?: Record<Snowflake, APIUser>;
+	users?: Record<Snowflake, RawUser>;
 }
 
 /**

@@ -1,10 +1,11 @@
-import type { ImageDataURI, Snowflake } from '#types/miscellaneous/discord.js';
+import type { User } from '#structures/User.js';
+import type { Snowflake } from '#types/miscellaneous/discord.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/user#create-dm-json-params
  */
-export interface CreateUserDMChannelOptions {
-	recipientId: Snowflake;
+export interface CreateUserDirectMessageChannelOptions {
+	recipient: User | Snowflake;
 }
 
 /**
@@ -30,7 +31,7 @@ export interface EditCurrentUserApplicationRoleConnectionOptions {
  * @see https://discord.com/developers/docs/resources/user#modify-current-user-json-params
  */
 export interface EditCurrentUserOptions {
-	avatar?: ImageDataURI | null;
-	banner?: ImageDataURI | null;
+	avatar?: Buffer | null;
+	banner?: Buffer | null;
 	username?: string;
 }

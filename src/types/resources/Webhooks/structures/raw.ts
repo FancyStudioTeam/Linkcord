@@ -1,5 +1,5 @@
 import type { Snowflake } from '#types/miscellaneous/discord.js';
-import type { APIUser } from '#types/resources/Users/index.js';
+import type { RawUser } from '#types/resources/Users/index.js';
 import type { WebhookType } from '../enums.js';
 
 /**
@@ -38,7 +38,7 @@ export interface RawWebhookBase<Type extends WebhookType> {
 	id: Snowflake;
 	name: string | null;
 	type: Type;
-	user?: APIUser;
+	user?: RawUser;
 	url?: string;
 }
 

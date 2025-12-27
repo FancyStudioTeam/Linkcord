@@ -1,6 +1,6 @@
 import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
 import type { OAuth2Scopes } from '#types/resources/OAuth2/enums.js';
-import type { APIAvatarDecorationData, APIUser } from '#types/resources/Users/index.js';
+import type { RawAvatarDecorationData, RawUser } from '#types/resources/Users/index.js';
 import type { GuildMemberFlags, IntegrationExpireBehavior, IntegrationType } from '../enums.js';
 
 /**
@@ -34,7 +34,7 @@ export interface APIGuildIncidentsData {
  */
 export interface APIGuildMember {
 	avatar?: string | null;
-	avatar_decoration_data?: APIAvatarDecorationData | null;
+	avatar_decoration_data?: RawAvatarDecorationData | null;
 	banner?: string | null;
 	communication_disabled_until?: ISO8601Date | null;
 	deaf: boolean;
@@ -46,7 +46,7 @@ export interface APIGuildMember {
 	permissions?: string;
 	premium_sinze?: ISO8601Date | null;
 	roles: Snowflake[];
-	user?: APIUser;
+	user?: RawUser;
 }
 
 /**
@@ -67,7 +67,7 @@ export interface APIIntegration {
 	syncing?: boolean;
 	scopes?: OAuth2Scopes[];
 	type: IntegrationType;
-	user?: APIUser;
+	user?: RawUser;
 }
 
 /**

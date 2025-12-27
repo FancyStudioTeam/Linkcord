@@ -1,11 +1,11 @@
 import type { Snowflake } from '#types/miscellaneous/discord.js';
-import type { APIUser } from '#types/resources/Users/index.js';
+import type { RawUser } from '#types/resources/Users/index.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/poll#get-answer-voters
  */
 export interface RESTGetAPIPollAnswerVoters {
-	users: APIUser[];
+	users: RawUser[];
 }
 
 /**

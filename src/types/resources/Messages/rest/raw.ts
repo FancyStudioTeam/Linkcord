@@ -1,7 +1,7 @@
 import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
 import type { APIMessageComponents } from '#types/resources/Components/index.js';
 import type { APIMessagePoll } from '#types/resources/Polls/index.js';
-import type { APIUser } from '#types/resources/Users/index.js';
+import type { RawUser } from '#types/resources/Users/index.js';
 import type { MessageFlags, ReactionType } from '../enums.js';
 import type {
 	APIAllowedMentions,
@@ -128,7 +128,7 @@ export type RESTGetAPIChannelMessages = APIMessage[];
 /**
  * @see https://discord.com/developers/docs/resources/message#get-reactions
  */
-export type RESTGetAPIMessageReactions = APIUser[];
+export type RESTGetAPIMessageReactions = RawUser[];
 
 /**
  * @see https://discord.com/developers/docs/resources/message#edit-message

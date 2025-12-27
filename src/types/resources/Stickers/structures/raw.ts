@@ -1,5 +1,5 @@
 import type { Snowflake } from '#types/miscellaneous/discord.js';
-import type { APIUser } from '#types/resources/Users/index.js';
+import type { RawUser } from '#types/resources/Users/index.js';
 import type { StickerFormatType, StickerType } from '../enums.js';
 
 /**
@@ -16,7 +16,7 @@ export interface APISticker {
 	sort_value?: number;
 	tags: string;
 	type: StickerType;
-	user?: APIUser;
+	user?: RawUser;
 }
 
 /**

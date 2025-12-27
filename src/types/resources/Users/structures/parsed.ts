@@ -1,6 +1,5 @@
 import type { Snowflake } from '#types/miscellaneous/discord.js';
 import type { GuildFeatures } from '#types/resources/Guilds/enums.js';
-// import type { PartialIntegration } from "#types/resources/Guilds/index.js";
 import type { ConnectionService, ConnectionVisibilityType, DisplayNameEffect, DisplayNameFont, NameplatePalette } from '../enums.js';
 
 /**
@@ -20,20 +19,13 @@ export interface AvatarDecorationData {
 	skuId: Snowflake;
 }
 
-/**
- * @see https://discord.com/developers/docs/resources/user#collectibles-collectible-structure
- */
-export interface Collectibles {
-	nameplate: Nameplate | null;
-}
-
+// TODO: Add "integration" to "Connection".
 /**
  * @see https://discord.com/developers/docs/resources/user#connection-object-connection-structure
  */
 export interface Connection {
 	friendSync: boolean;
 	id: string;
-	//integrations?: PartialIntegration[];
 	name: string;
 	revoked: boolean;
 	showActivity: boolean;
@@ -44,21 +36,9 @@ export interface Connection {
 }
 
 /**
- * @undocumented
- */
-export interface DisplayNameStyles {
-	colors: [
-		number,
-		number,
-	];
-	effectId: DisplayNameEffect;
-	fontId: DisplayNameFont;
-}
-
-/**
  * @see https://discord.com/developers/docs/resources/user#nameplate-nameplate-structure
  */
-export interface Nameplate {
+export interface NameplateCollectible {
 	asset: string;
 	label: string;
 	palette: NameplatePalette;
@@ -66,13 +46,22 @@ export interface Nameplate {
 }
 
 /**
- * @see https://discord.com/developers/docs/resources/user#user-object-user-primary-guild
+ * @see https://discord.com/developers/docs/resources/user#collectibles-collectible-structure
  */
-export interface PrimaryGuild {
-	badge: string | null;
-	identityEnabled: boolean | null;
-	identityGuildId: Snowflake | null;
-	tag: string | null;
+export interface UserCollectibles {
+	nameplate: NameplateCollectible | null;
+}
+
+/**
+ * @undocumented
+ */
+export interface UserDisplayNameStyles {
+	colors: [
+		number,
+		number,
+	];
+	effectId: DisplayNameEffect;
+	fontId: DisplayNameFont;
 }
 
 /**
@@ -88,4 +77,14 @@ export interface UserGuild {
 	name: string;
 	owner: boolean;
 	permissions: string;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/user#user-object-user-primary-guild
+ */
+export interface UserPrimaryGuild {
+	badge: string | null;
+	identityEnabled: boolean | null;
+	identityGuildId: Snowflake | null;
+	tag: string | null;
 }

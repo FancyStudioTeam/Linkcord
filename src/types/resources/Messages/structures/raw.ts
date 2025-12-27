@@ -6,7 +6,7 @@ import type { APIPartialEmoji } from '#types/resources/Emojis/index.js';
 import type { InteractionType } from '#types/resources/Interactions/enums.js';
 import type { APIPoll } from '#types/resources/Polls/index.js';
 import type { APIStickerItem } from '#types/resources/Stickers/structures/raw.js';
-import type { APIUser } from '#types/resources/Users/index.js';
+import type { RawUser } from '#types/resources/Users/index.js';
 import type {
 	AllowedMentionType,
 	AttachmentFlags,
@@ -31,7 +31,7 @@ export interface APIAllowedMentions {
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-application-command-interaction-metadata-structure
  */
 export interface APIApplicationCommandInteractionMetadata extends APIBaseMessageInteractionMetadata {
-	target_user?: APIUser;
+	target_user?: RawUser;
 	target_message_id?: Snowflake;
 }
 
@@ -62,7 +62,7 @@ export interface APIBaseMessageInteractionMetadata {
 	authorizing_integration_owners: APIAuthorizingIntegrationOwners;
 	id: Snowflake;
 	type: InteractionType;
-	user: APIUser;
+	user: RawUser;
 }
 
 /**
@@ -168,7 +168,7 @@ export interface APIMessage {
 	activity?: APIMessageActivity;
 	application_id?: Snowflake;
 	attachments: APIAttachment[];
-	author: APIUser;
+	author: RawUser;
 	call?: APIMessageCall;
 	channel_id: Snowflake;
 	components: APIMessageComponents[];
@@ -182,7 +182,7 @@ export interface APIMessage {
 	mention_everyone: boolean;
 	message_reference?: APIMessageReference;
 	mention_roles: Snowflake[];
-	mentions: APIUser[];
+	mentions: RawUser[];
 	nonce?: number | string;
 	pinned: boolean;
 	position?: number;

@@ -1,7 +1,7 @@
 import type { Snowflake } from '#types/miscellaneous/discord.js';
 import type { OAuth2Scopes } from '#types/resources/OAuth2/enums.js';
 import type { APITeam } from '#types/resources/Teams/structures/raw.js';
-import type { APIPartialUser } from '#types/resources/Users/index.js';
+import type { RawPartialUser } from '#types/resources/Users/index.js';
 import type {
 	ActivityLocationKind,
 	ApplicationEventWebhookStatus,
@@ -28,7 +28,7 @@ export interface APIApplication {
 	approximate_guild_count?: number;
 	approximate_user_authorization_count?: number;
 	approximate_user_install_count?: number;
-	bot?: APIPartialUser;
+	bot?: RawPartialUser;
 	bot_public: boolean;
 	bot_require_code_grant: boolean;
 	custom_install_url?: string;
@@ -45,7 +45,7 @@ export interface APIApplication {
 	integration_types_config: APIApplicationIntegrationTypesConfig;
 	interactions_endpoint_url?: string | null;
 	name: string;
-	owner?: APIPartialUser;
+	owner?: RawPartialUser;
 	primary_sku_id?: Snowflake;
 	privacy_policy_url?: string;
 	redirect_uris?: string[];

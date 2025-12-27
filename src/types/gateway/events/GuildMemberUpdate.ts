@@ -1,5 +1,5 @@
 import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
-import type { APIAvatarDecorationData, APIUser, GuildMemberFlags } from '#types/resources/index.js';
+import type { GuildMemberFlags, RawAvatarDecorationData, RawUser } from '#types/resources/index.js';
 import type { GatewayDispatchEvents } from '../enums.js';
 import type { GatewayDispatchEventBase } from './Dispatch.js';
 
@@ -8,7 +8,7 @@ import type { GatewayDispatchEventBase } from './Dispatch.js';
  */
 export interface GatewayDispatchGuildMemberUpdateEventPayload {
 	avatar: string | null;
-	avatar_decoration_data?: APIAvatarDecorationData | null;
+	avatar_decoration_data?: RawAvatarDecorationData | null;
 	banner: string | null;
 	communication_disabled_until?: ISO8601Date | null;
 	deaf?: boolean;
@@ -20,7 +20,7 @@ export interface GatewayDispatchGuildMemberUpdateEventPayload {
 	pending?: boolean;
 	premium_since?: ISO8601Date | null;
 	roles: Snowflake[];
-	user: APIUser;
+	user: RawUser;
 }
 
 /**

@@ -1,5 +1,5 @@
 import type { Snowflake } from '#types/miscellaneous/discord.js';
-import type { APIUser } from '#types/resources/Users/index.js';
+import type { RawUser } from '#types/resources/Users/index.js';
 import type { TeamMemberRoleType, TeamMembershipState } from '../enums.js';
 
 /**
@@ -20,5 +20,5 @@ export interface APITeamMember {
 	membership_state: TeamMembershipState;
 	role: TeamMemberRoleType;
 	team_id: Snowflake;
-	user: APIUser;
+	user: RawUser;
 }

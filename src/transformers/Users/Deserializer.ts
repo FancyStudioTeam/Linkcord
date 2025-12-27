@@ -1,76 +1,91 @@
 import type {
-	APIAvatarDecorationData,
-	APICollectibles,
-	APIDisplayNameStyles,
-	APINameplate,
-	APIPrimaryGuild,
 	AvatarDecorationData,
-	Collectibles,
-	DisplayNameStyles,
-	Nameplate,
-	PrimaryGuild,
+	NameplateCollectible,
+	RawAvatarDecorationData,
+	RawNameplateCollectible,
+	RawUserCollectibles,
+	RawUserDisplayNameStyles,
+	RawUserPrimaryGuild,
+	UserCollectibles,
+	UserDisplayNameStyles,
+	UserPrimaryGuild,
 } from '#types/index.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/user#avatar-decoration-data-object-avatar-decoration-data-structure
  */
-export function deserializeAvatarDecorationData(avatarDecorationData?: APIAvatarDecorationData | null): AvatarDecorationData | null {
-	if (!avatarDecorationData) return null;
+export function deserializeAvatarDecorationData(rawAvatarDecorationData?: RawAvatarDecorationData | null): AvatarDecorationData | null {
+	if (!rawAvatarDecorationData) return null;
 
-	return {
-		asset: avatarDecorationData.asset,
-		skuId: avatarDecorationData.sku_id,
+	const { asset, sku_id } = rawAvatarDecorationData;
+	const avatarDecorationData: AvatarDecorationData = {
+		asset,
+		skuId: sku_id,
 	};
-}
 
-/**
- * @see https://discord.com/developers/docs/resources/user#collectibles-collectible-structure
- */
-export function deserializeCollectibles(collectibles?: APICollectibles | null): Collectibles | null {
-	if (!collectibles) return null;
-
-	return {
-		nameplate: deserializeNameplate(collectibles.nameplate),
-	};
-}
-
-/**
- * @undocumented
- */
-export function deserializeDisplayNameStyles(displayNameStyles?: APIDisplayNameStyles | null): DisplayNameStyles | null {
-	if (!displayNameStyles) return null;
-
-	return {
-		colors: displayNameStyles.colors,
-		effectId: displayNameStyles.effect_id,
-		fontId: displayNameStyles.font_id,
-	};
+	return avatarDecorationData;
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/user#nameplate-nameplate-structure
  */
-export function deserializeNameplate(nameplate?: APINameplate): Nameplate | null {
-	if (!nameplate) return null;
+export function deserializeNameplateCollectible(rawNameplateCollectible?: RawNameplateCollectible): NameplateCollectible | null {
+	if (!rawNameplateCollectible) return null;
 
-	return {
-		asset: nameplate.asset,
-		label: nameplate.label,
-		palette: nameplate.palette,
-		skuId: nameplate.sku_id,
+	const { asset, label, palette, sku_id } = rawNameplateCollectible;
+	const nameplateCollectible: NameplateCollectible = {
+		asset,
+		label,
+		palette,
+		skuId: sku_id,
 	};
+
+	return nameplateCollectible;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/user#collectibles-collectible-structure
+ */
+export function deserializeUserCollectibles(rawUserCollectibles?: RawUserCollectibles | null): UserCollectibles | null {
+	if (!rawUserCollectibles) return null;
+
+	const { nameplate } = rawUserCollectibles;
+	const userCollectibles: UserCollectibles = {
+		nameplate: deserializeNameplateCollectible(nameplate),
+	};
+
+	return userCollectibles;
+}
+
+/**
+ * @undocumented
+ */
+export function deserializeUserDisplayNameStyles(rawUserDisplayNameStyles?: RawUserDisplayNameStyles | null): UserDisplayNameStyles | null {
+	if (!rawUserDisplayNameStyles) return null;
+
+	const { colors, effect_id, font_id } = rawUserDisplayNameStyles;
+	const userDisplayNameStyles: UserDisplayNameStyles = {
+		colors,
+		effectId: effect_id,
+		fontId: font_id,
+	};
+
+	return userDisplayNameStyles;
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/user#user-object-user-primary-guild
  */
-export function deserializePrimaryGuild(primaryGuild?: APIPrimaryGuild | null): PrimaryGuild | null {
-	if (!primaryGuild) return null;
+export function deserializeUserPrimaryGuild(rawUserPrimaryGuild?: RawUserPrimaryGuild | null): UserPrimaryGuild | null {
+	if (!rawUserPrimaryGuild) return null;
 
-	return {
-		badge: primaryGuild.badge,
-		identityEnabled: primaryGuild.identity_enabled,
-		identityGuildId: primaryGuild.identity_guild_id,
-		tag: primaryGuild.tag,
+	const { badge, identity_enabled, identity_guild_id, tag } = rawUserPrimaryGuild;
+	const userPrimaryGuild: UserPrimaryGuild = {
+		badge,
+		identityEnabled: identity_enabled,
+		identityGuildId: identity_guild_id,
+		tag,
 	};
+
+	return userPrimaryGuild;
 }

@@ -15,7 +15,7 @@ import type {
 /**
  * @see https://discord.com/developers/docs/resources/user#application-role-connection-object-application-role-connection-structure
  */
-export interface APIApplicationRoleConnection {
+export interface RawApplicationRoleConnection {
 	metadata: Record<string, string>;
 	platform_name: string;
 	platform_username: string;
@@ -24,22 +24,15 @@ export interface APIApplicationRoleConnection {
 /**
  * @see https://discord.com/developers/docs/resources/user#avatar-decoration-data-object-avatar-decoration-data-structure
  */
-export interface APIAvatarDecorationData {
+export interface RawAvatarDecorationData {
 	asset: string;
 	sku_id: Snowflake;
 }
 
 /**
- * @see https://discord.com/developers/docs/resources/user#collectibles-collectible-structure
- */
-export interface APICollectibles {
-	nameplate?: APINameplate;
-}
-
-/**
  * @see https://discord.com/developers/docs/resources/user#connection-object-connection-structure
  */
-export interface APIConnection {
+export interface RawConnection {
 	friend_sync: boolean;
 	id: string;
 	integrations?: APIPartialIntegration[];
@@ -53,31 +46,9 @@ export interface APIConnection {
 }
 
 /**
- * @undocumented
- */
-export interface APIDisplayNameStyles {
-	colors: [
-		number,
-		number,
-	];
-	effect_id: DisplayNameEffect;
-	font_id: DisplayNameFont;
-}
-
-/**
- * @see https://discord.com/developers/docs/resources/user#user-object-user-primary-guild
- */
-export interface APIPrimaryGuild {
-	badge: string | null;
-	identity_enabled: boolean | null;
-	identity_guild_id: Snowflake | null;
-	tag: string | null;
-}
-
-/**
  * @see https://discord.com/developers/docs/resources/user#nameplate-nameplate-structure
  */
-export interface APINameplate {
+export interface RawNameplateCollectible {
 	asset: string;
 	label: string;
 	palette: NameplatePalette;
@@ -87,15 +58,15 @@ export interface APINameplate {
 /**
  * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
  */
-export interface APIUser {
+export interface RawUser {
 	accent_color?: number | null;
 	avatar: string | null;
-	avatar_decoration_data?: APIAvatarDecorationData | null;
+	avatar_decoration_data?: RawAvatarDecorationData | null;
 	banner?: string | null;
 	bot?: boolean;
-	collectibles?: APICollectibles | null;
+	collectibles?: RawUserCollectibles | null;
 	discriminator: string;
-	display_name_styles: APIDisplayNameStyles | null;
+	display_name_styles: RawUserDisplayNameStyles | null;
 	email?: string | null;
 	flags?: UserFlags;
 	global_name: string | null;
@@ -103,7 +74,7 @@ export interface APIUser {
 	locale?: Locales;
 	mfa_enabled?: boolean;
 	premium_type?: UserPremiumType;
-	primary_guild?: APIPrimaryGuild | null;
+	primary_guild?: RawUserPrimaryGuild | null;
 	public_flags?: UserFlags;
 	system?: boolean;
 	username: string;
@@ -111,9 +82,28 @@ export interface APIUser {
 }
 
 /**
+ * @see https://discord.com/developers/docs/resources/user#collectibles-collectible-structure
+ */
+export interface RawUserCollectibles {
+	nameplate?: RawNameplateCollectible;
+}
+
+/**
+ * @undocumented
+ */
+export interface RawUserDisplayNameStyles {
+	colors: [
+		number,
+		number,
+	];
+	effect_id: DisplayNameEffect;
+	font_id: DisplayNameFont;
+}
+
+/**
  * @see https://discord.com/developers/docs/resources/user#get-current-user-guilds-example-partial-guild
  */
-export interface APIUserGuild {
+export interface RawUserGuild {
 	approximate_member_count: number;
 	approximate_presence_count: number;
 	banner: string | null;
@@ -126,6 +116,16 @@ export interface APIUserGuild {
 }
 
 /**
+ * @see https://discord.com/developers/docs/resources/user#user-object-user-primary-guild
+ */
+export interface RawUserPrimaryGuild {
+	badge: string | null;
+	identity_enabled: boolean | null;
+	identity_guild_id: Snowflake | null;
+	tag: string | null;
+}
+
+/**
  * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
  */
-export type APIPartialUser = Partial<APIUser>;
+export type RawPartialUser = Partial<RawUser>;

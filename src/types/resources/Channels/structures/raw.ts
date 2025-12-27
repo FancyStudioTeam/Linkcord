@@ -1,5 +1,5 @@
 import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
-import type { APIUser } from '#types/resources/Users/index.js';
+import type { RawUser } from '#types/resources/Users/index.js';
 import type { AutoArchiveDuration, ChannelFlags, ChannelOverwriteType, ChannelType } from '../enums.js';
 
 /**
@@ -15,7 +15,7 @@ export interface APIChannelBase<Type extends ChannelType> {
  * @see https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
  */
 export interface APIDMChannelBase<Type extends APIDMChannelType> extends APITextableChannelBase<Type> {
-	recipients: APIUser[];
+	recipients: RawUser[];
 }
 
 /**

@@ -1,11 +1,11 @@
 import type { Client } from '#client/index.js';
 import {
 	deserializeAvatarDecorationData,
-	deserializeCollectibles,
-	deserializeDisplayNameStyles,
-	deserializePrimaryGuild,
+	deserializeUserCollectibles,
+	deserializeUserDisplayNameStyles,
+	deserializeUserPrimaryGuild,
 } from '#transformers/Users/Deserializer.js';
-import type { APIUser, AvatarDecorationData, Collectibles, DisplayNameStyles, PrimaryGuild, Snowflake } from '#types/index.js';
+import type { AvatarDecorationData, RawUser, Snowflake, UserCollectibles, UserDisplayNameStyles, UserPrimaryGuild } from '#types/index.js';
 import { isUndefined } from '#utils/helpers/AssertionUtils.js';
 import { BitField, hexColor, userMention } from '#utils/index.js';
 import { Base } from './Base.js';
@@ -32,19 +32,19 @@ export class User extends Base {
 	/** The banner hash of the user, if any. */
 	banner: string | null;
 	/** The collectibles data of the user. */
-	collectibles: Collectibles | null;
+	collectibles: UserCollectibles | null;
 	/** The display name styles data of the user, if any. */
-	displayNameStyles: DisplayNameStyles | null;
+	displayNameStyles: UserDisplayNameStyles | null;
 	/** The flags of the user. */
 	flags: BitField;
 	/** The display name of the user, if any. */
 	globalName: string | null;
 	/** The primary guild data of the user, if any. */
-	primaryGuild: PrimaryGuild | null;
+	primaryGuild: UserPrimaryGuild | null;
 	/** The username of the user. */
 	username: string;
 
-	constructor(client: Client, data: APIUser) {
+	constructor(client: Client, data: RawUser) {
 		super(client);
 
 		const {
@@ -69,13 +69,13 @@ export class User extends Base {
 		this.avatarDecorationData = deserializeAvatarDecorationData(avatar_decoration_data);
 		this.banner = banner ?? null;
 		this.bot = Boolean(bot);
-		this.collectibles = deserializeCollectibles(collectibles);
+		this.collectibles = deserializeUserCollectibles(collectibles);
 		this.discriminator = discriminator;
-		this.displayNameStyles = deserializeDisplayNameStyles(display_name_styles);
+		this.displayNameStyles = deserializeUserDisplayNameStyles(display_name_styles);
 		this.flags = new BitField(flags);
 		this.globalName = global_name;
 		this.id = id;
-		this.primaryGuild = deserializePrimaryGuild(primary_guild);
+		this.primaryGuild = deserializeUserPrimaryGuild(primary_guild);
 		this.system = Boolean(system);
 		this.username = username;
 	}
@@ -90,7 +90,7 @@ export class User extends Base {
 		return userMention(this.id);
 	}
 
-	protected patch(data?: Partial<APIUser>): void {
+	protected patch(data?: Partial<RawUser>): void {
 		const {
 			accent_color,
 			avatar,
@@ -104,15 +104,44 @@ export class User extends Base {
 			username,
 		} = data ?? {};
 
-		if (!isUndefined(accent_color)) this.accentColor = accent_color;
-		if (!isUndefined(avatar)) this.avatar = avatar;
-		if (!isUndefined(avatar_decoration_data)) this.avatarDecorationData = deserializeAvatarDecorationData(avatar_decoration_data);
-		if (!isUndefined(banner)) this.banner = banner;
-		if (!isUndefined(collectibles)) this.collectibles = deserializeCollectibles(collectibles);
-		if (!isUndefined(display_name_styles)) this.displayNameStyles = deserializeDisplayNameStyles(display_name_styles);
-		if (!isUndefined(flags)) this.flags = new BitField(flags);
-		if (!isUndefined(global_name)) this.globalName = global_name;
-		if (!isUndefined(primary_guild)) this.primaryGuild = deserializePrimaryGuild(primary_guild);
-		if (!isUndefined(username)) this.username = username;
+		if (!isUndefined(accent_color)) {
+			this.accentColor = accent_color;
+		}
+
+		if (!isUndefined(avatar)) {
+			this.avatar = avatar;
+		}
+
+		if (!isUndefined(avatar_decoration_data)) {
+			this.avatarDecorationData = deserializeAvatarDecorationData(avatar_decoration_data);
+		}
+
+		if (!isUndefined(banner)) {
+			this.banner = banner;
+		}
+
+		if (!isUndefined(collectibles)) {
+			this.collectibles = deserializeUserCollectibles(collectibles);
+		}
+
+		if (!isUndefined(display_name_styles)) {
+			this.displayNameStyles = deserializeUserDisplayNameStyles(display_name_styles);
+		}
+
+		if (!isUndefined(flags)) {
+			this.flags = new BitField(flags);
+		}
+
+		if (!isUndefined(global_name)) {
+			this.globalName = global_name;
+		}
+
+		if (!isUndefined(primary_guild)) {
+			this.primaryGuild = deserializeUserPrimaryGuild(primary_guild);
+		}
+
+		if (!isUndefined(username)) {
+			this.username = username;
+		}
 	}
 }

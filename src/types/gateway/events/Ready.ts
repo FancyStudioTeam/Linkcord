@@ -1,5 +1,5 @@
 import type { APIVersion } from '#types/miscellaneous/discord.js';
-import type { APIGatewayApplication, APIUnavailableGuild, APIUser } from '#types/resources/index.js';
+import type { APIGatewayApplication, APIUnavailableGuild, RawUser } from '#types/resources/index.js';
 import type { GatewayDispatchEvents } from '../enums.js';
 import type { GatewayDispatchEventBase } from './Dispatch.js';
 
@@ -15,7 +15,7 @@ export interface GatewayDispatchReadyEventPayload {
 		number,
 		number,
 	];
-	user: APIUser;
+	user: RawUser;
 	v: APIVersion;
 }
 
