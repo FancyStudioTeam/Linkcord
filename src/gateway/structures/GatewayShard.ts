@@ -138,9 +138,7 @@ export class GatewayShard {
 		const ws = this.#ws;
 
 		if ((isNull(ws) || ws.readyState !== OPEN_STATE) && required) {
-			const { id } = this;
-
-			throw new GatewayShardError('WebSocket has not been initialized yet', id);
+			throw new GatewayShardError('WebSocket has not been initialized yet', this.id);
 		}
 
 		return ws;
@@ -298,7 +296,11 @@ export class GatewayShard {
 		const { client, label } = this;
 		const { events } = client;
 
-		const heartbeatJitter = Math.random();
+		/*
+		 * Math.random can return 0. If this happens, use a fallback of 0.5.
+		 */
+		// biome-ignore lint/style/noMagicNumbers: Hearbeat jitter fallback.
+		const heartbeatJitter = Math.random() || 0.5;
 		const heartbeatFirstWait = heartbeatInterval * heartbeatJitter;
 
 		const opcodeName = getOpcodeName(GatewayOpcodes.Heartbeat);
