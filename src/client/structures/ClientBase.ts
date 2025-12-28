@@ -15,13 +15,16 @@ import type { Client } from './Client.js';
 
 export class ClientBase {
 	/**
-	 * The application ID of the client.
+	 * The ID of the application.
 	 *
 	 * @remarks
-	 * - This value is retrieved by decoding the first segment of the application
+	 * This getter depends on `token` from {@link ClientBase}, which means it can
+	 * throw exceptions from `token`.
+	 *
+	 * This value is retrieved by decoding the first segment of the application
 	 * token which contains the application ID encoded in Base64.
-	 * - The encoded string is decoded using the `atob` method.
-	 * - This getter throws an error if the client is not initialized.
+	 *
+	 * This getter throws an error if the client is not initialized.
 	 */
 	@EnsureInitialized()
 	get applicationId(): Snowflake {
@@ -34,11 +37,12 @@ export class ClientBase {
 	}
 
 	/**
-	 * The defined intents of the client.
+	 * The intents of the application.
 	 *
 	 * @remarks
-	 * - This value is retrieved from the framework configuration.
-	 * - This getter throws an error if the client is not initialized.
+	 * This value is retrieved from the framework configuration.
+	 *
+	 * This getter throws an error if the client is not initialized.
 	 */
 	@EnsureInitialized()
 	get intents(): number {
@@ -46,11 +50,12 @@ export class ClientBase {
 	}
 
 	/**
-	 * The defined token of the client.
+	 * The token of the application.
 	 *
 	 * @remarks
-	 * - This value is retrieved from the framework configuration.
-	 * - This getter throws an error if the client is not initialized.
+	 * This value is retrieved from the framework configuration.
+	 *
+	 * This getter throws an error if the client is not initialized.
 	 */
 	@EnsureInitialized()
 	get token(): string {

@@ -26,26 +26,6 @@ export class Client extends ClientBase {
 		defineReadonlyProperty(this, 'rest', new RESTManager(this));
 	}
 
-	/**
-	 * The user associated with the application.
-	 *
-	 * @remarks
-	 * - This getter depends on `applicationId` from {@link ClientBase}.
-	 * - This getter throws an error if the application user is not cached.
-	 */
-	get user(): User {
-		const { applicationId, cache } = this;
-		const { users } = cache;
-
-		const cachedUser = users.get(applicationId);
-
-		if (!cachedUser) {
-			throw new TypeError(`Application user (${applicationId}) is not cached`);
-		}
-
-		return cachedUser;
-	}
-
 	#formatPairsString(pairs: ClientDebugPair[]): string {
 		const largestKeyLengthCallback = (accumulator: number, [{ length }]: ClientDebugPair) => Math.max(accumulator, length);
 		const largestKeyLength = pairs.reduce(largestKeyLengthCallback, 0);
@@ -86,5 +66,36 @@ export class Client extends ClientBase {
 
 		await super.init(this);
 		await gateway.init();
+	}
+
+	/**
+	 * Gets the {@link User} instance associated with the application.
+	 *
+	 * @param required - Whether the returned value cannot be `null`.
+	 */
+	async user(required?: false): Promise<User | null>;
+
+	/**
+	 * Gets the {@link User} instance associated with the application.
+	 *
+	 * @param required - Whether the returned value cannot be `null`.
+	 *
+	 * @remarks
+	 * This method throws an error if the {@link User} instance is not cached.
+	 */
+	async user(required: true): Promise<User>;
+
+	// biome-ignore lint/suspicious/useAwait: (x)
+	async user(required?: boolean): Promise<User | null> {
+		const { applicationId, cache } = this;
+		const { users } = cache;
+
+		const cachedUser = users.get(applicationId);
+
+		if (!cachedUser && required) {
+			throw new TypeError(`Application user (${applicationId}) is not cached`);
+		}
+
+		return cachedUser ?? null;
 	}
 }
