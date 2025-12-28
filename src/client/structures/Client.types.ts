@@ -45,6 +45,9 @@ export interface ClientEventsMap {
 	[ClientEvents.GuildUpdate]: [
 		params: ClientGuildUpdateEventParams,
 	];
+	[ClientEvents.UserUpdate]: [
+		params: ClientUserUpdateEventParams,
+	];
 }
 
 export interface ClientGatewayShardDisconnectedEventParams {
@@ -101,6 +104,12 @@ export interface ClientReadyEventParams {
 	user: User;
 }
 
+export interface ClientUserUpdateEventParams {
+	gatewayShard: GatewayShard;
+	newUser: User;
+	oldUser: User | Uncached;
+}
+
 export type ClientDebugPair = readonly [
 	Key: string,
 	Value: string,
@@ -118,4 +127,5 @@ export enum ClientEvents {
 	GuildMemberUpdate = 'guildMemberUpdate',
 	GuildUpdate = 'guildUpdate',
 	MessageCreate = 'messageCreate',
+	UserUpdate = 'userUpdate',
 }
