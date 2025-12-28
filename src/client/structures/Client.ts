@@ -29,7 +29,7 @@ export class Client extends ClientBase {
 		const largestKeyLengthCallback = (accumulator: number, [{ length }]: ClientDebugPair) => Math.max(accumulator, length);
 		const largestKeyLength = pairs.reduce(largestKeyLengthCallback, 0);
 
-		const formattedString = pairs.map(([key, value]) => `\t${key.padEnd(largestKeyLength)}: ${value}`).join('\n');
+		const formattedString = pairs.map(([key, value]) => `\t${key.padEnd(largestKeyLength)} - ${value}`).join('\n');
 
 		return formattedString;
 	}
