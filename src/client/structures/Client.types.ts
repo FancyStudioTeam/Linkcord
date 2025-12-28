@@ -39,9 +39,6 @@ export interface ClientEventsMap {
 	[ClientEvents.GuildUpdate]: [
 		params: ClientGuildUpdateEventParams,
 	];
-	[ClientEvents.Warn]: [
-		params: ClientWarningEventParams,
-	];
 }
 
 export interface ClientGatewayShardDisconnectedEventParams {
@@ -103,5 +100,4 @@ export enum ClientEvents {
 	GuildDelete = 'guildDelete',
 	GuildUpdate = 'guildUpdate',
 	MessageCreate = 'messageCreate',
-	Warn = 'warn',
 }
