@@ -394,11 +394,13 @@ export class GatewayShard {
 	}
 
 	#removeWebSocketEventListeners(): void {
-		const ws = this.#getWebSocket(true);
+		const ws = this.#getWebSocket();
 
-		ws.onclose = null;
-		ws.onmessage = null;
-		ws.onopen = null;
+		if (ws) {
+			ws.onclose = null;
+			ws.onmessage = null;
+			ws.onopen = null;
+		}
 	}
 
 	#reset() {
