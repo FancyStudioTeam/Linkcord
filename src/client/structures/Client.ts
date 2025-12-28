@@ -1,6 +1,7 @@
 import { CacheManager, CommandManager, EventManager } from '#client/managers/index.js';
 import { GatewayManager } from '#gateway/index.js';
 import { RESTManager } from '#rest/index.js';
+import type { User } from '#structures/User.js';
 import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
 import { isUndefined } from '#utils/helpers/AssertionUtils.js';
 import { type ClientDebugOptions, type ClientDebugPair, ClientEvents } from './Client.types.js';
@@ -23,6 +24,26 @@ export class Client extends ClientBase {
 		defineReadonlyProperty(this, 'events', new EventManager());
 		defineReadonlyProperty(this, 'gateway', new GatewayManager(this));
 		defineReadonlyProperty(this, 'rest', new RESTManager(this));
+	}
+
+	/**
+	 * The user associated with the application.
+	 *
+	 * @remarks
+	 * - This getter depends on `applicationId` from {@link ClientBase}.
+	 * - This getter throws an error if the application user is not cached.
+	 */
+	get user(): User {
+		const { applicationId, cache } = this;
+		const { users } = cache;
+
+		const cachedUser = users.get(applicationId);
+
+		if (!cachedUser) {
+			throw new TypeError(`Application user (${applicationId}) is not cached`);
+		}
+
+		return cachedUser;
 	}
 
 	#formatPairsString(pairs: ClientDebugPair[]): string {

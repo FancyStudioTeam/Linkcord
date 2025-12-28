@@ -31,7 +31,7 @@ export class User extends Base {
 	avatarDecorationData: AvatarDecorationData | null = null;
 	/** The banner hash of the user, if any. */
 	banner: string | null = null;
-	/** The collectibles data of the user. */
+	/** The collectibles data of the user, if any. */
 	collectibles: UserCollectibles | null = null;
 	/** The display name styles data of the user, if any. */
 	displayNameStyles: UserDisplayNameStyles | null = null;
