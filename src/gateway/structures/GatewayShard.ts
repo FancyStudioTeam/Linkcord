@@ -212,7 +212,7 @@ export class GatewayShard {
 		const isReconnectable = this.#isCloseEventCodeReconnectable(code);
 
 		const { client, label } = this;
-		const debugMessage = `Session has been closed with code ${code} (${reason || 'N/A'})`;
+		const debugMessage = `Session has been closed with code ${code}. Reason: ${reason || 'N/A'}`;
 
 		const { events } = client;
 
