@@ -316,6 +316,10 @@ export class GatewayShard {
 			heartbeatJitter,
 		});
 
+		/*
+		 * TODO: Abort asynchronous operation if WebSocket is closed before sending
+		 * first 'Heartbeat' packet.
+		 */
 		await setTimeout(heartbeatFirstWait).then(() => {
 			this.#heartbeat();
 
