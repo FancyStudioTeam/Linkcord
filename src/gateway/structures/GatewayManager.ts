@@ -1,4 +1,5 @@
 import { type Client, ClientEvents } from '#client/index.js';
+import type { User } from '#structures/User.js';
 import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
 import { Collection } from '#utils/index.js';
 import { GatewayShard } from './GatewayShard.js';
@@ -59,7 +60,7 @@ export class GatewayManager {
 		return shardCountIsCorrect && allShardsAreReady;
 	}
 
-	protected triggerReady(): void {
+	protected triggerReady(user: User): void {
 		const shouldTriggerReady = this.#shouldTriggerReady();
 
 		if (!shouldTriggerReady) return;
@@ -67,7 +68,9 @@ export class GatewayManager {
 		const { client } = this;
 		const { events } = client;
 
-		events.emit(ClientEvents.ClientReady);
+		events.emit(ClientEvents.ClientReady, {
+			user,
+		});
 	}
 
 	async init(): Promise<void> {

@@ -28,7 +28,7 @@ export class GatewayShard {
 	declare readonly client: Client;
 	declare readonly manager: GatewayManager;
 
-	protected resumeGatewayURL: string | null = null;
+	protected resumeGatewayUrl: string | null = null;
 	protected sequence: number | null = null;
 	protected sessionId: string | null = null;
 
@@ -233,10 +233,10 @@ export class GatewayShard {
 			return void this.#reset();
 		}
 
-		const { resumeGatewayURL, sessionId } = this;
+		const { resumeGatewayUrl, sessionId } = this;
 
-		if (resumeGatewayURL && sessionId) {
-			this.#initializeWebSocket(resumeGatewayURL);
+		if (resumeGatewayUrl && sessionId) {
+			this.#initializeWebSocket(resumeGatewayUrl);
 		} else {
 			this.#initializeWebSocket();
 		}
@@ -421,7 +421,7 @@ export class GatewayShard {
 	}
 
 	#resetResumeData() {
-		this.resumeGatewayURL = null;
+		this.resumeGatewayUrl = null;
 		this.sessionId = null;
 	}
 

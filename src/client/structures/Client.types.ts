@@ -12,7 +12,9 @@ export interface ClientDebugEventParams {
 }
 
 export interface ClientEventsMap {
-	[ClientEvents.ClientReady]: [];
+	[ClientEvents.ClientReady]: [
+		params: ClientReadyEventParams,
+	];
 	[ClientEvents.Debug]: [
 		params: ClientDebugEventParams,
 	];
@@ -95,8 +97,8 @@ export interface ClientMessageEventParams {
 	message: Message;
 }
 
-export interface ClientWarningEventParams {
-	message: string;
+export interface ClientReadyEventParams {
+	user: User;
 }
 
 export type ClientDebugPair = readonly [

@@ -14,22 +14,28 @@ import type { GatewayDispatchReadyEventPayload } from '#types/index.js';
  */
 export function READY(client: Client, gatewayShard: GatewayShard, readyPayload: GatewayDispatchReadyEventPayload): void {
 	const { cache, events } = client;
+	const { users } = cache;
 	const { manager } = gatewayShard;
 
 	const { resume_gateway_url, session_id, user: userData } = readyPayload;
 
 	gatewayShard.status = GatewayShardStatus.Ready;
-	gatewayShard['resumeGatewayURL'] = resume_gateway_url;
+	gatewayShard['resumeGatewayUrl'] = resume_gateway_url;
 	gatewayShard['sessionId'] = session_id;
 
-	const user = new User(client, userData);
-	const { id: userId } = user;
+	const { id: userId } = userData;
+	const cachedUser = users.get(userId);
 
-	const { users } = cache;
+	let user: User;
 
-	users.set(userId, user);
-	manager['triggerReady']();
+	if (cachedUser) {
+		user = cachedUser;
+	} else {
+		user = new User(client, userData);
+		users.set(userId, user);
+	}
 
+	manager['triggerReady'](user);
 	events.emit(ClientEvents.GatewayShardReady, {
 		gatewayShard,
 		user,
