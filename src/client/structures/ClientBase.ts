@@ -15,6 +15,8 @@ import type { Client } from './Client.js';
 
 export class ClientBase {
 	/**
+	 * The application ID of the client.
+	 *
 	 * @remarks
 	 * - This value is retrieved by decoding the first segment of the application
 	 * token which contains the application ID encoded in Base64.
@@ -32,6 +34,8 @@ export class ClientBase {
 	}
 
 	/**
+	 * The defined intents of the client.
+	 *
 	 * @remarks
 	 * - This value is retrieved from the framework configuration.
 	 * - This getter throws an error if the client is not initialized.
@@ -42,6 +46,8 @@ export class ClientBase {
 	}
 
 	/**
+	 * The defined token of the client.
+	 *
 	 * @remarks
 	 * - This value is retrieved from the framework configuration.
 	 * - This getter throws an error if the client is not initialized.
