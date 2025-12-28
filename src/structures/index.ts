@@ -1,6 +1,7 @@
 export * from './Base.js';
 export * from './EntitlementBase.js';
 export * from './Guild.js';
+export * from './GuildMember.js';
 export * from './InteractionBase.js';
 export * from './Message.js';
 export * from './Role.js';

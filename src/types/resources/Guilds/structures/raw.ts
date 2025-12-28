@@ -48,7 +48,7 @@ export interface APIGuildMember {
 	permissions?: string;
 	premium_sinze?: ISO8601Date | null;
 	roles: Snowflake[];
-	user?: RawUser;
+	user: RawUser;
 }
 
 /**
