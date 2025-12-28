@@ -24,60 +24,38 @@ export class User extends Base {
 	readonly system: boolean;
 
 	/** The accent color of the user represented in decimal, if any. */
-	accentColor: number | null;
+	accentColor: number | null = null;
 	/** The avatar hash of the user, if any. */
-	avatar: string | null;
+	avatar: string | null = null;
 	/** The avatar decoration data of the user, if any. */
-	avatarDecorationData: AvatarDecorationData | null;
+	avatarDecorationData: AvatarDecorationData | null = null;
 	/** The banner hash of the user, if any. */
-	banner: string | null;
+	banner: string | null = null;
 	/** The collectibles data of the user. */
-	collectibles: UserCollectibles | null;
+	collectibles: UserCollectibles | null = null;
 	/** The display name styles data of the user, if any. */
-	displayNameStyles: UserDisplayNameStyles | null;
+	displayNameStyles: UserDisplayNameStyles | null = null;
 	/** The flags of the user. */
 	flags: BitField;
 	/** The display name of the user, if any. */
-	globalName: string | null;
+	globalName: string | null = null;
 	/** The primary guild data of the user, if any. */
-	primaryGuild: UserPrimaryGuild | null;
+	primaryGuild: UserPrimaryGuild | null = null;
 	/** The username of the user. */
 	username: string;
 
-	constructor(client: Client, data: RawUser) {
+	constructor(client: Client, rawUser: RawUser) {
 		super(client);
 
-		const {
-			accent_color,
-			avatar,
-			avatar_decoration_data,
-			banner,
-			bot,
-			collectibles,
-			discriminator,
-			display_name_styles,
-			flags,
-			global_name,
-			id,
-			primary_guild,
-			system,
-			username,
-		} = data;
+		const { bot, discriminator, flags, id, system, username } = rawUser;
 
-		this.accentColor = accent_color ?? null;
-		this.avatar = avatar;
-		this.avatarDecorationData = deserializeAvatarDecorationData(avatar_decoration_data);
-		this.banner = banner ?? null;
 		this.bot = Boolean(bot);
-		this.collectibles = deserializeUserCollectibles(collectibles);
 		this.discriminator = discriminator;
-		this.displayNameStyles = deserializeUserDisplayNameStyles(display_name_styles);
 		this.flags = new BitField(flags);
-		this.globalName = global_name;
 		this.id = id;
-		this.primaryGuild = deserializeUserPrimaryGuild(primary_guild);
 		this.system = Boolean(system);
 		this.username = username;
+		this.patch(rawUser);
 	}
 
 	/** The accent color of the user represented in a hex color, if any. */
@@ -90,6 +68,9 @@ export class User extends Base {
 		return userMention(this.id);
 	}
 
+	/**
+	 * Patches the current {@link User} instance with the provided data.
+	 */
 	protected patch(data?: Partial<RawUser>): void {
 		const {
 			accent_color,
