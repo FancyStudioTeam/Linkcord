@@ -4,6 +4,7 @@ import type { GatewayEvent } from '#types/index.js';
 
 export interface ClientDebugOptions {
 	label?: string;
+	pairs?: ClientDebugPair[];
 }
 
 export interface ClientDebugEventParams {
@@ -88,6 +89,11 @@ export interface ClientGuildUpdateEventParams {
 export interface ClientWarningEventParams {
 	message: string;
 }
+
+export type ClientDebugPair = readonly [
+	Key: string,
+	Value: string,
+];
 
 export enum ClientEvents {
 	ClientReady = 'clientReady',

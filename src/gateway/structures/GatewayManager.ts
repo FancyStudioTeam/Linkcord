@@ -1,4 +1,3 @@
-import dedent from 'string-dedent';
 import { type Client, ClientEvents } from '#client/index.js';
 import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
 import { Collection } from '#utils/index.js';
@@ -83,22 +82,32 @@ export class GatewayManager {
 
 		this.#shardsToSpawn = shardCount;
 
-		const gatewayInformation = dedent`
-			Gateway Information:
-				Gateway URL:        ${url}
-				Recommended Shards: ${shardCount}
-		`;
-		const sessionStartLimitInformation = dedent`
-			Session Start Limit Information:
-				Total:     ${total}
-				Remaining: ${remaining}
-		`;
-
-		client.debug(gatewayInformation, {
+		client.debug('Gateway Information:', {
 			label: 'Gateway Manager',
+			pairs: [
+				[
+					'Gateway URL Base',
+					url,
+				],
+				[
+					'Recommended Shards',
+					String(shardCount),
+				],
+			],
 		});
-		client.debug(sessionStartLimitInformation, {
+
+		client.debug('Session Start Limit Information:', {
 			label: 'Gateway Manager',
+			pairs: [
+				[
+					'Total',
+					String(total),
+				],
+				[
+					'Remaining',
+					String(remaining),
+				],
+			],
 		});
 
 		for (let shardId = 0; shardId < shardCount; shardId++) {

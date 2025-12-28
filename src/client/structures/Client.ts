@@ -3,7 +3,7 @@ import { GatewayManager } from '#gateway/index.js';
 import { RESTManager } from '#rest/index.js';
 import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
 import { isUndefined } from '#utils/helpers/AssertionUtils.js';
-import { type ClientDebugOptions, ClientEvents } from './Client.types.js';
+import { type ClientDebugOptions, type ClientDebugPair, ClientEvents } from './Client.types.js';
 import { ClientBase } from './ClientBase.js';
 
 const BRACKETS_REGEX = /^\[*(.*?)\]*$/;
@@ -25,6 +25,15 @@ export class Client extends ClientBase {
 		defineReadonlyProperty(this, 'rest', new RESTManager(this));
 	}
 
+	#formatPairsString(pairs: ClientDebugPair[]): string {
+		const largestKeyLengthCallback = (accumulator: number, [{ length }]: ClientDebugPair) => Math.max(accumulator, length);
+		const largestKeyLength = pairs.reduce(largestKeyLengthCallback, 0);
+
+		const formattedString = pairs.map(([key, value]) => `\t${key.padEnd(largestKeyLength)}: ${value}`).join('\n');
+
+		return formattedString;
+	}
+
 	#normalizeLabelBrackets(label: string): `[${string}]` {
 		const [_, content] = label.match(BRACKETS_REGEX) ?? [];
 
@@ -32,11 +41,17 @@ export class Client extends ClientBase {
 	}
 
 	debug(message: string, options?: ClientDebugOptions): void {
-		const { label = 'Client' } = options ?? {};
+		const { label = 'Client', pairs } = options ?? {};
 		const { events } = this;
 
 		const normalizedLabel = this.#normalizeLabelBrackets(label);
-		const debugMessage = `${normalizedLabel} ${message}`;
+		let debugMessage = `${normalizedLabel} ${message}`;
+
+		if (pairs) {
+			const formattedPairsString = this.#formatPairsString(pairs);
+
+			debugMessage += `\n${formattedPairsString}`;
+		}
 
 		events.emit(ClientEvents.Debug, {
 			message: debugMessage,
