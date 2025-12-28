@@ -304,7 +304,7 @@ export class GatewayShard {
 		const heartbeatFirstWait = heartbeatInterval * heartbeatJitter;
 
 		const opcodeName = getOpcodeName(GatewayOpcodes.Heartbeat);
-		const debugMessage = `Waiting First "${opcodeName}" Packet. Jitter: ${heartbeatJitter.toFixed(2)} (Waiting ${heartbeatFirstWait.toFixed(2)}ms)`;
+		const debugMessage = `Waiting to Send First "${opcodeName}" Packet. Jitter: ${heartbeatJitter.toFixed(2)} (Waiting ${heartbeatFirstWait.toFixed()}ms)`;
 
 		client.debug(debugMessage, {
 			label,
