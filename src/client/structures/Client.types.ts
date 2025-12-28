@@ -1,5 +1,5 @@
 import type { GatewayShard } from '#gateway/index.js';
-import type { Guild, Message, Uncached, User } from '#structures/index.js';
+import type { Guild, GuildMember, Message, Uncached, User } from '#structures/index.js';
 import type { GatewayEvent } from '#types/index.js';
 
 export interface ClientDebugOptions {
@@ -36,6 +36,9 @@ export interface ClientEventsMap {
 	];
 	[ClientEvents.GuildDelete]: [
 		params: ClientGuildDeleteEventParams,
+	];
+	[ClientEvents.GuildMemberUpdate]: [
+		params: ClientGuildMemberUpdateEventParams,
 	];
 	[ClientEvents.GuildUpdate]: [
 		params: ClientGuildUpdateEventParams,
@@ -75,15 +78,21 @@ export interface ClientGuildDeleteEventParams {
 	guild: Guild | Uncached;
 }
 
-export interface ClientMessageEventParams {
+export interface ClientGuildMemberUpdateEventParams {
 	gatewayShard: GatewayShard;
-	message: Message;
+	newMember: GuildMember;
+	oldMember: GuildMember | Uncached;
 }
 
 export interface ClientGuildUpdateEventParams {
 	gatewayShard: GatewayShard;
 	newGuild: Guild;
 	oldGuild: Guild | Uncached;
+}
+
+export interface ClientMessageEventParams {
+	gatewayShard: GatewayShard;
+	message: Message;
 }
 
 export interface ClientWarningEventParams {
@@ -104,6 +113,7 @@ export enum ClientEvents {
 	GatewayShardReady = 'shardReady',
 	GuildCreate = 'guildCreate',
 	GuildDelete = 'guildDelete',
+	GuildMemberUpdate = 'guildMemberUpdate',
 	GuildUpdate = 'guildUpdate',
 	MessageCreate = 'messageCreate',
 }
