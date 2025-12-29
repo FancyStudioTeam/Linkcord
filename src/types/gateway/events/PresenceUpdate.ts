@@ -1,3 +1,4 @@
+import type { Snowflake } from '#types/miscellaneous/discord.js';
 import type { RawUser } from '#types/resources/index.js';
 import type { GatewayDispatchEvents } from '../enums.js';
 import type { GatewayDispatchEventBase } from './Dispatch.js';
@@ -12,12 +13,14 @@ export interface GatewayDispatchPresenceUpdateEventPayload {
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#presence-update
  */
-export type GatewayDispatchPresenceUpdateEvent = GatewayDispatchEventBase<
-	GatewayDispatchEvents.PresenceUpdate,
-	GatewayDispatchPresenceUpdateEventPayload
->;
+export interface GatewayDispatchPresenceUpdateUser extends Partial<RawUser> {
+	id: Snowflake;
+}
 
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#presence-update
  */
-export type GatewayDispatchPresenceUpdateUser = Required<Partial<RawUser>, 'id'>;
+export type GatewayDispatchPresenceUpdateEvent = GatewayDispatchEventBase<
+	GatewayDispatchEvents.PresenceUpdate,
+	GatewayDispatchPresenceUpdateEventPayload
+>;
