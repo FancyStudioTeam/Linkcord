@@ -219,7 +219,7 @@ export class GatewayShard {
 		client.debug(debugMessage, {
 			label,
 		});
-		events.emit(ClientEvents.GatewayShardDisconnected, {
+		events.emit(ClientEvents.GatewayShardDisconnect, {
 			code,
 			gatewayShard: this,
 			isReconnectable,

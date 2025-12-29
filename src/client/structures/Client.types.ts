@@ -7,104 +7,104 @@ export interface ClientDebugOptions {
 	pairs?: ClientDebugPair[];
 }
 
-export interface ClientDebugEventParams {
-	message: string;
-}
-
 export interface ClientEventsMap {
 	[ClientEvents.ClientReady]: [
 		params: ClientReadyEventParams,
 	];
 	[ClientEvents.Debug]: [
-		params: ClientDebugEventParams,
+		params: DebugEventParams,
 	];
 	[ClientEvents.MessageCreate]: [
-		params: ClientMessageEventParams,
+		params: MessageCreateEventParams,
 	];
-	[ClientEvents.GatewayShardDisconnected]: [
-		params: ClientGatewayShardDisconnectedEventParams,
+	[ClientEvents.GatewayShardDisconnect]: [
+		params: GatewayShardDisconnectEventParams,
 	];
 	[ClientEvents.GatewayShardHello]: [
-		params: ClientGatewayShardHelloEventParams,
+		params: GatewayShardHelloEventParams,
 	];
 	[ClientEvents.GatewayShardPacket]: [
-		params: ClientGatewayShardPacketEventParams,
+		params: GatewayShardPacketEventParams,
 	];
 	[ClientEvents.GatewayShardReady]: [
-		params: ClientGatewayShardReadyEventParams,
+		params: GatewayShardReadyEventParams,
 	];
 	[ClientEvents.GuildCreate]: [
-		params: ClientGuildCreateEventParams,
+		params: GuildCreateEventParams,
 	];
 	[ClientEvents.GuildDelete]: [
-		params: ClientGuildDeleteEventParams,
+		params: GuildDeleteEventParams,
 	];
 	[ClientEvents.GuildMemberUpdate]: [
-		params: ClientGuildMemberUpdateEventParams,
+		params: GuildMemberUpdateEventParams,
 	];
 	[ClientEvents.GuildUpdate]: [
-		params: ClientGuildUpdateEventParams,
+		params: GuildUpdateEventParams,
 	];
 	[ClientEvents.UserUpdate]: [
-		params: ClientUserUpdateEventParams,
+		params: UserUpdateEventParams,
 	];
-}
-
-export interface ClientGatewayShardDisconnectedEventParams {
-	code: number;
-	gatewayShard: GatewayShard;
-	isReconnectable: boolean;
-	reason: string;
-}
-
-export interface ClientGatewayShardHelloEventParams {
-	heartbeatInterval: number;
-	heartbeatJitter: number;
-	gatewayShard: GatewayShard;
-}
-
-export interface ClientGatewayShardPacketEventParams {
-	gatewayShard: GatewayShard;
-	packet: GatewayEvent;
-}
-
-export interface ClientGatewayShardReadyEventParams {
-	gatewayShard: GatewayShard;
-	user: User;
-}
-
-export interface ClientGuildCreateEventParams {
-	gatewayShard: GatewayShard;
-	guild: Guild;
-}
-
-export interface ClientGuildDeleteEventParams {
-	gatewayShard: GatewayShard;
-	guild: Guild | Uncached;
-}
-
-export interface ClientGuildMemberUpdateEventParams {
-	gatewayShard: GatewayShard;
-	newMember: GuildMember;
-	oldMember: GuildMember | Uncached;
-}
-
-export interface ClientGuildUpdateEventParams {
-	gatewayShard: GatewayShard;
-	newGuild: Guild;
-	oldGuild: Guild | Uncached;
-}
-
-export interface ClientMessageEventParams {
-	gatewayShard: GatewayShard;
-	message: Message;
 }
 
 export interface ClientReadyEventParams {
 	user: User;
 }
 
-export interface ClientUserUpdateEventParams {
+export interface DebugEventParams {
+	message: string;
+}
+
+export interface GatewayShardDisconnectEventParams {
+	code: number;
+	gatewayShard: GatewayShard;
+	isReconnectable: boolean;
+	reason: string;
+}
+
+export interface GatewayShardHelloEventParams {
+	heartbeatInterval: number;
+	heartbeatJitter: number;
+	gatewayShard: GatewayShard;
+}
+
+export interface GatewayShardPacketEventParams {
+	gatewayShard: GatewayShard;
+	packet: GatewayEvent;
+}
+
+export interface GatewayShardReadyEventParams {
+	gatewayShard: GatewayShard;
+	user: User;
+}
+
+export interface GuildCreateEventParams {
+	gatewayShard: GatewayShard;
+	guild: Guild;
+}
+
+export interface GuildDeleteEventParams {
+	gatewayShard: GatewayShard;
+	guild: Guild | Uncached;
+}
+
+export interface GuildMemberUpdateEventParams {
+	gatewayShard: GatewayShard;
+	newMember: GuildMember;
+	oldMember: GuildMember | Uncached;
+}
+
+export interface GuildUpdateEventParams {
+	gatewayShard: GatewayShard;
+	newGuild: Guild;
+	oldGuild: Guild | Uncached;
+}
+
+export interface MessageCreateEventParams {
+	gatewayShard: GatewayShard;
+	message: Message;
+}
+
+export interface UserUpdateEventParams {
 	gatewayShard: GatewayShard;
 	newUser: User;
 	oldUser: User | Uncached;
@@ -118,7 +118,7 @@ export type ClientDebugPair = readonly [
 export enum ClientEvents {
 	ClientReady = 'clientReady',
 	Debug = 'debug',
-	GatewayShardDisconnected = 'shardDisconnected',
+	GatewayShardDisconnect = 'shardDisconnect',
 	GatewayShardHello = 'shardHello',
 	GatewayShardPacket = 'shardPacket',
 	GatewayShardReady = 'shardReady',
