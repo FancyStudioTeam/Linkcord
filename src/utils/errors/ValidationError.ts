@@ -27,7 +27,7 @@ export class ValidationError extends Error {
 		const { issues, message, path } = issue;
 		const { length: pathLength } = path;
 
-		const icon = isMainIssue ? '🞬' : '└──';
+		const icon = isMainIssue ? '🞭' : '└';
 		const indent = '\t'.repeat(indentLevel);
 
 		let prettifiedMessage = '';
@@ -35,8 +35,8 @@ export class ValidationError extends Error {
 		if (isMainIssue && pathLength > 0) {
 			const flattenedPath = this.#formatIssuePath(path);
 
-			prettifiedMessage = `${indent}${icon} ${flattenedPath}:\n`;
-			prettifiedMessage += `${indent}└── ${message}`;
+			prettifiedMessage = `${indent}${icon} Validation Error Location: ${styleText('bgRed', flattenedPath)}\n`;
+			prettifiedMessage += `${indent}└ ${message}`;
 		} else {
 			prettifiedMessage = `${indent}${icon} ${message}`;
 		}

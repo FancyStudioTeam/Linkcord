@@ -3,10 +3,6 @@ import { ValidationError } from '#utils/errors/ValidationError.js';
 import type { ValidationErrorIssue } from '#utils/errors/ValidationError.types.js';
 import { isInstanceOf } from '#utils/helpers/AssertionUtils.js';
 
-const STRING_CONJUNCTION_FORMATTER = new Intl.ListFormat('en', {
-	style: 'long',
-	type: 'conjunction',
-});
 const STRING_VOWEL_REGEX = /^[aeiouAEIOU]/;
 
 const ZOD_ISSUE_HANDLERS_MAP: ZodIssueHandlersMap = {
@@ -119,13 +115,11 @@ function handleZodInvalidUnionIssue(issue: core.$ZodIssueInvalidUnion): Validati
 
 function handleZodInvalidValueIssue(issue: core.$ZodIssueInvalidValue): ValidationErrorIssue {
 	const { path, values } = issue;
-
-	const transformedValues = values.map(String);
-	const formattedValues = STRING_CONJUNCTION_FORMATTER.format(transformedValues);
+	const allowedValuesList = values.map((value) => `\t\t└ ${String(value)}`).join('\n');
 
 	return {
 		issues: null,
-		message: `Expected input to be one of the following values: ${formattedValues}`,
+		message: `Expected input to be one of the following values:\n${allowedValuesList}`,
 		path,
 	};
 }
