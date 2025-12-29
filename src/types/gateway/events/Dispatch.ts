@@ -4,6 +4,7 @@ import type { GatewayDispatchGuildCreateEvent } from './GuildCreate.js';
 import type { GatewayDispatchGuildMemberUpdateEvent } from './GuildMemberUpdate.js';
 import type { GatewayDispatchGuildUpdateEvent } from './GuildUpdate.js';
 import type { GatewayDispatchMessageCreateEvent } from './MessageCreate.js';
+import type { GatewayDispatchPresenceUpdateEvent } from './PresenceUpdate.js';
 import type { GatewayDispatchReadyEvent } from './Ready.js';
 import type { GatewayDispatchUserUpdateEvent } from './UserUpdate.js';
 
@@ -24,5 +25,6 @@ export type GatewayDispatchEvent =
 	| GatewayDispatchGuildMemberUpdateEvent
 	| GatewayDispatchGuildUpdateEvent
 	| GatewayDispatchMessageCreateEvent
+	| GatewayDispatchPresenceUpdateEvent
 	| GatewayDispatchReadyEvent
 	| GatewayDispatchUserUpdateEvent;

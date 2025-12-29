@@ -9,6 +9,7 @@ export * from './Hello.js';
 export * from './Identify.js';
 export * from './InvalidSession.js';
 export * from './MessageCreate.js';
+export * from './PresenceUpdate.js';
 export * from './Ready.js';
 export * from './Reconnect.js';
 export * from './Resume.js';
