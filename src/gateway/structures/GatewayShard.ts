@@ -34,7 +34,9 @@ export class GatewayShard {
 
 	readonly id: number;
 
+	#heartbeatFirstWaitResolved: boolean = false;
 	#heartbeatInterval: HeartbeatInterval | null = null;
+	#heartbeatTimeoutAbortController: AbortController | null = null;
 	#lastHeartbeatReceivedAt: number = 0;
 	#lastHeartbeatSentAt: number = 0;
 	#ws: WebSocket | null = null;
@@ -63,6 +65,17 @@ export class GatewayShard {
 		const lastHeartbeatSentAt = this.#lastHeartbeatSentAt;
 
 		return lastHeartbeatReceivedAt - lastHeartbeatSentAt;
+	}
+
+	#abortIfWaiting() {
+		const isFirstHeartbeatResolved = this.#heartbeatFirstWaitResolved;
+		const abortController = this.#heartbeatTimeoutAbortController;
+
+		if (!isFirstHeartbeatResolved && abortController) {
+			abortController.abort(
+				`Discord gateway has been closed before sending the first '${getOpcodeName(GatewayOpcodes.Heartbeat)}' packet`,
+			);
+		}
 	}
 
 	/**
@@ -230,7 +243,10 @@ export class GatewayShard {
 		this.#resetWebSocketData();
 
 		if (!isReconnectable) {
-			return void this.#reset();
+			this.#abortIfWaiting();
+			this.#reset();
+
+			return;
 		}
 
 		const { resumeGatewayUrl, sessionId } = this;
@@ -304,36 +320,54 @@ export class GatewayShard {
 		const heartbeatFirstWait = heartbeatInterval * heartbeatJitter;
 
 		const opcodeName = getOpcodeName(GatewayOpcodes.Heartbeat);
-		const debugMessage = `Waiting to Send First "${opcodeName}" Packet. Jitter: ${heartbeatJitter.toFixed(2)} (Waiting ${heartbeatFirstWait.toFixed()}ms)`;
 
-		client.debug(debugMessage, {
-			label,
-		});
-
+		client.debug(
+			`Waiting to Send First "${opcodeName}" Packet. Jitter: ${heartbeatJitter.toFixed(2)} (Waiting ${heartbeatFirstWait.toFixed()}ms)`,
+			{
+				label,
+			},
+		);
 		events.emit(ClientEvents.GatewayShardHello, {
 			gatewayShard: this,
 			heartbeatInterval,
 			heartbeatJitter,
 		});
 
-		/*
-		 * TODO: Abort asynchronous operation if WebSocket is closed before sending
-		 * first 'Heartbeat' packet.
-		 */
-		await setTimeout(heartbeatFirstWait).then(() => {
-			this.#heartbeat();
+		const abortController = new AbortController();
+		const { signal } = abortController;
 
-			const opcodeName = getOpcodeName(GatewayOpcodes.Heartbeat);
-			const debugMessage = `First "${opcodeName}" packet has been sent. Next "${opcodeName}" packets will be sent in an interval of ${heartbeatInterval}ms`;
+		this.#heartbeatTimeoutAbortController = abortController;
 
-			client.debug(debugMessage, {
-				label,
+		try {
+			await setTimeout(heartbeatFirstWait, undefined, {
+				signal,
 			});
-		});
+		} catch (error) {
+			/*
+			 * 'AbortSignal' throws a 'DOMException' when signal is aborted.
+			 * If 'setTimeout' throws an error, check whether the signal was aborted.
+			 */
+			if (signal.aborted) return;
 
-		const interval = setInterval(this.#heartbeat.bind(this), heartbeatInterval);
+			throw error;
+		}
 
-		this.#setHeartbeatInterval(interval);
+		this.#heartbeat();
+		this.#heartbeatFirstWaitResolved = true;
+		this.#heartbeatTimeoutAbortController = null;
+
+		client.debug(
+			`First "${opcodeName}" packet has been sent. Next "${opcodeName}" packets will be sent in an interval of ${heartbeatInterval}ms`,
+			{
+				label,
+			},
+		);
+
+		this.#setHeartbeatInterval(
+			setInterval(() => {
+				this.#heartbeat();
+			}, heartbeatInterval),
+		);
 	}
 
 	/**
@@ -416,6 +450,7 @@ export class GatewayShard {
 
 	#resetHeartbeatData() {
 		this.#clearHeartbeatInterval();
+		this.#heartbeatTimeoutAbortController = null;
 		this.#lastHeartbeatReceivedAt = 0;
 		this.#lastHeartbeatSentAt = 0;
 	}
@@ -505,11 +540,12 @@ export class GatewayShard {
 
 	disconnect(reconnect: boolean = false): void {
 		this.#clearHeartbeatInterval();
+		this.#abortIfWaiting();
 
 		const ws = this.#getWebSocket(true);
 
 		const closeCode = reconnect ? RECONNECTION_CLOSE_CODE : NORMAL_CLOSURE_CLOSE_CODE;
-		const closeReason = reconnect ? 'User Requested a Reconnection' : 'User Requested a Disconnection';
+		const closeReason = reconnect ? 'User Requested a Reconnection' : 'User Requested a Complete Disconnection';
 
 		ws.close(closeCode, closeReason);
 
