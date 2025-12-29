@@ -17,6 +17,8 @@ export class Guild extends Base {
 	/** The cached roles of the guild. */
 	readonly roles: Collection<Snowflake, Role>;
 
+	/** The member count of the guild. */
+	memberCount: number = 0;
 	/** The name of the guild. */
 	name: string;
 
@@ -55,7 +57,11 @@ export class Guild extends Base {
 	}
 
 	protected patch(data?: Partial<APIGuild & GatewayDispatchGuildCreateEventPayload>): void {
-		const { members, name, roles } = data ?? {};
+		const { member_count, members, name, roles } = data ?? {};
+
+		if (!isUndefined(member_count)) {
+			this.memberCount = member_count;
+		}
 
 		if (!isUndefined(members)) {
 			this.#appendMembersToCollection(members);

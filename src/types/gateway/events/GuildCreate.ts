@@ -7,6 +7,7 @@ import type { GatewayDispatchEventBase } from './Dispatch.js';
  */
 export interface GatewayDispatchGuildCreateEventPayload extends APIGuild {
 	large: boolean;
+	member_count: number;
 	members: APIGuildMember[];
 	unavailable?: boolean;
 }
