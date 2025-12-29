@@ -19,6 +19,15 @@ export interface MakeRequestOptionsWithReason {
 	reason?: string;
 }
 
+export interface RestRequestData {
+	method: RESTMethod;
+}
+
+export interface RestResponseData {
+	statusCode: number;
+	statusText: string;
+}
+
 export type MakeRequestOptions =
 	| MakeDeleteRequestOptions
 	| MakeGetRequestOptions

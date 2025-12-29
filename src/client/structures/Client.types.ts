@@ -1,4 +1,5 @@
 import type { GatewayShard } from '#gateway/index.js';
+import type { RestRequestData, RestResponseData } from '#rest/index.js';
 import type { Guild, GuildMember, Message, Uncached, User } from '#structures/index.js';
 import type { GatewayEvent } from '#types/index.js';
 
@@ -40,6 +41,9 @@ export interface ClientEventsMap {
 	];
 	[ClientEvents.GuildUpdate]: [
 		params: GuildUpdateEventParams,
+	];
+	[ClientEvents.RestRequest]: [
+		params: RestRequestEventParams,
 	];
 	[ClientEvents.UserUpdate]: [
 		params: UserUpdateEventParams,
@@ -104,6 +108,12 @@ export interface MessageCreateEventParams {
 	message: Message;
 }
 
+export interface RestRequestEventParams {
+	url: string;
+	request: RestRequestData;
+	response: RestResponseData;
+}
+
 export interface UserUpdateEventParams {
 	gatewayShard: GatewayShard;
 	newUser: User;
@@ -127,5 +137,6 @@ export enum ClientEvents {
 	GuildMemberUpdate = 'guildMemberUpdate',
 	GuildUpdate = 'guildUpdate',
 	MessageCreate = 'messageCreate',
+	RestRequest = 'restRequest',
 	UserUpdate = 'userUpdate',
 }

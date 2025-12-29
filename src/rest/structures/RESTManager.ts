@@ -1,4 +1,4 @@
-import type { Client } from '#client/index.js';
+import { type Client, ClientEvents } from '#client/index.js';
 import { normalizeRoute } from '#rest/functions/normalizeRoute.js';
 import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
 import { BucketManager } from './BucketManager.js';
@@ -58,7 +58,8 @@ export class RESTManager {
 
 	makeRequest<Result>(endpoint: string, options: MakeRequestOptions): Promise<Result> {
 		const { method } = options;
-		const { buckets } = this;
+		const { buckets, client } = this;
+		const { events } = client;
 
 		const body = this.#getRequestBody(options);
 		const headers = this.#createRequestHeaders(options);
@@ -76,11 +77,21 @@ export class RESTManager {
 						method,
 					});
 
-					const { headers: responseHeaders, status: responseStatus } = response;
+					const { headers: responseHeaders, status, statusText } = response;
 
 					bucket.update(responseHeaders);
+					events.emit(ClientEvents.RestRequest, {
+						request: {
+							method,
+						},
+						response: {
+							statusCode: status,
+							statusText,
+						},
+						url: requestUrl,
+					});
 
-					if (responseStatus === NO_CONTENT_STATUS_CODE) {
+					if (status === NO_CONTENT_STATUS_CODE) {
 						return void resolve(undefined as Result);
 					}
 
