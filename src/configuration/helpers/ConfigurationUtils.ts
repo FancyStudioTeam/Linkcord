@@ -2,6 +2,8 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { cwd } from 'node:process';
 import type { LinkcordOptions } from '#configuration/functions/defineConfig.types.js';
+import { ConfigurationSchema } from '#configuration/schemas/ConfigurationSchema.js';
+import { validate } from '#utils/functions/validate.js';
 import { importFile, resolvePath } from '#utils/helpers/ImportUtils.js';
 
 const CONFIGURATION_FILE_EXTENSIONS = [
@@ -35,7 +37,8 @@ export async function initializeConfigurationOptions(workingDirectory = cwd()): 
 			requireDefault: true,
 		});
 
-		const { default: linkcordOptions } = importedConfigurationFileData;
+		const { default: defaultExport } = importedConfigurationFileData;
+		const linkcordOptions = validate(ConfigurationSchema, defaultExport);
 
 		setConfigurationOptions(linkcordOptions);
 		freezeConfigurationOptions();
