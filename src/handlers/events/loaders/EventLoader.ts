@@ -4,7 +4,9 @@ import { basename } from 'node:path';
 import { emitWarning } from 'node:process';
 import type { Client, ClientEvents } from '#client/index.js';
 import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
+import { validate } from '#utils/functions/validate.js';
 import { importFile, resolvePath } from '#utils/helpers/ImportUtils.js';
+import { EventHandlerSchema, EventSchema } from '../schemas/EventSchema.js';
 import type { EventConfig, EventHandler } from './EventLoader.types.js';
 
 export class EventLoader {
@@ -46,9 +48,12 @@ export class EventLoader {
 				'handler',
 			],
 		});
+		const { config: configExport, handler: handlerExport } = importedEventFileData;
 
-		const { config, handler } = importedEventFileData;
-		const { disabled, name, once } = config;
+		const config = validate(EventSchema, configExport);
+		const handler = validate(EventHandlerSchema, handlerExport);
+
+		const { disabled, event, once } = config;
 
 		if (disabled) {
 			return this.#showDisabledEventWarning(resolvedEventFilePath);
@@ -57,7 +62,7 @@ export class EventLoader {
 		const { client } = this;
 		const { events } = client;
 
-		events.addEventListener(name, handler, {
+		events.addEventListener(event, handler, {
 			once: Boolean(once),
 		});
 	}
@@ -81,6 +86,6 @@ export class EventLoader {
 }
 
 interface ImportedEventFileData {
-	config: EventConfig;
-	handler: EventHandler<ClientEvents>;
+	config: EventConfig<ClientEvents>;
+	handler: EventHandler<EventConfig<ClientEvents>>;
 }

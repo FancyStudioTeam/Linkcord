@@ -1,7 +1,7 @@
 import type { ClientEvents } from '#client/index.js';
 
-export interface DefineEventConfigOptions {
+export interface DefineEventConfigOptions<Event extends ClientEvents> {
 	disabled?: boolean;
-	name: ClientEvents;
+	event: Event;
 	once?: boolean;
 }
