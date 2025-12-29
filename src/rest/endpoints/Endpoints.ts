@@ -27,7 +27,7 @@ export function GUILD_MEMBER_ROLE<GuildId extends Snowflake, MemberId extends Sn
 	memberId: MemberId,
 	roleId: RoleId,
 ) {
-	return `/guilds/${encodeURIComponent(guildId)}/members/${encodeURIComponent(memberId)}/roles/${encodeURIComponent(roleId)}` as const;
+	return `guilds/${encodeURIComponent(guildId)}/members/${encodeURIComponent(memberId)}/roles/${encodeURIComponent(roleId)}` as const;
 }
 
 export function VOICE_REGIONS_ENDPOINT() {
