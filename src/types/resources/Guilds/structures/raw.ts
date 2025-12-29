@@ -2,7 +2,7 @@ import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
 import type { OAuth2Scopes } from '#types/resources/OAuth2/enums.js';
 import type { RawRole } from '#types/resources/Permissions/index.js';
 import type { RawAvatarDecorationData, RawUser } from '#types/resources/Users/index.js';
-import type { GuildMemberFlags, IntegrationExpireBehavior, IntegrationType } from '../enums.js';
+import type { GuildFeatures, GuildMemberFlags, IntegrationExpireBehavior, IntegrationType } from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/guild#guild-object-guild-structure
@@ -11,6 +11,7 @@ export interface APIGuild {
 	afk_channel_id: Snowflake | null;
 	afk_timeout: number;
 	discovery_splash: string | null;
+	features: GuildFeatures[];
 	icon: string | null;
 	icon_hash?: string | null;
 	incidents_data: APIGuildIncidentsData | null;

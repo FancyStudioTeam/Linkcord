@@ -1,5 +1,5 @@
 import type { Client } from '#client/index.js';
-import type { APIGuild, APIGuildMember, GatewayDispatchGuildCreateEventPayload, RawRole, Snowflake } from '#types/index.js';
+import type { APIGuild, APIGuildMember, GatewayDispatchGuildCreateEventPayload, GuildFeatures, RawRole, Snowflake } from '#types/index.js';
 import { isUndefined } from '#utils/helpers/AssertionUtils.js';
 import { Collection } from '#utils/index.js';
 import { Base } from './Base.js';
@@ -17,6 +17,8 @@ export class Guild extends Base {
 	/** The cached roles of the guild. */
 	readonly roles: Collection<Snowflake, Role>;
 
+	/** The features of the guild. */
+	features: GuildFeatures[];
 	/** The member count of the guild. */
 	memberCount: number = 0;
 	/** The name of the guild. */
@@ -25,8 +27,9 @@ export class Guild extends Base {
 	constructor(client: Client, data: APIGuild) {
 		super(client);
 
-		const { id, name } = data;
+		const { features, id, name } = data;
 
+		this.features = features;
 		this.id = id;
 		this.members = new Collection();
 		this.name = name;
@@ -57,7 +60,11 @@ export class Guild extends Base {
 	}
 
 	protected patch(data?: Partial<APIGuild & GatewayDispatchGuildCreateEventPayload>): void {
-		const { member_count, members, name, roles } = data ?? {};
+		const { features, member_count, members, name, roles } = data ?? {};
+
+		if (!isUndefined(features)) {
+			this.features = features;
+		}
 
 		if (!isUndefined(member_count)) {
 			this.memberCount = member_count;
