@@ -24,6 +24,7 @@ export interface RestRequestData {
 }
 
 export interface RestResponseData {
+	ok: boolean;
 	statusCode: number;
 	statusText: string;
 }

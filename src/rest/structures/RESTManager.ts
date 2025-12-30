@@ -77,7 +77,7 @@ export class RESTManager {
 						method,
 					});
 
-					const { headers: responseHeaders, status, statusText } = response;
+					const { headers: responseHeaders, ok, status, statusText } = response;
 
 					bucket.update(responseHeaders);
 					events.emit(ClientEvents.RestRequest, {
@@ -85,6 +85,7 @@ export class RESTManager {
 							method,
 						},
 						response: {
+							ok,
 							statusCode: status,
 							statusText,
 						},
