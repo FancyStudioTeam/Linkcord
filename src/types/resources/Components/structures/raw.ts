@@ -6,14 +6,14 @@ import type { ButtonStyle, ComponentType, SelectMenuDefaultValueType, SeparatorS
 /**
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-structure
  */
-export interface APIActionRowComponent extends APIComponentBase<ComponentType.ActionRow> {
-	components: APIActionRowComponents[];
+export interface RawActionRowComponent extends RawComponentBase<ComponentType.ActionRow> {
+	components: RawActionRowComponents[];
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export interface APIButtonComponentBase<Style extends ButtonStyle> extends APIComponentBase<ComponentType.Button> {
+export interface RawButtonComponentBase<Style extends ButtonStyle> extends RawComponentBase<ComponentType.Button> {
 	disabled?: boolean;
 	style: Style;
 }
@@ -21,14 +21,14 @@ export interface APIButtonComponentBase<Style extends ButtonStyle> extends APICo
 /**
  * @see https://discord.com/developers/docs/components/reference#channel-select-channel-select-structure
  */
-export interface APIChannelSelectMenuComponent extends APIResolvableSelectMenuComponentBase<ComponentType.ChannelSelect> {
+export interface RawChannelSelectMenuComponent extends RawResolvableSelectMenuComponentBase<ComponentType.ChannelSelect> {
 	channel_types?: ChannelType[];
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#anatomy-of-a-component
  */
-export interface APIComponentBase<Type extends ComponentType> {
+export interface RawComponentBase<Type extends ComponentType> {
 	id?: number;
 	type: Type;
 }
@@ -36,17 +36,17 @@ export interface APIComponentBase<Type extends ComponentType> {
 /**
  * @see https://discord.com/developers/docs/components/reference#container-container-structure
  */
-export interface APIContainerComponent extends APIComponentBase<ComponentType.Container> {
+export interface RawContainerComponent extends RawComponentBase<ComponentType.Container> {
 	accent_color?: number;
-	components: APIContainerComponents[];
+	components: RawContainerComponents[];
 	spoiler?: boolean;
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#file-file-structure
  */
-export interface APIFileComponent extends APIComponentBase<ComponentType.File> {
-	file: APIUnfurledMediaItem;
+export interface RawFileComponent extends RawComponentBase<ComponentType.File> {
+	file: RawUnfurledMediaItem;
 	name?: string;
 	size?: number;
 	spoiler?: boolean;
@@ -55,7 +55,7 @@ export interface APIFileComponent extends APIComponentBase<ComponentType.File> {
 /**
  * @see https://discord.com/developers/docs/components/reference#file-upload-file-upload-structure
  */
-export interface APIFileUploadComponent extends APIComponentBase<ComponentType.FileUpload> {
+export interface RawFileUploadComponent extends RawComponentBase<ComponentType.FileUpload> {
 	custom_id: string;
 	max_values?: number;
 	min_values?: number;
@@ -65,16 +65,16 @@ export interface APIFileUploadComponent extends APIComponentBase<ComponentType.F
 /**
  * @see https://discord.com/developers/docs/components/reference#button
  */
-export interface APIInteractiveButtonComponentBase<Type extends APIInteractiveButtonComponentStyle>
-	extends APITextableButtonComponentBase<Type> {
+export interface RawInteractiveButtonComponentBase<Type extends RawInteractiveButtonComponentStyle>
+	extends RawTextableButtonComponentBase<Type> {
 	custom_id: string;
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#label-label-structure
  */
-export interface APILabelComponent extends APIComponentBase<ComponentType.Label> {
-	component: APILabelComponents;
+export interface RawLabelComponent extends RawComponentBase<ComponentType.Label> {
+	component: RawLabelComponents;
 	description?: string;
 	label: string;
 }
@@ -82,53 +82,53 @@ export interface APILabelComponent extends APIComponentBase<ComponentType.Label>
 /**
  * @see https://discord.com/developers/docs/components/button#link-button-structure
  */
-export interface APILinkButtonComponent extends APITextableButtonComponentBase<ButtonStyle.Link> {
+export interface RawLinkButtonComponent extends RawTextableButtonComponentBase<ButtonStyle.Link> {
 	url: string;
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#media-gallery-media-gallery-structure
  */
-export interface APIMediaGalleryComponent extends APIComponentBase<ComponentType.MediaGallery> {
-	items: APIMediaGalleryItem[];
+export interface RawMediaGalleryComponent extends RawComponentBase<ComponentType.MediaGallery> {
+	items: RawMediaGalleryItem[];
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#media-gallery-media-gallery-item-structure
  */
-export interface APIMediaGalleryItem {
+export interface RawMediaGalleryItem {
 	description?: string;
-	media: APIUnfurledMediaItem;
+	media: RawUnfurledMediaItem;
 	spoiler?: boolean;
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export interface APIPremiumButtonComponent extends APIButtonComponentBase<ButtonStyle.Premium> {
+export interface RawPremiumButtonComponent extends RawButtonComponentBase<ButtonStyle.Premium> {
 	sku_id: Snowflake;
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export interface APIResolvableSelectMenuComponentBase<Type extends APIResolvableSelectMenuComponentType>
-	extends APISelectMenuComponentBase<Type> {
-	default_values?: APISelectMenuDefaultValue[];
+export interface RawResolvableSelectMenuComponentBase<Type extends RawResolvableSelectMenuComponentType>
+	extends RawSelectMenuComponentBase<Type> {
+	default_values?: RawSelectMenuDefaultValue[];
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#section-section-structure
  */
-export interface APISectionComponent extends APIComponentBase<ComponentType.Section> {
-	accessory: APISectionAccessory;
-	components: APISectionComponents[];
+export interface RawSectionComponent extends RawComponentBase<ComponentType.Section> {
+	accessory: RawSectionAccessory;
+	components: RawSectionComponents[];
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
  */
-export interface APISelectMenuComponentBase<Type extends APISelectMenuComponentType> extends APIComponentBase<Type> {
+export interface RawSelectMenuComponentBase<Type extends RawSelectMenuComponentType> extends RawComponentBase<Type> {
 	custom_id: string;
 	disabled?: boolean;
 	max_values?: number;
@@ -140,7 +140,7 @@ export interface APISelectMenuComponentBase<Type extends APISelectMenuComponentT
 /**
  * @see https://discord.com/developers/docs/components/reference#user-select-select-default-value-structure
  */
-export interface APISelectMenuDefaultValue {
+export interface RawSelectMenuDefaultValue {
 	type: SelectMenuDefaultValueType;
 	id: Snowflake;
 }
@@ -148,7 +148,7 @@ export interface APISelectMenuDefaultValue {
 /**
  * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
  */
-export interface APISeparatorComponent extends APIComponentBase<ComponentType.Separator> {
+export interface RawSeparatorComponent extends RawComponentBase<ComponentType.Separator> {
 	divider?: boolean;
 	spacing?: SeparatorSpacingSize;
 }
@@ -156,14 +156,14 @@ export interface APISeparatorComponent extends APIComponentBase<ComponentType.Se
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
  */
-export interface APIStringSelectMenuComponent extends APISelectMenuComponentBase<ComponentType.StringSelect> {
-	options: APIStringSelectMenuOption[];
+export interface RawStringSelectMenuComponent extends RawSelectMenuComponentBase<ComponentType.StringSelect> {
+	options: RawStringSelectMenuOption[];
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-select-option-structure
  */
-export interface APIStringSelectMenuOption {
+export interface RawStringSelectMenuOption {
 	default?: boolean;
 	description?: string;
 	emoji?: RawPartialEmoji;
@@ -174,14 +174,14 @@ export interface APIStringSelectMenuOption {
 /**
  * @see https://discord.com/developers/docs/components/reference#text-display-text-display-structure
  */
-export interface APITextDisplayComponent extends APIComponentBase<ComponentType.TextDisplay> {
+export interface RawTextDisplayComponent extends RawComponentBase<ComponentType.TextDisplay> {
 	content: string;
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#text-input-text-input-structure
  */
-export interface APITextInputComponent extends APIComponentBase<ComponentType.TextInput> {
+export interface RawTextInputComponent extends RawComponentBase<ComponentType.TextInput> {
 	custom_id: string;
 	max_length?: number;
 	min_length?: number;
@@ -194,7 +194,7 @@ export interface APITextInputComponent extends APIComponentBase<ComponentType.Te
 /**
  * @see https://discord.com/developers/docs/components/reference#button
  */
-export interface APITextableButtonComponentBase<Style extends APITextableButtonComponentStyle> extends APIButtonComponentBase<Style> {
+export interface RawTextableButtonComponentBase<Style extends RawTextableButtonComponentStyle> extends RawButtonComponentBase<Style> {
 	emoji?: RawPartialEmoji;
 	label?: string;
 }
@@ -202,16 +202,16 @@ export interface APITextableButtonComponentBase<Style extends APITextableButtonC
 /**
  * @see https://discord.com/developers/docs/components/reference#thumbnail-thumbnail-structure
  */
-export interface APIThumbnailComponent extends APIComponentBase<ComponentType.Thumbnail> {
+export interface RawThumbnailComponent extends RawComponentBase<ComponentType.Thumbnail> {
 	description?: string;
-	media: APIUnfurledMediaItem;
+	media: RawUnfurledMediaItem;
 	spoiler?: boolean;
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#unfurled-media-item-structure
  */
-export interface APIUnfurledMediaItem {
+export interface RawUnfurledMediaItem {
 	attachment_id?: string;
 	content_type?: string;
 	height?: number;
@@ -223,118 +223,118 @@ export interface APIUnfurledMediaItem {
 /**
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-child-components
  */
-export type APIActionRowComponents = APIButtonComponent | APISelectMenuComponent;
+export type RawActionRowComponents = RawButtonComponent | RawSelectMenuComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APIButtonComponent = APIInteractiveButtonComponent | APILinkButtonComponent | APIPremiumButtonComponent;
+export type RawButtonComponent = RawInteractiveButtonComponent | RawLinkButtonComponent | RawPremiumButtonComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#container-container-child-components
  */
-export type APIContainerComponents =
-	| APIActionRowComponent
-	| APIFileComponent
-	| APIMediaGalleryComponent
-	| APISectionComponent
-	| APISeparatorComponent
-	| APITextDisplayComponent;
+export type RawContainerComponents =
+	| RawActionRowComponent
+	| RawFileComponent
+	| RawMediaGalleryComponent
+	| RawSectionComponent
+	| RawSeparatorComponent
+	| RawTextDisplayComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APIDangerButtonComponent = APIInteractiveButtonComponentBase<ButtonStyle.Danger>;
+export type RawDangerButtonComponent = RawInteractiveButtonComponentBase<ButtonStyle.Danger>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button
  */
-export type APIInteractiveButtonComponent =
-	| APIDangerButtonComponent
-	| APIPrimaryButtonComponent
-	| APISecondaryButtonComponent
-	| APISuccessButtonComponent;
+export type RawInteractiveButtonComponent =
+	| RawDangerButtonComponent
+	| RawPrimaryButtonComponent
+	| RawSecondaryButtonComponent
+	| RawSuccessButtonComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button
  */
-export type APIInteractiveButtonComponentStyle = Exclude<APITextableButtonComponentStyle, ButtonStyle.Link>;
+export type RawInteractiveButtonComponentStyle = Exclude<RawTextableButtonComponentStyle, ButtonStyle.Link>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#label-label-child-components
  */
-export type APILabelComponents = APIFileUploadComponent | APISelectMenuComponent | APITextInputComponent;
+export type RawLabelComponents = RawFileUploadComponent | RawSelectMenuComponent | RawTextInputComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#mentionable-select-mentionable-select-structure
  */
-export type APIMentionableSelectMenuComponent = APIResolvableSelectMenuComponentBase<ComponentType.MentionableSelect>;
+export type RawMentionableSelectMenuComponent = RawResolvableSelectMenuComponentBase<ComponentType.MentionableSelect>;
 
 /**
  * @see https://discord.com/developers/docs/components/component-object#component-object-component-types
  */
-export type APIMessageComponents =
-	| APIActionRowComponent
-	| APIContainerComponent
-	| APIFileComponent
-	| APIMediaGalleryComponent
-	| APISectionComponent
-	| APISeparatorComponent
-	| APITextDisplayComponent;
+export type RawMessageComponents =
+	| RawActionRowComponent
+	| RawContainerComponent
+	| RawFileComponent
+	| RawMediaGalleryComponent
+	| RawSectionComponent
+	| RawSeparatorComponent
+	| RawTextDisplayComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/component-object#component-object-component-types
  */
-export type APIModalComponents = APILabelComponent | APITextDisplayComponent;
+export type RawModalComponents = RawLabelComponent | RawTextDisplayComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APIPrimaryButtonComponent = APIInteractiveButtonComponentBase<ButtonStyle.Primary>;
+export type RawPrimaryButtonComponent = RawInteractiveButtonComponentBase<ButtonStyle.Primary>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
  */
-export type APIResolvableSelectMenuComponent =
-	| APIChannelSelectMenuComponent
-	| APIMentionableSelectMenuComponent
-	| APIRoleSelectMenuComponent
-	| APIUserSelectMenuComponent;
+export type RawResolvableSelectMenuComponent =
+	| RawChannelSelectMenuComponent
+	| RawMentionableSelectMenuComponent
+	| RawRoleSelectMenuComponent
+	| RawUserSelectMenuComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export type APIResolvableSelectMenuComponentType = Exclude<APISelectMenuComponentType, ComponentType.StringSelect>;
+export type RawResolvableSelectMenuComponentType = Exclude<RawSelectMenuComponentType, ComponentType.StringSelect>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#role-select-role-select-structure
  */
-export type APIRoleSelectMenuComponent = APIResolvableSelectMenuComponentBase<ComponentType.RoleSelect>;
+export type RawRoleSelectMenuComponent = RawResolvableSelectMenuComponentBase<ComponentType.RoleSelect>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APISecondaryButtonComponent = APIInteractiveButtonComponentBase<ButtonStyle.Secondary>;
+export type RawSecondaryButtonComponent = RawInteractiveButtonComponentBase<ButtonStyle.Secondary>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#section-section-accessory-components
  */
-export type APISectionAccessory = APIButtonComponent | APIThumbnailComponent;
+export type RawSectionAccessory = RawButtonComponent | RawThumbnailComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#section-section-child-components
  */
-export type APISectionComponents = APITextDisplayComponent;
+export type RawSectionComponents = RawTextDisplayComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
  */
-export type APISelectMenuComponent = APIResolvableSelectMenuComponent | APIStringSelectMenuComponent;
+export type RawSelectMenuComponent = RawResolvableSelectMenuComponent | RawStringSelectMenuComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export type APISelectMenuComponentType =
+export type RawSelectMenuComponentType =
 	| ComponentType.ChannelSelect
 	| ComponentType.MentionableSelect
 	| ComponentType.RoleSelect
@@ -344,12 +344,12 @@ export type APISelectMenuComponentType =
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
-export type APISuccessButtonComponent = APIInteractiveButtonComponentBase<ButtonStyle.Success>;
+export type RawSuccessButtonComponent = RawInteractiveButtonComponentBase<ButtonStyle.Success>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button
  */
-export type APITextableButtonComponentStyle =
+export type RawTextableButtonComponentStyle =
 	| ButtonStyle.Danger
 	| ButtonStyle.Link
 	| ButtonStyle.Primary
@@ -359,4 +359,4 @@ export type APITextableButtonComponentStyle =
 /**
  * @see https://discord.com/developers/docs/components/reference#user-select-user-select-structure
  */
-export type APIUserSelectMenuComponent = APIResolvableSelectMenuComponentBase<ComponentType.UserSelect>;
+export type RawUserSelectMenuComponent = RawResolvableSelectMenuComponentBase<ComponentType.UserSelect>;

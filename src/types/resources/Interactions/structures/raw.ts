@@ -4,10 +4,10 @@ import type { ApplicationCommandType } from '#types/resources/ApplicationCommand
 import type { APIChannel, APIPartialChannel } from '#types/resources/Channels/index.js';
 import type { ComponentType } from '#types/resources/Components/enums.js';
 import type {
-	APIMessageComponents,
-	APIModalComponents,
-	APISelectMenuComponentType,
-	APIStringSelectMenuOption,
+	RawMessageComponents,
+	RawModalComponents,
+	RawSelectMenuComponentType,
+	RawStringSelectMenuOption,
 } from '#types/resources/Components/index.js';
 import type { APIEntitlement } from '#types/resources/Entitlements/index.js';
 import type { APIGuildMember, GuildFeatures } from '#types/resources/Guilds/index.js';
@@ -21,7 +21,7 @@ import type {
 } from '#types/resources/Messages/index.js';
 import type { RawRole } from '#types/resources/Permissions/index.js';
 import type { RawUser } from '#types/resources/Users/index.js';
-import type { InteractionContextType, InteractionType } from '../enums.js';
+import type { InteractionCallbackType, InteractionContextType, InteractionType } from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
@@ -54,7 +54,7 @@ export interface APIInteractionBase<Type extends InteractionType, Data> {
  */
 export interface APIMessageInteractionCallbackData {
 	allowed_mentions?: RawAllowedMentions;
-	components?: APIMessageComponents[];
+	components?: RawMessageComponents[];
 	content?: string;
 	embeds?: RawEmbed[];
 	tts?: boolean;
@@ -103,7 +103,7 @@ export interface APIMessageComponentInteractionDataBase<Type extends ComponentTy
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-modal-submit-data-structure
  */
 export interface APIModalSubmitInteractionData {
-	components: APIModalComponents;
+	components: RawModalComponents;
 	custom_id: string;
 	resolved?: APIInteractionResolvedData;
 }
@@ -111,8 +111,8 @@ export interface APIModalSubmitInteractionData {
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
  */
-export interface APISelectMenuComponentInteractionData extends APIMessageComponentInteractionDataBase<APISelectMenuComponentType> {
-	values: APIStringSelectMenuOption[];
+export interface APISelectMenuComponentInteractionData extends APIMessageComponentInteractionDataBase<RawSelectMenuComponentType> {
+	values: RawStringSelectMenuOption[];
 }
 
 /**
@@ -122,6 +122,14 @@ export interface APIPartialInteractionGuild {
 	features: GuildFeatures[];
 	id: Snowflake;
 	locale: Locales;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-response-structure
+ */
+export interface RawInteractionResponseBase<Type extends InteractionCallbackType, Data> {
+	data: Data;
+	type: Type;
 }
 
 /**
@@ -220,3 +228,18 @@ export type APIPingInteraction = Omit<APIInteractionBase<InteractionType.Ping, n
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
  */
 export type APIUserApplicationCommandInteractionData = APIContextApplicationCommandDataBase<ApplicationCommandType.User>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-response-structure
+ */
+export type RawInteractionResponse = RawLaunchActivityInteractionResponse | RawPongInteractionResponse;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-response-structure
+ */
+export type RawLaunchActivityInteractionResponse = Omit<RawInteractionResponseBase<InteractionCallbackType.LaunchActivity, never>, 'data'>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-response-structure
+ */
+export type RawPongInteractionResponse = Omit<RawInteractionResponseBase<InteractionCallbackType.Pong, never>, 'data'>;
