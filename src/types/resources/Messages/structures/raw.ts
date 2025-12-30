@@ -2,9 +2,9 @@ import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
 import type { ApplicationIntegrationType } from '#types/resources/Applications/enums.js';
 import type { ChannelType } from '#types/resources/Channels/enums.js';
 import type { APIMessageComponents } from '#types/resources/Components/index.js';
-import type { APIPartialEmoji } from '#types/resources/Emojis/index.js';
+import type { RawPartialEmoji } from '#types/resources/Emojis/index.js';
 import type { InteractionType } from '#types/resources/Interactions/enums.js';
-import type { APIPoll } from '#types/resources/Polls/index.js';
+import type { RawPoll } from '#types/resources/Polls/index.js';
 import type { APIStickerItem } from '#types/resources/Stickers/structures/raw.js';
 import type { RawUser } from '#types/resources/Users/index.js';
 import type {
@@ -186,7 +186,7 @@ export interface APIMessage {
 	nonce?: number | string;
 	pinned: boolean;
 	position?: number;
-	poll?: APIPoll;
+	poll?: RawPoll;
 	reactions?: APIReaction[];
 	referenced_message?: APIMessage | null;
 	// resolved?: APIResolved;
@@ -277,7 +277,7 @@ export interface APIReaction {
 	burst_colors: string[];
 	count: number;
 	count_details: APIReactionCountDetails;
-	emoji: APIPartialEmoji;
+	emoji: RawPartialEmoji;
 	me: boolean;
 	me_burst: boolean;
 }

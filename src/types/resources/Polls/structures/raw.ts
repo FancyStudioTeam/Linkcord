@@ -1,5 +1,5 @@
 import type { ISO8601Date } from '#types/miscellaneous/discord.js';
-import type { APIPartialEmoji } from '#types/resources/Emojis/index.js';
+import type { RawPartialEmoji } from '#types/resources/Emojis/index.js';
 import type { PollLayoutType } from '../enums.js';
 
 /**
@@ -46,7 +46,7 @@ export interface RawPollAnswerCount {
  * @see https://discord.com/developers/docs/resources/poll#poll-media-object-poll-media-object-structure
  */
 export interface RawPollMedia {
-	emoji?: APIPartialEmoji;
+	emoji?: RawPartialEmoji;
 	text?: string;
 }
 

@@ -1,6 +1,6 @@
 import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
 import type { APIMessageComponents } from '#types/resources/Components/index.js';
-import type { APIMessagePoll } from '#types/resources/Polls/index.js';
+import type { RawMessagePoll } from '#types/resources/Polls/index.js';
 import type { RawUser } from '#types/resources/Users/index.js';
 import type { MessageFlags, ReactionType } from '../enums.js';
 import type {
@@ -80,7 +80,7 @@ export interface RESTPostAPIMessageJSONParams {
 	flags?: MessageFlags;
 	message_reference?: APIMessageReference;
 	nonce?: number | string;
-	poll?: APIMessagePoll;
+	poll?: RawMessagePoll;
 	sticker_ids?: Snowflake[];
 	tts?: boolean;
 }
