@@ -1,6 +1,6 @@
 import type { Snowflake } from '#types/miscellaneous/discord.js';
 import type { OAuth2Scopes } from '#types/resources/OAuth2/enums.js';
-import type { APITeam } from '#types/resources/Teams/structures/raw.js';
+import type { RawTeam } from '#types/resources/Teams/structures/raw.js';
 import type { RawPartialUser } from '#types/resources/Users/index.js';
 import type {
 	ActivityLocationKind,
@@ -53,7 +53,7 @@ export interface APIApplication {
 	rpc_origins?: string[];
 	slug?: string;
 	tags?: string[];
-	team: APITeam | null;
+	team: RawTeam | null;
 	terms_of_service_url?: string;
 	verify_key: string;
 }
