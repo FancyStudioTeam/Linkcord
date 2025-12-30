@@ -5,38 +5,38 @@ import type { PollLayoutType } from '../enums.js';
 /**
  * @see https://discord.com/developers/docs/resources/poll#poll-create-request-object-poll-create-request-object-structure
  */
-export interface APIMessagePoll {
+export interface RawMessagePoll {
 	allow_multiselect?: boolean;
-	answers: APIPollAnswer[];
+	answers: RawPollAnswer[];
 	duration?: number;
 	layout_type?: PollLayoutType;
-	question: APIPollQuestion;
+	question: RawPollQuestion;
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/poll#poll-object-poll-object-structure
  */
-export interface APIPoll {
+export interface RawPoll {
 	allow_multiselect: boolean;
-	answers: APIPollAnswer[];
+	answers: RawPollAnswer[];
 	expiry: ISO8601Date | null;
 	layout_type: PollLayoutType;
-	questions: APIPollMedia;
-	results?: APIPollResults;
+	questions: RawPollMedia;
+	results?: RawPollResults;
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/poll#poll-answer-object-poll-answer-object-structure
  */
-export interface APIPollAnswer {
+export interface RawPollAnswer {
 	answer_id?: number;
-	poll_media: APIPollMedia;
+	poll_media: RawPollMedia;
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/poll#poll-results-object-poll-answer-count-object-structure
  */
-export interface APIPollAnswerCount {
+export interface RawPollAnswerCount {
 	count: number;
 	id: number;
 	me_voted: boolean;
@@ -45,7 +45,7 @@ export interface APIPollAnswerCount {
 /**
  * @see https://discord.com/developers/docs/resources/poll#poll-media-object-poll-media-object-structure
  */
-export interface APIPollMedia {
+export interface RawPollMedia {
 	emoji?: APIPartialEmoji;
 	text?: string;
 }
@@ -53,12 +53,12 @@ export interface APIPollMedia {
 /**
  * @see https://discord.com/developers/docs/resources/poll#poll-results-object-poll-results-object-structure
  */
-export interface APIPollResults {
-	answers_counts: APIPollAnswerCount[];
+export interface RawPollResults {
+	answers_counts: RawPollAnswerCount[];
 	is_finalized: boolean;
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/poll#poll-media-object
  */
-export type APIPollQuestion = Pick<APIPollMedia, 'text'>;
+export type RawPollQuestion = Pick<RawPollMedia, 'text'>;

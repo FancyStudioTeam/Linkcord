@@ -1,6 +1,6 @@
 import type { Snowflake } from '#types/miscellaneous/discord.js';
 import type { ChannelType } from '#types/resources/Channels/enums.js';
-import type { APIPartialEmoji } from '#types/resources/Emojis/index.js';
+import type { RawPartialEmoji } from '#types/resources/Emojis/index.js';
 import type { ButtonStyle, ComponentType, SelectMenuDefaultValueType, SeparatorSpacingSize, TextInputStyle } from '../enums.js';
 
 /**
@@ -166,7 +166,7 @@ export interface APIStringSelectMenuComponent extends APISelectMenuComponentBase
 export interface APIStringSelectMenuOption {
 	default?: boolean;
 	description?: string;
-	emoji?: APIPartialEmoji;
+	emoji?: RawPartialEmoji;
 	label: string;
 	value: string;
 }
@@ -195,7 +195,7 @@ export interface APITextInputComponent extends APIComponentBase<ComponentType.Te
  * @see https://discord.com/developers/docs/components/reference#button
  */
 export interface APITextableButtonComponentBase<Style extends APITextableButtonComponentStyle> extends APIButtonComponentBase<Style> {
-	emoji?: APIPartialEmoji;
+	emoji?: RawPartialEmoji;
 	label?: string;
 }
 
