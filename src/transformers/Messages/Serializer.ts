@@ -1,5 +1,4 @@
 import type {
-	APIEmbed,
 	APIEmbedAuthor,
 	APIEmbedField,
 	APIEmbedFooter,
@@ -15,12 +14,13 @@ import type {
 	EmbedProvider,
 	EmbedThumbnail,
 	EmbedVideo,
+	RawEmbed,
 } from '#types/index.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-structure
  */
-export function serializeEmbed(embed: Embed): APIEmbed {
+export function serializeEmbed(embed: Embed): RawEmbed {
 	const { author, color, description, fields, footer, image, provider, thumbnail, timestamp, title, type, url, video } = embed;
 	const rawEmbed: Embed = {};
 
@@ -82,7 +82,7 @@ export function serializeEmbed(embed: Embed): APIEmbed {
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-structure
  */
-export function serializeEmbedsArray(embedsArray: Embed[]): APIEmbed[] {
+export function serializeEmbedsArray(embedsArray: Embed[]): RawEmbed[] {
 	return embedsArray.map(serializeEmbed);
 }
 

@@ -4,13 +4,13 @@ import type { RawMessagePoll } from '#types/resources/Polls/index.js';
 import type { RawUser } from '#types/resources/Users/index.js';
 import type { MessageFlags, ReactionType } from '../enums.js';
 import type {
-	APIAllowedMentions,
 	APIAttachment,
-	APIEmbed,
 	APIMessage,
 	APIMessagePin,
 	APIMessageReference,
 	APIPartialAttachent,
+	RawAllowedMentions,
+	RawEmbed,
 } from '../structures/raw.js';
 
 /**
@@ -52,11 +52,11 @@ export interface RESTGetAPIMessageReactionsQueryStringParams {
  * @see https://discord.com/developers/docs/resources/message#edit-message-jsonform-params
  */
 export interface RESTPatchAPIMessageJSONParams {
-	allowed_mentions?: APIAllowedMentions | null;
+	allowed_mentions?: RawAllowedMentions | null;
 	attachments?: APIAttachment[] | null;
 	components?: APIMessageComponents[] | null;
 	content?: string | null;
-	embeds?: APIEmbed[] | null;
+	embeds?: RawEmbed[] | null;
 	flags?: MessageFlags | null;
 }
 
@@ -71,11 +71,11 @@ export interface RESTPostAPIMessageBulkJSONParams {
  * @see https://discord.com/developers/docs/resources/message#create-message-jsonform-params
  */
 export interface RESTPostAPIMessageJSONParams {
-	allowed_mentions?: APIAllowedMentions;
+	allowed_mentions?: RawAllowedMentions;
 	attachments?: APIPartialAttachent[];
 	components?: APIMessageComponents[];
 	content?: string;
-	embeds?: APIEmbed[];
+	embeds?: RawEmbed[];
 	enforce_nonce?: boolean;
 	flags?: MessageFlags;
 	message_reference?: APIMessageReference;

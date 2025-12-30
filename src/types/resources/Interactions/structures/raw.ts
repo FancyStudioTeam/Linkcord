@@ -12,12 +12,12 @@ import type {
 import type { APIEntitlement } from '#types/resources/Entitlements/index.js';
 import type { APIGuildMember, GuildFeatures } from '#types/resources/Guilds/index.js';
 import type {
-	APIAllowedMentions,
 	APIAttachment,
 	APIAuthorizingIntegrationOwners,
-	APIEmbed,
 	APIMessage,
 	APIPartialMessage,
+	RawAllowedMentions,
+	RawEmbed,
 } from '#types/resources/Messages/index.js';
 import type { RawRole } from '#types/resources/Permissions/index.js';
 import type { RawUser } from '#types/resources/Users/index.js';
@@ -53,10 +53,10 @@ export interface APIInteractionBase<Type extends InteractionType, Data> {
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-messages
  */
 export interface APIMessageInteractionCallbackData {
-	allowed_mentions?: APIAllowedMentions;
+	allowed_mentions?: RawAllowedMentions;
 	components?: APIMessageComponents[];
 	content?: string;
-	embeds?: APIEmbed[];
+	embeds?: RawEmbed[];
 	tts?: boolean;
 }
 

@@ -20,7 +20,7 @@ import type {
 /**
  * @see https://discord.com/developers/docs/resources/message#allowed-mentions-object
  */
-export interface APIAllowedMentions {
+export interface RawAllowedMentions {
 	parse?: AllowedMentionType[];
 	replied_user?: boolean;
 	roles?: Snowflake[];
@@ -78,7 +78,7 @@ export interface APIChannelMention {
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-structure
  */
-export interface APIEmbed {
+export interface RawEmbed {
 	author?: APIEmbedAuthor;
 	color?: number;
 	description?: string;
@@ -174,7 +174,7 @@ export interface APIMessage {
 	components: APIMessageComponents[];
 	content: string;
 	edited_timestamp: ISO8601Date | null;
-	embeds: APIEmbed[];
+	embeds: RawEmbed[];
 	flags?: MessageFlags;
 	id: Snowflake;
 	interaction_metadata?: APIMessageInteractionMetadata;
