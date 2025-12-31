@@ -19,7 +19,7 @@ export class Role extends Base {
 	/** Whether the role is displayed separately from online members. */
 	hoist: boolean;
 	/** The icon of the role, if any. */
-	icon: string | null;
+	icon: string | null = null;
 	/** Whether the role is from an application integration. */
 	managed: boolean;
 	/** Whether the role can be mentioned. */
@@ -33,17 +33,16 @@ export class Role extends Base {
 	/** The tags of the role. */
 	tags: RoleTags;
 	/** The unicode emoji of the role. */
-	unicodeEmoji?: string | null;
+	unicodeEmoji?: string | null = null;
 
-	constructor(client: Client, data: RawRole) {
+	constructor(client: Client, rawRole: RawRole) {
 		super(client);
 
-		const { colors, flags, hoist, icon, id, managed, mentionable, name, permissions, position, tags, unicode_emoji } = data;
+		const { colors, flags, hoist, id, managed, mentionable, name, permissions, position, tags } = rawRole;
 
 		this.colors = deserializeRoleColors(colors);
 		this.flags = new BitField(flags);
 		this.hoist = hoist;
-		this.icon = icon ?? null;
 		this.id = id;
 		this.managed = managed;
 		this.mentionable = mentionable;
@@ -51,7 +50,7 @@ export class Role extends Base {
 		this.permissions = permissions;
 		this.position = position;
 		this.tags = deserializeRoleTags(tags ?? {});
-		this.unicodeEmoji = unicode_emoji;
+		this.patch(rawRole);
 	}
 
 	/** The color of the role. */
@@ -62,8 +61,8 @@ export class Role extends Base {
 		return primaryColor;
 	}
 
-	protected patch(data?: Partial<RawRole>): void {
-		const { colors, flags, hoist, icon, managed, mentionable, name, permissions, position, tags, unicode_emoji } = data ?? {};
+	protected patch(rawRole: Partial<RawRole>): void {
+		const { colors, flags, hoist, icon, managed, mentionable, name, permissions, position, tags, unicode_emoji } = rawRole;
 
 		if (!isUndefined(colors)) {
 			this.colors = deserializeRoleColors(colors);
