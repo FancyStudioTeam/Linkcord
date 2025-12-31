@@ -7,6 +7,7 @@ export * from './Heartbeat.js';
 export * from './HeartbeatAck.js';
 export * from './Hello.js';
 export * from './Identify.js';
+export * from './InteractionCreate.js';
 export * from './InvalidSession.js';
 export * from './MessageCreate.js';
 export * from './PresenceUpdate.js';
