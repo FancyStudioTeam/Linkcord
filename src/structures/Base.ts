@@ -3,8 +3,8 @@ import type { RESTManager } from '#rest/index.js';
 import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
 
 export abstract class Base {
-	declare readonly client: Client;
-	declare readonly rest: RESTManager;
+	protected declare readonly client: Client;
+	protected declare readonly rest: RESTManager;
 
 	constructor(client: Client) {
 		const { rest } = client;
