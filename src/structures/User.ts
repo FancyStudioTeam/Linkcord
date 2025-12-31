@@ -14,10 +14,8 @@ import { Base } from './Base.js';
  * @see https://discord.com/developers/docs/resources/user#user-object-user-structure
  */
 export class User extends Base {
-	/** Whether the user belongs to an OAuth2 application. */
+	/** Whether the user belongs to an application. */
 	readonly bot: boolean;
-	/** The discriminator of the user. */
-	readonly discriminator: string;
 	/** The ID of the user. */
 	readonly id: Snowflake;
 	/** Whether the user belongs to the Discord system. */
@@ -33,6 +31,8 @@ export class User extends Base {
 	banner: string | null = null;
 	/** The collectibles data of the user, if any. */
 	collectibles: UserCollectibles | null = null;
+	/** The discriminator of the user. */
+	discriminator: string;
 	/** The display name styles data of the user, if any. */
 	displayNameStyles: UserDisplayNameStyles | null = null;
 	/** The flags of the user. */
@@ -58,18 +58,22 @@ export class User extends Base {
 		this.patch(rawUser);
 	}
 
-	/** The accent color of the user represented in a hex color, if any. */
-	get accentColorHex() {
+	/**
+	 * The accent color of the user represented in a hex color, if any.
+	 */
+	get accentColorHex(): `#${string}` | null {
 		return this.accentColor ? hexColor(this.accentColor) : null;
 	}
 
-	/** The formatted mention of the user. */
-	get mention() {
+	/**
+	 * The formatted mention of the user.
+	 */
+	get mention(): `<@${Snowflake}>` {
 		return userMention(this.id);
 	}
 
 	/**
-	 * Patches the current {@link User} instance with the provided data.
+	 * Patches the current {@link User} instance with the provided {@link RawUser} structure.
 	 */
 	protected patch(rawUser: Partial<RawUser>): void {
 		const {
@@ -78,6 +82,7 @@ export class User extends Base {
 			avatar_decoration_data,
 			banner,
 			collectibles,
+			discriminator,
 			display_name_styles,
 			flags,
 			global_name,
@@ -103,6 +108,10 @@ export class User extends Base {
 
 		if (!isUndefined(collectibles)) {
 			this.collectibles = deserializeUserCollectibles(collectibles);
+		}
+
+		if (!isUndefined(discriminator)) {
+			this.discriminator = discriminator;
 		}
 
 		if (!isUndefined(display_name_styles)) {

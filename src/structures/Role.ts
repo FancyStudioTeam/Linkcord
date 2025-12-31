@@ -53,7 +53,9 @@ export class Role extends Base {
 		this.patch(rawRole);
 	}
 
-	/** The color of the role. */
+	/**
+	 * The color of the role.
+	 */
 	get color(): number {
 		const { colors } = this;
 		const { primaryColor } = colors;
@@ -61,6 +63,9 @@ export class Role extends Base {
 		return primaryColor;
 	}
 
+	/**
+	 * Patches the current {@link Role} instance with the provided {@link RawRole} structure.
+	 */
 	protected patch(rawRole: Partial<RawRole>): void {
 		const { colors, flags, hoist, icon, managed, mentionable, name, permissions, position, tags, unicode_emoji } = rawRole;
 
