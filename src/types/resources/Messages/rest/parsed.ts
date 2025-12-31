@@ -1,5 +1,6 @@
 import type { File } from '#rest/index.js';
 import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
+import type { MessageFlagsResolvable, MessageStickerResolvable } from '#types/resolvables/Messages.js';
 import type { MessageComponents } from '#types/resources/Components/index.js';
 import type { MessagePoll } from '#types/resources/Polls/index.js';
 import type { BitField } from '#utils/index.js';
@@ -27,7 +28,7 @@ export interface CreateMessageOptions {
 	messageReference?: MessageReference;
 	nonce?: number | string;
 	poll?: MessagePoll;
-	stickers?: StickerResolvable[];
+	stickers?: MessageStickerResolvable[];
 	tts?: boolean;
 }
 
@@ -69,13 +70,3 @@ export interface GetMessageReactionsOptions {
 	limit?: number;
 	type?: ReactionType;
 }
-
-/**
- * @see https://discord.com/developers/docs/resources/message#create-message-jsonform-params
- */
-export type MessageFlagsResolvable = MessageFlags[] | number;
-
-/**
- * @see https://discord.com/developers/docs/resources/message#create-message-jsonform-params
- */
-export type StickerResolvable = Snowflake;

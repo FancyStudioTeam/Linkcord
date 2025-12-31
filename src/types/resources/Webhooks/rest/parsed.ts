@@ -1,14 +1,21 @@
 import type { File } from '#rest/index.js';
 import type { Snowflake } from '#types/miscellaneous/discord.js';
-import type { MessageComponents } from '#types/resources/Components/index.js';
-import type { AllowedMentions, Embed, MessageFlags } from '#types/resources/Messages/index.js';
-import type { MessagePoll } from '#types/resources/Polls/index.js';
+import type {
+	WebhookAvatarResolvable,
+	WebhookChannelResolvable,
+	WebhookComponentResolvable,
+	WebhookEmbedResolvable,
+	WebhookFlagsResolvable,
+	WebhookPollResolvable,
+	WebhookThreadResolvable,
+} from '#types/resolvables/Webhooks.js';
+import type { AllowedMentions } from '#types/resources/Messages/index.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/webhook#create-webhook-json-params
  */
 export interface CreateWebhookOptions {
-	avatar?: Buffer | null;
+	avatar?: WebhookAvatarResolvable | null;
 	name: string;
 }
 
@@ -16,7 +23,7 @@ export interface CreateWebhookOptions {
  * @see https://discord.com/developers/docs/resources/webhook#delete-webhook-message-query-string-params
  */
 export interface DeleteWebhookMessageOptions {
-	thread?: Snowflake;
+	thread?: WebhookThreadResolvable;
 }
 
 /**
@@ -24,19 +31,19 @@ export interface DeleteWebhookMessageOptions {
  */
 export interface EditWebhookMessageOptions {
 	allowedMentions?: AllowedMentions | null;
-	components?: MessageComponents[] | null;
+	components?: WebhookComponentResolvable[] | null;
 	content?: string | null;
-	embeds?: Embed[] | null;
-	flags?: MessageFlags | null;
-	poll?: MessagePoll | null;
+	embeds?: WebhookEmbedResolvable[] | null;
+	flags?: WebhookFlagsResolvable | null;
+	poll?: WebhookPollResolvable | null;
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/webhook#modify-webhook-json-params
  */
 export interface EditWebhookOptions {
-	avatar?: Buffer | null;
-	channel?: Snowflake;
+	avatar?: WebhookAvatarResolvable | null;
+	channel?: WebhookChannelResolvable;
 	name?: string;
 }
 
@@ -47,12 +54,12 @@ export interface ExecuteWebhookOptions {
 	allowedMentions?: AllowedMentions;
 	appliedTags?: Snowflake[];
 	avatarUrl?: string;
-	components?: MessageComponents[];
+	components?: WebhookComponentResolvable[];
 	content?: string;
 	files?: File[];
-	flags?: MessageFlags;
-	embeds?: Embed[];
-	poll?: MessagePoll;
+	flags?: WebhookFlagsResolvable;
+	embeds?: WebhookEmbedResolvable[];
+	poll?: WebhookPollResolvable;
 	threadId?: Snowflake;
 	threadName?: string;
 	tts?: boolean;
@@ -65,5 +72,5 @@ export interface ExecuteWebhookOptions {
  * @see https://discord.com/developers/docs/resources/webhook#get-webhook-message-query-string-params
  */
 export interface GetWebhookMessageQueryStringParams {
-	thread?: Snowflake;
+	thread?: WebhookThreadResolvable;
 }
