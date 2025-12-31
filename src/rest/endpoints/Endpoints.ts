@@ -30,6 +30,13 @@ export function GUILD_MEMBER_ROLE<GuildId extends Snowflake, MemberId extends Sn
 	return `guilds/${encodeURIComponent(guildId)}/members/${encodeURIComponent(memberId)}/roles/${encodeURIComponent(roleId)}` as const;
 }
 
+export function INTERACTION_CALLBACK<InteractionId extends Snowflake, InteractionToken extends string>(
+	interactionId: InteractionId,
+	interactionToken: InteractionToken,
+) {
+	return `interactions/${encodeURIComponent(interactionId)}/${encodeURIComponent(interactionToken)}/callback` as const;
+}
+
 export function VOICE_REGIONS_ENDPOINT() {
 	return 'voice/regions' as const;
 }
