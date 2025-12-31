@@ -71,7 +71,7 @@ export class User extends Base {
 	/**
 	 * Patches the current {@link User} instance with the provided data.
 	 */
-	protected patch(data?: Partial<RawUser>): void {
+	protected patch(rawUser: Partial<RawUser>): void {
 		const {
 			accent_color,
 			avatar,
@@ -83,7 +83,7 @@ export class User extends Base {
 			global_name,
 			primary_guild,
 			username,
-		} = data ?? {};
+		} = rawUser;
 
 		if (!isUndefined(accent_color)) {
 			this.accentColor = accent_color;
