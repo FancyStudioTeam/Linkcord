@@ -61,14 +61,16 @@ export class User extends Base {
 	/**
 	 * The accent color of the user represented in a hex color, if any.
 	 */
-	get accentColorHex(): `#${string}` | null {
-		return this.accentColor ? hexColor(this.accentColor) : null;
+	get accentColorHex() {
+		const { accentColor } = this;
+
+		return accentColor ? hexColor(accentColor) : null;
 	}
 
 	/**
 	 * The formatted mention of the user.
 	 */
-	get mention(): `<@${Snowflake}>` {
+	get mention() {
 		return userMention(this.id);
 	}
 
