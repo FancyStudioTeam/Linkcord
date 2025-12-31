@@ -13,6 +13,7 @@ export class ResourceManager {
 	declare readonly channels: ChannelsResource;
 	declare readonly gateway: GatewayResource;
 	declare readonly guilds: GuildsResource;
+	declare readonly interactions: InteractionsResource;
 	declare readonly voice: VoiceResource;
 
 	constructor(rest: RESTManager, client: Client) {

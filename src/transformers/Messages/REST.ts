@@ -2,15 +2,19 @@ import { serializeMessageComponentsArray } from '#transformers/Components/Serial
 import type {
 	CreateMessageOptions,
 	MessageFlagsResolvable,
+	MessageStickerResolvable,
 	RESTPostAPIMessageJSONParams,
 	Snowflake,
-	StickerResolvable,
 } from '#types/index.js';
-import { isArray } from '#utils/helpers/AssertionUtils.js';
+import { isArray, isInstanceOf } from '#utils/helpers/AssertionUtils.js';
 import { BitField } from '#utils/index.js';
 import { serializeEmbedsArray } from './Serializer.js';
 
 export function normalizeMessageFlags(messageFlags: MessageFlagsResolvable): number {
+	if (isInstanceOf(messageFlags, BitField)) {
+		return messageFlags.bitField;
+	}
+
 	if (isArray(messageFlags)) {
 		return new BitField().add(...messageFlags);
 	}
@@ -18,8 +22,12 @@ export function normalizeMessageFlags(messageFlags: MessageFlagsResolvable): num
 	return messageFlags;
 }
 
-export function normalizeStickers(stickers: StickerResolvable[]): Snowflake[] {
-	return stickers;
+export function normalizeMessageSticker(messageSticker: MessageStickerResolvable): Snowflake {
+	return messageSticker;
+}
+
+export function normalizeMessageStickersArray(messageStickersArray: MessageStickerResolvable[]): Snowflake[] {
+	return messageStickersArray.map(normalizeMessageSticker);
 }
 
 /**
@@ -54,7 +62,7 @@ export function serializeCreateMessageOptions(options: CreateMessageOptions): RE
 	}
 
 	if (stickers) {
-		rawOptions.sticker_ids = normalizeStickers(stickers);
+		rawOptions.sticker_ids = normalizeMessageStickersArray(stickers);
 	}
 
 	if (tts) {
