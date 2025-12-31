@@ -21,7 +21,7 @@ import type {
 } from '#types/resources/Messages/index.js';
 import type { RawRole } from '#types/resources/Permissions/index.js';
 import type { RawUser } from '#types/resources/Users/index.js';
-import type { InteractionCallbackType, InteractionContextType, InteractionType } from '../enums.js';
+import type { InteractionContextType, InteractionType } from '../enums.js';
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
@@ -125,14 +125,6 @@ export interface APIPartialInteractionGuild {
 }
 
 /**
- * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-response-structure
- */
-export interface RawInteractionResponseBase<Type extends InteractionCallbackType, Data> {
-	data: Data;
-	type: Type;
-}
-
-/**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
  */
 export type APIApplicationCommandInteraction = APIInteractionBase<InteractionType.ApplicationCommand, APIApplicationCommandInteractionData>;
@@ -228,18 +220,3 @@ export type APIPingInteraction = Omit<APIInteractionBase<InteractionType.Ping, n
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
  */
 export type APIUserApplicationCommandInteractionData = APIContextApplicationCommandDataBase<ApplicationCommandType.User>;
-
-/**
- * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-response-structure
- */
-export type RawInteractionResponse = RawLaunchActivityInteractionResponse | RawPongInteractionResponse;
-
-/**
- * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-response-structure
- */
-export type RawLaunchActivityInteractionResponse = Omit<RawInteractionResponseBase<InteractionCallbackType.LaunchActivity, never>, 'data'>;
-
-/**
- * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-response-structure
- */
-export type RawPongInteractionResponse = Omit<RawInteractionResponseBase<InteractionCallbackType.Pong, never>, 'data'>;
