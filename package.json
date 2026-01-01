@@ -1,7 +1,7 @@
 {
 	"author": "Linkcord Team",
 	"dependencies": {
-		"zod": "4.2.1"
+		"zod": "4.3.4"
 	},
 	"description": "An opinionated framework for building Discord bots using TypeScript",
 	"devDependencies": {
