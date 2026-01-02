@@ -1,7 +1,7 @@
 import type { GatewayShard } from '#gateway/index.js';
 import type { RestRequestData, RestResponseData } from '#rest/index.js';
 import type { Guild, GuildMember, Message, Uncached, User } from '#structures/index.js';
-import type { GatewayEvent } from '#types/index.js';
+import type { GatewayEvent, Interaction } from '#types/index.js';
 
 export interface ClientDebugOptions {
 	label?: string;
@@ -14,9 +14,6 @@ export interface ClientEventsMap {
 	];
 	[ClientEvents.Debug]: [
 		params: DebugEventParams,
-	];
-	[ClientEvents.MessageCreate]: [
-		params: MessageCreateEventParams,
 	];
 	[ClientEvents.GatewayShardDisconnect]: [
 		params: GatewayShardDisconnectEventParams,
@@ -41,6 +38,12 @@ export interface ClientEventsMap {
 	];
 	[ClientEvents.GuildUpdate]: [
 		params: GuildUpdateEventParams,
+	];
+	[ClientEvents.InteractionCreate]: [
+		params: InteractionCreateEventParams,
+	];
+	[ClientEvents.MessageCreate]: [
+		params: MessageCreateEventParams,
 	];
 	[ClientEvents.RestRequest]: [
 		params: RestRequestEventParams,
@@ -103,6 +106,11 @@ export interface GuildUpdateEventParams {
 	oldGuild: Guild | Uncached;
 }
 
+export interface InteractionCreateEventParams {
+	gatewayShard: GatewayShard;
+	interaction: Interaction;
+}
+
 export interface MessageCreateEventParams {
 	gatewayShard: GatewayShard;
 	message: Message;
@@ -136,6 +144,7 @@ export enum ClientEvents {
 	GuildDelete = 'guildDelete',
 	GuildMemberUpdate = 'guildMemberUpdate',
 	GuildUpdate = 'guildUpdate',
+	InteractionCreate = 'interactionCreate',
 	MessageCreate = 'messageCreate',
 	RestRequest = 'restRequest',
 	UserUpdate = 'userUpdate',

@@ -64,7 +64,8 @@ export class Role extends Base {
 	}
 
 	/**
-	 * Patches the current {@link Role} instance with the provided {@link RawRole} structure.
+	 * Patches the current {@link Role} instance with the provided
+	 * {@link RawRole} structure.
 	 */
 	protected patch(rawRole: Partial<RawRole>): void {
 		const { colors, flags, hoist, icon, managed, mentionable, name, permissions, position, tags, unicode_emoji } = rawRole;

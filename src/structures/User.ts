@@ -75,7 +75,8 @@ export class User extends Base {
 	}
 
 	/**
-	 * Patches the current {@link User} instance with the provided {@link RawUser} structure.
+	 * Patches the current {@link User} instance with the provided
+	 * {@link RawUser} structure.
 	 */
 	protected patch(rawUser: Partial<RawUser>): void {
 		const {
