@@ -1,4 +1,5 @@
 export * from './Base.js';
+export * from './ChatInputCommandInteraction.js';
 export * from './EntitlementBase.js';
 export * from './Guild.js';
 export * from './GuildMember.js';

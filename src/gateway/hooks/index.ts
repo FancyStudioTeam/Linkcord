@@ -8,6 +8,7 @@ import type { GatewayShard } from '#gateway/structures/GatewayShard.js';
 import type { GatewayDispatchEvent } from '#types/index.js';
 import type { Awaitable } from '#utils/index.js';
 import { GUILD_CREATE, GUILD_MEMBER_UPDATE, GUILD_UPDATE } from './Guilds.js';
+import { INTERACTION_CREATE } from './Interactions.js';
 import { MESSAGE_CREATE } from './Messages.js';
 import { READY } from './Shard.js';
 import { PRESENCE_UPDATE, USER_UPDATE } from './Users.js';
@@ -16,6 +17,7 @@ export const DispatchHooks: Partial<DispatchHooksMap> = {
 	GUILD_CREATE,
 	GUILD_MEMBER_UPDATE,
 	GUILD_UPDATE,
+	INTERACTION_CREATE,
 	MESSAGE_CREATE,
 	PRESENCE_UPDATE,
 	READY,

@@ -1,6 +1,7 @@
 import type { Snowflake } from '#types/miscellaneous/discord.js';
 import type { ChannelType } from '#types/resources/Channels/enums.js';
 import type { RawPartialEmoji } from '#types/resources/Emojis/index.js';
+import type { RawInteractionResolvedData } from '#types/resources/Interactions/index.js';
 import type { ButtonStyle, ComponentType, SelectMenuDefaultValueType, SeparatorSpacingSize, TextInputStyle } from '../enums.js';
 
 /**
@@ -26,10 +27,27 @@ export interface RawChannelSelectMenuComponent extends RawResolvableSelectMenuCo
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#channel-select-channel-select-interaction-response-structure
+ */
+export interface RawChannelSelectInteractionResponse extends RawComponentInteractionResponseBase<ComponentType.ChannelSelect> {
+	custom_id: string;
+	resolved: RawInteractionResolvedData;
+	values: Snowflake[];
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#anatomy-of-a-component
  */
 export interface RawComponentBase<Type extends ComponentType> {
 	id?: number;
+	type: Type;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-component-interaction-response-structures
+ */
+export interface RawComponentInteractionResponseBase<Type extends ComponentType> {
+	id: number;
 	type: Type;
 }
 
@@ -60,6 +78,14 @@ export interface RawFileUploadComponent extends RawComponentBase<ComponentType.F
 	max_values?: number;
 	min_values?: number;
 	required?: boolean;
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#file-upload-file-upload-interaction-response-structure
+ */
+export interface RawFileUploadInteractionResponse extends RawComponentInteractionResponseBase<ComponentType.FileUpload> {
+	custom_id: string;
+	values: Snowflake[];
 }
 
 /**
@@ -103,6 +129,15 @@ export interface RawMediaGalleryItem {
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#mentionable-select-mentionable-select-interaction-response-structure
+ */
+export interface RawMentionableSelectInteractionResponse extends RawComponentInteractionResponseBase<ComponentType.MentionableSelect> {
+	custom_id: string;
+	resolved: RawInteractionResolvedData;
+	values: Snowflake[];
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
 export interface RawPremiumButtonComponent extends RawButtonComponentBase<ButtonStyle.Premium> {
@@ -115,6 +150,15 @@ export interface RawPremiumButtonComponent extends RawButtonComponentBase<Button
 export interface RawResolvableSelectMenuComponentBase<Type extends RawResolvableSelectMenuComponentType>
 	extends RawSelectMenuComponentBase<Type> {
 	default_values?: RawSelectMenuDefaultValue[];
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#role-select-role-select-interaction-response-structure
+ */
+export interface RawRoleSelectInteractionResponse extends RawComponentInteractionResponseBase<ComponentType.RoleSelect> {
+	custom_id: string;
+	resolved: RawInteractionResolvedData;
+	values: Snowflake[];
 }
 
 /**
@@ -151,6 +195,14 @@ export interface RawSelectMenuDefaultValue {
 export interface RawSeparatorComponent extends RawComponentBase<ComponentType.Separator> {
 	divider?: boolean;
 	spacing?: SeparatorSpacingSize;
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#string-select-string-select-interaction-response-structure
+ */
+export interface RawStringSelectInteractionResponse extends RawComponentInteractionResponseBase<ComponentType.StringSelect> {
+	custom_id: string;
+	values: string[];
 }
 
 /**
@@ -192,6 +244,14 @@ export interface RawTextInputComponent extends RawComponentBase<ComponentType.Te
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#text-input-text-input-interaction-response-structure
+ */
+export interface RawTextInputInteractionResponse extends RawComponentInteractionResponseBase<ComponentType.TextInput> {
+	custom_id: string;
+	value: string;
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#button
  */
 export interface RawTextableButtonComponentBase<Style extends RawTextableButtonComponentStyle> extends RawButtonComponentBase<Style> {
@@ -218,6 +278,15 @@ export interface RawUnfurledMediaItem {
 	proxy_url?: string;
 	url: string;
 	width?: number;
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#user-select-user-select-interaction-response-structure
+ */
+export interface RawUserSelectInteractionResponse extends RawComponentInteractionResponseBase<ComponentType.UserSelect> {
+	custom_id: string;
+	resolved: RawInteractionResolvedData;
+	values: Snowflake[];
 }
 
 /**
@@ -345,6 +414,11 @@ export type RawSelectMenuComponentType =
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
  */
 export type RawSuccessButtonComponent = RawInteractiveButtonComponentBase<ButtonStyle.Success>;
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#text-display-text-display-interaction-response-structure
+ */
+export type RawTextDisplayInteractionResponse = RawComponentInteractionResponseBase<ComponentType.TextDisplay>;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button
