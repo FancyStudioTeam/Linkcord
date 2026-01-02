@@ -18,8 +18,7 @@ export class ClientBase {
 	 * The ID of the application.
 	 *
 	 * @remarks
-	 * This getter depends on `token` from {@link ClientBase}, which means it can
-	 * throw exceptions from `token`.
+	 * This getter depends on {@link token} from {@link ClientBase}.
 	 *
 	 * This value is retrieved by decoding the first segment of the application
 	 * token which contains the application ID encoded in Base64.
