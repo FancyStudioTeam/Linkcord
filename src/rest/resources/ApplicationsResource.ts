@@ -1,5 +1,5 @@
 import { APPLICATION_COMMANDS_ENDPOINT } from '#rest/endpoints/Endpoints.js';
-import { RESTMethod } from '#rest/structures/RESTManager.types.js';
+import { RESTContentType, RESTMethod } from '#rest/structures/RESTManager.types.js';
 import type { CreateApplicationCommandOptions, RESTPutAPIApplicationCommandsJSONParams, Snowflake } from '#types/index.js';
 import { ResourceBase } from './ResourceBase.js';
 
@@ -22,6 +22,7 @@ export class ApplicationsResource extends ResourceBase {
 
 		await rest.makeRequest<RESTPutAPIApplicationCommandsJSONParams>(APPLICATION_COMMANDS_ENDPOINT(applicationId), {
 			body: JSON.stringify(body),
+			contentType: RESTContentType.ApplicationJSON,
 			method: RESTMethod.Put,
 		});
 

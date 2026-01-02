@@ -1,5 +1,5 @@
 import { CHANNEL_MESSAGES_ENDPOINT } from '#rest/endpoints/Endpoints.js';
-import { type File, type MakeRequestOptions, RESTMethod } from '#rest/structures/RESTManager.types.js';
+import { type File, type MakeRequestOptions, RESTContentType, RESTMethod } from '#rest/structures/RESTManager.types.js';
 import { Message } from '#structures/Message.js';
 import { serializeCreateMessageOptions } from '#transformers/Messages/REST.js';
 import type { CreateMessageOptions, RESTPostAPIMessage, RESTPostAPIMessageJSONParams, Snowflake } from '#types/index.js';
@@ -47,11 +47,16 @@ export class ChannelsResource extends ResourceBase {
 		const { length: filesLength } = files ?? [];
 
 		const serializedOptions = serializeCreateMessageOptions(options);
+		const isForm = files && filesLength;
 
 		const requestOptions: MakeRequestOptions = {
-			body: files && filesLength ? this.#appendToForm(serializedOptions, files) : JSON.stringify(serializedOptions),
+			body: isForm ? this.#appendToForm(serializedOptions, files) : JSON.stringify(serializedOptions),
 			method: RESTMethod.Post,
 		};
+
+		if (!isForm) {
+			requestOptions.contentType = RESTContentType.ApplicationJSON;
+		}
 
 		const messageResponseData = await rest.makeRequest<RESTPostAPIMessage>(CHANNEL_MESSAGES_ENDPOINT(channelId), requestOptions);
 		const messageData = new Message(client, messageResponseData);

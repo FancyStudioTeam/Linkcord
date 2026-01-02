@@ -23,8 +23,12 @@ export class RESTManager {
 	static REST_VERSION = 10 as const;
 
 	#createRequestHeaders(options?: CreateRequestHeadersOptions): Headers {
-		const { withAuthorization = true } = options ?? {};
+		const { contentType, withAuthorization = true } = options ?? {};
 		const headers = new Headers();
+
+		if (contentType) {
+			headers.set('Content-Type', contentType);
+		}
 
 		if (withAuthorization) {
 			const { client } = this;
@@ -109,4 +113,4 @@ export class RESTManager {
 	}
 }
 
-type CreateRequestHeadersOptions = Pick<MakeRequestOptions, 'withAuthorization'>;
+type CreateRequestHeadersOptions = Pick<MakeRequestOptions, 'contentType' | 'withAuthorization'>;
