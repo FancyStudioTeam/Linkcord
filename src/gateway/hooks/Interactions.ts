@@ -46,7 +46,7 @@ export async function INTERACTION_CREATE(
 					if (chatInputCommand) {
 						await chatInputCommand.run({
 							client,
-							context: interaction,
+							interaction,
 						});
 					}
 
