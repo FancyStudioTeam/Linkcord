@@ -1,12 +1,12 @@
 import type { Client } from '#client/index.js';
-import type { ChatInputCommandInteraction } from '#structures/ChatInputCommandInteraction.js';
+import type { ChatInputApplicationCommandInteraction } from '#structures/ChatInputApplicationCommandInteraction.js';
 import type { CreateChatInputApplicationCommandOptions } from '#types/index.js';
 import type { NonAbstractConstructor } from '#utils/index.js';
 import type { ChatInputCommandHandler } from './ChatInputCommandHandler.js';
 
-export interface ChatInputCommandRunOptions {
+export interface ChatInputCommandHandlerRunOptions {
 	client: Client;
-	context: ChatInputCommandInteraction;
+	interaction: ChatInputApplicationCommandInteraction;
 }
 
 export type ChatInputCommandHandlerConstructor = NonAbstractConstructor<ChatInputCommandHandler>;

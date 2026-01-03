@@ -1,4 +1,4 @@
-import type { APIInteraction } from '#types/resources/index.js';
+import type { RawInteraction } from '#types/resources/index.js';
 import type { GatewayDispatchEvents } from '../enums.js';
 import type { GatewayDispatchEventBase } from './Dispatch.js';
 
@@ -13,4 +13,4 @@ export type GatewayDispatchInteractionCreateEvent = GatewayDispatchEventBase<
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#interaction-create
  */
-export type GatewayDispatchInteractionCreateEventPayload = APIInteraction;
+export type GatewayDispatchInteractionCreateEventPayload = RawInteraction;

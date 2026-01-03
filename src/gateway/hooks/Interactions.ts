@@ -8,8 +8,13 @@
 
 import { type Client, ClientEvents } from '#client/index.js';
 import type { GatewayShard } from '#gateway/structures/GatewayShard.js';
-import { ChatInputCommandInteraction } from '#structures/ChatInputCommandInteraction.js';
-import type { GatewayDispatchInteractionCreateEventPayload, Interaction } from '#types/index.js';
+import { ChatInputApplicationCommandInteraction } from '#structures/ChatInputApplicationCommandInteraction.js';
+import {
+	ApplicationCommandType,
+	type GatewayDispatchInteractionCreateEventPayload,
+	type Interaction,
+	InteractionType,
+} from '#types/index.js';
 
 /**
  * @see https://discord.com/developers/docs/events/gateway-events#interaction-create
@@ -25,23 +30,36 @@ export async function INTERACTION_CREATE(
 	let interaction: Interaction;
 
 	switch (type) {
-		default: {
-			// @ts-expect-error
-			interaction = new ChatInputCommandInteraction(client, interactionCreatePayload);
+		case InteractionType.ApplicationCommand: {
+			const { data } = interactionCreatePayload;
+			const { type } = data ?? {};
 
-			const { commandName } = interaction;
-			const { chatInput } = commands;
+			switch (type) {
+				case ApplicationCommandType.ChatInput: {
+					interaction = new ChatInputApplicationCommandInteraction(client, interactionCreatePayload);
 
-			const chatInputCommand = chatInput.get(commandName);
+					const { commandName } = interaction;
+					const { chatInput } = commands;
 
-			if (chatInputCommand) {
-				await chatInputCommand.run({
-					client,
-					context: interaction,
-				});
+					const chatInputCommand = chatInput.get(commandName);
+
+					if (chatInputCommand) {
+						await chatInputCommand.run({
+							client,
+							context: interaction,
+						});
+					}
+
+					break;
+				}
+				default:
+					throw new TypeError('Interaction command type not handled');
 			}
 
 			break;
+		}
+		default: {
+			throw new TypeError('Interaction type not handled');
 		}
 	}
 
