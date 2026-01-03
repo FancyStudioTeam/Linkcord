@@ -68,7 +68,7 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 		const { channel_id } = rawInteraction;
 
 		if (!channel_id) {
-			throw new TypeError('Received an interaction without a channel id');
+			throw new TypeError('Received an interaction without channel id');
 		}
 
 		return channel_id;
@@ -79,7 +79,7 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 		const { locale } = rawInteraction;
 
 		if (!locale) {
-			throw new TypeError('Received an interaction without a locale');
+			throw new TypeError('Received an interaction without locale');
 		}
 
 		return locale as Locales;
@@ -102,7 +102,7 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 		const { member, user } = rawInteraction;
 
 		if (!(member && user)) {
-			throw new TypeError('Received an interaction without a member or user');
+			throw new TypeError('Received an interaction without member or user');
 		}
 
 		const { user: memberUser } = member;
