@@ -1,5 +1,5 @@
 import type { Client } from '#client/index.js';
-import { InteractionType, type RawUser, type Snowflake } from '#types/index.js';
+import { InteractionType, type Locales, type RawUser, type Snowflake } from '#types/index.js';
 import type { RawInteraction } from '#types/resources/Interactions/structures/raw.js';
 import type { If } from '#utils/index.js';
 import type { ApplicationCommandInteractionBase } from './ApplicationCommandInteractionBase.js';
@@ -22,8 +22,12 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 	readonly channelId: Snowflake;
 	/** The ID of the guild where the interaction was triggered. */
 	readonly guildId: If<InGuild, Snowflake, null>;
+	/** The locale of the guild, if any. */
+	readonly guildLocale: If<InGuild, Locales, null>;
 	/** The ID of the interaction. */
 	readonly id: Snowflake;
+	/** The locale of the user. */
+	readonly locale: Locales;
 	/** The member who triggered the interaction, if any. */
 	readonly member: If<InGuild, GuildMember, null>;
 	/** The token of the interaction. */
@@ -38,9 +42,10 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 	constructor(client: Client, rawInteraction: RawInteraction) {
 		super(client);
 
-		const { app_permissions, application_id, attachment_size_limit, guild_id, id, token, type, version } = rawInteraction;
+		const { app_permissions, application_id, attachment_size_limit, guild_id, guild_locale, id, token, type, version } = rawInteraction;
 
 		const channelId = this.#getInteractionChannelId(rawInteraction);
+		const locale = this.#getInteractionLocale(rawInteraction);
 		const member = this.#getInteractionMember(rawInteraction);
 		const user = this.#getInteractionUser(rawInteraction);
 
@@ -49,7 +54,9 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 		this.attachmentSizeLimit = attachment_size_limit;
 		this.channelId = channelId;
 		this.guildId = (guild_id ?? null) as never;
+		this.guildLocale = (guild_locale ?? null) as never;
 		this.id = id;
+		this.locale = locale;
 		this.member = member;
 		this.token = token;
 		this.type = type;
@@ -65,6 +72,17 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 		}
 
 		return channel_id;
+	}
+
+	#getInteractionLocale(rawInteraction: RawInteraction): Locales {
+		// @ts-expect-error: Gateway interactions always have the 'locale' property.
+		const { locale } = rawInteraction;
+
+		if (!locale) {
+			throw new TypeError('Received an interaction without a locale');
+		}
+
+		return locale as Locales;
 	}
 
 	#getInteractionMember(rawInteraction: RawInteraction): If<InGuild, GuildMember, null> {
@@ -87,7 +105,9 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 			throw new TypeError('Received an interaction without a member or user');
 		}
 
-		return user ?? member.user;
+		const { user: memberUser } = member;
+
+		return memberUser ?? user;
 	}
 
 	/**
