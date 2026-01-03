@@ -1,5 +1,5 @@
 import { INTERACTION_CALLBACK } from '#rest/endpoints/Endpoints.js';
-import { RESTMethod } from '#rest/structures/RESTManager.types.js';
+import { RESTContentType, RESTMethod } from '#rest/structures/RESTManager.types.js';
 import { serializeCreateInteractionResponseOptions } from '#transformers/Interactions/REST.js';
 import type { CreateInteractionResponseOptions, Snowflake } from '#types/index.js';
 import { ResourceBase } from './ResourceBase.js';
@@ -32,6 +32,7 @@ export class InteractionsResource extends ResourceBase {
 
 		const interactionCallbackResponseData = await rest.makeRequest<void>(endpoint, {
 			body: JSON.stringify(serializedOptions),
+			contentType: RESTContentType.ApplicationJSON,
 			method: RESTMethod.Post,
 		});
 
