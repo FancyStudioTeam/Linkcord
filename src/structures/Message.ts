@@ -25,8 +25,8 @@ export class Message<InGuild extends boolean = false> extends Base {
 	content: string;
 	/** The embeds of the message. */
 	embeds: Embed[];
-	/** The ID of the guild where the message was sent. */
-	guildId: GuildIdCondition<InGuild>;
+	/** The ID of the guild where the message was sent, if any. */
+	guildId: If<InGuild, Snowflake, null> = null as never;
 
 	constructor(client: Client, rawMessage: APIMessage) {
 		super(client);
@@ -38,7 +38,6 @@ export class Message<InGuild extends boolean = false> extends Base {
 		this.components = deserializeMessageComponentsArray(components);
 		this.content = content;
 		this.embeds = deserializeEmbedsArray(embeds);
-		this.guildId = null as GuildIdCondition<InGuild>;
 		this.id = id;
 		this.patch(rawMessage);
 	}
@@ -47,7 +46,9 @@ export class Message<InGuild extends boolean = false> extends Base {
 	 * The formatted link to the message.
 	 */
 	get messageLink() {
-		return messageLink(this.channelId, this.id);
+		const { channelId, id } = this;
+
+		return messageLink(channelId, id);
 	}
 
 	/**
@@ -70,7 +71,7 @@ export class Message<InGuild extends boolean = false> extends Base {
 		}
 
 		if (!isUndefined(guild_id)) {
-			this.guildId = guild_id as GuildIdCondition<InGuild>;
+			this.guildId = guild_id as never;
 		}
 	}
 
@@ -79,7 +80,7 @@ export class Message<InGuild extends boolean = false> extends Base {
 	 *
 	 * @param required - Whether the {@link Guild} instance must be present.
 	 */
-	async guild(required?: false): Promise<GuildCondition<InGuild> | null>;
+	async guild(required?: false): Promise<If<InGuild, Guild, null> | null>;
 
 	/**
 	 * Gets the {@link Guild} instance associated with the message.
@@ -89,22 +90,22 @@ export class Message<InGuild extends boolean = false> extends Base {
 	 * @remarks
 	 * This method throws an error if {@link Guild} is not cached.
 	 */
-	async guild(required: true): Promise<GuildCondition<InGuild>>;
+	async guild(required: true): Promise<If<InGuild, Guild, null>>;
 
 	// biome-ignore lint/suspicious/useAwait: (x)
 	async guild(required?: boolean): Promise<Guild | null> {
-		const { client, guildId } = this;
+		const { client, guildId, id } = this;
 		const { cache } = client;
 		const { guilds } = cache;
 
 		if (!guildId) {
-			throw new TypeError(`Unable to get 'Guild' without 'guildId'`);
+			throw new TypeError(`Unable to get 'Guild' in message '${id}'. Guild id is null.`);
 		}
 
 		const cachedGuild = guilds.get(guildId);
 
 		if (!cachedGuild && required) {
-			throw new TypeError(`Unable to get 'Guild' in message '${this.id}'. Guild is not cached.`);
+			throw new TypeError(`Unable to get 'Guild' in message '${id}'. Guild '${guildId}' is not cached.`);
 		}
 
 		return cachedGuild ?? null;
@@ -114,9 +115,8 @@ export class Message<InGuild extends boolean = false> extends Base {
 	 * Checks whether the message was sent in a guild.
 	 */
 	inGuild(): this is Message<true> {
-		return Boolean(this.guildId);
+		const { guildId } = this;
+
+		return Boolean(guildId);
 	}
 }
-
-export type GuildCondition<InGuild extends boolean> = If<InGuild, Guild, null>;
-export type GuildIdCondition<InGuild extends boolean> = If<InGuild, Snowflake, null>;

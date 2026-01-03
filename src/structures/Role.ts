@@ -32,7 +32,7 @@ export class Role extends Base {
 	position: number;
 	/** The tags of the role. */
 	tags: RoleTags;
-	/** The unicode emoji of the role. */
+	/** The unicode emoji of the role, if any. */
 	unicodeEmoji?: string | null = null;
 
 	constructor(client: Client, rawRole: RawRole) {

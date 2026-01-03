@@ -71,7 +71,9 @@ export class User extends Base {
 	 * The formatted mention of the user.
 	 */
 	get mention() {
-		return userMention(this.id);
+		const { id } = this;
+
+		return userMention(id);
 	}
 
 	/**

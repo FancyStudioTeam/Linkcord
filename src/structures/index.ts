@@ -1,3 +1,4 @@
+export * from './ApplicationCommandInteractionBase.js';
 export * from './Base.js';
 export * from './ChatInputCommandInteraction.js';
 export * from './EntitlementBase.js';

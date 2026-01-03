@@ -1,7 +1,8 @@
 import type { Client } from '#client/index.js';
-import type { InteractionType, RawUser, Snowflake } from '#types/index.js';
+import { InteractionType, type RawUser, type Snowflake } from '#types/index.js';
 import type { RawInteraction } from '#types/resources/Interactions/structures/raw.js';
 import type { If } from '#utils/index.js';
+import type { ApplicationCommandInteractionBase } from './ApplicationCommandInteractionBase.js';
 import { Base } from './Base.js';
 import type { Guild } from './Guild.js';
 import { GuildMember } from './GuildMember.js';
@@ -20,11 +21,11 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 	/** The ID of the channel where the interaction was triggered. */
 	readonly channelId: Snowflake;
 	/** The ID of the guild where the interaction was triggered. */
-	readonly guildId: GuildIdCondition<InGuild>;
+	readonly guildId: If<InGuild, Snowflake, null>;
 	/** The ID of the interaction. */
 	readonly id: Snowflake;
 	/** The member who triggered the interaction, if any. */
-	readonly member: GuildMemberCondition<InGuild>;
+	readonly member: If<InGuild, GuildMember, null>;
 	/** The token of the interaction. */
 	readonly token: string;
 	/** The type of the interaction. */
@@ -47,7 +48,7 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 		this.applicationPermissions = app_permissions;
 		this.attachmentSizeLimit = attachment_size_limit;
 		this.channelId = channelId;
-		this.guildId = (guild_id ?? null) as GuildIdCondition<InGuild>;
+		this.guildId = (guild_id ?? null) as never;
 		this.id = id;
 		this.member = member;
 		this.token = token;
@@ -66,7 +67,7 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 		return channel_id;
 	}
 
-	#getInteractionMember(rawInteraction: RawInteraction): GuildMemberCondition<InGuild> {
+	#getInteractionMember(rawInteraction: RawInteraction): If<InGuild, GuildMember, null> {
 		const { member } = rawInteraction;
 		const { client } = this;
 
@@ -76,7 +77,7 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 			result = new GuildMember(client, member);
 		}
 
-		return result as GuildMemberCondition<InGuild>;
+		return result as never;
 	}
 
 	#getInteractionUser(rawInteraction: RawInteraction): RawUser {
@@ -90,36 +91,36 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 	}
 
 	/**
-	 * Gets the {@link Guild} instance associated with the message.
+	 * Gets the {@link Guild} instance associated with the interaction.
 	 *
 	 * @param required - Whether the {@link Guild} instance must be present.
 	 */
-	async guild(required?: false): Promise<GuildCondition<InGuild> | null>;
+	async guild(required?: false): Promise<If<InGuild, Guild, null> | null>;
 
 	/**
-	 * Gets the {@link Guild} instance associated with the message.
+	 * Gets the {@link Guild} instance associated with the interaction.
 	 *
 	 * @param required - Whether the {@link Guild} instance must be present.
 	 *
 	 * @remarks
 	 * This method throws an error if {@link Guild} is not cached.
 	 */
-	async guild(required: true): Promise<GuildCondition<InGuild>>;
+	async guild(required: true): Promise<If<InGuild, Guild, null>>;
 
 	// biome-ignore lint/suspicious/useAwait: (x)
 	async guild(required?: boolean): Promise<Guild | null> {
-		const { client, guildId } = this;
+		const { client, guildId, id } = this;
 		const { cache } = client;
 		const { guilds } = cache;
 
 		if (!guildId) {
-			throw new TypeError(`Unable to get 'Guild' without 'guildId'`);
+			throw new TypeError(`Unable to get 'Guild' in interaction '${id}'. Guild id is null.`);
 		}
 
 		const cachedGuild = guilds.get(guildId);
 
 		if (!cachedGuild && required) {
-			throw new TypeError(`Unable to get 'Guild' in message '${this.id}'. Guild is not cached.`);
+			throw new TypeError(`Unable to get 'Guild' in interaction '${id}'. Guild '${guildId}' is not cached.`);
 		}
 
 		return cachedGuild ?? null;
@@ -129,10 +130,17 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 	 * Checks whether the interaction was triggered in a guild.
 	 */
 	inGuild(): this is InteractionBase<true> {
-		return Boolean(this.guildId);
+		const { guildId } = this;
+
+		return Boolean(guildId);
+	}
+
+	/**
+	 * Checks whether the interaction is an application command interaction.
+	 */
+	isApplicationCommandInteraction(): this is ApplicationCommandInteractionBase<InGuild> {
+		const { type } = this;
+
+		return type === InteractionType.ApplicationCommand;
 	}
 }
-
-export type GuildCondition<InGuild extends boolean> = If<InGuild, Guild, null>;
-export type GuildIdCondition<InGuild extends boolean> = If<InGuild, Snowflake, null>;
-export type GuildMemberCondition<InGuild extends boolean> = If<InGuild, GuildMember, null>;
