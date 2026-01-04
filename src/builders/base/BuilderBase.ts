@@ -1,3 +1,3 @@
 export class BuilderBase<Data> {
-	protected declare readonly data: Data;
+	protected readonly data: Partial<Data> = {};
 }

@@ -1,5 +1,4 @@
-import { instanceof as instanceof_, literal, object, string, union } from 'zod';
-import { TextDisplay } from '#builders/structures/v2/TextDisplay.js';
+import { literal, object, string, union } from 'zod';
 import { ComponentType } from '#types/index.js';
 import { IdSchema } from '../shared/IdSchema.js';
 
@@ -9,7 +8,6 @@ export const TextDisplayContentSchema = string().min(1).max(MAXIMUM_TEXT_DISPLAY
 export const TextDisplayIdSchema = IdSchema;
 export const TextDisplayTypeSchema = literal(ComponentType.TextDisplay);
 
-export const TextDisplayInstanceSchema = instanceof_(TextDisplay);
 export const TextDisplayObjectSchema = object({
 	content: TextDisplayContentSchema,
 	id: TextDisplayIdSchema.optional(),
@@ -17,6 +15,5 @@ export const TextDisplayObjectSchema = object({
 });
 
 export const TextDisplaySchema = union([
-	TextDisplayInstanceSchema,
 	TextDisplayObjectSchema,
 ]);
