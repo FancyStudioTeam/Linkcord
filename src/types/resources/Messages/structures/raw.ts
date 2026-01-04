@@ -251,24 +251,6 @@ export interface RawMessageSnapshot {
 }
 
 /**
- * @see https://discord.com/developers/docs/resources/message#message-snapshot-structure
- */
-export type RawMessageSnapshotMessage = Pick<
-	RawMessage,
-	| 'attachments'
-	| 'components'
-	| 'content'
-	| 'edited_timestamp'
-	| 'embeds'
-	| 'flags'
-	| 'mention_roles'
-	| 'mentions'
-	| 'sticker_items'
-	| 'timestamp'
-	| 'type'
->;
-
-/**
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-modal-submit-interaction-metadata-structure
  */
 export interface RawModalSubmitInteractionMetadata extends RawMessageInteractionMetadataBase {
@@ -319,3 +301,21 @@ export type RawMessageInteractionMetadata =
 	| RawApplicationCommandInteractionMetadata
 	| RawMessageComponentInteractionMetadata
 	| RawModalSubmitInteractionMetadata;
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-snapshot-structure
+ */
+export type RawMessageSnapshotMessage = Pick<
+	RawMessage,
+	| 'attachments'
+	| 'components'
+	| 'content'
+	| 'edited_timestamp'
+	| 'embeds'
+	| 'flags'
+	| 'mention_roles'
+	| 'mentions'
+	| 'sticker_items'
+	| 'timestamp'
+	| 'type'
+>;

@@ -1,13 +1,11 @@
 import type { Message } from '#structures/Message.js';
 import type { User } from '#structures/User.js';
 import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
-import type { ApplicationIntegrationType } from '#types/resources/Applications/enums.js';
 import type { ChannelType } from '#types/resources/Channels/enums.js';
 import type { PartialEmoji } from '#types/resources/Emojis/index.js';
 import type { InteractionType } from '#types/resources/Interactions/enums.js';
+import type { AuthorizingIntegrationOwners } from '#types/resources/Interactions/index.js';
 import type { AllowedMentionType, AttachmentFlags, EmbedType, MessageActivityType, MessageReferenceType } from '../enums.js';
-
-// TODO: Add `MessageSnapshot`
 
 /**
  * @see https://discord.com/developers/docs/resources/message#allowed-mentions-object
@@ -17,6 +15,14 @@ export interface AllowedMentions {
 	repliedUser?: boolean;
 	roles?: Snowflake[];
 	users?: Snowflake[];
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-application-command-interaction-metadata-structure
+ */
+export interface ApplicationCommandInteractionMetadata extends MessageInteractionMetadataBase {
+	targetUser?: User;
+	targetMessageId?: Snowflake;
 }
 
 /**
@@ -37,24 +43,6 @@ export interface Attachment {
 	url: string;
 	waveform?: string;
 	width?: number | null;
-}
-
-/**
- * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-application-command-interaction-metadata-structure
- */
-export interface ApplicationCommandInteractionMetadata extends BaseMessageInteractionMetadata {
-	targetUser?: User;
-	targetMessageId?: Snowflake;
-}
-
-/**
- * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
- */
-export interface BaseMessageInteractionMetadata {
-	authorizing_integration_owners: AuthorizingIntegrationOwners;
-	id: Snowflake;
-	type: InteractionType;
-	user: User;
 }
 
 /**
@@ -171,9 +159,19 @@ export interface MessageCall {
 /**
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-message-component-interaction-metadata-structure
  */
-export interface MessageComponentInteractionMetadata extends BaseMessageInteractionMetadata {
+export interface MessageComponentInteractionMetadata extends MessageInteractionMetadataBase {
 	interactedMessageId: Snowflake;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
+ */
+export interface MessageInteractionMetadataBase {
+	authorizingIntegrationOwners: AuthorizingIntegrationOwners;
+	id: Snowflake;
 	originalResponseMessageId?: Snowflake;
+	type: InteractionType;
+	user: User;
 }
 
 /**
@@ -196,11 +194,24 @@ export interface MessageReference {
 }
 
 /**
+ * @see https://discord.com/developers/docs/resources/message#message-snapshot-structure
+ */
+export interface MessageSnapshot {
+	message: MessageSnapshotMessage;
+}
+
+/**
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-modal-submit-interaction-metadata-structure
  */
-export interface ModalSubmitInteractionMetadata extends BaseMessageInteractionMetadata {
-	originalResponseMessageId?: Snowflake;
+export interface ModalSubmitInteractionMetadata extends MessageInteractionMetadataBase {
 	triggeringInteractionMetadata: ApplicationCommandInteractionMetadata | MessageComponentInteractionMetadata;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
+ */
+export interface PartialAttachment extends Omit<Partial<Attachment>, 'id'> {
+	id: Snowflake;
 }
 
 /**
@@ -234,13 +245,6 @@ export interface RoleSubscriptionData {
 }
 
 /**
- * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object
- */
-export type AuthorizingIntegrationOwners = {
-	[Type in ApplicationIntegrationType]?: Snowflake;
-};
-
-/**
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
  */
 export type MessageInteractionMetadata =
@@ -249,6 +253,20 @@ export type MessageInteractionMetadata =
 	| ModalSubmitInteractionMetadata;
 
 /**
- * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
+ * @see https://discord.com/developers/docs/resources/message#message-snapshot-structure
  */
-export type PartialAttachment = Partial<Attachment>;
+export type MessageSnapshotMessage = Pick<
+	Message,
+	// @ts-expect-error
+	| 'attachments'
+	| 'components'
+	| 'content'
+	| 'edited_timestamp'
+	| 'embeds'
+	| 'flags'
+	| 'mention_roles'
+	| 'mentions'
+	| 'sticker_items'
+	| 'timestamp'
+	| 'type'
+>;
