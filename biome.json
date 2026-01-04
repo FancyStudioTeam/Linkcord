@@ -115,6 +115,7 @@
 				"useUnifiedTypeSignatures": "error"
 			},
 			"suspicious": {
+				"noConfusingVoidType": "off",
 				"noUnassignedVariables": "error",
 				"useAwait": "error"
 			}

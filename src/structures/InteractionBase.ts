@@ -1,5 +1,11 @@
 import type { Client } from '#client/index.js';
-import { InteractionType, type Locales, type Snowflake } from '#types/index.js';
+import {
+	type CreateInteractionResponseOptions,
+	type InteractionCallbackResponse,
+	InteractionType,
+	type Locales,
+	type Snowflake,
+} from '#types/index.js';
 import type { RawInteraction } from '#types/resources/Interactions/structures/raw.js';
 import type { If } from '#utils/index.js';
 import type { ApplicationCommandInteractionBase } from './ApplicationCommandInteractionBase.js';
@@ -119,6 +125,35 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 		}
 
 		return result;
+	}
+
+	/**
+	 * @see https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
+	 */
+	async createInteractionResponse(
+		options: CreateInteractionResponseOptions & {
+			withResponse: true;
+		},
+	): Promise<InteractionCallbackResponse>;
+
+	/**
+	 * @see https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
+	 */
+	async createInteractionResponse(
+		options: CreateInteractionResponseOptions & {
+			withResponse?: false;
+		},
+	): Promise<void>;
+
+	/**
+	 * @see https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
+	 */
+	async createInteractionResponse(options: CreateInteractionResponseOptions): Promise<InteractionCallbackResponse | void> {
+		const { id, rest, token } = this;
+		const { resources } = rest;
+		const { interactions } = resources;
+
+		return await interactions.createInteractionResponse(id, token, options);
 	}
 
 	/**
