@@ -4,6 +4,7 @@ import {
 	type InteractionCallbackResponse,
 	InteractionType,
 	type Locales,
+	type RawUser,
 	type Snowflake,
 } from '#types/index.js';
 import type { RawInteraction } from '#types/resources/Interactions/structures/raw.js';
@@ -97,36 +98,24 @@ export abstract class InteractionBase extends Base {
 		const { member } = rawInteraction;
 		const { client } = this;
 
-		let result: GuildMember | null = null;
-
-		if (member) {
-			result = new GuildMember(client, member);
+		if (!member) {
+			return null;
 		}
 
-		return result;
+		return new GuildMember(client, member);
 	}
 
 	#getInteractionUser(rawInteraction: RawInteraction): User {
 		const { member, user } = rawInteraction;
 		const { client } = this;
 
-		let result: User | null = null;
+		const rawUser: RawUser | null = member?.user ?? user ?? null;
 
-		if (member) {
-			const { user } = member;
-
-			result = new User(client, user);
-		}
-
-		if (user) {
-			result = new User(client, user);
-		}
-
-		if (!result) {
+		if (!rawUser) {
 			throw new TypeError('Received an interaction without member or user');
 		}
 
-		return result;
+		return new User(client, rawUser);
 	}
 
 	/**
@@ -201,9 +190,7 @@ export abstract class InteractionBase extends Base {
 		return cachedGuild ?? null;
 	}
 
-	/**
-	 * Checks whether the interaction is an application command interaction.
-	 */
+	/** Checks whether the interaction is an application command interaction. */
 	isApplicationCommandInteraction(): this is ApplicationCommandInteractionBase {
 		const { type } = this;
 
