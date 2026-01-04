@@ -54,7 +54,10 @@
 						"optionalDependencies": true
 					}
 				},
-				"noUnusedImports": "error",
+				"noUnusedImports": {
+					"fix": "safe",
+					"level": "error"
+				},
 				"noUnusedVariables": "error",
 				"useImportExtensions": {
 					"level": "error",
