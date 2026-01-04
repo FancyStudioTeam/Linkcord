@@ -22,7 +22,6 @@ export interface CreateAutocompleteInteractionCallbackData {
 export interface CreateInteractionResponseOptionsBase<Type extends InteractionCallbackType, Data> {
 	data: Data;
 	type: Type;
-	withResponse?: boolean;
 }
 
 /**
