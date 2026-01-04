@@ -32,6 +32,10 @@
 			"import": "./lib/builders/index.js",
 			"require": "./lib/builders/index.js"
 		},
+		"./handlers": {
+			"import": "./lib/handlers/index.js",
+			"require": "./lib/handlers/index.js"
+		},
 		"./utils": {
 			"import": "./lib/utils/index.js",
 			"require": "./lib/utils/index.js"
