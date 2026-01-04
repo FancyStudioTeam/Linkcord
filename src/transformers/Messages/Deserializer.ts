@@ -7,6 +7,8 @@ import type {
 	EmbedProvider,
 	EmbedThumbnail,
 	EmbedVideo,
+	MessageActivity,
+	MessageCall,
 	RawEmbed,
 	RawEmbedAuthor,
 	RawEmbedField,
@@ -15,6 +17,8 @@ import type {
 	RawEmbedProvider,
 	RawEmbedThumbnail,
 	RawEmbedVideo,
+	RawMessageActivity,
+	RawMessageCall,
 } from '#types/index.js';
 import { isUndefined } from '#utils/helpers/AssertionUtils.js';
 
@@ -245,4 +249,40 @@ export function deserializeEmbedVideo(rawEmbedVideo: RawEmbedVideo): EmbedVideo 
 	}
 
 	return embedVideo;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-object-message-activity-structure
+ */
+export function deserializeMessageActivity(rawMessageActivity?: RawMessageActivity | null): MessageActivity | null {
+	if (!rawMessageActivity) {
+		return null;
+	}
+
+	const { party_id, type } = rawMessageActivity;
+	const messageActivity: MessageActivity = {
+		type,
+	};
+
+	if (!isUndefined(party_id)) {
+		messageActivity.partyId = party_id;
+	}
+
+	return messageActivity;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-call-object-message-call-object-structure
+ */
+export function deserializeMessageCall(rawMessageCall: RawMessageCall): MessageCall {
+	const { ended_timestamp, participants } = rawMessageCall;
+	const messageCall: MessageCall = {
+		participants,
+	};
+
+	if (!isUndefined(ended_timestamp)) {
+		messageCall.endedTimestamp = ended_timestamp;
+	}
+
+	return messageCall;
 }
