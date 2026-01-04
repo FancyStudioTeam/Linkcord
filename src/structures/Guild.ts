@@ -1,5 +1,5 @@
 import type { Client } from '#client/index.js';
-import type { APIGuild, APIGuildMember, GatewayDispatchGuildCreateEventPayload, GuildFeatures, RawRole, Snowflake } from '#types/index.js';
+import type { APIGuild, GatewayDispatchGuildCreateEventPayload, GuildFeatures, RawGuildMember, RawRole, Snowflake } from '#types/index.js';
 import { isUndefined } from '#utils/helpers/AssertionUtils.js';
 import { Collection } from '#utils/index.js';
 import { Base } from './Base.js';
@@ -37,7 +37,7 @@ export class Guild extends Base {
 		this.patch(data);
 	}
 
-	#appendMembersToCollection(rawMembers: APIGuildMember[]): void {
+	#appendMembersToCollection(rawMembers: RawGuildMember[]): void {
 		const { client, members } = this;
 
 		for (const rawMember of rawMembers) {

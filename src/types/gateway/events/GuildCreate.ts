@@ -1,4 +1,4 @@
-import type { APIGuild, APIGuildMember } from '#types/resources/index.js';
+import type { APIGuild, RawGuildMember } from '#types/resources/index.js';
 import type { GatewayDispatchEvents } from '../enums.js';
 import type { GatewayDispatchEventBase } from './Dispatch.js';
 
@@ -8,7 +8,7 @@ import type { GatewayDispatchEventBase } from './Dispatch.js';
 export interface GatewayDispatchGuildCreateEventPayload extends APIGuild {
 	large: boolean;
 	member_count: number;
-	members: APIGuildMember[];
+	members: RawGuildMember[];
 	unavailable?: boolean;
 }
 

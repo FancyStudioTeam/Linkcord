@@ -2,14 +2,14 @@ import { CHANNEL_MESSAGES_ENDPOINT } from '#rest/endpoints/Endpoints.js';
 import { type File, type MakeRequestOptions, RESTContentType, RESTMethod } from '#rest/structures/RESTManager.types.js';
 import { Message } from '#structures/Message.js';
 import { serializeCreateMessageOptions } from '#transformers/Messages/REST.js';
-import type { CreateMessageOptions, RESTPostAPIMessage, RESTPostAPIMessageJSONParams, Snowflake } from '#types/index.js';
+import type { CreateMessageOptions, RawCreateMessageOptions, RawMessage, Snowflake } from '#types/index.js';
 import { ResourceBase } from './ResourceBase.js';
 
 export class ChannelsResource extends ResourceBase {
 	/**
 	 * @see https://discord.com/developers/docs/reference#uploading-files
 	 */
-	#appendToForm(options: RESTPostAPIMessageJSONParams, files: File[]): FormData {
+	#appendToForm(options: RawCreateMessageOptions, files: File[]): FormData {
 		const formData = new FormData();
 
 		let fileIndex = 0;
@@ -58,7 +58,7 @@ export class ChannelsResource extends ResourceBase {
 			requestOptions.contentType = RESTContentType.ApplicationJSON;
 		}
 
-		const messageResponseData = await rest.makeRequest<RESTPostAPIMessage>(CHANNEL_MESSAGES_ENDPOINT(channelId), requestOptions);
+		const messageResponseData = await rest.makeRequest<RawMessage>(CHANNEL_MESSAGES_ENDPOINT(channelId), requestOptions);
 		const messageData = new Message(client, messageResponseData);
 
 		return messageData;

@@ -1,73 +1,46 @@
 import { serializeMessageComponentsArray } from '#transformers/Components/Serializer.js';
-import type {
-	CreateMessageOptions,
-	MessageFlagsResolvable,
-	MessageStickerResolvable,
-	RESTPostAPIMessageJSONParams,
-	Snowflake,
-} from '#types/index.js';
-import { isArray, isInstanceOf } from '#utils/helpers/AssertionUtils.js';
-import { BitField } from '#utils/index.js';
+import type { CreateMessageOptions, RawCreateMessageOptions } from '#types/index.js';
+import { normalizeMessageFlags, normalizeMessageStickersArray } from './Normalizer.js';
 import { serializeEmbedsArray } from './Serializer.js';
-
-export function normalizeMessageFlags(messageFlags: MessageFlagsResolvable): number {
-	if (isInstanceOf(messageFlags, BitField)) {
-		return messageFlags.bitField;
-	}
-
-	if (isArray(messageFlags)) {
-		return new BitField().add(...messageFlags);
-	}
-
-	return messageFlags;
-}
-
-export function normalizeMessageSticker(messageSticker: MessageStickerResolvable): Snowflake {
-	return messageSticker;
-}
-
-export function normalizeMessageStickersArray(messageStickersArray: MessageStickerResolvable[]): Snowflake[] {
-	return messageStickersArray.map(normalizeMessageSticker);
-}
 
 /**
  * @see https://discord.com/developers/docs/resources/message#create-message-jsonform-params
  */
-export function serializeCreateMessageOptions(options: CreateMessageOptions): RESTPostAPIMessageJSONParams {
-	const { components, content, embeds, enforceNonce, flags, nonce, stickers, tts } = options;
-	const rawOptions: RESTPostAPIMessageJSONParams = {};
+export function serializeCreateMessageOptions(createMessageOptions: CreateMessageOptions): RawCreateMessageOptions {
+	const { components, content, embeds, enforceNonce, flags, nonce, stickers, tts } = createMessageOptions;
+	const rawCreateMessageOptions: RawCreateMessageOptions = {};
 
 	if (components) {
-		rawOptions.components = serializeMessageComponentsArray(components);
+		rawCreateMessageOptions.components = serializeMessageComponentsArray(components);
 	}
 
 	if (content) {
-		rawOptions.content = content;
+		rawCreateMessageOptions.content = content;
 	}
 
 	if (embeds) {
-		rawOptions.embeds = serializeEmbedsArray(embeds);
+		rawCreateMessageOptions.embeds = serializeEmbedsArray(embeds);
 	}
 
 	if (enforceNonce) {
-		rawOptions.enforce_nonce = enforceNonce;
+		rawCreateMessageOptions.enforce_nonce = enforceNonce;
 	}
 
 	if (flags) {
-		rawOptions.flags = normalizeMessageFlags(flags);
+		rawCreateMessageOptions.flags = normalizeMessageFlags(flags);
 	}
 
 	if (nonce) {
-		rawOptions.nonce = nonce;
+		rawCreateMessageOptions.nonce = nonce;
 	}
 
 	if (stickers) {
-		rawOptions.sticker_ids = normalizeMessageStickersArray(stickers);
+		rawCreateMessageOptions.sticker_ids = normalizeMessageStickersArray(stickers);
 	}
 
 	if (tts) {
-		rawOptions.tts = tts;
+		rawCreateMessageOptions.tts = tts;
 	}
 
-	return rawOptions;
+	return rawCreateMessageOptions;
 }

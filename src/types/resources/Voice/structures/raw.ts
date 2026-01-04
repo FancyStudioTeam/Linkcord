@@ -1,5 +1,5 @@
 import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
-import type { APIGuildMember } from '#types/resources/Guilds/index.js';
+import type { RawGuildMember } from '#types/resources/Guilds/index.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/voice#voice-region-object-voice-region-structure
@@ -19,7 +19,7 @@ export interface RawVoiceState {
 	channel_id: Snowflake | null;
 	deaf: boolean;
 	guild_id?: Snowflake;
-	member?: APIGuildMember;
+	member?: RawGuildMember;
 	mute: boolean;
 	request_to_speak_timestamp: ISO8601Date | null;
 	self_deaf: boolean;

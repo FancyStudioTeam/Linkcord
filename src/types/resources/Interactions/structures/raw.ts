@@ -17,7 +17,7 @@ import type {
 	RawUserSelectInteractionResponse,
 } from '#types/resources/Components/index.js';
 import type { APIEntitlement } from '#types/resources/Entitlements/index.js';
-import type { APIGuildMember, GuildFeatures } from '#types/resources/Guilds/index.js';
+import type { GuildFeatures, RawGuildMember } from '#types/resources/Guilds/index.js';
 import type { RawAttachment, RawMessage } from '#types/resources/Messages/index.js';
 import type { RawRole } from '#types/resources/Permissions/index.js';
 import type { RawUser } from '#types/resources/Users/index.js';
@@ -48,7 +48,7 @@ export interface RawInteractionBase<Type extends InteractionType, Data extends R
 	guild_locale?: Locales;
 	id: Snowflake;
 	locale: Locales;
-	member?: APIGuildMember;
+	member?: RawGuildMember;
 	message?: RawMessage;
 	token: string;
 	type: Type;
@@ -262,7 +262,7 @@ export type RawPartialInteractionChannel = Pick<
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
  */
-export type RawPartialInteractionMember = Omit<APIGuildMember, 'deaf' | 'mute' | 'user'>;
+export type RawPartialInteractionMember = Omit<RawGuildMember, 'deaf' | 'mute' | 'user'>;
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
