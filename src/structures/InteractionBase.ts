@@ -45,6 +45,9 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 	/** The version of the interaction. */
 	readonly version: 1;
 
+	/** Whether the interaction was acknowledged. */
+	acknowledged: boolean = false;
+
 	constructor(client: Client, rawInteraction: RawInteraction) {
 		super(client);
 
@@ -149,7 +152,14 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 	 * @see https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
 	 */
 	async createInteractionResponse(options: CreateInteractionResponseOptions): Promise<InteractionCallbackResponse | void> {
-		const { id, rest, token } = this;
+		const { acknowledged, id, rest, token } = this;
+
+		if (!acknowledged) {
+			throw new TypeError('The interaction has already been acknowledged');
+		}
+
+		this.acknowledged = true;
+
 		const { resources } = rest;
 		const { interactions } = resources;
 

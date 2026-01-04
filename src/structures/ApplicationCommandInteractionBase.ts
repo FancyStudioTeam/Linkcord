@@ -3,9 +3,12 @@ import { deserializeApplicationCommandInteractionData } from '#transformers/Inte
 import {
 	type ApplicationCommandInteractionData,
 	type ApplicationCommandType,
+	InteractionCallbackType,
 	InteractionType,
+	MessageFlags,
 	type RawApplicationCommandInteraction,
 } from '#types/index.js';
+import { BitField } from '#utils/index.js';
 import { InteractionBase } from './InteractionBase.js';
 
 /**
@@ -54,5 +57,23 @@ export abstract class ApplicationCommandInteractionBase<InGuild extends boolean 
 		const { type } = data;
 
 		return type;
+	}
+
+	/**
+	 * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type
+	 */
+	async defer(ephemeral?: boolean): Promise<void> {
+		const flags = new BitField();
+
+		if (ephemeral) {
+			flags.add(MessageFlags.Ephemeral);
+		}
+
+		return await super.createInteractionResponse({
+			data: {
+				flags,
+			},
+			type: InteractionCallbackType.DeferredChannelMessageWithSource,
+		});
 	}
 }
