@@ -19,7 +19,9 @@ const MINIMUM_TUPLE_LENGTH = 2;
  * @internal
  */
 function isChatInputCommandTuple(input: unknown): input is string[] {
-	if (!isArray(input)) return false;
+	if (!isArray(input)) {
+		return false;
+	}
 
 	const { length } = input;
 

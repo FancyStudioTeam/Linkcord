@@ -15,7 +15,9 @@ export async function importFile<ImportData>(path: string, options?: ImportFileO
 	}
 
 	for (const namedExport of requiredExports) {
-		if (RESERVED_EXPORTS.includes(namedExport)) continue;
+		if (RESERVED_EXPORTS.includes(namedExport)) {
+			continue;
+		}
 
 		if (!Reflect.has(importedFileData, namedExport)) {
 			throw new Error(`File '${basename(path)}' must include a named export named '${namedExport}'`);

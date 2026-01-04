@@ -97,7 +97,9 @@ export class GatewayShard {
 	#checkAndUpdateSequence(gatewayEvent: GatewayEvent): void {
 		const receivedSequence = this.#getSequence(gatewayEvent);
 
-		if (isNull(receivedSequence)) return;
+		if (isNull(receivedSequence)) {
+			return;
+		}
 
 		const { client, label, sequence: storedSequence } = this;
 		const expectedSequence = (storedSequence ?? 0) + 1;
@@ -350,7 +352,9 @@ export class GatewayShard {
 			 * 'AbortSignal' throws a 'DOMException' when signal is aborted.
 			 * If 'setTimeout' throws an error, check whether the signal was aborted.
 			 */
-			if (signal.aborted) return;
+			if (signal.aborted) {
+				return;
+			}
 
 			throw error;
 		}

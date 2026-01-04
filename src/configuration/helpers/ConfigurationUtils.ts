@@ -30,7 +30,9 @@ export async function initializeConfigurationOptions(workingDirectory = cwd()): 
 		const configurationFilePath = join(workingDirectory, `linkcord.config.${extension}`);
 		const existsConfigurationFile = existsSync(configurationFilePath);
 
-		if (!existsConfigurationFile) continue;
+		if (!existsConfigurationFile) {
+			continue;
+		}
 
 		const resolvedConfigurationFilePath = resolvePath(configurationFilePath);
 		const importedConfigurationFileData = await importFile<ImportedConfigurationFileData>(resolvedConfigurationFilePath, {

@@ -53,7 +53,9 @@ export class RESTManager {
 		const isDeleteMethod = method === RESTMethod.Delete;
 		const isGetMethod = method === RESTMethod.Get;
 
-		if (isDeleteMethod || isGetMethod) return;
+		if (isDeleteMethod || isGetMethod) {
+			return;
+		}
 
 		const { body } = options;
 

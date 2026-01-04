@@ -19,7 +19,9 @@ export class Bucket {
 	async #processQueue(): Promise<void> {
 		const isProcessing = this.#isProcessing;
 
-		if (isProcessing) return;
+		if (isProcessing) {
+			return;
+		}
 
 		this.#setIsProcessing(true);
 
@@ -37,7 +39,9 @@ export class Bucket {
 
 				const request = queue.shift();
 
-				if (!request) continue;
+				if (!request) {
+					continue;
+				}
 
 				await request();
 			}

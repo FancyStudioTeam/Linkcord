@@ -78,6 +78,7 @@
 				"noDefaultExport": "off",
 				"noMagicNumbers": "error",
 				"noUnusedTemplateLiteral": "error",
+				"useBlockStatements": "error",
 				"useImportType": "error",
 				"useNamingConvention": {
 					"level": "error",
@@ -116,6 +117,7 @@
 			},
 			"suspicious": {
 				"noConfusingVoidType": "off",
+				"noEmptyBlockStatements": "error",
 				"noUnassignedVariables": "error",
 				"useAwait": "error"
 			}

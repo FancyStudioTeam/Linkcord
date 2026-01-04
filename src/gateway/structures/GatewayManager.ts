@@ -63,7 +63,9 @@ export class GatewayManager {
 	protected triggerReady(user: User): void {
 		const shouldTriggerReady = this.#shouldTriggerReady();
 
-		if (!shouldTriggerReady) return;
+		if (!shouldTriggerReady) {
+			return;
+		}
 
 		const { client } = this;
 		const { events } = client;
@@ -76,9 +78,8 @@ export class GatewayManager {
 	async init(): Promise<void> {
 		const { client } = this;
 		const { rest } = client;
-		const {
-			resources: { gateway },
-		} = rest;
+		const { resources } = rest;
+		const { gateway } = resources;
 
 		const { sessionStartLimit, shards: shardCount, url } = await gateway.getBot();
 		const { remaining, total } = sessionStartLimit;
