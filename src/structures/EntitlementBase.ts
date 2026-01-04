@@ -1,5 +1,5 @@
 import type { Client } from '#client/index.js';
-import type { APIEntitlement, APIEntitlementBase, EntitlementType, Snowflake } from '#types/index.js';
+import type { APIEntitlementBase, EntitlementType, Snowflake } from '#types/index.js';
 import { isUndefined } from '#utils/helpers/AssertionUtils.js';
 import { Base } from './Base.js';
 
@@ -19,10 +19,10 @@ export abstract class EntitlementBase extends Base {
 	/** Whether the entitlement was deleted. */
 	deleted: boolean;
 
-	constructor(client: Client, data: APIEntitlementBase) {
+	constructor(client: Client, rawEntitlement: APIEntitlementBase) {
 		super(client);
 
-		const { application_id, consumed, deleted, id, type } = data;
+		const { application_id, consumed, deleted, id, type } = rawEntitlement;
 
 		this.applicationId = application_id;
 		this.consumed = Boolean(consumed);
@@ -31,8 +31,8 @@ export abstract class EntitlementBase extends Base {
 		this.type = type;
 	}
 
-	protected patch(data?: Partial<APIEntitlement>): void {
-		const { consumed, deleted } = data ?? {};
+	protected patch(rawEntitlement: Partial<APIEntitlementBase>): void {
+		const { consumed, deleted } = rawEntitlement;
 
 		if (!isUndefined(consumed)) {
 			this.consumed = Boolean(consumed);

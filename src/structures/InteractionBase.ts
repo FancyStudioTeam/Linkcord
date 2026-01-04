@@ -178,7 +178,7 @@ export abstract class InteractionBase extends Base {
 		const { guilds } = cache;
 
 		if (!guildId) {
-			throw new TypeError(`Unable to get 'Guild' in interaction '${id}'. Guild id is null.`);
+			throw new TypeError(`Unable to get 'Guild' in interaction '${id}'. Guild ID is null.`);
 		}
 
 		const cachedGuild = guilds.get(guildId);

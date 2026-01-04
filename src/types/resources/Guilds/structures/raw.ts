@@ -35,7 +35,7 @@ export interface APIGuildIncidentsData {
 /**
  * @see https://discord.com/developers/docs/resources/guild#guild-member-object-guild-member-structure
  */
-export interface APIGuildMember {
+export interface RawGuildMember {
 	avatar?: string | null;
 	avatar_decoration_data?: RawAvatarDecorationData | null;
 	banner?: string | null;
@@ -47,7 +47,7 @@ export interface APIGuildMember {
 	nick?: string | null;
 	pending?: boolean;
 	permissions?: string;
-	premium_sinze?: ISO8601Date | null;
+	premium_since?: ISO8601Date | null;
 	roles: Snowflake[];
 	user?: RawUser;
 }
