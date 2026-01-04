@@ -5,7 +5,7 @@ import type { StickerFormatType, StickerType } from '../enums.js';
 /**
  * @see https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-structure
  */
-export interface APISticker {
+export interface RawSticker {
 	available?: boolean;
 	description: string | null;
 	format_type: StickerFormatType;
@@ -22,7 +22,7 @@ export interface APISticker {
 /**
  * @see https://discord.com/developers/docs/resources/sticker#sticker-item-object-sticker-item-structure
  */
-export interface APIStickerItem {
+export interface RawStickerItem {
 	format_type: StickerFormatType;
 	id: Snowflake;
 	name: string;
@@ -31,12 +31,12 @@ export interface APIStickerItem {
 /**
  * @see https://discord.com/developers/docs/resources/sticker#sticker-pack-object-sticker-pack-structure
  */
-export interface APIStickerPack {
+export interface RawStickerPack {
 	banner_asset_id?: Snowflake;
 	cover_sticker_id?: Snowflake;
 	description: string;
 	id: Snowflake;
 	name: string;
 	sku_id: Snowflake;
-	stickers: APISticker[];
+	stickers: RawSticker[];
 }
