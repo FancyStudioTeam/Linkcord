@@ -39,7 +39,7 @@ export class GuildMember extends Base {
 		return new User(client, user);
 	}
 
-	protected patch(data: Partial<APIGuildMember | GatewayDispatchGuildMemberUpdateEventPayload>): void {
+	protected patch(data: Partial<APIGuildMember & GatewayDispatchGuildMemberUpdateEventPayload>): void {
 		const { avatar_decoration_data, nick } = data;
 
 		if (!isUndefined(avatar_decoration_data)) {

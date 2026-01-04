@@ -13,9 +13,9 @@ export class Guild extends Base {
 	/** The ID of the guild. */
 	readonly id: Snowflake;
 	/** The cached members of the guild. */
-	readonly members: Collection<Snowflake, GuildMember>;
+	readonly members: Collection<Snowflake, GuildMember> = new Collection();
 	/** The cached roles of the guild. */
-	readonly roles: Collection<Snowflake, Role>;
+	readonly roles: Collection<Snowflake, Role> = new Collection();
 
 	/** The features of the guild. */
 	features: GuildFeatures[];
@@ -23,6 +23,8 @@ export class Guild extends Base {
 	memberCount: number = 0;
 	/** The name of the guild. */
 	name: string;
+	/** Whether the guild is unavailable. */
+	unavailable: boolean = false;
 
 	constructor(client: Client, data: APIGuild) {
 		super(client);
@@ -31,9 +33,7 @@ export class Guild extends Base {
 
 		this.features = features;
 		this.id = id;
-		this.members = new Collection();
 		this.name = name;
-		this.roles = new Collection();
 		this.patch(data);
 	}
 
@@ -59,8 +59,8 @@ export class Guild extends Base {
 		}
 	}
 
-	protected patch(data?: Partial<APIGuild & GatewayDispatchGuildCreateEventPayload>): void {
-		const { features, member_count, members, name, roles } = data ?? {};
+	protected patch(data: Partial<APIGuild & GatewayDispatchGuildCreateEventPayload>): void {
+		const { features, member_count, members, name, roles, unavailable } = data;
 
 		if (!isUndefined(features)) {
 			this.features = features;
@@ -80,6 +80,10 @@ export class Guild extends Base {
 
 		if (!isUndefined(roles)) {
 			this.#appendRolesToCollection(roles);
+		}
+
+		if (!isUndefined(unavailable)) {
+			this.unavailable = unavailable;
 		}
 	}
 }
