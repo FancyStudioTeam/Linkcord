@@ -1,6 +1,6 @@
 import type { ImageDataURI, Snowflake } from '#types/miscellaneous/discord.js';
 import type { RawMessageComponents } from '#types/resources/Components/index.js';
-import type { APIPartialAttachent, MessageFlags, RawAllowedMentions, RawEmbed } from '#types/resources/Messages/index.js';
+import type { MessageFlags, RawAllowedMentions, RawEmbed, RawPartialAttachment } from '#types/resources/Messages/index.js';
 import type { RawMessagePoll } from '#types/resources/Polls/index.js';
 
 /**
@@ -23,7 +23,7 @@ export interface RawDeleteWebhookMessageQueryStringParams {
  */
 export interface RawEditWebhookMessageOptions {
 	allowed_mentions?: RawAllowedMentions | null;
-	attachments?: APIPartialAttachent[] | null;
+	attachments?: RawPartialAttachment[] | null;
 	components?: RawMessageComponents[] | null;
 	content?: string | null;
 	embeds?: RawEmbed[] | null;
@@ -54,7 +54,7 @@ export interface RawEditWebhookQueryStringParams {
 export interface RawExecuteWebhookOptions {
 	allowed_mentions?: RawAllowedMentions;
 	applied_tags?: Snowflake[];
-	attachments?: APIPartialAttachent[];
+	attachments?: RawPartialAttachment[];
 	avatar_url?: string;
 	components?: RawMessageComponents[];
 	content?: string;

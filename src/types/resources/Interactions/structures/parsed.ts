@@ -1,7 +1,15 @@
 import type { ChatInputApplicationCommandInteraction } from '#structures/ChatInputApplicationCommandInteraction.js';
 import type { Snowflake } from '#types/miscellaneous/discord.js';
 import type { ApplicationCommandType } from '#types/resources/ApplicationCommands/enums.js';
+import type { ApplicationIntegrationType } from '#types/resources/Applications/enums.js';
 import type { InteractionType } from '../enums.js';
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object
+ */
+export type AuthorizingIntegrationOwners = {
+	[Type in ApplicationIntegrationType]?: Snowflake;
+};
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-object

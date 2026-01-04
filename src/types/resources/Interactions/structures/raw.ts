@@ -1,6 +1,7 @@
 import type { Snowflake } from '#types/miscellaneous/discord.js';
 import type { Locales } from '#types/miscellaneous/enums.js';
 import type { ApplicationCommandType } from '#types/resources/ApplicationCommands/enums.js';
+import type { ApplicationIntegrationType } from '#types/resources/Applications/enums.js';
 import type { APIChannel, APIPartialChannel } from '#types/resources/Channels/index.js';
 import type { ComponentType } from '#types/resources/Components/enums.js';
 import type {
@@ -17,10 +18,17 @@ import type {
 } from '#types/resources/Components/index.js';
 import type { APIEntitlement } from '#types/resources/Entitlements/index.js';
 import type { APIGuildMember, GuildFeatures } from '#types/resources/Guilds/index.js';
-import type { APIAttachment, APIAuthorizingIntegrationOwners, APIMessage, APIPartialMessage } from '#types/resources/Messages/index.js';
+import type { RawAttachment, RawMessage } from '#types/resources/Messages/index.js';
 import type { RawRole } from '#types/resources/Permissions/index.js';
 import type { RawUser } from '#types/resources/Users/index.js';
 import type { InteractionContextType, InteractionType } from '../enums.js';
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object
+ */
+export type RawAuthorizingIntegrationOwners = {
+	[Type in ApplicationIntegrationType]?: Snowflake;
+};
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
@@ -29,7 +37,7 @@ export interface RawInteractionBase<Type extends InteractionType, Data extends R
 	app_permissions: string;
 	application_id: Snowflake;
 	attachment_size_limit: number;
-	authorizing_integration_owners: APIAuthorizingIntegrationOwners;
+	authorizing_integration_owners: RawAuthorizingIntegrationOwners;
 	channel?: APIPartialChannel;
 	channel_id?: Snowflake;
 	context?: InteractionContextType;
@@ -41,7 +49,7 @@ export interface RawInteractionBase<Type extends InteractionType, Data extends R
 	id: Snowflake;
 	locale: Locales;
 	member?: APIGuildMember;
-	message?: APIMessage;
+	message?: RawMessage;
 	token: string;
 	type: Type;
 	user?: RawUser;
@@ -86,10 +94,10 @@ export interface RawContextApplicationCommandDataBase<Type extends RawContextApp
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
  */
 export interface RawInteractionResolvedData {
-	attachments?: Record<Snowflake, APIAttachment>;
+	attachments?: Record<Snowflake, RawAttachment>;
 	channels?: Record<Snowflake, RawPartialInteractionChannel>;
 	members?: Record<Snowflake, RawPartialInteractionMember>;
-	messages?: Record<Snowflake, APIPartialMessage>;
+	messages?: Record<Snowflake, RawMessage>;
 	roles?: Record<Snowflake, RawRole>;
 	users?: Record<Snowflake, RawUser>;
 }
