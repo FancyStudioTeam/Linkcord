@@ -25,6 +25,20 @@ export function GUILD_CREATE(client: Client, gatewayShard: GatewayShard, guildPa
 	const { guilds } = cache;
 
 	const { id: guildId } = guildPayload;
+
+	const initialGuildsSet = gatewayShard['initialGuilds'];
+	const isInitialGuild = initialGuildsSet.has(guildId);
+
+	/*
+	 * If the guild ID was stored in the initial guild IDs, do not emit the
+	 * 'GUILD_CREATE' event.
+	 */
+	if (isInitialGuild) {
+		initialGuildsSet.delete(guildId);
+
+		return;
+	}
+
 	const guild = new Guild(client, guildPayload);
 
 	guilds.set(guildId, guild);
@@ -69,7 +83,14 @@ export function GUILD_MEMBER_UPDATE(
 		}
 	}
 
-	const newMember = new GuildMember(client, guildMemberPayload);
+	const { deaf, flags, joined_at, mute } = guildMemberPayload;
+	const newMember = new GuildMember(client, {
+		...guildMemberPayload,
+		deaf: Boolean(deaf),
+		flags: (flags ?? 0) as never,
+		joined_at: joined_at ?? null,
+		mute: Boolean(mute),
+	});
 	const oldMember = new Uncached(userId);
 
 	events.emit(ClientEvents.GuildMemberUpdate, {
@@ -102,6 +123,7 @@ export function GUILD_UPDATE(client: Client, gatewayShard: GatewayShard, guildPa
 		const newGuild = new Guild(client, guildPayload);
 		const oldGuild = new Uncached(guildId);
 
+		guilds.set(guildId, newGuild);
 		events.emit(ClientEvents.GuildUpdate, {
 			gatewayShard,
 			newGuild,
