@@ -17,11 +17,21 @@ export function READY(client: Client, gatewayShard: GatewayShard, readyPayload: 
 	const { users } = cache;
 	const { manager } = gatewayShard;
 
-	const { resume_gateway_url, session_id, user: userData } = readyPayload;
+	const { guilds: initialGuilds, resume_gateway_url, session_id, user: userData } = readyPayload;
 
 	gatewayShard.status = GatewayShardStatus.Ready;
 	gatewayShard['resumeGatewayUrl'] = resume_gateway_url;
 	gatewayShard['sessionId'] = session_id;
+
+	const initialGuildsSet = gatewayShard['initialGuilds'];
+
+	/*
+	 * Set the initial guild IDs for later to check whether the user was
+	 * already in the guild when receiving the 'GUILD_CREATE' event.
+	 */
+	for (const { id: guildId } of initialGuilds) {
+		initialGuildsSet.add(guildId);
+	}
 
 	const { id: userId } = userData;
 	const cachedUser = users.get(userId);

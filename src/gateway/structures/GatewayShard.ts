@@ -11,6 +11,7 @@ import {
 	type GatewayHelloEvent,
 	type GatewayInvalidSessionEvent,
 	GatewayOpcodes,
+	type Snowflake,
 } from '#types/index.js';
 import { LINKCORD_AGENT } from '#utils/Constants.js';
 import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';
@@ -27,6 +28,8 @@ const { OPEN: OPEN_STATE } = WebSocket;
 export class GatewayShard {
 	declare readonly client: Client;
 	declare readonly manager: GatewayManager;
+
+	protected readonly initialGuilds: Set<Snowflake> = new Set();
 
 	protected resumeGatewayUrl: string | null = null;
 	protected sequence: number | null = null;
