@@ -1,11 +1,4 @@
 import type {
-	APIEmbedAuthor,
-	APIEmbedField,
-	APIEmbedFooter,
-	APIEmbedImage,
-	APIEmbedProvider,
-	APIEmbedThumbnail,
-	APIEmbedVideo,
 	Embed,
 	EmbedAuthor,
 	EmbedField,
@@ -15,64 +8,72 @@ import type {
 	EmbedThumbnail,
 	EmbedVideo,
 	RawEmbed,
+	RawEmbedAuthor,
+	RawEmbedField,
+	RawEmbedFooter,
+	RawEmbedImage,
+	RawEmbedProvider,
+	RawEmbedThumbnail,
+	RawEmbedVideo,
 } from '#types/index.js';
+import { isUndefined } from '#utils/helpers/AssertionUtils.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-structure
  */
 export function serializeEmbed(embed: Embed): RawEmbed {
 	const { author, color, description, fields, footer, image, provider, thumbnail, timestamp, title, type, url, video } = embed;
-	const rawEmbed: Embed = {};
+	const rawEmbed: RawEmbed = {};
 
-	if (author) {
+	if (!isUndefined(author)) {
 		rawEmbed.author = serializeEmbedAuthor(author);
 	}
 
-	if (color) {
+	if (!isUndefined(color)) {
 		rawEmbed.color = color;
 	}
 
-	if (description) {
+	if (!isUndefined(description)) {
 		rawEmbed.description = description;
 	}
 
-	if (fields) {
+	if (!isUndefined(fields)) {
 		rawEmbed.fields = serializeEmbedFieldsArray(fields);
 	}
 
-	if (footer) {
+	if (!isUndefined(footer)) {
 		rawEmbed.footer = serializeEmbedFooter(footer);
 	}
 
-	if (image) {
+	if (!isUndefined(image)) {
 		rawEmbed.image = serializeEmbedImage(image);
 	}
 
-	if (provider) {
+	if (!isUndefined(provider)) {
 		rawEmbed.provider = serializeEmbedProvider(provider);
 	}
 
-	if (thumbnail) {
+	if (!isUndefined(thumbnail)) {
 		rawEmbed.thumbnail = serializeEmbedThumbnail(thumbnail);
 	}
 
-	if (timestamp) {
+	if (!isUndefined(timestamp)) {
 		rawEmbed.timestamp = timestamp;
 	}
 
-	if (title) {
+	if (!isUndefined(title)) {
 		rawEmbed.title = title;
 	}
 
-	if (type) {
+	if (!isUndefined(type)) {
 		rawEmbed.type = type;
 	}
 
-	if (url) {
+	if (!isUndefined(url)) {
 		rawEmbed.url = url;
 	}
 
-	if (video) {
+	if (!isUndefined(video)) {
 		rawEmbed.video = serializeEmbedVideo(video);
 	}
 
@@ -89,21 +90,21 @@ export function serializeEmbedsArray(embedsArray: Embed[]): RawEmbed[] {
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-author-structure
  */
-export function serializeEmbedAuthor(embedAuthor: EmbedAuthor): APIEmbedAuthor {
-	const { iconURL, name, proxyIconURL, url } = embedAuthor;
-	const rawEmbedAuthor: APIEmbedAuthor = {
+export function serializeEmbedAuthor(embedAuthor: EmbedAuthor): RawEmbedAuthor {
+	const { iconUrl, name, proxyIconUrl, url } = embedAuthor;
+	const rawEmbedAuthor: RawEmbedAuthor = {
 		name,
 	};
 
-	if (iconURL) {
-		rawEmbedAuthor.icon_url = iconURL;
+	if (!isUndefined(iconUrl)) {
+		rawEmbedAuthor.icon_url = iconUrl;
 	}
 
-	if (proxyIconURL) {
-		rawEmbedAuthor.proxy_icon_url = proxyIconURL;
+	if (!isUndefined(proxyIconUrl)) {
+		rawEmbedAuthor.proxy_icon_url = proxyIconUrl;
 	}
 
-	if (url) {
+	if (!isUndefined(url)) {
 		rawEmbedAuthor.url = url;
 	}
 
@@ -113,14 +114,14 @@ export function serializeEmbedAuthor(embedAuthor: EmbedAuthor): APIEmbedAuthor {
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-field-structure
  */
-export function serializeEmbedField(embedField: EmbedField): APIEmbedField {
+export function serializeEmbedField(embedField: EmbedField): RawEmbedField {
 	const { inline, name, value } = embedField;
-	const rawEmbedField: APIEmbedField = {
+	const rawEmbedField: RawEmbedField = {
 		name,
 		value,
 	};
 
-	if (inline) {
+	if (!isUndefined(inline)) {
 		rawEmbedField.inline = inline;
 	}
 
@@ -130,25 +131,25 @@ export function serializeEmbedField(embedField: EmbedField): APIEmbedField {
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-field-structure
  */
-export function serializeEmbedFieldsArray(embedFieldsArray: EmbedField[]): APIEmbedField[] {
+export function serializeEmbedFieldsArray(embedFieldsArray: EmbedField[]): RawEmbedField[] {
 	return embedFieldsArray.map(serializeEmbedField);
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-footer-structure
  */
-export function serializeEmbedFooter(embedFooter: EmbedFooter): APIEmbedFooter {
-	const { iconURL, proxyIconURL, text } = embedFooter;
-	const rawEmbedFooter: APIEmbedFooter = {
+export function serializeEmbedFooter(embedFooter: EmbedFooter): RawEmbedFooter {
+	const { iconUrl, proxyIconUrl, text } = embedFooter;
+	const rawEmbedFooter: RawEmbedFooter = {
 		text,
 	};
 
-	if (iconURL) {
-		rawEmbedFooter.icon_url = iconURL;
+	if (!isUndefined(iconUrl)) {
+		rawEmbedFooter.icon_url = iconUrl;
 	}
 
-	if (proxyIconURL) {
-		rawEmbedFooter.proxy_icon_url = proxyIconURL;
+	if (!isUndefined(proxyIconUrl)) {
+		rawEmbedFooter.proxy_icon_url = proxyIconUrl;
 	}
 
 	return rawEmbedFooter;
@@ -157,21 +158,21 @@ export function serializeEmbedFooter(embedFooter: EmbedFooter): APIEmbedFooter {
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-image-structure
  */
-export function serializeEmbedImage(embedImage: EmbedImage): APIEmbedImage {
-	const { height, proxyURL, url, width } = embedImage;
-	const rawEmbedImage: APIEmbedImage = {
+export function serializeEmbedImage(embedImage: EmbedImage): RawEmbedImage {
+	const { height, proxyUrl, url, width } = embedImage;
+	const rawEmbedImage: RawEmbedImage = {
 		url,
 	};
 
-	if (height) {
+	if (!isUndefined(height)) {
 		rawEmbedImage.height = height;
 	}
 
-	if (proxyURL) {
-		rawEmbedImage.proxy_url = proxyURL;
+	if (!isUndefined(proxyUrl)) {
+		rawEmbedImage.proxy_url = proxyUrl;
 	}
 
-	if (width) {
+	if (!isUndefined(width)) {
 		rawEmbedImage.width = width;
 	}
 
@@ -181,21 +182,21 @@ export function serializeEmbedImage(embedImage: EmbedImage): APIEmbedImage {
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-thumbnail-structure
  */
-export function serializeEmbedThumbnail(embedThumbnail: EmbedThumbnail): APIEmbedThumbnail {
-	const { height, proxyURL, url, width } = embedThumbnail;
-	const rawEmbedThumbnail: APIEmbedThumbnail = {
+export function serializeEmbedThumbnail(embedThumbnail: EmbedThumbnail): RawEmbedThumbnail {
+	const { height, proxyUrl, url, width } = embedThumbnail;
+	const rawEmbedThumbnail: RawEmbedThumbnail = {
 		url,
 	};
 
-	if (height) {
+	if (!isUndefined(height)) {
 		rawEmbedThumbnail.height = height;
 	}
 
-	if (proxyURL) {
-		rawEmbedThumbnail.proxy_url = proxyURL;
+	if (!isUndefined(proxyUrl)) {
+		rawEmbedThumbnail.proxy_url = proxyUrl;
 	}
 
-	if (width) {
+	if (!isUndefined(width)) {
 		rawEmbedThumbnail.width = width;
 	}
 
@@ -205,15 +206,15 @@ export function serializeEmbedThumbnail(embedThumbnail: EmbedThumbnail): APIEmbe
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-provider-structure
  */
-export function serializeEmbedProvider(embedProvider: EmbedProvider): APIEmbedProvider {
+export function serializeEmbedProvider(embedProvider: EmbedProvider): RawEmbedProvider {
 	const { name, url } = embedProvider;
-	const rawEmbedProvider: APIEmbedProvider = {};
+	const rawEmbedProvider: RawEmbedProvider = {};
 
-	if (name) {
+	if (!isUndefined(name)) {
 		rawEmbedProvider.name = name;
 	}
 
-	if (url) {
+	if (!isUndefined(url)) {
 		rawEmbedProvider.url = url;
 	}
 
@@ -223,23 +224,23 @@ export function serializeEmbedProvider(embedProvider: EmbedProvider): APIEmbedPr
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-video-structure
  */
-export function serializeEmbedVideo(embedVideo: EmbedVideo): APIEmbedVideo {
-	const { height, proxyURL, url, width } = embedVideo;
-	const rawEmbedVideo: APIEmbedVideo = {};
+export function serializeEmbedVideo(embedVideo: EmbedVideo): RawEmbedVideo {
+	const { height, proxyUrl, url, width } = embedVideo;
+	const rawEmbedVideo: RawEmbedVideo = {};
 
-	if (height) {
+	if (!isUndefined(height)) {
 		rawEmbedVideo.height = height;
 	}
 
-	if (proxyURL) {
-		rawEmbedVideo.proxy_url = proxyURL;
+	if (!isUndefined(proxyUrl)) {
+		rawEmbedVideo.proxy_url = proxyUrl;
 	}
 
-	if (url) {
+	if (!isUndefined(url)) {
 		rawEmbedVideo.url = url;
 	}
 
-	if (width) {
+	if (!isUndefined(width)) {
 		rawEmbedVideo.width = width;
 	}
 

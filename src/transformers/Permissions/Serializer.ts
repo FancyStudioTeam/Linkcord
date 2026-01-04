@@ -1,4 +1,5 @@
 import type { RawRoleColors, RawRoleTags, RoleColors, RoleTags } from '#types/index.js';
+import { isUndefined } from '#utils/helpers/AssertionUtils.js';
 
 /**
  * @see https://discord.com/developers/docs/topics/permissions#role-object-role-colors-object
@@ -21,27 +22,27 @@ export function serializeRoleTags(roleTags: RoleTags): RawRoleTags {
 	const { availableForPurchase, botId, guildConnections, integrationId, premiumSubscriber, subscriptionListingId } = roleTags;
 	const rawRoleTags: RawRoleTags = {};
 
-	if (availableForPurchase) {
+	if (!isUndefined(availableForPurchase)) {
 		rawRoleTags.available_for_purchase = null;
 	}
 
-	if (botId) {
+	if (!isUndefined(botId)) {
 		rawRoleTags.bot_id = botId;
 	}
 
-	if (guildConnections) {
+	if (!isUndefined(guildConnections)) {
 		rawRoleTags.guild_connections = null;
 	}
 
-	if (integrationId) {
+	if (!isUndefined(integrationId)) {
 		rawRoleTags.integration_id = integrationId;
 	}
 
-	if (premiumSubscriber) {
+	if (!isUndefined(premiumSubscriber)) {
 		rawRoleTags.premium_subscriber = null;
 	}
 
-	if (subscriptionListingId) {
+	if (!isUndefined(subscriptionListingId)) {
 		rawRoleTags.subscription_listing_id = subscriptionListingId;
 	}
 
