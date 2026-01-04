@@ -49,6 +49,21 @@ export interface RawInteractionBase<Type extends InteractionType, Data extends R
 }
 
 /**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-object
+ */
+export interface RawInteractionCallback {
+	id: Snowflake;
+	type: InteractionType;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-response-object
+ */
+export interface RawInteractionCallbackResponse {
+	interaction: RawInteractionCallback;
+}
+
+/**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
  */
 export interface RawApplicationCommandInteractionDataBase<Type extends ApplicationCommandType> {

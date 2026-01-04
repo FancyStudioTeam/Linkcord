@@ -1,16 +1,22 @@
 import type { ChatInputApplicationCommandInteraction } from '#structures/ChatInputApplicationCommandInteraction.js';
 import type { Snowflake } from '#types/miscellaneous/discord.js';
 import type { ApplicationCommandType } from '#types/resources/ApplicationCommands/enums.js';
+import type { InteractionType } from '../enums.js';
 
 /**
- * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-object
  */
-export type ApplicationCommandInteraction = ChatInputApplicationCommandInteraction;
+export interface InteractionCallback {
+	id: Snowflake;
+	type: InteractionType;
+}
 
 /**
- * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-response-object
  */
-export type Interaction = ApplicationCommandInteraction;
+export interface InteractionCallbackResponse {
+	interaction: InteractionCallback;
+}
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
@@ -23,6 +29,11 @@ export interface ApplicationCommandInteractionDataBase<Type extends ApplicationC
 }
 
 /**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ */
+export type ApplicationCommandInteraction = ChatInputApplicationCommandInteraction;
+
+/**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
  */
 export type ApplicationCommandInteractionData = ChatInputApplicationCommandInteractionData;
@@ -31,3 +42,8 @@ export type ApplicationCommandInteractionData = ChatInputApplicationCommandInter
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
  */
 export type ChatInputApplicationCommandInteractionData = ApplicationCommandInteractionDataBase<ApplicationCommandType.ChatInput>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
+ */
+export type Interaction = ApplicationCommandInteraction;
