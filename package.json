@@ -29,8 +29,8 @@
 			"require": "./lib/index.js"
 		},
 		"./builders": {
-			"import": "./lib/builders/index.ts",
-			"require": "./lib/builders/index.ts"
+			"import": "./lib/builders/index.js",
+			"require": "./lib/builders/index.js"
 		},
 		"./utils": {
 			"import": "./lib/utils/index.js",
