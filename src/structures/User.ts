@@ -58,18 +58,14 @@ export class User extends Base {
 		this.patch(rawUser);
 	}
 
-	/**
-	 * The accent color of the user represented in a hex color, if any.
-	 */
+	/** The accent color of the user represented in a hex color, if any. */
 	get accentColorHex() {
 		const { accentColor } = this;
 
 		return accentColor ? hexColor(accentColor) : null;
 	}
 
-	/**
-	 * The formatted mention of the user.
-	 */
+	/** The formatted mention of the user. */
 	get mention() {
 		const { id } = this;
 

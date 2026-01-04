@@ -53,9 +53,7 @@ export class Role extends Base {
 		this.patch(rawRole);
 	}
 
-	/**
-	 * The color of the role.
-	 */
+	/** The color of the role. */
 	get color(): number {
 		const { colors } = this;
 		const { primaryColor } = colors;
