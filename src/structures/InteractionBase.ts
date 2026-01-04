@@ -154,7 +154,7 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 	async createInteractionResponse(options: CreateInteractionResponseOptions): Promise<InteractionCallbackResponse | void> {
 		const { acknowledged, id, rest, token } = this;
 
-		if (!acknowledged) {
+		if (acknowledged) {
 			throw new TypeError('The interaction has already been acknowledged');
 		}
 
