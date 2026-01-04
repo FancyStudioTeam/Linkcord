@@ -1,5 +1,5 @@
 import { serializeMessageComponentsArray } from '#transformers/Components/Serializer.js';
-import { normalizeMessageFlags } from '#transformers/Messages/REST.js';
+import { normalizeMessageFlags } from '#transformers/Messages/Normalizer.js';
 import { serializeEmbedsArray } from '#transformers/Messages/Serializer.js';
 import {
 	type CreateInteractionResponseOptions,
