@@ -7,7 +7,6 @@ import {
 	type Snowflake,
 } from '#types/index.js';
 import type { RawInteraction } from '#types/resources/Interactions/structures/raw.js';
-import type { If } from '#utils/index.js';
 import type { ApplicationCommandInteractionBase } from './ApplicationCommandInteractionBase.js';
 import { Base } from './Base.js';
 import type { Guild } from './Guild.js';
@@ -17,7 +16,7 @@ import { User } from './User.js';
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
  */
-export abstract class InteractionBase<InGuild extends boolean = false> extends Base {
+export abstract class InteractionBase extends Base {
 	/** The ID of the parent application. */
 	readonly applicationId: Snowflake;
 	/** The permissions of the application. */
@@ -27,15 +26,15 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 	/** The ID of the channel where the interaction was triggered. */
 	readonly channelId: Snowflake;
 	/** The ID of the guild where the interaction was triggered. */
-	readonly guildId: If<InGuild, Snowflake, null>;
+	readonly guildId: Snowflake | null;
 	/** The locale of the guild, if any. */
-	readonly guildLocale: If<InGuild, Locales, null>;
+	readonly guildLocale: Locales | null;
 	/** The ID of the interaction. */
 	readonly id: Snowflake;
 	/** The locale of the user. */
 	readonly locale: Locales;
 	/** The member who triggered the interaction, if any. */
-	readonly member: If<InGuild, GuildMember, null>;
+	readonly member: GuildMember | null;
 	/** The token of the interaction. */
 	readonly token: string;
 	/** The type of the interaction. */
@@ -94,7 +93,7 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 		return locale as Locales;
 	}
 
-	#getInteractionMember(rawInteraction: RawInteraction): If<InGuild, GuildMember, null> {
+	#getInteractionMember(rawInteraction: RawInteraction): GuildMember | null {
 		const { member } = rawInteraction;
 		const { client } = this;
 
@@ -104,7 +103,7 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 			result = new GuildMember(client, member);
 		}
 
-		return result as never;
+		return result;
 	}
 
 	#getInteractionUser(rawInteraction: RawInteraction): User {
@@ -171,7 +170,7 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 	 *
 	 * @param required - Whether the {@link Guild} instance must be present.
 	 */
-	async guild(required?: false): Promise<If<InGuild, Guild, null> | null>;
+	async guild(required?: false): Promise<Guild | null>;
 
 	/**
 	 * Gets the {@link Guild} instance associated with the interaction.
@@ -181,7 +180,7 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 	 * @remarks
 	 * This method throws an error if {@link Guild} is not cached.
 	 */
-	async guild(required: true): Promise<If<InGuild, Guild, null>>;
+	async guild(required: true): Promise<Guild>;
 
 	// biome-ignore lint/suspicious/useAwait: (x)
 	async guild(required?: boolean): Promise<Guild | null> {
@@ -203,18 +202,9 @@ export abstract class InteractionBase<InGuild extends boolean = false> extends B
 	}
 
 	/**
-	 * Checks whether the interaction was triggered in a guild.
-	 */
-	inGuild(): this is InteractionBase<true> {
-		const { guildId } = this;
-
-		return Boolean(guildId);
-	}
-
-	/**
 	 * Checks whether the interaction is an application command interaction.
 	 */
-	isApplicationCommandInteraction(): this is ApplicationCommandInteractionBase<InGuild> {
+	isApplicationCommandInteraction(): this is ApplicationCommandInteractionBase {
 		const { type } = this;
 
 		return type === InteractionType.ApplicationCommand;

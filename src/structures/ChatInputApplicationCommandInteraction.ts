@@ -3,6 +3,6 @@ import { ApplicationCommandInteractionBase } from './ApplicationCommandInteracti
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
  */
-export class ChatInputApplicationCommandInteraction<InGuild extends boolean = false> extends ApplicationCommandInteractionBase<InGuild> {
+export class ChatInputApplicationCommandInteraction extends ApplicationCommandInteractionBase {
 	protected patch(): void {}
 }

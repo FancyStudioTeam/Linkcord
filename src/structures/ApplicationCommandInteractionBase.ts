@@ -14,7 +14,7 @@ import { InteractionBase } from './InteractionBase.js';
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
  */
-export abstract class ApplicationCommandInteractionBase<InGuild extends boolean = false> extends InteractionBase<InGuild> {
+export abstract class ApplicationCommandInteractionBase extends InteractionBase {
 	/** The data of the interaction. */
 	readonly data: ApplicationCommandInteractionData;
 	/** The type of the interaction. */
