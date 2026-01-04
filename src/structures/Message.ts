@@ -11,11 +11,13 @@ import { User } from './User.js';
 /**
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
  */
-export class Message<InGuild extends boolean = false> extends Base {
+export class Message<InGuild extends boolean = boolean> extends Base {
 	/** The author of the message. */
 	readonly author: User;
 	/** The ID of the channel where the message was sent. */
 	readonly channelId: Snowflake;
+	/** The ID of the guild where the message was sent, if any. */
+	readonly guildId: If<InGuild, Snowflake, null>;
 	/** The ID of the message. */
 	readonly id: Snowflake;
 
@@ -25,19 +27,18 @@ export class Message<InGuild extends boolean = false> extends Base {
 	content: string;
 	/** The embeds of the message. */
 	embeds: Embed[];
-	/** The ID of the guild where the message was sent, if any. */
-	guildId: If<InGuild, Snowflake, null> = null as never;
 
-	constructor(client: Client, rawMessage: APIMessage) {
+	constructor(client: Client, rawMessage: APIMessage & Partial<GatewayDispatchMessageCreateEventPayload>) {
 		super(client);
 
-		const { author, channel_id, components, content, embeds, id } = rawMessage;
+		const { author, channel_id, components, content, embeds, guild_id, id } = rawMessage;
 
 		this.author = new User(client, author);
 		this.channelId = channel_id;
 		this.components = deserializeMessageComponentsArray(components);
 		this.content = content;
 		this.embeds = deserializeEmbedsArray(embeds);
+		this.guildId = (guild_id ?? null) as never;
 		this.id = id;
 		this.patch(rawMessage);
 	}
@@ -56,7 +57,7 @@ export class Message<InGuild extends boolean = false> extends Base {
 	 * {@link RawMessage} structure.
 	 */
 	protected patch(rawMessage: Partial<APIMessage & GatewayDispatchMessageCreateEventPayload>): void {
-		const { components, content, embeds, guild_id } = rawMessage;
+		const { components, content, embeds } = rawMessage;
 
 		if (!isUndefined(components)) {
 			this.components = deserializeMessageComponentsArray(components);
@@ -68,10 +69,6 @@ export class Message<InGuild extends boolean = false> extends Base {
 
 		if (!isUndefined(embeds)) {
 			this.embeds = deserializeEmbedsArray(embeds);
-		}
-
-		if (!isUndefined(guild_id)) {
-			this.guildId = guild_id as never;
 		}
 	}
 
