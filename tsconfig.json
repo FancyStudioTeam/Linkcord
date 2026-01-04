@@ -17,6 +17,9 @@
 		"moduleResolution": "nodenext",
 		"outDir": "lib",
 		"paths": {
+			"#builders/*": [
+				"builders/*"
+			],
 			"#client/*": [
 				"client/*"
 			],

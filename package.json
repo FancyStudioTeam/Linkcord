@@ -28,6 +28,10 @@
 			"import": "./lib/index.js",
 			"require": "./lib/index.js"
 		},
+		"./builders": {
+			"import": "./lib/builders/index.ts",
+			"require": "./lib/builders/index.ts"
+		},
 		"./utils": {
 			"import": "./lib/utils/index.js",
 			"require": "./lib/utils/index.js"
