@@ -90,9 +90,9 @@ export interface Embed {
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-author-structure
  */
 export interface EmbedAuthor {
-	iconURL?: string;
+	iconUrl?: string;
 	name: string;
-	proxyIconURL?: string;
+	proxyIconUrl?: string;
 	url?: string;
 }
 
@@ -109,8 +109,8 @@ export interface EmbedField {
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-footer-structure
  */
 export interface EmbedFooter {
-	iconURL?: string;
-	proxyIconURL?: string;
+	iconUrl?: string;
+	proxyIconUrl?: string;
 	text: string;
 }
 
@@ -119,7 +119,7 @@ export interface EmbedFooter {
  */
 export interface EmbedImage {
 	height?: number;
-	proxyURL?: string;
+	proxyUrl?: string;
 	url: string;
 	width?: number;
 }
@@ -137,7 +137,7 @@ export interface EmbedProvider {
  */
 export interface EmbedThumbnail {
 	height?: number;
-	proxyURL?: string;
+	proxyUrl?: string;
 	url: string;
 	width?: number;
 }
@@ -147,7 +147,7 @@ export interface EmbedThumbnail {
  */
 export interface EmbedVideo {
 	height?: number;
-	proxyURL?: string;
+	proxyUrl?: string;
 	url?: string;
 	width?: number;
 }

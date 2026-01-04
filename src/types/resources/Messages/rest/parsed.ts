@@ -1,17 +1,21 @@
-import type { File } from '#rest/index.js';
 import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
-import type { MessageFlagsResolvable, MessageStickerResolvable } from '#types/resolvables/Messages.js';
-import type { MessageComponents } from '#types/resources/Components/index.js';
+import type {
+	BulkMessageResolvable,
+	MessageComponentResolvable,
+	MessageEmbedResolvable,
+	MessageFileResolvable,
+	MessageFlagsResolvable,
+	MessageStickerResolvable,
+} from '#types/resolvables/Messages.js';
 import type { MessagePoll } from '#types/resources/Polls/index.js';
-import type { BitField } from '#utils/index.js';
-import type { MessageFlags, ReactionType } from '../enums.js';
-import type { AllowedMentions, Attachment, Embed, MessageReference } from '../structures/parsed.js';
+import type { ReactionType } from '../enums.js';
+import type { AllowedMentions, MessageReference } from '../structures/parsed.js';
 
 /**
  * @see https://discord.com/developers/docs/resources/message#bulk-delete-messages-json-params
  */
 export interface BulkMessagesOptions {
-	messages: Snowflake[];
+	messages: BulkMessageResolvable[];
 }
 
 /**
@@ -19,11 +23,11 @@ export interface BulkMessagesOptions {
  */
 export interface CreateMessageOptions {
 	allowedMentions?: AllowedMentions;
-	components?: MessageComponents[];
+	components?: MessageComponentResolvable[];
 	content?: string;
-	embeds?: Embed[];
+	embeds?: MessageEmbedResolvable[];
 	enforceNonce?: boolean;
-	files?: File[];
+	files?: MessageFileResolvable[];
 	flags?: MessageFlagsResolvable;
 	messageReference?: MessageReference;
 	nonce?: number | string;
@@ -37,11 +41,10 @@ export interface CreateMessageOptions {
  */
 export interface EditMessageOptions {
 	allowedMentions?: AllowedMentions | null;
-	attachments?: Attachment[] | null;
-	components?: MessageComponents[] | null;
+	components?: MessageComponentResolvable[] | null;
 	content?: string | null;
-	embeds?: Embed[];
-	flags?: BitField | MessageFlags;
+	embeds?: MessageEmbedResolvable[] | null;
+	flags?: MessageFlagsResolvable | null;
 }
 
 /**

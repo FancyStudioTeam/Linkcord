@@ -1,11 +1,11 @@
 import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
-import type { ApplicationIntegrationType } from '#types/resources/Applications/enums.js';
 import type { ChannelType } from '#types/resources/Channels/enums.js';
 import type { RawMessageComponents } from '#types/resources/Components/index.js';
 import type { RawPartialEmoji } from '#types/resources/Emojis/index.js';
 import type { InteractionType } from '#types/resources/Interactions/enums.js';
+import type { RawAuthorizingIntegrationOwners, RawInteractionResolvedData } from '#types/resources/Interactions/index.js';
 import type { RawPoll } from '#types/resources/Polls/index.js';
-import type { APIStickerItem } from '#types/resources/Stickers/structures/raw.js';
+import type { RawStickerItem } from '#types/resources/Stickers/structures/raw.js';
 import type { RawUser } from '#types/resources/Users/index.js';
 import type {
 	AllowedMentionType,
@@ -30,7 +30,7 @@ export interface RawAllowedMentions {
 /**
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-application-command-interaction-metadata-structure
  */
-export interface APIApplicationCommandInteractionMetadata extends APIBaseMessageInteractionMetadata {
+export interface RawApplicationCommandInteractionMetadata extends RawMessageInteractionMetadataBase {
 	target_user?: RawUser;
 	target_message_id?: Snowflake;
 }
@@ -38,7 +38,7 @@ export interface APIApplicationCommandInteractionMetadata extends APIBaseMessage
 /**
  * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
  */
-export interface APIAttachment {
+export interface RawAttachment {
 	content_type?: string;
 	description?: string;
 	duration_secs?: number;
@@ -56,19 +56,9 @@ export interface APIAttachment {
 }
 
 /**
- * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
- */
-export interface APIBaseMessageInteractionMetadata {
-	authorizing_integration_owners: APIAuthorizingIntegrationOwners;
-	id: Snowflake;
-	type: InteractionType;
-	user: RawUser;
-}
-
-/**
  * @see https://discord.com/developers/docs/resources/message#channel-mention-object-channel-mention-structure
  */
-export interface APIChannelMention {
+export interface RawChannelMention {
 	guild_id: Snowflake;
 	id: Snowflake;
 	name: string;
@@ -79,25 +69,25 @@ export interface APIChannelMention {
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-structure
  */
 export interface RawEmbed {
-	author?: APIEmbedAuthor;
+	author?: RawEmbedAuthor;
 	color?: number;
 	description?: string;
-	fields?: APIEmbedField[];
-	footer?: APIEmbedFooter;
-	image?: APIEmbedImage;
-	provider?: APIEmbedProvider;
-	thumbnail?: APIEmbedThumbnail;
+	fields?: RawEmbedField[];
+	footer?: RawEmbedFooter;
+	image?: RawEmbedImage;
+	provider?: RawEmbedProvider;
+	thumbnail?: RawEmbedThumbnail;
 	timestamp?: ISO8601Date;
 	title?: string;
 	type?: EmbedType;
 	url?: string;
-	video?: APIEmbedVideo;
+	video?: RawEmbedVideo;
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-author-structure
  */
-export interface APIEmbedAuthor {
+export interface RawEmbedAuthor {
 	icon_url?: string;
 	name: string;
 	proxy_icon_url?: string;
@@ -107,7 +97,7 @@ export interface APIEmbedAuthor {
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-field-structure
  */
-export interface APIEmbedField {
+export interface RawEmbedField {
 	inline?: boolean;
 	name: string;
 	value: string;
@@ -116,7 +106,7 @@ export interface APIEmbedField {
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-footer-structure
  */
-export interface APIEmbedFooter {
+export interface RawEmbedFooter {
 	icon_url?: string;
 	proxy_icon_url?: string;
 	text: string;
@@ -125,7 +115,7 @@ export interface APIEmbedFooter {
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-image-structure
  */
-export interface APIEmbedImage {
+export interface RawEmbedImage {
 	height?: number;
 	proxy_url?: string;
 	url: string;
@@ -135,7 +125,7 @@ export interface APIEmbedImage {
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-provider-structure
  */
-export interface APIEmbedProvider {
+export interface RawEmbedProvider {
 	name?: string;
 	url?: string;
 }
@@ -143,7 +133,7 @@ export interface APIEmbedProvider {
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-thumbnail-structure
  */
-export interface APIEmbedThumbnail {
+export interface RawEmbedThumbnail {
 	height?: number;
 	proxy_url?: string;
 	url: string;
@@ -153,7 +143,7 @@ export interface APIEmbedThumbnail {
 /**
  * @see https://discord.com/developers/docs/resources/message#embed-object-embed-video-structure
  */
-export interface APIEmbedVideo {
+export interface RawEmbedVideo {
 	height?: number;
 	proxy_url?: string;
 	url?: string;
@@ -163,13 +153,13 @@ export interface APIEmbedVideo {
 /**
  * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
  */
-// TODO: Add "resolved" and "thread" to "APIMessage".
-export interface APIMessage {
-	activity?: APIMessageActivity;
+// TODO: Add 'application' and 'thread' to 'RawMessage'.
+export interface RawMessage {
+	activity?: RawMessageActivity;
 	application_id?: Snowflake;
-	attachments: APIAttachment[];
+	attachments: RawAttachment[];
 	author: RawUser;
-	call?: APIMessageCall;
+	call?: RawMessageCall;
 	channel_id: Snowflake;
 	components: RawMessageComponents[];
 	content: string;
@@ -177,22 +167,23 @@ export interface APIMessage {
 	embeds: RawEmbed[];
 	flags?: MessageFlags;
 	id: Snowflake;
-	interaction_metadata?: APIMessageInteractionMetadata;
-	mention_channels?: APIChannelMention[];
+	interaction_metadata?: RawMessageInteractionMetadata;
+	mention_channels?: RawChannelMention[];
 	mention_everyone: boolean;
-	message_reference?: APIMessageReference;
+	message_reference?: RawMessageReference;
+	message_snapshots?: RawMessageSnapshot[];
 	mention_roles: Snowflake[];
 	mentions: RawUser[];
 	nonce?: number | string;
 	pinned: boolean;
 	position?: number;
 	poll?: RawPoll;
-	reactions?: APIReaction[];
-	referenced_message?: APIMessage | null;
-	// resolved?: APIResolved;
-	role_subscription_data?: APIRoleSubscriptionData;
-	sticker_items?: APIStickerItem[];
-	// thread?: APIThreadChannel;
+	reactions?: RawReaction[];
+	referenced_message?: RawMessage | null;
+	resolved?: RawInteractionResolvedData;
+	role_subscription_data?: RawRoleSubscriptionData;
+	sticker_items?: RawStickerItem[];
+	// thread?: RawThreadChannel;
 	timestamp: ISO8601Date;
 	tts: boolean;
 	type: MessageType;
@@ -202,7 +193,7 @@ export interface APIMessage {
 /**
  * @see https://discord.com/developers/docs/resources/message#message-object-message-activity-structure
  */
-export interface APIMessageActivity {
+export interface RawMessageActivity {
 	party_id?: string;
 	type: MessageActivityType;
 }
@@ -210,7 +201,7 @@ export interface APIMessageActivity {
 /**
  * @see https://discord.com/developers/docs/resources/message#message-call-object-message-call-object-structure
  */
-export interface APIMessageCall {
+export interface RawMessageCall {
 	ended_timestamp?: ISO8601Date | null;
 	participants: Snowflake[];
 }
@@ -218,23 +209,33 @@ export interface APIMessageCall {
 /**
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-message-component-interaction-metadata-structure
  */
-export interface APIMessageComponentInteractionMetadata extends APIBaseMessageInteractionMetadata {
+export interface RawMessageComponentInteractionMetadata extends RawMessageInteractionMetadataBase {
 	interacted_message_id: Snowflake;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
+ */
+export interface RawMessageInteractionMetadataBase {
+	authorizing_integration_owners: RawAuthorizingIntegrationOwners;
+	id: Snowflake;
 	original_response_message_id?: Snowflake;
+	type: InteractionType;
+	user: RawUser;
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/message#message-pin-object-message-pin-object-struture
  */
-export interface APIMessagePin {
-	message: APIMessage;
+export interface RawMessagePin {
+	message: RawMessage;
 	pinned_at: ISO8601Date;
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/message#message-reference-structure
  */
-export interface APIMessageReference {
+export interface RawMessageReference {
 	channel_id?: Snowflake;
 	fail_if_not_exists?: boolean;
 	guild_id?: Snowflake;
@@ -245,38 +246,49 @@ export interface APIMessageReference {
 /**
  * @see https://discord.com/developers/docs/resources/message#message-snapshot-structure
  */
-export interface APIMessageSnapshot {
-	message: Pick<
-		APIMessage,
-		| 'attachments'
-		| 'components'
-		| 'content'
-		| 'edited_timestamp'
-		| 'embeds'
-		| 'flags'
-		| 'mention_roles'
-		| 'mentions'
-		| 'sticker_items'
-		| 'timestamp'
-		| 'type'
-	>;
+export interface RawMessageSnapshot {
+	message: RawMessageSnapshotMessage;
 }
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#message-snapshot-structure
+ */
+export type RawMessageSnapshotMessage = Pick<
+	RawMessage,
+	| 'attachments'
+	| 'components'
+	| 'content'
+	| 'edited_timestamp'
+	| 'embeds'
+	| 'flags'
+	| 'mention_roles'
+	| 'mentions'
+	| 'sticker_items'
+	| 'timestamp'
+	| 'type'
+>;
 
 /**
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-modal-submit-interaction-metadata-structure
  */
-export interface APIModalSubmitInteractionMetadata extends APIBaseMessageInteractionMetadata {
-	original_response_message_id?: Snowflake;
-	triggering_interaction_metadata: APIApplicationCommandInteractionMetadata | APIMessageComponentInteractionMetadata;
+export interface RawModalSubmitInteractionMetadata extends RawMessageInteractionMetadataBase {
+	triggering_interaction_metadata: RawApplicationCommandInteractionMetadata | RawMessageComponentInteractionMetadata;
+}
+
+/**
+ * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
+ */
+export interface RawPartialAttachment extends Omit<Partial<RawAttachment>, 'id'> {
+	id: Snowflake;
 }
 
 /**
  * @see https://discord.com/developers/docs/resources/message#reaction-object-reaction-structure
  */
-export interface APIReaction {
+export interface RawReaction {
 	burst_colors: string[];
 	count: number;
-	count_details: APIReactionCountDetails;
+	count_details: RawReactionCountDetails;
 	emoji: RawPartialEmoji;
 	me: boolean;
 	me_burst: boolean;
@@ -285,7 +297,7 @@ export interface APIReaction {
 /**
  * @see https://discord.com/developers/docs/resources/message#reaction-count-details-object-reaction-count-details-structure
  */
-export interface APIReactionCountDetails {
+export interface RawReactionCountDetails {
 	burst: number;
 	normal: number;
 }
@@ -293,7 +305,7 @@ export interface APIReactionCountDetails {
 /**
  * @see https://discord.com/developers/docs/resources/message#role-subscription-data-object-role-subscription-data-object-structure
  */
-export interface APIRoleSubscriptionData {
+export interface RawRoleSubscriptionData {
 	is_renewal: boolean;
 	role_subscription_listing_id: Snowflake;
 	tier_name: string;
@@ -301,26 +313,9 @@ export interface APIRoleSubscriptionData {
 }
 
 /**
- * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object
- */
-export type APIAuthorizingIntegrationOwners = {
-	[Type in ApplicationIntegrationType]?: Snowflake;
-};
-
-/**
  * @see https://discord.com/developers/docs/resources/message#message-interaction-metadata-object
  */
-export type APIMessageInteractionMetadata =
-	| APIApplicationCommandInteractionMetadata
-	| APIMessageComponentInteractionMetadata
-	| APIModalSubmitInteractionMetadata;
-
-/**
- * @see https://discord.com/developers/docs/resources/message#attachment-object-attachment-structure
- */
-export type APIPartialAttachent = Partial<APIAttachment>;
-
-/**
- * @see https://discord.com/developers/docs/resources/message#message-object-message-structure
- */
-export type APIPartialMessage = Partial<APIMessage>;
+export type RawMessageInteractionMetadata =
+	| RawApplicationCommandInteractionMetadata
+	| RawMessageComponentInteractionMetadata
+	| RawModalSubmitInteractionMetadata;
