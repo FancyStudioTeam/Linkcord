@@ -64,10 +64,10 @@ export function USER_UPDATE(client: Client, gatewayShard: GatewayShard, userPayl
 		 * Developer Portal, the Discord gateway may emit this event using the same
 		 * data as the cached user.
 		 *
-		 * To avoid emitting a redundant 'UserUpdate' event, we must verify whether
+		 * To avoid emitting a redundant 'USER_UPDATE' event, we must check whether
 		 * the patched user's data actually differs from the cached user's data.
 		 *
-		 * Only if the data is different should we emit the 'UserUpdate' event.
+		 * Only if the data is different should we emit the 'USER_UPDATE' event.
 		 */
 		if (!isDeepStrictEqual(oldUser, cachedUser)) {
 			events.emit(ClientEvents.UserUpdate, {

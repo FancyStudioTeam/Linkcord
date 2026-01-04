@@ -26,8 +26,8 @@ export function READY(client: Client, gatewayShard: GatewayShard, readyPayload: 
 	const initialGuildsSet = gatewayShard['initialGuilds'];
 
 	/*
-	 * Set the initial guild IDs for later to check whether the user was
-	 * already in the guild when receiving the 'GUILD_CREATE' event.
+	 * Store the initial guild IDs in a set to track which guilds the user was
+	 * already a member of when the 'GUILD_CREATE' event is received.
 	 */
 	for (const { id: guildId } of initialGuilds) {
 		initialGuildsSet.add(guildId);
