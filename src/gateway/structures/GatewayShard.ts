@@ -149,7 +149,7 @@ export class GatewayShard {
 		return 'OK';
 	}
 
-	#getWebSocket(required?: boolean): WebSocket | null;
+	#getWebSocket(required?: false): WebSocket | null;
 	#getWebSocket(required: true): WebSocket;
 
 	#getWebSocket(required?: boolean): WebSocket | null {

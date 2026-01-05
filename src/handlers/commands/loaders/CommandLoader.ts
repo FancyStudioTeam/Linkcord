@@ -24,9 +24,8 @@ export class CommandLoader {
 	async #bulkOverwriteApplicationCommands(applicationCommands: CreateApplicationCommandOptions[]): Promise<void> {
 		const { client } = this;
 		const { applicationId, rest } = client;
-		const {
-			resources: { applications },
-		} = rest;
+		const { resources } = rest;
+		const { applications } = resources;
 
 		await applications.bulkOverwriteApplicationCommands(applicationId, applicationCommands);
 	}
