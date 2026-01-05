@@ -1,7 +1,10 @@
 import type { Client } from '#client/index.js';
+import { INTERACTION_ALREADY_ACKNOWLEDGED } from '#errors/messages.js';
 import {
 	type CreateInteractionResponseOptions,
+	type CreateMessageInteractionCallbackData,
 	type InteractionCallbackResponse,
+	InteractionCallbackType,
 	InteractionType,
 	type Locales,
 	type RawUser,
@@ -143,7 +146,7 @@ export abstract class InteractionBase extends Base {
 		const { acknowledged, id, rest, token } = this;
 
 		if (acknowledged) {
-			throw new TypeError('The interaction has already been acknowledged');
+			throw new TypeError(INTERACTION_ALREADY_ACKNOWLEDGED());
 		}
 
 		this.acknowledged = true;
@@ -152,6 +155,16 @@ export abstract class InteractionBase extends Base {
 		const { interactions } = resources;
 
 		return await interactions.createInteractionResponse(id, token, options);
+	}
+
+	/**
+	 * @see https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
+	 */
+	async createMessage(options: CreateMessageInteractionCallbackData): Promise<void> {
+		return await this.createInteractionResponse({
+			data: options,
+			type: InteractionCallbackType.ChannelMessageWithSource,
+		});
 	}
 
 	/**
