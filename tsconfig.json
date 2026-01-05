@@ -26,6 +26,9 @@
 			"#configuration/*": [
 				"configuration/*"
 			],
+			"#errors/*": [
+				"errors/*"
+			],
 			"#gateway/*": [
 				"gateway/*"
 			],
