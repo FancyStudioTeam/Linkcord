@@ -1,5 +1,5 @@
 import type { APIApplicationCommandOptionChoice } from '#types/resources/ApplicationCommands/index.js';
-import type { RawMessageComponents, RawModalComponents } from '#types/resources/Components/index.js';
+import type { RawMessageChildComponent, RawModalChildComponent } from '#types/resources/Components/index.js';
 import type { MessageFlags, RawAllowedMentions, RawEmbed } from '#types/resources/Messages/index.js';
 import type { RawMessagePoll } from '#types/resources/Polls/index.js';
 import type { InteractionCallbackType } from '../enums.js';
@@ -24,7 +24,7 @@ export interface RawCreateInteractionResponseOptionsBase<Type extends Interactio
  */
 export interface RawCreateMessageInteractionCallbackData {
 	allowed_mentions?: RawAllowedMentions;
-	components?: RawMessageComponents[];
+	components?: RawMessageChildComponent[];
 	content?: string;
 	embeds?: RawEmbed[];
 	flags?: MessageFlags;
@@ -37,7 +37,7 @@ export interface RawCreateMessageInteractionCallbackData {
  */
 export interface RawCreateModalInteractionCallbackData {
 	custom_id: string;
-	components: RawModalComponents[];
+	components: RawModalChildComponent[];
 	title: string;
 }
 

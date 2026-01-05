@@ -1,43 +1,52 @@
 import { BuilderBase } from '#builders/index.js';
-import { serializeMessageComponents } from '#transformers/Components/Serializer.js';
+import { serializeMessageChildComponent } from '#transformers/Components/Serializer.js';
 import type {
+	MessageChildComponent,
 	MessageComponentResolvable,
 	MessageFlagsResolvable,
 	MessageStickerResolvable,
-	RawMessageComponents,
+	RawMessageChildComponent,
 	Snowflake,
 } from '#types/index.js';
 import { isArray, isInstanceOf } from '#utils/helpers/AssertionUtils.js';
 import { BitField } from '#utils/index.js';
 
-export function normalizeMessageComponent(messageComponents: MessageComponentResolvable): RawMessageComponents {
-	if (isInstanceOf(messageComponents, BuilderBase)) {
-		return serializeMessageComponents(messageComponents.toJSON());
+export function normalizeMessageComponentResolvable(messageComponentResolvable: MessageComponentResolvable): RawMessageChildComponent {
+	let result: MessageChildComponent;
+
+	if (isInstanceOf(messageComponentResolvable, BuilderBase)) {
+		result = messageComponentResolvable.toJSON();
+	} else {
+		result = messageComponentResolvable;
 	}
 
-	return serializeMessageComponents(messageComponents);
+	return serializeMessageChildComponent(result);
 }
 
-export function normalizeMessageComponentsArray(messageComponentsArray: MessageComponentResolvable[]): RawMessageComponents[] {
-	return messageComponentsArray.map(normalizeMessageComponent);
+export function normalizeMessageComponentsResolvableArray(
+	messageComponentsResolvableArray: MessageComponentResolvable[],
+): RawMessageChildComponent[] {
+	return messageComponentsResolvableArray.map(normalizeMessageComponentResolvable);
 }
 
-export function normalizeMessageFlags(messageFlags: MessageFlagsResolvable): number {
-	if (isInstanceOf(messageFlags, BitField)) {
-		return messageFlags.bitField;
+export function normalizeMessageFlagsResolvable(messageFlagsResolvable: MessageFlagsResolvable): number {
+	let result: number;
+
+	if (isInstanceOf(messageFlagsResolvable, BitField)) {
+		result = messageFlagsResolvable.bitField;
+	} else if (isArray(messageFlagsResolvable)) {
+		result = new BitField().add(...messageFlagsResolvable);
+	} else {
+		result = messageFlagsResolvable;
 	}
 
-	if (isArray(messageFlags)) {
-		return new BitField().add(...messageFlags);
-	}
-
-	return messageFlags;
+	return result;
 }
 
-export function normalizeMessageSticker(messageSticker: MessageStickerResolvable): Snowflake {
-	return messageSticker;
+export function normalizeMessageStickerResolvable(messageStickerResolvable: MessageStickerResolvable): Snowflake {
+	return messageStickerResolvable;
 }
 
-export function normalizeMessageStickersArray(messageStickersArray: MessageStickerResolvable[]): Snowflake[] {
-	return messageStickersArray.map(normalizeMessageSticker);
+export function normalizeMessageStickersResolvableArray(messageStickersResolvableArray: MessageStickerResolvable[]): Snowflake[] {
+	return messageStickersResolvableArray.map(normalizeMessageStickerResolvable);
 }

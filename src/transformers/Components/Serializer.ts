@@ -1,45 +1,45 @@
 import { serializePartialEmoji } from '#transformers/Emojis/Serializer.js';
 import {
+	type ActionRowChildComponent,
 	type ActionRowComponent,
-	type ActionRowComponents,
 	type ButtonComponent,
 	ButtonStyle,
 	type ChannelSelectMenuComponent,
 	ComponentType,
+	type ContainerChildComponent,
 	type ContainerComponent,
-	type ContainerComponents,
 	type FileComponent,
 	type FileUploadComponent,
 	type InteractiveButtonComponent,
+	type LabelChildComponent,
 	type LabelComponent,
-	type LabelComponents,
 	type LinkButtonComponent,
 	type MediaGalleryComponent,
 	type MediaGalleryItem,
 	type MentionableSelectMenuComponent,
-	type MessageComponents,
+	type MessageChildComponent,
 	type PremiumButtonComponent,
+	type RawActionRowChildComponent,
 	type RawActionRowComponent,
-	type RawActionRowComponents,
 	type RawButtonComponent,
 	type RawChannelSelectMenuComponent,
+	type RawContainerChildComponent,
 	type RawContainerComponent,
-	type RawContainerComponents,
 	type RawFileComponent,
 	type RawFileUploadComponent,
 	type RawInteractiveButtonComponent,
+	type RawLabelChildComponent,
 	type RawLabelComponent,
-	type RawLabelComponents,
 	type RawLinkButtonComponent,
 	type RawMediaGalleryComponent,
 	type RawMediaGalleryItem,
 	type RawMentionableSelectMenuComponent,
-	type RawMessageComponents,
+	type RawMessageChildComponent,
 	type RawPremiumButtonComponent,
 	type RawRoleSelectMenuComponent,
 	type RawSectionAccessory,
+	type RawSectionChildComponent,
 	type RawSectionComponent,
-	type RawSectionComponents,
 	type RawSelectMenuComponent,
 	type RawSelectMenuDefaultValue,
 	type RawSeparatorComponent,
@@ -52,8 +52,8 @@ import {
 	type RawUserSelectMenuComponent,
 	type RoleSelectMenuComponent,
 	type SectionAccessory,
+	type SectionChildComponent,
 	type SectionComponent,
-	type SectionComponents,
 	type SelectMenuComponent,
 	type SelectMenuDefaultValue,
 	type SeparatorComponent,
@@ -68,12 +68,35 @@ import {
 import { isUndefined } from '#utils/helpers/AssertionUtils.js';
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#action-row-action-row-child-components
+ */
+export function serializeActionRowChildComponent(actionRowChildComponent: ActionRowChildComponent): RawActionRowChildComponent {
+	const { type } = actionRowChildComponent;
+
+	switch (type) {
+		case ComponentType.Button:
+			return serializeButtonComponent(actionRowChildComponent);
+		default:
+			return serializeSelectMenuComponent(actionRowChildComponent);
+	}
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#action-row-action-row-child-components
+ */
+export function serializeActionRowChildComponentsArray(
+	actionRowChildComponentsArray: ActionRowChildComponent[],
+): RawActionRowChildComponent[] {
+	return actionRowChildComponentsArray.map(serializeActionRowChildComponent);
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-structure
  */
 export function serializeActionRowComponent(actionRowComponent: ActionRowComponent): RawActionRowComponent {
 	const { components, id, type } = actionRowComponent;
 	const rawActionRowComponent: RawActionRowComponent = {
-		components: serializeActionRowComponentsArray(components),
+		components: serializeActionRowChildComponentsArray(components),
 		type,
 	};
 
@@ -82,27 +105,6 @@ export function serializeActionRowComponent(actionRowComponent: ActionRowCompone
 	}
 
 	return rawActionRowComponent;
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#action-row-action-row-child-components
- */
-export function serializeActionRowComponents(actionRowComponents: ActionRowComponents): RawActionRowComponents {
-	const { type } = actionRowComponents;
-
-	switch (type) {
-		case ComponentType.Button:
-			return serializeButtonComponent(actionRowComponents);
-		default:
-			return serializeSelectMenuComponent(actionRowComponents);
-	}
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#action-row-action-row-child-components
- */
-export function serializeActionRowComponentsArray(actionRowComponentsArray: ActionRowComponents[]): RawActionRowComponents[] {
-	return actionRowComponentsArray.map(serializeActionRowComponents);
 }
 
 /**
@@ -168,12 +170,43 @@ export function serializeChannelSelectMenuComponent(channelSelectMenuComponent: 
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#container-container-child-components
+ */
+export function serializeContainerChildComponent(containerChildComponent: ContainerChildComponent): RawContainerChildComponent {
+	const { type } = containerChildComponent;
+
+	switch (type) {
+		case ComponentType.ActionRow:
+			return serializeActionRowComponent(containerChildComponent);
+		case ComponentType.File:
+			return serializeFileComponent(containerChildComponent);
+		case ComponentType.MediaGallery:
+			return serializeMediaGalleryComponent(containerChildComponent);
+		case ComponentType.Section:
+			return serializeSectionComponent(containerChildComponent);
+		case ComponentType.Separator:
+			return serializeSeparatorComponent(containerChildComponent);
+		case ComponentType.TextDisplay:
+			return serializeTextDisplayComponent(containerChildComponent);
+	}
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#container-container-child-components
+ */
+export function serializeContainerChildComponentsArray(
+	containerChildComponentsArray: ContainerChildComponent[],
+): RawContainerChildComponent[] {
+	return containerChildComponentsArray.map(serializeContainerChildComponent);
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#container-container-structure
  */
 export function serializeContainerComponent(containerComponent: ContainerComponent): RawContainerComponent {
 	const { accentColor, components, id, spoiler, type } = containerComponent;
 	const rawContainerComponent: RawContainerComponent = {
-		components: serializeContainerComponentsArray(components),
+		components: serializeContainerChildComponentsArray(components),
 		type,
 	};
 
@@ -190,35 +223,6 @@ export function serializeContainerComponent(containerComponent: ContainerCompone
 	}
 
 	return rawContainerComponent;
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#container-container-child-components
- */
-export function serializeContainerComponents(containerComponents: ContainerComponents): RawContainerComponents {
-	const { type } = containerComponents;
-
-	switch (type) {
-		case ComponentType.ActionRow:
-			return serializeActionRowComponent(containerComponents);
-		case ComponentType.File:
-			return serializeFileComponent(containerComponents);
-		case ComponentType.MediaGallery:
-			return serializeMediaGalleryComponent(containerComponents);
-		case ComponentType.Section:
-			return serializeSectionComponent(containerComponents);
-		case ComponentType.Separator:
-			return serializeSeparatorComponent(containerComponents);
-		case ComponentType.TextDisplay:
-			return serializeTextDisplayComponent(containerComponents);
-	}
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#container-container-child-components
- */
-export function serializeContainerComponentsArray(containerComponentsArray: ContainerComponents[]): RawContainerComponents[] {
-	return containerComponentsArray.map(serializeContainerComponents);
 }
 
 /**
@@ -310,12 +314,28 @@ export function serializeInteractiveButtonComponent(interactiveButtonComponent: 
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#label-label-child-components
+ */
+export function serializeLabelChildComponent(labelChildComponent: LabelChildComponent): RawLabelChildComponent {
+	const { type } = labelChildComponent;
+
+	switch (type) {
+		case ComponentType.FileUpload:
+			return serializeFileUploadComponent(labelChildComponent);
+		case ComponentType.TextInput:
+			return serializeTextInputComponent(labelChildComponent);
+		default:
+			return serializeSelectMenuComponent(labelChildComponent);
+	}
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#label-label-structure
  */
 export function serializeLabelComponent(labelComponent: LabelComponent): RawLabelComponent {
 	const { component, description, id, label, type } = labelComponent;
 	const rawLabelComponent: RawLabelComponent = {
-		component: serializeLabelComponents(component),
+		component: serializeLabelChildComponent(component),
 		label,
 		type,
 	};
@@ -329,22 +349,6 @@ export function serializeLabelComponent(labelComponent: LabelComponent): RawLabe
 	}
 
 	return rawLabelComponent;
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#label-label-child-components
- */
-export function serializeLabelComponents(labelComponents: LabelComponents): RawLabelComponents {
-	const { type } = labelComponents;
-
-	switch (type) {
-		case ComponentType.FileUpload:
-			return serializeFileUploadComponent(labelComponents);
-		case ComponentType.TextInput:
-			return serializeTextInputComponent(labelComponents);
-		default:
-			return serializeSelectMenuComponent(labelComponents);
-	}
 }
 
 /**
@@ -467,32 +471,32 @@ export function serializeMentionableSelectMenuComponent(
 /**
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export function serializeMessageComponents(messageComponents: MessageComponents): RawMessageComponents {
-	const { type } = messageComponents;
+export function serializeMessageChildComponent(messageChildComponent: MessageChildComponent): RawMessageChildComponent {
+	const { type } = messageChildComponent;
 
 	switch (type) {
 		case ComponentType.ActionRow:
-			return serializeActionRowComponent(messageComponents);
+			return serializeActionRowComponent(messageChildComponent);
 		case ComponentType.Container:
-			return serializeContainerComponent(messageComponents);
+			return serializeContainerComponent(messageChildComponent);
 		case ComponentType.File:
-			return serializeFileComponent(messageComponents);
+			return serializeFileComponent(messageChildComponent);
 		case ComponentType.MediaGallery:
-			return serializeMediaGalleryComponent(messageComponents);
+			return serializeMediaGalleryComponent(messageChildComponent);
 		case ComponentType.Section:
-			return serializeSectionComponent(messageComponents);
+			return serializeSectionComponent(messageChildComponent);
 		case ComponentType.Separator:
-			return serializeSeparatorComponent(messageComponents);
+			return serializeSeparatorComponent(messageChildComponent);
 		case ComponentType.TextDisplay:
-			return serializeTextDisplayComponent(messageComponents);
+			return serializeTextDisplayComponent(messageChildComponent);
 	}
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export function serializeMessageComponentsArray(messageComponentsArray: MessageComponents[]): RawMessageComponents[] {
-	return messageComponentsArray.map(serializeMessageComponents);
+export function serializeMessageChildComponentsArray(messageChildComponentsArray: MessageChildComponent[]): RawMessageChildComponent[] {
+	return messageChildComponentsArray.map(serializeMessageChildComponent);
 }
 
 /**
@@ -573,13 +577,32 @@ export function serializeSectionAccessory(sectionAccessory: SectionAccessory): R
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#section-section-child-components
+ */
+export function serializeSectionChildComponent(sectionChildComponent: SectionChildComponent): RawSectionChildComponent {
+	const { type } = sectionChildComponent;
+
+	switch (type) {
+		case ComponentType.TextDisplay:
+			return serializeTextDisplayComponent(sectionChildComponent);
+	}
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#section-section-child-components
+ */
+export function serializeSectionChildComponentsArray(sectionChildComponentsArray: SectionChildComponent[]): RawSectionChildComponent[] {
+	return sectionChildComponentsArray.map(serializeSectionChildComponent);
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#section-section-structure
  */
 export function serializeSectionComponent(sectionComponent: SectionComponent): RawSectionComponent {
 	const { accessory, components, id, type } = sectionComponent;
 	const rawSectionComponent: RawSectionComponent = {
 		accessory: serializeSectionAccessory(accessory),
-		components: serializeSectionComponentsArray(components),
+		components: serializeSectionChildComponentsArray(components),
 		type,
 	};
 
@@ -588,25 +611,6 @@ export function serializeSectionComponent(sectionComponent: SectionComponent): R
 	}
 
 	return rawSectionComponent;
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#section-section-child-components
- */
-export function serializeSectionComponents(sectionComponents: SectionComponents): RawSectionComponents {
-	const { type } = sectionComponents;
-
-	switch (type) {
-		case ComponentType.TextDisplay:
-			return serializeTextDisplayComponent(sectionComponents);
-	}
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#section-section-child-components
- */
-export function serializeSectionComponentsArray(sectionComponentsArray: SectionComponents[]): RawSectionComponents[] {
-	return sectionComponentsArray.map(serializeSectionComponents);
 }
 
 /**

@@ -1,45 +1,45 @@
 import { deserializePartialEmoji } from '#transformers/Emojis/Deserializer.js';
 import {
+	type ActionRowChildComponent,
 	type ActionRowComponent,
-	type ActionRowComponents,
 	type ButtonComponent,
 	ButtonStyle,
 	type ChannelSelectMenuComponent,
 	ComponentType,
+	type ContainerChildComponent,
 	type ContainerComponent,
-	type ContainerComponents,
 	type FileComponent,
 	type FileUploadComponent,
 	type InteractiveButtonComponent,
+	type LabelChildComponent,
 	type LabelComponent,
-	type LabelComponents,
 	type LinkButtonComponent,
 	type MediaGalleryComponent,
 	type MediaGalleryItem,
 	type MentionableSelectMenuComponent,
-	type MessageComponents,
+	type MessageChildComponent,
 	type PremiumButtonComponent,
+	type RawActionRowChildComponent,
 	type RawActionRowComponent,
-	type RawActionRowComponents,
 	type RawButtonComponent,
 	type RawChannelSelectMenuComponent,
+	type RawContainerChildComponent,
 	type RawContainerComponent,
-	type RawContainerComponents,
 	type RawFileComponent,
 	type RawFileUploadComponent,
 	type RawInteractiveButtonComponent,
+	type RawLabelChildComponent,
 	type RawLabelComponent,
-	type RawLabelComponents,
 	type RawLinkButtonComponent,
 	type RawMediaGalleryComponent,
 	type RawMediaGalleryItem,
 	type RawMentionableSelectMenuComponent,
-	type RawMessageComponents,
+	type RawMessageChildComponent,
 	type RawPremiumButtonComponent,
 	type RawRoleSelectMenuComponent,
 	type RawSectionAccessory,
+	type RawSectionChildComponent,
 	type RawSectionComponent,
-	type RawSectionComponents,
 	type RawSelectMenuComponent,
 	type RawSelectMenuDefaultValue,
 	type RawSeparatorComponent,
@@ -52,8 +52,8 @@ import {
 	type RawUserSelectMenuComponent,
 	type RoleSelectMenuComponent,
 	type SectionAccessory,
+	type SectionChildComponent,
 	type SectionComponent,
-	type SectionComponents,
 	type SelectMenuComponent,
 	type SelectMenuDefaultValue,
 	type SeparatorComponent,
@@ -68,12 +68,35 @@ import {
 import { isUndefined } from '#utils/helpers/AssertionUtils.js';
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#action-row-action-row-child-components
+ */
+export function deserializeActionRowChildComponent(rawActionRowChildComponent: RawActionRowChildComponent): ActionRowChildComponent {
+	const { type } = rawActionRowChildComponent;
+
+	switch (type) {
+		case ComponentType.Button:
+			return deserializeButtonComponent(rawActionRowChildComponent);
+		default:
+			return deserializeSelectMenuComponent(rawActionRowChildComponent);
+	}
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#action-row-action-row-child-components
+ */
+export function deserializeActionRowChildComponentsArray(
+	rawActionRowChildComponentsArray: RawActionRowChildComponent[],
+): ActionRowChildComponent[] {
+	return rawActionRowChildComponentsArray.map(deserializeActionRowChildComponent);
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-structure
  */
 export function deserializeActionRowComponent(rawActionRowComponent: RawActionRowComponent): ActionRowComponent {
 	const { components, id, type } = rawActionRowComponent;
 	const actionRowComponent: ActionRowComponent = {
-		components: deserializeActionRowComponentsArray(components),
+		components: deserializeActionRowChildComponentsArray(components),
 		type,
 	};
 
@@ -82,27 +105,6 @@ export function deserializeActionRowComponent(rawActionRowComponent: RawActionRo
 	}
 
 	return actionRowComponent;
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#action-row-action-row-child-components
- */
-export function deserializeActionRowComponents(rawActionRowComponents: RawActionRowComponents): ActionRowComponents {
-	const { type } = rawActionRowComponents;
-
-	switch (type) {
-		case ComponentType.Button:
-			return deserializeButtonComponent(rawActionRowComponents);
-		default:
-			return deserializeSelectMenuComponent(rawActionRowComponents);
-	}
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#action-row-action-row-child-components
- */
-export function deserializeActionRowComponentsArray(rawActionRowComponentsArray: RawActionRowComponents[]): ActionRowComponents[] {
-	return rawActionRowComponentsArray.map(deserializeActionRowComponents);
 }
 
 /**
@@ -170,12 +172,43 @@ export function deserializeChannelSelectMenuComponent(
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#container-container-child-components
+ */
+export function deserializeContainerChildComponent(rawContainerChildComponent: RawContainerChildComponent): ContainerChildComponent {
+	const { type } = rawContainerChildComponent;
+
+	switch (type) {
+		case ComponentType.ActionRow:
+			return deserializeActionRowComponent(rawContainerChildComponent);
+		case ComponentType.File:
+			return deserializeFileComponent(rawContainerChildComponent);
+		case ComponentType.MediaGallery:
+			return deserializeMediaGalleryComponent(rawContainerChildComponent);
+		case ComponentType.Section:
+			return deserializeSectionComponent(rawContainerChildComponent);
+		case ComponentType.Separator:
+			return deserializeSeparatorComponent(rawContainerChildComponent);
+		case ComponentType.TextDisplay:
+			return deserializeTextDisplayComponent(rawContainerChildComponent);
+	}
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#container-container-child-components
+ */
+export function deserializeContainerChildComponentsArray(
+	rawContainerChildComponentsArray: RawContainerChildComponent[],
+): ContainerChildComponent[] {
+	return rawContainerChildComponentsArray.map(deserializeContainerChildComponent);
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#container-container-structure
  */
 export function deserializeContainerComponent(rawContainerComponent: RawContainerComponent): ContainerComponent {
 	const { accent_color, components, id, spoiler, type } = rawContainerComponent;
 	const containerComponent: ContainerComponent = {
-		components: deserializeContainerComponentsArray(components),
+		components: deserializeContainerChildComponentsArray(components),
 		type,
 	};
 
@@ -192,35 +225,6 @@ export function deserializeContainerComponent(rawContainerComponent: RawContaine
 	}
 
 	return containerComponent;
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#container-container-child-components
- */
-export function deserializeContainerComponents(rawContainerComponents: RawContainerComponents): ContainerComponents {
-	const { type } = rawContainerComponents;
-
-	switch (type) {
-		case ComponentType.ActionRow:
-			return deserializeActionRowComponent(rawContainerComponents);
-		case ComponentType.File:
-			return deserializeFileComponent(rawContainerComponents);
-		case ComponentType.MediaGallery:
-			return deserializeMediaGalleryComponent(rawContainerComponents);
-		case ComponentType.Section:
-			return deserializeSectionComponent(rawContainerComponents);
-		case ComponentType.Separator:
-			return deserializeSeparatorComponent(rawContainerComponents);
-		case ComponentType.TextDisplay:
-			return deserializeTextDisplayComponent(rawContainerComponents);
-	}
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#container-container-child-components
- */
-export function deserializeContainerComponentsArray(rawContainerComponentsArray: RawContainerComponents[]): ContainerComponents[] {
-	return rawContainerComponentsArray.map(deserializeContainerComponents);
 }
 
 /**
@@ -314,12 +318,28 @@ export function deserializeInteractiveButtonComponent(
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#label-label-child-components
+ */
+export function deserializeLabelChildComponent(rawLabelChildComponent: RawLabelChildComponent): LabelChildComponent {
+	const { type } = rawLabelChildComponent;
+
+	switch (type) {
+		case ComponentType.FileUpload:
+			return deserializeFileUploadComponent(rawLabelChildComponent);
+		case ComponentType.TextInput:
+			return deserializeTextInputComponent(rawLabelChildComponent);
+		default:
+			return deserializeSelectMenuComponent(rawLabelChildComponent);
+	}
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#label-label-structure
  */
 export function deserializeLabelComponent(rawLabelComponent: RawLabelComponent): LabelComponent {
 	const { component, description, id, label, type } = rawLabelComponent;
 	const labelComponent: LabelComponent = {
-		component: deserializeLabelComponents(component),
+		component: deserializeLabelChildComponent(component),
 		label,
 		type,
 	};
@@ -333,22 +353,6 @@ export function deserializeLabelComponent(rawLabelComponent: RawLabelComponent):
 	}
 
 	return labelComponent;
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#label-label-child-components
- */
-export function deserializeLabelComponents(rawLabelComponents: RawLabelComponents): LabelComponents {
-	const { type } = rawLabelComponents;
-
-	switch (type) {
-		case ComponentType.FileUpload:
-			return deserializeFileUploadComponent(rawLabelComponents);
-		case ComponentType.TextInput:
-			return deserializeTextInputComponent(rawLabelComponents);
-		default:
-			return deserializeSelectMenuComponent(rawLabelComponents);
-	}
 }
 
 /**
@@ -472,32 +476,34 @@ export function deserializeMentionableSelectMenuComponent(
 /**
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export function deserializeMessageComponents(rawMessageComponents: RawMessageComponents): MessageComponents {
-	const { type } = rawMessageComponents;
+export function deserializeMessageChildComponent(rawMessageChildComponent: RawMessageChildComponent): MessageChildComponent {
+	const { type } = rawMessageChildComponent;
 
 	switch (type) {
 		case ComponentType.ActionRow:
-			return deserializeActionRowComponent(rawMessageComponents);
+			return deserializeActionRowComponent(rawMessageChildComponent);
 		case ComponentType.Container:
-			return deserializeContainerComponent(rawMessageComponents);
+			return deserializeContainerComponent(rawMessageChildComponent);
 		case ComponentType.File:
-			return deserializeFileComponent(rawMessageComponents);
+			return deserializeFileComponent(rawMessageChildComponent);
 		case ComponentType.MediaGallery:
-			return deserializeMediaGalleryComponent(rawMessageComponents);
+			return deserializeMediaGalleryComponent(rawMessageChildComponent);
 		case ComponentType.Section:
-			return deserializeSectionComponent(rawMessageComponents);
+			return deserializeSectionComponent(rawMessageChildComponent);
 		case ComponentType.Separator:
-			return deserializeSeparatorComponent(rawMessageComponents);
+			return deserializeSeparatorComponent(rawMessageChildComponent);
 		case ComponentType.TextDisplay:
-			return deserializeTextDisplayComponent(rawMessageComponents);
+			return deserializeTextDisplayComponent(rawMessageChildComponent);
 	}
 }
 
 /**
  * @see https://discord.com/developers/docs/components/reference#component-object-component-types
  */
-export function deserializeMessageComponentsArray(rawMessageComponentsArray: RawMessageComponents[]): MessageComponents[] {
-	return rawMessageComponentsArray.map(deserializeMessageComponents);
+export function deserializeMessageChildComponentsArray(
+	rawMessageChildComponentsArray: RawMessageChildComponent[],
+): MessageChildComponent[] {
+	return rawMessageChildComponentsArray.map(deserializeMessageChildComponent);
 }
 
 /**
@@ -578,13 +584,34 @@ export function deserializeSectionAccessory(rawSectionAccessory: RawSectionAcces
 }
 
 /**
+ * @see https://discord.com/developers/docs/components/reference#section-section-child-components
+ */
+export function deserializeSectionChildComponent(rawSectionChildComponent: RawSectionChildComponent): SectionChildComponent {
+	const { type } = rawSectionChildComponent;
+
+	switch (type) {
+		case ComponentType.TextDisplay:
+			return deserializeTextDisplayComponent(rawSectionChildComponent);
+	}
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#section-section-child-components
+ */
+export function deserializeSectionChildComponentsArray(
+	rawSectionChildComponentsArray: RawSectionChildComponent[],
+): SectionChildComponent[] {
+	return rawSectionChildComponentsArray.map(deserializeSectionChildComponent);
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#section-section-structure
  */
 export function deserializeSectionComponent(rawSectionComponent: RawSectionComponent): SectionComponent {
 	const { accessory, components, id, type } = rawSectionComponent;
 	const sectionComponent: SectionComponent = {
 		accessory: deserializeSectionAccessory(accessory),
-		components: deserializeSectionComponentsArray(components),
+		components: deserializeSectionChildComponentsArray(components),
 		type,
 	};
 
@@ -593,25 +620,6 @@ export function deserializeSectionComponent(rawSectionComponent: RawSectionCompo
 	}
 
 	return sectionComponent;
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#section-section-child-components
- */
-export function deserializeSectionComponents(rawSectionComponents: RawSectionComponents): SectionComponents {
-	const { type } = rawSectionComponents;
-
-	switch (type) {
-		case ComponentType.TextDisplay:
-			return deserializeTextDisplayComponent(rawSectionComponents);
-	}
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#section-section-child-components
- */
-export function deserializeSectionComponentsArray(rawSectionComponentsArray: RawSectionComponents[]): SectionComponents[] {
-	return rawSectionComponentsArray.map(deserializeSectionComponents);
 }
 
 /**
@@ -654,6 +662,30 @@ export function deserializeSelectMenuDefaultValuesArray(
 	rawSelectMenuDefaultValuesArray: RawSelectMenuDefaultValue[],
 ): SelectMenuDefaultValue[] {
 	return rawSelectMenuDefaultValuesArray.map(deserializeSelectMenuDefaultValue);
+}
+
+/**
+ * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
+ */
+export function deserializeSeparatorComponent(rawSeparatorComponent: RawSeparatorComponent): SeparatorComponent {
+	const { divider, id, spacing, type } = rawSeparatorComponent;
+	const separatorComponent: SeparatorComponent = {
+		type,
+	};
+
+	if (!isUndefined(divider)) {
+		separatorComponent.divider = divider;
+	}
+
+	if (!isUndefined(id)) {
+		separatorComponent.id = id;
+	}
+
+	if (!isUndefined(spacing)) {
+		separatorComponent.spacing = spacing;
+	}
+
+	return separatorComponent;
 }
 
 /**
@@ -728,30 +760,6 @@ export function deserializeStringSelectMenuOptionsArray(
 	rawStringSelectMenuOptionsArray: RawStringSelectMenuOption[],
 ): StringSelectMenuOption[] {
 	return rawStringSelectMenuOptionsArray.map(deserializeStringSelectMenuOption);
-}
-
-/**
- * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
- */
-export function deserializeSeparatorComponent(rawSeparatorComponent: RawSeparatorComponent): SeparatorComponent {
-	const { divider, id, spacing, type } = rawSeparatorComponent;
-	const separatorComponent: SeparatorComponent = {
-		type,
-	};
-
-	if (!isUndefined(divider)) {
-		separatorComponent.divider = divider;
-	}
-
-	if (!isUndefined(id)) {
-		separatorComponent.id = id;
-	}
-
-	if (!isUndefined(spacing)) {
-		separatorComponent.spacing = spacing;
-	}
-
-	return separatorComponent;
 }
 
 /**

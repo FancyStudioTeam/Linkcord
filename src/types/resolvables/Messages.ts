@@ -1,15 +1,26 @@
 import type { File } from '#rest/index.js';
 import type { Message } from '#structures/Message.js';
 import type { Snowflake } from '#types/miscellaneous/discord.js';
-import type { Embed, MessageComponents, MessageFlags, MessagePoll } from '#types/resources/index.js';
+import type { Embed, MessageFlags, MessagePoll } from '#types/resources/index.js';
 import type { BitField } from '#utils/index.js';
-import type { ContainerComponentResolvable, SeparatorComponentResolvable, TextDisplayComponentResolvable } from './Components.js';
+import type {
+	ActionRowComponentResolvable,
+	ContainerComponentResolvable,
+	FileComponentResolvable,
+	MediaGalleryComponentResolvable,
+	SectionComponentResolvable,
+	SeparatorComponentResolvable,
+	TextDisplayComponentResolvable,
+} from './Components.js';
 
 export type BulkMessageResolvable = Message | Snowflake;
 
 export type MessageComponentResolvable =
-	| MessageComponents
+	| ActionRowComponentResolvable
 	| ContainerComponentResolvable
+	| FileComponentResolvable
+	| MediaGalleryComponentResolvable
+	| SectionComponentResolvable
 	| SeparatorComponentResolvable
 	| TextDisplayComponentResolvable;
 export type MessageEmbedResolvable = Embed;

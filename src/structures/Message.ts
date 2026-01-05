@@ -1,12 +1,12 @@
 import type { Client } from '#client/index.js';
-import { deserializeMessageComponentsArray } from '#transformers/Components/Deserializer.js';
+import { deserializeMessageChildComponentsArray } from '#transformers/Components/Deserializer.js';
 import { deserializeEmbedsArray, deserializeMessageActivity, deserializeMessageCall } from '#transformers/Messages/Deserializer.js';
 import type {
 	Embed,
 	GatewayDispatchMessageCreateEventPayload,
 	MessageActivity,
 	MessageCall,
-	MessageComponents,
+	MessageChildComponent,
 	MessageType,
 	RawMessage,
 	Snowflake,
@@ -47,7 +47,7 @@ export class Message<InGuild extends boolean = boolean> extends Base {
 	/** The call associated with the message. */
 	call: MessageCall | null = null;
 	/** The components of the message. */
-	components: MessageComponents[];
+	components: MessageChildComponent[];
 	/** The content of the message. */
 	content: string;
 	/** The timestamp at which the message was edited, if any. */
@@ -85,7 +85,7 @@ export class Message<InGuild extends boolean = boolean> extends Base {
 		this.applicationId = application_id ?? null;
 		this.author = new User(client, author);
 		this.channelId = channel_id;
-		this.components = deserializeMessageComponentsArray(components);
+		this.components = deserializeMessageChildComponentsArray(components);
 		this.content = content;
 		this.embeds = deserializeEmbedsArray(embeds);
 		this.flags = new BitField(flags);
@@ -143,7 +143,7 @@ export class Message<InGuild extends boolean = boolean> extends Base {
 		}
 
 		if (!isUndefined(components)) {
-			this.components = deserializeMessageComponentsArray(components);
+			this.components = deserializeMessageChildComponentsArray(components);
 		}
 
 		if (!isUndefined(content)) {

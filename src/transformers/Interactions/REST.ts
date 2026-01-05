@@ -1,4 +1,4 @@
-import { normalizeMessageComponentsArray, normalizeMessageFlags } from '#transformers/Messages/Normalizer.js';
+import { normalizeMessageComponentsResolvableArray, normalizeMessageFlagsResolvable } from '#transformers/Messages/Normalizer.js';
 import { serializeEmbedsArray } from '#transformers/Messages/Serializer.js';
 import {
 	type CreateInteractionResponseOptions,
@@ -36,7 +36,7 @@ export function serializeCreateMessageInteractionResponseOptions(
 	};
 
 	if (!isUndefined(components)) {
-		rawCreateMessageInteractionResponseOptions.data.components = normalizeMessageComponentsArray(components);
+		rawCreateMessageInteractionResponseOptions.data.components = normalizeMessageComponentsResolvableArray(components);
 	}
 
 	if (!isUndefined(content)) {
@@ -48,7 +48,7 @@ export function serializeCreateMessageInteractionResponseOptions(
 	}
 
 	if (!isUndefined(flags)) {
-		rawCreateMessageInteractionResponseOptions.data.flags = normalizeMessageFlags(flags);
+		rawCreateMessageInteractionResponseOptions.data.flags = normalizeMessageFlagsResolvable(flags);
 	}
 
 	if (!isUndefined(tts)) {

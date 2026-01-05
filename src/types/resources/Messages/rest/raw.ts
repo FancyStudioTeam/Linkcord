@@ -1,5 +1,5 @@
 import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
-import type { RawMessageComponents } from '#types/resources/Components/index.js';
+import type { RawMessageChildComponent } from '#types/resources/Components/index.js';
 import type { RawMessagePoll } from '#types/resources/Polls/index.js';
 import type { MessageFlags, ReactionType } from '../enums.js';
 import type { RawAllowedMentions, RawEmbed, RawMessageReference, RawPartialAttachment } from '../structures/raw.js';
@@ -17,7 +17,7 @@ export interface RawBulkDeleteMessagesOptions {
 export interface RawCreateMessageOptions {
 	allowed_mentions?: RawAllowedMentions;
 	attachments?: RawPartialAttachment[];
-	components?: RawMessageComponents[];
+	components?: RawMessageChildComponent[];
 	content?: string;
 	embeds?: RawEmbed[];
 	enforce_nonce?: boolean;
@@ -35,7 +35,7 @@ export interface RawCreateMessageOptions {
 export interface RawEditMessageOptions {
 	allowed_mentions?: RawAllowedMentions | null;
 	attachments?: RawPartialAttachment[] | null;
-	components?: RawMessageComponents[] | null;
+	components?: RawMessageChildComponent[] | null;
 	content?: string | null;
 	embeds?: RawEmbed[] | null;
 	flags?: MessageFlags | null;

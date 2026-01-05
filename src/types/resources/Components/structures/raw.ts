@@ -8,7 +8,7 @@ import type { ButtonStyle, ComponentType, SelectMenuDefaultValueType, SeparatorS
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-structure
  */
 export interface RawActionRowComponent extends RawComponentBase<ComponentType.ActionRow> {
-	components: RawActionRowComponents[];
+	components: RawActionRowChildComponent[];
 }
 
 /**
@@ -56,7 +56,7 @@ export interface RawComponentInteractionResponseBase<Type extends ComponentType>
  */
 export interface RawContainerComponent extends RawComponentBase<ComponentType.Container> {
 	accent_color?: number;
-	components: RawContainerComponents[];
+	components: RawContainerChildComponent[];
 	spoiler?: boolean;
 }
 
@@ -100,7 +100,7 @@ export interface RawInteractiveButtonComponentBase<Type extends RawInteractiveBu
  * @see https://discord.com/developers/docs/components/reference#label-label-structure
  */
 export interface RawLabelComponent extends RawComponentBase<ComponentType.Label> {
-	component: RawLabelComponents;
+	component: RawLabelChildComponent;
 	description?: string;
 	label: string;
 }
@@ -166,7 +166,7 @@ export interface RawRoleSelectInteractionResponse extends RawComponentInteractio
  */
 export interface RawSectionComponent extends RawComponentBase<ComponentType.Section> {
 	accessory: RawSectionAccessory;
-	components: RawSectionComponents[];
+	components: RawSectionChildComponent[];
 }
 
 /**
@@ -292,7 +292,7 @@ export interface RawUserSelectInteractionResponse extends RawComponentInteractio
 /**
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-child-components
  */
-export type RawActionRowComponents = RawButtonComponent | RawSelectMenuComponent;
+export type RawActionRowChildComponent = RawButtonComponent | RawSelectMenuComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
@@ -302,7 +302,7 @@ export type RawButtonComponent = RawInteractiveButtonComponent | RawLinkButtonCo
 /**
  * @see https://discord.com/developers/docs/components/reference#container-container-child-components
  */
-export type RawContainerComponents =
+export type RawContainerChildComponent =
 	| RawActionRowComponent
 	| RawFileComponent
 	| RawMediaGalleryComponent
@@ -332,7 +332,7 @@ export type RawInteractiveButtonComponentStyle = Exclude<RawTextableButtonCompon
 /**
  * @see https://discord.com/developers/docs/components/reference#label-label-child-components
  */
-export type RawLabelComponents = RawFileUploadComponent | RawSelectMenuComponent | RawTextInputComponent;
+export type RawLabelChildComponent = RawFileUploadComponent | RawSelectMenuComponent | RawTextInputComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#mentionable-select-mentionable-select-structure
@@ -342,7 +342,7 @@ export type RawMentionableSelectMenuComponent = RawResolvableSelectMenuComponent
 /**
  * @see https://discord.com/developers/docs/components/component-object#component-object-component-types
  */
-export type RawMessageComponents =
+export type RawMessageChildComponent =
 	| RawActionRowComponent
 	| RawContainerComponent
 	| RawFileComponent
@@ -354,7 +354,7 @@ export type RawMessageComponents =
 /**
  * @see https://discord.com/developers/docs/components/component-object#component-object-component-types
  */
-export type RawModalComponents = RawLabelComponent | RawTextDisplayComponent;
+export type RawModalChildComponent = RawLabelComponent | RawTextDisplayComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
@@ -393,7 +393,7 @@ export type RawSectionAccessory = RawButtonComponent | RawThumbnailComponent;
 /**
  * @see https://discord.com/developers/docs/components/reference#section-section-child-components
  */
-export type RawSectionComponents = RawTextDisplayComponent;
+export type RawSectionChildComponent = RawTextDisplayComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure

@@ -1,5 +1,9 @@
 import type { CreateMessageOptions, RawCreateMessageOptions } from '#types/index.js';
-import { normalizeMessageComponentsArray, normalizeMessageFlags, normalizeMessageStickersArray } from './Normalizer.js';
+import {
+	normalizeMessageComponentsResolvableArray,
+	normalizeMessageFlagsResolvable,
+	normalizeMessageStickersResolvableArray,
+} from './Normalizer.js';
 import { serializeEmbedsArray } from './Serializer.js';
 
 /**
@@ -10,7 +14,7 @@ export function serializeCreateMessageOptions(createMessageOptions: CreateMessag
 	const rawCreateMessageOptions: RawCreateMessageOptions = {};
 
 	if (components) {
-		rawCreateMessageOptions.components = normalizeMessageComponentsArray(components);
+		rawCreateMessageOptions.components = normalizeMessageComponentsResolvableArray(components);
 	}
 
 	if (content) {
@@ -26,7 +30,7 @@ export function serializeCreateMessageOptions(createMessageOptions: CreateMessag
 	}
 
 	if (flags) {
-		rawCreateMessageOptions.flags = normalizeMessageFlags(flags);
+		rawCreateMessageOptions.flags = normalizeMessageFlagsResolvable(flags);
 	}
 
 	if (nonce) {
@@ -34,7 +38,7 @@ export function serializeCreateMessageOptions(createMessageOptions: CreateMessag
 	}
 
 	if (stickers) {
-		rawCreateMessageOptions.sticker_ids = normalizeMessageStickersArray(stickers);
+		rawCreateMessageOptions.sticker_ids = normalizeMessageStickersResolvableArray(stickers);
 	}
 
 	if (tts) {

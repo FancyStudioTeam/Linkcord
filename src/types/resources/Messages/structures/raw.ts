@@ -1,6 +1,6 @@
 import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
 import type { ChannelType } from '#types/resources/Channels/enums.js';
-import type { RawMessageComponents } from '#types/resources/Components/index.js';
+import type { RawMessageChildComponent } from '#types/resources/Components/index.js';
 import type { RawPartialEmoji } from '#types/resources/Emojis/index.js';
 import type { InteractionType } from '#types/resources/Interactions/enums.js';
 import type { RawAuthorizingIntegrationOwners, RawInteractionResolvedData } from '#types/resources/Interactions/index.js';
@@ -161,7 +161,7 @@ export interface RawMessage {
 	author: RawUser;
 	call?: RawMessageCall;
 	channel_id: Snowflake;
-	components: RawMessageComponents[];
+	components: RawMessageChildComponent[];
 	content: string;
 	edited_timestamp: ISO8601Date | null;
 	embeds: RawEmbed[];

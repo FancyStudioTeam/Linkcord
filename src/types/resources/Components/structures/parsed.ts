@@ -7,7 +7,7 @@ import type { ButtonStyle, ComponentType, SelectMenuDefaultValueType, SeparatorS
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-structure
  */
 export interface ActionRowComponent extends ComponentBase<ComponentType.ActionRow> {
-	components: ActionRowComponents[];
+	components: ActionRowChildComponent[];
 }
 
 /**
@@ -38,7 +38,7 @@ export interface ComponentBase<Type extends ComponentType> {
  */
 export interface ContainerComponent extends ComponentBase<ComponentType.Container> {
 	accentColor?: number;
-	components: ContainerComponents[];
+	components: ContainerChildComponent[];
 	spoiler?: boolean;
 }
 
@@ -73,7 +73,7 @@ export interface InteractiveButtonComponentBase<Type extends InteractiveButtonCo
  * @see https://discord.com/developers/docs/components/reference#label-label-structure
  */
 export interface LabelComponent extends ComponentBase<ComponentType.Label> {
-	component: LabelComponents;
+	component: LabelChildComponent;
 	description?: string;
 	label: string;
 }
@@ -120,7 +120,7 @@ export interface ResolvableSelectMenuComponentBase<Type extends ResolvableSelect
  */
 export interface SectionComponent extends ComponentBase<ComponentType.Section> {
 	accessory: SectionAccessory;
-	components: SectionComponents[];
+	components: SectionChildComponent[];
 }
 
 /**
@@ -221,7 +221,7 @@ export interface UnfurledMediaItem {
 /**
  * @see https://discord.com/developers/docs/components/reference#action-row-action-row-structure
  */
-export type ActionRowComponents = ButtonComponent | SelectMenuComponent;
+export type ActionRowChildComponent = ButtonComponent | SelectMenuComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
@@ -231,7 +231,7 @@ export type ButtonComponent = InteractiveButtonComponent | LinkButtonComponent |
 /**
  * @see https://discord.com/developers/docs/components/reference#container-container-child-components
  */
-export type ContainerComponents =
+export type ContainerChildComponent =
 	| ActionRowComponent
 	| FileComponent
 	| MediaGalleryComponent
@@ -257,7 +257,7 @@ export type InteractiveButtonComponentStyle = Exclude<TextableButtonComponentSty
 /**
  * @see https://discord.com/developers/docs/components/reference#label-label-child-components
  */
-export type LabelComponents = FileUploadComponent | SelectMenuComponent | TextInputComponent;
+export type LabelChildComponent = FileUploadComponent | SelectMenuComponent | TextInputComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#mentionable-select-mentionable-select-structure
@@ -267,7 +267,7 @@ export type MentionableSelectMenuComponent = ResolvableSelectMenuComponentBase<C
 /**
  * @see https://discord.com/developers/docs/components/component-object#component-object-component-types
  */
-export type MessageComponents =
+export type MessageChildComponent =
 	| ActionRowComponent
 	| ContainerComponent
 	| FileComponent
@@ -279,7 +279,7 @@ export type MessageComponents =
 /**
  * @see https://discord.com/developers/docs/components/component-object#component-object-component-types
  */
-export type ModalComponents = LabelComponent | TextDisplayComponent;
+export type ModalChildComponent = LabelComponent | TextDisplayComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#button-button-structure
@@ -318,7 +318,7 @@ export type SectionAccessory = ButtonComponent | ThumbnailComponent;
 /**
  * @see https://discord.com/developers/docs/components/reference#section-section-child-components
  */
-export type SectionComponents = TextDisplayComponent;
+export type SectionChildComponent = TextDisplayComponent;
 
 /**
  * @see https://discord.com/developers/docs/components/reference#string-select-string-select-structure
