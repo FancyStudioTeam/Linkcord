@@ -15,6 +15,7 @@ const ZOD_ISSUE_HANDLERS_MAP: ZodIssueHandlersMap = {
 	too_small: handleZodTooSmallIssue,
 };
 const ZOD_ISSUE_INVALID_STRING_FORMAT_STRINGS_MAP: ZodIssueInvalidStringFormatStringsMap = {
+	hex: () => 'Expected input to be a hex color',
 	url: () => 'Expected input to be an URL',
 };
 const ZOD_ISSUE_TOO_BIG_STRINGS_MAP: ZodIssueTooBigStringsMap = {
@@ -77,7 +78,7 @@ function handleZodInvalidFormatIssue(issue: core.$ZodIssueInvalidStringFormat): 
 	const message = ZOD_ISSUE_INVALID_STRING_FORMAT_STRINGS_MAP[format];
 
 	if (!message) {
-		throw new Error(`Unhandled Zod issue format '${origin}'`);
+		throw new Error(`Unhandled Zod issue format '${format}'`);
 	}
 
 	return {
