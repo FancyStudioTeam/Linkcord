@@ -1,9 +1,8 @@
 import { BuilderBase } from '#builders/base/BuilderBase.js';
 import { ContainerAccentColorSchema, ContainerComponentSchema, ContainerSchema } from '#builders/schemas/v2/ContainerSchema.js';
-import { ComponentType, type ContainerComponent } from '#types/index.js';
+import { ComponentType, type ContainerComponent, type ContainerComponentsResolvable } from '#types/index.js';
 import { validate } from '#utils/functions/validate.js';
 import { isInstanceOf } from '#utils/helpers/AssertionUtils.js';
-import type { ContainerComponentsResolvable } from './ContainerBuilder.types.js';
 
 /**
  * @see https://discord.com/developers/docs/components/reference#container-container-structure

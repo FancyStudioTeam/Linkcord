@@ -1,6 +1,5 @@
-import { serializeMessageComponentsArray } from '#transformers/Components/Serializer.js';
 import type { CreateMessageOptions, RawCreateMessageOptions } from '#types/index.js';
-import { normalizeMessageFlags, normalizeMessageStickersArray } from './Normalizer.js';
+import { normalizeMessageComponentsArray, normalizeMessageFlags, normalizeMessageStickersArray } from './Normalizer.js';
 import { serializeEmbedsArray } from './Serializer.js';
 
 /**
@@ -11,7 +10,7 @@ export function serializeCreateMessageOptions(createMessageOptions: CreateMessag
 	const rawCreateMessageOptions: RawCreateMessageOptions = {};
 
 	if (components) {
-		rawCreateMessageOptions.components = serializeMessageComponentsArray(components);
+		rawCreateMessageOptions.components = normalizeMessageComponentsArray(components);
 	}
 
 	if (content) {
