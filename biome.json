@@ -122,5 +122,6 @@
 				"useAwait": "error"
 			}
 		}
-	}
+	},
+	"root": true
 }
