@@ -15,13 +15,9 @@ export const ContainerComponentsSchema = array(ContainerComponentSchema).min(1);
 export const ContainerIdSchema = IdSchema;
 export const ContainerTypeSchema = literal(ComponentType.Container);
 
-export const ContainerObjectSchema = object({
+export const ContainerSchema = object({
 	accentColor: ContainerAccentColorSchema.optional(),
 	components: ContainerComponentsSchema,
 	id: ContainerIdSchema.optional(),
 	type: ContainerTypeSchema,
 });
-
-export const ContainerSchema = union([
-	ContainerObjectSchema,
-]);

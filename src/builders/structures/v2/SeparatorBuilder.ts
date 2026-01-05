@@ -1,5 +1,5 @@
 import { BuilderBase } from '#builders/base/BuilderBase.js';
-import { SeparatorDividerSchema, SeparatorObjectSchema, SeparatorSpacingSchema } from '#builders/schemas/v2/SeparatorSchema.js';
+import { SeparatorDividerSchema, SeparatorSchema, SeparatorSpacingSchema } from '#builders/schemas/v2/SeparatorSchema.js';
 import { ComponentType, type SeparatorComponent, type SeparatorSpacingSize } from '#types/index.js';
 import { validate } from '#utils/functions/validate.js';
 
@@ -37,7 +37,7 @@ export class SeparatorBuilder extends BuilderBase<SeparatorComponent> {
 	 */
 	toJSON(): SeparatorComponent {
 		const { data } = this;
-		const validatedData = validate(SeparatorObjectSchema, {
+		const validatedData = validate(SeparatorSchema, {
 			...data,
 			type: ComponentType.Separator,
 		});

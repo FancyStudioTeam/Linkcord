@@ -1,5 +1,5 @@
 import { BuilderBase } from '#builders/base/BuilderBase.js';
-import { ContainerAccentColorSchema, ContainerComponentSchema, ContainerObjectSchema } from '#builders/schemas/v2/ContainerSchema.js';
+import { ContainerAccentColorSchema, ContainerComponentSchema, ContainerSchema } from '#builders/schemas/v2/ContainerSchema.js';
 import { ComponentType, type ContainerComponent } from '#types/index.js';
 import { validate } from '#utils/functions/validate.js';
 import { isInstanceOf } from '#utils/helpers/AssertionUtils.js';
@@ -60,7 +60,7 @@ export class ContainerBuilder extends BuilderBase<ContainerComponent> {
 	 */
 	toJSON(): ContainerComponent {
 		const { data } = this;
-		const validatedData = validate(ContainerObjectSchema, {
+		const validatedData = validate(ContainerSchema, {
 			...data,
 			type: ComponentType.Container,
 		});

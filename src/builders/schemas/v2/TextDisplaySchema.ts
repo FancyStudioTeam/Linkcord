@@ -1,4 +1,4 @@
-import { literal, object, string, union } from 'zod';
+import { literal, object, string } from 'zod';
 import { ComponentType } from '#types/index.js';
 import { IdSchema } from '../shared/IdSchema.js';
 
@@ -8,12 +8,8 @@ export const TextDisplayContentSchema = string().min(1).max(MAXIMUM_TEXT_DISPLAY
 export const TextDisplayIdSchema = IdSchema;
 export const TextDisplayTypeSchema = literal(ComponentType.TextDisplay);
 
-export const TextDisplayObjectSchema = object({
+export const TextDisplaySchema = object({
 	content: TextDisplayContentSchema,
 	id: TextDisplayIdSchema.optional(),
 	type: TextDisplayTypeSchema,
 });
-
-export const TextDisplaySchema = union([
-	TextDisplayObjectSchema,
-]);

@@ -1,5 +1,5 @@
 import { BuilderBase } from '#builders/base/BuilderBase.js';
-import { TextDisplayContentSchema, TextDisplayObjectSchema } from '#builders/schemas/v2/TextDisplaySchema.js';
+import { TextDisplayContentSchema, TextDisplaySchema } from '#builders/schemas/v2/TextDisplaySchema.js';
 import { ComponentType, type TextDisplayComponent } from '#types/index.js';
 import { validate } from '#utils/functions/validate.js';
 
@@ -26,7 +26,7 @@ export class TextDisplayBuilder extends BuilderBase<TextDisplayComponent> {
 	 */
 	toJSON(): TextDisplayComponent {
 		const { data } = this;
-		const validatedData = validate(TextDisplayObjectSchema, {
+		const validatedData = validate(TextDisplaySchema, {
 			...data,
 			type: ComponentType.TextDisplay,
 		});
