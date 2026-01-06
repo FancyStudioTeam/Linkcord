@@ -2,11 +2,7 @@ import { join } from 'node:path';
 import { cwd } from 'node:process';
 import { EnsureInitialized } from '#client/decorators/EnsureInitialized.js';
 import { ClientError } from '#client/errors/ClientError.js';
-import {
-	getConfigurationOptions,
-	initializeConfigurationOptions,
-	isConfigurationInitialized,
-} from '#configuration/helpers/ConfigurationUtils.js';
+import { ConfigurationUtils } from '#configuration/helpers/ConfigurationUtils.js';
 import { CLIENT_ALREADY_INITIALIZED, CLIENT_NOT_INITIALIZED } from '#errors/messages.js';
 import { CommandLoader } from '#handlers/commands/loaders/CommandLoader.js';
 import { EventLoader } from '#handlers/events/loaders/EventLoader.js';
@@ -46,7 +42,7 @@ export class ClientBase {
 	 */
 	@EnsureInitialized()
 	get intents(): number {
-		return getConfigurationOptions().intents;
+		return ConfigurationUtils.getIntents();
 	}
 
 	/**
@@ -59,7 +55,7 @@ export class ClientBase {
 	 */
 	@EnsureInitialized()
 	get token(): string {
-		return getConfigurationOptions().token;
+		return ConfigurationUtils.getToken();
 	}
 
 	#createDirectoryPath(root: string, directoryName: string): string {
@@ -85,20 +81,19 @@ export class ClientBase {
 	}
 
 	protected checkIsInitialized(): void {
-		if (!isConfigurationInitialized()) {
+		if (!ConfigurationUtils.isConfigurationInitialized()) {
 			throw new ClientError(CLIENT_NOT_INITIALIZED());
 		}
 	}
 
 	protected async init(client: Client): Promise<void> {
-		if (isConfigurationInitialized()) {
+		if (ConfigurationUtils.isConfigurationInitialized()) {
 			throw new ClientError(CLIENT_ALREADY_INITIALIZED());
 		}
 
-		await initializeConfigurationOptions();
+		await ConfigurationUtils.initializeConfigurationOptions();
 
-		const { locations } = getConfigurationOptions();
-		const { commands, events, root } = locations;
+		const { commands, events, root } = ConfigurationUtils.getLocations();
 
 		await Promise.all([
 			this.#prepareCommands(root, commands, client),
