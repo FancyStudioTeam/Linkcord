@@ -4,6 +4,20 @@
  * not conventional camel case functions.
  */
 
+import type { Snowflake } from '#types/index.js';
+
+export function APPLICATION_USER_NOT_CACHED(applicationId: Snowflake) {
+	return `Application user '${applicationId}' is not cached` as const;
+}
+
+export function CLIENT_ALREADY_INITIALIZED() {
+	return 'The client has already been initialized' as const;
+}
+
+export function CLIENT_NOT_INITIALIZED() {
+	return 'The client has not been initialized yet.' as const;
+}
+
 export function INTERACTION_ALREADY_ACKNOWLEDGED() {
-	return 'This interaction has already been acknowledged';
+	return 'This interaction has already been acknowledged' as const;
 }
