@@ -1,7 +1,7 @@
-import type { ISO8601Date, Snowflake } from '#types/miscellaneous/discord.js';
+import type { Snowflake } from '#types/miscellaneous/discord.js';
 import type { RawMessageChildComponent } from '#types/resources/Components/index.js';
 import type { RawMessagePoll } from '#types/resources/Polls/index.js';
-import type { MessageFlags, ReactionType } from '../enums.js';
+import type { MessageFlags } from '../enums.js';
 import type { RawAllowedMentions, RawEmbed, RawMessageReference, RawPartialAttachment } from '../structures/raw.js';
 
 /**
@@ -39,31 +39,4 @@ export interface RawEditMessageOptions {
 	content?: string | null;
 	embeds?: RawEmbed[] | null;
 	flags?: MessageFlags | null;
-}
-
-/**
- * @see https://discord.com/developers/docs/resources/message#get-channel-messages-query-string-params
- */
-export interface RawGetChannelMessagesQueryStringParams {
-	after?: Snowflake;
-	around?: Snowflake;
-	before?: Snowflake;
-	limit?: number;
-}
-
-/**
- * @see https://discord.com/developers/docs/resources/message#get-channel-pins-query-string-params
- */
-export interface RawGetChannelPinsQueryStringParams {
-	before?: ISO8601Date;
-	limit?: number;
-}
-
-/**
- * @see https://discord.com/developers/docs/resources/message#get-reactions-query-string-params
- */
-export interface RawGetMessageReactionsQueryStringParams {
-	after?: Snowflake;
-	limit?: number;
-	type?: ReactionType;
 }

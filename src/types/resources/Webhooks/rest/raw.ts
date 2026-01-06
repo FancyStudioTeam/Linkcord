@@ -12,13 +12,6 @@ export interface RawCreateWebhookOptions {
 }
 
 /**
- * @see https://discord.com/developers/docs/resources/webhook#delete-webhook-message-query-string-params
- */
-export interface RawDeleteWebhookMessageQueryStringParams {
-	thread_id: Snowflake;
-}
-
-/**
  * @see https://discord.com/developers/docs/resources/webhook#edit-webhook-message-jsonform-params
  */
 export interface RawEditWebhookMessageOptions {
@@ -41,14 +34,6 @@ export interface RawEditWebhookOptions {
 }
 
 /**
- * @see https://discord.com/developers/docs/resources/webhook#edit-webhook-message-query-string-params
- */
-export interface RawEditWebhookQueryStringParams {
-	thread_id?: Snowflake;
-	with_components: boolean;
-}
-
-/**
  * @see https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params
  */
 export interface RawExecuteWebhookOptions {
@@ -64,20 +49,4 @@ export interface RawExecuteWebhookOptions {
 	thread_name?: string;
 	tts?: boolean;
 	username?: string;
-}
-
-/**
- * @see https://discord.com/developers/docs/resources/webhook#execute-webhook-query-string-params
- */
-export interface RawExecuteWebhookQueryStringParams {
-	thread_id?: Snowflake;
-	wait?: boolean;
-	with_components?: boolean;
-}
-
-/**
- * @see https://discord.com/developers/docs/resources/webhook#get-webhook-message-query-string-params
- */
-export interface RawGetWebhookMessageQueryStringParams {
-	thread_id?: Snowflake;
 }

@@ -71,6 +71,6 @@ export interface ExecuteWebhookOptions {
 /**
  * @see https://discord.com/developers/docs/resources/webhook#get-webhook-message-query-string-params
  */
-export interface GetWebhookMessageQueryStringParams {
+export interface GetWebhookMessageOptions {
 	thread?: WebhookThreadResolvable;
 }
