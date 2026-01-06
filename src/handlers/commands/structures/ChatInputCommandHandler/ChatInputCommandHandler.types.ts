@@ -5,8 +5,8 @@ import type { CreateChatInputApplicationCommand } from '#types/index.js';
 import type { NonAbstractConstructor } from '#utils/index.js';
 import type { ChatInputCommandHandler } from './ChatInputCommandHandler.js';
 
-export interface ChatInputCommandHandlerRunOptions<
-	Data extends ChatInputCommandHandlerRunData = {
+export interface ChatInputCommandContext<
+	Data extends ChatInputCommandContextData = {
 		options: never;
 	},
 > {
@@ -16,7 +16,7 @@ export interface ChatInputCommandHandlerRunOptions<
 	interaction: ChatInputApplicationCommandInteraction;
 }
 
-export interface ChatInputCommandHandlerRunData {
+export interface ChatInputCommandContextData {
 	options?: unknown;
 }
 

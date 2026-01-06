@@ -1,8 +1,21 @@
-import type { ChatInputCommandHandlerConstructor, ChatInputCommandHandlerDeclareOptions } from '#handlers/commands/index.js';
+import type {
+	ChatInputCommandHandlerConstructor,
+	ChatInputCommandHandlerDeclareOptions,
+	MessageCommandHandlerConstructor,
+	MessageCommandHandlerDeclareOptions,
+	UserCommandHandlerConstructor,
+} from '#handlers/commands/index.js';
 
-export type DeclarableCommandConstructor = ChatInputCommandHandlerConstructor;
+export type DeclarableCommandConstructor =
+	| ChatInputCommandHandlerConstructor
+	| MessageCommandHandlerConstructor
+	| UserCommandHandlerConstructor;
 export type DeclarableConstructor = DeclarableCommandConstructor;
 
 export type DeclareOptions<Target extends DeclarableConstructor> = Target extends ChatInputCommandHandlerConstructor
 	? ChatInputCommandHandlerDeclareOptions
-	: never;
+	: Target extends MessageCommandHandlerConstructor
+		? MessageCommandHandlerDeclareOptions
+		: Target extends UserCommandHandlerConstructor
+			? UserCommandHandlerConstructor
+			: never;
