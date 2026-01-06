@@ -136,10 +136,17 @@ export interface RawStringApplicationCommandOption extends RawApplicationCommand
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export interface RawSubCommandApplicationCommandOptionBase<
-	Type extends ApplicationCommandOptionType.SubCommand | ApplicationCommandOptionType.SubCommandGroup,
-> extends Omit<RawApplicationCommandOptionBase<Type>, 'required'> {
-	options?: RawApplicationCommandOption[];
+export interface RawSubCommandApplicationCommandOption
+	extends Omit<RawApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommand>, 'required'> {
+	options?: RawApplicationCommandOptionWithValue[];
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export interface RawSubCommandGroupApplicationCommandOption
+	extends Omit<RawApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommand>, 'required'> {
+	options: RawSubCommandApplicationCommandOption[];
 }
 
 /**
@@ -154,7 +161,17 @@ export type RawApplicationCommand =
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type RawApplicationCommandOption =
+export type RawApplicationCommandOption = RawApplicationCommandOptionWithOptions | RawApplicationCommandOptionWithValue;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type RawApplicationCommandOptionWithOptions = RawSubCommandApplicationCommandOption | RawSubCommandGroupApplicationCommandOption;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type RawApplicationCommandOptionWithValue =
 	| RawAttachmentApplicationCommandOption
 	| RawBooleanApplicationCommandOption
 	| RawChannelApplicationCommandOption
@@ -163,8 +180,6 @@ export type RawApplicationCommandOption =
 	| RawNumberApplicationCommandOption
 	| RawRoleApplicationCommandOption
 	| RawStringApplicationCommandOption
-	| RawSubCommandApplicationCommandOption
-	| RawSubCommandGroupApplicationCommandOption
 	| RawUserApplicationCommandOption;
 
 /**
@@ -230,17 +245,6 @@ export type RawRoleApplicationCommandOption = RawApplicationCommandOptionBase<Ap
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
  */
 export type RawStringApplicationCommandOptionChoice = RawApplicationCommandOptionChoiceBase<string>;
-
-/**
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export type RawSubCommandApplicationCommandOption = RawSubCommandApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommand>;
-
-/**
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export type RawSubCommandGroupApplicationCommandOption =
-	RawSubCommandApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommandGroup>;
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure

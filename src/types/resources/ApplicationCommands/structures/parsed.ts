@@ -74,16 +74,33 @@ export interface StringApplicationCommandOption extends ApplicationCommandOption
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export interface SubCommandApplicationCommandOptionBase<
-	Type extends ApplicationCommandOptionType.SubCommand | ApplicationCommandOptionType.SubCommandGroup,
-> extends Omit<ApplicationCommandOptionBase<Type>, 'required'> {
-	options?: ApplicationCommandOption[];
+export interface SubCommandApplicationCommandOption
+	extends Omit<ApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommand>, 'required'> {
+	options?: ApplicationCommandOptionWithValue[];
 }
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type ApplicationCommandOption =
+export interface SubCommandGroupApplicationCommandOption
+	extends Omit<ApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommand>, 'required'> {
+	options: SubCommandApplicationCommandOption[];
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type ApplicationCommandOption = ApplicationCommandOptionWithOptions | ApplicationCommandOptionWithValue;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type ApplicationCommandOptionWithOptions = SubCommandApplicationCommandOption | SubCommandGroupApplicationCommandOption;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type ApplicationCommandOptionWithValue =
 	| AttachmentApplicationCommandOption
 	| BooleanApplicationCommandOption
 	| ChannelApplicationCommandOption
@@ -92,8 +109,6 @@ export type ApplicationCommandOption =
 	| NumberApplicationCommandOption
 	| RoleApplicationCommandOption
 	| StringApplicationCommandOption
-	| SubCommandApplicationCommandOption
-	| SubCommandGroupApplicationCommandOption
 	| UserApplicationCommandOption;
 
 /**
@@ -140,16 +155,6 @@ export type RoleApplicationCommandOption = ApplicationCommandOptionBase<Applicat
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
  */
 export type StringApplicationCommandOptionChoice = ApplicationCommandOptionChoiceBase<string>;
-
-/**
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export type SubCommandApplicationCommandOption = SubCommandApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommand>;
-
-/**
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export type SubCommandGroupApplicationCommandOption = SubCommandApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommandGroup>;
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
