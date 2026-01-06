@@ -2,8 +2,14 @@ import type { GatewayIntents } from '#types/index.js';
 
 export interface DefineConfigLocationsOptions {
 	commands?: string;
+	commandsCache?: DefineConfigCommandsCacheOptions;
 	events?: string;
 	root?: string;
+}
+
+export interface DefineConfigCommandsCacheOptions {
+	enabled: boolean;
+	file: string;
 }
 
 export interface DefineConfigOptions {

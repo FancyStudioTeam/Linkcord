@@ -7,6 +7,7 @@ import {
 	initializeConfigurationOptions,
 	isConfigurationInitialized,
 } from '#configuration/helpers/ConfigurationUtils.js';
+import { CLIENT_ALREADY_INITIALIZED, CLIENT_NOT_INITIALIZED } from '#errors/messages.js';
 import { CommandLoader } from '#handlers/commands/loaders/CommandLoader.js';
 import { EventLoader } from '#handlers/events/loaders/EventLoader.js';
 import type { Snowflake } from '#types/index.js';
@@ -70,6 +71,8 @@ export class ClientBase {
 		const commandLoader = new CommandLoader(commandsFolderPath, client);
 
 		await commandLoader.registerCommands();
+
+		return;
 	}
 
 	async #prepareEvents(root: string, eventsDirectory: string, client: Client): Promise<void> {
@@ -77,21 +80,19 @@ export class ClientBase {
 		const eventLoader = new EventLoader(eventsFolderPath, client);
 
 		await eventLoader.registerEvents();
+
+		return;
 	}
 
 	protected checkIsInitialized(): void {
-		const isInitialized = isConfigurationInitialized();
-
-		if (!isInitialized) {
-			throw new ClientError('Client has not been initialized yet');
+		if (!isConfigurationInitialized()) {
+			throw new ClientError(CLIENT_NOT_INITIALIZED());
 		}
 	}
 
 	protected async init(client: Client): Promise<void> {
-		const isInitialized = isConfigurationInitialized();
-
-		if (isInitialized) {
-			throw new ClientError('Client has already been initialized');
+		if (isConfigurationInitialized()) {
+			throw new ClientError(CLIENT_ALREADY_INITIALIZED());
 		}
 
 		await initializeConfigurationOptions();
@@ -103,5 +104,7 @@ export class ClientBase {
 			this.#prepareCommands(root, commands, client),
 			this.#prepareEvents(root, events, client),
 		]);
+
+		return;
 	}
 }

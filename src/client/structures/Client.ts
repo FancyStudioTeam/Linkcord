@@ -1,4 +1,5 @@
 import { CacheManager, CommandManager, EventManager } from '#client/managers/index.js';
+import { APPLICATION_USER_NOT_CACHED } from '#errors/messages.js';
 import { GatewayManager } from '#gateway/index.js';
 import { RESTManager } from '#rest/index.js';
 import type { User } from '#structures/User.js';
@@ -38,20 +39,24 @@ export class Client extends ClientBase {
 	#normalizeLabelBrackets(label: string): `[${string}]` {
 		const [_, content] = label.match(BRACKETS_REGEX) ?? [];
 
-		return !isUndefined(content) ? `[${content}]` : '[Unknown]';
+		if (!isUndefined(content)) {
+			return `[${content}]`;
+		}
+
+		return '[Unknown]';
 	}
 
 	debug(message: string, options?: ClientDebugOptions): void {
-		const { label = 'Client', pairs } = options ?? {};
+		const { label = 'Client', pairs = [] } = options ?? {};
 		const { events } = this;
 
+		const { length: pairsLength } = pairs;
 		const normalizedLabel = this.#normalizeLabelBrackets(label);
+
 		let debugMessage = `${normalizedLabel} ${message}`;
 
-		if (pairs) {
-			const formattedPairsString = this.#formatPairsString(pairs);
-
-			debugMessage += `\n${formattedPairsString}`;
+		if (pairsLength) {
+			debugMessage += `\n${this.#formatPairsString(pairs)}`;
 		}
 
 		events.emit(ClientEvents.Debug, {
@@ -71,14 +76,14 @@ export class Client extends ClientBase {
 	/**
 	 * Gets the {@link User} instance associated with the application.
 	 *
-	 * @param required - Whether the returned value cannot be `null`.
+	 * @param required - Whether the {@link User} instance must be present.
 	 */
 	async user(required?: false): Promise<User | null>;
 
 	/**
 	 * Gets the {@link User} instance associated with the application.
 	 *
-	 * @param required - Whether the returned value cannot be `null`.
+	 * @param required - Whether the {@link User} instance must be present.
 	 *
 	 * @remarks
 	 * This method throws an error if the {@link User} instance is not cached.
@@ -93,7 +98,7 @@ export class Client extends ClientBase {
 		const cachedUser = users.get(applicationId);
 
 		if (!cachedUser && required) {
-			throw new TypeError(`Application user (${applicationId}) is not cached`);
+			throw new TypeError(APPLICATION_USER_NOT_CACHED(applicationId));
 		}
 
 		return cachedUser ?? null;
