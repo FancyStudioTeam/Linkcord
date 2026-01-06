@@ -17,7 +17,7 @@ export interface DefineConfigCommandsCacheOptions {
 	 *
 	 * @default true
 	 */
-	enabled: boolean;
+	enabled?: boolean;
 	/**
 	 * The relative path (from `process.cwd()`) to the file where the commands
 	 * data is stored for caching purposes.
@@ -68,6 +68,9 @@ export interface DefineConfigOptions {
 	 *
 	 * This option can be used to avoid re-uploading all commands on every
 	 * application startup.
+	 *
+	 * @remarks
+	 * Commands data caching is enabled by default.
 	 */
 	commandsCache?: DefineConfigCommandsCacheOptions;
 	/**
