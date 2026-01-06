@@ -12,7 +12,7 @@ export interface ChatInputCommandHandlerRunOptions<
 > {
 	client: Client;
 	gatewayShard: GatewayShard;
-	options: Data['options'];
+	options?: Data['options'];
 	interaction: ChatInputApplicationCommandInteraction;
 }
 
