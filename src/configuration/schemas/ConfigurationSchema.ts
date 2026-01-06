@@ -1,13 +1,14 @@
 import { array, boolean, enum as enum_, object, string } from 'zod';
+import { transformCacheFilePath } from '#configuration/functions/transformCacheFilePath.js';
 import { transformIntents } from '#configuration/functions/transformIntents.js';
 import { transformToken } from '#configuration/functions/transformToken.js';
 import { GatewayIntents } from '#types/index.js';
 
 export const ConfigurationCommandsCacheEnabledSchema = boolean();
-export const ConfigurationCommandsCacheFileSchema = string();
+export const ConfigurationCommandsCacheFilePathSchema = string().transform(transformCacheFilePath);
 export const ConfigurationCommandsCacheSchema = object({
 	enabled: ConfigurationCommandsCacheEnabledSchema,
-	file: ConfigurationCommandsCacheFileSchema,
+	filePath: ConfigurationCommandsCacheFilePathSchema,
 });
 
 export const ConfigurationIntentsEnumSchema = enum_(GatewayIntents);
