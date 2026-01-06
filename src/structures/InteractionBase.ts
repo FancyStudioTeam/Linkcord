@@ -1,5 +1,5 @@
 import type { Client } from '#client/index.js';
-import { INTERACTION_ALREADY_ACKNOWLEDGED } from '#errors/messages.js';
+import { INTERACTION_ALREADY_ACKNOWLEDGED } from '#messages/errors.js';
 import {
 	type CreateInteractionResponseOptions,
 	type CreateMessageInteractionCallbackData,

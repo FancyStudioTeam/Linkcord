@@ -25,3 +25,7 @@ export function CONFIGURATION_FILE_NOT_FOUND() {
 export function INTERACTION_ALREADY_ACKNOWLEDGED() {
 	return 'This interaction has already been acknowledged' as const;
 }
+
+export function INVALID_COMMANDS_CACHE_FILE_TYPE() {
+	return 'The commands cache file must be a JSON file' as const;
+}

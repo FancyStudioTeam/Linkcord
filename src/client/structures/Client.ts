@@ -1,6 +1,6 @@
 import { CacheManager, CommandManager, EventManager } from '#client/managers/index.js';
-import { APPLICATION_USER_NOT_CACHED } from '#errors/messages.js';
 import { GatewayManager } from '#gateway/index.js';
+import { APPLICATION_USER_NOT_CACHED } from '#messages/errors.js';
 import { RESTManager } from '#rest/index.js';
 import type { User } from '#structures/User.js';
 import { defineReadonlyProperty } from '#utils/functions/defineReadonlyProperty.js';

@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { cwd } from 'node:process';
 import type { LinkcordOptions } from '#configuration/functions/defineConfig.types.js';
 import { ConfigurationSchema } from '#configuration/schemas/ConfigurationSchema.js';
-import { CONFIGURATION_FILE_NOT_FOUND } from '#errors/messages.js';
+import { CONFIGURATION_FILE_NOT_FOUND } from '#messages/errors.js';
 import { validate } from '#utils/functions/validate.js';
 import { importFile, resolvePath } from '#utils/helpers/ImportUtils.js';
 

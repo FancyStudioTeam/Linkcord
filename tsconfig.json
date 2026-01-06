@@ -26,14 +26,14 @@
 			"#configuration/*": [
 				"configuration/*"
 			],
-			"#errors/*": [
-				"errors/*"
-			],
 			"#gateway/*": [
 				"gateway/*"
 			],
 			"#handlers/*": [
 				"handlers/*"
+			],
+			"#messages/*": [
+				"messages/*"
 			],
 			"#rest/*": [
 				"rest/*"
