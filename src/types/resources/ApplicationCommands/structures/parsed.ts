@@ -3,161 +3,155 @@ import type { ChannelType } from '#types/resources/Channels/enums.js';
 import type { ApplicationCommandOptionType, ApplicationCommandPermissionType } from '../enums.js';
 
 /**
- * Represents an application command option choice.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
- */
-export interface ApplicationCommandOptionChoice {
-	/** The name of the application command option choice. */
-	name: string;
-	/** The localized name of the application command option choice. */
-	nameLocalizations?: Localizations;
-	/** The value of the application command option choice. */
-	value: number | string;
-}
-
-/**
- * Represents an application command option for channels.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export interface ApplicationCommandOptionChannel extends BaseApplicationCommandOption<ApplicationCommandOptionType.Channel> {
-	channelTypes?: ChannelType[];
-}
-
-/**
- * Represents an application command option for numbers.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export interface ApplicationCommandOptionNumber
-	extends BaseApplicationCommandOption<ApplicationCommandOptionType.Integer | ApplicationCommandOptionType.Number> {
-	/** Whether to autocomplete the choices of the application command option. */
-	autocomplete?: boolean;
-	/** The choices of the application command option. */
-	choices?: ApplicationCommandOptionChoice[];
-	/** The maximum value of the application command option. */
-	maxValue?: number;
-	/** The minimum value of the application command option. */
-	minValue?: number;
-}
-
-/**
- * Represents an application command option for strings.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export interface ApplicationCommandOptionString extends BaseApplicationCommandOption<ApplicationCommandOptionType.String> {
-	/** Whether to autocomplete the choices of the application command option. */
-	autocomplete?: boolean;
-	/** The choices of the application command option. */
-	choices?: ApplicationCommandOptionChoice[];
-	/** The maximum length of the application command option. */
-	maxLength?: number;
-	/** The minimum length of the application command option. */
-	minLength?: number;
-}
-
-/**
- * Represents an application command option for sub commands.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export interface ApplicationCommandOptionSubCommand
-	extends BaseApplicationCommandOption<ApplicationCommandOptionType.SubCommand | ApplicationCommandOptionType.SubCommandGroup> {
-	/** The options of the application command option. */
-	options?: ApplicationCommandOption[];
-}
-
-/**
- * Represents an application command permission.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-application-command-permissions-structure
- */
-export interface ApplicationCommandPermissions {
-	/** The ID of the entity that is restricted. */
-	id: Snowflake;
-	/** Whether the application command is allowed to be used by the specified entity. */
-	permission: boolean;
-	/** The type of the permission. */
-	type: ApplicationCommandPermissionType;
-}
-
-/**
- * Represents the base structure of an application command option.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export interface BaseApplicationCommandOption<Type extends ApplicationCommandOptionType> {
-	/** The description of the application command option. */
+export interface ApplicationCommandOptionBase<Type extends ApplicationCommandOptionType> {
 	description: string;
-	/** The localized description of the application command option. */
-	descriptionLocalizations?: Localizations;
-	/** The name of the application command option. */
+	descriptionLocalizations?: Localizations | null;
 	name: string;
-	/** The localized name of the application command option. */
-	nameLocalizations?: Localizations;
-	/** Whether the application command option is required. */
+	nameLocalizations?: Localizations | null;
 	required?: boolean;
-	/** The type of the application command option. */
 	type: Type;
 }
 
 /**
- * Represents an application command permission for guilds.
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
+ */
+export interface ApplicationCommandOptionChoiceBase<Value extends number | string> {
+	name: string;
+	nameLocalizations?: Localizations | null;
+	value: Value;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-application-command-permissions-structure
+ */
+export interface ApplicationCommandPermissions {
+	id: Snowflake;
+	permission: boolean;
+	type: ApplicationCommandPermissionType;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export interface ChannelApplicationCommandOption extends ApplicationCommandOptionBase<ApplicationCommandOptionType.Channel> {
+	channelTypes?: ChannelType[];
+}
+
+/**
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure
  */
 export interface GuildApplicationCommandPermissions {
-	/** The ID of the application where the application command is registered. */
 	applicationId: Snowflake;
-	/** The ID of the guild to restrict the application command. */
 	guildId: Snowflake;
-	/** The ID of the entity that is restricted. */
 	id: Snowflake;
-	/** The permissions of the application command. */
 	permissions: ApplicationCommandPermissions[];
 }
 
 /**
- * Represents an application command option for attachments.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type ApplicationCommandOptionAttachment = BaseApplicationCommandOption<ApplicationCommandOptionType.Attachment>;
+export interface NumbericApplicationCommandOptionBase<
+	Type extends ApplicationCommandOptionType.Integer | ApplicationCommandOptionType.Number,
+> extends ApplicationCommandOptionBase<Type> {
+	autocomplete?: boolean;
+	choices?: NumberApplicationCommandOptionChoice[];
+	maxValues?: number;
+	minValues?: number;
+}
 
 /**
- * Represents an application command option for booleans.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type ApplicationCommandOptionBoolean = BaseApplicationCommandOption<ApplicationCommandOptionType.Boolean>;
+export interface StringApplicationCommandOption extends ApplicationCommandOptionBase<ApplicationCommandOptionType.String> {
+	autocomplete?: boolean;
+	choices?: StringApplicationCommandOptionChoice[];
+	maxLength?: number;
+	minLength?: number;
+}
 
 /**
- * Represents an application command option for mentionables.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export type ApplicationCommandOptionMentionable = BaseApplicationCommandOption<ApplicationCommandOptionType.Mentionable>;
+export interface SubCommandApplicationCommandOptionBase<
+	Type extends ApplicationCommandOptionType.SubCommand | ApplicationCommandOptionType.SubCommandGroup,
+> extends Omit<ApplicationCommandOptionBase<Type>, 'required'> {
+	options?: ApplicationCommandOption[];
+}
 
 /**
- * Represents an application command option for roles.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export type ApplicationCommandOptionRole = BaseApplicationCommandOption<ApplicationCommandOptionType.Role>;
-
-/**
- * Represents an application command option for users.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export type ApplicationCommandOptionUser = BaseApplicationCommandOption<ApplicationCommandOptionType.User>;
-
-/**
- * Represents an application command option.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
 export type ApplicationCommandOption =
-	| ApplicationCommandOptionAttachment
-	| ApplicationCommandOptionBoolean
-	| ApplicationCommandOptionChannel
-	| ApplicationCommandOptionMentionable
-	| ApplicationCommandOptionNumber
-	| ApplicationCommandOptionRole
-	| ApplicationCommandOptionString
-	| ApplicationCommandOptionSubCommand
-	| ApplicationCommandOptionUser;
+	| AttachmentApplicationCommandOption
+	| BooleanApplicationCommandOption
+	| ChannelApplicationCommandOption
+	| IntegerApplicationCommandOption
+	| MentionableApplicationCommandOption
+	| NumberApplicationCommandOption
+	| RoleApplicationCommandOption
+	| StringApplicationCommandOption
+	| SubCommandApplicationCommandOption
+	| SubCommandGroupApplicationCommandOption
+	| UserApplicationCommandOption;
 
 /**
- * Represents an autocomplete choice.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
  */
-export type AutocompleteChoice = ApplicationCommandOptionChoice;
+export type ApplicationCommandOptionChoice = NumberApplicationCommandOptionChoice | StringApplicationCommandOptionChoice;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type AttachmentApplicationCommandOption = ApplicationCommandOptionBase<ApplicationCommandOptionType.Attachment>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type BooleanApplicationCommandOption = ApplicationCommandOptionBase<ApplicationCommandOptionType.Boolean>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type IntegerApplicationCommandOption = NumbericApplicationCommandOptionBase<ApplicationCommandOptionType.Integer>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type MentionableApplicationCommandOption = ApplicationCommandOptionBase<ApplicationCommandOptionType.Mentionable>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type NumberApplicationCommandOption = NumbericApplicationCommandOptionBase<ApplicationCommandOptionType.Number>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
+ */
+export type NumberApplicationCommandOptionChoice = ApplicationCommandOptionChoiceBase<number>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type RoleApplicationCommandOption = ApplicationCommandOptionBase<ApplicationCommandOptionType.Role>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
+ */
+export type StringApplicationCommandOptionChoice = ApplicationCommandOptionChoiceBase<string>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type SubCommandApplicationCommandOption = SubCommandApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommand>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type SubCommandGroupApplicationCommandOption = SubCommandApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommandGroup>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type UserApplicationCommandOption = ApplicationCommandOptionBase<ApplicationCommandOptionType.User>;

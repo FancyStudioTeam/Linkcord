@@ -10,280 +10,249 @@ import type {
 } from '../enums.js';
 
 /**
- * Represents an application command for chat inputs.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
  */
-export interface APIApplicationCommandChatInput extends APIBaseApplicationCommand<ApplicationCommandType.ChatInput> {
-	/** The options of the application command. */
-	options?: APIApplicationCommandOption[];
-}
-
-/**
- * Represents an application command option choice.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
- */
-export interface APIApplicationCommandOptionChoice {
-	/** The name of the application command option choice. */
-	name: string;
-	/** The localized name of the application command option choice. */
-	name_localizations?: Localizations;
-	/** The value of the application command option choice. */
-	value: number | string;
-}
-
-/**
- * Represents an application command option for channels.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export interface APIApplicationCommandOptionChannel extends APIBaseApplicationCommandOption<ApplicationCommandOptionType.Channel> {
-	channel_types?: ChannelType[];
-}
-
-/**
- * Represents an application command option for numbers.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export interface APIApplicationCommandOptionNumber
-	extends APIBaseApplicationCommandOption<ApplicationCommandOptionType.Integer | ApplicationCommandOptionType.Number> {
-	/** Whether to autocomplete the choices of the application command option. */
-	autocomplete?: boolean;
-	/** The choices of the application command option. */
-	choices?: APIApplicationCommandOptionChoice[];
-	/** The maximum value of the application command option. */
-	max_value?: number;
-	/** The minimum value of the application command option. */
-	min_value?: number;
-}
-
-/**
- * Represents an application command option for strings.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export interface APIApplicationCommandOptionString extends APIBaseApplicationCommandOption<ApplicationCommandOptionType.String> {
-	/** Whether to autocomplete the choices of the application command option. */
-	autocomplete?: boolean;
-	/** The choices of the application command option. */
-	choices?: APIApplicationCommandOptionChoice[];
-	/** The maximum length of the application command option. */
-	max_length?: number;
-	/** The minimum length of the application command option. */
-	min_length?: number;
-}
-
-/**
- * Represents an application command option for sub commands.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export interface APIApplicationCommandOptionSubCommand
-	extends APIBaseApplicationCommandOption<ApplicationCommandOptionType.SubCommand | ApplicationCommandOptionType.SubCommandGroup> {
-	/** The options of the application command option. */
-	options?: APIApplicationCommandOption[];
-}
-
-/**
- * Represents an application command permission.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-application-command-permissions-structure
- */
-export interface APIApplicationCommandPermissions {
-	/** The ID of the entity that is restricted. */
-	id: Snowflake;
-	/** Whether the application command is allowed to be used by the specified entity. */
-	permission: boolean;
-	/** The type of the permission. */
-	type: ApplicationCommandPermissionType;
-}
-
-/**
- * Represents an application command for primary entry points.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
- */
-export interface APIApplicationCommandPrimaryEntryPoint extends APIBaseApplicationCommand<ApplicationCommandType.PrimaryEntryPoint> {
-	/** The handler of the application command. */
-	handler: EntryPointCommandHandlerType;
-}
-
-/**
- * Represents the base structure of an application command.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
- */
-export interface APIBaseApplicationCommand<Type extends ApplicationCommandType> {
-	/** The ID of the application where the application command is registered. */
+export interface RawApplicationCommandBase<Type extends ApplicationCommandType> {
 	application_id: Snowflake;
-	/** The contexts of the application command. */
-	contexts?: InteractionContextType[];
-	/** The default member permissions of the application command. */
+	contexts?: InteractionContextType[] | null;
 	default_member_permissions: string | null;
-	/** The description of the application command. */
 	description: string;
-	/** The localized description of the application command. */
-	description_localizations?: Localizations;
-	/** The handler of the application command. */
+	description_localizations?: Localizations | null;
 	handler?: EntryPointCommandHandlerType;
-	/** The ID of the application command. */
 	id: Snowflake;
-	/** The integration types of the application command. */
 	integration_types?: ApplicationIntegrationType[];
-	/** The name of the application command. */
 	name: string;
-	/** The localized name of the application command. */
-	name_localizations?: Localizations;
-	/** Whether the application command is age-restricted. */
+	name_localizations?: Localizations | null;
 	nsfw?: boolean;
-	/** The type of the application command. */
 	type?: Type;
-	/** The version of the application command. */
 	version: Snowflake;
 }
 
 /**
- * Represents the base structure of an application command option.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
-export interface APIBaseApplicationCommandOption<Type extends ApplicationCommandOptionType> {
-	/** The description of the application command option. */
+export interface RawApplicationCommandOptionBase<Type extends ApplicationCommandOptionType> {
 	description: string;
-	/** The localized description of the application command option. */
-	description_localizations?: Localizations;
-	/** The name of the application command option. */
+	description_localizations?: Localizations | null;
 	name: string;
-	/** The localized name of the application command option. */
-	name_localizations?: Localizations;
-	/** Whether the application command option is required. */
+	name_localizations?: Localizations | null;
 	required?: boolean;
-	/** The type of the application command option. */
 	type: Type;
 }
 
 /**
- * Represents an application command for chat inputs for guilds.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
- */
-export interface APIGuildApplicationCommandChatInput extends APIApplicationCommandChatInput {
-	/** The ID of the guild where the application command is registered. */
-	guild_id?: Snowflake;
-}
-
-/**
- * Represents an application command for message contexts for guilds.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
- */
-export interface APIGuildApplicationCommandMessage extends APIApplicationCommandMessage {
-	/** The ID of the guild where the application command is registered. */
-	guild_id?: Snowflake;
-}
-
-/**
- * Represents an application command for primary entry points for guilds.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
- */
-export interface APIGuildApplicationCommandPrimaryEntryPoint extends APIApplicationCommandPrimaryEntryPoint {
-	/** The ID of the guild where the application command is registered. */
-	guild_id?: Snowflake;
-}
-
-/**
- * Represents an application command for user contexts for guilds.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
- */
-export interface APIGuildApplicationCommandUser extends APIApplicationCommandUser {
-	/** The ID of the guild where the application command is registered. */
-	guild_id?: Snowflake;
-}
-
-/**
- * Represents an application command permission for guilds.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure
- */
-export interface APIGuildApplicationCommandPermissions {
-	/** The ID of the application where the application command is registered. */
-	application_id: Snowflake;
-	/** The ID of the guild to restrict the application command. */
-	guild_id: Snowflake;
-	/** The ID of the entity that is restricted. */
-	id: Snowflake;
-	/** The permissions of the application command. */
-	permissions: APIApplicationCommandPermissions[];
-}
-
-/**
- * Represents an application command.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
- */
-export type APIApplicationCommand =
-	| APIApplicationCommandChatInput
-	| APIApplicationCommandMessage
-	| APIApplicationCommandPrimaryEntryPoint
-	| APIApplicationCommandUser;
-
-/**
- * Represents an application command option for attachments.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export type APIApplicationCommandOptionAttachment = APIBaseApplicationCommandOption<ApplicationCommandOptionType.Attachment>;
-
-/**
- * Represents an application command option for booleans.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export type APIApplicationCommandOptionBoolean = APIBaseApplicationCommandOption<ApplicationCommandOptionType.Boolean>;
-
-/**
- * Represents an application command option for mentionables.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export type APIApplicationCommandOptionMentionable = APIBaseApplicationCommandOption<ApplicationCommandOptionType.Mentionable>;
-
-/**
- * Represents an application command option for roles.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export type APIApplicationCommandOptionRole = APIBaseApplicationCommandOption<ApplicationCommandOptionType.Role>;
-
-/**
- * Represents an application command option for users.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export type APIApplicationCommandOptionUser = APIBaseApplicationCommandOption<ApplicationCommandOptionType.User>;
-
-/**
- * Represents an application command option.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
- */
-export type APIApplicationCommandOption =
-	| APIApplicationCommandOptionAttachment
-	| APIApplicationCommandOptionBoolean
-	| APIApplicationCommandOptionChannel
-	| APIApplicationCommandOptionMentionable
-	| APIApplicationCommandOptionNumber
-	| APIApplicationCommandOptionRole
-	| APIApplicationCommandOptionString
-	| APIApplicationCommandOptionSubCommand
-	| APIApplicationCommandOptionUser;
-
-/**
- * Represents an application command for message contexts.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
- */
-export type APIApplicationCommandMessage = APIBaseApplicationCommand<ApplicationCommandType.Message>;
-
-/**
- * Represents an application command for user contexts.
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
- */
-export type APIApplicationCommandUser = APIBaseApplicationCommand<ApplicationCommandType.User>;
-
-/**
- * Represents an autocomplete choice.
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
  */
-export type APIAutocompleteChoice = APIApplicationCommandOptionChoice;
+export interface RawApplicationCommandOptionChoiceBase<Value extends number | string> {
+	name: string;
+	name_localizations?: Localizations | null;
+	value: Value;
+}
 
 /**
- * Represents an application command for guilds.
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-application-command-permissions-structure
+ */
+export interface RawApplicationCommandPermissions {
+	id: Snowflake;
+	permission: boolean;
+	type: ApplicationCommandPermissionType;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export interface RawChannelApplicationCommandOption extends RawApplicationCommandOptionBase<ApplicationCommandOptionType.Channel> {
+	channel_types?: ChannelType[];
+}
+
+/**
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
  */
-export type APIGuildApplicationCommand =
-	| APIGuildApplicationCommandChatInput
-	| APIGuildApplicationCommandMessage
-	| APIGuildApplicationCommandPrimaryEntryPoint
-	| APIGuildApplicationCommandUser;
+export interface RawChatInputApplicationCommand extends RawApplicationCommandBase<ApplicationCommandType.ChatInput> {
+	options?: RawApplicationCommandOption[];
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ */
+export interface RawChatInputGuildApplicationCommand extends RawGuildApplicationCommandBase<ApplicationCommandType.ChatInput> {
+	options?: RawApplicationCommandOption[];
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ */
+export interface RawGuildApplicationCommandBase<Type extends ApplicationCommandType> extends RawApplicationCommandBase<Type> {
+	guild_id: Snowflake;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure
+ */
+export interface RawGuildApplicationCommandPermissions {
+	application_id: Snowflake;
+	guild_id: Snowflake;
+	id: Snowflake;
+	permissions: RawApplicationCommandPermissions[];
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export interface RawNumbericApplicationCommandOptionBase<
+	Type extends ApplicationCommandOptionType.Integer | ApplicationCommandOptionType.Number,
+> extends RawApplicationCommandOptionBase<Type> {
+	autocomplete?: boolean;
+	choices?: RawNumberApplicationCommandOptionChoice[];
+	max_values?: number;
+	min_values?: number;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ */
+export interface RawPrimaryEntryPointApplicationCommand extends RawApplicationCommandBase<ApplicationCommandType.PrimaryEntryPoint> {
+	handler: EntryPointCommandHandlerType;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ */
+export interface RawPrimaryEntryPointGuildApplicationCommand
+	extends RawGuildApplicationCommandBase<ApplicationCommandType.PrimaryEntryPoint> {
+	handler: EntryPointCommandHandlerType;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export interface RawStringApplicationCommandOption extends RawApplicationCommandOptionBase<ApplicationCommandOptionType.String> {
+	autocomplete?: boolean;
+	choices?: RawStringApplicationCommandOptionChoice[];
+	max_length?: number;
+	min_length?: number;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export interface RawSubCommandApplicationCommandOptionBase<
+	Type extends ApplicationCommandOptionType.SubCommand | ApplicationCommandOptionType.SubCommandGroup,
+> extends Omit<RawApplicationCommandOptionBase<Type>, 'required'> {
+	options?: RawApplicationCommandOption[];
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ */
+export type RawApplicationCommand =
+	| RawChatInputApplicationCommand
+	| RawMessageApplicationCommand
+	| RawPrimaryEntryPointApplicationCommand
+	| RawUserApplicationCommand;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type RawApplicationCommandOption =
+	| RawAttachmentApplicationCommandOption
+	| RawBooleanApplicationCommandOption
+	| RawChannelApplicationCommandOption
+	| RawIntegerApplicationCommandOption
+	| RawMentionableApplicationCommandOption
+	| RawNumberApplicationCommandOption
+	| RawRoleApplicationCommandOption
+	| RawStringApplicationCommandOption
+	| RawSubCommandApplicationCommandOption
+	| RawSubCommandGroupApplicationCommandOption
+	| RawUserApplicationCommandOption;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
+ */
+export type RawApplicationCommandOptionChoice = RawNumberApplicationCommandOptionChoice | RawStringApplicationCommandOptionChoice;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type RawAttachmentApplicationCommandOption = RawApplicationCommandOptionBase<ApplicationCommandOptionType.Attachment>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type RawBooleanApplicationCommandOption = RawApplicationCommandOptionBase<ApplicationCommandOptionType.Boolean>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ */
+export type RawGuildApplicationCommand =
+	| RawChatInputGuildApplicationCommand
+	| RawMessageGuildApplicationCommand
+	| RawPrimaryEntryPointGuildApplicationCommand
+	| RawUserGuildApplicationCommand;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type RawIntegerApplicationCommandOption = RawNumbericApplicationCommandOptionBase<ApplicationCommandOptionType.Integer>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type RawMentionableApplicationCommandOption = RawApplicationCommandOptionBase<ApplicationCommandOptionType.Mentionable>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ */
+export type RawMessageApplicationCommand = RawApplicationCommandBase<ApplicationCommandType.Message>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ */
+export type RawMessageGuildApplicationCommand = RawGuildApplicationCommandBase<ApplicationCommandType.Message>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type RawNumberApplicationCommandOption = RawNumbericApplicationCommandOptionBase<ApplicationCommandOptionType.Number>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
+ */
+export type RawNumberApplicationCommandOptionChoice = RawApplicationCommandOptionChoiceBase<number>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type RawRoleApplicationCommandOption = RawApplicationCommandOptionBase<ApplicationCommandOptionType.Role>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
+ */
+export type RawStringApplicationCommandOptionChoice = RawApplicationCommandOptionChoiceBase<string>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type RawSubCommandApplicationCommandOption = RawSubCommandApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommand>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type RawSubCommandGroupApplicationCommandOption =
+	RawSubCommandApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommandGroup>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ */
+export type RawUserApplicationCommand = RawApplicationCommandBase<ApplicationCommandType.User>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
+ */
+export type RawUserGuildApplicationCommand = RawGuildApplicationCommandBase<ApplicationCommandType.User>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+ */
+export type RawUserApplicationCommandOption = RawApplicationCommandOptionBase<ApplicationCommandOptionType.User>;

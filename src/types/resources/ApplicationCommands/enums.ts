@@ -1,14 +1,4 @@
 /**
- * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
- */
-export enum ApplicationCommandType {
-	ChatInput = 1,
-	Message = 3,
-	PrimaryEntryPoint = 4,
-	User = 2,
-}
-
-/**
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
  */
 export enum ApplicationCommandOptionType {
@@ -31,6 +21,16 @@ export enum ApplicationCommandOptionType {
 export enum ApplicationCommandPermissionType {
 	Channel = 3,
 	Role = 1,
+	User = 2,
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
+ */
+export enum ApplicationCommandType {
+	ChatInput = 1,
+	Message = 3,
+	PrimaryEntryPoint = 4,
 	User = 2,
 }
 
