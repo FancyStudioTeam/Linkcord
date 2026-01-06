@@ -24,7 +24,7 @@ export interface DefineConfigCommandsCacheOptions {
 	 *
 	 * @default 'commands.json'
 	 */
-	file?: string;
+	filePath?: string;
 }
 
 /**
