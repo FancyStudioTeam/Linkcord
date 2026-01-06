@@ -1,4 +1,4 @@
-import type { APIApplicationCommandOptionChoice } from '#types/resources/ApplicationCommands/index.js';
+import type { RawApplicationCommandOptionChoice } from '#types/resources/ApplicationCommands/index.js';
 import type { RawMessageChildComponent, RawModalChildComponent } from '#types/resources/Components/index.js';
 import type { MessageFlags, RawAllowedMentions, RawEmbed } from '#types/resources/Messages/index.js';
 import type { RawMessagePoll } from '#types/resources/Polls/index.js';
@@ -8,7 +8,7 @@ import type { InteractionCallbackType } from '../enums.js';
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-autocomplete
  */
 export interface RawCreateAutocompleteInteractionCallbackData {
-	choices: APIApplicationCommandOptionChoice[];
+	choices: RawApplicationCommandOptionChoice[];
 }
 
 /**
