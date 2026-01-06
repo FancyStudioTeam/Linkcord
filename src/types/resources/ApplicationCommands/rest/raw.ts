@@ -1,175 +1,148 @@
 import type { Localizations } from '#types/miscellaneous/discord.js';
 import type { ApplicationIntegrationType } from '#types/resources/Applications/enums.js';
 import type { InteractionContextType } from '#types/resources/Interactions/enums.js';
-import type { ApplicationCommandType } from '../enums.js';
-import type {
-	APIApplicationCommand,
-	APIApplicationCommandOption,
-	APIApplicationCommandPermissions,
-	APIGuildApplicationCommand,
-	APIGuildApplicationCommandPermissions,
-} from '../structures/raw.js';
+import type { ApplicationCommandType, EntryPointCommandHandlerType } from '../enums.js';
+import type { RawApplicationCommandOption, RawApplicationCommandPermissions } from '../structures/raw.js';
 
 /**
- * @see https://discord.com/developers/docs/interactions/application-commands#get-global-application-commands-query-string-params
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
  */
-export interface RESTGetAPIApplicationCommandsQueryStringParams {
-	with_localizations?: boolean;
-}
-
-/**
- * @see https://discord.com/developers/docs/interactions/application-commands#get-guild-application-commands-query-string-params
- */
-export interface RESTGetAPIGuildApplicationCommandsQueryStringParams {
-	with_localizations?: boolean;
-}
-
-/**
- * @see https://discord.com/developers/docs/interactions/application-commands#edit-global-application-command-json-params
- */
-export interface RESTPatchAPIApplicationCommandJSONParams {
+export interface RawCreateApplicationCommandOptionsBase<Type extends ApplicationCommandType> {
 	contexts?: InteractionContextType[];
 	default_member_permissions?: string | null;
-	description?: string;
-	description_localizations?: Localizations | null;
 	integration_types?: ApplicationIntegrationType[];
-	name?: string;
+	name: string;
 	name_localizations?: Localizations | null;
 	nsfw?: boolean;
-	options?: APIApplicationCommandOption[];
-}
-
-/**
- * @see https://discord.com/developers/docs/interactions/application-commands#edit-guild-application-command-json-params
- */
-export interface RESTPatchAPIGuildApplicationCommandJSONParams {
-	default_member_permissions?: string | null;
-	description?: string;
-	description_localizations?: Localizations | null;
-	name?: string;
-	name_localizations?: Localizations | null;
-	nsfw?: boolean;
-	options?: APIApplicationCommandOption[];
+	type: Type;
 }
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
  */
-export interface RESTPostAPIApplicationCommandJSONParamsBase {
-	contexts?: InteractionContextType[];
-	default_member_permissions?: string | null;
-	description?: string;
+export interface RawCreateChatInputApplicationCommandOptions
+	extends RawCreateApplicationCommandOptionsBase<ApplicationCommandType.ChatInput> {
+	description: string;
 	description_localizations?: Localizations | null;
-	integration_types?: ApplicationIntegrationType[];
-	name: string;
-	name_localizations?: Localizations | null;
-	nsfw?: boolean;
-	options?: APIApplicationCommandOption[];
-	type: ApplicationCommandType;
+	options?: RawApplicationCommandOption;
 }
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command-json-params
  */
-export interface RESTPostAPIGuildApplicationCommandJSONParams {
-	default_member_permissions?: string | null;
-	description?: string;
+export interface RawCreateChatInputGuildApplicationCommandOptions
+	extends RawCreateGuildApplicationCommandOptionsBase<ApplicationCommandType.ChatInput> {
+	description: string;
 	description_localizations?: Localizations | null;
+	options?: RawApplicationCommandOption;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command-json-params
+ */
+export interface RawCreateGuildApplicationCommandOptionsBase<Type extends ApplicationCommandType> {
+	default_member_permissions?: string | null;
 	name: string;
 	name_localizations?: Localizations | null;
 	nsfw?: boolean;
-	options?: APIApplicationCommandOption[];
-	type?: ApplicationCommandType;
+	type: Type;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
+ */
+export interface RawCreatePrimaryEntryPointApplicationCommandOptions
+	extends RawCreateApplicationCommandOptionsBase<ApplicationCommandType.PrimaryEntryPoint> {
+	handler: EntryPointCommandHandlerType;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command-json-params
+ */
+export interface RawCreatePrimaryEntryPointGuildApplicationCommandOptions
+	extends RawCreateGuildApplicationCommandOptionsBase<ApplicationCommandType.PrimaryEntryPoint> {
+	handler: EntryPointCommandHandlerType;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#edit-global-application-command-json-params
+ */
+export interface RawEditApplicationCommandOptions {
+	contexts?: InteractionContextType[];
+	default_member_permissions?: string | null;
+	description?: string;
+	description_localizations?: Localizations | null;
+	integration_types?: ApplicationIntegrationType[];
+	name?: string;
+	name_localizations?: Localizations | null;
+	nsfw?: boolean;
+	options?: RawApplicationCommandOption[];
 }
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#edit-application-command-permissions-json-params
  */
-export interface RESTPutAPIApplicationCommandPermissionsJSONParams {
-	permissions: APIApplicationCommandPermissions[];
+export interface RawEditApplicationCommandPermissionsOptions {
+	permissions: RawApplicationCommandPermissions[];
 }
 
 /**
- * @see https://discord.com/developers/docs/interactions/application-commands#delete-global-application-command
+ * @see https://discord.com/developers/docs/interactions/application-commands#edit-guild-application-command-json-params
  */
-export type RESTDeleteAPIApplicationCommand = undefined;
+export interface RawEditGuildApplicationCommandOptions {
+	default_member_permissions?: string | null;
+	description?: string;
+	description_localizations?: Localizations | null;
+	name?: string;
+	name_localizations?: Localizations | null;
+	nsfw?: boolean;
+	options?: RawApplicationCommandOption[];
+}
 
 /**
- * @see https://discord.com/developers/docs/interactions/application-commands#delete-guild-application-command
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
  */
-export type RESTDeleteAPIGuildApplicationCommand = undefined;
+export type RawCreateApplicationCommandOptions =
+	| RawCreateChatInputApplicationCommandOptions
+	| RawCreateMessageApplicationCommandOptions
+	| RawCreatePrimaryEntryPointApplicationCommandOptions
+	| RawCreateUserApplicationCommandOptions;
 
 /**
- * @see https://discord.com/developers/docs/interactions/application-commands#get-global-application-command
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command-json-params
  */
-export type RESTGetAPIApplicationCommand = APIApplicationCommand;
+export type RawCreateGuildApplicationCommandOptions =
+	| RawCreateChatInputGuildApplicationCommandOptions
+	| RawCreateMessageGuildApplicationCommandOptions
+	| RawCreatePrimaryEntryPointGuildApplicationCommandOptions
+	| RawCreateUserGuildApplicationCommandOptions;
 
 /**
- * @see https://discord.com/developers/docs/interactions/application-commands#get-application-command-permissions
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
  */
-export type RESTGetAPIApplicationCommandPermissions = APIGuildApplicationCommandPermissions;
+export type RawCreateMessageApplicationCommandOptions = RawCreateApplicationCommandOptionsBase<ApplicationCommandType.Message>;
 
 /**
- * @see https://discord.com/developers/docs/events/gateway#get-gateway
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command-json-params
  */
-export type RESTGetAPIApplicationCommands = APIApplicationCommand[];
+export type RawCreateMessageGuildApplicationCommandOptions = RawCreateGuildApplicationCommandOptionsBase<ApplicationCommandType.Message>;
 
 /**
- * @see https://discord.com/developers/docs/interactions/application-commands#get-guild-application-command
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
  */
-export type RESTGetAPIGuildApplicationCommand = APIGuildApplicationCommand;
+export type RawCreateUserApplicationCommandOptions = RawCreateApplicationCommandOptionsBase<ApplicationCommandType.User>;
 
 /**
- * @see https://discord.com/developers/docs/interactions/application-commands#get-guild-application-command-permissions
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command-json-params
  */
-export type RESTGetAPIGuildApplicationCommandPermissions = APIGuildApplicationCommandPermissions[];
-
-/**
- * @see https://discord.com/developers/docs/interactions/application-commands#get-guild-application-commands
- */
-export type RESTGetAPIGuildApplicationCommands = APIGuildApplicationCommand[];
-
-/**
- * @see https://discord.com/developers/docs/interactions/application-commands#edit-global-application-command
- */
-export type RESTPatchAPIApplicationCommand = APIApplicationCommand;
-
-/**
- * @see https://discord.com/developers/docs/interactions/application-commands#edit-guild-application-command
- */
-export type RESTPatchAPIGuildApplicationCommand = APIGuildApplicationCommand;
-
-/**
- * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command
- */
-export type RESTPostAPIApplicationCommand = APIApplicationCommand;
-
-/**
- * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command
- */
-export type RESTPostAPIGuildApplicationCommand = APIGuildApplicationCommand;
-
-/**
- * @see https://discord.com/developers/docs/interactions/application-commands#edit-application-command-permissions
- */
-export type RESTPutAPIApplicationCommandPermissions = APIGuildApplicationCommandPermissions;
-
-/**
- * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
- */
-export type RESTPutAPIApplicationCommands = APIApplicationCommand[];
+export type RawCreateUserGuildApplicationCommandOptions = RawCreateGuildApplicationCommandOptionsBase<ApplicationCommandType.User>;
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands-json-params
  */
-export type RESTPutAPIApplicationCommandsJSONParams = APIApplicationCommand[];
-
-/**
- * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-guild-application-commands
- */
-export type RESTPutAPIGuildApplicationCommands = APIGuildApplicationCommand[];
+export type RawBulkOverwriteApplicationCommandsOptions = RawCreateApplicationCommandOptions[];
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-guild-application-commands-json-params
  */
-export type RESTPutAPIGuildApplicationCommandsJSONParams = APIGuildApplicationCommand[];
+export type RawBulkOverwriteGuildApplicationCommandsOptions = RawCreateGuildApplicationCommandOptions[];

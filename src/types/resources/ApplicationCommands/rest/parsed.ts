@@ -7,7 +7,7 @@ import type { ApplicationCommandOption, ApplicationCommandPermissions } from '..
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
  */
-export interface CreateApplicationCommandOptionsBase<Type extends ApplicationCommandType> {
+export interface CreateApplicationCommandBase<Type extends ApplicationCommandType> {
 	contexts?: InteractionContextType[];
 	defaultMemberPermissions?: string | null;
 	integrationTypes?: ApplicationIntegrationType[];
@@ -20,7 +20,7 @@ export interface CreateApplicationCommandOptionsBase<Type extends ApplicationCom
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
  */
-export interface CreateChatInputApplicationCommandOptions extends CreateApplicationCommandOptionsBase<ApplicationCommandType.ChatInput> {
+export interface CreateChatInputApplicationCommand extends CreateApplicationCommandBase<ApplicationCommandType.ChatInput> {
 	description: string;
 	descriptionLocalizations?: Localizations | null;
 	options?: ApplicationCommandOption[];
@@ -29,29 +29,42 @@ export interface CreateChatInputApplicationCommandOptions extends CreateApplicat
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command-json-params
  */
-export interface CreateGuildApplicationCommandOptions {
-	defaultMemberPermissions?: string | null;
-	description?: string;
+export interface CreateChatInputGuildApplicationCommand extends CreateGuildApplicationCommandBase<ApplicationCommandType.ChatInput> {
+	description: string;
 	descriptionLocalizations?: Localizations | null;
+	options?: ApplicationCommandOption;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command-json-params
+ */
+export interface CreateGuildApplicationCommandBase<Type extends ApplicationCommandType> {
+	defaultMemberPermissions?: string | null;
 	name: string;
 	nameLocalizations?: Localizations | null;
 	nsfw?: boolean;
-	options?: ApplicationCommandOption[];
-	type?: ApplicationCommandType;
+	type: Type;
 }
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
  */
-export interface CreatePrimaryEntryPointApplicationCommandOptions
-	extends CreateApplicationCommandOptionsBase<ApplicationCommandType.PrimaryEntryPoint> {
+export interface CreatePrimaryEntryPointApplicationCommand extends CreateApplicationCommandBase<ApplicationCommandType.PrimaryEntryPoint> {
+	handler: EntryPointCommandHandlerType;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command-json-params
+ */
+export interface CreatePrimaryEntryPointGuildApplicationCommand
+	extends CreateGuildApplicationCommandBase<ApplicationCommandType.PrimaryEntryPoint> {
 	handler: EntryPointCommandHandlerType;
 }
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#edit-global-application-command-json-params
  */
-export interface EditApplicationCommandOptions {
+export interface EditApplicationCommand {
 	contexts?: InteractionContextType[];
 	defaultMemberPermissions?: string | null;
 	description?: string;
@@ -64,16 +77,9 @@ export interface EditApplicationCommandOptions {
 }
 
 /**
- * @see https://discord.com/developers/docs/interactions/application-commands#edit-application-command-permissions-json-params
- */
-export interface EditApplicationCommandPermissionsOptions {
-	permissions: ApplicationCommandPermissions[];
-}
-
-/**
  * @see https://discord.com/developers/docs/interactions/application-commands#edit-guild-application-command-json-params
  */
-export interface EditGuildApplicationCommandOptions {
+export interface EditGuildApplicationCommand {
 	defaultMemberPermissions?: string | null;
 	description?: string;
 	descriptionLocalizations?: Localizations | null;
@@ -86,42 +92,66 @@ export interface EditGuildApplicationCommandOptions {
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#get-global-application-commands-query-string-params
  */
-export interface GetApplicationCommandsOptions {
+export interface GetApplicationCommands {
 	withLocalizations?: boolean;
 }
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#get-guild-application-commands-query-string-params
  */
-export interface GetGuildApplicationCommandsOptions {
+export interface GetGuildApplicationCommands {
 	withLocalizations?: boolean;
 }
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
  */
-export type CreateApplicationCommandOptions =
-	| CreateChatInputApplicationCommandOptions
-	| CreateMessageApplicationCommandOptions
-	| CreatePrimaryEntryPointApplicationCommandOptions
-	| CreateUserApplicationCommandOptions;
+export type CreateApplicationCommand =
+	| CreateChatInputApplicationCommand
+	| CreateMessageApplicationCommand
+	| CreatePrimaryEntryPointApplicationCommand
+	| CreateUserApplicationCommand;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command-json-params
+ */
+export type CreateGuildApplicationCommand =
+	| CreateChatInputGuildApplicationCommand
+	| CreateMessageGuildApplicationCommand
+	| CreatePrimaryEntryPointGuildApplicationCommand
+	| CreateUserGuildApplicationCommand;
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
  */
-export type CreateMessageApplicationCommandOptions = CreateApplicationCommandOptionsBase<ApplicationCommandType.Message>;
+export type CreateMessageApplicationCommand = CreateApplicationCommandBase<ApplicationCommandType.Message>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command-json-params
+ */
+export type CreateMessageGuildApplicationCommand = CreateGuildApplicationCommandBase<ApplicationCommandType.Message>;
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#create-global-application-command-json-params
  */
-export type CreateUserApplicationCommandOptions = CreateApplicationCommandOptionsBase<ApplicationCommandType.User>;
+export type CreateUserApplicationCommand = CreateApplicationCommandBase<ApplicationCommandType.User>;
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command-json-params
+ */
+export type CreateUserGuildApplicationCommand = CreateGuildApplicationCommandBase<ApplicationCommandType.User>;
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands-json-params
  */
-export type EditApplicationCommandBulkOptions = CreateApplicationCommandOptions[];
+export type BulkOverwriteApplicationCommands = CreateApplicationCommand[];
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-guild-application-commands-json-params
  */
-export type EditGuildApplicationCommandBulkOptions = CreateGuildApplicationCommandOptions[];
+export type BulkOverwriteGuildApplicationCommands = CreateGuildApplicationCommand[];
+
+/**
+ * @see https://discord.com/developers/docs/interactions/application-commands#edit-application-command-permissions-json-params
+ */
+export type EditApplicationCommandPermissions = ApplicationCommandPermissions[];
