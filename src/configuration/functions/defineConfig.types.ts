@@ -1,4 +1,31 @@
+import type { core } from 'zod';
+import type { ConfigurationSchema } from '#configuration/schemas/ConfigurationSchema.js';
 import type { GatewayIntents } from '#types/index.js';
+
+/**
+ * Defines the options for the `commandsCache` configuration.
+ */
+export interface DefineConfigCommandsCacheOptions {
+	/**
+	 * Enables or disables command data caching.
+	 *
+	 * When enabled, commands data is stored in the specified
+	 * {@link file | `file`} path.
+	 *
+	 * When disabled, no command data will be read from or written to the cache
+	 * file.
+	 *
+	 * @default true
+	 */
+	enabled: boolean;
+	/**
+	 * The relative path (from `process.cwd()`) to the file where the commands
+	 * data is stored for caching purposes.
+	 *
+	 * @default 'commands.json'
+	 */
+	file?: string;
+}
 
 /**
  * Defines the options for the `locations` configuration.
@@ -33,25 +60,24 @@ export interface DefineConfigLocationsOptions {
 }
 
 /**
- * Defines the options for the `commandsCache` configuration.
+ * Defines the options for the framework configuration.
  */
-export interface DefineConfigCommandsCacheOptions {
-	/**
-	 * Whether to enable the cache of commands.
-	 */
-	enabled: boolean;
-	/**
-	 * The name of the file where the commands will be stored.
-	 */
-	file: string;
-}
-
 export interface DefineConfigOptions {
+	/**
+	 * The configuration for command data caching.
+	 *
+	 * This option can be used to avoid re-uploading all commands on every
+	 * application startup.
+	 */
+	commandsCache?: DefineConfigCommandsCacheOptions;
 	/**
 	 * The intents of the application used to connect the shards to the Discord
 	 * gateway.
 	 */
 	intents: GatewayIntents[];
+	/**
+	 * The configuration for the locations of the framework.
+	 */
 	locations?: DefineConfigLocationsOptions;
 	/**
 	 * The token of the application used to authenticate the client with the
@@ -60,10 +86,4 @@ export interface DefineConfigOptions {
 	token: `Bot ${string}`;
 }
 
-export interface LinkcordOptions {
-	intents: number;
-	locations: LinkcordLocationOptions;
-	token: string;
-}
-
-export type LinkcordLocationOptions = Required<DefineConfigLocationsOptions>;
+export type LinkcordOptions = core.output<typeof ConfigurationSchema>;

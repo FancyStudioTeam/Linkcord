@@ -1,7 +1,14 @@
-import { array, enum as enum_, object, string } from 'zod';
+import { array, boolean, enum as enum_, object, string } from 'zod';
 import { transformIntents } from '#configuration/functions/transformIntents.js';
 import { transformToken } from '#configuration/functions/transformToken.js';
 import { GatewayIntents } from '#types/index.js';
+
+export const ConfigurationCommandsCacheEnabledSchema = boolean();
+export const ConfigurationCommandsCacheFileSchema = string();
+export const ConfigurationCommandsCacheSchema = object({
+	enabled: ConfigurationCommandsCacheEnabledSchema,
+	file: ConfigurationCommandsCacheFileSchema,
+});
 
 export const ConfigurationIntentsEnumSchema = enum_(GatewayIntents);
 export const ConfigurationIntentsSchema = array(ConfigurationIntentsEnumSchema).transform(transformIntents);
@@ -19,6 +26,7 @@ export const ConfigurationLocationsSchema = object({
 export const ConfigurationTokenSchema = string().transform(transformToken);
 
 export const ConfigurationSchema = object({
+	commandsCache: ConfigurationCommandsCacheSchema,
 	intents: ConfigurationIntentsSchema,
 	locations: ConfigurationLocationsSchema,
 	token: ConfigurationTokenSchema,
