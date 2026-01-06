@@ -83,7 +83,7 @@ export interface SubCommandApplicationCommandOption
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
 export interface SubCommandGroupApplicationCommandOption
-	extends Omit<ApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommand>, 'required'> {
+	extends Omit<ApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommandGroup>, 'required'> {
 	options: SubCommandApplicationCommandOption[];
 }
 

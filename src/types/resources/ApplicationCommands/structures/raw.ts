@@ -145,7 +145,7 @@ export interface RawSubCommandApplicationCommandOption
  * @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  */
 export interface RawSubCommandGroupApplicationCommandOption
-	extends Omit<RawApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommand>, 'required'> {
+	extends Omit<RawApplicationCommandOptionBase<ApplicationCommandOptionType.SubCommandGroup>, 'required'> {
 	options: RawSubCommandApplicationCommandOption[];
 }
 
