@@ -7,5 +7,9 @@
 import { basename } from 'node:path';
 
 export function COMMANDS_CACHE_FILE_NOT_FOUND(filePath: string) {
-	return `Commands cache file '${basename(filePath)}' has not been found. Creating cache file...`;
+	return `Commands cache file '${basename(filePath)}' has not been found. Creating cache file...` as const;
+}
+
+export function COMMANDS_CACHE_NOT_ENABLED() {
+	return 'Commands cache is not enabled. Skipping cache file verification...' as const;
 }

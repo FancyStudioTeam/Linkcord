@@ -4,6 +4,7 @@
  * not conventional camel case functions.
  */
 
+import { basename } from 'node:path';
 import type { Snowflake } from '#types/index.js';
 
 export function APPLICATION_USER_NOT_CACHED(applicationId: Snowflake) {
@@ -15,7 +16,11 @@ export function CLIENT_ALREADY_INITIALIZED() {
 }
 
 export function CLIENT_NOT_INITIALIZED() {
-	return 'The client has not been initialized yet.' as const;
+	return 'The client has not been initialized yet' as const;
+}
+
+export function COMMANDS_CACHE_FILE_NOT_AN_ARRAY(filePath: string) {
+	return `Commands cache file '${basename(filePath)}' is not an array` as const;
 }
 
 export function CONFIGURATION_FILE_NOT_FOUND() {
