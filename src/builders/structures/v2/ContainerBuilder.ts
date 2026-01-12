@@ -1,6 +1,6 @@
 import { BuilderBase } from '#builders/base/BuilderBase.js';
 import { ContainerAccentColorSchema, ContainerComponentSchema, ContainerSchema } from '#builders/schemas/v2/ContainerSchema.js';
-import { ComponentType, type ContainerComponent, type ContainerComponentsResolvable } from '#types/index.js';
+import { ComponentType, type ContainerChildComponentResolvable, type ContainerComponent } from '#types/index.js';
 import { validate } from '#utils/functions/validate.js';
 import { isInstanceOf } from '#utils/helpers/AssertionUtils.js';
 
@@ -13,7 +13,7 @@ export class ContainerBuilder extends BuilderBase<ContainerComponent> {
 	 *
 	 * @param component - The instance or structure of the component to add.
 	 */
-	addComponent(component: ContainerComponentsResolvable): this {
+	addComponent(component: ContainerChildComponentResolvable): this {
 		if (isInstanceOf(component, BuilderBase)) {
 			component = component.toJSON();
 		}
@@ -32,7 +32,7 @@ export class ContainerBuilder extends BuilderBase<ContainerComponent> {
 	 * @param components - An array of instances or structures of the components
 	 * to add.
 	 */
-	addComponents(components: ContainerComponentsResolvable[]): this {
+	addComponents(components: ContainerChildComponentResolvable[]): this {
 		for (const component of components) {
 			this.addComponent(component);
 		}

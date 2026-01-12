@@ -38,10 +38,6 @@ export class CommandLoader {
 		});
 		const cachedCommandsContentParsed = JSON.parse(cachedCommandsContent) as CreateApplicationCommand[];
 
-		/*
-		 * If the commands cache file is not an array, overwrite the file to
-		 * initialize as an empty array.
-		 */
 		if (!isArray(cachedCommandsContentParsed)) {
 			throw new TypeError(COMMANDS_CACHE_FILE_NOT_AN_ARRAY(filePath));
 		}
