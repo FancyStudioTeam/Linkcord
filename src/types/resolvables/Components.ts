@@ -12,8 +12,14 @@ import type {
 
 export type ActionRowComponentResolvable = ActionRowComponent;
 
+export type ContainerChildComponentResolvable =
+	| ActionRowComponentResolvable
+	| FileComponentResolvable
+	| MediaGalleryComponentResolvable
+	| SectionComponentResolvable
+	| SeparatorComponentResolvable
+	| TextDisplayComponentResolvable;
 export type ContainerComponentResolvable = ContainerBuilder | ContainerComponent;
-export type ContainerComponentsResolvable = SeparatorComponentResolvable | TextDisplayComponentResolvable;
 
 export type FileComponentResolvable = FileComponent;
 
