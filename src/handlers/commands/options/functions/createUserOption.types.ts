@@ -1,14 +1,14 @@
 import type { ApplicationCommandOptionType, Localizations } from '#types/index.js';
 
-export interface CreateStringOption<Required extends boolean> {
+export interface CreateUserOption<Required extends boolean> {
 	description: string;
 	descriptionLocalizations?: Localizations;
 	required?: Required;
 }
 
-export interface StringOptionData<Required extends boolean> {
+export interface UserOptionData<Required extends boolean> {
 	description: string;
 	descriptionLocalizations?: Localizations;
 	required: Required;
-	type: ApplicationCommandOptionType.String;
+	type: ApplicationCommandOptionType.User;
 }

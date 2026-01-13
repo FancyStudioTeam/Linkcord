@@ -1,15 +1,9 @@
 import { ApplicationCommandOptionType } from '#types/index.js';
-import type { StringOptionData } from './createStringOption.types.js';
+import type { CreateStringOption, StringOptionData } from './createStringOption.types.js';
 
-export function createStringOption<Required extends boolean, Options extends StringOptionData<Required>>(
-	options: Options,
-): Readonly<
-	Omit<Options, 'required'> & {
-		type: ApplicationCommandOptionType.String;
-		required: Required;
-	}
-> {
-	const { required = false } = options;
+export function createStringOption<Required extends boolean>(options: CreateStringOption<Required>): Readonly<StringOptionData<Required>> {
+	const { required: isRequired = false } = options;
+	const required = isRequired as Required;
 
 	return {
 		...options,
