@@ -6,14 +6,12 @@ import type { CreateChatInputApplicationCommand } from '#types/index.js';
 import type { NonAbstractConstructor } from '#utils/index.js';
 import type { ChatInputCommandHandler } from './ChatInputCommandHandler.js';
 
-export interface ChatInputCommandContext<Options extends Record<string, OptionData> = Record<string, never>> {
+export interface ChatInputCommandContext<Options extends Record<string, OptionData> | never = never> {
 	client: Client;
 	gatewayShard: GatewayShard;
 	interaction: ChatInputApplicationCommandInteraction;
-	options: ParsedOptions<NormalizeOptions<Options>>;
+	options: ParsedOptions<Options>;
 }
 
 export type ChatInputCommandHandlerConstructor = NonAbstractConstructor<ChatInputCommandHandler>;
 export type ChatInputCommandHandlerDeclareOptions = Omit<CreateChatInputApplicationCommand, 'options' | 'type'>;
-
-export type NormalizeOptions<OptionsObject> = OptionsObject extends undefined ? Record<string, never> : OptionsObject;

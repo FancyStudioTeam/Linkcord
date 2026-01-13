@@ -48,7 +48,7 @@ export async function INTERACTION_CREATE(
 							client,
 							gatewayShard,
 							interaction,
-							options: {},
+							options: {} as never,
 						});
 					}
 
