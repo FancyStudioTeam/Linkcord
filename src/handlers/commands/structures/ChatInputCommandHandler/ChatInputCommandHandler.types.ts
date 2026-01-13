@@ -7,12 +7,12 @@ import type { ChatInputCommandHandler } from './ChatInputCommandHandler.js';
 
 export interface ChatInputCommandContext<
 	Data extends ChatInputCommandContextData = {
-		options: never;
+		options: Record<string, never>;
 	},
 > {
 	client: Client;
 	gatewayShard: GatewayShard;
-	options?: Data['options'];
+	options: Data['options'];
 	interaction: ChatInputApplicationCommandInteraction;
 }
 
