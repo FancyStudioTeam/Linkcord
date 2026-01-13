@@ -6,7 +6,11 @@ import type { CreateChatInputApplicationCommand } from '#types/index.js';
 import type { NonAbstractConstructor } from '#utils/index.js';
 import type { ChatInputCommandHandler } from './ChatInputCommandHandler.js';
 
-export interface ChatInputCommandContext<Data extends ChatInputCommandContextData> {
+export interface ChatInputCommandContext<
+	Data extends ChatInputCommandContextData = {
+		options: Record<string, never>;
+	},
+> {
 	client: Client;
 	gatewayShard: GatewayShard;
 	interaction: ChatInputApplicationCommandInteraction;
