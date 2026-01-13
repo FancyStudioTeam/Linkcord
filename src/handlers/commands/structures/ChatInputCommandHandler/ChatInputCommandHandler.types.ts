@@ -9,8 +9,8 @@ import type { ChatInputCommandHandler } from './ChatInputCommandHandler.js';
 export interface ChatInputCommandContext<Data extends ChatInputCommandContextData> {
 	client: Client;
 	gatewayShard: GatewayShard;
-	options: ParsedOptions<NormalizeOptions<Data['options']>>;
 	interaction: ChatInputApplicationCommandInteraction;
+	options: ParsedOptions<NormalizeOptions<Data['options']>>;
 }
 
 export interface ChatInputCommandContextData {
