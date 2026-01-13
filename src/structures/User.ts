@@ -7,7 +7,7 @@ import {
 } from '#transformers/Users/Deserializer.js';
 import type { AvatarDecorationData, RawUser, Snowflake, UserCollectibles, UserDisplayNameStyles, UserPrimaryGuild } from '#types/index.js';
 import { isUndefined } from '#utils/helpers/AssertionUtils.js';
-import { BitField, hexColor, userMention } from '#utils/index.js';
+import { BitField, getSnowflakeTimestamp, hexColor, userMention } from '#utils/index.js';
 import { Base } from './Base.js';
 
 /**
@@ -29,17 +29,17 @@ export class User extends Base {
 	avatarDecorationData: AvatarDecorationData | null = null;
 	/** The banner hash of the user, if any. */
 	banner: string | null = null;
-	/** The collectibles data of the user, if any. */
+	/** The collectibles of the user, if any. */
 	collectibles: UserCollectibles | null = null;
 	/** The discriminator of the user. */
 	discriminator: string;
-	/** The display name styles data of the user, if any. */
+	/** The display name styles of the user, if any. */
 	displayNameStyles: UserDisplayNameStyles | null = null;
 	/** The flags of the user. */
 	flags: BitField;
 	/** The display name of the user, if any. */
 	globalName: string | null = null;
-	/** The primary guild data of the user, if any. */
+	/** The primary guild of the user, if any. */
 	primaryGuild: UserPrimaryGuild | null = null;
 	/** The username of the user. */
 	username: string;
@@ -72,9 +72,23 @@ export class User extends Base {
 		return userMention(id);
 	}
 
+	/** The {@link Date | `Date`} at which the user was created. */
+	get createdAt(): Date {
+		const { createdTimestamp } = this;
+
+		return new Date(createdTimestamp);
+	}
+
+	/** The timestamp at which the user was created. */
+	get createdTimestamp(): number {
+		const { id } = this;
+
+		return getSnowflakeTimestamp(id);
+	}
+
 	/**
-	 * Patches the current {@link User} instance with the provided
-	 * {@link RawUser} structure.
+	 * Patches the current {@link User | `User`} instance with the provided
+	 * {@link RawUser | `RawUser`} structure.
 	 */
 	protected patch(rawUser: Partial<RawUser>): void {
 		const {
