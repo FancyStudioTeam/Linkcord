@@ -16,6 +16,8 @@ export class ApplicationsResource extends ResourceBase {
 				// @ts-expect-error
 				description: option.description as string,
 				name: option.name,
+				// @ts-expect-error
+				options: option.options as never,
 				type: option.type,
 			});
 		}

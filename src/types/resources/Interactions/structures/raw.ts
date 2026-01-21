@@ -1,6 +1,7 @@
 import type { Snowflake } from '#types/miscellaneous/discord.js';
 import type { Locales } from '#types/miscellaneous/enums.js';
-import type { ApplicationCommandType } from '#types/resources/ApplicationCommands/enums.js';
+import type { ApplicationCommandOptionType, ApplicationCommandType } from '#types/resources/ApplicationCommands/enums.js';
+import type { RawApplicationCommandOption } from '#types/resources/ApplicationCommands/index.js';
 import type { ApplicationIntegrationType } from '#types/resources/Applications/enums.js';
 import type { APIChannel, APIPartialChannel } from '#types/resources/Channels/index.js';
 import type { ComponentType } from '#types/resources/Components/enums.js';
@@ -24,11 +25,32 @@ import type { RawUser } from '#types/resources/Users/index.js';
 import type { InteractionContextType, InteractionType } from '../enums.js';
 
 /**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-interaction-data-option-structure
+ */
+export interface RawApplicationCommandInteractionDataOptionBase {
+	focused?: boolean;
+	name: string;
+	type: ApplicationCommandOptionType;
+}
+
+export interface RawApplicationCommandInteractionDataOptionWithValue extends RawApplicationCommandInteractionDataOptionBase {
+	value: unknown;
+}
+
+/**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object
  */
 export type RawAuthorizingIntegrationOwners = {
 	[Type in ApplicationIntegrationType]?: Snowflake;
 };
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
+ */
+export interface RawChatInputApplicationCommandInteractionData
+	extends RawApplicationCommandInteractionDataBase<ApplicationCommandType.ChatInput> {
+	options?: RawApplicationCommandOption[];
+}
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
@@ -57,21 +79,6 @@ export interface RawInteractionBase<Type extends InteractionType, Data extends R
 }
 
 /**
- * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-object
- */
-export interface RawInteractionCallback {
-	id: Snowflake;
-	type: InteractionType;
-}
-
-/**
- * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-response-object
- */
-export interface RawInteractionCallbackResponse {
-	interaction: RawInteractionCallback;
-}
-
-/**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
  */
 export interface RawApplicationCommandInteractionDataBase<Type extends ApplicationCommandType> {
@@ -88,6 +95,21 @@ export interface RawApplicationCommandInteractionDataBase<Type extends Applicati
 export interface RawContextApplicationCommandDataBase<Type extends RawContextApplicationCommandType>
 	extends RawApplicationCommandInteractionDataBase<Type> {
 	target_id: Snowflake;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-object
+ */
+export interface RawInteractionCallback {
+	id: Snowflake;
+	type: InteractionType;
+}
+
+/**
+ * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-response-object
+ */
+export interface RawInteractionCallbackResponse {
+	interaction: RawInteractionCallback;
 }
 
 /**
@@ -160,11 +182,6 @@ export type RawChatInputApplicationCommandInteraction = RawInteractionBase<
 	InteractionType.ApplicationCommand,
 	RawChatInputApplicationCommandInteractionData
 >;
-
-/**
- * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
- */
-export type RawChatInputApplicationCommandInteractionData = RawApplicationCommandInteractionDataBase<ApplicationCommandType.ChatInput>;
 
 /**
  * @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
