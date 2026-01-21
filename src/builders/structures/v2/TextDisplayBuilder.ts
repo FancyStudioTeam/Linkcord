@@ -1,19 +1,31 @@
 import { BuilderBase } from '#builders/base/BuilderBase.js';
 import { TextDisplayContentSchema, TextDisplaySchema } from '#builders/schemas/v2/TextDisplaySchema.js';
-import { ComponentType, type TextDisplayComponent } from '#types/index.js';
+import { ComponentType, type TextDisplayComponent, type TextDisplayComponentResolvable } from '#types/index.js';
 import { validate } from '#utils/functions/validate.js';
+import { isInstanceOf } from '#utils/helpers/AssertionUtils.js';
 
 /**
  * @see https://discord.com/developers/docs/components/reference#text-display-text-display-structure
  */
 export class TextDisplayBuilder extends BuilderBase<TextDisplayComponent> {
+	constructor(textDisplay?: TextDisplayComponentResolvable) {
+		if (isInstanceOf(textDisplay, TextDisplayBuilder)) {
+			textDisplay = textDisplay.toJSON();
+		}
+
+		super({
+			...textDisplay,
+			type: ComponentType.TextDisplay,
+		});
+	}
+
 	/**
 	 * Sets the content of the text display.
 	 *
 	 * @param content - The content of the text display to set.
 	 */
 	setContent(content: string): this {
-		this.data.content = validate(TextDisplayContentSchema, content);
+		this._data.content = validate(TextDisplayContentSchema, content);
 
 		return this;
 	}
@@ -25,11 +37,8 @@ export class TextDisplayBuilder extends BuilderBase<TextDisplayComponent> {
 	 * @see https://discord.com/developers/docs/components/reference#text-display-text-display-structure
 	 */
 	toJSON(): TextDisplayComponent {
-		const { data } = this;
-		const validatedData = validate(TextDisplaySchema, {
-			...data,
-			type: ComponentType.TextDisplay,
-		});
+		const { _data: data } = this;
+		const validatedData = validate(TextDisplaySchema, data);
 
 		return validatedData;
 	}
