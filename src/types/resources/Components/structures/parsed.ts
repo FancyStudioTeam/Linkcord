@@ -26,6 +26,25 @@ export interface ChannelSelectMenuComponent extends ResolvableSelectMenuComponen
 }
 
 /**
+ * @undocumented
+ */
+export interface CheckboxComponent extends ComponentBase<ComponentType.Checkbox> {
+	customId: string;
+	default?: boolean;
+}
+
+/**
+ * @undocumented
+ */
+export interface CheckboxGroupComponent extends ComponentBase<ComponentType.CheckboxGroup> {
+	customId: string;
+	maxValues?: number;
+	minValues?: number;
+	options: CheckboxComponent[];
+	required?: boolean;
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#anatomy-of-a-component
  */
 export interface ComponentBase<Type extends ComponentType> {
@@ -106,6 +125,15 @@ export interface MediaGalleryItem {
  */
 export interface PremiumButtonComponent extends ButtonComponentBase<ButtonStyle.Premium> {
 	skuId: Snowflake;
+}
+
+/**
+ * @undocumented
+ */
+export interface RadioGroupComponent extends ComponentBase<ComponentType.RadioGroup> {
+	customId: string;
+	options: CheckboxComponent[];
+	required?: boolean;
 }
 
 /**

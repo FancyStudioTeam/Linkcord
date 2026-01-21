@@ -36,6 +36,25 @@ export interface RawChannelSelectInteractionResponse extends RawComponentInterac
 }
 
 /**
+ * @undocumented
+ */
+export interface RawCheckboxComponent extends RawComponentBase<ComponentType.Checkbox> {
+	custom_id: string;
+	default?: boolean;
+}
+
+/**
+ * @undocumented
+ */
+export interface RawCheckboxGroupComponent extends RawComponentBase<ComponentType.CheckboxGroup> {
+	custom_id: string;
+	max_values?: number;
+	min_values?: number;
+	options: RawCheckboxComponent[];
+	required?: boolean;
+}
+
+/**
  * @see https://discord.com/developers/docs/components/reference#anatomy-of-a-component
  */
 export interface RawComponentBase<Type extends ComponentType> {
@@ -142,6 +161,15 @@ export interface RawMentionableSelectInteractionResponse extends RawComponentInt
  */
 export interface RawPremiumButtonComponent extends RawButtonComponentBase<ButtonStyle.Premium> {
 	sku_id: Snowflake;
+}
+
+/**
+ * @undocumented
+ */
+export interface RawRadioGroupComponent extends RawComponentBase<ComponentType.RadioGroup> {
+	custom_id: string;
+	options: RawCheckboxComponent[];
+	required?: boolean;
 }
 
 /**
