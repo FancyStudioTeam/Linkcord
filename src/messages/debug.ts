@@ -1,7 +1,6 @@
 /**
  * biome-ignore-all lint/style/useNamingConvention: These functions
- * intentionally use upper snake case because they represent debug messages,
- * not conventional camel case functions.
+ * intentionally use upper snake case because they represent debug messages.
  */
 
 import { basename } from 'node:path';

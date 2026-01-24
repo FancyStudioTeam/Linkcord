@@ -1,7 +1,6 @@
 /**
  * biome-ignore-all lint/style/useNamingConvention: These functions
- * intentionally use upper snake case because they represent error messages,
- * not conventional camel case functions.
+ * intentionally use upper snake case because they represent error messages.
  */
 
 import { basename } from 'node:path';
@@ -25,6 +24,10 @@ export function COMMANDS_CACHE_FILE_NOT_AN_ARRAY(filePath: string) {
 
 export function CONFIGURATION_FILE_NOT_FOUND() {
 	return `Configuration file 'linkcord.config' has not been found` as const;
+}
+
+export function DECORATOR_CAN_BE_ONLY_APPLIED_TO_ACCESSORS(decoratorName: string) {
+	return `Decorator '${decoratorName}' can only be applied to getter accessors` as const;
 }
 
 export function INTERACTION_ALREADY_ACKNOWLEDGED() {
