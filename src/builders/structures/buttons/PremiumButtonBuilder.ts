@@ -27,11 +27,6 @@ export class PremiumButtonBuilder extends ButtonBuilderBase<PremiumButtonCompone
 		});
 	}
 
-	/**
-	 * Sets the sku ID of the premium button.
-	 *
-	 * @param skuId - The sku ID of the premium button.
-	 */
 	setSkuId(skuId: Snowflake): this {
 		this._data.skuId = validate(PremiumButtonSkuIdSchema, skuId);
 
@@ -39,12 +34,11 @@ export class PremiumButtonBuilder extends ButtonBuilderBase<PremiumButtonCompone
 	}
 
 	/**
-	 * Converts the current {@link PremiumButtonBuilder} into a
-	 * {@link PremiumButtonComponent} structure.
+	 * @see https://discord.com/developers/docs/components/reference#button-button-structure
 	 */
 	toJSON(): PremiumButtonComponent {
-		const { _data: data } = this;
-		const validatedData = validate(PremiumButtonSchema, data);
+		const { _data: premiumButton } = this;
+		const validatedData = validate(PremiumButtonSchema, premiumButton);
 
 		return validatedData;
 	}

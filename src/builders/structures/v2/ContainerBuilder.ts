@@ -1,5 +1,9 @@
 import { BuilderBase } from '#builders/base/BuilderBase.js';
-import { ContainerAccentColorSchema, ContainerComponentSchema, ContainerSchema } from '#builders/schemas/v2/ContainerSchema.js';
+import {
+	ContainerAccentColorSchema,
+	ContainerComponentSchema,
+	ContainerSchema,
+} from '#builders/schemas/v2/ContainerSchema.js';
 import {
 	ComponentType,
 	type ContainerChildComponentResolvable,
@@ -19,16 +23,11 @@ export class ContainerBuilder extends BuilderBase<ContainerComponent> {
 		}
 
 		super({
-			...container,
+			...validate(ContainerSchema, container),
 			type: ComponentType.Container,
 		});
 	}
 
-	/**
-	 * Adds a component to the container.
-	 *
-	 * @param component - The instance or structure of the component to add.
-	 */
 	addComponent(component: ContainerChildComponentResolvable): this {
 		if (isInstanceOf(component, BuilderBase)) {
 			component = component.toJSON();
@@ -42,12 +41,6 @@ export class ContainerBuilder extends BuilderBase<ContainerComponent> {
 		return this;
 	}
 
-	/**
-	 * Adds one o more components to the container.
-	 *
-	 * @param components - An array of instances or structures of the components
-	 * to add.
-	 */
 	addComponents(components: ContainerChildComponentResolvable[]): this {
 		for (const component of components) {
 			this.addComponent(component);
@@ -56,11 +49,6 @@ export class ContainerBuilder extends BuilderBase<ContainerComponent> {
 		return this;
 	}
 
-	/**
-	 * Sets the accent color of the container.
-	 *
-	 * @param accentColor - The accent color of the container to set.
-	 */
 	setAccentColor(accentColor: number): this {
 		this._data.accentColor = validate(ContainerAccentColorSchema, accentColor);
 
@@ -68,14 +56,11 @@ export class ContainerBuilder extends BuilderBase<ContainerComponent> {
 	}
 
 	/**
-	 * Converts the current {@link ContainerBuilder} instance into a
-	 * {@link ContainerComponent} structure.
-	 *
 	 * @see https://discord.com/developers/docs/components/reference#container-container-structure
 	 */
 	toJSON(): ContainerComponent {
-		const { _data: data } = this;
-		const validatedData = validate(ContainerSchema, data);
+		const { _data: container } = this;
+		const validatedData = validate(ContainerSchema, container);
 
 		return validatedData;
 	}
