@@ -28,6 +28,13 @@ export class SeparatorBuilder extends BuilderBase<SeparatorComponent> {
 		});
 	}
 
+	/**
+	 * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
+	 */
+	static from(separator: SeparatorComponentResolvable): SeparatorBuilder {
+		return new SeparatorBuilder(separator);
+	}
+
 	setDivider(divider: boolean): this {
 		this._data.divider = validate(SeparatorDividerSchema, divider);
 

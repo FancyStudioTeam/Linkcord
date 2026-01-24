@@ -26,6 +26,13 @@ export class TextDisplayBuilder extends BuilderBase<TextDisplayComponent> {
 		});
 	}
 
+	/**
+	 * @see https://discord.com/developers/docs/components/reference#text-display-text-display-structure
+	 */
+	static from(textDisplay: TextDisplayComponentResolvable): TextDisplayBuilder {
+		return new TextDisplayBuilder(textDisplay);
+	}
+
 	setContent(content: string): this {
 		this._data.content = validate(TextDisplayContentSchema, content);
 

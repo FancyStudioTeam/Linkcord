@@ -27,6 +27,13 @@ export class PremiumButtonBuilder extends ButtonBuilderBase<PremiumButtonCompone
 		});
 	}
 
+	/**
+	 * @see https://discord.com/developers/docs/components/reference#button-button-structure
+	 */
+	static from(premiumButton: PremiumButtonResolvable): PremiumButtonBuilder {
+		return new PremiumButtonBuilder(premiumButton);
+	}
+
 	setSkuId(skuId: Snowflake): this {
 		this._data.skuId = validate(PremiumButtonSkuIdSchema, skuId);
 

@@ -28,6 +28,13 @@ export class ContainerBuilder extends BuilderBase<ContainerComponent> {
 		});
 	}
 
+	/**
+	 * @see https://discord.com/developers/docs/components/reference#container-container-structure
+	 */
+	static from(container: ContainerComponentResolvable): ContainerBuilder {
+		return new ContainerBuilder(container);
+	}
+
 	addComponent(component: ContainerChildComponentResolvable): this {
 		if (isInstanceOf(component, BuilderBase)) {
 			component = component.toJSON();
