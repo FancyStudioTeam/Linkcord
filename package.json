@@ -16,6 +16,8 @@
 		"rimraf": "6.1.2",
 		"tsc-alias": "1.8.16",
 		"tsx": "4.21.0",
+		"typedoc": "0.28.16",
+		"typedoc-material-theme": "1.4.1",
 		"typescript": "5.9.3",
 		"vite-tsconfig-paths": "6.0.4",
 		"vitest": "4.0.17"
@@ -90,6 +92,7 @@
 		"release": "pnpm publish --access public --no-git-checks",
 		"rimraf": "rimraf lib",
 		"tarball": "pnpm pack",
+		"typedoc": "typedoc",
 		"vitest:run": "vitest --typecheck -c vitest.config.ts",
 		"vitest:watch": "vitest --typecheck --watch -c vitest.config.ts"
 	},
