@@ -1,1 +1,1 @@
-export * from './buttons/index.js';
+export * from './interactive/index.js';
