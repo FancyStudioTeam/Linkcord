@@ -12,11 +12,6 @@ export class ButtonBuilderBase<ButtonData extends ButtonComponent> extends Build
 		});
 	}
 
-	/**
-	 * Sets whether to disable the button.
-	 *
-	 * @param disabled - Whether to disable the button.
-	 */
 	setDisabled(disabled: boolean): this {
 		this._data.disabled = validate(ButtonDisabledSchema, disabled);
 
