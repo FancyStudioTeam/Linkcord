@@ -45,8 +45,8 @@ export class PremiumButtonBuilder extends ButtonBuilderBase<PremiumButtonCompone
 	 */
 	toJSON(): PremiumButtonComponent {
 		const { _data: premiumButton } = this;
-		const validatedData = validate(PremiumButtonSchema, premiumButton);
+		const premiumButtonComponent = validate(PremiumButtonSchema, premiumButton);
 
-		return validatedData;
+		return premiumButtonComponent;
 	}
 }

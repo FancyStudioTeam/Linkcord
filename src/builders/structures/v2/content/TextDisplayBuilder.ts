@@ -44,8 +44,8 @@ export class TextDisplayBuilder extends BuilderBase<TextDisplayComponent> {
 	 */
 	toJSON(): TextDisplayComponent {
 		const { _data: textDisplay } = this;
-		const validatedData = validate(TextDisplaySchema, textDisplay);
+		const textDisplayComponent = validate(TextDisplaySchema, textDisplay);
 
-		return validatedData;
+		return textDisplayComponent;
 	}
 }

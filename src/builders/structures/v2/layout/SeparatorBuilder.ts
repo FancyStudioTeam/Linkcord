@@ -52,8 +52,8 @@ export class SeparatorBuilder extends BuilderBase<SeparatorComponent> {
 	 */
 	toJSON(): SeparatorComponent {
 		const { _data: separator } = this;
-		const validatedData = validate(SeparatorSchema, separator);
+		const separatorComponent = validate(SeparatorSchema, separator);
 
-		return validatedData;
+		return separatorComponent;
 	}
 }

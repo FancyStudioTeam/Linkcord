@@ -67,8 +67,8 @@ export class ContainerBuilder extends BuilderBase<ContainerComponent> {
 	 */
 	toJSON(): ContainerComponent {
 		const { _data: container } = this;
-		const validatedData = validate(ContainerSchema, container);
+		const containerComponent = validate(ContainerSchema, container);
 
-		return validatedData;
+		return containerComponent;
 	}
 }
