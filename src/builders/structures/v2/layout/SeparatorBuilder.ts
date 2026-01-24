@@ -35,8 +35,8 @@ export class SeparatorBuilder extends BuilderBase<SeparatorComponent> {
 		return new SeparatorBuilder(separator);
 	}
 
-	setDivider(divider: boolean): this {
-		this._data.divider = validate(SeparatorDividerSchema, divider);
+	setDivider(isDivider: boolean = true): this {
+		this._data.divider = validate(SeparatorDividerSchema, isDivider);
 
 		return this;
 	}

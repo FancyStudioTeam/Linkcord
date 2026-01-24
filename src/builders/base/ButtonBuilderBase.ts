@@ -1,4 +1,4 @@
-import { ButtonDisabledSchema } from '#builders/schemas/buttons/ButtonSchema.js';
+import { ButtonDisabledSchema } from '#builders/schemas/v1/interactive/ButtonSchema.js';
 import { type ButtonComponent, ComponentType } from '#types/index.js';
 import { validate } from '#utils/functions/validate.js';
 import { BuilderBase } from './BuilderBase.js';
@@ -12,8 +12,8 @@ export class ButtonBuilderBase<ButtonData extends ButtonComponent> extends Build
 		});
 	}
 
-	setDisabled(disabled: boolean): this {
-		this._data.disabled = validate(ButtonDisabledSchema, disabled);
+	setDisabled(isDisabled: boolean): this {
+		this._data.disabled = validate(ButtonDisabledSchema, isDisabled);
 
 		return this;
 	}

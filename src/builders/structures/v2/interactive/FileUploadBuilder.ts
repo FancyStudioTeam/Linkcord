@@ -54,8 +54,8 @@ export class FileUploadBuilder extends BuilderBase<FileUploadComponent> {
 		return this;
 	}
 
-	setRequired(required: boolean = true): this {
-		this._data.required = validate(FileUploadRequiredSchema, required);
+	setRequired(isRequired: boolean = true): this {
+		this._data.required = validate(FileUploadRequiredSchema, isRequired);
 
 		return this;
 	}

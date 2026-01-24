@@ -3,6 +3,7 @@ import {
 	ContainerAccentColorSchema,
 	ContainerComponentSchema,
 	ContainerSchema,
+	ContainerSpoilerSchema,
 } from '#builders/schemas/v2/layout/ContainerSchema.js';
 import {
 	ComponentType,
@@ -58,6 +59,12 @@ export class ContainerBuilder extends BuilderBase<ContainerComponent> {
 
 	setAccentColor(accentColor: number): this {
 		this._data.accentColor = validate(ContainerAccentColorSchema, accentColor);
+
+		return this;
+	}
+
+	setSpoiler(isSpoiler: boolean = true): this {
+		this._data.spoiler = validate(ContainerSpoilerSchema, isSpoiler);
 
 		return this;
 	}
