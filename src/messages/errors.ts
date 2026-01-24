@@ -27,7 +27,7 @@ export function CONFIGURATION_FILE_NOT_FOUND() {
 }
 
 export function DECORATOR_CAN_BE_ONLY_APPLIED_TO_ACCESSORS(decoratorName: string) {
-	return `Decorator '${decoratorName}' can only be applied to getter accessors` as const;
+	return `Decorator '@${decoratorName}' can only be applied to getter accessors` as const;
 }
 
 export function INTERACTION_ALREADY_ACKNOWLEDGED() {
