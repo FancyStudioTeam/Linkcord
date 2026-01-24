@@ -1,10 +1,18 @@
-import type { ContainerBuilder, SeparatorBuilder, TextDisplayBuilder } from '#builders/index.js';
+import type {
+	ContainerBuilder,
+	FileUploadBuilder,
+	PremiumButtonBuilder,
+	SeparatorBuilder,
+	TextDisplayBuilder,
+} from '#builders/index.js';
 import type {
 	ActionRowComponent,
 	ContainerComponent,
 	FileComponent,
+	FileUploadComponent,
 	LabelComponent,
 	MediaGalleryComponent,
+	PremiumButtonComponent,
 	SectionComponent,
 	SeparatorComponent,
 	TextDisplayComponent,
@@ -23,9 +31,13 @@ export type ContainerComponentResolvable = ContainerBuilder | ContainerComponent
 
 export type FileComponentResolvable = FileComponent;
 
+export type FileUploadComponentResolvable = FileUploadBuilder | FileUploadComponent;
+
 export type LabelComponentResolvable = LabelComponent;
 
 export type MediaGalleryComponentResolvable = MediaGalleryComponent;
+
+export type PremiumButtonResolvable = PremiumButtonBuilder | PremiumButtonComponent;
 
 export type SectionComponentResolvable = SectionComponent;
 
