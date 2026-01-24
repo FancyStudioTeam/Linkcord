@@ -1,8 +1,8 @@
 import { array, literal, number, object, union } from 'zod';
+import { IdSchema } from '#builders/schemas/shared/IdSchema.js';
 import { ComponentType } from '#types/index.js';
-import { IdSchema } from '../../shared/IdSchema.js';
 import { TextDisplaySchema } from '../content/TextDisplaySchema.js';
-import { SeparatorSchema } from '../SeparatorSchema.js';
+import { SeparatorSchema } from './SeparatorSchema.js';
 
 export const ContainerAccentColorSchema = number();
 

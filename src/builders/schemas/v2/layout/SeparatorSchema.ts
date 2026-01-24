@@ -1,6 +1,6 @@
 import { boolean, enum as enum_, literal, object } from 'zod';
+import { IdSchema } from '#builders/schemas/shared/IdSchema.js';
 import { ComponentType, SeparatorSpacingSize } from '#types/index.js';
-import { IdSchema } from '../../shared/IdSchema.js';
 
 export const SeparatorDividerSchema = boolean();
 export const SeparatorIdSchema = IdSchema;
