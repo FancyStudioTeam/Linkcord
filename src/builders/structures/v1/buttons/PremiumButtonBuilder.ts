@@ -2,7 +2,7 @@ import { ButtonBuilderBase } from '#builders/base/ButtonBuilderBase.js';
 import {
 	PremiumButtonSchema,
 	PremiumButtonSkuIdSchema,
-} from '#builders/schemas/buttons/PremiumButtonSchema.js';
+} from '#builders/schemas/v1/buttons/PremiumButtonSchema.js';
 import {
 	ButtonStyle,
 	type PremiumButtonComponent,
