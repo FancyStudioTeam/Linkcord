@@ -41,6 +41,9 @@ export class PremiumButtonBuilder extends ButtonBuilderBase<PremiumButtonCompone
 	}
 
 	/**
+	 * Transforms the current `PremiumButtonBuilder` into a
+	 * `PremiumButtonComponent` structure.
+	 *
 	 * @see https://discord.com/developers/docs/components/reference#button-button-structure
 	 */
 	toJSON(): PremiumButtonComponent {
