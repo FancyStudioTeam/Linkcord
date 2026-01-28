@@ -11,12 +11,12 @@ import type { Client } from './Client.js';
 export class ClientBase {
 	/**
 	 * @remarks
-	 * This getter depends on `token` from `ClientBase`.
+	 * - This getter depends on `token` from `ClientBase`.
 	 *
-	 * This value is retrieved by decoding the first segment of the application
-	 * token which contains the application ID encoded in Base64.
+	 * - This value is retrieved by decoding the first segment of the application
+	 *   token which contains the application ID encoded in Base64.
 	 *
-	 * This getter throws an error if the client is not initialized.
+	 * - This getter throws an error if the client is not initialized.
 	 */
 	@EnsureInitialized()
 	get applicationId(): Snowflake {
@@ -30,9 +30,8 @@ export class ClientBase {
 
 	/**
 	 * @remarks
-	 * This value is retrieved from the framework configuration.
-	 *
-	 * This getter throws an error if the client is not initialized.
+	 * - This value is retrieved from the framework configuration.
+	 * - This getter throws an error if the client is not initialized.
 	 */
 	@EnsureInitialized()
 	get intents(): number {
@@ -41,15 +40,19 @@ export class ClientBase {
 
 	/**
 	 * @remarks
-	 * This value is retrieved from the framework configuration.
-	 *
-	 * This getter throws an error if the client is not initialized.
+	 * - This value is retrieved from the framework configuration.
+	 * - This getter throws an error if the client is not initialized.
 	 */
 	@EnsureInitialized()
 	get token(): string {
 		return ConfigurationUtils.getToken();
 	}
 
+	/**
+	 * @remarks
+	 * - This method is intended solely for the `EnsureInitialized` decorator.
+	 * - This method throws an error if the client is not initialized.
+	 */
 	protected _checkIsInitialized(): void {
 		if (!ConfigurationUtils.isConfigurationInitialized()) {
 			throw new Error(CLIENT_NOT_INITIALIZED());
