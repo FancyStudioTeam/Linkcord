@@ -61,9 +61,6 @@ export class FileUploadBuilder extends BuilderBase<FileUploadComponent> {
 	}
 
 	/**
-	 * Transforms the current `FileUploadBuilder` instance into a
-	 * `FileUploadComponent` structure.
-	 *
 	 * @see https://discord.com/developers/docs/components/reference#file-upload-file-upload-structure
 	 */
 	toJSON(): FileUploadComponent {

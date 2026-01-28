@@ -48,9 +48,6 @@ export class SeparatorBuilder extends BuilderBase<SeparatorComponent> {
 	}
 
 	/**
-	 * Transforms the current `SeparatorBuilder` instance into a
-	 * `SeparatorComponent` structure.
-	 *
 	 * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
 	 */
 	toJSON(): SeparatorComponent {

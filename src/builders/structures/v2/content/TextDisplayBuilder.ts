@@ -40,9 +40,6 @@ export class TextDisplayBuilder extends BuilderBase<TextDisplayComponent> {
 	}
 
 	/**
-	 * Transforms the current `TextDisplayBuilder` into a `TextDisplayComponent`
-	 * structure.
-	 *
 	 * @see https://discord.com/developers/docs/components/reference#text-display-text-display-structure
 	 */
 	toJSON(): TextDisplayComponent {

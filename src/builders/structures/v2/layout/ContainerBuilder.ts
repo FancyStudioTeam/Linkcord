@@ -70,9 +70,6 @@ export class ContainerBuilder extends BuilderBase<ContainerComponent> {
 	}
 
 	/**
-	 * Transforms the current `ContainerBuilder` instance into a
-	 * `ContainerComponent` structure.
-	 *
 	 * @see https://discord.com/developers/docs/components/reference#container-container-structure
 	 */
 	toJSON(): ContainerComponent {
