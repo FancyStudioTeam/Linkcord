@@ -1,7 +1,6 @@
-import { join } from 'node:path';
-import { cwd } from 'node:process';
 import { EnsureInitialized } from '#client/decorators/EnsureInitialized.js';
 import { ClientError } from '#client/errors/ClientError.js';
+import { createDirectoryPath } from '#client/functions/createDirectoryPath.js';
 import { ConfigurationUtils } from '#configuration/helpers/ConfigurationUtils.js';
 import { CommandLoader } from '#handlers/commands/loaders/CommandLoader.js';
 import { EventLoader } from '#handlers/events/loaders/EventLoader.js';
@@ -15,12 +14,12 @@ export class ClientBase {
 	 * The ID of the application.
 	 *
 	 * @remarks
-	 * This getter depends on {@link token} from {@link ClientBase}.
+	 * This getter depends on `token` from `ClientBase`.
 	 *
 	 * This value is retrieved by decoding the first segment of the application
 	 * token which contains the application ID encoded in Base64.
 	 *
-	 * This getter throws an error if the client is not initialized.
+	 * This getter throws a `ClientError` if the client is not initialized.
 	 */
 	@EnsureInitialized()
 	get applicationId(): Snowflake {
@@ -38,7 +37,7 @@ export class ClientBase {
 	 * @remarks
 	 * This value is retrieved from the framework configuration.
 	 *
-	 * This getter throws an error if the client is not initialized.
+	 * This getter throws a `ClientError` if the client is not initialized.
 	 */
 	@EnsureInitialized()
 	get intents(): number {
@@ -51,42 +50,23 @@ export class ClientBase {
 	 * @remarks
 	 * This value is retrieved from the framework configuration.
 	 *
-	 * This getter throws an error if the client is not initialized.
+	 * This getter throws a `ClientError` if the client is not initialized.
 	 */
 	@EnsureInitialized()
 	get token(): string {
 		return ConfigurationUtils.getToken();
 	}
 
-	#createDirectoryPath(root: string, directoryName: string): string {
-		return join(cwd(), root, directoryName);
-	}
-
-	async #prepareCommands(root: string, commandsDirectory: string, client: Client): Promise<void> {
-		const commandsFolderPath = this.#createDirectoryPath(root, commandsDirectory);
-		const commandLoader = new CommandLoader(commandsFolderPath, client);
-
-		await commandLoader.registerCommands();
-
-		return;
-	}
-
-	async #prepareEvents(root: string, eventsDirectory: string, client: Client): Promise<void> {
-		const eventsFolderPath = this.#createDirectoryPath(root, eventsDirectory);
-		const eventLoader = new EventLoader(eventsFolderPath, client);
-
-		await eventLoader.registerEvents();
-
-		return;
-	}
-
-	protected checkIsInitialized(): void {
+	/**
+	 * Checks whether the configuration file was initialized or loaded.
+	 */
+	protected _checkIsInitialized(): void {
 		if (!ConfigurationUtils.isConfigurationInitialized()) {
 			throw new ClientError(CLIENT_NOT_INITIALIZED());
 		}
 	}
 
-	protected async init(client: Client): Promise<void> {
+	protected async _init(client: Client): Promise<void> {
 		if (ConfigurationUtils.isConfigurationInitialized()) {
 			throw new ClientError(CLIENT_ALREADY_INITIALIZED());
 		}
@@ -96,9 +76,35 @@ export class ClientBase {
 		const { commands, events, root } = ConfigurationUtils.getLocations();
 
 		await Promise.all([
-			this.#prepareCommands(root, commands, client),
-			this.#prepareEvents(root, events, client),
+			this._prepareCommands(root, commands, client),
+			this._prepareEvents(root, events, client),
 		]);
+
+		return;
+	}
+
+	private async _prepareCommands(
+		root: string,
+		commandsDirectory: string,
+		client: Client,
+	): Promise<void> {
+		const commandsFolderPath = createDirectoryPath(root, commandsDirectory);
+		const commandLoader = new CommandLoader(commandsFolderPath, client);
+
+		await commandLoader.registerCommands();
+
+		return;
+	}
+
+	private async _prepareEvents(
+		root: string,
+		eventsDirectory: string,
+		client: Client,
+	): Promise<void> {
+		const eventsFolderPath = createDirectoryPath(root, eventsDirectory);
+		const eventLoader = new EventLoader(eventsFolderPath, client);
+
+		await eventLoader.registerEvents();
 
 		return;
 	}
