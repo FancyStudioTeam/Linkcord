@@ -1,7 +1,7 @@
 import { Client } from '#client/structures/Client.js';
 import {
-	DECORATOR_CAN_ONLY_BE_APPLIED_TO_ACCESSORS,
 	DECORATOR_CAN_ONLY_BE_APPLIED_TO_CLASS,
+	DECORATOR_CAN_ONLY_BE_APPLIED_TO_GETTER_ACCESSORS,
 } from '#messages/errors.js';
 import { isFunction, isInstanceOf } from '#utils/helpers/AssertionUtils.js';
 
@@ -10,7 +10,9 @@ export function EnsureInitialized() {
 		const { get } = propertyDescriptor;
 
 		if (!isFunction(get)) {
-			throw new TypeError(DECORATOR_CAN_ONLY_BE_APPLIED_TO_ACCESSORS('EnsureInitialized'));
+			throw new TypeError(
+				DECORATOR_CAN_ONLY_BE_APPLIED_TO_GETTER_ACCESSORS('EnsureInitialized'),
+			);
 		}
 
 		propertyDescriptor.get = function (this: Client) {

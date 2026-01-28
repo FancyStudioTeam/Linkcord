@@ -27,7 +27,7 @@ export function CONFIGURATION_FILE_NOT_FOUND() {
 	return 'Configuration file linkcord.config has not been found' as const;
 }
 
-export function DECORATOR_CAN_ONLY_BE_APPLIED_TO_ACCESSORS(decoratorName: string) {
+export function DECORATOR_CAN_ONLY_BE_APPLIED_TO_GETTER_ACCESSORS(decoratorName: string) {
 	return `Decorator @${decoratorName} can only be applied to getter accessors` as const;
 }
 
