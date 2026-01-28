@@ -34,9 +34,25 @@
 			"import": "./lib/builders/index.js",
 			"require": "./lib/builders/index.js"
 		},
+		"./client": {
+			"import": "./lib/client/index.js",
+			"require": "./lib/client/index.js"
+		},
+		"./gateway": {
+			"import": "./lib/gateway/index.js",
+			"require": "./lib/gateway/index.js"
+		},
 		"./handlers": {
 			"import": "./lib/handlers/index.js",
 			"require": "./lib/handlers/index.js"
+		},
+		"./rest": {
+			"import": "./lib/rest/index.js",
+			"require": "./lib/rest/index.js"
+		},
+		"./structures": {
+			"import": "./lib/structures/index.js",
+			"require": "./lib/structures/index.js"
 		},
 		"./types": {
 			"import": "./lib/types/index.js",

@@ -25,7 +25,7 @@
 		"indentStyle": "tab",
 		"indentWidth": 4,
 		"lineEnding": "lf",
-		"lineWidth": 140
+		"lineWidth": 100
 	},
 	"javascript": {
 		"formatter": {
@@ -75,6 +75,7 @@
 			},
 			"recommended": true,
 			"style": {
+				"noCommonJs": "error",
 				"noDefaultExport": "off",
 				"noMagicNumbers": "error",
 				"noUnusedTemplateLiteral": "error",
@@ -106,7 +107,10 @@
 						"strictCase": false
 					}
 				},
-				"useNodejsImportProtocol": "error",
+				"useNodejsImportProtocol": {
+					"fix": "safe",
+					"level": "error"
+				},
 				"useReadonlyClassProperties": {
 					"level": "error",
 					"options": {
@@ -123,5 +127,11 @@
 			}
 		}
 	},
-	"root": true
+	"root": true,
+	"vcs": {
+		"clientKind": "git",
+		"defaultBranch": "main",
+		"enabled": true,
+		"useIgnoreFile": true
+	}
 }
