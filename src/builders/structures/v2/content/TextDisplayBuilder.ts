@@ -43,8 +43,8 @@ export class TextDisplayBuilder extends BuilderBase<TextDisplayComponent> {
 	 * @see https://discord.com/developers/docs/components/reference#text-display-text-display-structure
 	 */
 	toJSON(): TextDisplayComponent {
-		const { _data: textDisplay } = this;
-		const textDisplayComponent = validate(TextDisplaySchema, textDisplay);
+		const textDisplayData = this._data;
+		const textDisplayComponent = validate(TextDisplaySchema, textDisplayData);
 
 		return textDisplayComponent;
 	}

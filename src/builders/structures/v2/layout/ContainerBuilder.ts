@@ -73,8 +73,8 @@ export class ContainerBuilder extends BuilderBase<ContainerComponent> {
 	 * @see https://discord.com/developers/docs/components/reference#container-container-structure
 	 */
 	toJSON(): ContainerComponent {
-		const { _data: container } = this;
-		const containerComponent = validate(ContainerSchema, container);
+		const containerData = this._data;
+		const containerComponent = validate(ContainerSchema, containerData);
 
 		return containerComponent;
 	}

@@ -51,8 +51,8 @@ export class SeparatorBuilder extends BuilderBase<SeparatorComponent> {
 	 * @see https://discord.com/developers/docs/components/reference#separator-separator-structure
 	 */
 	toJSON(): SeparatorComponent {
-		const { _data: separator } = this;
-		const separatorComponent = validate(SeparatorSchema, separator);
+		const separatorData = this._data;
+		const separatorComponent = validate(SeparatorSchema, separatorData);
 
 		return separatorComponent;
 	}

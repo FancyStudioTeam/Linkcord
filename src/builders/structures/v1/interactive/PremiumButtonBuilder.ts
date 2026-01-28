@@ -44,8 +44,8 @@ export class PremiumButtonBuilder extends ButtonBuilderBase<PremiumButtonCompone
 	 * @see https://discord.com/developers/docs/components/reference#button-button-structure
 	 */
 	toJSON(): PremiumButtonComponent {
-		const { _data: premiumButton } = this;
-		const premiumButtonComponent = validate(PremiumButtonSchema, premiumButton);
+		const premiumButtonData = this._data;
+		const premiumButtonComponent = validate(PremiumButtonSchema, premiumButtonData);
 
 		return premiumButtonComponent;
 	}

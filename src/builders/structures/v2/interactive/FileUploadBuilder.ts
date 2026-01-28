@@ -64,8 +64,8 @@ export class FileUploadBuilder extends BuilderBase<FileUploadComponent> {
 	 * @see https://discord.com/developers/docs/components/reference#file-upload-file-upload-structure
 	 */
 	toJSON(): FileUploadComponent {
-		const { _data: fileUpload } = this;
-		const fileUploadComponent = validate(FileUploadSchema, fileUpload);
+		const fileUploadData = this._data;
+		const fileUploadComponent = validate(FileUploadSchema, fileUploadData);
 
 		return fileUploadComponent;
 	}
