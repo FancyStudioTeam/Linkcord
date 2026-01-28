@@ -5,35 +5,46 @@
 
 import { basename } from 'node:path';
 import type { Snowflake } from '#types/index.js';
+import type { NonAbstractConstructor } from '#utils/index.js';
 
 export function APPLICATION_USER_NOT_CACHED(applicationId: Snowflake) {
-	return `Application user '${applicationId}' is not cached` as const;
+	return `Application user ${applicationId} is not cached` as const;
 }
 
 export function CLIENT_ALREADY_INITIALIZED() {
-	return 'The client has already been initialized' as const;
+	return 'Client has already been initialized' as const;
 }
 
 export function CLIENT_NOT_INITIALIZED() {
-	return 'The client has not been initialized yet' as const;
+	return 'Client has not been initialized yet' as const;
 }
 
 export function COMMANDS_CACHE_FILE_NOT_AN_ARRAY(filePath: string) {
-	return `Commands cache file '${basename(filePath)}' is not an array` as const;
+	return `Commands cache file ${basename(filePath)} is not an array` as const;
 }
 
 export function CONFIGURATION_FILE_NOT_FOUND() {
-	return `Configuration file 'linkcord.config' has not been found` as const;
+	return 'Configuration file linkcord.config has not been found' as const;
 }
 
-export function DECORATOR_CAN_BE_ONLY_APPLIED_TO_ACCESSORS(decoratorName: string) {
-	return `Decorator '@${decoratorName}' can only be applied to getter accessors` as const;
+export function DECORATOR_CAN_ONLY_BE_APPLIED_TO_ACCESSORS(decoratorName: string) {
+	return `Decorator @${decoratorName} can only be applied to getter accessors` as const;
+}
+
+export function DECORATOR_CAN_ONLY_BE_APPLIED_TO_CLASS<Class>(
+	decoratorName: string,
+	_class: NonAbstractConstructor<Class>,
+) {
+	const { constructor: _constructor } = _class;
+	const { name: constructorName } = _constructor;
+
+	return `Decorator @${decoratorName} can only be applied to ${constructorName} classes` as const;
 }
 
 export function INTERACTION_ALREADY_ACKNOWLEDGED() {
-	return 'This interaction has already been acknowledged' as const;
+	return 'Interaction has already been acknowledged' as const;
 }
 
 export function INVALID_COMMANDS_CACHE_FILE_TYPE() {
-	return 'The commands cache file must be a JSON file' as const;
+	return 'Commands cache file must be a JSON file' as const;
 }
