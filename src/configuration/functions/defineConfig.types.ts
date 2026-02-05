@@ -10,12 +10,12 @@ export interface DefineConfigCommandsCacheOptions {
 	 * Enables or disables command data caching.
 	 *
 	 * When enabled, commands data is stored in the specified
-	 * {@link file | `file`} path.
+	 * {@link file | `file`} path as an array of application command objects.
 	 *
 	 * When disabled, no command data will be read from or written to the cache
 	 * file.
 	 *
-	 * @default true
+	 * @default false
 	 */
 	enabled?: boolean;
 	/**
